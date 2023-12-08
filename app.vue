@@ -1,5 +1,5 @@
 <template>
-    <div dir="rtl">
+    <div dir="rtl" class="antialiased">
       <NuxtPage />
     </div>
 </template>

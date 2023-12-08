@@ -1,8 +1,12 @@
 <template>
+    <Head>
+        <title>عبر - عالمك الخاص لتفسير الأحلام</title>
+
+    </Head>
 
     <Header />
     <main class="min-h-screen outline-none">
-        <Hero /> 
+        <Hero />
         <HowItWorks />
         <Articles />
         <Testimonials />
@@ -10,13 +14,10 @@
         <SupportFloatingButton />
     </main>
     <Footer />
-    
 </template>
 
 <script setup lang="ts">
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
