@@ -11,27 +11,46 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
+        
+    modules: [
+        '@nuxt/image', 
+        '@pinia/nuxt',
+        // '@sidebase/nuxt-auth'
+    ],
 
-    // modules: ['@sidebase/nuxt-auth'],
     // auth: {
     //     provider: {
     //         type: 'refresh',
     //         endpoints : {
-    //             signIn : { path : "https://abber.co/api/authentication/login", method : "post"},
-    //             getSession : {path : "https://abber.co/api/accounts/account/", method : "get"},
+
+    //             signIn : { path : "authentication/login", method : "post"},
+    //             signUp : { path : "authentication/register", method : 'post'}, 
+    //             refresh : { path : "authentication/token/refresh/", method : 'post'}, 
+    //             getSession : {path : "accounts/account/", method : "get"},
+
+    //         },
+    //         token : {
+
+    //             signInResponseTokenPointer : 'access_token',
+                
+    //         },
+    //         refreshToken : {
+
+    //             signInResponseRefreshTokenPointer : 'refresh_token'
+
     //         }
     //     },
-    //     baseURL : "https://abber.co/api",
+    //     baseURL : "https://test.abber.co/api/",
     //     session : {
     //         enableRefreshOnWindowFocus : false,
     //         enableRefreshPeriodically : true
-    //     }
+    //     },
     // },
 
     app: {
         head: {
             charset: 'utf-8',
-            link: [{ rel: 'icon', type: 'image/svg', href: '~/assets/images/favicon.ico' }],
+            link: [{ rel: 'icon', type: 'image/svg', href: '/images/favicon.ico' }],
         },
     },
     components: ['~/components', '~/components/main', '~/components/partials', '~/components/blog'],

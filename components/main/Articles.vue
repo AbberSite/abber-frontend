@@ -12,9 +12,10 @@
         <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
             <article>
                 <a href="#">
-                    <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50"
-                       
-                        src="../../assets/images/articles/1.webp" alt="صورة المقالة" />
+                    <!-- <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50"
+                        src="../../assets/images/articles/1.webp" alt="صورة المقالة" /> -->
+
+                        <NuxtImg class="w-full rounded-xl bg-gray-50"  src="/images/articles/1.webp" />
                 </a>
                 <div class="flex w-full flex-col space-y-4 pt-8 text-right">
                     <div class="flex items-center justify-between text-gray-700">
