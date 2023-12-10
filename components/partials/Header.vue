@@ -10,6 +10,7 @@
 
           <!-- Notification Button -->
         <button v-if="loggedIn" class="relative me-3 rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none" type="button" @click="profileDropdown = true">
+          
           <span class="sr-only">عرض الاشعارات</span>
           <!-- Heroicon name: outline/bell -->
           <svg height="27" width="27" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -20,6 +21,7 @@
           <span class="absolute top-[3px] h-[9px] w-[9px] rounded-full border border-white bg-red-600 ltr:left-2 rtl:right-2">
             <span class="absolute right-0 inline-flex h-full w-full flex-shrink-0 animate-ping rounded-full bg-red-600 opacity-80"></span>
           </span>
+
         </button>
 
         <!-- Menu Button -->
@@ -35,7 +37,7 @@
         <RouterLink class="font-semibold" :to="{ name: 'index' }">
           الرئيسية
         </RouterLink>
-        <RouterLink class="font-semibold" :to="{ name: 'index' }">
+        <RouterLink class="font-semibold" :to="{ name: 'blog' }">
           المدونة
         </RouterLink>
         <RouterLink class="font-semibold" :to="{ name: 'index' }">
@@ -212,7 +214,7 @@
               <span class="ms-6 mt-1.5 font-semibold">الرئيسية</span>
             </RouterLink>
 
-            <RouterLink class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"  :to="{ name: 'index' }">
+            <RouterLink class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"  :to="{ name: 'blog' }">
               <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                 <!-- Heroicon name: outline/home -->
                 <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -262,7 +264,7 @@ import { vOnClickOutside } from '@vueuse/components'
 const openDropdown = ref(false)
 const profileDropdown = ref(false)
 const notificationDropdown = ref(false)
-const loggedIn = ref(true)
+const loggedIn = ref(false)
 
 </script>
 

@@ -4,7 +4,6 @@
 
     </Head>
 
-    <Header />
     <main class="min-h-screen outline-none">
         <Hero />
         <HowItWorks />
@@ -13,7 +12,6 @@
         <Faq />
         <SupportFloatingButton />
     </main>
-    <Footer />
 </template>
 
 <script setup lang="ts">

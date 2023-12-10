@@ -1,10 +1,17 @@
 <template>
-    <div dir="rtl" class="antialiased">
-      <NuxtPage />
-    </div>
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
 </template>
 
 <script setup>
+
+useHead({
+  bodyAttrs : {
+    dir : "rtl",
+    class : 'antialiased'
+  }
+})
 
 useSeoMeta({
   author : "عبر",

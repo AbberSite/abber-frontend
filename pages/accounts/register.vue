@@ -145,6 +145,9 @@
 
 <script setup lang="ts">
 
+definePageMeta({
+  layout : false
+})
 const show = ref(false)
 
 </script>
