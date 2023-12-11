@@ -29,7 +29,7 @@
       <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بعودتك مجددا</div>
       <div class="pt-4 text-sm text-gray-800 xs:text-base">الرجاء تسجيل الدخول الى حسابك</div>
       <div class="mx-auto w-full max-w-sm pt-10">
-        <form @submit.prevent="() => false">
+        <form @submit.prevent="submit">
           <fieldset class="space-y-7">
             <div class="w-full space-y-3">
               <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
@@ -72,8 +72,6 @@
             </div>
             <div>
               <button 
-                type="button"
-                @click="login"
                 class="flex w-full h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 ">
                 <span class="mt-1.5">تسجيل الدخول</span></button>
             </div>
@@ -140,32 +138,26 @@
 </template>
 
 <script setup lang="ts">
-
-
 definePageMeta({
   layout: false
 })
-const show = ref(false)
-
-const email = ref("")
-const password = ref("")
 
 
+const {
+  signIn,
+} = useAuth()
 
-async function login (){
-  const response = await useFetch("https://test.abber.co/api/authentication/login", {
-  method: "post",
-  headers: {
-    'api-key': `ac216011525218e62e7473e438741d8b5b23f6b9`
-  },
-  body: {
-    email: 'mahdi@test.com',
-    password: 'something'
-  }
-})
+async function submit(){
+
+  //  * TODO : write input validation for email and password
+
+  signIn({email : email.value, password : password.value})
 
 }
 
+const show = ref(false)
+const email = ref("")
+const password = ref("")
 
 </script>
 

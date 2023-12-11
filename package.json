@@ -24,6 +24,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/components": "^10.7.0",
     "@vueuse/core": "^10.7.0",
+    "axios": "^1.6.2",
     "pinia": "^2.1.7"
   }
 }

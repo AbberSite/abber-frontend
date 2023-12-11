@@ -65,8 +65,8 @@
                         </div>
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label>
-                            <input v-model="data.phone" class="form-control h-[50px] appearance-none" type="tel" name="phone" id="tel"
-                                placeholder="رقم الهاتف" autocomplete="tel" required />
+                            <input v-model="data.phone" class="form-control h-[50px] appearance-none" type="tel"
+                                name="phone" id="tel" placeholder="رقم الهاتف" autocomplete="tel" required />
                         </div>
                         <div class="flex items-center text-sm xs:text-base">
                             <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
@@ -79,7 +79,8 @@
                             </label>
                         </div>
                         <div>
-                            <button class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                            <button
+                                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                                 href="/profile"> <span class="mt-1.5">التسجيل</span></button>
                         </div>
                     </fieldset>
@@ -146,24 +147,21 @@
 </template>
 
 <script setup lang="ts">
-
-
-
 const data = ref({
     email: '',
-    first_name: '',
     password: '',
     phone: '',
 })
 
-
 async function submit() {
+
+    // TODO : validate email, phone and password
+    
 }
 
 definePageMeta({
     layout: false
 })
-
 
 const show = ref(false)
 

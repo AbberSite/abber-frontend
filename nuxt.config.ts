@@ -12,40 +12,20 @@ export default defineNuxtConfig({
         },
     },
         
+    runtimeConfig : {
+        apiSecret : 'ac216011525218e62e7473e438741d8b5b23f6b9'
+    }, 
     modules: [
         '@nuxt/image', 
         '@pinia/nuxt',
-        // '@sidebase/nuxt-auth'
+        '@sidebase/nuxt-auth'
     ],
 
-    // auth: {
-    //     provider: {
-    //         type: 'refresh',
-    //         endpoints : {
-
-    //             signIn : { path : "authentication/login", method : "post"},
-    //             signUp : { path : "authentication/register", method : 'post'}, 
-    //             refresh : { path : "authentication/token/refresh/", method : 'post'}, 
-    //             getSession : {path : "accounts/account/", method : "get"},
-
-    //         },
-    //         token : {
-
-    //             signInResponseTokenPointer : 'access_token',
-                
-    //         },
-    //         refreshToken : {
-
-    //             signInResponseRefreshTokenPointer : 'refresh_token'
-
-    //         }
-    //     },
-    //     baseURL : "https://test.abber.co/api/",
-    //     session : {
-    //         enableRefreshOnWindowFocus : false,
-    //         enableRefreshPeriodically : true
-    //     },
-    // },
+    auth: {
+        provider: {
+            type: 'refresh',
+        },
+    },
 
     app: {
         head: {

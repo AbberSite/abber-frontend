@@ -1,5 +1,5 @@
 <template>
-  <header class="absolute inset-x-0 top-0 z-30 mx-auto max-w-7xl" x-data="{ openDropdown: null }">
+  <header class="absolute inset-x-0 top-0 z-30 mx-auto max-w-7xl">
     <nav class="flex items-center justify-between px-4 py-6 xs:px-6 md:px-8" aria-label="Global">
       <div class="flex md:flex-1">
         <a class="-m-1.5 p-1.5" href="/">
@@ -9,7 +9,7 @@
       <div class="flex items-center md:hidden">
 
           <!-- Notification Button -->
-        <button v-if="loggedIn" class="relative me-3 rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none" type="button" @click="profileDropdown = true">
+        <button v-if="status = 'authenticated'" class="relative me-3 rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none" type="button" @click="profileDropdown = true">
           
           <span class="sr-only">عرض الاشعارات</span>
           <!-- Heroicon name: outline/bell -->
@@ -46,7 +46,7 @@
         <a href="/"></a>
       </div>
 
-      <div v-if="loggedIn" class="hidden md:flex md:flex-1 md:justify-end">
+      <div v-if="status == 'authenticated'" class="hidden md:flex md:flex-1 md:justify-end">
         <div class="flex items-center">
           <!-- Notification Button -->
           <button class="relative rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none" type="button" @click="notificationDropdown = true">
@@ -65,12 +65,12 @@
           <div class="relative ms-3">
             <button class="rounded-full bg-white focus:outline-none" type="button" @click="profileDropdown = true" aria-expanded="false" aria-haspopup="true">
               <span class="sr-only">فتح قائمة المستخدم</span>
-              <img class="h-10 w-10 rounded-full" src="/assets/images/avatar.webp" height="40" width="40" alt="" />
+              <img class="h-10 w-10 rounded-full" :src="data.image_url" height="40" width="40" alt="" />
             </button>
             <div class="absolute top-[calc(100%+10px)] w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 ltr:right-0 rtl:left-0" v-if="profileDropdown" v-on-click-outside="() => profileDropdown = false"  role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
               <a class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900" href="#" role="menuitem" tabindex="-1">الملف الشخصي</a>
               <a class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900" href="#" role="menuitem" tabindex="-1">الإعدادات</a>
-              <a class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900" href="#" role="menuitem" tabindex="-1">تسجيل الخروج</a>
+              <a @click.prevent="signOut()" class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900" role="menuitem" tabindex="-1">تسجيل الخروج</a>
             </div>
           </div>
         </div>
@@ -258,14 +258,27 @@
 </header></template>
 
 <script setup lang="ts">
+
+const {
+  signIn,
+  token,
+  refreshToken,
+  refresh,
+  data,
+  status,
+  lastRefreshedAt,
+  signOut,
+  getSession
+} = useAuth()
+
 import { vOnClickOutside } from '@vueuse/components'
+
+const authStore = useAuthStore()
 
 
 const openDropdown = ref(false)
 const profileDropdown = ref(false)
 const notificationDropdown = ref(false)
-const loggedIn = ref(false)
-
 </script>
 
 <style scoped></style>
