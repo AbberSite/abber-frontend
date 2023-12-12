@@ -40,26 +40,26 @@
             <div
                 class="is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base">
                 <a class="flex items-center space-x-3 whitespace-nowrap border-b-2  px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-                    :class="[category === '' ? 'border-gray-900': 'border-transparent']"
-                    @click.prevent="category = '' "
+                    :class="[selectedCategory === '' ? 'border-gray-900': 'border-transparent']"
+                    @click.prevent="selectedCategory = '' "
                     href="/blog">
                     <span>الكل</span>
                     <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
                         {{ response.results?.length }}
                     </span>
                 </a>
-                <a v-for="count,name in types" class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
+                <a v-for="category in categories.results" class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
 
-                        @click.prevent="category = name"
-                    :class="[category === name ? 'border-gray-900': 'border-transparent']"
+                        @click.prevent="selectedCategory = category?.name"
+                    :class="[selectedCategory === category?.name ? 'border-gray-900': 'border-transparent']"
 
 
                     href="#">
                     <span>
-                        {{ name }}
+                        {{ category?.name }}
                     </span>
                     <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-                        {{ count }}
+                        {{ category?.id }}
                     </span>
                 </a>
             </div>
@@ -96,7 +96,7 @@
 
 type Post = {
     user: string,
-    post_category: { id: number, name: string },
+    post_category: Category,
     title: string,
     content: string,
     meta_content: string,
@@ -105,6 +105,11 @@ type Post = {
     slug: string,
     active: boolean,
     bookmark: []
+}
+
+type Category = {
+    id : number, 
+    name : string
 }
 
 
@@ -118,10 +123,13 @@ type Response = {
 
 
 
-const category = ref("")
+const  selectedCategory = ref("")
 
 
 const { data: response, pending } = await useAsyncData('posts', async () => await fetchPosts()) as { data: Ref<Response>, pending: any }
+
+
+const { data: categories, pending : categoriesPneding } = await useAsyncData('categories', async () => await fetchCategories()) as { data: any, pending: any }
 
 async function fetchPosts() {
     const response = await useFetch("/api/blog/posts")
@@ -129,6 +137,12 @@ async function fetchPosts() {
     return response.data
 }
 
+async function fetchCategories(){
+
+  const response = await useFetch("/api/blog/categories")
+
+    return response.data
+}
 
 
 onMounted(async () => await fetchPosts())
@@ -136,35 +150,34 @@ onMounted(async () => await fetchPosts())
 
 const filteredPosts = computed(() => {
 
-    if(category.value === "") {
+    if(selectedCategory.value === "") {
 
         return response.value.results
     }
 
     return response.value.results?.filter(post => {
-        return post.post_category.name == category.value
+        return post.post_category.name == selectedCategory.value
     })
 })
 
+// const types = computed(() => {
 
-const types = computed(() => {
+//     const categories : any = {}; 
 
-    const categories : any = {}; 
+//     console.log(response?.value)
 
-    console.log(response?.value)
+//     response.value.results?.map((post) => {
 
-    response.value.results?.map((post) => {
+//         if(!categories[post.post_category.name]){ 
+//             categories[post.post_category.name] = 0
+//         }
+//         categories[post.post_category.name]++
 
-        if(!categories[post.post_category.name]){ 
-            categories[post.post_category.name] = 0
-        }
-        categories[post.post_category.name]++
+//     })
 
-    })
+//     return categories; 
 
-    return categories; 
-
-})
+// })
 
 </script>
 
