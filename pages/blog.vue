@@ -1,6 +1,4 @@
 <template>
-    <!-- <Header /> -->
-
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
@@ -19,89 +17,154 @@
         </section>
         <!-- Blog section -->
         <section
-            class="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44"
+            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="blog-heading">
-            <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
-                <!-- Heroicon name: outline/rss -->
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" height="24" width="24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z">
-                    </path>
-                </svg>
+            <h1 class="inline-flex rounded-full bg-gray-900 px-4 pb-1.5 pt-2 text-xs font-semibold text-white">المدونة</h1>
+            <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">اخر المقالات المقدمة إسبوعيا
             </div>
-            <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">المدونة</h1>
-            <h2 class="pt-4 text-sm text-gray-800 xs:text-base">اخر المقالات المقدمة إسبوعيا</h2>
-            <div class="grid gap-x-8 pt-16 lg:grid-cols-3 xl:gap-12">
-                <div class="grid gap-x-8 gap-y-20 sm:grid-cols-2 lg:col-span-2">
-                    <BlogCard type="تفسير الأحلام" title="تفسير حلم العنكبوت تبعاً للحالة الاجتماعية للرائي"
-                        duration="5 دقائق قراءة"
-                        resume="تعرف على تفسير حلم العنكبوت: 1- امرأة ناشز تهجر فراش زوجها، 2- الحسد رمز العنكبوت الأصفر، 3- بشارة خير دلالة العنكبوت الأبيض، 4- السحر والكراهية رمز للعنكبوت الأسود في المنام."
-                        image="/images/articles/1.webp" />
-                    <BlogCard type="تفسير الأحلام" title="تعرف على تفسير حلم الساعة وأبرز دلالاته" duration="5 دقائق قراءة"
-                        resume="تعرف على أبرز ما جاء في تفسير حلم الساعة: 1- إنذار بالإسراع في تأدية الأعمال. 2- الزواج مرة أخرى للمطلقة. 3- التزامات جديدة في حياة العزباء. 4- النية الحسنة، وصلاح أعمال المتزوجة. 5- سلامة مولود الحامل، وعافيته من أي مكروه."
-                        image="/images/articles/2.webp" />
-                    <BlogCard type="تفسير الأحلام" title="تفسير حلم الذئب | أبرز 6 دلالات لكبار المفسرين" duration="5 دقائق قراءة"
-                        resume="تعرف على أهم دلالات تفسير حلم الذئب؟
-                        يرمز الذئب إلى عدو ماكر، أو شخص كاذب ،أو كثرة الحساد في حياة الرائي، وإذا رأى الحالم أنه هرب
-                        من الذئب في المنام فإنه ينتصر على أعدائه ويفوز على منافسيه."
-                        image="/images/articles/3.webp" />
-
+            <form class="w-full max-w-sm pt-10" method="GET">
+                <div class="w-full space-y-3">
+                    <div class="relative">
+                        <input class="form-control h-[50px] appearance-none ps-12" type="search" name="q" id="search"
+                            placeholder="البحث" required /><span
+                            class="absolute h-[50px] items-center justify-center px-4 py-4 ltr:left-0 rtl:right-0 rtl:scale-x-flip">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" height="20" width="20">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+                            </svg></span>
+                    </div>
                 </div>
-                <div class="hidden lg:block">
-                    <h3 class="text-lg font-semibold">التصنيفات</h3>
-                    <ul class="space-y-4 pt-6">
-                        <li class="flex items-center justify-between">
-                            <a class="flex items-center space-x-2 text-gray-800 hover:text-gray-900 rtl:space-x-reverse"
-                                href="#">
-                                <!-- Heroicon name: outline/chevron-double-left -->
-                                <svg class="ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="14" width="14">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path>
-                                </svg>
-                                <span class="mt-1">معلومات عن النوم والأحلام</span>
-                            </a>
-                            <a class="hidden rounded-full bg-gray-50 px-3 pb-1.5 pt-2 text-xs font-semibold text-gray-800 hover:bg-gray-100 xl:flex"
-                                href="#" title="عدد المقالات">9</a>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <a class="flex items-center space-x-2 text-gray-800 hover:text-gray-900 rtl:space-x-reverse"
-                                href="#">
-                                <!-- Heroicon name: outline/chevron-double-left -->
-                                <svg class="ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="14" width="14">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path>
-                                </svg>
-                                <span class="mt-1">تفسير الأحلام</span>
-                            </a>
-                            <a class="hidden rounded-full bg-gray-50 px-3 pb-1.5 pt-2 text-xs font-semibold text-gray-800 hover:bg-gray-100 xl:flex"
-                                href="#" title="عدد المقالات">28</a>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <a class="flex items-center space-x-2 text-gray-800 hover:text-gray-900 rtl:space-x-reverse"
-                                href="#">
-                                <!-- Heroicon name: outline/chevron-double-left -->
-                                <svg class="ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="14" width="14">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path>
-                                </svg>
-                                <span class="mt-1">عبادات</span>
-                            </a>
-                            <a class="hidden rounded-full bg-gray-50 px-3 pb-1.5 pt-2 text-xs font-semibold text-gray-800 hover:bg-gray-100 xl:flex"
-                                href="#" title="عدد المقالات">9</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-</main>
+            </form>
 
+            <div
+                class="is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base">
+                <a class="flex items-center space-x-3 whitespace-nowrap border-b-2  px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
+                    :class="[category === '' ? 'border-gray-900': 'border-transparent']"
+                    @click.prevent="category = '' "
+                    href="/blog">
+                    <span>الكل</span>
+                    <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
+                        {{ response.results?.length }}
+                    </span>
+                </a>
+                <a v-for="count,name in types" class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
+
+                        @click.prevent="category = name"
+                    :class="[category === name ? 'border-gray-900': 'border-transparent']"
+
+
+                    href="#">
+                    <span>
+                        {{ name }}
+                    </span>
+                    <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
+                        {{ count }}
+                    </span>
+                </a>
+            </div>
+            <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
+
+                <div v-if="pending">
+                    جاري التحميل
+                </div>
+                <template v-else>
+                    <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
+                        :duration="post.content.length / 200 + 'دقائق قراءة'" :resume="post.meta_content"
+                        :image="post.image" />
+                </template>
+
+            </div>
+            <nav class="flex items-center justify-between pt-28 sm:w-full" aria-label="Pagination">
+                <div class="hidden sm:block">
+                    <p class="space-x-2 rtl:space-x-reverse"><span>عرض</span><span
+                            class="font-semibold">1</span><span>إلى</span><span
+                            class="font-semibold">9</span><span>من</span><span
+                            class="font-semibold">200</span><span>نتيجة</span></p>
+                </div>
+                <div class="flex flex-1 justify-between sm:justify-end"><button
+                        class="relative rounded-md border border-transparent bg-gray-100 px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed"
+                        type="button" disabled>السابق</button><a
+                        class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
+                        href="#">التالي</a></div>
+            </nav>
+        </section>
+    </main>
 </template>
 
 <script setup lang="ts">
+
+type Post = {
+    user: string,
+    post_category: { id: number, name: string },
+    title: string,
+    content: string,
+    meta_content: string,
+    image: string,
+    image_alt: string,
+    slug: string,
+    active: boolean,
+    bookmark: []
+}
+
+
+type Response = {
+
+    count?: number,
+    next?: string,
+    previous?: string,
+    results?: Post[]
+}
+
+
+
+const category = ref("")
+
+
+const { data: response, pending } = await useAsyncData('posts', async () => await fetchPosts()) as { data: Ref<Response>, pending: any }
+
+async function fetchPosts() {
+    const response = await useFetch("/api/blog/posts")
+
+    return response.data
+}
+
+
+
+onMounted(async () => await fetchPosts())
+
+
+const filteredPosts = computed(() => {
+
+    if(category.value === "") {
+
+        return response.value.results
+    }
+
+    return response.value.results?.filter(post => {
+        return post.post_category.name == category.value
+    })
+})
+
+
+const types = computed(() => {
+
+    const categories : any = {}; 
+
+    console.log(response?.value)
+
+    response.value.results?.map((post) => {
+
+        if(!categories[post.post_category.name]){ 
+            categories[post.post_category.name] = 0
+        }
+        categories[post.post_category.name]++
+
+    })
+
+    return categories; 
+
+})
 
 </script>
 

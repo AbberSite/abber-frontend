@@ -71,7 +71,7 @@
               </NuxtLink>
             </div>
             <div>
-              <button 
+              <button
                 class="flex w-full h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 ">
                 <span class="mt-1.5">تسجيل الدخول</span></button>
             </div>
@@ -145,13 +145,29 @@ definePageMeta({
 
 const {
   signIn,
+  token,
+  refreshToken,
+  refresh,
+  data,
+  status,
+  lastRefreshedAt,
+  signOut,
+  getSession
 } = useAuth()
 
-async function submit(){
+const error = ref("")
+
+async function submit() {
 
   //  * TODO : write input validation for email and password
 
-  signIn({email : email.value, password : password.value})
+
+  signIn({ email: email.value, password: password.value }, {
+
+    callbackUrl: '/blog',
+    redirect: true
+
+  }).then(response => console.log(response))
 
 }
 

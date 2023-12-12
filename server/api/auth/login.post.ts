@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export default defineEventHandler(async (event) => {
 
@@ -22,16 +22,18 @@ export default defineEventHandler(async (event) => {
 
 
         return {
+
             token : response.data.access_token,
             refreshToken : response.data.refresh_token, 
             user : response.data.user
+
         } 
-    } catch (error) {
 
+    } catch ( error ) {
 
-        return { error }
+        setResponseStatus(event, 400)
+
+        return { status : "something went wrong" }
+
     }
-
-
-    // return response;
 });

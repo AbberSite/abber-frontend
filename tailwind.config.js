@@ -14,7 +14,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Noto Kufi Arabic', ...defaultTheme.fontFamily.sans],
+                sans: ['Tajawal', ...defaultTheme.fontFamily.sans],
             },
             scale: {
                 flip: '-1',
