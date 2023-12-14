@@ -7,11 +7,10 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.post(
-            'https://test.abber.co/api/authentication/login/',
+            'https://test.abber.co/api/authentication/registered-phone/',
 
             {
-                email: body.email,
-                password: body.password,
+                phone: body.phone,
             },
             {
                 headers: {
@@ -20,14 +19,12 @@ export default defineEventHandler(async (event) => {
             },
         );
 
-
         return {
-
-            token : response.data.access_token,
-            refreshToken : response.data.refresh_token, 
-            user : response.data.user
-
-        } 
+            "phone": response.data.phone,
+            "registered": response.data.registered,
+            "message": response.data.message,
+            "status": response.data.status
+          }
 
     } catch ( error : any ) {
 

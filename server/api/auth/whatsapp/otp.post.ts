@@ -7,11 +7,11 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.post(
-            'https://test.abber.co/api/authentication/login/',
+            'https://test.abber.co/api/authentication/phone/login/',
 
             {
-                email: body.email,
-                password: body.password,
+                phone: body.phone,
+                key : body.key
             },
             {
                 headers: {
@@ -19,7 +19,6 @@ export default defineEventHandler(async (event) => {
                 },
             },
         );
-
 
         return {
 

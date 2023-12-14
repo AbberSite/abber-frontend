@@ -166,6 +166,19 @@ import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { useDebounceFn } from '@vueuse/core';
 
+definePageMeta(
+    {
+        middleware: 'auth'
+        ,
+        auth: {
+            unauthenticatedOnly: true,
+            navigateAuthenticatedTo: "/"
+        },
+    layout: false
+
+    }
+)
+
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
@@ -183,18 +196,20 @@ const [phone] = defineField("phone");
 
 
 const checkEmailExistence = useDebounceFn(async (value) => {
-    const response = await useApi('POST', '/api/auth/check-email', {
+
+    const response: any = await useApi('POST', '/api/auth/check-email', {
         email: value
     })
-    if(!response.data.value.registered ){
-        errorBag.value = {} 
+
+    if (!response.data.value.registered) {
+        errorBag.value = {}
         return true
     }
 
-    setErrors({email : "تم أخذ هذا الايميل قم باختيار اخر"})
+    setErrors({ email: "تم أخذ هذا الايميل قم باختيار اخر" })
 
     return false
-    
+
 }, 500)
 
 watch(email, async (value) => {
@@ -205,24 +220,21 @@ async function submit() {
 
     errorBag.value = {}
 
-
     const validation = await validate()
 
     if (!validation.valid) return
 
-    // TODO : validate email, phone and password
+    try {
 
-     signUp({ email : email.value, password : password.value, phone : "+" + phone.value}).catch(error => {
+        await signUp({ email: email.value, password: password.value, phone: "+" + phone.value })
+
+
+    } catch (error: any) {
 
         setErrors(error.response._data)
 
-     }) 
-
+    }
 }
-
-definePageMeta({
-    layout: false
-})
 
 const show = ref(false)
 

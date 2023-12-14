@@ -57,12 +57,41 @@ definePageMeta({
   layout : false
 })
 
-function login (){
+const { rawRefreshToken, rawToken } = useAuthState()
+const { getSession } = useAuth()
+
+const { currentPhone } = storeToRefs(useAuthStore())
+
+const otp = ref("")
+
+async function login (){
 
 
-    // Login logic goes here
 
-    useRouter().push({name : "index"})
+    try {
+        const { data } = await useFetch("/api/auth/whatsapp/otp", {
+            method : 'POST', 
+
+            body : {
+
+                phone : currentPhone.value, 
+                key : otp.value
+
+            }
+        }) as { data : Ref<{
+            token? :  string,
+            refreshToken? : string, 
+            user : object
+        }> }
+
+        rawRefreshToken.value = data.value.refreshToken
+        rawToken.value = data.value.token
+
+        await getSession()
+
+    } catch (error) {
+        
+    }
 
 }
 

@@ -43,7 +43,7 @@
             </div>
             <div class="w-full space-y-3">
               <label class="text-sm font-semibold xs:text-base" for="password">كلمة المرور</label>
-              <div class="relative" >
+              <div class="relative">
                 <input v-model="password" class="form-control h-[50px] appearance-none" :type="show ? 'text' : 'password'"
                   name="password" id="password" placeholder="كلمة المرور" required />
 
@@ -57,8 +57,8 @@
                     </path>
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
-                  <svg  :class="{ hidden: !show }" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
+                  <svg :class="{ hidden: !show }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" height="20" width="20">
                     <path stroke-linecap="round" stroke-linejoin="round"
                       d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88">
                     </path>
@@ -156,9 +156,18 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 
-definePageMeta({
-  layout: false
-})
+definePageMeta(
+  {
+    middleware: 'auth'
+    ,
+    auth: {
+      unauthenticatedOnly: true,
+      navigateAuthenticatedTo: "/"
+    },
+    layout: false
+
+  }
+)
 
 const {
   signIn,

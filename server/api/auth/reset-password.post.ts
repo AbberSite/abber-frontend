@@ -6,13 +6,10 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.post(
-            'https://test.abber.co/api/authentication/register/',
+            'https://test.abber.co/api/authentication/password/reset/',
 
             {
                 email: body.email,
-                password: body.password,
-                phone : body.phone,
-                first_name : "another user"
             },
             {
                 headers: {
@@ -23,14 +20,15 @@ export default defineEventHandler(async (event) => {
 
 
         return {
-            token : response.data.access_token,
-            refreshToken : response.data.refresh_token, 
+
+            sent : true
+            
         } 
     } catch (error : any) {
 
         setResponseStatus(event, 400)
 
-        return error.response.data
+        return {email : error.response.data.email.email[0]}
 
     }
 
