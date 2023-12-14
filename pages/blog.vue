@@ -80,7 +80,7 @@
                     <p class="space-x-2 rtl:space-x-reverse"><span>عرض</span><span
                             class="font-semibold">1</span><span>إلى</span><span
                             class="font-semibold">9</span><span>من</span><span
-                            class="font-semibold">200</span><span>نتيجة</span></p>
+                            class="font-semibold">{{ response.count }}</span><span>نتيجة</span></p>
                 </div>
                 <div class="flex flex-1 justify-between sm:justify-end"><button
                         class="relative rounded-md border border-transparent bg-gray-100 px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed"
@@ -121,13 +121,9 @@ type Response = {
     results?: Post[]
 }
 
-
-
 const  selectedCategory = ref("")
 
-
 const { data: response, pending } = await useAsyncData('posts', async () => await fetchPosts()) as { data: Ref<Response>, pending: any }
-
 
 const { data: categories, pending : categoriesPneding } = await useAsyncData('categories', async () => await fetchCategories()) as { data: any, pending: any }
 

@@ -33,20 +33,24 @@
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
-                            <input v-model="data.email" class="form-control h-[50px] appearance-none" type="email"
-                                name="email" id="email" placeholder="البريد الألكتروني" autocomplete="email" required />
+                            <input v-model="email" class="form-control h-[50px] appearance-none" type="email" name="email"
+                                id="email" placeholder="البريد الألكتروني" autocomplete="email" required />
+                            <div class="text-red-500 text-sm ">
+                                {{ errors.email }}
+                            </div>
                         </div>
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="password">كلمة المرور</label>
-                            <div class="relative" x-data="{ show: false }">
-                                <input v-model="data.password" class="form-control h-[50px] appearance-none"
+                            <div class="relative">
+                                <input v-model="password" class="form-control h-[50px] appearance-none"
                                     :type="show ? 'text' : 'password'" name="password" id="password"
                                     placeholder="كلمة المرور" required />
+
                                 <button
                                     class="absolute h-[50px] items-center justify-center px-4 py-4 text-gray-600 hover:text-gray-900 ltr:right-0 rtl:left-0"
                                     type="button" @click="show = !show" title="اظهار/اخفاء كلمة المرور">
-                                    <svg class="hidden" v-if="show" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
+                                    <svg v-if="show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" height="20" width="20">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88">
                                         </path>
@@ -62,11 +66,20 @@
 
                                 </button>
                             </div>
+                            <div class="text-red-500 text-sm ">
+                                {{ errors.password }}
+                            </div>
                         </div>
                         <div class="w-full space-y-3">
-                            <label class="text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label>
-                            <input v-model="data.phone" class="form-control h-[50px] appearance-none" type="tel"
-                                name="phone" id="tel" placeholder="رقم الهاتف" autocomplete="tel" required />
+                            <!-- <label class="text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label>
+                            <input v-model="phone" class="form-control h-[50px] appearance-none" type="tel"
+                                name="phone" id="tel" placeholder="رقم الهاتف" autocomplete="tel" required /> -->
+
+                            <PhoneInput v-model="phone" />
+                            <div class="text-red-500 text-sm ">
+                                {{ errors.phone }}
+                            </div>
+
                         </div>
                         <div class="flex items-center text-sm xs:text-base">
                             <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
@@ -136,7 +149,7 @@
                 <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base">
                     <span>لديك حساب سابقا؟</span>
 
-                    <RouterLink class="font-medium text-blue-600" :to="{ name: 'accounts-register' }">
+                    <RouterLink class="font-medium text-blue-600" :to="{ name: 'accounts-login' }">
                         سجل دخولك الان
                     </RouterLink>
 
@@ -147,16 +160,64 @@
 </template>
 
 <script setup lang="ts">
-const data = ref({
-    email: '',
-    password: '',
-    phone: '',
+
+import { ErrorMessage, defineRule, useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/yup';
+import * as yup from 'yup';
+import { useDebounceFn } from '@vueuse/core';
+
+const { defineField, errors, validate, errorBag, setErrors } = useForm({
+    validationSchema: toTypedSchema(
+        yup.object({
+            email: yup.string().email("هذا الحقل يجب أن يكون ايميل").required("هذا الحقل يجب أن لا يكون فارغ"),
+            password: yup.string().min(8).required(),
+            phone: yup.string().min(13, "هذا الحقل يجب أن يكون رقم هاتف صحيح").max(14)
+        }),
+    ),
+});
+const { signUp } = useAuth()
+
+const [email] = defineField('email');
+const [password] = defineField('password');
+const [phone] = defineField("phone");
+
+
+const checkEmailExistence = useDebounceFn(async (value) => {
+    const response = await useApi('POST', '/api/auth/check-email', {
+        email: value
+    })
+    if(!response.data.value.registered ){
+        errorBag.value = {} 
+        return true
+    }
+
+    setErrors({email : "تم أخذ هذا الايميل قم باختيار اخر"})
+
+    return false
+    
+}, 500)
+
+watch(email, async (value) => {
+    await checkEmailExistence(value)
 })
 
 async function submit() {
 
+    errorBag.value = {}
+
+
+    const validation = await validate()
+
+    if (!validation.valid) return
+
     // TODO : validate email, phone and password
-    
+
+     signUp({ email : email.value, password : password.value, phone : "+" + phone.value}).catch(error => {
+
+        setErrors(error.response._data)
+
+     }) 
+
 }
 
 definePageMeta({

@@ -33,5 +33,5 @@ export default defineNuxtConfig({
             link: [{ rel: 'icon', type: 'image/svg', href: '/images/favicon.ico' }],
         },
     },
-    components: ['~/components', '~/components/main', '~/components/partials', '~/components/blog'],
+    components: ['~/components', '~/components/main', '~/components/partials',, '~/components/shared', '~/components/blog'],
 });

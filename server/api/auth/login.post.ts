@@ -33,7 +33,19 @@ export default defineEventHandler(async (event) => {
 
         setResponseStatus(event, 400)
 
-        return { status : "something went wrong" }
+        if(error?.response?.data?.non_field_errors[0]){
+
+            return { status : "error", error : error?.response?.data?.non_field_errors[0] }
+
+        }
+
+        return { 
+
+            status : "error", 
+            error : "حدث خطأ ما"
+            
+        }
+
 
     }
 });

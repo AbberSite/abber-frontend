@@ -29,18 +29,24 @@
       <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بعودتك مجددا</div>
       <div class="pt-4 text-sm text-gray-800 xs:text-base">الرجاء تسجيل الدخول الى حسابك</div>
       <div class="mx-auto w-full max-w-sm pt-10">
+
         <form @submit.prevent="submit">
           <fieldset class="space-y-7">
             <div class="w-full space-y-3">
               <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
               <input v-model="email" class="form-control h-[50px] appearance-none" type="email" name="email" id="email"
                 placeholder="البريد الألكتروني" autocomplete="email" required />
+              <div class="text-red-500 text-sm ">
+                {{ errors.email }}
+              </div>
+
             </div>
             <div class="w-full space-y-3">
               <label class="text-sm font-semibold xs:text-base" for="password">كلمة المرور</label>
-              <div class="relative" x-data="{ show: false }">
+              <div class="relative" >
                 <input v-model="password" class="form-control h-[50px] appearance-none" :type="show ? 'text' : 'password'"
                   name="password" id="password" placeholder="كلمة المرور" required />
+
                 <button
                   class="absolute h-[50px] items-center justify-center px-4 py-4 text-gray-600 hover:text-gray-900 ltr:right-0 rtl:left-0"
                   type="button" @click="show = !show" title="اظهار/اخفاء كلمة المرور">
@@ -51,13 +57,16 @@
                     </path>
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
-                  <svg class="hidden" :class="{ hidden: !show }" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  <svg  :class="{ hidden: !show }" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
                     <path stroke-linecap="round" stroke-linejoin="round"
                       d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88">
                     </path>
                   </svg>
                 </button>
+              </div>
+              <div class="text-red-500 text-sm ">
+                {{ errors.password }}
               </div>
             </div>
             <div class="flex items-center justify-between text-sm xs:text-base">
@@ -71,6 +80,11 @@
               </NuxtLink>
             </div>
             <div>
+
+              <div class="text-red-500 text-sm my-7 ">
+                {{ error }}
+              </div>
+
               <button
                 class="flex w-full h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 ">
                 <span class="mt-1.5">تسجيل الدخول</span></button>
@@ -138,42 +152,53 @@
 </template>
 
 <script setup lang="ts">
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/yup';
+import * as yup from 'yup';
+
 definePageMeta({
   layout: false
 })
 
-
 const {
   signIn,
-  token,
-  refreshToken,
-  refresh,
-  data,
-  status,
-  lastRefreshedAt,
-  signOut,
-  getSession
 } = useAuth()
 
+const { defineField, errors, validate } = useForm({
+  validationSchema: toTypedSchema(
+    yup.object({
+      email: yup.string().email("هذا الحقل يجب أن يكون ايميل").required("هذا الحقل يجب أن لا يكون فارغ"),
+      password: yup.string().min(8, "كلمة السر يحب أن تكون أطول من 8 رموز").required("كلمة السر يجب أن لا تكون فارغة"),
+    }),
+  ),
+});
+
+const [email] = defineField('email');
+const [password] = defineField('password');
+const show = ref(false)
 const error = ref("")
 
 async function submit() {
 
-  //  * TODO : write input validation for email and password
+  const validation = await validate()
 
+  if (!validation.valid) return
 
   signIn({ email: email.value, password: password.value }, {
 
-    callbackUrl: '/blog',
+    callbackUrl: '/',
     redirect: true
+  }).catch(_error => {
 
-  }).then(response => console.log(response))
+    if (_error.response._data.status !== "error") return
+
+
+    error.value = _error.response._data.error
+
+  })
 
 }
 
-const show = ref(false)
-const email = ref("")
-const password = ref("")
 
 </script>
 

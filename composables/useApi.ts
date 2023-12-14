@@ -1,11 +1,9 @@
-export default async (method : Method,url: string, data: object, headers? : Object) => {
+export default async (method : Method,url: string, data: object = {}, headers? : Object) => {
+
+
     return await useFetch(url, {
         method: method,
-
-        headers: {
-            'api-key': import.meta.env.VITE_API_KEY,
-        } ,
-
+   
         body: data,
     });
 };
