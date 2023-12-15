@@ -40,21 +40,17 @@
             <div
                 class="is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base">
                 <a class="flex items-center space-x-3 whitespace-nowrap border-b-2  px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-                    :class="[selectedCategory === '' ? 'border-gray-900': 'border-transparent']"
-                    @click.prevent="selectedCategory = '' "
-                    href="/blog">
+                    :class="[selectedCategory === '' ? 'border-gray-900' : 'border-transparent']"
+                    @click.prevent="selectedCategory = ''" href="/blog">
                     <span>الكل</span>
                     <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-                        {{ response.results?.length }}
+                        {{ posts?.results?.length }}
                     </span>
                 </a>
-                <a v-for="category in categories.results" class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
-
-                        @click.prevent="selectedCategory = category?.name"
-                    :class="[selectedCategory === category?.name ? 'border-gray-900': 'border-transparent']"
-
-
-                    href="#">
+                <a v-for="category in categories.results"
+                    class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
+                    @click.prevent="selectedCategory = category?.name"
+                    :class="[selectedCategory === category?.name ? 'border-gray-900' : 'border-transparent']" href="#">
                     <span>
                         {{ category?.name }}
                     </span>
@@ -62,25 +58,20 @@
                         {{ category?.id }}
                     </span>
                 </a>
-            </div>
+            </div>  
+
             <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
 
-                <div v-if="pending">
-                    جاري التحميل
-                </div>
-                <template v-else>
-                    <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
-                        :duration="post.content.length / 200 + 'دقائق قراءة'" :resume="post.meta_content"
-                        :image="post.image" />
-                </template>
+                <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
+                    :duration="post.content.length / 200 + 'دقائق قراءة'" :resume="post.meta_content" :image="post.image" />
 
             </div>
             <nav class="flex items-center justify-between pt-28 sm:w-full" aria-label="Pagination">
                 <div class="hidden sm:block">
                     <p class="space-x-2 rtl:space-x-reverse"><span>عرض</span><span
                             class="font-semibold">1</span><span>إلى</span><span
-                            class="font-semibold">9</span><span>من</span><span
-                            class="font-semibold">{{ response.count }}</span><span>نتيجة</span></p>
+                            class="font-semibold">9</span><span>من</span><span class="font-semibold">{{ posts?.count
+                            }}</span><span>نتيجة</span></p>
                 </div>
                 <div class="flex flex-1 justify-between sm:justify-end"><button
                         class="relative rounded-md border border-transparent bg-gray-100 px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed"
@@ -108,8 +99,8 @@ type Post = {
 }
 
 type Category = {
-    id : number, 
-    name : string
+    id: number,
+    name: string
 }
 
 
@@ -121,37 +112,49 @@ type Response = {
     results?: Post[]
 }
 
-const  selectedCategory = ref("")
+const selectedCategory = ref("")
+const posts = ref<Response>({})
+const categories = ref({})
 
-const { data: response, pending } = await useAsyncData('posts', async () => await fetchPosts()) as { data: Ref<Response>, pending: any }
 
-const { data: categories, pending : categoriesPneding } = await useAsyncData('categories', async () => await fetchCategories()) as { data: any, pending: any }
 
-async function fetchPosts() {
-    const response = await useFetch("/api/blog/posts")
+// const { data: response, pending } = await useAsyncData('posts', async () => await fetchPosts()) as { data: Ref<Response>, pending: any }
 
-    return response.data
-}
+// const { data: categories, pending: categoriesPneding } = await useAsyncData('categories', async () => await fetchCategories()) as { data: any, pending: any }
 
-async function fetchCategories(){
+async function fetchCategories() {
 
-  const response = await useFetch("/api/blog/categories")
+    const response = await useFetch("/api/blog/categories")
 
     return response.data
 }
 
 
-onMounted(async () => await fetchPosts())
+
+onMounted(async () => {
+
+    const { data } = await useFetch("/api/blog/posts")
+
+    posts.value = data.value
+
+    const { data : categoriesData } = await useFetch("/api/blog/categories")
+
+    categories.value = categoriesData.value
+
+})
 
 
 const filteredPosts = computed(() => {
 
-    if(selectedCategory.value === "") {
+    if (selectedCategory.value === "") {
 
-        return response.value.results
+        if(!(posts?.value?.results)) return []
+
+        return posts?.value?.results
+
     }
 
-    return response.value.results?.filter(post => {
+    return posts?.value?.results?.filter(post => {
         return post.post_category.name == selectedCategory.value
     })
 })

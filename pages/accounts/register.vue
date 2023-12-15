@@ -92,9 +92,7 @@
                             </label>
                         </div>
                         <div>
-                            <button
-                                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                href="/profile"> <span class="mt-1.5">التسجيل</span></button>
+                                <PirmaryButton :loading="loading">التسجيل</PirmaryButton>
                         </div>
                     </fieldset>
                 </form>
@@ -189,7 +187,7 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
     ),
 });
 const { signUp } = useAuth()
-
+const loading = ref(false)
 const [email] = defineField('email');
 const [password] = defineField('password');
 const [phone] = defineField("phone");
@@ -222,9 +220,12 @@ async function submit() {
 
     const validation = await validate()
 
+
     if (!validation.valid) return
 
     try {
+
+        loading.value = true
 
         await signUp({ email: email.value, password: password.value, phone: "+" + phone.value })
 
@@ -233,6 +234,10 @@ async function submit() {
 
         setErrors(error.response._data)
 
+    } finally {
+
+        loading.value = false
+        
     }
 }
 

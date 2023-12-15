@@ -85,9 +85,7 @@
                 {{ error }}
               </div>
 
-              <button
-                class="flex w-full h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 ">
-                <span class="mt-1.5">تسجيل الدخول</span></button>
+                <PirmaryButton :loading="loading"> تسجيل الدخول </PirmaryButton>
             </div>
           </fieldset>
         </form>
@@ -186,6 +184,7 @@ const [email] = defineField('email');
 const [password] = defineField('password');
 const show = ref(false)
 const error = ref("")
+const loading = ref(false)
 
 async function submit() {
 
@@ -193,18 +192,21 @@ async function submit() {
 
   if (!validation.valid) return
 
+  loading.value = true
+
   signIn({ email: email.value, password: password.value }, {
 
     callbackUrl: '/',
     redirect: true
-  }).catch(_error => {
-
-    if (_error.response._data.status !== "error") return
-
-
-    error.value = _error.response._data.error
-
   })
+    .catch(_error => {
+
+      if (_error.response._data.status !== "error") return
+
+
+      error.value = _error.response._data.error
+
+    }).finally(() => loading.value = false )
 
 }
 

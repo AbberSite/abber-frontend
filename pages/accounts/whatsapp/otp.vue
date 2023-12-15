@@ -35,7 +35,7 @@
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="number">رمز التأكد (OPT)</label>
-                            <input class="form-control h-[50px] appearance-none" type="number" name="number" id="number"
+                            <input v-model="otp" class="form-control h-[50px] appearance-none" type="number" name="number" id="number"
                                 placeholder="ادخل الرمز المكون من 6 ارقام" required />
                         </div>
                         <div>
@@ -65,8 +65,6 @@ const { currentPhone } = storeToRefs(useAuthStore())
 const otp = ref("")
 
 async function login (){
-
-
 
     try {
         const { data } = await useFetch("/api/auth/whatsapp/otp", {

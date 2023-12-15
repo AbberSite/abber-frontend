@@ -32,16 +32,10 @@ export default defineEventHandler(async (event) => {
 
         setResponseStatus(event, 400)
 
-        if(error?.response?.data?.non_field_errors[0]){
-
-            return { status : "error", error : error?.response?.data?.non_field_errors[0] }
-
-        }
-
         return { 
 
             status : "error", 
-            error : "حدث خطأ ما"
+            error : error.response.data
             
         }
 

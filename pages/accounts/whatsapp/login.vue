@@ -44,9 +44,18 @@
                             </div>
                         </div>
                         <div>
-                            <button
+                            <!-- <button
                                 class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                href="/accounts/whatsapp/opt"> <span class="mt-1.5">متابعة</span></button>
+                                href="/accounts/whatsapp/opt"> <span class="mt-1.5">
+                                    <Loading  v-if="loading"/>
+                                    <span v-else>متابعة</span>
+                                 </span></button>
+ -->
+
+                            <PirmaryButton :loading="loading" >
+                                متابعة
+                            </PirmaryButton>
+                            
                         </div>
                     </fieldset>
                 </form>
@@ -65,7 +74,7 @@ const router = useRouter()
 
 
 const phone = ref("")
-
+const loading = ref(false)
 
 const errors = ref<{
     phone?: string
@@ -77,7 +86,7 @@ async function send() {
 
 
     try {
-
+        loading.value = true
         const { data } = await useFetch("/api/auth/whatsapp/send", {
             method: 'POST',
 
@@ -101,7 +110,9 @@ async function send() {
 
         if (!data.value.registered) {
 
-            errors.value.phone = 'هذا الرقم غير مسجل بواتساب'
+            errors.value.phone = 'هذا الرقم غير مسجل '
+    loading.value = false
+
 
             return
         }
@@ -119,6 +130,9 @@ async function send() {
         console.log(error.response)
 
     }
+
+    loading.value = false
+
 }
 
 </script>
