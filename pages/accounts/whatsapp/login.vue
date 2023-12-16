@@ -52,9 +52,9 @@
                                  </span></button>
  -->
 
-                            <PirmaryButton :loading="loading" >
+                            <PrimaryButton class="w-full" :loading="loading" >
                                 متابعة
-                            </PirmaryButton>
+                            </PrimaryButton>
                             
                         </div>
                     </fieldset>

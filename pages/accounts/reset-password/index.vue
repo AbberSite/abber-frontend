@@ -44,10 +44,13 @@
               </span>
             </div>
             <div>
-              <button
+              <!-- <button
                 class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                type="button" @click="submit" href="/accounts/password/reset/done"> <span class="mt-1.5">إستعادة كلمة
-                  المرور</span></button>
+                type="button" @click="submit" href="/accounts/password/reset/done"> <span >إستعادة كلمة
+                  المرور</span></button> -->
+
+
+                <PrimaryButton type="button"  @click="submit" class="w-full" :loading="loading">إستعادة كلمة المرور</PrimaryButton>
             </div>
           </fieldset>
         </form>
@@ -68,7 +71,7 @@ definePageMeta({
   layout: false
 })
 
-const { defineField, errors, validate } = useForm({
+const { defineField, errors, validate, setErrors } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
       email: yup.string().email("هذا الحقل يجب أن يكون ايميل").required("هذا الحقل يجب أن لا يكون فارغ"),
@@ -77,10 +80,9 @@ const { defineField, errors, validate } = useForm({
 });
 
 
-const authStore = useAuthStore()
-
 
 const [email] = defineField("email")
+const loading = ref(false)
 
 
 async function submit() {
@@ -89,12 +91,39 @@ async function submit() {
 
   if (!validation.valid) return
 
-  const { data } = await useFetch("/api/auth/reset-password", {
-    method: 'POST',
-    body: {
-      email: email.value
-    },
-  })
+  try {
+
+    loading.value = true
+
+
+    const response = await useFetch("/api/auth/reset-password", {
+      method: 'POST',
+      body: {
+        email: email.value
+      },
+    })
+
+    if(response.error.value){
+
+      setErrors(response.error.value.data)
+      loading.value = false
+
+      return
+
+    }
+
+    if(response.data.value.sent){
+
+      useRouter().push({name : "accounts-reset-password-sent"})
+
+    }
+
+    loading.value = false
+
+  } catch (error) {
+    alert("something is wrong i can feel it")
+  }
+
 
 }
 

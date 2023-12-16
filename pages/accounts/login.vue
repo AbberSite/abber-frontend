@@ -85,7 +85,7 @@
                 {{ error }}
               </div>
 
-                <PirmaryButton :loading="loading"> تسجيل الدخول </PirmaryButton>
+                <PrimaryButton class="w-full" :loading="loading"> تسجيل الدخول </PrimaryButton>
             </div>
           </fieldset>
         </form>
@@ -175,7 +175,7 @@ const { defineField, errors, validate } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
       email: yup.string().email("هذا الحقل يجب أن يكون ايميل").required("هذا الحقل يجب أن لا يكون فارغ"),
-      password: yup.string().min(8, "كلمة السر يحب أن تكون أطول من 8 رموز").required("كلمة السر يجب أن لا تكون فارغة"),
+      password: yup.string().required("كلمة السر يجب أن لا تكون فارغة"),
     }),
   ),
 });

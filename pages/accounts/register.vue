@@ -83,6 +83,7 @@
                         </div>
                         <div class="flex items-center text-sm xs:text-base">
                             <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
+                            v-model="terms"
                                 name="remember" id="id_agreement" />
                             <label class="mt-1.5 space-x-1 ps-3 font-medium rtl:space-x-reverse" for="id_agreement">
                                 <span>أوافق على</span>
@@ -91,8 +92,11 @@
                                 <a class="text-blue-600" href="#">إتفاقية المستخدم</a>
                             </label>
                         </div>
+                        <div class="text-red-500 text-sm ">
+                            {{ errors.terms }}
+                        </div>
                         <div>
-                                <PirmaryButton :loading="loading">التسجيل</PirmaryButton>
+                            <PrimaryButton class="w-full" :loading="loading">التسجيل</PrimaryButton>
                         </div>
                     </fieldset>
                 </form>
@@ -172,7 +176,7 @@ definePageMeta(
             unauthenticatedOnly: true,
             navigateAuthenticatedTo: "/"
         },
-    layout: false
+        layout: false
 
     }
 )
@@ -181,8 +185,11 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
             email: yup.string().email("هذا الحقل يجب أن يكون ايميل").required("هذا الحقل يجب أن لا يكون فارغ"),
-            password: yup.string().min(8).required(),
-            phone: yup.string().min(13, "هذا الحقل يجب أن يكون رقم هاتف صحيح").max(14)
+            password: yup.string()
+                .min(8, "طول كلمة السر يجب أن يكون 8 حروف أو أكثر")
+                .matches(new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"), "كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام").required(),
+            phone: yup.string().min(13, "هذا الحقل يجب أن يكون رقم هاتف صحيح").max(14),
+            terms : yup.boolean().isTrue("يجب الموافقة على الشروط و الأحكام").required("يجب الموافقة على الشروط و الأحكام")
         }),
     ),
 });
@@ -191,6 +198,7 @@ const loading = ref(false)
 const [email] = defineField('email');
 const [password] = defineField('password');
 const [phone] = defineField("phone");
+const [terms] = defineField("terms");
 
 
 const checkEmailExistence = useDebounceFn(async (value) => {
@@ -227,7 +235,11 @@ async function submit() {
 
         loading.value = true
 
-        await signUp({ email: email.value, password: password.value, phone: "+" + phone.value })
+        await signUp({ email: email.value, password: password.value, phone: "+" + phone.value }, {
+
+            callbackUrl: '/',
+            redirect: true
+        })
 
 
     } catch (error: any) {
@@ -237,7 +249,7 @@ async function submit() {
     } finally {
 
         loading.value = false
-        
+
     }
 }
 

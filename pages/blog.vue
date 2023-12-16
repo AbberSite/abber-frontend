@@ -1,4 +1,8 @@
 <template>
+
+    <Head>
+        <title>عبر - المدونة</title>
+    </Head>
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
@@ -58,12 +62,17 @@
                         {{ category?.id }}
                     </span>
                 </a>
-            </div>  
+            </div>
 
             <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
 
-                <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
-                    :duration="post.content.length / 200 + 'دقائق قراءة'" :resume="post.meta_content" :image="post.image" />
+                <span v-if="loading">
+                    جاري التحميل
+                </span>
+                <template v-else>
+                    <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
+                        :duration="post.content.length / 200 + 'دقائق قراءة'" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image" />
+                </template>
 
             </div>
             <nav class="flex items-center justify-between pt-28 sm:w-full" aria-label="Pagination">
@@ -73,11 +82,19 @@
                             class="font-semibold">9</span><span>من</span><span class="font-semibold">{{ posts?.count
                             }}</span><span>نتيجة</span></p>
                 </div>
-                <div class="flex flex-1 justify-between sm:justify-end"><button
+                <div class="flex flex-1 justify-between sm:justify-end gap-3">
+
+                    <!-- <button
                         class="relative rounded-md border border-transparent bg-gray-100 px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed"
-                        type="button" disabled>السابق</button><a
+                        type="button" disabled>السابق</button> -->
+                    <PrimaryButton type="button" :disabled="!posts?.previous?.length" @click="async () => await fetchPosts(posts?.previous)"> السابق</PrimaryButton>
+                    <PrimaryButton type="button" :disabled="!posts?.next?.length" @click="async () => await fetchPosts(posts?.next)"> التالي</PrimaryButton>
+
+
+                    <!-- <a
                         class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
-                        href="#">التالي</a></div>
+                        href="#">التالي</a> -->
+                </div>
             </nav>
         </section>
     </main>
@@ -115,6 +132,7 @@ type Response = {
 const selectedCategory = ref("")
 const posts = ref<Response>({})
 const categories = ref({})
+const loading = ref(false)
 
 
 
@@ -124,22 +142,29 @@ const categories = ref({})
 
 async function fetchCategories() {
 
-    const response = await useFetch("/api/blog/categories")
+    const { data: categoriesData } = await useFetch("/api/blog/categories")
 
-    return response.data
+    categories.value = categoriesData.value
+
 }
 
+async function fetchPosts(url : string = "https://test.abber.co/api/blog/posts/?active=true&accepted=true") {
 
+    loading.value = true
+    
+    const { data } = await useFetch(`/api/blog/posts?url=${url}`) as { data : Ref<Response>}
+        
+    posts.value = data.value
+
+    loading.value = false
+}
 
 onMounted(async () => {
 
-    const { data } = await useFetch("/api/blog/posts")
+    await fetchPosts()
+    await fetchPosts()
 
-    posts.value = data.value
-
-    const { data : categoriesData } = await useFetch("/api/blog/categories")
-
-    categories.value = categoriesData.value
+    await fetchCategories()
 
 })
 
@@ -148,7 +173,7 @@ const filteredPosts = computed(() => {
 
     if (selectedCategory.value === "") {
 
-        if(!(posts?.value?.results)) return []
+        if (!(posts?.value?.results)) return []
 
         return posts?.value?.results
 
@@ -158,25 +183,6 @@ const filteredPosts = computed(() => {
         return post.post_category.name == selectedCategory.value
     })
 })
-
-// const types = computed(() => {
-
-//     const categories : any = {}; 
-
-//     console.log(response?.value)
-
-//     response.value.results?.map((post) => {
-
-//         if(!categories[post.post_category.name]){ 
-//             categories[post.post_category.name] = 0
-//         }
-//         categories[post.post_category.name]++
-
-//     })
-
-//     return categories; 
-
-// })
 
 </script>
 

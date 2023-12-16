@@ -1,7 +1,7 @@
 <template>
     <article>
         <a href="#">
-          <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" alt="صورة المقالة" />
+          <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" />
         </a>
 
         <div class="flex w-full flex-col space-y-4 pt-8 text-right">
@@ -36,11 +36,12 @@
 <script setup lang="ts">
 
 defineProps<{
-    type : String,
-    title : String, 
-    duration : String, 
-    resume : String,
-    image : String
+    type : string,
+    title : string, 
+    duration : string, 
+    resume : string,
+    image : string
+    imageAlt : string
 }>()
 
 </script>

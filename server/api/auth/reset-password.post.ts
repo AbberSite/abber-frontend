@@ -18,17 +18,21 @@ export default defineEventHandler(async (event) => {
             },
         );
 
-
         return {
 
             sent : true
             
         } 
+
     } catch (error : any) {
 
         setResponseStatus(event, 400)
 
-        return {email : error.response.data.email.email[0]}
+        if(error?.response?.data?.email?.email?.[0]){
+            return {email : error.response.data.email.email[0]}
+        }
+
+        return error?.response?.data
 
     }
 
