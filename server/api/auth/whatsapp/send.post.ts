@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
 
             {
                 phone: body.phone,
+                sender : "whatsapp"
             },
             {
                 headers: {

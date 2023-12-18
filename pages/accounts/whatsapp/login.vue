@@ -124,6 +124,8 @@ async function send() {
 
         currentPhone.value = "+" + phone.value
 
+        sessionStorage.setItem("abber:whatsapp-number", "+" + phone.value)
+
         router.push({ name: "accounts-whatsapp-otp" })
 
     } catch (error: any) {

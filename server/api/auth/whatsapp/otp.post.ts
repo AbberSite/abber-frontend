@@ -32,10 +32,20 @@ export default defineEventHandler(async (event) => {
 
         setResponseStatus(event, 400)
 
+
+        if(error?.response?.data?.non_field_errors){
+
+
+            return {
+                otp : error?.response?.data?.non_field_errors?.[0]
+            }
+
+        }
+
         return { 
 
             status : "error", 
-            error : error.response.data
+            otp : error.response.data
             
         }
 

@@ -35,16 +35,28 @@
             <div class="pt-4 text-sm text-gray-800 xs:text-base">أدخل رمز التحقق الذي تم إرساله الى حسابك في الواتساب</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="login">
+
+                    {{ currentPhone }}
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="number">رمز التأكد (OPT)</label>
                             <input v-model="otp" class="form-control h-[50px] appearance-none" type="number" name="number"
                                 id="number" placeholder="ادخل الرمز المكون من 6 ارقام" required />
                         </div>
+
+                        <div class="text-red-500 text-sm ">
+                            {{ error }}
+                        </div>
+
                         <div>
-                            <button
+                            <!-- <button
                                 class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                href="/profile"> <span class="mt-1.5">تسجيل الدخول</span></button>
+                                href="/profile"> <span class="mt-1.5"></span></button> -->
+
+                            <PrimaryButton class="w-full" :loading="loading">
+
+                                تسجيل الدخول
+                            </PrimaryButton>
                         </div>
                     </fieldset>
                 </form>
@@ -62,15 +74,48 @@ definePageMeta({
 })
 
 const { rawRefreshToken, rawToken } = useAuthState()
+
+const { refresh } = useAuth()
 const { getSession } = useAuth()
 
 const { currentPhone } = storeToRefs(useAuthStore())
 
 const otp = ref("")
+const loading = ref(false)
+
+
+const error = ref("")
+
+onMounted(async () => {
+
+    if (!currentPhone.value) {
+
+        currentPhone.value = sessionStorage.getItem("abber:whatsapp-number") as string
+
+    }
+
+
+    if (!currentPhone.value) {
+        useRouter().push({ name : 'accounts-whatsapp-login'})
+
+    }
+
+
+})
 
 async function login() {
 
+    error.value = ""
+
     try {
+
+        if (otp.value === "") {
+            error.value = "يجب ادخال رمز OTP "
+            return
+        }
+
+        loading.value = true
+
         const { data } = await useFetch("/api/auth/whatsapp/otp", {
             method: 'POST',
 
@@ -78,6 +123,30 @@ async function login() {
 
                 phone: currentPhone.value,
                 key: otp.value
+
+            },
+
+            async onResponse({ response }) {
+
+                if (response.status !== 200) return
+
+                rawRefreshToken.value = response._data.refreshToken
+                rawToken.value = response._data.token
+
+                console.log(rawRefreshToken.value)
+
+                await refresh()
+
+                useRouter().push({name : 'index'})
+
+            },
+            async onResponseError({ response }) {
+
+                if (response?._data?.otp) {
+
+                    error.value = response._data.otp
+
+                }
 
             }
         }) as {
@@ -88,13 +157,10 @@ async function login() {
             }>
         }
 
-        rawRefreshToken.value = data.value.refreshToken
-        rawToken.value = data.value.token
-
-        await getSession()
 
     } catch (error) {
-
+    } finally {
+        loading.value = false
     }
 
 }

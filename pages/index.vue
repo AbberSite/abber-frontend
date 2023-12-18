@@ -7,6 +7,7 @@
     <main class="min-h-screen outline-none">
         <Hero />
         <HowItWorks />
+        <Expressors /> 
         <Articles />
         <Testimonials />
         <Faq />
