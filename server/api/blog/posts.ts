@@ -4,6 +4,9 @@ import { setBlockTracking } from "vue";
 export default defineEventHandler(async (event) => {
 
     const { url } = getQuery(event) 
+
+    
+
     
 
 
@@ -11,7 +14,6 @@ export default defineEventHandler(async (event) => {
 
     const response = await axios.get(url?.toString() as string,{
         headers : {
-            Authorization : getHeaders(event).authorization,
             'api-key' : config.apiSecret
         }
     })

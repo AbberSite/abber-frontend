@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <title>عبر - تسجيل الدخول</title>
+    </Head>
     <main class="min-h-screen outline-none">
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -35,11 +38,12 @@
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="number">رمز التأكد (OPT)</label>
-                            <input v-model="otp" class="form-control h-[50px] appearance-none" type="number" name="number" id="number"
-                                placeholder="ادخل الرمز المكون من 6 ارقام" required />
+                            <input v-model="otp" class="form-control h-[50px] appearance-none" type="number" name="number"
+                                id="number" placeholder="ادخل الرمز المكون من 6 ارقام" required />
                         </div>
                         <div>
-                            <button class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                            <button
+                                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                                 href="/profile"> <span class="mt-1.5">تسجيل الدخول</span></button>
                         </div>
                     </fieldset>
@@ -54,7 +58,7 @@
 <script setup lang="ts">
 
 definePageMeta({
-  layout : false
+    layout: false
 })
 
 const { rawRefreshToken, rawToken } = useAuthState()
@@ -64,23 +68,25 @@ const { currentPhone } = storeToRefs(useAuthStore())
 
 const otp = ref("")
 
-async function login (){
+async function login() {
 
     try {
         const { data } = await useFetch("/api/auth/whatsapp/otp", {
-            method : 'POST', 
+            method: 'POST',
 
-            body : {
+            body: {
 
-                phone : currentPhone.value, 
-                key : otp.value
+                phone: currentPhone.value,
+                key: otp.value
 
             }
-        }) as { data : Ref<{
-            token? :  string,
-            refreshToken? : string, 
-            user : object
-        }> }
+        }) as {
+            data: Ref<{
+                token?: string,
+                refreshToken?: string,
+                user: object
+            }>
+        }
 
         rawRefreshToken.value = data.value.refreshToken
         rawToken.value = data.value.token
@@ -88,7 +94,7 @@ async function login (){
         await getSession()
 
     } catch (error) {
-        
+
     }
 
 }

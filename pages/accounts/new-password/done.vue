@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <title>عبر - تعيين كلمة مرور جديدة</title>
+    </Head>
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
@@ -33,8 +36,10 @@
                 <div>انقر أدناه لتسجيل الدخول</div>
             </div>
             <div class="mx-auto w-full max-w-sm pt-10">
-                <a class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                    href="/accounts/login"> <span class="mt-1.5">تسجيل الدخول</span></a>
+                <RouterLink :to="{ name: 'accounts-login' }"
+                    class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800">
+                    <span class="mt-1.5">تسجيل الدخول</span>
+                </RouterLink>
             </div>
         </section>
     </main>
@@ -43,7 +48,7 @@
 <script setup lang="ts">
 
 definePageMeta({
-  layout : false
+    layout: false
 })
 
 </script>

@@ -7,16 +7,23 @@
                 <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">اخر المقالات المقدمة إسبوعيا
                 </div>
             </div>
-            <a class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex" href="#">عرض جميع المقالات ←</a>
+            <NuxtLink class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex"  :to="{name : 'blog'}">عرض جميع المقالات ←</NuxtLink>
         </div>
-        <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
-            <article>
-                <a href="#">
-                    
-                    <!-- <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50"
-                        src="../../assets/images/articles/1.webp" alt="صورة المقالة" /> -->
+        <div class="flex w-full justify-center mt-10" v-if="loading">
+            <Loading />
+        </div>
+        <div v-else class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
 
-                        <NuxtImg fit="outside" class="w-full rounded-xl bg-gray-50"  src="/images/articles/1.webp" width="384" height="256"  />
+            <BlogCard v-for="post in posts" :type="post.post_category.name" :title="post.title"
+            duration="5 دقائق قراءة" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image" :slug="post.slug" />
+            <!-- <article>
+                <a href="#">
+
+                    <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50"
+                        src="../../assets/images/articles/1.webp" alt="صورة المقالة" />
+
+                    <NuxtImg fit="outside" class="w-full rounded-xl bg-gray-50" src="../../images/articles/1.webp"
+                        width="384" height="256" />
                 </a>
                 <div class="flex w-full flex-col space-y-4 pt-8 text-right">
                     <div class="flex items-center justify-between text-gray-700">
@@ -34,54 +41,70 @@
                         <a href="#">إقرأ المزيد ←</a>
                     </div>
                 </div>
-            </article>
-            <article>
-                <a href="#">
-                    <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50"
-                        src="../../assets/images/articles/2.webp" alt="صورة المقالة" />
-                </a>
-                <div class="flex w-full flex-col space-y-4 pt-8 text-right">
-                    <div class="flex items-center justify-between text-gray-700">
-                        <a class="rounded-full bg-gray-50 px-4 pb-1.5 pt-2 text-[13px] font-semibold hover:bg-gray-100 hover:text-gray-900"
-                            href="#">تفسير الأحلام</a>
-                        <span class="text-[13px]">5 دقائق قراءة</span>
-                    </div>
-                    <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
-                        <a href="#">تعرف على تفسير حلم الساعة وأبرز دلالاته</a>
-                    </h3>
-                    <p class="text-justify text-sm text-gray-800 xs:text-base">تعرف على أبرز ما جاء في تفسير حلم الساعة: 1-
-                        إنذار بالإسراع في تأدية الأعمال. 2- الزواج مرة أخرى للمطلقة. 3- التزامات جديدة في حياة العزباء. 4-
-                        النية الحسنة، وصلاح أعمال المتزوجة. 5- سلامة مولود الحامل، وعافيته من أي مكروه.</p>
-                    <div class="text-sm font-semibold xs:text-base">
-                        <a href="#">إقرأ المزيد ←</a>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <a href="#">
-                    <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50"
-                        src="../../assets/images/articles/3.webp" alt="صورة المقالة" />
-                </a>
-                <div class="flex w-full flex-col space-y-4 pt-8 text-right">
-                    <div class="flex items-center justify-between text-gray-700">
-                        <a class="rounded-full bg-gray-50 px-4 pb-1.5 pt-2 text-[13px] font-semibold hover:bg-gray-100 hover:text-gray-900"
-                            href="#">تفسير الأحلام</a>
-                        <span class="text-[13px]">5 دقائق قراءة</span>
-                    </div>
-                    <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
-                        <a href="#">تفسير حلم الذئب | أبرز 6 دلالات لكبار المفسرين</a>
-                    </h3>
-                    <p class="text-justify text-sm text-gray-800 xs:text-base">تعرف على أهم دلالات تفسير حلم الذئب؟ يرمز
-                        الذئب إلى عدو ماكر، أو شخص كاذب ،أو كثرة الحساد في حياة الرائي، وإذا رأى الحالم أنه هرب من الذئب في
-                        المنام فإنه ينتصر على أعدائه ويفوز على منافسيه.</p>
-                    <div class="text-sm font-semibold xs:text-base">
-                    <a href="#">إقرأ المزيد ←</a>
-                </div>
-            </div>
-        </article>
-        <a class="block text-center font-semibold xs:text-lg sm:hidden" href="#">عرض جميع المقالات ←</a>
-    </div>
-</section></template>
+            </article> -->
+            <NuxtLink :to="{name : 'blog'}" class="block text-center font-semibold xs:text-lg sm:hidden" >عرض جميع المقالات ←</NuxtLink>
+        </div>
+    </section>
+</template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+
+
+type Post = {
+    user: string,
+    post_category: Category,
+    title: string,
+    content: string,
+    meta_content: string,
+    image: string,
+    image_alt: string,
+    slug: string,
+    active: boolean,
+    bookmark: []
+}
+
+type Category = {
+    id: number,
+    name: string
+}
+
+
+type Response = {
+
+    count?: number,
+    next?: string,
+    previous?: string,
+    results?: Post[]
+}
+
+const loading = ref(false)
+
+const posts = ref<Post[]>()
+
+async function fetchPosts(url: string = "https://test.abber.co/api/blog/posts/?active=true&accepted=true") {
+
+    loading.value = true
+
+
+
+    const { data } = await useFetch(`/api/blog/posts?url=${url}`) as { data: Ref<Response> }
+
+    posts.value = data.value?.results?.filter((post, index) => index < 3)
+
+    loading.value = false
+}
+
+
+onMounted(async () => {
+
+    await fetchPosts()
+    await fetchPosts()
+
+})
+
+</script>
+
+
+
 <style scoped></style>

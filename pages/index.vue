@@ -15,6 +15,9 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware : ['verified']
+})
 
 </script>
 

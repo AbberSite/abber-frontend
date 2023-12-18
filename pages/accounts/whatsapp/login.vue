@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <title>عبر - تسجيل الدخول</title>
+    </Head>
     <main class="min-h-screen outline-none">
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -52,10 +55,10 @@
                                  </span></button>
  -->
 
-                            <PrimaryButton class="w-full" :loading="loading" >
+                            <PrimaryButton class="w-full" :loading="loading">
                                 متابعة
                             </PrimaryButton>
-                            
+
                         </div>
                     </fieldset>
                 </form>
@@ -111,7 +114,7 @@ async function send() {
         if (!data.value.registered) {
 
             errors.value.phone = 'هذا الرقم غير مسجل '
-    loading.value = false
+            loading.value = false
 
 
             return

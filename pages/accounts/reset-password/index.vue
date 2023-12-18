@@ -1,4 +1,8 @@
 <template>
+
+  <Head>
+    <title>عبر - استعادة كلمة المرور</title>
+  </Head>
   <main class="min-h-screen outline-none">
     <!-- Hero section -->
     <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
@@ -33,7 +37,7 @@
       <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">نسيت كلمة المرور؟</div>
       <div class="pt-4 text-sm text-gray-800 xs:text-base">لا تقلق، سوف نرسل لك تعليمات إعادة التعيين</div>
       <div class="mx-auto w-full max-w-sm pt-10">
-        <form method="POST">
+        <form method="POST" @submit.prevent="submit">
           <fieldset class="space-y-7">
             <div class="w-full space-y-3">
               <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
@@ -50,7 +54,7 @@
                   المرور</span></button> -->
 
 
-                <PrimaryButton type="button"  @click="submit" class="w-full" :loading="loading">إستعادة كلمة المرور</PrimaryButton>
+                <PrimaryButton class="w-full" :loading="loading">إستعادة كلمة المرور</PrimaryButton>
             </div>
           </fieldset>
         </form>

@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <title>عبر - استعادة كلمة المرور</title>
+    </Head>
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
@@ -44,7 +47,7 @@
 <script setup lang="ts">
 
 definePageMeta({
-  layout : false
+    layout: false
 })
 </script>
 

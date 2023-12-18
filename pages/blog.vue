@@ -1,5 +1,4 @@
 <template>
-
     <Head>
         <title>عبر - المدونة</title>
     </Head>
@@ -29,8 +28,8 @@
             <form class="w-full max-w-sm pt-10" method="GET">
                 <div class="w-full space-y-3">
                     <div class="relative">
-                        <input class="form-control h-[50px] appearance-none ps-12" type="search" name="q" id="search"
-                            placeholder="البحث" required /><span
+                        <input v-model="search" class="form-control h-[50px] appearance-none ps-12" type="search" name="q"
+                            id="search" placeholder="البحث" required /><span
                             class="absolute h-[50px] items-center justify-center px-4 py-4 ltr:left-0 rtl:right-0 rtl:scale-x-flip">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" height="20" width="20">
@@ -53,8 +52,8 @@
                 </a>
                 <a v-for="category in categories.results"
                     class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
-                    @click.prevent="selectedCategory = category?.name"
-                    :class="[selectedCategory === category?.name ? 'border-gray-900' : 'border-transparent']" href="#">
+                    @click.prevent="selectedCategory = category?.id"
+                    :class="[selectedCategory === category?.id ? 'border-gray-900' : 'border-transparent']" href="#">
                     <span>
                         {{ category?.name }}
                     </span>
@@ -64,14 +63,16 @@
                 </a>
             </div>
 
-            <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="flex w-full justify-center mt-10" v-if="loading">
+                <Loading />
+            </div>
+            <div v-else class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
 
-                <span v-if="loading">
-                    جاري التحميل
-                </span>
-                <template v-else>
-                    <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
-                        :duration="post.content.length / 200 + 'دقائق قراءة'" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image" />
+                <template v-for="post in filteredPosts" :key="post.id" >
+
+
+                    <BlogCard :type="post.post_category.name" :title="post.title" duration="5 دقائق قراءة"
+                        :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image" :slug="post.slug" />
                 </template>
 
             </div>
@@ -87,9 +88,10 @@
                     <!-- <button
                         class="relative rounded-md border border-transparent bg-gray-100 px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed"
                         type="button" disabled>السابق</button> -->
-                    <PrimaryButton type="button" :disabled="!posts?.previous?.length" @click="async () => await fetchPosts(posts?.previous)"> السابق</PrimaryButton>
-                    <PrimaryButton type="button" :disabled="!posts?.next?.length" @click="async () => await fetchPosts(posts?.next)"> التالي</PrimaryButton>
-
+                    <PrimaryButton type="button" :disabled="!posts?.previous?.length"
+                        @click="async () => await fetchPosts(posts?.previous)"> السابق</PrimaryButton>
+                    <PrimaryButton type="button" :disabled="!posts?.next?.length"
+                        @click="async () => await fetchPosts(posts?.next)"> التالي</PrimaryButton>
 
                     <!-- <a
                         class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
@@ -101,8 +103,11 @@
 </template>
 
 <script setup lang="ts">
+import { useDebounceFn } from '@vueuse/core';
+
 
 type Post = {
+    id: string, 
     user: string,
     post_category: Category,
     title: string,
@@ -131,14 +136,24 @@ type Response = {
 
 const selectedCategory = ref("")
 const posts = ref<Response>({})
-const categories = ref({})
+const categories = ref<{ results?: Array<{ name: string, id: string }> }>({})
 const loading = ref(false)
+const search = ref("")
+
+const debouncedSearch = useDebounceFn(async (value) => {
+
+    await fetchPosts(`https://test.abber.co/api/blog/posts/?search=${value}`)
 
 
+}, 500)
 
-// const { data: response, pending } = await useAsyncData('posts', async () => await fetchPosts()) as { data: Ref<Response>, pending: any }
+watch(search, debouncedSearch)
 
-// const { data: categories, pending: categoriesPneding } = await useAsyncData('categories', async () => await fetchCategories()) as { data: any, pending: any }
+watch(selectedCategory, async (value: string) => {
+
+    await fetchPosts(`https://test.abber.co/api/blog/posts/?post_category=${value}`)
+
+})
 
 async function fetchCategories() {
 
@@ -148,12 +163,14 @@ async function fetchCategories() {
 
 }
 
-async function fetchPosts(url : string = "https://test.abber.co/api/blog/posts/?active=true&accepted=true") {
+async function fetchPosts(url: string = "https://test.abber.co/api/blog/posts/?active=true&accepted=true") {
 
     loading.value = true
-    
-    const { data } = await useFetch(`/api/blog/posts?url=${url}`) as { data : Ref<Response>}
-        
+
+
+
+    const { data } = await useFetch(`/api/blog/posts?url=${url}`) as { data: Ref<Response> }
+
     posts.value = data.value
 
     loading.value = false
@@ -168,20 +185,9 @@ onMounted(async () => {
 
 })
 
-
 const filteredPosts = computed(() => {
 
-    if (selectedCategory.value === "") {
-
-        if (!(posts?.value?.results)) return []
-
-        return posts?.value?.results
-
-    }
-
-    return posts?.value?.results?.filter(post => {
-        return post.post_category.name == selectedCategory.value
-    })
+    return posts.value?.results
 })
 
 </script>

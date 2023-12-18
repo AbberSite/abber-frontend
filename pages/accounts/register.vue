@@ -187,7 +187,7 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
             email: yup.string().email("هذا الحقل يجب أن يكون ايميل").required("هذا الحقل يجب أن لا يكون فارغ"),
             password: yup.string()
                 .min(8, "طول كلمة السر يجب أن يكون 8 حروف أو أكثر")
-                .matches(new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"), "كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام").required(),
+                .matches(new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"), "كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام").required(),
             phone: yup.string().min(13, "هذا الحقل يجب أن يكون رقم هاتف صحيح").max(14),
             terms : yup.boolean().isTrue("يجب الموافقة على الشروط و الأحكام").required("يجب الموافقة على الشروط و الأحكام")
         }),

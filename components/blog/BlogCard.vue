@@ -1,51 +1,51 @@
 <template>
-    <article>
-        <a href="#">
-          <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" />
+  <article>
+    <a href="#">
+      <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" />
+    </a>
+
+    <div class="flex w-full flex-col space-y-4 pt-8 text-right">
+
+      <div class="flex items-center justify-between text-gray-700">
+        <a class="rounded-full bg-gray-50 px-4 pb-1.5 pt-2 text-[13px] font-semibold hover:bg-gray-100 hover:text-gray-900"
+          href="#">
+          {{ type }}
         </a>
+        <span class="text-[13px]">
+          {{ duration }}
+        </span>
+      </div>
 
-        <div class="flex w-full flex-col space-y-4 pt-8 text-right">
+      <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
+        <a href="#">
+          {{ title }}
+        </a>
+      </h3>
 
-          <div class="flex items-center justify-between text-gray-700">
-            <a class="rounded-full bg-gray-50 px-4 pb-1.5 pt-2 text-[13px] font-semibold hover:bg-gray-100 hover:text-gray-900" href="#"> 
-                {{ type }}
-            </a>
-            <span class="text-[13px]">
-                {{ duration }}
-            </span>
-          </div>
+      <p class="text-justify text-sm text-gray-800 xs:text-base">
+        {{ resume }}
+      </p>
 
-          <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
-            <a href="#">
-                {{ title }}
-            </a>
-          </h3>
+      <div class="text-sm font-semibold xs:text-base">
+        <NuxtLink v-if="slug" :to="{ name: 'posts-slug', params: { slug: slug } }">إقرأ المزيد ←</NuxtLink>
+      </div>
 
-          <p class="text-justify text-sm text-gray-800 xs:text-base">
-            {{ resume }}
-          </p>
-
-          <div class="text-sm font-semibold xs:text-base">
-            <a href="#">إقرأ المزيد ←</a>
-          </div>
-
-        </div>
-      </article>
+    </div>
+  </article>
 </template>
 
 <script setup lang="ts">
 
 defineProps<{
-    type : string,
-    title : string, 
-    duration : string, 
-    resume : string,
-    image : string
-    imageAlt : string
+  type: string,
+  title: string,
+  duration: string,
+  resume: string,
+  image: string
+  imageAlt: string,
+  slug: string
 }>()
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

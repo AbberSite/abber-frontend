@@ -3,60 +3,77 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-      @apply text-gray-900;
-      -webkit-tap-highlight-color: transparent;
-    }
-  
-    /* Disable touch callout */
-    a {
-      -webkit-touch-callout: none;
-    }
-  
-    /* Avoid content selection */
-    a,
-    button,
-    label {
-      @apply select-none;
-    }
-  
-    p {
-      @apply leading-[2.25] xs:leading-loose !important;
-    }
-  
-    details summary::-webkit-details-marker {
-      @apply hidden;
-    }
-  
-    /* Checkbox & Radiobox inputs */
-    input[type='checkbox']:checked,
-    input[type='radio']:checked {
-      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
-      background-color: currentColor;
-      background-position: 50%;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      border-color: transparent;
-    }
+  html {
+    @apply text-gray-900;
+    -webkit-tap-highlight-color: transparent;
   }
-  
-  @layer components {
-    /* Inputs */
-    .form-control {
-      @apply w-full rounded-md border bg-white px-4 py-1 text-sm shadow-sm placeholder:text-gray-600 focus:border-gray-900 focus:text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:placeholder:opacity-0;
-    }
-  
-    /* Scrollbar */
-    .is-scroll::-webkit-scrollbar {
-      @apply h-1.5 w-2;
-    }
-  
-    .is-scroll::-webkit-scrollbar-thumb {
-      @apply rounded-md bg-gray-300;
-    }
-  
-    .is-scroll::-webkit-scrollbar-thumb:hover {
-      @apply bg-gray-400;
-    }
+
+  /* Disable touch callout */
+  a {
+    -webkit-touch-callout: none;
   }
-  
+
+  /* Avoid content selection */
+  a,
+  button,
+  label {
+    @apply select-none;
+  }
+
+  p {
+    @apply leading-[2.25] xs:leading-loose !important;
+  }
+
+  details summary::-webkit-details-marker {
+    @apply hidden;
+  }
+
+  /* Checkbox & Radiobox inputs */
+  input[type='checkbox']:checked,
+  input[type='radio']:checked {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-color: transparent;
+  }
+}
+
+@layer components {
+  /* Inputs */
+  .form-control {
+    @apply w-full rounded-md border bg-white px-4 py-1 text-sm shadow-sm placeholder:text-gray-600 focus:border-gray-900 focus:text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:placeholder:opacity-0;
+  }
+
+  /* Scrollbar */
+  .is-scroll::-webkit-scrollbar {
+    @apply h-1.5 w-2;
+  }
+
+  .is-scroll::-webkit-scrollbar-thumb {
+    @apply rounded-md bg-gray-300;
+  }
+
+  .is-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  /* Custom typography */
+  .prose :where(h2):not(:where([class~='not-prose'] *)) {
+    @apply mt-0 pt-8;
+  }
+
+  .prose :where(h3):not(:where([class~='not-prose'] *)) {
+    @apply mt-0 pt-6;
+  }
+
+  .prose :where(ul):not(:where([class~='not-prose'] *)),
+  .prose :where(ol):not(:where([class~='not-prose'] *)) {
+    @apply ltr:pl-[1.125rem] rtl:pr-[1.125rem];
+  }
+
+  .prose :where(ul > li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    @apply ltr:pl-1.5 rtl:pr-1.5;
+  }
+}
