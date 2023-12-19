@@ -36,7 +36,6 @@
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="login">
 
-                    {{ currentPhone }}
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="number">رمز التأكد (OPT)</label>

@@ -15,3 +15,13 @@
     }
 
 }
+
+
+type Notification = {
+    user: User;
+    sender: User;
+    message: string;
+    read: boolean;
+    date: string;
+    url: string;
+};
