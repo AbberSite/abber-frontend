@@ -138,6 +138,8 @@ async function login() {
 
                 useRouter().push({name : 'index'})
 
+                useNotification({ type : "success", content : "تم تسجيل دخولك بنجاح"})
+
             },
             async onResponseError({ response }) {
 

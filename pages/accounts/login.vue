@@ -198,6 +198,11 @@ async function submit() {
 
     callbackUrl: '/',
     redirect: true
+  }).then(() => {
+
+    useNotification({ type : "success", content : "تم تسجيل دخولك بنجاح"})
+
+
   })
     .catch(_error => {
 

@@ -17,11 +17,8 @@
 }
 
 
-type Notification = {
-    user: User;
-    sender: User;
-    message: string;
-    read: boolean;
-    date: string;
-    url: string;
+export type Notification = {
+    id? : number,
+    type: 'success' | 'warning' | 'info' | 'danger';
+    content: string;
 };

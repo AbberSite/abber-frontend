@@ -1,6 +1,7 @@
 <template>
       <NuxtLayout>
         <NuxtPage />
+        <Notifications /> 
       </NuxtLayout>
 </template>
 
@@ -12,7 +13,6 @@ useHead({
     class : 'antialiased'
   }
 })
-
 
 definePageMeta({
   middleware : ['verified']

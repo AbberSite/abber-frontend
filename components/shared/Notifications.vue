@@ -1,41 +1,20 @@
 <template>
-	<div
-		class="fixed top-10 lg:right-10 inset-0 max-h-fit mx-auto flex flex-col gap-4 lg:max-w-fit w-10/12 z-[999999]"
-	>
-		<TransitionGroup
-			enter-active-class="transition-all duration-300"
-			leave-active-class="transition-all duration-300"
-			leave-to-class=" opacity-0 translate-y-4"
-			enter-from-class="-translate-y-4 opacity-0"
-		>
-			<Notification
-				v-for="notification in notifications"
-				:type="notification.type"
-				:title="notification.title"
-				@click="remove(notification.id)"
-				:icon="notification.icon"
-				:key="notification"
-			>
-				{{ notification.content }}
-			</Notification>
-		</TransitionGroup>
-	</div>
+    <section
+        class="fixed bottom-4 right-1/2 z-20 flex w-full translate-x-1/2 flex-col space-y-4 px-4 xs:bottom-6 xs:px-6 sm:max-w-sm md:right-auto md:translate-x-0 md:px-0 ltr:md:right-6 rtl:md:left-6 lg:bottom-8 ltr:lg:right-8 rtl:lg:left-8"
+        aria-labelledby="alerts-heading">
+        <h2 class="sr-only" id="alerts-heading">التنبيهات</h2>
+
+        <Notification v-for="notification in notifications" :type="notification.type" :id="notification.id">
+            {{ notification.content }}
+        </Notification>
+    </section>
 </template>
 
-<script setup>
-	import { useNotificationsStore } from "~/stores/notifications";
-	import { storeToRefs } from "pinia";
-	import Notification from "./Notification.vue";
+<script setup lang="ts">
+    import { useNotificationsStore } from '~/stores/notifications';
+    import { storeToRefs } from 'pinia';
 
-	const { notifications } = storeToRefs(useNotificationsStore());
-
-	function remove(id) {
-		notifications.value.map((notification, index) => {
-			if (notification.id == id) {
-				notifications.value.splice(index, 1);
-			}
-		});
-	}
+    const { notifications } = storeToRefs(useNotificationsStore());
 </script>
 
 <style scoped></style>
