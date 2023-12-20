@@ -68,7 +68,6 @@
 
             <div v-if="status == 'authenticated'" class="hidden md:flex md:flex-1 md:justify-end">
                 <div class="flex items-center">
-                    {{ notificationDropdown }}
                     <!-- Notification Button -->
                     <button
                         class="relative rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none"
