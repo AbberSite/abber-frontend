@@ -1,7 +1,7 @@
 <template>
       <NuxtLayout>
         <NuxtPage />
-        <Notifications /> 
+        <Alerts /> 
       </NuxtLayout>
 </template>
 
