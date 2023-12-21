@@ -1,13 +1,8 @@
 import axios from "axios";
-import { setBlockTracking } from "vue";
 
 export default defineEventHandler(async (event) => {
 
     const params = getQuery(event) 
-
-
-    console.log(params)
-
 
     const config = useRuntimeConfig()
 

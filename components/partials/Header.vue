@@ -9,7 +9,7 @@
             <div class="flex items-center md:hidden">
                 <!-- Notification Button -->
                 <button
-                    v-if="(status = 'authenticated')"
+                    v-if="(status == 'authenticated')"
                     class="relative me-3 rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none"
                     type="button"
                     @click="profileDropdown = true">
@@ -66,12 +66,13 @@
                 <a href="/"></a>
             </div>
 
-            <div v-if="status == 'authenticated'" class="hidden md:flex md:flex-1 md:justify-end">
+            <div v-if="status == 'authenticated' && !loading" class="hidden md:flex md:flex-1 md:justify-end">
                 <div class="flex items-center">
                     <!-- Notification Button -->
                     <button
                         class="relative rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none"
                         type="button"
+                        ref="notificationsButton"
                         @click="notificationDropdown = !notificationDropdown">
                         <span class="sr-only">عرض الاشعارات</span>
                         <!-- Heroicon name: outline/bell -->
@@ -92,7 +93,7 @@
 
                         <!-- Show when user have unread notifications -->
                         <span
-                        v-if="hasUnreadNotifications"
+                            v-if="hasUnreadNotifications"
                             class="absolute top-[3px] h-[9px] w-[9px] rounded-full border border-white bg-red-600 ltr:left-2 rtl:right-2">
                             <span
                                 class="absolute right-0 inline-flex h-full w-full flex-shrink-0 animate-ping rounded-full bg-red-600 opacity-80"></span>
@@ -132,7 +133,7 @@
                                 >الإعدادات</a
                             >
                             <a
-                                @click.prevent="signOut({ callbackUrl: '/accounts/login', redirect: true })"
+                                @click.prevent="logout"
                                 class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900"
                                 role="menuitem"
                                 tabindex="-1"
@@ -142,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else-if="status == 'loading'" class="hidden md:flex md:flex-1 md:justify-end 2xl:text-lg">
+            <div v-else-if="status == 'loading' || loading" class="hidden md:flex md:flex-1 md:justify-end 2xl:text-lg">
                 <Loading />
 
                 <!-- <a class="font-semibold" href="/accounts/login"></a> -->
@@ -163,7 +164,7 @@
                 <Notifications
                     @close="notificationDropdown = false"
                     v-if="notificationDropdown"
-                    v-on-click-outside="() => (notificationDropdown = false)" />
+                    v-on-click-outside="(onClickOutsideHandler as any)" />
             </transition>
         </nav>
         <!-- Mobile menu, show/hide based on menu open state. -->
@@ -273,49 +274,105 @@
                     </nav>
                 </div>
             </div>
-            <div class="space-y-3 py-6">
-                <NuxtLink
-                    class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                    :to="{ name: 'index' }"
-                    >من نحن</NuxtLink
-                >
-                <NuxtLink
-                    class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                    :to="{ name: 'index' }"
-                    >الأسئلة الشائعة</NuxtLink
-                >
-                <NuxtLink
-                    class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                    :to="{ name: 'index' }"
-                    >الشروط و الأحكام</NuxtLink
-                >
-                <NuxtLink
-                    class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                    :to="{ name: 'index' }"
-                    >إتفاقية المستخدم</NuxtLink
-                >
+
+            <div class="pt-6" v-if="status == 'authenticated'">
+                <div class="flex items-center justify-between pt-3">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <NuxtImg
+                                class="lazyload h-11 w-11 rounded-full bg-gray-50"
+                                :src="data.image_url"
+                                height="44"
+                                width="44"
+                                alt="" />
+                        </div>
+                        <div class="ms-3 flex flex-col">
+                            <div class="font-semibold">
+                                {{ data.first_name }}
+                            </div>
+                            <div class="text-sm font-medium text-gray-500">
+                                {{ data.user_type }}
+                            </div>
+                        </div>
+                    </div>
+                    <a class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" href="#">
+                        <span class="sr-only">تعديل البيانات</span>
+                        <!-- Heroicon name: outline/pencil-square -->
+                        <svg
+                            class="h-6 w-6"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="pt-6">
+                    <a class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50" href="#"
+                        >الملف الشخصي</a
+                    >
+                    <a class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50" href="#"
+                        >الإعدادات</a
+                    >
+                    <button class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50" @click="logout"
+                        >تسجيل الخروج</button
+                    >
+                </div>
             </div>
-            <div class="pt-6">
-                <NuxtLink
-                    class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                    :to="{ name: 'accounts-login' }">
-                    تسجيل الدخول
-                </NuxtLink>
-            </div>
+            <template v-else>
+                <div class="space-y-3 py-6">
+                    <NuxtLink
+                        class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        :to="{ name: 'index' }"
+                        >من نحن</NuxtLink
+                    >
+                    <NuxtLink
+                        class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        :to="{ name: 'index' }"
+                        >الأسئلة الشائعة</NuxtLink
+                    >
+                    <NuxtLink
+                        class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        :to="{ name: 'index' }"
+                        >الشروط و الأحكام</NuxtLink
+                    >
+                    <NuxtLink
+                        class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        :to="{ name: 'index' }"
+                        >إتفاقية المستخدم</NuxtLink
+                    >
+                </div>
+                <div class="pt-6">
+                    <NuxtLink
+                        class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        :to="{ name: 'accounts-login' }">
+                        تسجيل الدخول
+                    </NuxtLink>
+                </div>
+            </template>
         </div>
     </header>
 </template>
 
 <script setup lang="ts">
-    const { signIn, token, refreshToken, refresh, data, status, lastRefreshedAt, signOut, getSession } = useAuth();
+
+    const { data, signOut, status } = useAuth();
 
     import { vOnClickOutside } from '@vueuse/components';
-
-    const authStore = useAuthStore();
 
     const openDropdown = ref(false);
     const profileDropdown = ref(false);
     const notificationDropdown = ref(false);
+
+    const notificationsButton = ref(null);
+
+    const loading = ref(false);
 
     const hasUnreadNotifications = computed(() => {
         if (status.value != 'authenticated') return false;
@@ -326,8 +383,24 @@
             }
         }
 
-        return false
+        return false;
     });
+
+    async function logout() {
+        loading.value = true;
+        await signOut({ callbackUrl: '/accounts/login', redirect: true });
+        loading.value = false;
+
+        useNotification({ type: 'success', content: 'تم تسجيل الخروج بنجاح' });
+    }
+
+    const onClickOutsideHandler = [
+        (ev: Event) => {
+            notificationDropdown.value = false;
+        },
+        { ignore: [notificationsButton] },
+    ];
+
 </script>
 
 <style scoped></style>

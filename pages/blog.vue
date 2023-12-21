@@ -164,7 +164,7 @@
                         @click="async () => await fetchPosts(getParams(posts?.next))">
                         التالي</PrimaryButton
                     >
-                    
+
                     <!-- <a
                         class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
                         href="#">التالي</a> -->
@@ -211,13 +211,13 @@
 
 
     const debouncedSearch = useDebounceFn(async (value) => {
-        await fetchPosts({ search: value });
+        await fetchPosts({ search: value, post_category : selectedCategory.value });
     }, 500);
 
     watch(search, debouncedSearch);
 
     watch(selectedCategory, async (value: string) => {
-        await fetchPosts({ post_category: value, search: search.value, active: true, accepted: true });
+        await fetchPosts({ post_category: value, search: search.value});
     });
 
     async function fetchCategories() {
@@ -246,16 +246,15 @@
     });
 
     function getParams(url?: string) {
+        
         if (!url) return {};
 
         const urlSearchParams = new URLSearchParams(new URL(url).search);
-        // Convert the URLSearchParams object to a plain object
+
         const queryParams : any = {};
         for (const [key, value] of urlSearchParams) {
             queryParams[key] = value;
         }
-
-        console.log(queryParams);
 
         return queryParams;
     }
@@ -263,6 +262,7 @@
     const filteredPosts = computed(() => {
         return posts.value?.results;
     });
+    
 </script>
 
 <style scoped></style>
