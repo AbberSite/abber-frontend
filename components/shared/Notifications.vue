@@ -25,7 +25,7 @@
         <!-- Show when founded notifications list -->
 
         <ul class="is-scroll max-h-[400px] divide-y divide-gray-100 overflow-y-auto">
-            <li class="bg-gray-50" v-for="notification in data.notifications.results">
+            <li :class="[ notification.read ?'hover:bg-gray-50' : 'bg-gray-50']" v-for="notification in data.notifications.results">
                 <NuxtLink class="flex flex-col px-6 py-8 md:py-6">
                     <div class="flex items-start justify-between">
                         <div class="flex items-center">
