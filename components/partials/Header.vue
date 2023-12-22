@@ -9,6 +9,7 @@
             <div class="flex items-center md:hidden gap-3">
                 <!-- Notification Button -->
                 <HeaderNotificationsButton
+                    v-if="status == 'authenticated'"
                     :has-unread="hasUnreadNotifications"
                     @click="notificationDropdown = !notificationDropdown" />
 
