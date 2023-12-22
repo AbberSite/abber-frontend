@@ -2,13 +2,15 @@
     <header class="absolute inset-x-0 top-0 z-30 mx-auto max-w-7xl">
         <nav class="flex items-center justify-between px-4 py-6 xs:px-6 md:px-8" aria-label="Global">
             <div class="flex md:flex-1">
-                <NuxtLink :to="{name : 'index'}"  class="-m-1.5 p-1.5" aria-label="home button" href="/">
+                <NuxtLink :to="{ name: 'index' }" class="-m-1.5 p-1.5" aria-label="home button" href="/">
                     <img class="h-14 w-auto" src="../../assets/images/logo.webp" height="56" width="56" alt="عبر" />
                 </NuxtLink>
             </div>
-            <div class="flex items-center md:hidden gap-3 ">
+            <div class="flex items-center md:hidden gap-3">
                 <!-- Notification Button -->
-                <HeaderNotificationsButton :has-unread="hasUnreadNotifications" @click="notificationDropdown = !notificationDropdown" />
+                <HeaderNotificationsButton
+                    :has-unread="hasUnreadNotifications"
+                    @click="notificationDropdown = !notificationDropdown" />
 
                 <!-- Menu Button -->
                 <button
@@ -25,8 +27,10 @@
                 <div class="flex items-center">
                     <!-- Notification Button -->
 
-                    <HeaderNotificationsButton :has-unread="hasUnreadNotifications" @click="notificationDropdown = !notificationDropdown" />
-         
+                    <HeaderNotificationsButton
+                        :has-unread="hasUnreadNotifications"
+                        @click="notificationDropdown = !notificationDropdown" />
+
                     <!-- Profile dropdown -->
                     <div class="relative ms-3">
                         <button
@@ -78,13 +82,22 @@
         </nav>
 
         <!-- Mobile menu, show/hide based on menu open state. -->
-        <div
-            class="is-scroll fixed inset-0 divide-y-2 divide-gray-50 overflow-y-auto bg-white px-6 py-6 md:hidden"
-            v-if="openDropdown">
-            <HeaderMobileNavigation @close="openDropdown = false" @navigate="navigateAndClose" />
-            <HeaderProfileCardMobile v-if="status == 'authenticated'" @logout="logout" @navigate="navigateAndClose" />
-            <HeaderMobileNavigationFooter v-else @navigate="navigateAndClose" />
-        </div>
+        <transition
+            enter-active-class="transition-all"
+            leave-active-class="transition-all"
+            enter-from-class="translate-y-4 opacity-0"
+            leave-to-class="translate-y-4 opacity-0">
+            <div
+                class="is-scroll fixed inset-0 divide-y-2 divide-gray-50 overflow-y-auto bg-white px-6 py-6 md:hidden"
+                v-if="openDropdown">
+                <HeaderMobileNavigation @close="openDropdown = false" @navigate="navigateAndClose" />
+                <HeaderProfileCardMobile
+                    v-if="status == 'authenticated'"
+                    @logout="logout"
+                    @navigate="navigateAndClose" />
+                <HeaderMobileNavigationFooter v-else @navigate="navigateAndClose" />
+            </div>
+        </transition>
     </header>
 </template>
 
@@ -92,7 +105,6 @@
     const { data, signOut, status } = useAuth();
 
     import { Bars3Icon } from '@heroicons/vue/24/outline';
-
 
     import { vOnClickOutside } from '@vueuse/components';
 

@@ -30,13 +30,10 @@
         <h2 class="sr-only" id="features-heading">مميزات عبر</h2>
         <div class="flex">
             <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900">
+                
                 <!-- Heroicon name: outline/arrow-left-on-rectangle -->
-                <svg class="h-6 w-6 flex-shrink-0 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75">
-                    </path>
-                </svg>
+                <ArrowLeftEndOnRectangleIcon class="h-6 w-6 flex-shrink-0 text-white" />
+     
             </div>
             <div class="ms-6">
                 <h3 class="font-semibold xs:text-lg">سجل بالطريقة المناسبة لك</h3>
@@ -46,16 +43,10 @@
         </div>
         <div class="flex">
             <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900">
+
                 <!-- Heroicon name: outline/user-group -->
-                <svg class="h-6 w-6 flex-shrink-0 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z"
-                        clip-rule="evenodd"></path>
-                    <path
-                        d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z">
-                    </path>
-                </svg>
+                <UserGroupIcon class="h-6 w-6 flex-shrink-0 text-white" />
+     
             </div>
             <div class="ms-6">
                 <h3 class="font-semibold xs:text-lg">نخبة من المعبرين ينتظرونك</h3>
@@ -64,13 +55,10 @@
         </div>
         <div class="flex">
             <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900">
+
                 <!-- Heroicon name: outline/credit-card -->
-                <svg class="h-6 w-6 flex-shrink-0 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z">
-                    </path>
-                </svg>
+                <CreditCardIcon class="h-6 w-6 flex-shrink-0 text-white" />
+                
             </div>
             <div class="ms-6">
                 <h3 class="font-semibold xs:text-lg">وسائل دفع متعددة</h3>
@@ -80,13 +68,10 @@
         </div>
         <div class="flex">
         <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900">
+
             <!-- Heroicon name: outline/chat-bubble-bottom-center-text -->
-            <svg class="h-6 w-6 flex-shrink-0 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd"
-                    d="M4.848 2.771A49.144 49.144 0 0112 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 01-3.476.383.39.39 0 00-.297.17l-2.755 4.133a.75.75 0 01-1.248 0l-2.755-4.133a.39.39 0 00-.297-.17 48.9 48.9 0 01-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97zM6.75 8.25a.75.75 0 01.75-.75h9a.75.75 0 010 1.5h-9a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H7.5z"
-                    clip-rule="evenodd"></path>
-            </svg>
+            <ChatBubbleBottomCenterTextIcon class="h-6 w-6 flex-shrink-0 text-white" />
+ 
         </div>
         <div class="ms-6">
             <h3 class="font-semibold xs:text-lg">تواصل مع المعبرين</h3>
@@ -97,6 +82,9 @@
 </section></template>
 
 <script setup lang="ts">
+
+import { ArrowLeftEndOnRectangleIcon, UserGroupIcon, CreditCardIcon, ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
+
 
 </script>
 

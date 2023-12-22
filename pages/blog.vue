@@ -78,21 +78,11 @@
                             name="q"
                             id="search"
                             placeholder="البحث"
-                            required /><span
+                            required />
+                        <span
                             class="absolute h-[50px] items-center justify-center px-4 py-4 ltr:left-0 rtl:right-0 rtl:scale-x-flip">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                height="20"
-                                width="20">
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg
-                        ></span>
+                            <MagnifyingGlassIcon class="w-5 h-5" />
+                        </span>
                     </div>
                 </div>
             </form>
@@ -176,6 +166,7 @@
 
 <script setup lang="ts">
     import { useDebounceFn } from '@vueuse/core';
+    import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 
     type Post = {
         id: string;
@@ -209,15 +200,14 @@
     const loading = ref(false);
     const search = ref('');
 
-
     const debouncedSearch = useDebounceFn(async (value) => {
-        await fetchPosts({ search: value, post_category : selectedCategory.value });
+        await fetchPosts({ search: value, post_category: selectedCategory.value });
     }, 500);
 
     watch(search, debouncedSearch);
 
     watch(selectedCategory, async (value: string) => {
-        await fetchPosts({ post_category: value, search: search.value});
+        await fetchPosts({ post_category: value, search: search.value });
     });
 
     async function fetchCategories() {
@@ -246,12 +236,11 @@
     });
 
     function getParams(url?: string) {
-        
         if (!url) return {};
 
         const urlSearchParams = new URLSearchParams(new URL(url).search);
 
-        const queryParams : any = {};
+        const queryParams: any = {};
         for (const [key, value] of urlSearchParams) {
             queryParams[key] = value;
         }
@@ -262,7 +251,6 @@
     const filteredPosts = computed(() => {
         return posts.value?.results;
     });
-    
 </script>
 
 <style scoped></style>
