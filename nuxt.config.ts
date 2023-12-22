@@ -27,7 +27,10 @@ export default defineNuxtConfig({
         head: {
             charset: 'utf-8',
             link: [{ rel: 'icon', type: 'image/svg', href: '/images/favicon.ico' }],
+            script : [{ src : 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js', type : 'text/javascript' }]
         },
+
+        
     },
     components: [
         '~/components',
@@ -35,6 +38,6 @@ export default defineNuxtConfig({
         '~/components/partials',
         '~/components/shared',
         '~/components/blog',
-        '~/components/orders'
+        '~/components/orders',
     ],
 });

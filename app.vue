@@ -3,6 +3,14 @@
         <NuxtPage />
         <Alerts /> 
       </NuxtLayout>
+
+
+<meta name="appleid-signin-client-id" content="[CLIENT_ID]">
+<meta name="appleid-signin-scope" content="[SCOPES]">
+<meta name="appleid-signin-redirect-uri" content="[REDIRECT_URI]">
+<meta name="appleid-signin-state" content="[STATE]">
+<meta name="appleid-signin-nonce" content="[NONCE]">
+<meta name="appleid-signin-use-popup" content="true">
 </template>
 
 <script setup>
@@ -17,6 +25,7 @@ useHead({
 definePageMeta({
   middleware : ['verified']
 })
+
 
 useSeoMeta({
   author : "عبر",
@@ -37,6 +46,13 @@ useSeoMeta({
   twitterDescription : "عالمك الخاص لتفسير الأحلام",
   "twitter:url" :  "https://abber.netlify.app",
   canonical : "https://abber.netlify.app",
+  "appleid-signin-client-id" : "something",
+  "appleid-signin-scope" : "something",
+  "appleid-signin-redirect-uri" : "something",
+  "appleid-signin-state" : "something",
+  "appleid-signin-nonce" : "something",
+  "appleid-signin-use-popup" : "true",
+
 })
 
 </script>
