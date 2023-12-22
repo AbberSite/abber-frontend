@@ -9,10 +9,10 @@
             <div class="flex items-center md:hidden">
                 <!-- Notification Button -->
                 <button
-                    v-if="(status == 'authenticated')"
+                    v-if="status == 'authenticated'"
                     class="relative me-3 rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none"
                     type="button"
-                    @click="profileDropdown = true">
+                    @click="notificationDropdown = !notificationDropdown">
                     <span class="sr-only">عرض الاشعارات</span>
                     <!-- Heroicon name: outline/bell -->
                     <svg
@@ -32,6 +32,8 @@
 
                     <!-- Show when user have unread notifications -->
                     <span
+                    v-if="hasUnreadNotifications"
+
                         class="absolute top-[3px] h-[9px] w-[9px] rounded-full border border-white bg-red-600 ltr:left-2 rtl:right-2">
                         <span
                             class="absolute right-0 inline-flex h-full w-full flex-shrink-0 animate-ping rounded-full bg-red-600 opacity-80"></span>
@@ -203,9 +205,9 @@
                 </div>
                 <div class="pt-10">
                     <nav class="space-y-3">
-                        <RouterLink
-                            class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
-                            :to="{ name: 'index' }">
+                        <NuxtLink
+                            class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer"
+                            @click="navigateAndClose({ name: 'index' })">
                             <div
                                 class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                 <!-- Heroicon name: outline/home -->
@@ -224,11 +226,11 @@
                                 </svg>
                             </div>
                             <span class="ms-6 mt-1.5 font-semibold">الرئيسية</span>
-                        </RouterLink>
+                        </NuxtLink>
 
-                        <RouterLink
-                            class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
-                            :to="{ name: 'blog' }">
+                        <NuxtLink
+                            class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer"
+                            @click="navigateAndClose({ name: 'blog' })">
                             <div
                                 class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                 <!-- Heroicon name: outline/home -->
@@ -247,11 +249,11 @@
                                 </svg>
                             </div>
                             <span class="ms-6 mt-1.5 font-semibold">المدونة</span>
-                        </RouterLink>
+                        </NuxtLink>
 
-                        <RouterLink
-                            class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
-                            :to="{ name: 'index' }">
+                        <NuxtLink
+                            class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer"
+                            @click="navigateAndClose({ name: 'index' })">
                             <div
                                 class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                 <!-- Heroicon name: outline/home -->
@@ -270,7 +272,7 @@
                                 </svg>
                             </div>
                             <span class="ms-6 mt-1.5 font-semibold">مركز الدعم</span>
-                        </RouterLink>
+                        </NuxtLink>
                     </nav>
                 </div>
             </div>
@@ -314,44 +316,50 @@
                     </a>
                 </div>
                 <div class="pt-6">
-                    <a class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50" href="#"
-                        >الملف الشخصي</a
-                    >
-                    <a class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50" href="#"
-                        >الإعدادات</a
-                    >
-                    <button class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50" @click="logout"
-                        >تسجيل الخروج</button
-                    >
+                    <NuxtLink
+                        class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        @click="navigateAndClose({ name: 'index' })"
+                        >الملف الشخصي
+                    </NuxtLink>
+                    <NuxtLink
+                        class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        @click="navigateAndClose({ name: 'index' })"
+                        >الإعدادات
+                    </NuxtLink>
+                    <button
+                        class="-mx-3 w-full text-right block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                        @click="logout">
+                        تسجيل الخروج
+                    </button>
                 </div>
             </div>
             <template v-else>
                 <div class="space-y-3 py-6">
                     <NuxtLink
                         class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                        :to="{ name: 'index' }"
+                        @click="navigateAndClose({ name: 'index' })"
                         >من نحن</NuxtLink
                     >
                     <NuxtLink
                         class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                        :to="{ name: 'index' }"
+                        @click="navigateAndClose({ name: 'index' })"
                         >الأسئلة الشائعة</NuxtLink
                     >
                     <NuxtLink
                         class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                        :to="{ name: 'index' }"
+                        @click="navigateAndClose({ name: 'index' })"
                         >الشروط و الأحكام</NuxtLink
                     >
                     <NuxtLink
                         class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                        :to="{ name: 'index' }"
+                        @click="navigateAndClose({ name: 'index' })"
                         >إتفاقية المستخدم</NuxtLink
                     >
                 </div>
                 <div class="pt-6">
                     <NuxtLink
                         class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                        :to="{ name: 'accounts-login' }">
+                        @click="navigateAndClose({ name: 'accounts-login' })">
                         تسجيل الدخول
                     </NuxtLink>
                 </div>
@@ -361,7 +369,6 @@
 </template>
 
 <script setup lang="ts">
-
     const { data, signOut, status } = useAuth();
 
     import { vOnClickOutside } from '@vueuse/components';
@@ -401,6 +408,10 @@
         { ignore: [notificationsButton] },
     ];
 
+    async function navigateAndClose(url: string | { name: string; params?: Object }) {
+        await useRouter().push(url);
+        openDropdown.value = false;
+    }
 </script>
 
 <style scoped></style>

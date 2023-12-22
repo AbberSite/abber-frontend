@@ -5,7 +5,7 @@
         x-cloak>
         <div class="flex items-center justify-between px-6 py-8 md:hidden">
             <h2 class="text-lg font-semibold xs:text-xl">الإشعارات</h2>
-            <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button">
+            <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
                 <span class="sr-only">إغلاق القائمة</span>
                 <!-- Heroicon name: outline/x-mark -->
                 <svg
