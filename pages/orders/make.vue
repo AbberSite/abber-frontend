@@ -1,6 +1,6 @@
 <template>
 
-
+  <Header /> 
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
@@ -22,7 +22,7 @@
           <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="dream-details-heading">إدخال تفاصيل الحلم</h1>
           <div class="pt-4 text-sm text-gray-800 xs:text-base">أدخل معلوماتك و تفاصيل حلمك</div>
           <div class="mx-auto w-full max-w-sm pt-10">
-            <form method="POST">
+            <!-- <form method="POST">
               <fieldset class="space-y-7">
                 <div class="w-full space-y-3">
                   <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
@@ -47,7 +47,10 @@
                   <a class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" href="/profile"> <span class="mt-1.5">متابعة</span></a>
                 </div>
               </fieldset>
-            </form>
+            </form> -->
+            <FormStepsBase/>
+
+            <!-- <FormStepsLogin /> -->
             <nav class="pt-10" aria-label="Progress">
               <ol class="flex items-center justify-center space-x-5 rtl:space-x-reverse" role="list">
                 <li>
@@ -73,6 +76,9 @@
 
 <script setup lang="ts">
 
+definePageMeta({
+        layout : false
+    })
 
 const show = ref(false)
 

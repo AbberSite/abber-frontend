@@ -11,15 +11,11 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
-        
-    runtimeConfig : {
-        apiSecret : 'ac216011525218e62e7473e438741d8b5b23f6b9'
-    }, 
-    modules: [
-        '@nuxt/image', 
-        '@pinia/nuxt',
-        '@sidebase/nuxt-auth'
-    ],
+
+    runtimeConfig: {
+        apiSecret: 'ac216011525218e62e7473e438741d8b5b23f6b9',
+    },
+    modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
 
     auth: {
         provider: {
@@ -33,5 +29,12 @@ export default defineNuxtConfig({
             link: [{ rel: 'icon', type: 'image/svg', href: '/images/favicon.ico' }],
         },
     },
-    components: ['~/components', '~/components/main', '~/components/partials',, '~/components/shared', '~/components/blog'],
+    components: [
+        '~/components',
+        '~/components/main',
+        '~/components/partials',
+        '~/components/shared',
+        '~/components/blog',
+        '~/components/orders'
+    ],
 });
