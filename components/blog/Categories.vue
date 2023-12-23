@@ -21,7 +21,7 @@
                 {{ category?.name }}
             </span>
             <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-                {{ category?.id }}
+                {{ category?.posts_count }}
             </span>
         </a>
     </div>
@@ -40,7 +40,7 @@
 
     watch(selectedCategory, value => emits('update:modelValue', value))
 
-    const categories = ref<{ results?: Array<{ name: string; id: string }> }>({ results : [] });
+    const categories = ref<{ results?: Array<{ name: string; id: string, posts_count : number }> }>({ results : [] });
 
     async function fetchCategories() {
         const { data: categoriesData } = await useFetch('/api/blog/categories');

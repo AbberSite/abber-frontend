@@ -87,14 +87,27 @@
                 </div>
             </form>
 
+            <SkeletonsPostCard />
+
+
+ 
+
             <BlogCategories :total="(posts?.results?.length as number)" v-model="selectedCategory"/> 
 
-            <div class="flex w-full justify-center mt-10" v-if="loading">
+            <!-- <div class="flex w-full justify-center mt-10" >
                 <Loading />
-            </div>
-            <div v-else class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
-                <template v-for="post in filteredPosts" :key="post.id">
+            </div> -->
+            <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
+
+                <template v-if="loading">
+                    <SkeletonsPostCard />
+                    <SkeletonsPostCard />
+                    <SkeletonsPostCard />
+                </template>
+                <template  v-else>
                     <BlogCard
+
+                        v-for="post in filteredPosts" :key="post.id"
                         :type="post.post_category.name"
                         :title="post.title"
                         duration="5 دقائق قراءة"

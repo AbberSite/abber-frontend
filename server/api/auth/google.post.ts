@@ -17,17 +17,21 @@ export default defineEventHandler(async (event) => {
             {
                 headers: {
                     'api-key':  config.apiSecret,
+                    Accept : "application/json"
                 },
             },
         );
 
-        return {
 
-            token : response.data.access_token,
-            refreshToken : response.data.refresh_token, 
-            user : response.data.user
+        return response.data
 
-        } 
+        // return {
+
+        //     token : response.data.access_token,
+        //     refreshToken : response.data.refresh_token, 
+        //     user : response.data.user
+
+        // } 
 
     } catch ( error : any ) {
 
