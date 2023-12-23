@@ -87,32 +87,7 @@
                 </div>
             </form>
 
-            <div
-                class="is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base">
-                <a
-                    class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-                    :class="[selectedCategory === '' ? 'border-gray-900' : 'border-transparent']"
-                    @click.prevent="selectedCategory = ''"
-                    href="/blog">
-                    <span>الكل</span>
-                    <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-                        {{ posts?.results?.length }}
-                    </span>
-                </a>
-                <a
-                    v-for="category in categories.results"
-                    class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
-                    @click.prevent="selectedCategory = category?.id"
-                    :class="[selectedCategory === category?.id ? 'border-gray-900' : 'border-transparent']"
-                    href="#">
-                    <span>
-                        {{ category?.name }}
-                    </span>
-                    <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-                        {{ category?.id }}
-                    </span>
-                </a>
-            </div>
+            <BlogCategories :total="(posts?.results?.length as number)" v-model="selectedCategory"/> 
 
             <div class="flex w-full justify-center mt-10" v-if="loading">
                 <Loading />
@@ -139,9 +114,7 @@
                     </p>
                 </div>
                 <div class="flex flex-1 justify-between sm:justify-end gap-3">
-                    <!-- <button
-                        class="relative rounded-md border border-transparent bg-gray-100 px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed"
-                        type="button" disabled>السابق</button> -->
+                  
                     <PrimaryButton
                         type="button"
                         :disabled="!posts?.previous?.length"
@@ -155,9 +128,6 @@
                         التالي</PrimaryButton
                     >
 
-                    <!-- <a
-                        class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
-                        href="#">التالي</a> -->
                 </div>
             </nav>
         </section>
@@ -210,11 +180,7 @@
         await fetchPosts({ post_category: value, search: search.value });
     });
 
-    async function fetchCategories() {
-        const { data: categoriesData } = await useFetch('/api/blog/categories');
 
-        categories.value = categoriesData.value;
-    }
 
     async function fetchPosts(params?: Object) {
         loading.value = true;
@@ -232,7 +198,6 @@
         await fetchPosts();
         await fetchPosts();
 
-        await fetchCategories();
     });
 
     function getParams(url?: string) {

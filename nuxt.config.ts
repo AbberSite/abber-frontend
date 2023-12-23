@@ -37,7 +37,6 @@ export default defineNuxtConfig({
         '~/components/main',
         '~/components/partials',
         '~/components/shared',
-        '~/components/blog',
         '~/components/orders',
     ],
 });
