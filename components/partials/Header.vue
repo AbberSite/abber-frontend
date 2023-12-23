@@ -29,6 +29,7 @@
                     <!-- Notification Button -->
 
                     <HeaderNotificationsButton
+                        ref="notificationsButton"
                         :has-unread="hasUnreadNotifications"
                         @click="notificationDropdown = !notificationDropdown" />
 
