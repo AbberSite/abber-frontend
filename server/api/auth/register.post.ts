@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
                 email: body.email,
                 password: body.password,
                 phone : body.phone,
-                first_name : "another user"
+                first_name : body.name
             },
             {
                 headers: {

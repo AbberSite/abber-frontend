@@ -31,6 +31,17 @@
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="submit">
                     <fieldset class="space-y-7">
+
+                        <div class="w-full space-y-3">
+                            <label class="text-sm font-semibold xs:text-base" for="text">الإسم الكامل</label>
+                            <input v-model="name" class="form-control h-[50px] appearance-none" type="text" name="text" id="text" placeholder="اكتب إسمك الكامل" required/>
+                            <div class="text-[13px] leading-loose text-gray-500">يفضل أن يكون إسمك الكامل باللعة العربية</div>
+                            <div class="text-red-500 text-sm ">
+                                {{ errors.name }}
+                            </div>
+                        </div>
+
+
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
                             <input v-model="email" class="form-control h-[50px] appearance-none" type="email" name="email"
@@ -185,6 +196,7 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
             email: yup.string().email("هذا الحقل يجب أن يكون ايميل").required("هذا الحقل يجب أن لا يكون فارغ"),
+            name: yup.string().required("هذا الحقل يجب أن لا يكون فارغ"),
             password: yup.string()
                 .min(8, "طول كلمة السر يجب أن يكون 8 حروف أو أكثر")
                 .matches(new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"), "كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام").required(),
@@ -196,9 +208,11 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
 const { signUp } = useAuth()
 const loading = ref(false)
 const [email] = defineField('email');
+const [name] = defineField("name");
 const [password] = defineField('password');
 const [phone] = defineField("phone");
 const [terms] = defineField("terms");
+
 
 
 const checkEmailExistence = useDebounceFn(async (value) => {
@@ -235,7 +249,7 @@ async function submit() {
 
         loading.value = true
 
-        await signUp({ email: email.value, password: password.value, phone: "+" + phone.value }, {
+        await signUp({ name : name.value, email: email.value, password: password.value, phone: "+" + phone.value }, {
 
             callbackUrl: '/',
             redirect: true
