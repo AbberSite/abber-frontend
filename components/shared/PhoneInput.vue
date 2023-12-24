@@ -67,11 +67,7 @@
         });
 
         (phoneInput.value as HTMLInputElement)?.addEventListener('blur', () => {
-            // reset();
-            // phone.value.classList.add('form-invalid');
             const errorCode = iti.getValidationError();
-            // errorMsg.innerHTML = errorMap[errorCode];
-            // errorMsg.classList.remove('hidden');
         });
 
           watch(phone, (value) => {
@@ -97,8 +93,5 @@
 
           })
 
-        // Reset phone number field validation on keyup or change
-        //   phone.addEventListener('change', reset);
-        //   phone.addEventListener('keyup', reset);
     });
 </script>

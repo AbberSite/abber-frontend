@@ -36,9 +36,9 @@
                             <label class="text-sm font-semibold xs:text-base" for="text">الإسم الكامل</label>
                             <input v-model="name" class="form-control h-[50px] appearance-none" type="text" name="text" id="text" placeholder="اكتب إسمك الكامل" required/>
                             <div class="text-[13px] leading-loose text-gray-500">يفضل أن يكون إسمك الكامل باللعة العربية</div>
-                            <div class="text-red-500 text-sm ">
-                                {{ errors.name }}
-                            </div>
+
+                            <InputError :message="errors.name" />
+
                         </div>
 
 
@@ -46,9 +46,9 @@
                             <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
                             <input v-model="email" class="form-control h-[50px] appearance-none" type="email" name="email"
                                 id="email" placeholder="البريد الألكتروني" autocomplete="email" required />
-                            <div class="text-red-500 text-sm ">
-                                {{ errors.email }}
-                            </div>
+
+                            <InputError :message="errors.email" />
+
                         </div>
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="password">كلمة المرور</label>
@@ -77,9 +77,9 @@
 
                                 </button>
                             </div>
-                            <div class="text-red-500 text-sm ">
-                                {{ errors.password }}
-                            </div>
+
+                            <InputError :message="errors.password" />
+
                         </div>
                         <div class="w-full space-y-3">
                             <!-- <label class="text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label>
@@ -101,9 +101,9 @@
                                 <a class="text-blue-600" href="#">إتفاقية المستخدم</a>
                             </label>
                         </div>
-                        <div class="text-red-500 text-sm ">
-                            {{ errors.terms }}
-                        </div>
+
+                        <InputError :message="errors.terms" />
+
                         <div>
                             <PrimaryButton class="w-full" :loading="loading">التسجيل</PrimaryButton>
                         </div>

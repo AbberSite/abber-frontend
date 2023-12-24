@@ -81,9 +81,8 @@
                                 placeholder="البريد الألكتروني"
                                 autocomplete="email"
                                 required />
-                            <div class="text-red-500 text-sm">
-                                {{ errors.email }}
-                            </div>
+                            <InputError :message="errors.email" />
+
                         </div>
                         <div class="w-full space-y-3">
                             <label class="text-sm font-semibold xs:text-base" for="password">كلمة المرور</label>
@@ -136,9 +135,9 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="text-red-500 text-sm">
-                                {{ errors.password }}
-                            </div>
+
+                            <InputError :message="errors.password" />
+
                         </div>
                         <div class="flex items-center justify-between text-sm xs:text-base">
                             <div class="flex items-center">
@@ -154,9 +153,7 @@
                             </NuxtLink>
                         </div>
                         <div>
-                            <div class="text-red-500 text-sm my-7">
-                                {{ error }}
-                            </div>
+                            <InputError :message="error" /> 
 
                             <PrimaryButton class="w-full" :loading="loading"> تسجيل الدخول </PrimaryButton>
                         </div>
