@@ -41,7 +41,7 @@
                             <input class="form-control h-[50px] appearance-none" type="tel" name="phone" id="tel"
                                 placeholder="7835196169" autocomplete="tel" required /> -->
 
-                            <PhoneInput v-model="phone" />
+                            <PhoneInput v-model="phone" v-model:valid="valid" />
                             <div class="text-red-500 text-sm ">
                                 {{ errors.phone }}
                             </div>
@@ -82,11 +82,11 @@ const loading = ref(false)
 const errors = ref<{
     phone?: string
 }>({})
+const valid = ref(false)
 
 async function send() {
 
-    // Login logic goes here
-
+    if(!valid.value) return    
 
     try {
         loading.value = true
@@ -95,7 +95,7 @@ async function send() {
 
             body: {
 
-                phone: "+" + phone.value
+                phone:  phone.value
 
             }
 
@@ -109,7 +109,6 @@ async function send() {
             }>
         }
 
-        console.log(data)
 
         if (!data.value.registered) {
 
@@ -122,9 +121,9 @@ async function send() {
 
         const { currentPhone } = storeToRefs(useAuthStore())
 
-        currentPhone.value = "+" + phone.value
+        currentPhone.value = phone.value
 
-        sessionStorage.setItem("abber:whatsapp-number", "+" + phone.value)
+        sessionStorage.setItem("abber:whatsapp-number", phone.value)
 
         router.push({ name: "accounts-whatsapp-otp" })
 

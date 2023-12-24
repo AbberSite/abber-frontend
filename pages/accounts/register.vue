@@ -86,12 +86,10 @@
                             <input v-model="phone" class="form-control h-[50px] appearance-none" type="tel"
                                 name="phone" id="tel" placeholder="رقم الهاتف" autocomplete="tel" required /> -->
 
-                            <PhoneInput v-model="phone" />
-                            <div class="text-red-500 text-sm ">
-                                {{ errors.phone }}
-                            </div>
+                            <PhoneInput v-model="phone" v-model:valid="phoneValid" />
 
                         </div>
+
                         <div class="flex items-center text-sm xs:text-base">
                             <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
                             v-model="terms"
@@ -128,7 +126,7 @@
 
 <script setup lang="ts">
 
-import { ErrorMessage, defineRule, useForm } from 'vee-validate';
+import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { useDebounceFn } from '@vueuse/core';
@@ -154,11 +152,12 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
             password: yup.string()
                 .min(8, "طول كلمة السر يجب أن يكون 8 حروف أو أكثر")
                 .matches(new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"), "كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام").required(),
-            phone: yup.string().min(13, "هذا الحقل يجب أن يكون رقم هاتف صحيح").max(14),
+            phone: yup.string(),
             terms : yup.boolean().isTrue("يجب الموافقة على الشروط و الأحكام").required("يجب الموافقة على الشروط و الأحكام")
         }),
     ),
 });
+
 const { signUp } = useAuth()
 const loading = ref(false)
 const [email] = defineField('email');
@@ -166,8 +165,7 @@ const [name] = defineField("name");
 const [password] = defineField('password');
 const [phone] = defineField("phone");
 const [terms] = defineField("terms");
-
-
+const phoneValid = ref(false)
 
 const checkEmailExistence = useDebounceFn(async (value) => {
 
@@ -196,8 +194,7 @@ async function submit() {
 
     const validation = await validate()
 
-
-    if (!validation.valid) return
+    if (!validation.valid || !phoneValid.value) return
 
     try {
 

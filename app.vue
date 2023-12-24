@@ -19,6 +19,10 @@ useHead({
   bodyAttrs : {
     dir : "rtl",
     class : 'antialiased'
+  },
+  htmlAttrs : {
+    dir : "rtl",
+
   }
 })
 
