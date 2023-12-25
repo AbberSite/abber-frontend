@@ -87,7 +87,7 @@
                 </div>
             </form>
 
-            <BlogCategories :total="(posts?.results?.length as number)" v-model="selectedCategory" />
+            <BlogCategories :total="(total as number)" v-model="selectedCategory" />
 
             <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
                 <template v-if="loading">
@@ -115,13 +115,13 @@
             <nav class="flex w-full items-center justify-between pt-28" aria-label="Pagination">
                 <div class="hidden sm:block">
                     <p class="space-x-2 rtl:space-x-reverse">
-                        <span>عرض</span><span class="font-semibold">
-                            {{ from }}
-                        </span><span>إلى</span
+                        <span>عرض</span
                         ><span class="font-semibold">
-                            {{ to }}
-                        </span><span>من</span
-                        ><span class="font-semibold"> {{ total }} </span><span>نتيجة</span>
+                            {{ from }} </span
+                        ><span>إلى</span
+                        ><span class="font-semibold">
+                            {{ to }} </span
+                        ><span>من</span><span class="font-semibold"> {{ total }} </span><span>نتيجة</span>
                     </p>
                 </div>
                 <div class="flex w-full items-center justify-between sm:justify-end">
@@ -138,7 +138,8 @@
                         السابق</PrimaryButton
                     >
                     <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
-                        <span class="font-semibold">9</span><span>\</span><span class="font-semibold">{{ total }}</span>
+                        <span class="font-semibold"> {{ posts.results.length }}</span
+                        ><span>\</span><span class="font-semibold">{{ total }}</span>
                     </p>
 
                     <PrimaryButton
@@ -154,6 +155,24 @@
                         ">
                         التالي</PrimaryButton
                     >
+
+                    {{ !posts?.next?.length }}
+
+                    <button
+                    type="button"
+                        :disabled="posts?.next?.length == 0"
+                        :loading="nextLoading"
+                        @click="
+                            async () => {
+                                nextLoading = true;
+                                await fetchPosts(getParams(posts?.next));
+                                nextLoading = false;
+                            }
+                        "
+                        class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
+                        href="#">
+                        <span class="mt-1.5">التالي</span>
+                    </button>
                 </div>
             </nav>
         </section>
@@ -188,11 +207,11 @@ type Response = {
     count?: number;
     next?: string;
     previous?: string;
-    results?: Post[];
+    results: Post[];
 };
 
 const selectedCategory = ref('');
-const posts = ref<Response>({});
+const posts = ref<Response>({ results: [] });
 const categories = ref<{ results?: Array<{ name: string; id: string }> }>({});
 const loading = ref(false);
 const search = ref('');
@@ -217,13 +236,17 @@ watch(selectedCategory, async (value: string) => {
 async function fetchPosts(params: any) {
     loading.value = true;
 
-    pagainationMeta.value = { offset : params.offset ?? 0, limit : params.limit ?? 20 } as { offset: number|string, limit : number|string }
-
-    
+    params.active = true;
+    params.accepted = true;
 
     const { data } = (await useFetch(`/api/blog/posts`, {
         params
     })) as { data: Ref<Response> };
+
+    pagainationMeta.value = { offset: params.offset ?? 0, limit: params.limit ?? 20 } as {
+        offset: number | string;
+        limit: number | string;
+    };
 
     posts.value = data.value;
 
@@ -231,20 +254,22 @@ async function fetchPosts(params: any) {
 }
 
 const total = ref<number | undefined>(0);
-const pagainationMeta = ref<{ offset: number|string, limit : number|string }>({ offset: 0, limit: 20 });
+const pagainationMeta = ref<{ offset: number | string; limit: number | string }>({ offset: 0, limit: 20 });
 
 onMounted(async () => {
-
     await fetchPosts({ offset: 0, limit: 20 });
     await fetchPosts({ offset: 0, limit: 20 });
 
     total.value = posts.value.count;
-
 });
 
-
-const from = computed(() => Number.parseInt(pagainationMeta.value.offset as string) + 1)
-const to = computed(() => Number.parseInt(pagainationMeta.value.offset as string)  + Number.parseInt(pagainationMeta.value.limit as string) )
+const from = computed(() => Number.parseInt(pagainationMeta.value.offset as string) + 1);
+const to = computed(() =>
+    posts.value?.next?.length
+        ? Number.parseInt(pagainationMeta.value.offset as string) +
+          Number.parseInt(pagainationMeta.value.limit as string)
+        : ((Number.parseInt(pagainationMeta.value.offset as string) + posts.value.results?.length) as number)
+);
 
 function getParams(url?: string) {
     if (!url) return {};
@@ -258,7 +283,6 @@ function getParams(url?: string) {
 
     return queryParams;
 }
-
 </script>
 
 <style scoped></style>
