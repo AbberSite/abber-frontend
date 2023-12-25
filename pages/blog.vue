@@ -90,47 +90,68 @@
             <BlogCategories :total="(posts?.results?.length as number)" v-model="selectedCategory" />
 
             <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
-
                 <template v-if="loading">
-                    
-                        <SkeletonsPostCard />
-                        <SkeletonsPostCard />
-                        <SkeletonsPostCard />
-                        <SkeletonsPostCard />
-                        <SkeletonsPostCard />
-                        <SkeletonsPostCard />
-
+                    <SkeletonsPostCard />
+                    <SkeletonsPostCard />
+                    <SkeletonsPostCard />
+                    <SkeletonsPostCard />
+                    <SkeletonsPostCard />
+                    <SkeletonsPostCard />
                 </template>
-    
+
                 <template v-else>
-
-                    <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
-                    duration="5 دقائق قراءة" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image" :slug="post.slug" />
-
+                    <BlogCard
+                        v-for="post in filteredPosts"
+                        :type="post.post_category.name"
+                        :title="post.title"
+                        duration="5 دقائق قراءة"
+                        :image-alt="post.image_alt"
+                        :resume="post.meta_content"
+                        :image="post.image"
+                        :slug="post.slug" />
                 </template>
-    
             </div>
 
-            <nav class="flex items-center justify-between pt-28 sm:w-full" aria-label="Pagination">
+            <nav class="flex w-full items-center justify-between pt-28" aria-label="Pagination">
                 <div class="hidden sm:block">
                     <p class="space-x-2 rtl:space-x-reverse">
-                        <span>عرض</span><span class="font-semibold">1</span><span>إلى</span
-                        ><span class="font-semibold">9</span><span>من</span
-                        ><span class="font-semibold">{{ posts?.count }}</span
-                        ><span>نتيجة</span>
+                        <span>عرض</span><span class="font-semibold">
+                            {{ from }}
+                        </span><span>إلى</span
+                        ><span class="font-semibold">
+                            {{ to }}
+                        </span><span>من</span
+                        ><span class="font-semibold"> {{ total }} </span><span>نتيجة</span>
                     </p>
                 </div>
-                <div class="flex flex-1 justify-between sm:justify-end gap-3">
+                <div class="flex w-full items-center justify-between sm:justify-end">
                     <PrimaryButton
                         type="button"
                         :disabled="!posts?.previous?.length"
-                        @click="async () => await fetchPosts(getParams(posts?.previous))">
+                        :loading="previousLoading"
+                        @click="
+                            async () => {
+                                previousLoading = true;
+                                await fetchPosts(getParams(posts?.previous)), (previousLoading = false);
+                            }
+                        ">
                         السابق</PrimaryButton
                     >
+                    <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
+                        <span class="font-semibold">9</span><span>\</span><span class="font-semibold">{{ total }}</span>
+                    </p>
+
                     <PrimaryButton
                         type="button"
                         :disabled="!posts?.next?.length"
-                        @click="async () => await fetchPosts(getParams(posts?.next))">
+                        :loading="nextLoading"
+                        @click="
+                            async () => {
+                                nextLoading = true;
+                                await fetchPosts(getParams(posts?.next));
+                                nextLoading = false;
+                            }
+                        ">
                         التالي</PrimaryButton
                     >
                 </div>
@@ -142,6 +163,7 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core';
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+import { object } from 'yup';
 
 type Post = {
     id: string;
@@ -175,6 +197,13 @@ const categories = ref<{ results?: Array<{ name: string; id: string }> }>({});
 const loading = ref(false);
 const search = ref('');
 
+const nextLoading = ref(false);
+const previousLoading = ref(false);
+
+const filteredPosts = computed(() => {
+    return posts.value?.results;
+});
+
 const debouncedSearch = useDebounceFn(async (value) => {
     await fetchPosts({ search: value, post_category: selectedCategory.value });
 }, 500);
@@ -185,8 +214,12 @@ watch(selectedCategory, async (value: string) => {
     await fetchPosts({ post_category: value, search: search.value });
 });
 
-async function fetchPosts(params?: Object) {
+async function fetchPosts(params: any) {
     loading.value = true;
+
+    pagainationMeta.value = { offset : params.offset ?? 0, limit : params.limit ?? 20 } as { offset: number|string, limit : number|string }
+
+    
 
     const { data } = (await useFetch(`/api/blog/posts`, {
         params
@@ -197,10 +230,21 @@ async function fetchPosts(params?: Object) {
     loading.value = false;
 }
 
+const total = ref<number | undefined>(0);
+const pagainationMeta = ref<{ offset: number|string, limit : number|string }>({ offset: 0, limit: 20 });
+
 onMounted(async () => {
-    await fetchPosts();
-    await fetchPosts();
+
+    await fetchPosts({ offset: 0, limit: 20 });
+    await fetchPosts({ offset: 0, limit: 20 });
+
+    total.value = posts.value.count;
+
 });
+
+
+const from = computed(() => Number.parseInt(pagainationMeta.value.offset as string) + 1)
+const to = computed(() => Number.parseInt(pagainationMeta.value.offset as string)  + Number.parseInt(pagainationMeta.value.limit as string) )
 
 function getParams(url?: string) {
     if (!url) return {};
@@ -215,9 +259,6 @@ function getParams(url?: string) {
     return queryParams;
 }
 
-const filteredPosts = computed(() => {
-    return posts.value?.results;
-});
 </script>
 
 <style scoped></style>

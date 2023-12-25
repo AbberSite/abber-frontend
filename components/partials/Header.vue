@@ -1,5 +1,6 @@
 <template>
     <header class="absolute inset-x-0 top-0 z-30 mx-auto max-w-7xl">
+
         <nav class="flex items-center justify-between px-4 py-6 xs:px-6 md:px-8" aria-label="Global">
             <div class="flex md:flex-1">
                 <NuxtLink :to="{ name: 'index' }" class="-m-1.5 p-1.5" aria-label="home button" href="/">

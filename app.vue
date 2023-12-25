@@ -29,8 +29,6 @@ useHead({
 definePageMeta({
   middleware : ['verified']
 })
-
-
 useSeoMeta({
   author : "عبر",
   robots : "index, follow",
@@ -58,5 +56,22 @@ useSeoMeta({
   "appleid-signin-use-popup" : "true",
 
 })
+
+onMounted( async () => {
+
+  const _rawRefreshToken = useCookie('auth:refresh-token')
+  const {rawRefreshToken, data } = useAuthState()
+
+if(_rawRefreshToken.value && !data.value ) {
+
+  const { refresh } = useAuth()
+
+  rawRefreshToken.value = _rawRefreshToken.value
+
+  await refresh()
+  
+}
+})
+
 
 </script>

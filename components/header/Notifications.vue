@@ -92,7 +92,6 @@ type Notification = {
 const { status } = useAuth()
 
 const loading = computed(() => status.value == "loading")
-// const loading = computed(() => true)
 
 onMounted(async () => {
 
