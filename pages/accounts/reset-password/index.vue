@@ -39,14 +39,15 @@
       <div class="mx-auto w-full max-w-sm pt-10">
         <form method="POST" @submit.prevent="submit">
           <fieldset class="space-y-7">
-            <div class="w-full space-y-3">
-              <label class="text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
-              <input v-model="email" class="form-control h-[50px] appearance-none" type="email" name="email" id="email"
-                placeholder="البريد الألكتروني" autocomplete="email" required />
-              <span class="text-red-500 text-sm ">
-                {{ errors.email }}
-              </span>
-            </div>
+            
+            <TextInput
+            name="email"
+            type="email"
+            v-model="email"
+            :error="errors.email"
+            label="البريد الألكتروني"
+            placeholder="البريد الألكتروني" />
+
             <div>
               <!-- <button
                 class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"

@@ -46,9 +46,21 @@
     @apply w-full rounded-md border bg-white px-4 py-1 text-sm shadow-sm placeholder:text-gray-600 focus:border-gray-900 focus:text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:placeholder:opacity-0;
   }
 
+  .form-invalid {
+    @apply border-red-600 ring-1 ring-red-600 focus:border-red-600 focus:ring-red-600 !important;
+  }
+
   /* Scrollbar */
   .is-scroll::-webkit-scrollbar {
-    @apply h-1.5 w-2;
+    @apply h-1 w-1.5;
+  }
+
+  .blog.is-scroll::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  .blog.is-scroll:hover::-webkit-scrollbar {
+    @apply block;
   }
 
   .is-scroll::-webkit-scrollbar-thumb {
@@ -77,7 +89,6 @@
     @apply ltr:pl-1.5 rtl:pr-1.5;
   }
 }
-
 
 .iti {
 

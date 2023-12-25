@@ -87,36 +87,30 @@
                 </div>
             </form>
 
-            <SkeletonsPostCard />
+            <BlogCategories :total="(posts?.results?.length as number)" v-model="selectedCategory" />
 
-
- 
-
-            <BlogCategories :total="(posts?.results?.length as number)" v-model="selectedCategory"/> 
-
-            <!-- <div class="flex w-full justify-center mt-10" >
-                <Loading />
-            </div> -->
-            <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
 
                 <template v-if="loading">
-                    <SkeletonsPostCard />
-                    <SkeletonsPostCard />
-                    <SkeletonsPostCard />
-                </template>
-                <template  v-else>
-                    <BlogCard
+                    
+                        <SkeletonsPostCard />
+                        <SkeletonsPostCard />
+                        <SkeletonsPostCard />
+                        <SkeletonsPostCard />
+                        <SkeletonsPostCard />
+                        <SkeletonsPostCard />
 
-                        v-for="post in filteredPosts" :key="post.id"
-                        :type="post.post_category.name"
-                        :title="post.title"
-                        duration="5 دقائق قراءة"
-                        :image-alt="post.image_alt"
-                        :resume="post.meta_content"
-                        :image="post.image"
-                        :slug="post.slug" />
                 </template>
+    
+                <template v-else>
+
+                    <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
+                    duration="5 دقائق قراءة" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image" :slug="post.slug" />
+
+                </template>
+    
             </div>
+
             <nav class="flex items-center justify-between pt-28 sm:w-full" aria-label="Pagination">
                 <div class="hidden sm:block">
                     <p class="space-x-2 rtl:space-x-reverse">
@@ -127,7 +121,6 @@
                     </p>
                 </div>
                 <div class="flex flex-1 justify-between sm:justify-end gap-3">
-                  
                     <PrimaryButton
                         type="button"
                         :disabled="!posts?.previous?.length"
@@ -140,7 +133,6 @@
                         @click="async () => await fetchPosts(getParams(posts?.next))">
                         التالي</PrimaryButton
                     >
-
                 </div>
             </nav>
         </section>
@@ -148,87 +140,84 @@
 </template>
 
 <script setup lang="ts">
-    import { useDebounceFn } from '@vueuse/core';
-    import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+import { useDebounceFn } from '@vueuse/core';
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 
-    type Post = {
-        id: string;
-        user: string;
-        post_category: Category;
-        title: string;
-        content: string;
-        meta_content: string;
-        image: string;
-        image_alt: string;
-        slug: string;
-        active: boolean;
-        bookmark: [];
-    };
+type Post = {
+    id: string;
+    user: string;
+    post_category: Category;
+    title: string;
+    content: string;
+    meta_content: string;
+    image: string;
+    image_alt: string;
+    slug: string;
+    active: boolean;
+    bookmark: [];
+};
 
-    type Category = {
-        id: number;
-        name: string;
-    };
+type Category = {
+    id: number;
+    name: string;
+};
 
-    type Response = {
-        count?: number;
-        next?: string;
-        previous?: string;
-        results?: Post[];
-    };
+type Response = {
+    count?: number;
+    next?: string;
+    previous?: string;
+    results?: Post[];
+};
 
-    const selectedCategory = ref('');
-    const posts = ref<Response>({});
-    const categories = ref<{ results?: Array<{ name: string; id: string }> }>({});
-    const loading = ref(false);
-    const search = ref('');
+const selectedCategory = ref('');
+const posts = ref<Response>({});
+const categories = ref<{ results?: Array<{ name: string; id: string }> }>({});
+const loading = ref(false);
+const search = ref('');
 
-    const debouncedSearch = useDebounceFn(async (value) => {
-        await fetchPosts({ search: value, post_category: selectedCategory.value });
-    }, 500);
+const debouncedSearch = useDebounceFn(async (value) => {
+    await fetchPosts({ search: value, post_category: selectedCategory.value });
+}, 500);
 
-    watch(search, debouncedSearch);
+watch(search, debouncedSearch);
 
-    watch(selectedCategory, async (value: string) => {
-        await fetchPosts({ post_category: value, search: search.value });
-    });
+watch(selectedCategory, async (value: string) => {
+    await fetchPosts({ post_category: value, search: search.value });
+});
 
+async function fetchPosts(params?: Object) {
+    loading.value = true;
 
+    const { data } = (await useFetch(`/api/blog/posts`, {
+        params
+    })) as { data: Ref<Response> };
 
-    async function fetchPosts(params?: Object) {
-        loading.value = true;
+    posts.value = data.value;
 
-        const { data } = (await useFetch(`/api/blog/posts`, {
-            params,
-        })) as { data: Ref<Response> };
+    loading.value = false;
+}
 
-        posts.value = data.value;
+onMounted(async () => {
+    await fetchPosts();
+    await fetchPosts();
+});
 
-        loading.value = false;
+function getParams(url?: string) {
+    if (!url) return {};
+
+    const urlSearchParams = new URLSearchParams(new URL(url).search);
+
+    const queryParams: any = {};
+    for (const [key, value] of urlSearchParams) {
+        queryParams[key] = value;
     }
 
-    onMounted(async () => {
-        await fetchPosts();
-        await fetchPosts();
+    return queryParams;
+}
 
-    });
-
-    function getParams(url?: string) {
-        if (!url) return {};
-
-        const urlSearchParams = new URLSearchParams(new URL(url).search);
-
-        const queryParams: any = {};
-        for (const [key, value] of urlSearchParams) {
-            queryParams[key] = value;
-        }
-
-        return queryParams;
-    }
-
-    const filteredPosts = computed(() => {
-        return posts.value?.results;
-    });
+const filteredPosts = computed(() => {
+    return posts.value?.results;
+});
 </script>
 
 <style scoped></style>

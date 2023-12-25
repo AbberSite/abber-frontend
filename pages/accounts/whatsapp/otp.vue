@@ -87,27 +87,22 @@
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="login">
                     <fieldset class="space-y-7">
-                        <div class="w-full space-y-3">
-                            <label class="text-sm font-semibold xs:text-base" for="number">رمز التأكد (OPT)</label>
-                            <input
-                                v-model="otp"
-                                class="form-control h-[50px] appearance-none"
-                                type="number"
-                                name="number"
-                                id="number"
-                                placeholder="ادخل الرمز المكون من 6 ارقام"
-                                required />
-                        </div>
 
-                        <InputError :message="error" />
+                        <TextInput
+                        name="otp"
+                        type="number"
+                        id="otp"
+                        v-model="otp"
+                        :error="error"
+                        label="رمز التأكد (OPT)"
+                        placeholder="ادخل الرمز المكون من 4 ارقام" />
 
                         <div>
-                            <!-- <button
-                                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                href="/profile"> <span class="mt-1.5"></span></button> -->
 
                             <PrimaryButton class="w-full" :loading="loading"> تسجيل الدخول </PrimaryButton>
+
                         </div>
+                        
                     </fieldset>
                 </form>
                 <div class="pt-8 text-center text-sm xs:text-base">
