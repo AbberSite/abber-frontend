@@ -195,7 +195,6 @@ type Response = {
 
 const selectedCategory = ref('');
 const posts = ref<Response>({ results: [] });
-const categories = ref<{ results?: Array<{ name: string; id: string }> }>({});
 const loading = ref(false);
 const search = ref('');
 
