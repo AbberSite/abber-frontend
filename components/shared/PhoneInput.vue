@@ -95,3 +95,34 @@
 
     });
 </script>
+
+<style>
+
+.iti {
+    width: 100%;
+    direction: ltr;
+  }
+
+  .iti--allow-dropdown input {
+    padding-left: 110px !important;
+    padding-right: 16px !important;
+  }
+
+  .iti__selected-flag {
+    padding: 0 12px 0 16px !important;
+  }
+
+  .iti--separate-dial-code .iti__selected-dial-code {
+    margin-top: 6px;
+  }
+
+  .iti__country-list {
+    padding: 11px 6px !important;
+  }
+
+  .iti__country-name,
+  .iti__dial-code {
+    margin-top: 6px;
+    display: inline-block;
+  }
+</style>

@@ -13,6 +13,9 @@
         <Faq />
         <SupportFloatingButton />
     </main>
+
+    <SupportFloatingButton />
+
 </template>
 
 <script setup lang="ts">

@@ -115,34 +115,32 @@
             <nav class="flex w-full items-center justify-between pt-28" aria-label="Pagination">
                 <div class="hidden sm:block">
                     <p class="space-x-2 rtl:space-x-reverse">
-                        <span>عرض</span
-                        ><span class="font-semibold">
-                            {{ from }} </span
-                        ><span>إلى</span
-                        ><span class="font-semibold">
-                            {{ to }} </span
-                        ><span>من</span><span class="font-semibold"> {{ total }} </span><span>نتيجة</span>
+                        <span>عرض</span><span class="font-semibold"> {{ from }} </span><span>إلى</span
+                        ><span class="font-semibold"> {{ to }} </span><span>من</span
+                        ><span class="font-semibold"> {{ total }} </span><span>نتيجة</span>
                     </p>
                 </div>
                 <div class="flex w-full items-center justify-between sm:justify-end">
-                    <PrimaryButton
-                        type="button"
-                        :disabled="!posts?.previous?.length"
-                        :loading="previousLoading"
+                    <button
                         @click="
                             async () => {
                                 previousLoading = true;
                                 await fetchPosts(getParams(posts?.previous)), (previousLoading = false);
                             }
-                        ">
-                        السابق</PrimaryButton
-                    >
-                    <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
-                        <span class="font-semibold"> {{ posts.results.length }}</span
-                        ><span>\</span><span class="font-semibold">{{ total }}</span>
-                    </p>
+                        "
+                        :disabled="!posts?.previous?.length"
+                        class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
+                        type="button">
+                        <Loading v-if="previousLoading" />
 
-                    <PrimaryButton
+                        <span v-else class="mt-1.5">السابق</span>
+                    </button>
+                    <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
+                        <span class="font-semibold"> {{ posts.results.length }}</span>
+                        <span>\</span>
+                        <span class="font-semibold">{{ total }}</span>
+                    </p>
+                    <button
                         type="button"
                         :disabled="!posts?.next?.length"
                         :loading="nextLoading"
@@ -152,26 +150,11 @@
                                 await fetchPosts(getParams(posts?.next));
                                 nextLoading = false;
                             }
-                        ">
-                        التالي</PrimaryButton
-                    >
-
-                    {{ !posts?.next?.length }}
-
-                    <button
-                    type="button"
-                        :disabled="posts?.next?.length == 0"
-                        :loading="nextLoading"
-                        @click="
-                            async () => {
-                                nextLoading = true;
-                                await fetchPosts(getParams(posts?.next));
-                                nextLoading = false;
-                            }
                         "
-                        class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
+                        class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
                         href="#">
-                        <span class="mt-1.5">التالي</span>
+                        <Loading v-if="nextLoading" />
+                        <span v-else class="mt-1.5">التالي</span>
                     </button>
                 </div>
             </nav>
@@ -242,6 +225,8 @@ async function fetchPosts(params: any) {
     const { data } = (await useFetch(`/api/blog/posts`, {
         params
     })) as { data: Ref<Response> };
+
+    if (!data.value) return;
 
     pagainationMeta.value = { offset: params.offset ?? 0, limit: params.limit ?? 20 } as {
         offset: number | string;

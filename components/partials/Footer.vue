@@ -12,6 +12,7 @@
                     <label class="sr-only" for="email">البريد الإلكتروني</label>
                     <div class="w-full space-y-3">
                         <input class="form-control h-[50px] appearance-none" type="email" name="email" id="email"
+                        placeholder="اكتب عنوان بريدك الالكتروني"
                             autocomplete="email" required />
                     </div>
                     <div class="pt-4 sm:ms-3 sm:pt-0">
