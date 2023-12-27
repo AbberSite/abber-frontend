@@ -4,8 +4,8 @@
         x-show="openDropdown === 1"
         x-cloak>
         <div class="flex h-full flex-col">
-            
-            <div class="flex items-center justify-between px-6 py-8 md:hidden">
+
+            <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8 md:hidden">
                 <h2 class="text-lg font-semibold xs:text-xl">الإشعارات</h2>
                 <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
                     <span class="sr-only">إغلاق القائمة</span>
@@ -23,6 +23,7 @@
                     </svg>
                 </button>
             </div>
+
             <!-- Show when founded notifications list -->
             <template v-if="data.notifications.results.length != 0">
                 <ul class="is-scroll divide-y divide-gray-100 overflow-y-auto pb-20 md:max-h-[400px] md:pb-0">
@@ -32,17 +33,17 @@
                         <SkeletonsNotification />
                         <SkeletonsNotification />
                         <SkeletonsNotification />
-
                     </template>
                     <template v-else>
                         <HeaderNotification v-for="notification in data.notifications.results" :notification="notification" />
                     </template>
                 </ul>
-                <div class="fixed bottom-0 z-40 w-full bg-white px-6 py-6 text-center md:relative">
+                <div class="fixed bottom-0 z-40 w-full border-t border-gray-100 bg-white px-6 py-6 text-center md:relative">
                     <a class="px-6 py-3 font-semibold md:text-sm" href="#">عرض جميع الإشعارات ←</a>
                 </div>
             </template>
             <!-- Show when empty notifications list  -->
+
             <div v-else class="flex h-[75%] flex-col items-center justify-center p-6 text-center">
                 <span class="flex-shrink-0">
                     <svg

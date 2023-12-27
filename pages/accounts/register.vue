@@ -151,6 +151,7 @@
                                 type="checkbox"
                                 v-model="terms"
                                 name="remember"
+                                disabled checked
                                 id="id_agreement" />
                             <label class="mt-1.5 space-x-1 ps-3 font-medium rtl:space-x-reverse" for="id_agreement">
                                 <span>أوافق على</span>&nbsp;<a class="text-blue-600" href="#">الشروط و الأحكام</a>&nbsp;<span>و</span>&nbsp;<a class="text-blue-600" href="#">إتفاقية المستخدم</a>

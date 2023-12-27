@@ -12,8 +12,8 @@
                 التي تحملها لك. لدينا فريق من المعبرين الموثوقين والمتخصصين في علم تفسير الأحلام، سيقدمون لك تفسيراً دقيقًا
                 ومنطقياً لأحلامك، بناءً على خبرتهم الواسعة ومعرفتهم بتعبير الأحلام.</p>
             <div class="w-full pt-8 sm:w-auto">
-                <a class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                    href="#"> <span class="mt-1.5">فسر حلمك الان</span></a>
+                <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                    :to="{ name : 'orders-make'}"> <span class="mt-1.5">فسر حلمك الان</span></NuxtLink>
             </div>
         </div>
         <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
