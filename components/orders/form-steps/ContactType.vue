@@ -87,7 +87,11 @@
 </template>
 
 <script setup lang="ts">
-const selectedOption = ref("");
+
+const props = defineProps(['type'])
+
+const selectedOption = ref(props.type);
+
 </script>
 
 <style scoped></style>
