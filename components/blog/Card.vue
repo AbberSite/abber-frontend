@@ -1,8 +1,8 @@
 <template>
   <article>
-    <a href="#">
+    <NuxtLink v-if="slug" :to="{ name: 'posts-slug', params: { slug: props?.slug  } }">
       <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" />
-    </a>
+    </NuxtLink>
 
     <div class="flex w-full flex-col space-y-4 pt-8 text-right">
 
@@ -17,9 +17,9 @@
       </div>
 
       <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
-        <a href="#">
+        <NuxtLink v-if="slug" :to="{ name: 'posts-slug', params: { slug: props?.slug  } }">
           {{ title }}
-        </a>
+        </NuxtLink>
       </h3>
 
       <p class="text-justify text-sm text-gray-800 xs:text-base">
@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 
-defineProps<{
+const props = defineProps<{
   type: string,
   title: string,
   duration: string,

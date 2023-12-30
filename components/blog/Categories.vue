@@ -1,12 +1,14 @@
 <template>
     <div
         class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base">
+
         <template v-if="loading">
             <SkeletonsCategorie />
             <SkeletonsCategorie />
             <SkeletonsCategorie />
             <SkeletonsCategorie />
         </template>
+
         <template v-else>
             <a
                 class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
@@ -34,7 +36,9 @@
                     </span>
                 </a>
             </template>
+
         </template>
+        
     </div>
 </template>
 
