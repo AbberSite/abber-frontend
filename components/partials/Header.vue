@@ -11,7 +11,6 @@
                 <!-- Notification Button -->
                 <HeaderNotificationsButton
                     v-if="status == 'authenticated'"
-                    :has-unread="hasUnreadNotifications"
                     @click="notificationDropdown = !notificationDropdown" />
 
                 <!-- Menu Button -->
@@ -31,8 +30,8 @@
 
                     <HeaderNotificationsButton
                         ref="notificationsButton"
-                        :has-unread="hasUnreadNotifications"
                         @click="notificationDropdown = !notificationDropdown" />
+
 
                     <!-- Profile dropdown -->
                     <div class="relative ms-3">
@@ -120,17 +119,7 @@
 
     const loading = ref(false);
 
-    const hasUnreadNotifications = computed(() => {
-        if (status.value != 'authenticated') return false;
 
-        for (const notification of data.value?.notifications.results) {
-            if (notification.hasOwnProperty('read') && notification['read'] === false) {
-                return true;
-            }
-        }
-
-        return false;
-    });
 
     async function logout() {
         loading.value = true;

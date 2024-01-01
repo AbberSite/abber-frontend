@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         
-        const response = await axios.get("https://test.abber.co/api/services/services/user/ratings/?ordering=-date",{
+        const response = await axios.get(config.apiBasePath + "/services/services/user/ratings/?ordering=-date",{
             headers : {
                 'api-key' : config.apiSecret,
             }, 

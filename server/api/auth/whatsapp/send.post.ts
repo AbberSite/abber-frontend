@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.post(
-            'https://test.abber.co/api/authentication/registered-phone/',
+            config.apiBasePath + '/authentication/registered-phone/',
 
             {
                 phone: body.phone,

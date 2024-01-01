@@ -1,8 +1,7 @@
 <template>
     <div
         class="fixed inset-0 divide-y-2 divide-gray-50 bg-white shadow-lg ring-1 ring-black ring-opacity-5 md:absolute md:inset-auto md:top-[84px] md:w-[340px] md:rounded-md ltr:md:right-20 rtl:md:left-20"
-        x-show="openDropdown === 1"
-        x-cloak>
+        >
         <div class="flex h-full flex-col">
 
             <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8 md:hidden">
@@ -71,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-const { data } = useAuth() as { data: Ref<{ notifications: { results: Notification[] } }> };
+const { data } = useAuth() as { data: Ref<{ notifications: { results: Notification[] }, read : boolean }> };
 
 type User = {
     username: string;
@@ -90,7 +89,7 @@ type Notification = {
     url: string;
 };
 
-const { status } = useAuth()
+const { status, refresh } = useAuth()
 
 const loading = computed(() => status.value == "loading")
 
@@ -103,6 +102,24 @@ onMounted(async () => {
             Authorization: `JWT ${rawToken.value}`
         }
     });
+
+    await refresh()
+
+    // data.value.read = true
+    // data.value.notifications.results =  data.value.notifications.results.map(notification => {
+    //     notification.read = true
+
+    //     console.log(" before :  " + notification.read)
+    //     return notification
+    // })
+
+
+    // data.value.notifications.results.map(notification => {
+
+    //     console.log(" after :  " + notification.read);
+        
+    // })
+
 });
 </script>
 

@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
     const config = useRuntimeConfig()
 
-    const response = await axios.get("https://test.abber.co/api/blog/posts/",{
+    const response = await axios.get(config.apiBasePath + "/blog/posts/",{
         headers : {
             'api-key' : config.apiSecret
         },

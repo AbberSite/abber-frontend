@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.post(
-            `https://test.abber.co/api/authentication/password/reset/confirm/${body.token}/`,
+            config.apiBasePath + `/authentication/password/reset/confirm/${body.token}/`,
 
             {
                 new_password1: body.password,

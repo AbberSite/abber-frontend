@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import type { number } from "yup";
 import type { Notification } from "~/types"
 
 class Notifications {

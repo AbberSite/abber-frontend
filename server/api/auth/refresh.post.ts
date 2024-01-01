@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     try {
         const response = await axios.post(
 
-            'https://test.abber.co/api/authentication/token/refresh/',
+            config.apiBasePath + '/authentication/token/refresh/',
 
             {
 

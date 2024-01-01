@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         
-        const response = await axios.get("https://test.abber.co/api/alerts/notifications/read/",{
+        const response = await axios.get(config.apiBasePath + "/alerts/notifications/read/",{
             headers : {
                 'api-key' : config.apiSecret,
                 Authorization

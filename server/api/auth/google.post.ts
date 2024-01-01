@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.post(
-            'https://test.abber.co/api/authentication/google/connect/',
+            config.apiBasePath + '/authentication/google/connect/',
 
             {
 
