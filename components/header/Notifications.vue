@@ -92,6 +92,7 @@ type Notification = {
 const { status, refresh } = useAuth()
 
 const loading = computed(() => status.value == "loading")
+const utilsStore = useUtilsStore()
 
 onMounted(async () => {
 
@@ -103,7 +104,7 @@ onMounted(async () => {
         }
     });
 
-    await refresh()
+    utilsStore.readNotifications = true    
 
     // data.value.read = true
     // data.value.notifications.results =  data.value.notifications.results.map(notification => {

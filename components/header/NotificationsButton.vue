@@ -10,7 +10,7 @@
 
         <!-- Show when user have unread notifications -->
         <span
-            v-if="hasUnreadNotifications"
+            v-if="hasUnreadNotifications && !utilsStore.readNotifications"
             class="absolute top-[3px] h-[9px] w-[9px] rounded-full border border-white bg-red-600 ltr:left-2 rtl:right-2">
             <span
                 class="absolute right-0 inline-flex h-full w-full flex-shrink-0 animate-ping rounded-full bg-red-600 opacity-80"></span>
@@ -24,6 +24,7 @@
 
     const { status, data } = useAuthState()
 
+    const utilsStore = useUtilsStore()
 
     const hasUnreadNotifications = computed(() => {
         if (status.value != 'authenticated') return false;
