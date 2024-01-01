@@ -142,7 +142,7 @@
                         </span>
                         <span>\</span>
                         <span class="font-semibold">
-                            {{ total }}
+                            {{ posts.count }}
                         </span>
                     </p>
                     <button
