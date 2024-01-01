@@ -137,7 +137,9 @@
                     </button>
                     <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
                         <span class="font-semibold"> 
-                            {{ posts.results.length }}
+                            <!-- {{ posts.results.length }} -->
+                            {{ to }}
+
                         
                         </span>
                         <span>\</span>
