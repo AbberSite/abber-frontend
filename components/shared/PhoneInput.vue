@@ -12,6 +12,7 @@
             placeholder="7835196169"
 
             v-model="phone"
+            :class="[error !== '' && 'form-invalid'] "
             autocomplete="tel"
             dir="ltr"
             required />
