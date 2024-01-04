@@ -1,5 +1,4 @@
 <template>
-
     <div class="w-full space-y-3">
 
         <label class="text-sm font-semibold xs:text-base" for="email">
@@ -14,18 +13,16 @@
                 :class="[ error && 'form-invalid' ]"
                 :type="type ?? 'text'"
                 :name="name"
-                id="email"
+                :id="id"
                 :placeholder="placeholder"
                 autocomplete="email"
-                required />
+                 />
             <slot name="append"></slot>
         </div>
 
         <InputError :message="error" />
 
-
     </div>
-
 </template>
 
 <script setup lang="ts">
@@ -33,12 +30,13 @@
 
 const props = defineProps<{
 
-    modelValue? : string|number,
+    modelValue? : any,
     error? : string,
     label? : string,
-    type : string, 
+    type? : string, 
     name? : string
-    placeholder? : string
+    placeholder? : string,
+    id? : string,
 
 }>()
 

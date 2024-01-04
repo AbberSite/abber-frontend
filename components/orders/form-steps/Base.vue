@@ -18,10 +18,11 @@
                 enter-active-class="transition-all"
                 leave-active-class="transition-all"
                 enter-from-class="translate-x-5 opacity-0"
-                leave-to-class="translate-x-5 opacity-0"
+                leave-to-class="-translate-x-5 opacity-0"
                 mode="out-in">
-                <FormStepsContactType :type="data?.type" @next="next" v-if="activeStep == 0" />
-                <FormStepsDreamDetails @next="next" v-else-if="activeStep == 1" />
+                <FormStepsContactType :type="data?.type ?? ''" @next="next" v-if="activeStep == 0" />
+                <FormStepsDreamDetails @next="next" v-else-if="activeStep == 1" :type="data?.type"/> 
+                <FormStepsExpressor  @next="next" v-else-if="activeStep == 1" :type="data?.type" /> 
             </transition>
 
             data : {{ data }}
@@ -56,10 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import Login from './Login.vue';
-import Test from './Test.vue';
-
-import { ChevronUpDownIcon, IdentificationIcon } from '@heroicons/vue/24/outline';
+import { ChevronUpDownIcon, IdentificationIcon, UserIcon } from '@heroicons/vue/24/outline';
 
 const show = ref(false);
 const data = ref<any>({});
@@ -68,14 +66,16 @@ const activeStep = ref(0);
 
 const steps = ref(['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة', 'الخطوة الرابعة']);
 const headers = [
-    { title: 'طريقة تعبير الحلم', description: 'أختر أحد الطرق التالية لتعبير حلمك', icon: ChevronUpDownIcon },
-    { title: 'إدخال تفاصيل الحلم', description: 'أدخل معلومات و تفاصيل حلمك', icon: IdentificationIcon }
+    { title: 'إدخال تفاصيل الحلم', description: 'أختر أحد الطرق التالية لإدخال تفاصيل حلمك', icon: IdentificationIcon },
+    { title: 'إدخال تفاصيل الحلم', description: 'أدخل معلومات و تفاصيل حلمك', icon: ChevronUpDownIcon },
+    { title: 'إختيار المعبر', description: 'أختر أحد المعبرين ليقوم بتعبير حلمك', icon: UserIcon },
 ];
 
-function next(result: Object) {
+function next(result: any) {
     data.value = Object.assign(data.value, result);
 
     activeStep.value++;
+
 }
 
 function previous() {

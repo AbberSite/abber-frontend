@@ -1,19 +1,13 @@
 <template>
-    <form method="POST" @submit.prevent="$emit('next', {})">
-
-
-        <div>
-
-            this is the second step
-        </div>
-        
-        <PrimaryButton class="w-full">
-            <span class="mt-1.5">متابعة</span>
-        </PrimaryButton>
-      </form>
+    <div>
+        <FormStepsTextContact @next="(data : any)  => $emit('next', data)" v-if="type === 'text_communication'" /> 
+        <FormStepsVoiceContact @next="(data : any)  => $emit('next', data)" v-else /> 
+    </div>
 </template>
 
 <script setup lang="ts">
+
+    defineProps(['type'])
 
 </script>
 

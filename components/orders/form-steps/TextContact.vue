@@ -1,0 +1,165 @@
+<template>
+    <form
+        method="POST"
+        @submit.prevent="
+            async () =>
+                (await validate()).valid
+                    ? $emit('next', { dream_title, dream_time, dream, client, age, gender, marital_status, profession })
+                    : ''
+        ">
+        <fieldset class="space-y-7">
+            <div class="w-full space-y-3">
+                <TextInput
+                    name="dream_title"
+                    id="dream_title"
+                    type="text"
+                    v-model="dream_title"
+                    label="عنوان الحلم"
+                    :error="errors.dream_title"
+                    placeholder="إدخل عنوانا لحلمك مثال: رؤية العقرب في المنام" />
+            </div>
+            <div class="w-full space-y-3">
+                <TextInput
+                    label="تأريخ الحلم"
+                    name="dream_date"
+                    id="dream_date"
+                    type="date"
+                    :error="errors.dream_time"
+                    required
+                    v-model="dream_time" />
+            </div>
+            <div class="flex items-center">
+                <input
+                    class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
+                    v-model="client"
+                    type="checkbox"
+                    name="checkbox"
+                    :error="errors.client"
+                    id="checkbox"
+                    x-model="checkedBox" />
+                <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="checkbox">هل الحلم لشخص اخر؟</label>
+            </div>
+
+            <div class="space-y-7" v-if="client">
+                <div class="w-full space-y-3">
+                    <label class="block text-sm font-semibold xs:text-base" for="select">الجنس</label>
+                    <select
+                        v-model="gender"
+                        class="form-control form-select h-[50px] appearance-none"
+                        type="select"
+                        :class="[errors.gender && 'form-invalid']"
+                        name="select"
+                        id="select">
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
+                    </select>
+                    <InputError :message="errors.gender" />
+                </div>
+                <div class="w-full space-y-3">
+                    <TextInput
+                        v-model="age"
+                        name="age"
+                        id="age"
+                        :error="errors.age"
+                        type="number"
+                        placeholder="إدخل عمر الشخص الاخر"
+                        label="العمر" />
+                </div>
+                <div class="w-full space-y-3">
+                    <label class="block text-sm font-semibold xs:text-base" for="select">الحالة الإجتماعية</label>
+                    <select
+                        v-model="marital_status"
+                        class="form-control form-select h-[50px] appearance-none"
+                        :class="[errors.marital_status && 'form-invalid']"
+                        type="select"
+                        name="select"
+                        id="select">
+                        <option value="single">أعزب</option>
+                        <option value="">متزوج / ه</option>
+                        <option>مطلق / ه</option>
+                        <option>ارمل / ه</option>
+                    </select>
+                    <InputError :message="errors.marital_status" />
+                </div>
+                <div class="w-full space-y-3">
+                    <TextInput
+                        v-model="profession"
+                        :error="errors.profession"
+                        name="profession"
+                        id="profession"
+                        placeholder="إدخل مهنة الشخص الاخر"
+                        required
+                        label="المهنة" />
+                </div>
+            </div>
+            <div class="w-full space-y-3">
+                <label class="block text-sm font-semibold xs:text-base" for="textarea">وصف الحلم</label>
+                <textarea
+                    class="form-control block max-h-[300px] min-h-[200px] py-4"
+                    name="textarea"
+                    id="textarea"
+                    rows="5"
+                    :class="[errors.dream && 'form-invalid']"
+                    placeholder="أوصف حلمك بالتفصيل"
+                    v-model="dream"></textarea>
+                <InputError :message="errors.dream" />
+            </div>
+
+            <div>
+                <PrimaryButton class="w-full">متابعة</PrimaryButton>
+            </div>
+        </fieldset>
+    </form>
+</template>
+
+<script setup lang="ts">
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/yup';
+import * as yup from 'yup';
+
+const { defineField, errors, validate } = useForm({
+    validationSchema: toTypedSchema(
+        yup.object({
+            dream_title: yup.string().required('الرجاء ادخال عنوان الحلم'),
+            dream_time: yup.string().required('الرجاء ادخال تاريخ الحلم'),
+            dream: yup.string().required('الرجاء ادخال وصف الحلم'),
+            client: yup.boolean(),
+
+            age: yup.number().when('client', {
+                is: true,
+                then: (schema) => schema.required('الرجاء ادخال عمر الشخص'),
+                otherwise: (schema) => schema.notRequired()
+            }),
+
+            gender: yup.string().when('client', {
+                is: true,
+                then: (schema) => schema.oneOf(['male', 'female']).required('الرجاء ادخال جنس الشخص'),
+                otherwise: (schema) => schema.notRequired()
+            }),
+
+            marital_status: yup.string().when('client', {
+                is: true,
+                then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
+                otherwise: (schema) => schema.notRequired()
+            }),
+
+            profession: yup.string().when('client', {
+                is: true,
+                then: (schema) => schema.required('الرجاء ادخال مهنة الشخص'),
+                otherwise: (schema) => schema.notRequired()
+            })
+        })
+    )
+});
+
+const [dream_title] = defineField('dream_title');
+const [dream_time] = defineField('dream_time');
+const [dream] = defineField('dream');
+const [client] = defineField('client');
+const [age] = defineField('age');
+const [gender] = defineField('gender');
+const [marital_status] = defineField('marital_status');
+const [profession] = defineField('profession');
+</script>
+
+<style scoped></style>

@@ -71,7 +71,7 @@ const loading = ref(false);
 
 const posts = ref<Post[]>();
 
-async function fetchPosts(url: string = 'https://test.abber.co/api/blog/posts/?active=true&accepted=true') {
+async function fetchPosts() {
     loading.value = true;
 
     const { data } = (await useFetch(`/api/blog/posts`, {

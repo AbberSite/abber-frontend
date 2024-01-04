@@ -1,6 +1,6 @@
 <template>
     <div>
-            Second component
+        Choose Expressor step
     </div>
 </template>
 

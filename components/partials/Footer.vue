@@ -80,9 +80,11 @@
                         <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
                             up-target="body">السعودية</a>
                     </li>
-                    <li>
+                    <li dir="ltr">
                         <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">+9647835196169</a>
+                            up-target="body">
+                            {{ settings.general_settings?.phone }}
+                        </a>
                     </li>
                     <li>
                         <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
@@ -116,6 +118,28 @@
 
 <script setup lang="ts">
 
+
+type Settings = {
+    general_settings?: {
+        phone?: string
+    }
+}
+
+const settings = ref<Settings>({})
+
+async function fetchSettings(){
+    const { data } = await useFetch("/api/settings"); 
+
+    if(!data.value) return
+    settings.value = data.value
+}
+
+onMounted(async () => {
+
+    await fetchSettings()
+    await fetchSettings()
+
+})
 </script>
 
 <style scoped></style>

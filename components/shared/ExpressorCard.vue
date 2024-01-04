@@ -5,7 +5,7 @@
                 <div class="flex-shrink-0">
                     <img
                         class="lazyload h-20 w-20 rounded-full bg-gray-100"
-                        src="../../assets/images/avatar.webp"
+                        :src="expressor.seller.image"
                         height="80"
                         width="80"
                         alt="صورة المعبر" />
@@ -29,16 +29,19 @@
                             clip-rule="evenodd"></path>
                     </svg>
                     <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800 xs:text-sm"
-                        >({{ expressor.rate }})</span
+                        >({{ expressor.ordered_count }})</span
                     >
                 </div>
             </figcaption>
 
             <blockquote>
                 <p class="pt-6 text-justify text-sm text-gray-800 xs:text-base">
+
                     <!-- {{ expressor.about }} -->
+
                     هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
                     الخارجي للنص
+                    
                 </p>
             </blockquote>
         </figure>

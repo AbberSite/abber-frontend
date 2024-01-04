@@ -3,12 +3,7 @@
         <figure class="rounded-xl bg-gray-50 px-6 py-6">
             <blockquote>
                 <p class="text-justify text-sm text-gray-800 xs:text-base">
-
-                    <!-- TODO : Remove this from here and display the testimonial content instead of the harcoded value -->
-                    هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
-                    الخارجي للنص
-                    <!-- {{ testimonial.comment }} -->
-
+                    {{ testimonial.additional_comments }}
                 </p>
             </blockquote>
             <figcaption class="flex items-center pt-6">
@@ -22,11 +17,10 @@
                 </div>
                 <div class="ms-3 flex flex-col">
                     <div class="text-sm font-semibold xs:text-base">
-                        {{ testimonial.user.first_name }}
-                    </div>
+                        {{ testimonial.user.first_name }}                    </div>
 
                     <div class="mt-1.5 flex items-center text-yellow-400">
-                        <svg v-for="i in rating"
+                        <svg v-for="i in Math.floor(testimonial.rate)"
                             class="flex-shrink-0"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -56,7 +50,6 @@ const props = defineProps<{
 
 
 
-const rating = computed<number>(() => Math.round((props.testimonial.again_rate + props.testimonial.communication_rate + props.testimonial.delivery_rate + props.testimonial.expertise_rate + props.testimonial.professional_rate + props.testimonial.quality_rate) / 6))
 </script>
 
 <style scoped></style>

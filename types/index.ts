@@ -41,16 +41,15 @@ export interface PaginationResponse <Type> {
 
 export type Testimonial = {
     id: number;
-    service: string;
     user: _User;
-    date: string;
-    professional_rate: number;
-    communication_rate: number;
-    quality_rate: number;
-    expertise_rate: number;
-    delivery_rate: number;
-    again_rate: number;
-    comment: string;
-    order_id: number;
+    rate: number,
+    registration_and_login: number,
+    online_payment: number,
+    support_and_complaints: number,
+    find_expressor: number,
+    intend_to_use_again: boolean,
+    recommend_to_others: boolean,
+    additional_comments: string,
+    suggestions: string
 };
 
