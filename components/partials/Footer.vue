@@ -5,20 +5,28 @@
             <div class="col-span-full border-b border-gray-100 pb-14 md:border-b-0 md:pb-0 xl:col-span-2">
                 <div>
                     <h3 class="font-semibold xs:text-lg">اشترك في نشرتنا الإخبارية</h3>
-                    <p class="pt-4 text-sm text-gray-800 xs:text-base">يتم إرسال أحدث الأخبار والمقالات والموارد إلى بريدك
-                        الوارد أسبوعيًا.</p>
+                    <p class="pt-4 text-sm text-gray-800 xs:text-base">
+                        يتم إرسال أحدث الأخبار والمقالات والموارد إلى بريدك الوارد أسبوعيًا.
+                    </p>
                 </div>
                 <form class="pt-4 sm:flex sm:max-w-md" method="POST">
                     <label class="sr-only" for="email">البريد الإلكتروني</label>
                     <div class="w-full space-y-3">
-                        <input class="form-control h-[50px] appearance-none" type="email" name="email" id="email"
-                        placeholder="اكتب عنوان بريدك الالكتروني"
-                            autocomplete="email" required />
+                        <input
+                            class="form-control h-[50px] appearance-none"
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="اكتب عنوان بريدك الالكتروني"
+                            autocomplete="email"
+                            required />
                     </div>
                     <div class="pt-4 sm:ms-3 sm:pt-0">
                         <button
                             class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                            type="submit"><span class="mt-1.5">إشتراك</span></button>
+                            type="submit">
+                            <span class="mt-1.5">إشتراك</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -26,16 +34,19 @@
                 <h3 class="text-sm font-semibold xs:text-base">معلومات عنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body">من
-                            نحن</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body"
+                            >من نحن</a
+                        >
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body">الشروط
-                            والأحكام</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body"
+                            >الشروط والأحكام</a
+                        >
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body">إتفاقية
-                            المستخدم</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body"
+                            >إتفاقية المستخدم</a
+                        >
                     </li>
                 </ul>
             </div>
@@ -43,16 +54,19 @@
                 <h3 class="text-sm font-semibold xs:text-base">صفحات مهمة</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">الرئيسية</a>
+                        <NuxtLink class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :to="{ name : 'index'}" up-target="body"
+                            >الرئيسية</NuxtLink
+                        >
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">المدونة</a>
+                        <NuxtLink class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :to="{ name : 'blog'}" up-target="body"
+                            >المدونة
+                        </NuxtLink>
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body">مركز
-                            الدعم</a>
+                        <NuxtLink class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :to="{ name : 'index'}" up-target="body"
+                            >مركز الدعم</NuxtLink
+                        >
                     </li>
                 </ul>
             </div>
@@ -60,16 +74,19 @@
                 <h3 class="text-sm font-semibold xs:text-base">تواصل معنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">تويتر</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :href="settings.social_settings?.twitter" target="_blank" up-target="body"
+                            >تويتر</a
+                        >
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">فيسبوك</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :href="settings.social_settings?.facebook" target="_blank" up-target="body"
+                            >فيسبوك</a
+                        >
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">إنستغرام</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :href="settings.social_settings?.instagram" target="_blank" up-target="body"
+                            >إنستغرام</a
+                        >
                     </li>
                 </ul>
             </div>
@@ -77,18 +94,23 @@
                 <h3 class="text-sm font-semibold xs:text-base">إتصل بنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">السعودية</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"  up-target="body"
+                            >
+                            {{ settings.general_settings?.address }}
+                            </a
+                        >
                     </li>
                     <li dir="ltr">
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :href="'tel:' + settings.general_settings?.phone" up-target="body">
                             {{ settings.general_settings?.phone }}
                         </a>
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#"
-                            up-target="body">admin@abber.co</a>
+                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :href="'mailto:' + settings.general_settings?.email" up-target="body"
+                            >
+                            {{ settings.general_settings?.email }}
+                            </a
+                        >
                     </li>
                 </ul>
             </div>
@@ -97,49 +119,66 @@
             <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر 2023.</p>
             <div class="flex justify-center space-x-6 pt-8 rtl:space-x-reverse md:pt-0">
                 <a href="#" target="_blank">
-                    <img class="lazyload max-w-none" src="/images/payments/mastercard.webp" height="24"
-                        width="36" alt="شعار وسيلة الدفع" />
-                </a>
-                <a href="#" target="_blank">
-                    <img class="lazyload max-w-none" src="/images/payments/visa.webp" height="24" width="45"
+                    <img
+                        class="lazyload max-w-none"
+                        src="/images/payments/mastercard.webp"
+                        height="24"
+                        width="36"
                         alt="شعار وسيلة الدفع" />
                 </a>
-            <a href="#" target="_blank">
-                <img class="lazyload max-w-none" src="/images/payments/mada.png" height="24" width="48"
-                    alt="شعار وسيلة الدفع" />
-            </a>
-            <a href="#" target="_blank">
-                <img class="lazyload max-w-none" src="/images/payments/stc_pay.webp" height="24" width="52"
-                    alt="شعار وسيلة الدفع" />
-            </a>
+                <a href="#" target="_blank">
+                    <img
+                        class="lazyload max-w-none"
+                        src="/images/payments/visa.webp"
+                        height="24"
+                        width="45"
+                        alt="شعار وسيلة الدفع" />
+                </a>
+                <a href="#" target="_blank">
+                    <img
+                        class="lazyload max-w-none"
+                        src="/images/payments/mada.png"
+                        height="24"
+                        width="48"
+                        alt="شعار وسيلة الدفع" />
+                </a>
+                <a href="#" target="_blank">
+                    <img
+                        class="lazyload max-w-none"
+                        src="/images/payments/stc_pay.webp"
+                        height="24"
+                        width="52"
+                        alt="شعار وسيلة الدفع" />
+                </a>
+            </div>
         </div>
-    </div>
-</footer></template>
+    </footer>
+</template>
 
 <script setup lang="ts">
-
-
 type Settings = {
-    general_settings?: {
-        phone?: string
-    }
-}
+    general_settings?: { phone: string; email: string; address: string };
+    social_settings?: {
+        facebook: string;
+        snapchat: string;
+        twitter: string;
+        instagram: string;
+    };
+};
 
-const settings = ref<Settings>({})
+const settings = ref<Settings>({});
 
-async function fetchSettings(){
-    const { data } = await useFetch("/api/settings"); 
+async function fetchSettings() {
+    const { data } = await useFetch('/api/settings');
 
-    if(!data.value) return
-    settings.value = data.value
+    if (!data.value) return;
+    settings.value = data.value;
 }
 
 onMounted(async () => {
-
-    await fetchSettings()
-    await fetchSettings()
-
-})
+    await fetchSettings();
+    await fetchSettings();
+});
 </script>
 
 <style scoped></style>

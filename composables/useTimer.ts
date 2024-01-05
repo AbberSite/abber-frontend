@@ -1,49 +1,45 @@
-export type Timer = {
-    init: Function;
-    start: Function;
-    stop: Function;
-    reset: Function;
-    pad: Function;
-    sec: number;
-    interval : ReturnType<typeof setInterval>|undefined, 
-    display: Ref<string>;
-};
+class Timer {
+    sec = 0;
+    display = ref(`00:00:00`);
+    interval: ReturnType<typeof setInterval> | undefined = undefined;
 
-const timer: Timer = {
+    public timout: undefined | number;
+    public onTimeout: undefined | Function;
 
-    sec: 0,
-    display: ref(`00:00:00`),
-    interval: undefined,
+    init = ({ timeout, onTimeout }: { timeout?: number; onTimeout?: Function }) => {
 
-    init: () => ({
-        display : timer.display
-    }),
+        this.timout = timeout
+        this.onTimeout = onTimeout
 
-    start: () => {
+        return {display: this.display}
+    };
 
-        timer.interval = setInterval(() => {
+    start = () => {
+        this.interval = setInterval(async () => {
 
-            timer.sec++;
+            this.sec++;
 
-            timer.display.value = `${timer.pad(Math.floor(timer.sec / 3600))}:${timer.pad(Math.floor(timer.sec / 60))}:${timer.pad(timer.sec%60)}`
+            this.display.value = `${this.pad(Math.floor(this.sec / 3600))}:${this.pad(
+                Math.floor(this.sec / 60)
+            )}:${this.pad(this.sec % 60)}`;
 
-        }, 1000)
+            if (this.timout && this.sec === this.timout) {
+                await this.onTimeout?.();
+            }
 
-
-    },
-    stop: () => {
-        clearInterval(timer.interval)
-    },
-    reset: () => {
-
-        timer.sec = 0;
-        clearInterval(timer.interval)
-        timer.display.value = `00:00:00`
-
-    },
-    pad: (val: number) => {
+        }, 1000);
+    };
+    stop = () => {
+        clearInterval(this.interval);
+    };
+    reset = () => {
+        this.sec = 0;
+        clearInterval(this.interval);
+        this.display.value = `00:00:00`;
+    };
+    pad = (val: number) => {
         return val > 9 ? val : `0` + val;
-    }
-};
+    };
+}
 
-export default () =>  timer;
+export default () : Timer => new Timer();

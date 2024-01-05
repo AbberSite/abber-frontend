@@ -172,7 +172,6 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core';
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
-import { object } from 'yup';
 
 type Post = {
     id: string;
@@ -204,6 +203,7 @@ const selectedCategory = ref('');
 const posts = ref<Response>({ results: [] });
 const loading = ref(false);
 const search = ref('');
+const perPage = 9;
 
 const nextLoading = ref(false);
 const previousLoading = ref(false);
@@ -227,6 +227,7 @@ async function fetchPosts(params: any) {
 
     params.active = true;
     params.accepted = true;
+    params.limit = perPage
 
     const { data } = (await useFetch(`/api/blog/posts`, {
         params
@@ -234,7 +235,7 @@ async function fetchPosts(params: any) {
 
     if (!data.value) return;
 
-    pagainationMeta.value = { offset: params.offset ?? 0, limit: params.limit ?? 20 } as {
+    pagainationMeta.value = { offset: params.offset ?? 0, limit: params.limit ?? perPage } as {
         offset: number | string;
         limit: number | string;
     };
@@ -245,11 +246,11 @@ async function fetchPosts(params: any) {
 }
 
 const total = ref<number | undefined>(0);
-const pagainationMeta = ref<{ offset: number | string; limit: number | string }>({ offset: 0, limit: 20 });
+const pagainationMeta = ref<{ offset: number | string; limit: number | string }>({ offset: 0, limit: perPage });
 
 onMounted(async () => {
-    await fetchPosts({ offset: 0, limit: 20 });
-    await fetchPosts({ offset: 0, limit: 20 });
+    await fetchPosts({ offset: 0, limit: perPage });
+    await fetchPosts({ offset: 0, limit: perPage });
 
     total.value = posts.value.count;
 });

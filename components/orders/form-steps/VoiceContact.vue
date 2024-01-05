@@ -116,7 +116,7 @@
                     </p>
                 </div>
                 <div class="w-full" v-if="status === 'finished'" >
-                    <audio class="w-full" preload="metadata" controls ref="audioSource">
+                    <audio class="w-full" controls ref="audioSource">
                         <source /> 
                         <p>متصفحك لا يدعم عنصر الصوت.</p>
                     </audio>
@@ -136,9 +136,22 @@
 const resumeButton = ref(false);
 const audio = useAudioRecorder();
 
-const { status, timer } = audio.init();
 const audioSource = ref<HTMLSourceElement | null>(null);
-let recordedAudio; 
+let recordedAudio : Blob; 
+
+const { status, timer } = audio.init({
+    timer : {
+        timeout : 120,
+        onTimeout : async () => {
+
+            useNotification({ content : 'المدة القصوى للتسجيل هي دقيقتين', type : 'warning' })
+            await stop()
+
+        }
+    }
+});
+
+
 
 async function record() {
     await audio.play();
@@ -161,11 +174,11 @@ async function stop() {
 
         recordedAudio = audioBlob
 
-        // const BlobType = audioBlob.type.includes(';')
-        //     ? audioBlob.type.substr(0, audioBlob.type.indexOf(';'))
-        //     : audioBlob.type;
+        const BlobType = audioBlob.type.includes(';')
+            ? audioBlob.type.substr(0, audioBlob.type.indexOf(';'))
+            : audioBlob.type;
 
-        // audioSource.value.type = BlobType;
+        audioSource.value.type = BlobType;
 
     };
 

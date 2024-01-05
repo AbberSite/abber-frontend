@@ -1,124 +1,131 @@
-import type { Timer } from './useTimer';
+type Status = 'initialized'|'paused'|'recording'|'finished'
 
-type AudioRecorder = {
-    streamBeingCaptured?: MediaStream;
-    mediaRecorder?: MediaRecorder;
-    audioBlobs: Array<BlobPart>;
-    init: Function;
-    play: Function;
-    pause: Function;
-    resume: Function;
-    timer: Timer;
-    cancel : Function;
-    status: Ref<'initialized'|'recording'|'finished'|'paused'>;
-    stop: Function;
-    element?: HTMLAudioElement|string;
-    stopStream: Function;
-    resetRecordingProperties: Function;
-};
 
-const audioRecorder: AudioRecorder = {
-    audioBlobs: [],
+class AudioRecorder {
+    audioBlobs : Blob[] =  []
 
-    mediaRecorder: undefined,
-    element : undefined,
+    mediaRecorder : undefined|MediaRecorder 
+    element =  undefined 
 
-    timer: useTimer(),
 
-    streamBeingCaptured: undefined,
+    streamBeingCaptured :  undefined|MediaStream 
 
-    status: ref('initialized'),
+    status =  ref<Status>('initialized')
 
-    init: () => {
+    timer: ReturnType<typeof useTimer>
+
+    constructor(timer : ReturnType<typeof useTimer>){
+
+        this.timer = timer
+    }
+
+    init =  (options? : { timer? : { timeout?: number; onTimeout?: Function }}) : { status : Ref<Status>, timer : ReturnType<typeof useTimer>} => {
+
         if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
             throw new Error('audio recording is not supported in your browser');
         }
 
-        return { status: audioRecorder.status, timer: audioRecorder.timer};
 
-    },
-    play: async () => {
+        if(options){
+
+            const { timer } = options
+
+
+            if(timer){
+
+                const { timeout, onTimeout } = timer
+
+                this.timer.init({ timeout, onTimeout})
+    
+            }
+
+        }
+
+        return { status: this.status, timer: this.timer};
+
+    }
+    play =  async () => {
         const stream: MediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-        audioRecorder.streamBeingCaptured = stream;
+        this.streamBeingCaptured = stream;
 
-        audioRecorder.mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder = new MediaRecorder(stream);
 
-        audioRecorder.audioBlobs = [];
+        this.audioBlobs = [];
 
-        audioRecorder.mediaRecorder.addEventListener('dataavailable', (event) => {
-            audioRecorder.audioBlobs.push(event.data);
+        this.mediaRecorder.addEventListener('dataavailable', (event) => {
+            this.audioBlobs.push(event.data);
         });
 
-        audioRecorder.mediaRecorder.start();
+        this.mediaRecorder.start();
 
-        audioRecorder.status.value = 'recording';
-        audioRecorder.timer.start();
-    },
+        this.status.value = 'recording';
+        this.timer.start();
+    }
 
-    pause : async () => {
+    pause =  async () => {
 
-        audioRecorder.mediaRecorder?.pause()
-        audioRecorder.timer.stop()
-        audioRecorder.status.value = 'paused';
+        this.mediaRecorder?.pause()
+        this.timer.stop()
+        this.status.value = 'paused';
 
-    }, 
+    }
 
-    resume : async () => {
+    resume  = async () => {
 
-        audioRecorder.mediaRecorder?.resume()
-        audioRecorder.timer.start()
-        audioRecorder.status.value = 'recording';
+        this.mediaRecorder?.resume()
+        this.timer.start()
+        this.status.value = 'recording';
 
-    }, 
+    }
 
-    stop: function () {
+    stop =  () : Promise<Blob> => {
         return new Promise((resolve) => {
 
-            let mimeType = audioRecorder.mediaRecorder?.mimeType;
+            let mimeType = this.mediaRecorder?.mimeType;
 
-            audioRecorder.mediaRecorder?.addEventListener('stop', () => {
-                let audioBlob = new Blob(audioRecorder.audioBlobs, { type: mimeType });
+            this.mediaRecorder?.addEventListener('stop', () => {
+                let audioBlob = new Blob(this.audioBlobs, { type: mimeType });
 
                 resolve(audioBlob);
             });
 
-            audioRecorder.mediaRecorder?.stop();
+            this.mediaRecorder?.stop();
 
-            audioRecorder.stopStream();
+            this.stopStream();
 
-            audioRecorder.status.value = 'finished';
+            this.status.value = 'finished';
 
-            audioRecorder.timer.stop();
-            audioRecorder.timer.reset();
+            this.timer.stop();
+            this.timer.reset();
 
-            audioRecorder.resetRecordingProperties();
+            this.resetRecordingProperties();
 
         });
-    },
+    }
 
-    cancel: function () {
+    cancel =  () =>  {
 
-        audioRecorder.mediaRecorder?.stop();
+        this.mediaRecorder?.stop();
  
-        audioRecorder.stopStream();
+        this.stopStream();
 
-        audioRecorder.status.value = 'initialized';
-        audioRecorder.timer.reset()
+        this.status.value = 'initialized';
+        this.timer.reset()
 
-        audioRecorder.resetRecordingProperties();
+        this.resetRecordingProperties();
 
-    },
+    }
 
-    stopStream: function () {
-        audioRecorder.streamBeingCaptured?.getTracks().forEach((track) => track.stop());
-    },
-    resetRecordingProperties: function () {
+    stopStream =  () => {
+        this.streamBeingCaptured?.getTracks().forEach((track) => track.stop());
+    }
+    resetRecordingProperties =  () => {
 
-        audioRecorder.mediaRecorder = undefined;
-        audioRecorder.streamBeingCaptured = undefined;
+        this.mediaRecorder = undefined;
+        this.streamBeingCaptured = undefined;
 
     }
 };
 
-export default () => audioRecorder;
+export default () => new AudioRecorder(useTimer());

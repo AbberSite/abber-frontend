@@ -21,8 +21,11 @@
                 leave-to-class="-translate-x-5 opacity-0"
                 mode="out-in">
                 <FormStepsContactType :type="data?.type ?? ''" @next="next" v-if="activeStep == 0" />
-                <FormStepsDreamDetails @next="next" v-else-if="activeStep == 1" :type="data?.type"/> 
-                <FormStepsExpressor  @next="next" v-else-if="activeStep == 1" :type="data?.type" /> 
+                <FormStepsInputType :type="data?.inputType ?? ''" @next="next" v-else-if="activeStep == 1" />
+                <FormStepsDreamDetails @next="next" v-else-if="activeStep == 2" :type="data?.inputType" />
+                <FormStepsExpressor @next="next" v-else-if="activeStep == 3" :type="data?.type" />
+                <FormStepsLogin @next="next" v-else-if="activeStep == 4" />
+                <FormStepsPayment @next="next" v-else-if="activeStep == 5" />
             </transition>
 
             data : {{ data }}
@@ -31,18 +34,23 @@
                 <button class="font-medium text-blue-600" @click="previous">العودة للخطوة السابقة ←</button>
             </div>
 
+            {{ activeStep }}
+
             <nav class="pt-10" aria-label="Progress">
                 <ol class="flex items-center justify-center space-x-5 rtl:space-x-reverse" role="list">
                     <li v-for="(step, index) in steps" :key="step">
                         <span class="relative flex items-center justify-center" aria-current="step">
-                            <span class="absolute flex h-5 w-5 p-px" v-if="activeStep == index" aria-hidden="true">
+                            <span
+                                class="absolute flex h-5 w-5 p-px"
+                                v-if="activeNavigationIndex == index"
+                                aria-hidden="true">
                                 <span class="h-full w-full rounded-full bg-gray-200"></span>
                             </span>
                             <span
                                 class="relative block h-2.5 w-2.5 rounded-full"
                                 :class="[
-                                    activeStep < index && 'bg-gray-200 hover:bg-gray-400',
-                                    activeStep >= index && 'bg-gray-900'
+                                    activeNavigationIndex < index && 'bg-gray-200 hover:bg-gray-400',
+                                    activeNavigationIndex >= index && 'bg-gray-900'
                                 ]"
                                 aria-hidden="true"></span>
                             <span class="sr-only">
@@ -57,29 +65,75 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronUpDownIcon, IdentificationIcon, UserIcon } from '@heroicons/vue/24/outline';
+import {
+    ChevronUpDownIcon,
+    IdentificationIcon,
+    UserIcon,
+    LockClosedIcon,
+    CreditCardIcon
+} from '@heroicons/vue/24/outline';
 
 const show = ref(false);
 const data = ref<any>({});
 
 const activeStep = ref(0);
+const activeNavigationIndex = ref(0);
 
-const steps = ref(['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة', 'الخطوة الرابعة']);
+const steps = ref(['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة', 'الخطوة الرابعة', 'الخطوة الخامسة']);
 const headers = [
+    { title: 'طريقة تعبير الحلم', description: 'أختر أحد الطرق التالية لتعبير حلمك', icon: ChevronUpDownIcon },
     { title: 'إدخال تفاصيل الحلم', description: 'أختر أحد الطرق التالية لإدخال تفاصيل حلمك', icon: IdentificationIcon },
-    { title: 'إدخال تفاصيل الحلم', description: 'أدخل معلومات و تفاصيل حلمك', icon: ChevronUpDownIcon },
+    { title: 'إدخال تفاصيل الحلم', description: 'أدخل معلومات و تفاصيل حلمك', icon: IdentificationIcon },
     { title: 'إختيار المعبر', description: 'أختر أحد المعبرين ليقوم بتعبير حلمك', icon: UserIcon },
+    { title: 'التسجيل', description: 'سجل دخولك أو إنشأ حسابا جديدا في عبر', icon: LockClosedIcon },
+    { title: 'وسيلة الدفع', description: 'إدخل بيانات الدفع لشراء خدمة تعبير الاحلام هذه', icon: CreditCardIcon }
 ];
 
 function next(result: any) {
+    if (!result) {
+        activeStep.value++;
+        return;
+    }
+
     data.value = Object.assign(data.value, result);
 
-    activeStep.value++;
+    if (result.nextStep) {
+        activeStep.value = result.nextStep;
+    } else {
+        activeStep.value++;
+    }
+
+    if (data.value.activeNavigationIndex) {
+        activeNavigationIndex.value = data.value.activeNavigationIndex;
+    } else {
+        activeNavigationIndex.value = activeStep.value;
+    }
+
+    data.value.nextStep = undefined;
+
+    data.value.activeNavigationIndex = undefined;
+
+
+
+    if (data.value.clearReturn) {
+
+        data.value.returnStep = undefined;
+        data.value.clearReturn = undefined;
+
+    }
 
 }
 
 function previous() {
-    activeStep.value--;
+    if (data.value.returnStep != undefined) {
+        activeStep.value = data.value.returnStep;
+
+        data.value.returnStep = undefined;
+    } else {
+        activeStep.value--;
+    }
+
+    activeNavigationIndex.value = activeStep.value;
 }
 </script>
 
