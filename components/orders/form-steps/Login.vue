@@ -171,7 +171,7 @@ async function submit() {
     )
         .then(() => {
             useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-            emits('next')
+            emits('next', { ignore : true })
         })
         .catch((_error) => {
             if (_error.response._data.status !== 'error') return;

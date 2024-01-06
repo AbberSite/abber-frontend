@@ -1,6 +1,6 @@
 <template>
     <div>
-        Payment
+        Payment Step
     </div>
 </template>
 

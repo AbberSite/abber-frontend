@@ -14,18 +14,39 @@
             {{ headers[activeStep].description }}
         </div>
         <div class="mx-auto w-full max-w-sm pt-10">
+
             <transition
                 enter-active-class="transition-all"
                 leave-active-class="transition-all"
                 enter-from-class="translate-x-5 opacity-0"
                 leave-to-class="-translate-x-5 opacity-0"
-                mode="out-in">
-                <FormStepsContactType :type="data?.type ?? ''" @next="next" v-if="activeStep == 0" />
-                <FormStepsInputType :type="data?.inputType ?? ''" @next="next" v-else-if="activeStep == 1" />
-                <FormStepsDreamDetails @next="next" v-else-if="activeStep == 2" :type="data?.inputType" />
-                <FormStepsExpressor @next="next" v-else-if="activeStep == 3" :type="data?.type" />
-                <FormStepsLogin @next="next" v-else-if="activeStep == 4" />
-                <FormStepsPayment @next="next" v-else-if="activeStep == 5" />
+                mode="out-in"
+                >
+
+                <div v-if="activeStep == 0">
+                    <FormStepsContactType :type="data?.type ?? ''" @next="next"  />
+                </div>
+
+                <div v-else-if="activeStep == 1" >
+                    <FormStepsInputType :type="data?.inputType ?? ''" @next="next" />
+                </div>
+
+                <div v-else-if="activeStep == 2" >
+                    <FormStepsDreamDetails @next="next" :type="data?.inputType" />
+                </div>
+
+                <div v-else-if="activeStep == 3">
+                    <FormStepsExpressor @next="next"  :type="data?.type" />
+                </div>
+
+                <div v-else-if="activeStep == 4">
+                    <FormStepsLogin @next="next"  />
+                </div>
+
+                <div v-else-if="activeStep == 5">
+                    <FormStepsPayment @next="next"  />
+                </div>
+
             </transition>
 
             data : {{ data }}
@@ -34,7 +55,7 @@
                 <button class="font-medium text-blue-600" @click="previous">العودة للخطوة السابقة ←</button>
             </div>
 
-            {{ activeStep }}
+            {{ activeStep == 4 }}
 
             <nav class="pt-10" aria-label="Progress">
                 <ol class="flex items-center justify-center space-x-5 rtl:space-x-reverse" role="list">
@@ -73,11 +94,13 @@ import {
     CreditCardIcon
 } from '@heroicons/vue/24/outline';
 
-const show = ref(false);
-const data = ref<any>({});
+// const data = ref<any>({});
 
-const activeStep = ref(0);
-const activeNavigationIndex = ref(0);
+// const activeStep = ref(0);
+// const activeNavigationIndex = ref(0);
+
+const { data, activeStep, activeNavigationIndex, next, previous } = useFormWizard() 
+
 
 const steps = ref(['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة', 'الخطوة الرابعة', 'الخطوة الخامسة']);
 const headers = [
@@ -89,52 +112,52 @@ const headers = [
     { title: 'وسيلة الدفع', description: 'إدخل بيانات الدفع لشراء خدمة تعبير الاحلام هذه', icon: CreditCardIcon }
 ];
 
-function next(result: any) {
-    if (!result) {
-        activeStep.value++;
-        return;
-    }
+// function next(result: any) {
 
-    data.value = Object.assign(data.value, result);
+//     if (!result) {
+//         activeStep.value++;
+//         return;
+//     }
 
-    if (result.nextStep) {
-        activeStep.value = result.nextStep;
-    } else {
-        activeStep.value++;
-    }
+//     data.value = Object.assign(data.value, result);
 
-    if (data.value.activeNavigationIndex) {
-        activeNavigationIndex.value = data.value.activeNavigationIndex;
-    } else {
-        activeNavigationIndex.value = activeStep.value;
-    }
+//     if (result.nextStep) {
+//         activeStep.value = result.nextStep;
+//     } else {
+//         activeStep.value++;
+//     }
 
-    data.value.nextStep = undefined;
+//     if (data.value.activeNavigationIndex) {
+//         activeNavigationIndex.value = data.value.activeNavigationIndex;
+//     } else {
+//         activeNavigationIndex.value = activeStep.value;
+//     }
 
-    data.value.activeNavigationIndex = undefined;
+//     data.value.nextStep = undefined;
 
+//     data.value.activeNavigationIndex = undefined;
 
+//     if (data.value.clearReturn) {
 
-    if (data.value.clearReturn) {
+//         data.value.returnStep = undefined;
+//         data.value.clearReturn = undefined;
 
-        data.value.returnStep = undefined;
-        data.value.clearReturn = undefined;
+//     }
 
-    }
+// }
 
-}
+// function previous() {
+//     if (data.value.returnStep != undefined) {
+//         activeStep.value = data.value.returnStep;
 
-function previous() {
-    if (data.value.returnStep != undefined) {
-        activeStep.value = data.value.returnStep;
+//         data.value.returnStep = undefined;
+//     } else {
+//         activeStep.value--;
+//     }
 
-        data.value.returnStep = undefined;
-    } else {
-        activeStep.value--;
-    }
+//     activeNavigationIndex.value = activeStep.value;
+// }
 
-    activeNavigationIndex.value = activeStep.value;
-}
 </script>
 
 <style scoped></style>
