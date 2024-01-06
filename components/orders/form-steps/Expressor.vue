@@ -1,4 +1,8 @@
 <template>
+    <Head>
+        <title>عبر - طلب تعبير حلم - إختيار المعبر</title>
+    </Head>
+    
     <div>
         Choose Expressor step
 
@@ -9,28 +13,22 @@
 </template>
 
 <script setup lang="ts">
+const { status } = useAuth();
+const emits = defineEmits(['next']);
 
-
-const { status } = useAuth()
-const emits = defineEmits(['next'])
-
-function next(){
-
-    if(status.value == "authenticated"){
-
-        emits("next", {
-            nextStep: 5 ,
-            returnStep: 3,
-        })
-        return
+function next() {
+    if (status.value == 'authenticated') {
+        emits('next', {
+            nextStep: 5,
+            returnStep: 3
+        });
+        return;
     }
 
     emits('next', {
-        clearReturn : true,
-    })
+        clearReturn: true
+    });
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

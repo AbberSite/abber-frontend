@@ -118,44 +118,6 @@ const emits = defineEmits(['next'])
 
 let googleLogin = () => console.log('google not initialized yet');
 
-onMounted(async () => {
-    const googleProvider: any = await useGoogleProvider();
-
-    googleLogin = googleProvider.useGoogleLogin({
-        flow: 'auth-code',
-        onSuccess: (codeResponse: { code: string }) => {
-            alert(JSON.stringify(codeResponse));
-
-            useFetch('/api/auth/google', {
-                method: 'POST',
-                body: {
-                    code: codeResponse.code
-                }
-            });
-        }
-    });
-
-    AppleID.auth.init({
-        clientId: '[CLIENT_ID]',
-        scope: '[SCOPES]',
-        redirectURI: '[REDIRECT_URI]',
-        state: '[STATE]',
-        nonce: '[NONCE]',
-        usePopup: true
-    });
-});
-
-async function appleLogin() {
-    try {
-        const data = await AppleID.auth.signIn();
-
-        console.log('apple login');
-        // Handle successful response.
-    } catch (error) {
-        // Handle error.
-    }
-}
-
 async function submit() {
     const validation = await validate();
 
@@ -180,6 +142,7 @@ async function submit() {
         })
         .finally(() => (loading.value = false));
 }
+
 </script>
 
 <style scoped></style>

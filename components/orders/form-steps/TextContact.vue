@@ -50,6 +50,7 @@
                         :class="[errors.gender && 'form-invalid']"
                         name="select"
                         id="select">
+                        <option value="" disabled selected>إدخل جنس الشخص الاخر</option>
                         <option value="male">ذكر</option>
                         <option value="female">أنثى</option>
                     </select>
@@ -74,6 +75,8 @@
                         type="select"
                         name="select"
                         id="select">
+                        <option value="" disabled selected>إدخل الحالة الاجتماعية للشخص الاخر</option>
+
                         <option value="single">أعزب</option>
                         <option value="">متزوج / ه</option>
                         <option>مطلق / ه</option>
@@ -131,13 +134,13 @@ const { defineField, errors, validate } = useForm({
                 otherwise: (schema) => schema.notRequired()
             }),
 
-            gender: yup.string().when('client', {
+            gender: yup.string().default('').when('client', {
                 is: true,
                 then: (schema) => schema.oneOf(['male', 'female']).required('الرجاء ادخال جنس الشخص'),
                 otherwise: (schema) => schema.notRequired()
             }),
 
-            marital_status: yup.string().when('client', {
+            marital_status: yup.string().default('').when('client', {
                 is: true,
                 then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
                 otherwise: (schema) => schema.notRequired()
@@ -157,7 +160,7 @@ const [dream_time] = defineField('dream_time');
 const [dream] = defineField('dream');
 const [client] = defineField('client');
 const [age] = defineField('age');
-const [gender] = defineField('gender');
+const [gender] = defineField('gender', { });
 const [marital_status] = defineField('marital_status');
 const [profession] = defineField('profession');
 </script>

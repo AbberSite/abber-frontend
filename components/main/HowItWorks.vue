@@ -13,7 +13,7 @@
                     <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900"><span
                             class="mt-1.5 text-lg font-semibold text-white">1</span></div>
                     <div class="ms-6">
-                        <h3 class="font-semibold xs:text-lg">إنشأ حسابا في عبر</h3>
+                        <h3 class="font-semibold xs:text-lg">طريقة تعبير الحلم</h3>
                         <p class="pt-3 text-justify text-sm text-gray-800 xs:text-base">هناك حقيقة مثبتة منذ زمن طويل وهي أن
                             المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص</p>
                     </div>
@@ -22,7 +22,7 @@
                     <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900"><span
                             class="mt-1.5 text-lg font-semibold text-white">2</span></div>
                     <div class="ms-6">
-                        <h3 class="font-semibold xs:text-lg">إختر معبرا لتفسير أحلامك</h3>
+                        <h3 class="font-semibold xs:text-lg">إدخال تفاصيل الحلم</h3>
                         <p class="pt-3 text-justify text-sm text-gray-800 xs:text-base">هناك حقيقة مثبتة منذ زمن طويل وهي أن
                             المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص</p>
                     </div>
@@ -31,7 +31,25 @@
                     <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900"><span
                             class="mt-1.5 text-lg font-semibold text-white">3</span></div>
                     <div class="ms-6">
-                        <h3 class="font-semibold xs:text-lg">إختر وسيلة الدفع المناسبة لك</h3>
+                        <h3 class="font-semibold xs:text-lg">إختيار المعبر</h3>
+                        <p class="pt-3 text-justify text-sm text-gray-800 xs:text-base">هناك حقيقة مثبتة منذ زمن طويل وهي أن
+                            المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص</p>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900"><span
+                            class="mt-1.5 text-lg font-semibold text-white">4</span></div>
+                    <div class="ms-6">
+                        <h3 class="font-semibold xs:text-lg">التسجيل</h3>
+                        <p class="pt-3 text-justify text-sm text-gray-800 xs:text-base">هناك حقيقة مثبتة منذ زمن طويل وهي أن
+                            المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص</p>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-gray-900"><span
+                            class="mt-1.5 text-lg font-semibold text-white">5</span></div>
+                    <div class="ms-6">
+                        <h3 class="font-semibold xs:text-lg">الدفع</h3>
                         <p class="pt-3 text-justify text-sm text-gray-800 xs:text-base">هناك حقيقة مثبتة منذ زمن طويل وهي أن
                             المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص</p>
                     </div>

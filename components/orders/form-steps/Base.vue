@@ -55,7 +55,8 @@
                 <button class="font-medium text-blue-600" @click="previous">العودة للخطوة السابقة ←</button>
             </div>
 
-            {{ activeStep == 4 }}
+
+            {{activeNavigationIndex  }}
 
             <nav class="pt-10" aria-label="Progress">
                 <ol class="flex items-center justify-center space-x-5 rtl:space-x-reverse" role="list">
@@ -91,16 +92,9 @@ import {
     IdentificationIcon,
     UserIcon,
     LockClosedIcon,
-    CreditCardIcon
+    CreditCardIcon,
+ChevronDownIcon
 } from '@heroicons/vue/24/outline';
-
-// const data = ref<any>({});
-
-// const activeStep = ref(0);
-// const activeNavigationIndex = ref(0);
-
-const { data, activeStep, activeNavigationIndex, next, previous } = useFormWizard() 
-
 
 const steps = ref(['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة', 'الخطوة الرابعة', 'الخطوة الخامسة']);
 const headers = [
@@ -112,51 +106,8 @@ const headers = [
     { title: 'وسيلة الدفع', description: 'إدخل بيانات الدفع لشراء خدمة تعبير الاحلام هذه', icon: CreditCardIcon }
 ];
 
-// function next(result: any) {
 
-//     if (!result) {
-//         activeStep.value++;
-//         return;
-//     }
-
-//     data.value = Object.assign(data.value, result);
-
-//     if (result.nextStep) {
-//         activeStep.value = result.nextStep;
-//     } else {
-//         activeStep.value++;
-//     }
-
-//     if (data.value.activeNavigationIndex) {
-//         activeNavigationIndex.value = data.value.activeNavigationIndex;
-//     } else {
-//         activeNavigationIndex.value = activeStep.value;
-//     }
-
-//     data.value.nextStep = undefined;
-
-//     data.value.activeNavigationIndex = undefined;
-
-//     if (data.value.clearReturn) {
-
-//         data.value.returnStep = undefined;
-//         data.value.clearReturn = undefined;
-
-//     }
-
-// }
-
-// function previous() {
-//     if (data.value.returnStep != undefined) {
-//         activeStep.value = data.value.returnStep;
-
-//         data.value.returnStep = undefined;
-//     } else {
-//         activeStep.value--;
-//     }
-
-//     activeNavigationIndex.value = activeStep.value;
-// }
+const { data, activeStep, activeNavigationIndex, next, previous } = useFormWizard() 
 
 </script>
 

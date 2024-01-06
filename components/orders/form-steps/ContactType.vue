@@ -1,4 +1,8 @@
 <template>
+
+    <Head>
+        <title>عبر - طلب تعبير حلم - طريقة تعبير الحلم</title>
+    </Head>
     <form method="POST" @submit.prevent="next">
         <fieldset class="space-y-7">
             <label

@@ -70,7 +70,7 @@
     const _expressors = ref<{ results: Expressor[] }>({ results: [] });
     const expressors = computed(() =>
         _expressors.value.results
-            ? _expressors.value.results.sort((a, b) => b.rate - a.rate).filter((expressor, index) => index < 6)
+            ? _expressors.value.results.sort((a, b) => b.rate - a.rate).filter((expressor, index) => index < 6).sort((a, b) => b.ordered_count - a.ordered_count)
             : [],
     );
     const loading = ref(false);

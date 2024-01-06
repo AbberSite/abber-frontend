@@ -15,7 +15,7 @@ class Stack<T> {
         return this.items[this.items.length - 1];
     }
 
-    isEmpty() {
+    isEmpty() : boolean {
         return this.items.length == 0;
     }
 

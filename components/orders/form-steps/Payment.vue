@@ -1,15 +1,10 @@
 <template>
-    <div>
-        Payment Step
-    </div>
+    <Head>
+        <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
+    </Head>
+    <div>Payment Step</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-
-
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

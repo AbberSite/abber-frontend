@@ -1,3 +1,16 @@
+interface  _Result { 
+    nextStep? : number, 
+    activeNavigationIndex? : number, 
+    ignore? : boolean, 
+    persist : boolean,
+    serialize? : () => any, 
+}
+
+
+type Result = _Result['persist'] extends true ? _Result & {serialize  : () => any  } : _Result
+
+
+
 class FormWizard {
     data = ref<any>({});
     activeStep = ref(0);
@@ -8,7 +21,8 @@ class FormWizard {
         this.navigationStack.push(0);
     }
 
-    next = (result: any) => {
+    next = (result: Result) => {
+
         if (!result) {
             this.activeStep.value++;
             this.navigationStack.push(this.activeStep.value);
@@ -33,16 +47,9 @@ class FormWizard {
 
         this.data.value.activeNavigationIndex = undefined;
 
-        if (this.data.value.clearReturn) {
-            this.data.value.returnStep = undefined;
-            this.data.value.clearReturn = undefined;
-        }
-
         if(result.ignore) return
 
         this.navigationStack.push(this.activeStep.value);
-
-
 
     };
 

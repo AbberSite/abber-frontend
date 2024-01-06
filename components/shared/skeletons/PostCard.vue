@@ -17,7 +17,7 @@
                 <div class="h-2 rounded-full bg-gray-200"></div>
                 <div class="h-2 rounded-full bg-gray-200"></div>
             </div>
-            <div class="w-full pt-6">
+            <div class="w-full pt-6 ">
                 <div class="h-2 w-[35%] rounded-full bg-gray-200"></div>
             </div>
         </div>
