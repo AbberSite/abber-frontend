@@ -12,7 +12,6 @@
                 </div>
             </div>
             <div class="divide-y-2 divide-gray-50 lg:col-span-2 lg:-mt-8">
-
                 <template v-if="loading">
                     <SkeletonsFaq />
                     <SkeletonsFaq />
@@ -21,10 +20,10 @@
                 </template>
 
                 <template v-else>
-                    <details v-for="faq in faqs.results" class="relative mt-8 pt-8 lg:first-of-type:mt-0">
+                    <details v-for="faq in faqs" class="relative mt-8 pt-8 lg:first-of-type:mt-0">
                         <summary class="group flex cursor-pointer select-none list-none justify-between font-semibold">
-                            <h3 class="leading-[1.75] xs:text-lg xs:leading-[1.75]"> 
-                              {{ faq.question }}
+                            <h3 class="leading-[1.75] xs:text-lg xs:leading-[1.75]">
+                                {{ faq.question }}
                             </h3>
                             <span class="ms-6 flex-shrink-0">
                                 <!-- Heroicon name: outline/plus -->
@@ -47,7 +46,7 @@
                         </summary>
                         <div class="pt-6">
                             <p class="text-justify text-sm text-gray-800 xs:text-base">
-                              {{ faq.answer }}
+                                {{ faq.answer }}
                             </p>
                         </div>
                         <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0">
@@ -67,6 +66,14 @@
                         </span>
                     </details>
                 </template>
+                <div class="flex justify-center pt-16" v-if="!moreFaqs">
+                    <button
+                        class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                        type="button"
+                        @click="moreFaqs = true">
+                        <span class="mt-1.5">عرض المزيد...</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -76,13 +83,17 @@
 import type { PaginationResponse } from '~/types';
 
 const loading = ref(false);
-
+const moreFaqs = ref(false);
 type Faq = {
     question: string;
     answer: string;
 };
 
-const faqs = ref<PaginationResponse<Faq>>({ results: [] });
+const _faqs = ref<PaginationResponse<Faq>>({ results: [] });
+
+const faqs = computed(() =>
+    moreFaqs.value ? _faqs.value.results : _faqs.value.results.filter((faq, index) => index < 5)
+);
 
 async function fatchFaqs() {
     try {
@@ -92,7 +103,7 @@ async function fatchFaqs() {
 
         if (!data.value) return;
 
-        faqs.value = data.value;
+        _faqs.value = data.value;
 
         loading.value = false;
     } catch (error) {

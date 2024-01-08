@@ -16,7 +16,7 @@
                     v-model="dream_title"
                     label="عنوان الحلم"
                     :error="errors.dream_title"
-                    placeholder="إدخل عنوانا لحلمك مثال: رؤية العقرب في المنام" />
+                    placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />
             </div>
             <div class="w-full space-y-3">
                 <TextInput
@@ -78,9 +78,9 @@
                         <option value="" disabled selected>إدخل الحالة الاجتماعية للشخص الاخر</option>
 
                         <option value="single">أعزب</option>
-                        <option value="">متزوج / ه</option>
-                        <option>مطلق / ه</option>
-                        <option>ارمل / ه</option>
+                        <option value="">متزوج/ه</option>
+                        <option>مطلق/ه</option>
+                        <option>ارمل/ه</option>
                     </select>
                     <InputError :message="errors.marital_status" />
                 </div>
@@ -103,7 +103,7 @@
                     id="textarea"
                     rows="5"
                     :class="[errors.dream && 'form-invalid']"
-                    placeholder="أوصف حلمك بالتفصيل"
+                    placeholder="أوصف الحلم بالتفصيل"
                     v-model="dream"></textarea>
                 <InputError :message="errors.dream" />
             </div>
@@ -136,7 +136,7 @@ const { defineField, errors, validate } = useForm({
 
             gender: yup.string().default('').when('client', {
                 is: true,
-                then: (schema) => schema.oneOf(['male', 'female']).required('الرجاء ادخال جنس الشخص'),
+                then: (schema) => schema.oneOf(['male', 'female'], 'الرجاء ادخال جنس الشخص').required('الرجاء ادخال جنس الشخص'),
                 otherwise: (schema) => schema.notRequired()
             }),
 

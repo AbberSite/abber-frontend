@@ -27,7 +27,7 @@
       </p>
 
       <div class="text-sm font-semibold xs:text-base">
-        <NuxtLink v-if="slug" :to="{ name: 'posts-slug', params: { slug: slug } }">إقرأ المزيد ←</NuxtLink>
+        <NuxtLink v-if="slug" :to="{ name: 'posts-slug', params: { slug: slug } }">إقرأ المزيد <span aria-hidden="true">←</span></NuxtLink>
       </div>
 
     </div>

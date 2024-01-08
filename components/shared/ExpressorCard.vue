@@ -1,10 +1,10 @@
 <template>
-    <div class="pt-8 sm:inline-block">
+    <div class="w-full pt-8 sm:inline-block">
         <figure class="rounded-xl bg-gray-50 px-6 py-6">
             <figcaption class="flex flex-col items-center">
                 <div class="flex-shrink-0">
                     <img
-                        class="lazyload h-20 w-20 rounded-full bg-gray-100"
+                        class="lazyload h-20 w-20 rounded-full bg-gray-100 object-cover"
                         :src="expressor.seller.image"
                         height="80"
                         width="80"

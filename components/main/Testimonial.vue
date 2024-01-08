@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-8 sm:inline-block">
+    <div class="w-full pt-8 sm:inline-block">
         <figure class="rounded-xl bg-gray-50 px-6 py-6">
             <blockquote>
                 <p class="text-justify text-sm text-gray-800 xs:text-base">

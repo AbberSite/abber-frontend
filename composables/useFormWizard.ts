@@ -1,24 +1,31 @@
-interface  _Result { 
+interface  Result { 
     nextStep? : number, 
     activeNavigationIndex? : number, 
     ignore? : boolean, 
-    persist : boolean,
-    serialize? : () => any, 
+    [key : string] : any
 }
 
+type Step = {
 
-type Result = _Result['persist'] extends true ? _Result & {serialize  : () => any  } : _Result
+    persist : boolean,
+    toJson? : () => any, 
+
+}
 
 
 
 class FormWizard {
+
     data = ref<any>({});
+    steps = ref<Step[]>([]) 
     activeStep = ref(0);
     activeNavigationIndex = ref(0);
     navigationStack = useStack<number>();
 
     constructor() {
+
         this.navigationStack.push(0);
+
     }
 
     next = (result: Result) => {

@@ -63,7 +63,7 @@
                     </fieldset>
                 </form>
                 <div class="pt-8 text-center text-sm xs:text-base"><a class="font-medium text-blue-600"
-                        href="/accounts/login">العودة للصفحة السابقة ←</a></div>
+                        href="/accounts/login">العودة للصفحة السابقة <span aria-hidden="true">←</span></a></div>
             </div>
         </section>
     </main>

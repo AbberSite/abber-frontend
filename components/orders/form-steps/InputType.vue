@@ -15,7 +15,7 @@
                     <span class="flex flex-col space-y-3">
                         <span class="ms-3 mt-1.5 text-sm font-semibold">إدخال نصي</span>
                         <span class="ms-3 text-[13px] leading-loose text-gray-700"
-                            >إدخل تفاصيل حلمك يدويا من خلال ملئ حقول الإدخال.</span
+                            >إدخل تفاصيل الحلم يدويا من خلال ملئ حقول الإدخال.</span
                         >
                     </span>
                 </div>
@@ -40,7 +40,7 @@
                     <span class="flex flex-col space-y-3">
                         <span class="ms-3 mt-1.5 text-sm font-semibold">إدخال صوتي</span>
                         <span class="ms-3 text-[13px] leading-loose text-gray-700"
-                            >إدخل تفاصيل حلمك صوتيا بإستخدام بصمة الصوت ولمدة دقيقتين كحد أقصى.</span
+                            >إدخل تفاصيل الحلم صوتيا بإستخدام بصمة الصوت.</span
                         >
                     </span>
                 </div>

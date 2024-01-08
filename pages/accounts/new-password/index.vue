@@ -191,7 +191,7 @@
                     </fieldset>
                 </form>
                 <div class="pt-8 text-center text-sm xs:text-base">
-                    <a class="font-medium text-blue-600" href="/accounts/login">العودة لتسجيل الدخول ←</a>
+                    <a class="font-medium text-blue-600" href="/accounts/login">العودة لتسجيل الدخول <span aria-hidden="true">←</span></a>
                 </div>
             </div>
         </section>

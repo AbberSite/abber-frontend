@@ -1,4 +1,4 @@
-type Status = 'initialized'|'paused'|'recording'|'finished'
+type Status = 'initialized'|'paused'|'recording'|'finished'|'reseted'
 
 
 class AudioRecorder {
@@ -116,7 +116,14 @@ class AudioRecorder {
         this.resetRecordingProperties();
 
     }
+    
 
+    reset = () => {
+
+        this.resetRecordingProperties()
+        this.status.value = 'initialized'
+
+    }
     stopStream =  () => {
         this.streamBeingCaptured?.getTracks().forEach((track) => track.stop());
     }

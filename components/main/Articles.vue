@@ -12,7 +12,7 @@
                 </div>
             </div>
             <NuxtLink class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex" :to="{ name: 'blog' }"
-                >عرض جميع المقالات ←</NuxtLink
+                >عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink
             >
         </div>
         <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
@@ -35,7 +35,7 @@
             </template>
 
             <NuxtLink :to="{ name: 'blog' }" class="block text-center font-semibold xs:text-lg sm:hidden"
-                >عرض جميع المقالات ←</NuxtLink
+                >عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink
             >
         </div>
     </section>
