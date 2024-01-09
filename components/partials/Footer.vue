@@ -34,13 +34,13 @@
                 <h3 class="text-sm font-semibold xs:text-base">معلومات عنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body"
-                            >من نحن</a
+                        <NuxtLink class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :to="{ name : 'about-us'}" up-target="body"
+                            >من نحن</NuxtLink
                         >
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body"
-                            >الشروط والأحكام</a
+                        <NuxtLink class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :to="{ name : 'terms-conditions'}" up-target="body"
+                            >الشروط والأحكام</NuxtLink
                         >
                     </li>
                     <li>

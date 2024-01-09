@@ -1,33 +1,75 @@
 <template>
-  <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
-    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-      <div
-        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
-      </div>
-    </div>
-    <div
-      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-      aria-hidden="true">
-      <div
-        class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
-      </div>
-    </div>
-  </section>
-  <!-- Post section -->
-  <section
-    class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
-    aria-labelledby="blog-heading">
-    <div class="grid w-full gap-x-8 lg:grid-cols-3">
-      <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block">
-        <div class="px-6 text-lg font-semibold">جدول المحتويات</div>
-        <div class="js-toc leading-[1.75]"></div>
-      </div>
-      <div class="mx-auto max-w-prose lg:col-span-2 lg:max-w-full js-toc-content" v-html="post?.content" />
 
+  <Head>
+    <title>عبر - المدونة - {{ post.title}}</title>
 
-      <!--         
+  </Head>
+    <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
+        <div
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true">
+            <div
+                class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                style="
+                    clip-path: polygon(
+                        74.1% 44.1%,
+                        100% 61.6%,
+                        97.5% 26.9%,
+                        85.5% 0.1%,
+                        80.7% 2%,
+                        72.5% 32.5%,
+                        60.2% 62.4%,
+                        52.4% 68.1%,
+                        47.5% 58.3%,
+                        45.2% 34.5%,
+                        27.5% 76.7%,
+                        0.1% 64.9%,
+                        17.9% 100%,
+                        27.6% 76.8%,
+                        76.1% 97.7%,
+                        74.1% 44.1%
+                    );
+                "></div>
+        </div>
+        <div
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+            aria-hidden="true">
+            <div
+                class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                style="
+                    clip-path: polygon(
+                        74.1% 44.1%,
+                        100% 61.6%,
+                        97.5% 26.9%,
+                        85.5% 0.1%,
+                        80.7% 2%,
+                        72.5% 32.5%,
+                        60.2% 62.4%,
+                        52.4% 68.1%,
+                        47.5% 58.3%,
+                        45.2% 34.5%,
+                        27.5% 76.7%,
+                        0.1% 64.9%,
+                        17.9% 100%,
+                        27.6% 76.8%,
+                        76.1% 97.7%,
+                        74.1% 44.1%
+                    );
+                "></div>
+        </div>
+    </section>
+    <!-- Post section -->
+    <section
+        class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
+        aria-labelledby="blog-heading">
+        <div class="grid w-full gap-x-8 lg:grid-cols-3">
+            <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block">
+                <div class="px-6 text-lg font-semibold">جدول المحتويات</div>
+                <div class="js-toc leading-[1.75]"></div>
+            </div>
+            <div class="mx-auto max-w-prose lg:col-span-2 lg:max-w-full js-toc-content" v-html="post?.content" />
+
+            <!--         
         <div class="flex items-center justify-between text-gray-700">
           <a class="rounded-full bg-gray-900 px-4 pb-1 pt-2.5 text-[13px] font-semibold text-white hover:bg-gray-800"
             href="#">تفسير الأحلام</a>
@@ -130,115 +172,122 @@
           </div>
         </div>
  -->
-
-    </div>
-  </section>
+        </div>
+    </section>
 </template>
 
 <script setup lang="ts">
-import tocbot from 'tocbot';
-import "tocbot/src/scss/tocbot.scss"
+import * as tocbot from 'tocbot';
+import 'tocbot/src/scss/tocbot.scss';
 
-
-const slug = useRoute().params.slug
+const slug = useRoute().params.slug;
 
 type Post = {
-  user: string,
-  post_category: Category,
-  title: string,
-  content: string,
-  meta_content: string,
-  image: string,
-  image_alt: string,
-  slug: string,
-  active: boolean,
-  bookmark: []
-}
+    user?: string;
+    post_category?: Category;
+    title?: string;
+    content?: string;
+    meta_content?: string;
+    image?: string;
+    image_alt?: string;
+    slug?: string;
+    active?: boolean;
+    bookmark?: [];
+};
 
 type Category = {
-  id: number,
-  name: string
-}
-
+    id: number;
+    name: string;
+};
 
 type Response = {
+    count?: number;
+    next?: string;
+    previous?: string;
+    results?: Post[];
+};
 
-  count?: number,
-  next?: string,
-  previous?: string,
-  results?: Post[]
-}
+const loading = ref(false);
 
-const loading = ref(false)
-
-const post = ref<Post>()
+const post = ref<Post>({ content: '' });
 
 async function fetchPost() {
+    loading.value = true;
 
-  loading.value = true
+    const { data } = (await useFetch(`/api/blog/posts/${slug}`)) as { data: Ref<Post> };
 
+    post.value = data.value;
 
-
-  const { data } = await useFetch(`/api/blog/posts?url=https://test.abber.co/api/blog/posts/${slug}`) as { data: Ref<Post> }
-
-  post.value = data.value
-
-  loading.value = false
+    loading.value = false;
 }
 
-
-
 onMounted(async () => {
+    await fetchPost();
+    await fetchPost();
 
-  await fetchPost()
-  await fetchPost()
+    tocbot.init({
+        tocSelector: '.js-toc',
 
-  tocbot.init({
-    // Where to render the table of contents.
-    tocSelector: '.js-toc',
-    // Where to grab the headings to build the table of contents.
-    contentSelector: '.js-toc-content',
-    // Which headings to grab inside of the contentSelector element.
-    headingSelector: 'h2, h3',
-    // For headings inside relative or absolute positioned containers within content.
-    hasInnerContainers: true,
-  });
-  
-})
+        contentSelector: '.js-toc-content',
 
+        headingSelector: 'h2',
+
+        hasInnerContainers: true
+    });
+
+    function appendRandomIdToHeadingTitles() {
+        // Get all HTML heading titles
+        var headingTitles = document.querySelectorAll('.js-toc-content h2');
+
+        // Create a random ID for each heading title
+        for (var i = 0; i < headingTitles.length; i++) {
+            var randomId = Math.random().toString(36).substring(7);
+            headingTitles[i].id = randomId;
+
+            console.log(headingTitles[i].innerHTML)
+        }
+    }
+
+    // Call the function
+    appendRandomIdToHeadingTitles();
+
+    tocbot.refresh()
+
+
+});
 </script>
 
 <style scoped>
 ol {
-  list-style: decimal !important;
-  padding: revert !important;
+    list-style: decimal !important;
+    padding: revert !important;
 }
 
 [dir='rtl'] .toc-list {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 .toc-list-item {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 .toc-list-item.is-active-li {
-  position: relative;
+    position: relative;
 }
 
 .toc-link:hover {
-  color: black;
+    color: black;
 }
 
 .toc-link::before {
-  background-color: white !important;
+    background-color: white !important;
 }
 
 .is-active-link {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .is-active-link::before {
-  background-color: black !important;
+    background-color: black !important;
 }
 </style>
