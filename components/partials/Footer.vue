@@ -44,8 +44,8 @@
                         >
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" href="#" up-target="body"
-                            >إتفاقية المستخدم</a
+                        <NuxtLink class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" :to="{ name : 'user-agreement'}" up-target="body"
+                            >إتفاقية المستخدم</NuxtLink
                         >
                     </li>
                 </ul>
