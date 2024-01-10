@@ -1,7 +1,6 @@
 export default async (method: Method, url: string, data: object = {}, headers?: Object) => {
     const { rawRefreshToken } = useAuthState();
 
-    console.log('use API');
 
     await useFetch(url, {
         method: method,
@@ -15,7 +14,6 @@ export default async (method: Method, url: string, data: object = {}, headers?: 
         body: data,
     });
 
-    console.log("after the request")
     
 };
 

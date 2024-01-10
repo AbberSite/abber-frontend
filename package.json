@@ -12,6 +12,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@sidebase/nuxt-auth": "^0.6.3-alpha.1",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/intl-tel-input": "^18.1.4",
     "autoprefixer": "^10.4.16",
     "nuxt": "^3.8.2",

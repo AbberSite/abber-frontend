@@ -12,15 +12,13 @@
             leave-active-class="transition-all"
             enter-from-class="translate-x-10 opacity-0"
             leave-to-class="translate-x-10 opacity-0">
-            <template v-for="notification in notifications">
-                <div>
+                <div v-for="notification in notifications" :key="notification.id">
 
                     <Alert :type="notification.type" :id="(notification.id as number)">
                         {{ notification.content }}
                     </Alert>
                     
                 </div>
-            </template>
         </TransitionGroup>
     </section>
 </template>

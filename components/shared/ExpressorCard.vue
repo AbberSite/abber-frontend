@@ -37,10 +37,10 @@
             <blockquote>
                 <p class="pt-6 text-justify text-sm text-gray-800 xs:text-base">
 
-                    <!-- {{ expressor.about }} -->
+                    {{ expressor.seller.about }}
 
-                    هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
-                    الخارجي للنص
+                    <!-- هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
+                    الخارجي للنص -->
                     
                 </p>
             </blockquote>
@@ -57,6 +57,8 @@ type Expressor = {
             first_name: string;
             last_name: string;
             image: string;
+        about : string; 
+
             is_online: boolean;
         };
         creation_date: string;

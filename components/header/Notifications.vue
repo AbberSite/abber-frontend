@@ -89,7 +89,7 @@ type Notification = {
     url: string;
 };
 
-const { status, refresh } = useAuth()
+const { status } = useAuth()
 
 const loading = computed(() => status.value == "loading")
 const utilsStore = useUtilsStore()
@@ -105,21 +105,6 @@ onMounted(async () => {
     });
 
     utilsStore.readNotifications = true    
-
-    // data.value.read = true
-    // data.value.notifications.results =  data.value.notifications.results.map(notification => {
-    //     notification.read = true
-
-    //     console.log(" before :  " + notification.read)
-    //     return notification
-    // })
-
-
-    // data.value.notifications.results.map(notification => {
-
-    //     console.log(" after :  " + notification.read);
-        
-    // })
 
 });
 </script>
