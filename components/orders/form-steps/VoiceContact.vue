@@ -65,7 +65,7 @@
                             type="button"
                             @click="reset"
                             title="حذف التسجيل الحالي">
-                            <TrashIcon class="w-9 h-9" />
+                            <TrashIcon class="w-8 h-8" />
                         </button>
                         <!-- Record Button -->
                         <button
@@ -73,14 +73,14 @@
                             type="button"
                             @click="recordAgain"
                             title="تسجيل جديد">
-                            <MicrophoneIcon class="w-9 h-9" />
+                            <MicrophoneIcon class="w-8 h-8" />
                         </button>
                         <!-- Download Button -->
                         <a
                             class="rounded-full border border-transparent bg-gray-900 px-4 py-4 text-white shadow-sm hover:bg-gray-800"
                             @click.prevent="download"
                             title="تنزيل التسجيل">
-                            <ArrowDownTrayIcon class="w-9 h-9" />
+                            <ArrowDownTrayIcon class="w-8 h-8" />
                         </a>
                     </div>
                     <audio class="w-full pt-8" controls ref="audioSource">

@@ -50,8 +50,7 @@
                         :class="[errors.gender && 'form-invalid']"
                         name="select"
                         id="select">
-                        <option value="" disabled selected>إدخل جنس الشخص الاخر</option>
-                        <option value="male">ذكر</option>
+                        <option value="male" selected>ذكر</option>
                         <option value="female">أنثى</option>
                     </select>
                     <InputError :message="errors.gender" />
@@ -75,9 +74,8 @@
                         type="select"
                         name="select"
                         id="select">
-                        <option value="" disabled selected>إدخل الحالة الاجتماعية للشخص الاخر</option>
 
-                        <option value="single">أعزب</option>
+                        <option value="single" selected>أعزب</option>
                         <option value="">متزوج/ه</option>
                         <option>مطلق/ه</option>
                         <option>ارمل/ه</option>
@@ -134,13 +132,13 @@ const { defineField, errors, validate } = useForm({
                 otherwise: (schema) => schema.notRequired()
             }),
 
-            gender: yup.string().default('').when('client', {
+            gender: yup.string().default('male').when('client', {
                 is: true,
                 then: (schema) => schema.oneOf(['male', 'female'], 'الرجاء ادخال جنس الشخص').required('الرجاء ادخال جنس الشخص'),
                 otherwise: (schema) => schema.notRequired()
             }),
 
-            marital_status: yup.string().default('').when('client', {
+            marital_status: yup.string().default('single').when('client', {
                 is: true,
                 then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
                 otherwise: (schema) => schema.notRequired()

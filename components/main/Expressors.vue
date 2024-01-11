@@ -32,43 +32,9 @@
 </template>
 
 <script setup lang="ts">
-import { boolean, number } from 'yup';
+import type { Service } from '~/types';
 
-type Expressor = {
-    id: number;
-    seller: {
-        username: string;
-        first_name: string;
-        last_name: string;
-        image: string;
-        is_online: boolean;
-        about: string;
-    };
-    creation_date: string;
-    active: boolean;
-    admin_active: boolean;
-    rate: number;
-    ordered_count: number;
-    service_prices: {
-        video: boolean;
-        text: boolean;
-        text_price: number;
-        video_price: number;
-    };
-    text_service_capacity: {
-        maximum_orders: number;
-        stock: number;
-    };
-    service_methods: [
-        {
-            type: string;
-            price: number;
-        }
-    ];
-    in_wishlist: boolean;
-};
-
-const _expressors = ref<{ results: Expressor[] }>({ results: [] });
+const _expressors = ref<{ results: Service[] }>({ results: [] });
 const expressors = computed(() =>
     _expressors.value.results
         ? _expressors.value.results
@@ -92,7 +58,7 @@ async function fetchExpressors() {
             if (response.status === 200) {
                 if (!response._data) return;
 
-                const data: { results: Expressor[] } = response._data;
+                const data: { results: Service[] } = response._data;
                 _expressors.value = data;
             }
         }

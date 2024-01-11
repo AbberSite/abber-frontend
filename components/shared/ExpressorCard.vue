@@ -49,45 +49,10 @@
 </template>
 
 <script setup lang="ts">
-
-type Expressor = {
-        id: number;
-        seller: {
-            username: string;
-            first_name: string;
-            last_name: string;
-            image: string;
-        about : string; 
-
-            is_online: boolean;
-        };
-        creation_date: string;
-        active: boolean;
-        admin_active: boolean;
-        rate: number;
-        ordered_count: number;
-        service_prices: {
-            video: boolean;
-            text: boolean;
-            text_price: number;
-            video_price: number;
-        };
-        text_service_capacity: {
-            maximum_orders: number;
-            stock: number;
-        };
-        service_methods: [
-            {
-                type: string;
-                price: number;
-            },
-        ];
-        in_wishlist: boolean;
-    };
-
+import type { Service } from '~/types';
 
 defineProps<{
-    expressor : Expressor
+    expressor : Service
 }>()
 </script>
 

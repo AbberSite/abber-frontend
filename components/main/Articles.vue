@@ -5,13 +5,19 @@
                 <h2
                     class="inline-flex rounded-full bg-gray-900 px-4 pb-1.5 pt-2 text-xs font-semibold text-white"
                     id="articles-heading">
-                    المدونة
+
+                    <!-- المدونة -->
+
+                    {{ title }}
                 </h2>
                 <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">
-                    اخر المقالات المقدمة إسبوعيا
+
+                    <!-- اخر المقالات المقدمة إسبوعيا -->
+
+                    {{ description }}
                 </div>
             </div>
-            <NuxtLink class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex" :to="{ name: 'blog' }"
+            <NuxtLink v-if="!currentPostSlug" class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex" :to="{ name: 'blog' }"
                 >عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink
             >
         </div>
@@ -67,6 +73,18 @@ type Response = {
     results?: Post[];
 };
 
+const props = withDefaults(
+    defineProps<{
+        title?: string;
+        description?: string;
+        currentPostSlug?: string;
+    }>(),
+    {
+        title: 'المدونة',
+        description: 'اخر المقالات المقدمة إسبوعيا',
+        currentPostSlug: undefined
+    }
+);
 const loading = ref(false);
 
 const posts = ref<Post[]>();
@@ -81,7 +99,7 @@ async function fetchPosts() {
         }
     })) as { data: Ref<Response> };
 
-    posts.value = data.value?.results?.filter((post, index) => index < 3);
+    posts.value = data.value?.results?.filter((post, index) => post.slug != props.currentPostSlug).filter((post, index) => index < 3);
 
     loading.value = false;
 }

@@ -86,7 +86,7 @@
                     width="384"
                     alt="صورة المقالة" />
 
-                <div class="js-toc-content prose !prose-gray pt-8" v-html="post?.content" />
+                <div class="js-toc-content prose prose-gray pt-8" ref="contentEl" v-html="post?.content" />
 
                 <div class="mt-8 border-t border-gray-100 pt-8">
                     <div class="flex items-center justify-between">
@@ -192,6 +192,8 @@
             </div>
         </div>
     </section>
+
+    <Articles :current-post-slug="post.slug" title="مقالات" description="إقرأ المزيد من المقالات" /> 
 </template>
 
 <script setup lang="ts">
@@ -248,6 +250,7 @@ async function copy() {
 }
 
 const bookmarked = computed(() => (post.value?.bookmark?.length ? true : false));
+const contentEl = ref(null)
 
 async function addToBookmarks() {
     const { rawToken, status } = useAuthState();
@@ -281,6 +284,10 @@ onMounted(async () => {
     await fetchPost();
     await fetchPost();
 
+    if(contentEl.value){
+        clearStyles(contentEl.value)
+    }
+
     tocbot.init({
         tocSelector: '.js-toc',
 
@@ -300,6 +307,18 @@ onMounted(async () => {
 
     tocbot.refresh();
 });
+
+
+function clearStyles(node : HTMLElement){
+
+
+    node.removeAttribute('style')
+
+    Array.prototype.forEach.call(node.children, (child) => {
+        clearStyles(child)
+    })
+
+}
 </script>
 
 <style>
