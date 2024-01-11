@@ -7,8 +7,15 @@
         <form method="POST" @submit.prevent="next">
             <fieldset class="space-y-7">
                 <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1">
-                    <template v-for="service in services">
-                        <ServiceRadioButton v-model="selectedService" :service="service" />
+
+                    <template v-if="loading">
+                        <SkeletonsServiceRadioButton />
+                        <SkeletonsServiceRadioButton />
+                        <SkeletonsServiceRadioButton />
+                        <SkeletonsServiceRadioButton />
+                    </template>
+                    <template v-else>
+                        <ServiceRadioButton v-for="service in services" v-model="selectedService" :service="service" />
                     </template>
                 </div>
 
@@ -35,6 +42,7 @@ const props = defineProps<{
 const { status } = useAuth();
 const emits = defineEmits(['next']);
 
+const loading = ref(false)
 
 const services = ref<Service[]>([]);
 
@@ -42,6 +50,8 @@ const selectedService = ref(props.selectedService);
 const { fetchAll } = useServicesStore();
 
 onMounted(async () => {
+
+    loading.value = true
     const response = await fetchAll();
 
     services.value = response?.results
@@ -51,6 +61,8 @@ onMounted(async () => {
     if (props.type == 'voice_communication') {
         services.value = services.value.filter((service) => service.seller.is_online);
     }
+
+    loading.value = false
 });
 
 function next() {
