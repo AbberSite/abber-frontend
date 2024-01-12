@@ -3,19 +3,16 @@
         <title>عبر - طلب تعبير حلم - إدخال تفاصيل الحلم</title>
     </Head>
     <div>
-        <FormStepsTextContact @next="next" v-if="type === 'text_chat'" />
-        <FormStepsVoiceContact @next="next" v-else />
+        <FormStepsTextContact  v-if="state.data?.inputType === 'text_chat'" />
+        <FormStepsVoiceContact v-else />
     </div>
 </template>
 
 <script setup lang="ts">
-defineProps(['type']);
+import type { OrderForm } from '~/types';
 
-const emits = defineEmits(['next']);
 
-function next(data: any) {
-    emits('next', data);
-}
+const { state } = useFormWizard<OrderForm>("order")
 </script>
 
 <style scoped></style>

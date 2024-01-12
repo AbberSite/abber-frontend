@@ -20,34 +20,41 @@
                 enter-from-class="translate-x-5 opacity-0"
                 leave-to-class="-translate-x-5 opacity-0"
                 mode="out-in">
-                <div v-if="activeStep == 0">
-                    <FormStepsContactType :type="data?.type ?? ''" @next="next" />
+                <div :key="activeStepIndex">
+                    <component :is="activeStep" />
+                </div>
+                <!-- <div v-if="activeStep == 0">
+                    <FormStepsContactType />
                 </div>
 
                 <div v-else-if="activeStep == 1">
-                    <FormStepsInputType :type="data?.inputType ?? ''" @next="next" />
+                    <FormStepsInputType  />
                 </div>
 
                 <div v-else-if="activeStep == 2">
-                    <FormStepsDreamDetails @next="next" :type="data?.inputType"  />
+                    <FormStepsDreamDetails  />
                 </div>
 
                 <div v-else-if="activeStep == 3">
-                    <FormStepsService @next="next" :type="data?.type" :selected-service="data?.service_id" />
+                    <FormStepsService  />
                 </div>
 
                 <div v-else-if="activeStep == 4">
-                    <FormStepsLogin @next="next" />
+                    <FormStepsAuthenticationMethod  />
                 </div>
 
                 <div v-else-if="activeStep == 5">
-                    <FormStepsPayment @next="next" />
+                    <FormStepsAuthentication  />
                 </div>
+
+                <div v-else-if="activeStep == 6">
+                    <FormStepsPayment />
+                </div> -->
             </transition>
 
-            {{ data }}
+            {{ state }}
 
-            <div class="pt-8 text-center text-sm xs:text-base" v-if="activeStep != 0">
+            <div class="pt-8 text-center text-sm xs:text-base" v-if="activeStepIndex != 0">
                 <button class="font-medium text-blue-600" @click="previous">العودة للخطوة السابقة <span aria-hidden="true">→</span></button>
             </div>
 
@@ -90,11 +97,27 @@ import {
     CreditCardIcon,
     ChevronDownIcon
 } from '@heroicons/vue/24/outline';
+import type { OrderForm } from '~/types';
+import ContactType from './ContactType.vue';
+import InputType from './InputType.vue';
+import DreamDetails from './DreamDetails.vue';
+import Service from './Service.vue';
+import AuthenticationMethod from './AuthenticationMethod.vue';
+import Authentication from './Authentication.vue';
+import Payment from './Payment.vue';
 
-const { data, activeStep, activeNavigationIndex, next, previous } = useFormWizard();
+const { state, activeStepIndex, activeNavigationIndex, previous, activeStep } = useFormWizard<OrderForm>('order', [
+    ContactType,
+    InputType,
+    DreamDetails,
+    Service,
+    AuthenticationMethod,
+    Authentication,
+    Payment
+]);
 
 const inputTitle = computed(() =>
-    data.value?.inputType == 'text_chat'
+    state.value.data?.inputType == 'text_chat'
         ? 'أدخل معلومات و تفاصيل الحلم'
         : 'لديك دقيقتين يمكنك من خلالها إدخال تفاصيل الحلم'
 );
@@ -116,8 +139,9 @@ const activeHeader = computed(() => {
         { title: 'وسيلة الدفع', description: 'إدخل بيانات الدفع لشراء خدمة تعبير الاحلام هذه', icon: CreditCardIcon }
     ];
 
-    return headers[activeStep.value]
+    return headers[activeStepIndex.value]
 });
+
 </script>
 
 <style>

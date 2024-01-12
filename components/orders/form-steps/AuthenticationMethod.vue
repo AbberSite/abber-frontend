@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form method="POST">
+        <form @submit.prevent="submit">
             <fieldset class="space-y-7">
                 <label
                     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none">
@@ -35,7 +35,7 @@
                         id="phone"
                         type="radio"
                         name="type"
-                        value="phone"
+                        value="guest"
                         v-model="authenticationMethod"
 
                         />
@@ -116,7 +116,8 @@
                          />
                 </label>
                
-                <PrimaryButton class="w-full">
+
+                <PrimaryButton :disabled="!authenticationMethod" class="w-full">
                     <span class="mt-1.5">متابعة</span>
                 </PrimaryButton>
             </fieldset>
@@ -127,9 +128,22 @@
 </template>
 
 <script setup lang="ts">
+import type { OrderForm } from '~/types';
 
-const authenticationMethod = ref("") 
 
+const authenticationMethod = ref<"register"|"login"|"guest"|"otp">() 
+
+
+const { next } = useFormWizard<OrderForm>("order") 
+
+function submit(){
+    next({
+        data : {
+            authenticationMethod : authenticationMethod.value
+        }
+    })
+
+}
 
 </script>
 

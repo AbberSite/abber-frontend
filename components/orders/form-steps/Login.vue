@@ -96,6 +96,7 @@
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
+import type { OrderForm } from '~/types';
 
 
 const { signIn } = useAuth();
@@ -114,9 +115,9 @@ const [password] = defineField('password');
 const show = ref(false);
 const error = ref('');
 const loading = ref(false);
-const emits = defineEmits(['next'])
 
-let googleLogin = () => console.log('google not initialized yet');
+const { next } = useFormWizard<OrderForm>("order")
+
 
 async function submit() {
     const validation = await validate();
@@ -133,9 +134,11 @@ async function submit() {
     )
         .then(() => {
             useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-            emits('next', { ignore : true })
+            next({ options : {ignore : true} })
         })
         .catch((_error) => {
+
+            console.log(_error)
             if (_error.response._data.status !== 'error') return;
 
             error.value = _error.response._data.error;

@@ -1,9 +1,8 @@
 <template>
-
     <Head>
         <title>عبر - طلب تعبير حلم - طريقة تعبير الحلم</title>
     </Head>
-    <form method="POST" @submit.prevent="next">
+    <form method="POST" @submit.prevent="submit">
         <fieldset class="space-y-7">
             <label
                 class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
@@ -60,23 +59,28 @@
 
 <script setup lang="ts">
 import { ChatBubbleLeftEllipsisIcon, MicrophoneIcon } from '@heroicons/vue/24/outline';
+import type { OrderForm } from '~/types';
 const props = defineProps(['type']);
 
+const { state, next } = useFormWizard<OrderForm>('order');
+
 const emits = defineEmits(['next']);
-const selectedOption = ref(props.type);
 
-function next() {
+const selectedOption = ref(state.value.data?.type);
 
-    emits('next', {
 
-        type: selectedOption.value,
-
-        nextStep: selectedOption.value === 'voice_communication' ? 3 : undefined,
-        returnStep: selectedOption.value === 'voice_communication' ? 0 : undefined,
-        activeNavigationIndex: selectedOption.value === 'voice_communication' ? 2 : undefined,
-
-    });
+function submit() {
     
+    next({
+        options: {
+            nextStep: selectedOption.value === 'voice_communication' ? 3 : undefined,
+            activeNavigationIndex: selectedOption.value === 'voice_communication' ? 2 : undefined
+        },
+        data : {
+            type: selectedOption.value
+        }
+    });
+
 }
 </script>
 

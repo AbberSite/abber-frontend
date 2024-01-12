@@ -3,11 +3,11 @@
         <title>عبر - طلب تعبير حلم - إدخال تفاصيل الحلم</title>
     </Head>
 
-    <form method="POST" @submit.prevent="$emit('next', { inputType: selectedOption, activeNavigationIndex : 1 })">
+    <form method="POST" @submit.prevent="submit">
         <fieldset class="space-y-7">
             <label
                 class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
-                :class="[selectedOption == 'text_communication' && 'border-gray-900 ring-1 ring-gray-900']">
+                :class="[selectedOption == 'text_chat' && 'border-gray-900 ring-1 ring-gray-900']">
                 <div class="flex pt-1.5">
                     <span class="flex-shrink-0">
                         <CursorArrowRaysIcon class="w-6 h-6" />
@@ -30,7 +30,7 @@
             </label>
             <label
                 class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
-                :class="[selectedOption == 'voice_communication' && 'border-gray-900 ring-1 ring-gray-900']">
+                :class="[selectedOption == 'voice_chat' && 'border-gray-900 ring-1 ring-gray-900']">
                 <div class="flex pt-1.5">
                     <span class="flex-shrink-0">
                         <!-- Heroicon name: outline/microphone -->
@@ -62,9 +62,20 @@
 
 <script setup lang="ts">
 import { CursorArrowRaysIcon, MicrophoneIcon } from '@heroicons/vue/24/outline';
+import type { OrderForm } from '~/types';
 // const props = defineProps(['type'])
 
-const selectedOption = ref('');
+const selectedOption = ref<'voice_chat'|'text_chat'> ();
+
+const { next } = useFormWizard<OrderForm>("order")
+
+
+
+function submit(){
+
+    next({options : { activeNavigationIndex : 1 }, data : { inputType: selectedOption.value }})
+
+}
 </script>
 
 <style scoped></style>

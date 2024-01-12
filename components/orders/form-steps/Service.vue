@@ -4,10 +4,9 @@
     </Head>
 
     <div>
-        <form method="POST" @submit.prevent="next">
+        <form method="POST" @submit.prevent="submit">
             <fieldset class="space-y-7">
                 <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1">
-
                     <template v-if="loading">
                         <SkeletonsServiceRadioButton />
                         <SkeletonsServiceRadioButton />
@@ -30,51 +29,49 @@
 </template>
 
 <script setup lang="ts">
+import type { OrderForm, Service } from '~/types';
 
-import type { Service } from '~/types';
-
-const props = defineProps<{
-    type: string;
-    selectedService : number,
-
-}>();
+const { state, next } = useFormWizard<OrderForm>('order');
 
 const { status } = useAuth();
 const emits = defineEmits(['next']);
 
-const loading = ref(false)
+const loading = ref(false);
 
 const services = ref<Service[]>([]);
 
-const selectedService = ref(props.selectedService);
+const selectedService = ref(state.value.data?.service_id);
 const { fetchAll } = useServicesStore();
 
 onMounted(async () => {
-
-    loading.value = true
+    loading.value = true;
     const response = await fetchAll();
 
     services.value = response?.results
         ?.sort((a, b) => b.rate - a.rate)
         ?.sort((a, b) => b.ordered_count - a.ordered_count);
 
-    if (props.type == 'voice_communication') {
+    if (state.value.data?.type === 'voice_communication') {
         services.value = services.value.filter((service) => service.seller.is_online);
     }
 
-    loading.value = false
+    loading.value = false;
 });
 
-function next() {
+function submit() {
     if (status.value == 'authenticated') {
-        emits('next', {
-            nextStep: 5,
-            service_id : selectedService.value
+        next({
+            options: {
+                nextStep: 5
+            },
+            data: {
+                service_id: selectedService.value
+            }
         });
         return;
     }
 
-    emits('next');
+    next({ data : { service_id : selectedService.value}});
 }
 </script>
 

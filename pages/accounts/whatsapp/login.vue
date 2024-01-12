@@ -109,12 +109,10 @@ async function send() {
             }>
         }
 
-
         if (!data.value.registered) {
 
             errors.value.phone = 'هذا الرقم غير مسجل '
             loading.value = false
-
 
             return
         }

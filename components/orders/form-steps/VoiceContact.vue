@@ -1,5 +1,5 @@
 <template>
-    <form method="POST" @submit.prevent="$emit('next', { recordedAudio })">
+    <form method="POST" @submit.prevent="submit">
         <fieldset class="space-y-7">
             <div class="flex h-[75%] flex-col items-center justify-center rounded-md border p-6 text-center shadow-sm">
                 <div class="pt-2" v-if="status === 'initialized'">
@@ -100,11 +100,23 @@
 </template>
 
 <script setup lang="ts">
-import { MicrophoneIcon, XMarkIcon, PauseIcon, PlayIcon, StopIcon, ArrowDownTrayIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import {
+    MicrophoneIcon,
+    XMarkIcon,
+    PauseIcon,
+    PlayIcon,
+    StopIcon,
+    ArrowDownTrayIcon,
+    TrashIcon
+} from '@heroicons/vue/24/outline';
+import type { OrderForm } from '~/types';
 const resumeButton = ref(false);
 const audio = useAudioRecorder();
 
 const audioSource = ref<HTMLSourceElement | null>(null);
+
+const { next } = useFormWizard<OrderForm>('order');
+
 let recordedAudio: Blob;
 
 const { status, timer } = audio.init({
@@ -161,6 +173,10 @@ function download() {
     fileLink.setAttribute('download', 'تفاصيل الحلم');
     document.body.appendChild(fileLink);
     fileLink.click();
+}
+
+function submit() {
+    next({ data: { recordedAudio } });
 }
 </script>
 

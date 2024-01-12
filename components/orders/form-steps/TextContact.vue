@@ -1,12 +1,5 @@
 <template>
-    <form
-        method="POST"
-        @submit.prevent="
-            async () =>
-                (await validate()).valid
-                    ? $emit('next', { dream_title, dream_time, dream, client, age, gender, marital_status, profession })
-                    : ''
-        ">
+    <form method="POST" @submit.prevent="submit">
         <fieldset class="space-y-7">
             <div class="w-full space-y-3">
                 <TextInput
@@ -74,7 +67,6 @@
                         type="select"
                         name="select"
                         id="select">
-
                         <option value="single" selected>أعزب</option>
                         <option value="">متزوج/ه</option>
                         <option>مطلق/ه</option>
@@ -117,6 +109,9 @@
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
+import type { OrderForm } from '~/types';
+
+const { next } = useFormWizard<OrderForm>('order');
 
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
@@ -132,17 +127,24 @@ const { defineField, errors, validate } = useForm({
                 otherwise: (schema) => schema.notRequired()
             }),
 
-            gender: yup.string().default('male').when('client', {
-                is: true,
-                then: (schema) => schema.oneOf(['male', 'female'], 'الرجاء ادخال جنس الشخص').required('الرجاء ادخال جنس الشخص'),
-                otherwise: (schema) => schema.notRequired()
-            }),
+            gender: yup
+                .string()
+                .default('male')
+                .when('client', {
+                    is: true,
+                    then: (schema) =>
+                        schema.oneOf(['male', 'female'], 'الرجاء ادخال جنس الشخص').required('الرجاء ادخال جنس الشخص'),
+                    otherwise: (schema) => schema.notRequired()
+                }),
 
-            marital_status: yup.string().default('single').when('client', {
-                is: true,
-                then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
-                otherwise: (schema) => schema.notRequired()
-            }),
+            marital_status: yup
+                .string()
+                .default('single')
+                .when('client', {
+                    is: true,
+                    then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
+                    otherwise: (schema) => schema.notRequired()
+                }),
 
             profession: yup.string().when('client', {
                 is: true,
@@ -158,9 +160,26 @@ const [dream_time] = defineField('dream_time');
 const [dream] = defineField('dream');
 const [client] = defineField('client');
 const [age] = defineField('age');
-const [gender] = defineField('gender', { });
+const [gender] = defineField('gender', {});
 const [marital_status] = defineField('marital_status');
 const [profession] = defineField('profession');
+
+async function submit() {
+    if (!(await validate()).valid) return;
+
+    next({
+        data: {
+            dream_title: dream_title.value,
+            dream_time: dream_time.value,
+            dream: dream.value,
+            client: client.value,
+            age: age.value,
+            gender: gender.value,
+            marital_status: marital_status.value,
+            profession: profession.value
+        }
+    });
+}
 </script>
 
 <style scoped></style>

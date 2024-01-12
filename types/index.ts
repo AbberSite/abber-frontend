@@ -1,20 +1,19 @@
- export type User =  { 
-    id ?: number, 
-    username ?: string, 
-    email ?: string, 
-    firstname ?: string, 
-    phone?: string, 
-    user_type ?: 'عميل' | 'معبر', 
-    image_url ?: string, 
-    profile ?: {
-        bank_account?: string, 
-        gender ?: 'ذكر' | 'انثى',
-        birthday ?: string , 
-        martial_status ?: string, 
-        profession ?: string, 
-    }
-
-}
+export type User = {
+    id?: number;
+    username?: string;
+    email?: string;
+    firstname?: string;
+    phone?: string;
+    user_type?: 'عميل' | 'معبر';
+    image_url?: string;
+    profile?: {
+        bank_account?: string;
+        gender?: 'ذكر' | 'انثى';
+        birthday?: string;
+        martial_status?: string;
+        profession?: string;
+    };
+};
 
 type _User = {
     username: string;
@@ -25,13 +24,12 @@ type _User = {
 };
 
 export type Notification = {
-    id? : number,
+    id?: number;
     type: 'success' | 'warning' | 'info' | 'danger';
     content: string;
 };
 
-
-export interface PaginationResponse <Type> {
+export interface PaginationResponse<Type> {
     count?: number;
     next?: string;
     previous?: string;
@@ -41,15 +39,15 @@ export interface PaginationResponse <Type> {
 export type Testimonial = {
     id: number;
     user: _User;
-    rate: number,
-    registration_and_login: number,
-    online_payment: number,
-    support_and_complaints: number,
-    find_expressor: number,
-    intend_to_use_again: boolean,
-    recommend_to_others: boolean,
-    additional_comments: string,
-    suggestions: string
+    rate: number;
+    registration_and_login: number;
+    online_payment: number;
+    support_and_complaints: number;
+    find_expressor: number;
+    intend_to_use_again: boolean;
+    recommend_to_others: boolean;
+    additional_comments: string;
+    suggestions: string;
 };
 export type Service = {
     id: number;
@@ -83,4 +81,22 @@ export type Service = {
         }
     ];
     in_wishlist: boolean;
-}
+};
+
+export type OrderForm = {
+
+    inputType?: 'text_chat' | 'voice_chat';
+    type?: 'text_communication' | 'voice_communication';
+    dream_title?: string;
+    dream_time?: string;
+    dream?: string;
+    client?: boolean;
+    age?: number;
+    gender?: string;
+    marital_status?: string;
+    profession?: string;
+    recordedAudio ?: Blob;
+    service_id ?: number,
+    selectedService? : number;
+    authenticationMethod? : "login"|"register"|"guest"|"otp"
+};
