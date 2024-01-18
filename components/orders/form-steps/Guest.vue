@@ -71,12 +71,10 @@ async function send() {
         sessionStorage.setItem('abber:whatsapp-number', phone.value);
 
         next({
+            nextStepId: 'authentication',
             options: {
-                nextStep: activeStepIndex.value,
                 ignore: true, 
                 previous: () => {
-                    console.log('from previous');
-
                     state.value.data ? (state.value.data.authenticationMethod = 'guest') : undefined;
                 }
             },
@@ -84,11 +82,8 @@ async function send() {
                 authenticationMethod: 'otp'
             }
         });
-        // router.push({ name: 'accounts-whatsapp-otp' });
     } catch (error: any) {
-        alert('error');
-
-        console.log(error.response);
+        alert('something went wrong');
     }
 
     loading.value = false;

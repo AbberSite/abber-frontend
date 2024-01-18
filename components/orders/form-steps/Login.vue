@@ -134,7 +134,7 @@ async function submit() {
     )
         .then(() => {
             useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-            next({ options : {ignore : true} })
+            next({ options : {ignore : true}, nextStepId : 'payment' })
         })
         .catch((_error) => {
 

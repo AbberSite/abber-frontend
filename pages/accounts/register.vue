@@ -206,12 +206,13 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
                     new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'),
                     'كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام'
                 )
-                .required(),
+                .required('هذا الحقل يجب أن لا يكون فارغ'),
             phone: yup.string(),
             terms: yup
                 .boolean()
                 .isTrue('يجب الموافقة على الشروط و الأحكام')
                 .required('يجب الموافقة على الشروط و الأحكام')
+                .default(true)
         })
     )
 });

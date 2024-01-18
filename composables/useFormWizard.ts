@@ -1,41 +1,58 @@
-import type { Component } from "vue";
+import type { Component } from 'vue';
 
-type Options = { nextStep?: number; activeNavigationIndex?: number; ignore?: boolean, previous? : Function };
+type Options = { activeNavigationIndex?: number; ignore?: boolean; previous?: Function };
 
 interface Result<T> {
+    nextStepId: string;
     options?: Options;
     data?: T;
 }
 
+type Step = {
+    id: string;
+    component: Component;
+};
 
 class FormWizard<T> {
     static forms: FormWizard<any>[] = [];
 
-    state: Ref<Result<T>> = ref({ options: {} });
+    steps = ref<Step[]>([]);
 
-    steps = ref<Component[]>([]);
+    activeStep = computed<Component|undefined>(() => this.steps.value.find((step) => step.id == this.activeStepId.value)?.component);
 
-    activeStep = computed<Component>(() => this.steps.value[this.activeStepIndex.value])
+    state: Ref<Result<T>> = ref({ options: {}, nextStepId: this.steps.value?.[0]?.id });
+    private storedOptions?: Options;
 
-    private storedOptions? : Options
+    activeStepId = ref<string | undefined>();
 
-    activeStepIndex = ref(0);
-    activeNavigationIndex = ref(0);
-    navigationStack = useStack<number>();
+    navigationStack = useStack<string | undefined>();
 
-    private constructor(public id: string, steps : Component[]) {
-        this.navigationStack.push(0);
-        this.steps.value = steps
+    first = computed<boolean>(() => this.activeStepId.value == this.steps.value[0].id)
+    last = computed<boolean>(() => this.activeStepId.value == this.steps.value[this.steps.value.length - 1].id)
 
+    activeStepIndex = computed<number>(() => {
+        let index : number = 0; 
+
+        this.steps.value.map((step, i) => {
+            if(step.id == this.activeStepId.value) index = i 
+        })
+        return index
+    })
+
+    private constructor(public id: string, steps: Step[]) {
+        this.activeStepId.value = steps[0].id
+        this.navigationStack.push(steps[0].id);
+
+        this.steps.value = steps;
     }
 
-    static getInstance = <T>(id: string, steps? : Component[]) => {
+    static getInstance = <T>(id: string, steps?: Step[]) => {
         const existingForm = this.forms.find((form) => form.id == id);
 
         if (existingForm) return existingForm;
 
-        if(!steps){
-            throw Error("No steps provided")
+        if (!steps) {
+            throw Error('No steps provided');
         }
 
         const newForm = new FormWizard<T>(id, steps);
@@ -45,12 +62,12 @@ class FormWizard<T> {
         return newForm;
     };
 
-    next = (result?: Result<T>) => {
-        if (!result || (Object.keys(result.data as {}).length == 0 && Object.keys(result.options as {}).length == 0)) {
-            this.activeStepIndex.value++;
-            this.navigationStack.push(this.activeStepIndex.value);
-            return;
+    next = (result: Result<T>) => {
+        this.activeStepId.value = result.nextStepId;
+        if (!result.options?.ignore) {
+            this.navigationStack.push(this.activeStepId.value);
         }
+
 
         if (result.data) {
             if (!this.state.value.data) {
@@ -60,49 +77,17 @@ class FormWizard<T> {
             }
         }
 
-        this.handleOption(result.options);
+        this.storedOptions = result.options;
     };
-
-    handleOption = (options?: Options) => {
-        if (options?.nextStep) {
-            this.activeStepIndex.value = options.nextStep;
-        } else {
-            this.activeStepIndex.value++;
-        }
-
-        if (options?.activeNavigationIndex) {
-            this.activeNavigationIndex.value = options.activeNavigationIndex;
-        } else {
-            this.activeNavigationIndex.value = this.activeStepIndex.value;
-        }
-
-        if (this.state.value.options) {
-            this.state.value.options.nextStep = undefined;
-            this.state.value.options.activeNavigationIndex = undefined;
-        }
-
-        this.storedOptions = options
-
-        if (options?.ignore) return;
-
-        this.navigationStack.push(this.activeStepIndex.value);
-    };
-
     previous = () => {
-
-        if(this.storedOptions?.previous){
-
-            this.storedOptions.previous()
-            this.storedOptions.previous = undefined
-            return
-            
+        if (this.storedOptions?.previous) {
+            this.storedOptions.previous();
+            this.storedOptions.previous = undefined;
+            return;
         }
-
-        
         this.navigationStack.pop();
-        this.activeStepIndex.value = this.navigationStack.peek();
-        this.activeNavigationIndex.value = this.activeStepIndex.value;
+        this.activeStepId.value = this.navigationStack.peek();
     };
 }
 
-export default <T>(id: string, steps?: Component[]): FormWizard<T> => FormWizard.getInstance<T>(id, steps);
+export default <T>(id: string, steps?: Step[]): FormWizard<T> => FormWizard.getInstance<T>(id, steps);

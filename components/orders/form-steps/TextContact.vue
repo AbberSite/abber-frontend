@@ -168,6 +168,7 @@ async function submit() {
     if (!(await validate()).valid) return;
 
     next({
+        nextStepId: 'service',
         data: {
             dream_title: dream_title.value,
             dream_time: dream_time.value,
@@ -177,7 +178,7 @@ async function submit() {
             gender: gender.value,
             marital_status: marital_status.value,
             profession: profession.value
-        }
+        },
     });
 }
 </script>

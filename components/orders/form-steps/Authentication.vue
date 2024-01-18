@@ -11,6 +11,7 @@
                 <FormStepsLogin v-if="state.data?.authenticationMethod == 'login'" />
                 <FormStepsGuest v-else-if="state.data?.authenticationMethod == 'guest'" />
                 <FormStepsOtp v-else-if="state.data?.authenticationMethod == 'otp'" />
+                <FormStepsRegister v-else-if="state.data?.authenticationMethod == 'register'" />
             </div>
         </transition>
 

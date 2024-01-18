@@ -138,6 +138,7 @@ const { next } = useFormWizard<OrderForm>("order")
 
 function submit(){
     next({
+        nextStepId : 'authentication', 
         data : {
             authenticationMethod : authenticationMethod.value
         }

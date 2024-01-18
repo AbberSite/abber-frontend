@@ -52,7 +52,11 @@ onMounted(async () => {
         ?.sort((a, b) => b.ordered_count - a.ordered_count);
 
     if (state.value.data?.type === 'voice_communication') {
-        services.value = services.value.filter((service) => service.seller.is_online);
+        services.value = services.value.filter(
+            (service) => service.active && service.seller.is_online && hasVideoService(service)
+        );
+    } else {
+        services.value = services.value.filter((service) => service.active && hasTextService(service));
     }
 
     loading.value = false;
@@ -61,9 +65,7 @@ onMounted(async () => {
 function submit() {
     if (status.value == 'authenticated') {
         next({
-            options: {
-                nextStep: 5
-            },
+            nextStepId: 'payment',
             data: {
                 service_id: selectedService.value
             }
@@ -71,8 +73,17 @@ function submit() {
         return;
     }
 
-    next({ data : { service_id : selectedService.value}});
+    next({nextStepId : 'authentication-method' ,data: { service_id: selectedService.value } });
 }
+
+function hasVideoService(service: Service): boolean {
+    return !!service.service_methods.filter((method) => method.type == 'voice_communication');
+}
+
+function hasTextService(service: Service): boolean {
+    return !!service.service_methods.filter((method) => method.type == 'text_communication');
+}
+
 </script>
 
 <style scoped></style>

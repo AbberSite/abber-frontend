@@ -72,8 +72,8 @@ const selectedOption = ref(state.value.data?.type);
 function submit() {
     
     next({
+        nextStepId: selectedOption.value === 'voice_communication' ? 'service' : 'dream-details',
         options: {
-            nextStep: selectedOption.value === 'voice_communication' ? 3 : undefined,
             activeNavigationIndex: selectedOption.value === 'voice_communication' ? 2 : undefined
         },
         data : {

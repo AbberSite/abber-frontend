@@ -82,10 +82,10 @@ async function login() {
 
                 await refresh();
 
-                // useRouter().push({ name: 'index' });
+                next({ nextStepId : 'payment'})
 
-                next()
                 useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
+                
             },
             async onResponseError({ response }) {
                 if (response?._data?.otp) {

@@ -14,6 +14,8 @@
             {{ activeHeader?.description }}
         </div>
         <div class="mx-auto w-full max-w-sm pt-10">
+
+
             <transition
                 enter-active-class="transition-all"
                 leave-active-class="transition-all"
@@ -23,57 +25,32 @@
                 <div :key="activeStepIndex">
                     <component :is="activeStep" />
                 </div>
-                <!-- <div v-if="activeStep == 0">
-                    <FormStepsContactType />
-                </div>
-
-                <div v-else-if="activeStep == 1">
-                    <FormStepsInputType  />
-                </div>
-
-                <div v-else-if="activeStep == 2">
-                    <FormStepsDreamDetails  />
-                </div>
-
-                <div v-else-if="activeStep == 3">
-                    <FormStepsService  />
-                </div>
-
-                <div v-else-if="activeStep == 4">
-                    <FormStepsAuthenticationMethod  />
-                </div>
-
-                <div v-else-if="activeStep == 5">
-                    <FormStepsAuthentication  />
-                </div>
-
-                <div v-else-if="activeStep == 6">
-                    <FormStepsPayment />
-                </div> -->
             </transition>
 
-            {{ state }}
+            <!-- {{ state }} -->
 
-            <div class="pt-8 text-center text-sm xs:text-base" v-if="activeStepIndex != 0">
+            {{ activeStepId }}
+
+            <div class="pt-8 text-center text-sm xs:text-base" v-if="!first">
                 <button class="font-medium text-blue-600" @click="previous">العودة للخطوة السابقة <span aria-hidden="true">→</span></button>
             </div>
 
             <nav class="pt-10" aria-label="Progress">
 
                 <ol class="flex items-center justify-center space-x-5 rtl:space-x-reverse  " role="list">
-                    <li v-for="(step, index) in steps" :key="step">
+                    <li v-for="(step, index) in steps" :key="step.id">
                         <span class="relative flex items-center justify-center" aria-current="step">
                             <span
                                 class="absolute flex h-5 w-5 p-px"
-                                v-if="activeNavigationIndex == index"
+                                v-if="activeStepIndex == index"
                                 aria-hidden="true">
                                 <span class="h-full w-full rounded-full bg-gray-200"></span>
                             </span>
                             <span
                                 class="relative block h-2.5 w-2.5 rounded-full"
                                 :class="[
-                                    activeNavigationIndex < index && 'bg-gray-200 hover:bg-gray-400',
-                                    activeNavigationIndex >= index && 'bg-gray-900'
+                                    activeStepIndex < index && 'bg-gray-200 hover:bg-gray-400',
+                                    activeStepIndex >= index && 'bg-gray-900'
                                 ]"
                                 aria-hidden="true"></span>
                             <span class="sr-only">
@@ -99,22 +76,22 @@ import {
 } from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
 import ContactType from './ContactType.vue';
-import InputType from './InputType.vue';
-import DreamDetails from './DreamDetails.vue';
 import Service from './Service.vue';
 import AuthenticationMethod from './AuthenticationMethod.vue';
 import Authentication from './Authentication.vue';
 import Payment from './Payment.vue';
+import TextContact from './TextContact.vue';
 
-const { state, activeStepIndex, activeNavigationIndex, previous, activeStep } = useFormWizard<OrderForm>('order', [
-    ContactType,
-    InputType,
-    DreamDetails,
-    Service,
-    AuthenticationMethod,
-    Authentication,
-    Payment
-]);
+const steps = [
+    { id : 'contact-type', component : ContactType}, 
+    { id : 'dream-details', component : TextContact}, 
+    { id : 'service', component : Service}, 
+    { id : 'authentication-method', component : AuthenticationMethod}, 
+    { id : 'authentication', component : Authentication},
+    { id : 'payment', component : Payment}
+]
+
+const { state, activeStepId, previous, activeStep, first, activeStepIndex } = useFormWizard<OrderForm>('order', steps);
 
 const inputTitle = computed(() =>
     state.value.data?.inputType == 'text_chat'
@@ -122,7 +99,7 @@ const inputTitle = computed(() =>
         : 'لديك دقيقتين يمكنك من خلالها إدخال تفاصيل الحلم'
 );
 
-const steps = ref(['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة', 'الخطوة الرابعة', 'الخطوة الخامسة']);
+const arabicStepsTitle = ref(['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة', 'الخطوة الرابعة', 'الخطوة الخامسة', 'الخطوة السادسة']);
 
 const activeHeader = computed(() => {
 
@@ -135,6 +112,7 @@ const activeHeader = computed(() => {
         },
         { title: 'إدخال تفاصيل الحلم', description: inputTitle.value, icon: IdentificationIcon },
         { title: 'إختيار المعبر', description: 'أختر أحد المعبرين ليقوم بتعبير حلمك', icon: UserIcon },
+        { title: 'التسجيل', description: 'سجل دخولك أو إنشأ حسابا جديدا في عبر', icon: LockClosedIcon },
         { title: 'التسجيل', description: 'سجل دخولك أو إنشأ حسابا جديدا في عبر', icon: LockClosedIcon },
         { title: 'وسيلة الدفع', description: 'إدخل بيانات الدفع لشراء خدمة تعبير الاحلام هذه', icon: CreditCardIcon }
     ];

@@ -74,12 +74,12 @@ export type Service = {
         maximum_orders: number;
         stock: number;
     };
-    service_methods: [
+    service_methods: 
         {
-            type: string;
+            type: 'voice_communication'|'text_communication';
             price: number;
-        }
-    ];
+        }[]
+    ;
     in_wishlist: boolean;
 };
 
