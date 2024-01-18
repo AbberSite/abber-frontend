@@ -2,56 +2,51 @@ import axios from 'axios';
 
 export default defineEventHandler(async (event) => {
 
-    const body = await readBody(event);
-    const config = useRuntimeConfig()
+  const body = await readBody(event);
+  const config = useRuntimeConfig()
 
-    try {
-        const response = await axios.post(
-            config.apiBasePath + '/authentication/google/connect/',
-
-            {
-
-                code: body.code,
-
-            },
-            {
-                headers: {
-                    'api-key':  config.apiSecret,
-                    Accept : "application/json"
-                },
-            },
-        );
+  try {
+    const response = await axios.post(
+      config.apiBasePath + '/authentication/google/connect/',
+      body,
+      {
+        headers: {
+          'api-key': config.apiSecret,
+          Accept: "application/json"
+        },
+      },
+    );
 
 
-        return response.data
+    return response.data
 
-        // return {
+    // return {
 
-        //     token : response.data.access_token,
-        //     refreshToken : response.data.refresh_token, 
-        //     user : response.data.user
+    //     token : response.data.access_token,
+    //     refreshToken : response.data.refresh_token, 
+    //     user : response.data.user
 
-        // } 
+    // } 
 
-    } catch ( error : any ) {
+  } catch (error: any) {
 
-        setResponseStatus(event, 400)
+    setResponseStatus(event, 400)
 
-        // return error.response.data
+    // return error.response.data
 
 
-        if(error?.response?.data?.non_field_errors[0]){
+    if (error?.response?.data?.non_field_errors[0]) {
 
-            return { status : "error", error : error?.response?.data?.non_field_errors[0] }
-
-        }
-
-        return { 
-
-            status : "error", 
-            error : "حدث خطأ ما"
-            
-        }
+      return { status: "error", error: error?.response?.data?.non_field_errors[0] }
 
     }
+
+    return {
+
+      status: "error",
+      error: "حدث خطأ ما"
+
+    }
+
+  }
 });
