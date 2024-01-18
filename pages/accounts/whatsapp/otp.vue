@@ -165,8 +165,6 @@ async function login() {
                 rawRefreshToken.value = response._data.refreshToken;
                 rawToken.value = response._data.token;
 
-                console.log(rawRefreshToken.value);
-
                 await refresh();
 
                 useRouter().push({ name: 'index' });
