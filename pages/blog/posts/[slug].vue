@@ -229,7 +229,7 @@ type Response = {
     results?: Post[];
 };
 
-const loading = ref(false);
+const loading = ref(true);
 const bookmarking = ref(false);
 
 const post = ref<Post>({ content: '' });

@@ -201,7 +201,7 @@ type Response = {
 
 const selectedCategory = ref('');
 const posts = ref<Response>({ results: [] });
-const loading = ref(false);
+const loading = ref(true);
 const search = ref('');
 const perPage = 9;
 
