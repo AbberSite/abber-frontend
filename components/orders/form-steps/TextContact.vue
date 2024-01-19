@@ -111,21 +111,21 @@ import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import type { OrderForm } from '~/types';
 
-const { next } = useFormWizard<OrderForm>('order');
+const { next, state } = useFormWizard<OrderForm>('order');
 
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            dream_title: yup.string().required('الرجاء ادخال عنوان الحلم'),
-            dream_time: yup.string().required('الرجاء ادخال تاريخ الحلم'),
-            dream: yup.string().required('الرجاء ادخال وصف الحلم'),
-            client: yup.boolean(),
+            dream_title: yup.string().required('الرجاء ادخال عنوان الحلم').default(state.value.data?.dream_title),
+            dream_time: yup.string().required('الرجاء ادخال تاريخ الحلم').default(state.value.data?.dream_time),
+            dream: yup.string().required('الرجاء ادخال وصف الحلم').default(state.value.data?.dream),
+            client: yup.boolean().default(state.value.data?.client),
 
             age: yup.number().when('client', {
                 is: true,
                 then: (schema) => schema.required('الرجاء ادخال عمر الشخص'),
                 otherwise: (schema) => schema.notRequired()
-            }),
+            }).default(state.value.data?.age),
 
             gender: yup
                 .string()
@@ -135,7 +135,7 @@ const { defineField, errors, validate } = useForm({
                     then: (schema) =>
                         schema.oneOf(['male', 'female'], 'الرجاء ادخال جنس الشخص').required('الرجاء ادخال جنس الشخص'),
                     otherwise: (schema) => schema.notRequired()
-                }),
+                }).default(state.value.data?.gender),
 
             marital_status: yup
                 .string()
@@ -144,13 +144,13 @@ const { defineField, errors, validate } = useForm({
                     is: true,
                     then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
                     otherwise: (schema) => schema.notRequired()
-                }),
+                }).default(state.value.data?.marital_status),
 
             profession: yup.string().when('client', {
                 is: true,
                 then: (schema) => schema.required('الرجاء ادخال مهنة الشخص'),
                 otherwise: (schema) => schema.notRequired()
-            })
+            }).default(state.value.data?.profession)
         })
     )
 });

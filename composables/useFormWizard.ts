@@ -79,6 +79,7 @@ class FormWizard<T> {
 
         this.storedOptions = result.options;
     };
+
     previous = () => {
         if (this.storedOptions?.previous) {
             this.storedOptions.previous();

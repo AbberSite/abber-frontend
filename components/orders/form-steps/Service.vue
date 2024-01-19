@@ -4,7 +4,7 @@
     </Head>
 
     <div>
-        <form method="POST" @submit.prevent="submit">
+        <div>
             <fieldset class="space-y-7">
                 <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1">
                     <template v-if="loading">
@@ -14,21 +14,32 @@
                         <SkeletonsServiceRadioButton />
                     </template>
                     <template v-else>
-                        <ServiceRadioButton v-for="service in services" v-model="selectedService" :service="service" />
+                        <template v-if="state.data?.type == 'text_communication'">
+                            <ServiceRadioButton
+                                v-for="service in textCommunicationServices"
+                                v-model="selectedService"
+                                @click.once="submit(service.id)"
+                                :service="service" />
+                        </template>
+
+                        <template v-else>
+                            <ServiceRadioButton
+                                v-for="service in voiceCommunicationServices"
+                                v-model="selectedService"
+                                @click.once="submit(service.id)"
+                                :service="service" />
+                        </template>
+
+                        <template> </template>
                     </template>
                 </div>
-
-                selected Service {{ selectedService }}
-
-                <PrimaryButton :disabled="!selectedService" class="w-full">
-                    <span class="mt-1.5">متابعة</span>
-                </PrimaryButton>
             </fieldset>
-        </form>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { ignorableWatch } from '@vueuse/core';
 import type { OrderForm, Service } from '~/types';
 
 const { state, next } = useFormWizard<OrderForm>('order');
@@ -38,31 +49,29 @@ const emits = defineEmits(['next']);
 
 const loading = ref(false);
 
-const services = ref<Service[]>([]);
+// const services = ref<Service[]>([]);
 
 const selectedService = ref(state.value.data?.service_id);
-const { fetchAll } = useServicesStore();
+const { fetchAll, voiceCommunicationServices, textCommunicationServices } = useServicesStore();
+
+const { services } = storeToRefs(useServicesStore());
 
 onMounted(async () => {
+
+    if (services.value) return;
+
+    // something went wrong fetching the services in the previous step fetch again
     loading.value = true;
-    const response = await fetchAll();
-
-    services.value = response?.results
-        ?.sort((a, b) => b.rate - a.rate)
-        ?.sort((a, b) => b.ordered_count - a.ordered_count);
-
-    if (state.value.data?.type === 'voice_communication') {
-        services.value = services.value.filter(
-            (service) => service.active && service.seller.is_online && hasVideoService(service)
-        );
-    } else {
-        services.value = services.value.filter((service) => service.active && hasTextService(service));
-    }
-
+    await fetchAll();
     loading.value = false;
+
 });
 
-function submit() {
+function submit(service_id: number) {
+    selectedService.value = service_id;
+
+
+    if(status.value == 'loading') return 
     if (status.value == 'authenticated') {
         next({
             nextStepId: 'payment',
@@ -73,7 +82,7 @@ function submit() {
         return;
     }
 
-    next({nextStepId : 'authentication-method' ,data: { service_id: selectedService.value } });
+    next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
 }
 
 function hasVideoService(service: Service): boolean {
@@ -83,7 +92,6 @@ function hasVideoService(service: Service): boolean {
 function hasTextService(service: Service): boolean {
     return !!service.service_methods.filter((method) => method.type == 'text_communication');
 }
-
 </script>
 
 <style scoped></style>
