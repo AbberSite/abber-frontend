@@ -18,7 +18,9 @@ class FormWizard<T> {
 
     steps = ref<Step[]>([]);
 
-    activeStep = computed<Component|undefined>(() => this.steps.value.find((step) => step.id == this.activeStepId.value)?.component);
+    activeStep = computed<Component | undefined>(
+        () => this.steps.value.find((step) => step.id == this.activeStepId.value)?.component
+    );
 
     state: Ref<Result<T>> = ref({ options: {}, nextStepId: this.steps.value?.[0]?.id });
     private storedOptions?: Options;
@@ -27,20 +29,20 @@ class FormWizard<T> {
 
     navigationStack = useStack<string | undefined>();
 
-    first = computed<boolean>(() => this.activeStepId.value == this.steps.value[0].id)
-    last = computed<boolean>(() => this.activeStepId.value == this.steps.value[this.steps.value.length - 1].id)
+    first = computed<boolean>(() => this.activeStepId.value == this.steps.value[0].id);
+    last = computed<boolean>(() => this.activeStepId.value == this.steps.value[this.steps.value.length - 1].id);
 
     activeStepIndex = computed<number>(() => {
-        let index : number = 0; 
+        let index: number = 0;
 
         this.steps.value.map((step, i) => {
-            if(step.id == this.activeStepId.value) index = i 
-        })
-        return index
-    })
+            if (step.id == this.activeStepId.value) index = i;
+        });
+        return index;
+    });
 
     private constructor(public id: string, steps: Step[]) {
-        this.activeStepId.value = steps[0].id
+        this.activeStepId.value = steps[0].id;
         this.navigationStack.push(steps[0].id);
 
         this.steps.value = steps;
@@ -68,7 +70,6 @@ class FormWizard<T> {
             this.navigationStack.push(this.activeStepId.value);
         }
 
-
         if (result.data) {
             if (!this.state.value.data) {
                 this.state.value.data = Object.assign({}, result.data);
@@ -80,7 +81,18 @@ class FormWizard<T> {
         this.storedOptions = result.options;
     };
 
-    previous = () => {
+    previous = (stepId?: string) => {
+        
+        if (stepId) {
+            if (!this.canGoBackTo(stepId)) return;
+
+            while (this.navigationStack.peek() != stepId) {
+                this.navigationStack.pop();
+            }
+            this.activeStepId.value = this.navigationStack.peek();
+            return;
+        }
+
         if (this.storedOptions?.previous) {
             this.storedOptions.previous();
             this.storedOptions.previous = undefined;
@@ -88,6 +100,10 @@ class FormWizard<T> {
         }
         this.navigationStack.pop();
         this.activeStepId.value = this.navigationStack.peek();
+    };
+
+    canGoBackTo = (stepId: string) => {
+        return this.navigationStack.includes(stepId);
     };
 }
 

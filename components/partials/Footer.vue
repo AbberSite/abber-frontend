@@ -59,35 +59,6 @@
                     </li>
                 </ul>
             </div>
-            <!-- <div>
-                <h3 class="text-sm font-semibold xs:text-base">صفحات مهمة</h3>
-                <ul class="space-y-5 pt-5" role="list">
-                    <li>
-                        <NuxtLink
-                            class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
-                            :to="{ name: 'index' }"
-                            up-target="body"
-                            >الرئيسية</NuxtLink
-                        >
-                    </li>
-                    <li>
-                        <NuxtLink
-                            class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
-                            :to="{ name: 'blog' }"
-                            up-target="body"
-                            >المدونة
-                        </NuxtLink>
-                    </li>
-                    <li>
-                        <NuxtLink
-                            class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
-                            :to="{ name: 'index' }"
-                            up-target="body"
-                            >مركز الدعم</NuxtLink
-                        >
-                    </li>
-                </ul>
-            </div> -->
             <div>
                 <h3 class="text-sm font-semibold xs:text-base">تواصل معنا</h3>
                 <ul class="space-y-5 pt-5" role="list">

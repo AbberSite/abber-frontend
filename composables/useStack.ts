@@ -19,6 +19,14 @@ class Stack<T> {
         return this.items.length == 0;
     }
 
+    length(): number {
+        return this .items.length
+    }
+
+    includes(element : T) {
+        return this.items.includes(element)
+    }
+
     toString() {
 
         let str = '';

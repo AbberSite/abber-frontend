@@ -29,14 +29,16 @@
             <!-- {{ state }} -->
 
             <div class="pt-8 text-center text-sm xs:text-base" v-if="!first">
-                <button class="font-medium text-blue-600" @click="previous">
+                <button class="font-medium text-blue-600" @click="previous()">
                     العودة للخطوة السابقة <span aria-hidden="true">→</span>
                 </button>
             </div>
 
             <nav class="pt-10" aria-label="Progress">
                 <ol class="flex items-center justify-center space-x-5 rtl:space-x-reverse" role="list">
-                    <li v-for="(step, index) in steps" :key="step.id">
+                    <li v-for="(step, index) in steps" :key="step.id" @click="previous(step.id)">
+
+                        {{ canGoBackTo(step.id) }}
                         <span class="relative flex items-center justify-center" aria-current="step">
                             <span class="absolute flex h-5 w-5 p-px" v-if="activeStepIndex == index" aria-hidden="true">
                                 <span class="h-full w-full rounded-full bg-gray-200"></span>
@@ -85,13 +87,13 @@ const steps = [
     { id: 'payment', component: Payment }
 ];
 
-const { state, activeStepId, previous, activeStep, first, activeStepIndex } = useFormWizard<OrderForm>('order', steps);
+const { state, activeStepId, previous, activeStep, first, activeStepIndex, canGoBackTo } = useFormWizard<OrderForm>('order', steps);
 
-const inputTitle = computed(() =>
-    state.value.data?.inputType == 'text_chat'
-        ? 'أدخل معلومات و تفاصيل الحلم'
-        : 'لديك دقيقتين يمكنك من خلالها إدخال تفاصيل الحلم'
-);
+// const inputTitle = computed(() =>
+//     state.value.data?.inputType == 'text_chat'
+//         ? 'أدخل معلومات و تفاصيل الحلم'
+//         : 'لديك دقيقتين يمكنك من خلالها إدخال تفاصيل الحلم'
+// );
 
 const arabicStepsTitle = ref([
     'الخطوة الأولى',
@@ -132,6 +134,7 @@ const activeHeader = computed<{title : string, description : string, icon : Func
 
     return headers[activeStepId.value ? activeStepId.value : 'contact-type'];
 });
+
 </script>
 
 <style></style>
