@@ -21,10 +21,6 @@
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
 
-definePageMeta({
-    layout: false
-});
-const router = useRouter();
 
 const phone = ref('');
 const loading = ref(false);
@@ -35,7 +31,7 @@ const errors = ref<{
 
 const valid = ref(false);
 
-const { next, activeStepIndex, state } = useFormWizard<OrderForm>('order');
+const { next, state } = useFormWizard<OrderForm>('order');
 
 async function send() {
     if (!valid.value) return;

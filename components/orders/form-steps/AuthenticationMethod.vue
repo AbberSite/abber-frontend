@@ -1,8 +1,9 @@
 <template>
     <div>
-        <form @submit.prevent="submit">
+        <form>
             <fieldset class="space-y-7">
-                <label
+                <div
+                    @click="submit('guest')"
                     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none">
                     <div class="flex pt-1.5">
                         <div class="flex-shrink-0">
@@ -36,11 +37,10 @@
                         type="radio"
                         name="type"
                         value="guest"
-                        v-model="authenticationMethod"
-
-                        />
-                </label>
-                <label
+                        v-model="authenticationMethod" />
+                </div>
+                <div
+                    @click="submit('login')"
                     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none">
                     <div class="flex pt-1.5">
                         <div class="flex-shrink-0">
@@ -74,11 +74,10 @@
                         type="radio"
                         name="type"
                         v-model="authenticationMethod"
-
-                        value="login"
-                        />
-                </label>
-                <label
+                        value="login" />
+                </div>
+                <div
+                    @click="submit('register')"
                     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none">
                     <div class="flex pt-1.5">
                         <div class="flex-shrink-0">
@@ -112,44 +111,27 @@
                         type="radio"
                         name="type"
                         v-model="authenticationMethod"
-                        value="register"
-                         />
-                </label>
-               
-
-                <PrimaryButton :disabled="!authenticationMethod" class="w-full">
-                    <span class="mt-1.5">متابعة</span>
-                </PrimaryButton>
+                        value="register" />
+                </div>
             </fieldset>
         </form>
-
-      
     </div>
 </template>
 
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
 
+const authenticationMethod = ref<'register' | 'login' | 'guest' | 'otp'>();
 
-const authenticationMethod = ref<"register"|"login"|"guest"|"otp">() 
+const { next } = useFormWizard<OrderForm>('order');
 
-
-const { next } = useFormWizard<OrderForm>("order") 
-
-function submit(){
+function submit(authenticationMethod: 'register' | 'login' | 'guest' | 'otp') {
     next({
-        nextStepId : 'authentication', 
-        data : {
-            authenticationMethod : authenticationMethod.value
+        nextStepId: 'authentication',
+        data: {
+            authenticationMethod
         }
-    })
-
+    });
 }
-
 </script>
-
-
-
-
-
 <style scoped></style>

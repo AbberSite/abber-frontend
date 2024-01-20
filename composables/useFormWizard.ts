@@ -18,9 +18,13 @@ class FormWizard<T> {
 
     steps = ref<Step[]>([]);
 
-    activeStep = computed<Component | undefined>(
-        () => this.steps.value.find((step) => step.id == this.activeStepId.value)?.component
-    );
+    activeStep = computed<Component | undefined>(() => {
+        this.activeStepId.value;
+        return (
+            this.steps.value.find((step) => step.id == this.activeStepId.value)?.component ??
+            this.steps.value[0].component
+        );
+    });
 
     state: Ref<Result<T>> = ref({ options: {}, nextStepId: this.steps.value?.[0]?.id });
     private storedOptions?: Options;
@@ -34,7 +38,6 @@ class FormWizard<T> {
 
     activeStepIndex = computed<number>(() => {
         let index: number = 0;
-
         this.steps.value.map((step, i) => {
             if (step.id == this.activeStepId.value) index = i;
         });
@@ -44,7 +47,6 @@ class FormWizard<T> {
     private constructor(public id: string, steps: Step[]) {
         this.activeStepId.value = steps[0].id;
         this.navigationStack.push(steps[0].id);
-
         this.steps.value = steps;
     }
 
@@ -82,7 +84,6 @@ class FormWizard<T> {
     };
 
     previous = (stepId?: string) => {
-        
         if (stepId) {
             if (!this.canGoBackTo(stepId)) return;
 
@@ -104,6 +105,35 @@ class FormWizard<T> {
 
     canGoBackTo = (stepId: string) => {
         return this.navigationStack.includes(stepId);
+    };
+
+    reset = () => {
+
+        this.activeStepId.value = this.steps.value[0].id;
+        this.navigationStack.clear();
+        this.navigationStack.push(this.steps.value[0].id);
+        this.activeStep = computed<Component | undefined>(() => {
+            this.activeStepId.value;
+            return (
+                this.steps.value.find((step) => step.id == this.activeStepId.value)?.component ??
+                this.steps.value[0].component
+            );
+        });
+
+        this.first = computed<boolean>(() => this.activeStepId.value == this.steps.value[0].id);
+        this.last = computed<boolean>(() => this.activeStepId.value == this.steps.value[this.steps.value.length - 1].id);
+
+        this.activeStepIndex = computed<number>(() => {
+            let index: number = 0;
+            this.steps.value.map((step, i) => {
+                if (step.id == this.activeStepId.value) index = i;
+            });
+            return index;
+        });
+    
+
+        this.state.value.options = undefined;
+        this.storedOptions = undefined;
     };
 }
 

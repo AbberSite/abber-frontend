@@ -34,6 +34,10 @@ class Stack<T> {
         return str;
         
     }
+
+    clear(){
+        this.items = []
+    }
 }
 
 

@@ -11,7 +11,7 @@
                     الإجابة على ابرز الأسئلة المتداولة
                 </div>
             </div>
-            <div class="divide-y-2 divide-gray-50 lg:col-span-2 lg:-mt-8">
+            <div class="lg:col-span-2 lg:-mt-8">
                 <template v-if="loading">
                     <SkeletonsFaq />
                     <SkeletonsFaq />
@@ -20,15 +20,40 @@
                 </template>
 
                 <template v-else>
-                    <details v-for="faq in faqs" class="relative mt-8 pt-8 lg:first-of-type:mt-0">
-                        <summary class="group flex cursor-pointer select-none list-none justify-between font-semibold">
-                            <h3 class="leading-[1.75] xs:text-lg xs:leading-[1.75]">
-                                {{ faq.question }}
-                            </h3>
-                            <span class="ms-6 flex-shrink-0">
-                                <!-- Heroicon name: outline/plus -->
+                    <div class="divide-y-2 divide-gray-50 ">
+                        <details v-for="faq in faqs" class="relative mt-8 pt-8 lg:first-of-type:mt-0">
+                            <summary class="group flex cursor-pointer select-none list-none justify-between font-semibold">
+                                <h3 class="leading-[1.75] xs:text-lg xs:leading-[1.75]">
+                                    {{ faq.question }}
+                                </h3>
+                                <span class="ms-6 flex-shrink-0">
+                                    <!-- Heroicon name: outline/plus -->
+                                    <svg
+                                        class="mt-[5px] text-gray-800 group-hover:text-gray-900"
+                                        height="20"
+                                        width="20"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="2"
+                                        stroke="currentColor"
+                                        aria-hidden="true">
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M12 4.5v15m7.5-7.5h-15"></path>
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="pt-6">
+                                <p class="text-justify text-sm text-gray-800 xs:text-base">
+                                    {{ faq.answer }}
+                                </p>
+                            </div>
+                            <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0">
+                                <!-- Heroicon name: outline/minus -->
                                 <svg
-                                    class="mt-[5px] text-gray-800 group-hover:text-gray-900"
+                                    class="mt-[5px]"
                                     height="20"
                                     width="20"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -37,34 +62,11 @@
                                     stroke-width="2"
                                     stroke="currentColor"
                                     aria-hidden="true">
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M12 4.5v15m7.5-7.5h-15"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15"></path>
                                 </svg>
                             </span>
-                        </summary>
-                        <div class="pt-6">
-                            <p class="text-justify text-sm text-gray-800 xs:text-base">
-                                {{ faq.answer }}
-                            </p>
-                        </div>
-                        <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0">
-                            <!-- Heroicon name: outline/minus -->
-                            <svg
-                                class="mt-[5px]"
-                                height="20"
-                                width="20"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="2"
-                                stroke="currentColor"
-                                aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15"></path>
-                            </svg>
-                        </span>
-                    </details>
+                        </details>
+                    </div>
                 </template>
                 <div class="flex justify-center pt-16" v-if="!moreFaqs">
                     <button

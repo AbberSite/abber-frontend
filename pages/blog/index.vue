@@ -129,18 +129,15 @@
                             }
                         "
                         :disabled="!posts?.previous?.length"
-                        class="relative  inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
+                        class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
                         type="button">
                         <Loading v-if="previousLoading" />
 
                         <span v-else class="mt-1.5">السابق</span>
                     </button>
                     <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
-                        <span class="font-semibold"> 
-                            <!-- {{ posts.results.length }} -->
+                        <span class="font-semibold">
                             {{ to }}
-
-                        
                         </span>
                         <span>\</span>
                         <span class="font-semibold">
@@ -227,7 +224,7 @@ async function fetchPosts(params: any) {
 
     params.active = true;
     params.accepted = true;
-    params.limit = perPage
+    params.limit = perPage;
 
     const { data } = (await useFetch(`/api/blog/posts`, {
         params

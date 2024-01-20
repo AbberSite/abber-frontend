@@ -14,10 +14,8 @@
                 <FormStepsRegister v-else-if="state.data?.authenticationMethod == 'register'" />
             </div>
         </transition>
-
-        {{ state.data?.authenticationMethod }}
-
     </div>
+    
 </template>
 
 <script setup lang="ts">

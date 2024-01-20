@@ -75,7 +75,7 @@ onMounted(async () => {
 });
 
 const voiceCommunicationButtonClasses = computed(() => {
-    if (voiceCommunicationServices.length == 0) return 'bg-gray-200 opacity-60 pointer-events-none cursor-not-allowed';
+    if (voiceCommunicationServices.length == 0) return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
     if (selectedOption.value == 'voice_communication') return 'border-gray-900 ring-1 ring-gray-900';
 });
 
