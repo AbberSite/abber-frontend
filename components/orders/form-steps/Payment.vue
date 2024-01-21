@@ -29,37 +29,38 @@
                     <InputError :message="errors.cardNumber" />
                 </div>
 
-                <div class="flex items-center justify-between space-x-5 rtl:space-x-reverse">
-                    <div class="w-full space-y-3">
-                        <label class="block text-sm font-semibold xs:text-base" for="text">رمز التحقق (CVV)</label>
-                        <input
-                            class="form-control h-[50px] appearance-none"
-                            type="text"
-                            name="text"
-                            @input="formatCvvInput"
-                            v-model="cvv"
-                            dir="ltr"
-                            id="text"
-                            placeholder="000"
-                            required />
+                <div>
+                    <div class="flex items-center justify-between space-x-5 rtl:space-x-reverse mb-2">
+                        <div class="w-full space-y-3">
+                            <label class="block text-sm font-semibold xs:text-base" for="text">رمز التحقق (CVV)</label>
+                            <input
+                                class="form-control h-[50px] appearance-none"
+                                type="text"
+                                name="text"
+                                @input="formatCvvInput"
+                                v-model="cvv"
+                                dir="ltr"
+                                id="text"
+                                placeholder="000"
+                                required />
+                        </div>
+                        <div class="w-full space-y-3">
+                            <label class="block text-sm font-semibold xs:text-base" for="text">تأريخ الإنتهاء</label>
+                            <input
+                                class="form-control h-[50px] appearance-none"
+                                dir="ltr"
+                                type="text"
+                                :value="expiryDate"
+                                @input="formatExpiryDateInput"
+                                name="text"
+                                id="expiry-date-input"
+                                placeholder="MM/YY"
+                                required />
+                        </div>
                     </div>
-                    <div class="w-full space-y-3">
-                        <label class="block text-sm font-semibold xs:text-base" for="text">تأريخ الإنتهاء</label>
-                        <input
-                            class="form-control h-[50px] appearance-none"
-                            dir="ltr"
-                            type="text"
-                            :value="expiryDate"
-                            @input="formatExpiryDateInput"
-                            name="text"
-                            id="expiry-date-input"
-                            placeholder="MM/YY"
-                            required />
-                    </div>
+                    <InputError :message="errors.cvv" />
+                    <InputError :message="errors.expiryDate" />
                 </div>
-
-                <InputError :message="errors.cvv" />
-                <InputError :message="errors.expiryDate" />
 
                 <div>
                     <PrimaryButton class="w-full" type="submit">متابعة</PrimaryButton>
@@ -131,7 +132,6 @@ async function submit() {
         next({
             nextStepId: 'complete'
         });
-        
     } catch (error) {
         alert('hello world');
     }
