@@ -1,39 +1,16 @@
-export default async (method: Method, url: string, data: object = {}, headers?: Object) => {
-    const { rawRefreshToken } = useAuthState();
+import { type NitroFetchRequest } from 'nitropack';
 
+export default <T = unknown, R extends NitroFetchRequest = NitroFetchRequest>(
+    request: Parameters<typeof $fetch<T, R>>[0],
+    options?: Partial<Parameters<typeof $fetch<T, R>>[1]>
+) => {
+    const { status, rawToken } = useAuthState();
 
-    await useFetch(url, {
-        method: method,
-
-        headers: rawRefreshToken.value
-            ? {
-                  Authorization: `JWT ${rawRefreshToken.value}`,
-              }
-            : {},
-
-        body: data,
+    return $fetch<T, R>(request, {
+        ...options,
+        headers: {
+            Authorization: status.value == 'authenticated' ? `Bearer ${rawToken.value}` : '',
+            ...options?.headers
+        }
     });
-
-    
 };
-
-type Method =
-    | 'GET'
-    | 'HEAD'
-    | 'PATCH'
-    | 'POST'
-    | 'PUT'
-    | 'DELETE'
-    | 'CONNECT'
-    | 'OPTIONS'
-    | 'TRACE'
-    | 'get'
-    | 'head'
-    | 'patch'
-    | 'post'
-    | 'put'
-    | 'delete'
-    | 'connect'
-    | 'options'
-    | 'trace'
-    | undefined;

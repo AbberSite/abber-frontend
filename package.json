@@ -28,6 +28,7 @@
     "@nuxt/image": "^1.1.0",
     "@pinia/nuxt": "^0.5.1",
     "@vee-validate/yup": "^4.12.2",
+    "@vuepic/vue-datepicker": "^7.4.1",
     "@vueuse/components": "^10.7.0",
     "@vueuse/core": "^10.7.0",
     "axios": "^1.6.2",

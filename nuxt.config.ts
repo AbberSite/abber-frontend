@@ -8,40 +8,46 @@ export default defineNuxtConfig({
     postcss: {
         plugins: {
             tailwindcss: {},
-            autoprefixer: {},
-        },
+            autoprefixer: {}
+        }
     },
 
     runtimeConfig: {
         apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
-        apiBasePath : "https://abber.co/api"
+        apiBasePath: 'https://abber.co/api'
     },
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
 
-
-    routeRules : {
-        '/accounts/register': { ssr: false },
-    }, 
+    routeRules: {
+        '/accounts/register': { ssr: false }
+    },
     auth: {
         provider: {
-            type: 'refresh',
-        },
+            type: 'refresh'
+        }
+    },
+
+    build: {
+        transpile: ['@vuepic/vue-datepicker']
     },
 
     app: {
         head: {
             charset: 'utf-8',
             link: [{ rel: 'icon', type: 'image/svg', href: '/images/favicon.ico' }],
-            script : [{ src : 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js', type : 'text/javascript' }]
-        },
-
-        
+            script: [
+                {
+                    src: 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js',
+                    type: 'text/javascript'
+                }
+            ]
+        }
     },
     components: [
         '~/components',
         '~/components/main',
         '~/components/partials',
         '~/components/shared',
-        '~/components/orders',
-    ],
+        '~/components/orders'
+    ]
 });

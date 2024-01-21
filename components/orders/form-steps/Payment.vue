@@ -3,7 +3,7 @@
         <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
     </Head>
     <div>
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" novalidate>
             <fieldset class="space-y-7">
                 <div class="w-full space-y-3">
                     <label class="block text-sm font-semibold xs:text-base" for="card">رقم البطاقة</label>
@@ -26,8 +26,7 @@
                             <NuxtImg class="w-8" :src="cardImage.src" />
                         </span>
                     </div>
-                <InputError :message="errors.cardNumber" />
-
+                    <InputError :message="errors.cardNumber" />
                 </div>
 
                 <div class="flex items-center justify-between space-x-5 rtl:space-x-reverse">
@@ -56,14 +55,11 @@
                             id="expiry-date-input"
                             placeholder="MM/YY"
                             required />
-
                     </div>
                 </div>
 
                 <InputError :message="errors.cvv" />
                 <InputError :message="errors.expiryDate" />
-
-
 
                 <div>
                     <PrimaryButton class="w-full" type="submit">متابعة</PrimaryButton>
@@ -79,31 +75,23 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import { number, object, string } from 'yup';
 import type { OrderForm } from '~/types';
-import valid from "card-validator"
+import valid from 'card-validator';
 import { Input } from 'postcss';
 
-const { next } = useFormWizard<OrderForm>('order');
+const { next, state } = useFormWizard<OrderForm>('order');
 
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
         object({
             cardNumber: string()
                 .required('الرجاء ادخال رقم البطاقة')
-                .test(
-                    'test-number', 
-                    'رقم بطاقة الائتمان غير صالح',
-                    (value) => valid.number(value).isValid
-                ),
-            expiryDate: string().required('الرجاء ادخال تاريخ النتهاء صلاحية البطاقة ').test(
-                    'test-date', 
-                    'تاريخ انتهاء الصلاحية غير صالح',
-                    (value) => valid.expirationDate(value).isValid
-                ),
-            cvv: string().required('الرجاء ادخال رقم cvv').test(
-                    'test-cvv', 
-                    'رقم cvv غير صالح',
-                    (value) => value.length == 3
-                ),
+                .test('test-number', 'رقم بطاقة الائتمان غير صالح', (value) => valid.number(value).isValid),
+            expiryDate: string()
+                .required('الرجاء ادخال تاريخ النتهاء صلاحية البطاقة ')
+                .test('test-date', 'تاريخ انتهاء الصلاحية غير صالح', (value) => valid.expirationDate(value).isValid),
+            cvv: string()
+                .required('الرجاء ادخال رقم cvv')
+                .test('test-cvv', 'رقم cvv غير صالح', (value) => value.length == 3)
         })
     )
 });
@@ -129,19 +117,32 @@ const cardImages: { [key: string]: { src: string; class: string } } = {
     stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
 };
 
-function submit() {
-    next({
-        nextStepId: 'complete'
-    });
+async function submit() {
+    if (!(await validate()).valid) return;
+
+    try {
+        useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
+            method: 'POST',
+            body: {
+                type: state.value.data?.type
+            }
+        });
+
+        next({
+            nextStepId: 'complete'
+        });
+        
+    } catch (error) {
+        alert('hello world');
+    }
 }
 
 function formatCardInput(event: any) {
-
     const value: string = event.target.value;
 
     cardNumber.value = formatCreditCard(value, {
         strictMode: true,
-        delimiterLazyShow : true
+        delimiterLazyShow: true
     });
 
     const madaPattern = /^(4[^79]|5[^67]|6[3])$/;
@@ -155,25 +156,18 @@ function formatCardInput(event: any) {
 }
 
 function formatExpiryDateInput(event: any) {
-
     let value: string = (event.target.value as string).slice(0, 5);
 
     expiryDate.value = formatDate(value, {
-
         datePattern: ['m', 'y'],
-        delimiterLazyShow : true,
-
+        delimiterLazyShow: true
     });
-
 }
 
-function formatCvvInput(event : any){
-
-    let value: string = (event.target.value as string);
-    cvv.value = value.slice(0, 3)
-    
+function formatCvvInput(event: any) {
+    let value: string = event.target.value as string;
+    cvv.value = value.slice(0, 3);
 }
-
 </script>
 
 <style scoped></style>

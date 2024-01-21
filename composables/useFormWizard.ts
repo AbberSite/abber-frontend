@@ -132,6 +132,7 @@ class FormWizard<T> {
         });
     
 
+        this.state.value.data = undefined
         this.state.value.options = undefined;
         this.storedOptions = undefined;
     };

@@ -12,14 +12,22 @@
                     placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />
             </div>
             <div class="w-full space-y-3">
-                <TextInput
-                    label="تأريخ الحلم"
-                    name="dream_date"
-                    id="dream_date"
-                    type="date"
-                    :error="errors.dream_time"
-                    required
-                    v-model="dream_time" />
+                <label class="text-sm font-semibold xs:text-base" for="email"> تاريخ الحلم </label>
+
+                <DatePicker
+                placeholder="mm/dd/yyyy"
+                    :max-date="new Date()"
+                    prevent-min-max-navigation
+                    v-model="dream_time"
+                    model-type="yyyy/MM/dd"
+                    select-text="اختيار"
+                    cancel-text="الغاء"
+
+                    :format="format">
+              
+                </DatePicker>
+
+                <!-- <DatePicker date-picker />  -->
             </div>
             <div class="flex items-center">
                 <input
@@ -110,7 +118,8 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import type { OrderForm } from '~/types';
-
+import DatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 const { next, state } = useFormWizard<OrderForm>('order');
 
 const { defineField, errors, validate } = useForm({
@@ -121,11 +130,14 @@ const { defineField, errors, validate } = useForm({
             dream: yup.string().required('الرجاء ادخال وصف الحلم').default(state.value.data?.dream),
             client: yup.boolean().default(state.value.data?.client),
 
-            age: yup.number().when('client', {
-                is: true,
-                then: (schema) => schema.required('الرجاء ادخال عمر الشخص'),
-                otherwise: (schema) => schema.notRequired()
-            }).default(state.value.data?.age),
+            age: yup
+                .number()
+                .when('client', {
+                    is: true,
+                    then: (schema) => schema.required('الرجاء ادخال عمر الشخص'),
+                    otherwise: (schema) => schema.notRequired()
+                })
+                .default(state.value.data?.age),
 
             gender: yup
                 .string()
@@ -135,7 +147,8 @@ const { defineField, errors, validate } = useForm({
                     then: (schema) =>
                         schema.oneOf(['male', 'female'], 'الرجاء ادخال جنس الشخص').required('الرجاء ادخال جنس الشخص'),
                     otherwise: (schema) => schema.notRequired()
-                }).default(state.value.data?.gender),
+                })
+                .default(state.value.data?.gender),
 
             marital_status: yup
                 .string()
@@ -144,16 +157,30 @@ const { defineField, errors, validate } = useForm({
                     is: true,
                     then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
                     otherwise: (schema) => schema.notRequired()
-                }).default(state.value.data?.marital_status),
+                })
+                .default(state.value.data?.marital_status),
 
-            profession: yup.string().when('client', {
-                is: true,
-                then: (schema) => schema.required('الرجاء ادخال مهنة الشخص'),
-                otherwise: (schema) => schema.notRequired()
-            }).default(state.value.data?.profession)
+            profession: yup
+                .string()
+                .when('client', {
+                    is: true,
+                    then: (schema) => schema.required('الرجاء ادخال مهنة الشخص'),
+                    otherwise: (schema) => schema.notRequired()
+                })
+                .default(state.value.data?.profession)
         })
     )
 });
+
+const format = (date: Date) => {
+    console.log(date);
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+};
 
 const [dream_title] = defineField('dream_title');
 const [dream_time] = defineField('dream_time');
@@ -178,9 +205,27 @@ async function submit() {
             gender: gender.value,
             marital_status: marital_status.value,
             profession: profession.value
-        },
+        }
     });
 }
 </script>
 
-<style scoped></style>
+<style>
+:root {
+    /*General*/
+    --dp-border-radius: 0.375rem; /*Configurable border-radius*/
+    --dp-input-padding: 0.8rem 0.25rem; /*Padding in the input*/
+    --dp-action-buttons-padding: 10px 10px; /*Adjust padding for the action buttons in action row*/
+}
+
+.dp__theme_light {
+
+    --dp-primary-color: rgb(17 24 39 );;
+}
+
+.dp__input::placeholder {
+
+    @apply !text-gray-600
+}
+
+</style>
