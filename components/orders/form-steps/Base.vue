@@ -6,12 +6,11 @@
             <!-- Heroicon name: outline/chevron-up-down -->
             <component :is="activeHeader.icon" class="w-6 h-6" />
         </div>
-        <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl " id="contact-types-heading">
+        <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
             {{ activeHeader?.title }}
         </h1>
         <div class="pt-4 text-sm text-gray-800 xs:text-base text-center" v-html="activeHeader?.description" />
         <div class="mx-auto w-full max-w-sm pt-10">
-
             <ClientOnly>
                 <transition
                     enter-active-class="transition-all"
@@ -32,9 +31,9 @@
             </div>
 
             <nav class="pt-10" aria-label="Progress" v-if="!last">
-                <ol class="flex items-center justify-center space-x-5 rtl:space-x-reverse" role="list">
+                <div class="flex items-center justify-center space-x-5 rtl:space-x-reverse" role="list">
                     <template v-for="(step, index) in steps">
-                        <li v-if="!step.noDotStep" :key="step.id" @click="previous(step.id)">
+                        <div v-if="!step.noDotStep" :key="step.id" @click="previous(step.id)">
                             <span class="relative flex items-center justify-center" aria-current="step">
                                 <span
                                     class="absolute flex h-5 w-5 p-px"
@@ -53,9 +52,9 @@
                                     {{ arabicStepsTitle[index] }}
                                 </span>
                             </span>
-                        </li>
+                        </div>
                     </template>
-                </ol>
+                </div>
             </nav>
         </div>
     </section>
@@ -90,10 +89,13 @@ const steps = [
     { id: 'complete', component: OrderComplete, noDotStep: true }
 ];
 
-const { state, activeStepId, previous, activeStep, first, activeStepIndex, last } = useFormWizard<OrderForm>(
+const { state, activeStepId, previous, activeStep, first, activeStepIndex, last, reset } = useFormWizard<OrderForm>(
     'order',
     steps
 );
+
+
+onUnmounted(() => reset())
 
 // const inputTitle = computed(() =>
 //     state.value.data?.inputType == 'text_chat'
@@ -146,4 +148,9 @@ const activeHeader = computed<{ title: string; description: string; icon: Functi
 });
 </script>
 
-<style></style>
+<style>
+ol {
+
+    list-style-type: none !important;
+}
+</style>

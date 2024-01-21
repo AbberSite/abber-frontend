@@ -125,9 +125,12 @@ async function submit() {
         useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
             method: 'POST',
             body: {
-                type: state.value.data?.type
+                type: state.value.data?.type,
+                brand : cardType.value
             }
         });
+
+        
 
         next({
             nextStepId: 'complete'

@@ -15,17 +15,15 @@
                 <label class="text-sm font-semibold xs:text-base" for="email"> تاريخ الحلم </label>
 
                 <DatePicker
-                placeholder="mm/dd/yyyy"
+                    placeholder="mm/dd/yyyy"
                     :max-date="new Date()"
                     prevent-min-max-navigation
                     v-model="dream_time"
                     model-type="yyyy/MM/dd"
                     select-text="اختيار"
-                    cancel-text="الغاء"
+                    cancel-text="الغاء" />
 
-                    :format="format">
-              
-                </DatePicker>
+                    <InputError :message="errors.dream_time" /> 
 
                 <!-- <DatePicker date-picker />  -->
             </div>
@@ -172,16 +170,6 @@ const { defineField, errors, validate } = useForm({
     )
 });
 
-const format = (date: Date) => {
-    console.log(date);
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
-};
-
 const [dream_title] = defineField('dream_title');
 const [dream_time] = defineField('dream_time');
 const [dream] = defineField('dream');
@@ -219,13 +207,13 @@ async function submit() {
 }
 
 .dp__theme_light {
-
-    --dp-primary-color: rgb(17 24 39 );;
+    --dp-primary-color: rgb(17 24 39);
 }
 
 .dp__input::placeholder {
-
-    @apply !text-gray-600
+    @apply !text-gray-600 !transition-none;
 }
-
+.dp__input:focus {
+    border: 2px solid;
+}
 </style>
