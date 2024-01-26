@@ -13,8 +13,15 @@ export default defineNuxtConfig({
     },
 
     runtimeConfig: {
-        apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
-        apiBasePath: 'https://abber.co/api'
+
+        
+        // prod
+        // apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
+        // test
+        apiSecret: "d378b42b1f3f18f231edb2f253e43025dc01406f",
+
+
+        apiBasePath: 'https://test.abber.co/api'
     },
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
 

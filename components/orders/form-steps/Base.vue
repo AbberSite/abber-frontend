@@ -133,7 +133,7 @@ const activeHeader = computed<{ title: string; description: string; icon: Functi
         },
         payment: {
             title: 'وسيلة الدفع',
-            description: 'إدخل بيانات الدفع لشراء خدمة تعبير الاحلام هذه',
+            description: 'إدخل بيانات الدفع لإتمام عملية الطلب',
             icon: CreditCardIcon
         },
         complete: {

@@ -78,11 +78,11 @@ async function login() {
                 rawRefreshToken.value = response._data.refreshToken;
                 rawToken.value = response._data.token;
 
-                console.log(rawRefreshToken.value);
-
                 await refresh();
 
-                next({ nextStepId : 'payment'})
+                next({ nextStepId : 'payment', options : {
+                    ignore : true
+                }})
 
                 useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
                 

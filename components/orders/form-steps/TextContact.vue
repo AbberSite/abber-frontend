@@ -20,6 +20,7 @@
                     prevent-min-max-navigation
                     v-model="dream_time"
                     model-type="yyyy/MM/dd"
+                    format="MM/dd/yyyy"
                     select-text="اختيار"
                     cancel-text="الغاء" />
 

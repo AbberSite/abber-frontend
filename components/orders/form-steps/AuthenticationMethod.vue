@@ -122,8 +122,13 @@
 import type { OrderForm } from '~/types';
 
 const authenticationMethod = ref<'register' | 'login' | 'guest' | 'otp'>();
+const { status } = useAuthState();
 
-const { next } = useFormWizard<OrderForm>('order');
+const { next, previous } = useFormWizard<OrderForm>('order');
+
+onMounted(async () => {
+    if (status.value == 'authenticated') previous();
+});
 
 function submit(authenticationMethod: 'register' | 'login' | 'guest' | 'otp') {
     next({

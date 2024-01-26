@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
 
         });
 
-        return response.data;
+        return response?.data;
 
     } catch (error: any) {
 

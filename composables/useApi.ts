@@ -3,7 +3,7 @@ import { type NitroFetchRequest } from 'nitropack';
 export default <T = unknown, R extends NitroFetchRequest = NitroFetchRequest>(
     request: Parameters<typeof $fetch<T, R>>[0],
     options?: Partial<Parameters<typeof $fetch<T, R>>[1]>
-) => {
+) : ReturnType<typeof $fetch> => {
     const { status, rawToken } = useAuthState();
 
     return $fetch<T, R>(request, {

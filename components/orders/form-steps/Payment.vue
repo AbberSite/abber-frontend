@@ -2,175 +2,177 @@
     <Head>
         <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
     </Head>
-    <div>
-        <form @submit.prevent="submit" novalidate>
-            <fieldset class="space-y-7">
-                <div class="w-full space-y-3">
-                    <label class="block text-sm font-semibold xs:text-base" for="card">رقم البطاقة</label>
-                    <div class="relative flex items-center">
-                        <input
-                            class="form-control h-[50px] pl-12"
-                            type="card"
-                            dir="ltr"
-                            name="card"
-                            :value="cardNumber"
-                            id="card-input"
-                            @input="formatCardInput"
-                            placeholder="0000 0000 0000 0000"
-                            required />
-                        <span
-                            class="absolute items-center justify-center text-gray-600 hover:text-gray-900"
-                            :class="cardImage.class">
-                            <!-- <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48"> <path fill="#ff9800" d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"></path> <path fill="#d50000" d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"></path> <path fill="#ff3d00" d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"></path></svg> -->
+    <div class="min-h-[20rem]">
+        <span
+            class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand hidden"
+            :class="cardImage.class">
+            <NuxtImg class="w-8" :src="cardImage.src" />
+        </span>
 
-                            <NuxtImg class="w-8" :src="cardImage.src" />
-                        </span>
-                    </div>
-                    <InputError :message="errors.cardNumber" />
-                </div>
+        <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
+            <Loading class="w-14 h-14" />
+        </div>
 
-                <div>
-                    <div class="flex items-center justify-between space-x-5 rtl:space-x-reverse mb-2">
-                        <div class="w-full space-y-3">
-                            <label class="block text-sm font-semibold xs:text-base" for="text">رمز التحقق (CVV)</label>
-                            <input
-                                class="form-control h-[50px] appearance-none"
-                                type="text"
-                                name="text"
-                                @input="formatCvvInput"
-                                v-model="cvv"
-                                dir="ltr"
-                                id="text"
-                                placeholder="000"
-                                required />
-                        </div>
-                        <div class="w-full space-y-3">
-                            <label class="block text-sm font-semibold xs:text-base" for="text">تأريخ الإنتهاء</label>
-                            <input
-                                class="form-control h-[50px] appearance-none"
-                                dir="ltr"
-                                type="text"
-                                :value="expiryDate"
-                                @input="formatExpiryDateInput"
-                                name="text"
-                                id="expiry-date-input"
-                                placeholder="MM/YY"
-                                required />
-                        </div>
-                    </div>
-                    <InputError :message="errors.cvv" />
-                    <InputError :message="errors.expiryDate" />
-                </div>
-
-                <div>
-                    <PrimaryButton class="w-full" type="submit">متابعة</PrimaryButton>
-                </div>
-            </fieldset>
-        </form>
+        <form dir="ltr" action="http://localhost:3000" class="paymentWidgets" data-brands="VISA MASTER"></form>
     </div>
 </template>
 
 <script setup lang="ts">
-import { formatCreditCard, getCreditCardType, formatDate } from 'cleave-zen';
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/yup';
-import { number, object, string } from 'yup';
 import type { OrderForm } from '~/types';
-import valid from 'card-validator';
-import { Input } from 'postcss';
+import useScript from '~/composables/useScript';
 
-const { next, state } = useFormWizard<OrderForm>('order');
-
-const { defineField, errors, validate, errorBag, setErrors } = useForm({
-    validationSchema: toTypedSchema(
-        object({
-            cardNumber: string()
-                .required('الرجاء ادخال رقم البطاقة')
-                .test('test-number', 'رقم بطاقة الائتمان غير صالح', (value) => valid.number(value).isValid),
-            expiryDate: string()
-                .required('الرجاء ادخال تاريخ النتهاء صلاحية البطاقة ')
-                .test('test-date', 'تاريخ انتهاء الصلاحية غير صالح', (value) => valid.expirationDate(value).isValid),
-            cvv: string()
-                .required('الرجاء ادخال رقم cvv')
-                .test('test-cvv', 'رقم cvv غير صالح', (value) => value.length == 3)
-        })
-    )
-});
-
-const [cardNumber] = defineField('cardNumber');
-const [expiryDate] = defineField('expiryDate');
-const [cvv] = defineField('cvv');
+const { state } = useFormWizard<OrderForm>('order');
 
 const cardType = ref('general');
+const loading = ref(true);
 const cardImage = computed(
     () =>
         cardImages[cardType.value] ?? {
             src: '/images/payments/general.svg',
-            class: 'w-6 h-6 top-3 ltr:right-3 rtl:left-3'
+            class: 'w-6 h-6 top-11 ltr:right-3 rtl:left-3'
         }
 );
 
 const cardImages: { [key: string]: { src: string; class: string } } = {
-    general: { src: '/images/payments/general.svg', class: 'w-6 h-6 top-3 ltr:right-3 rtl:left-3' },
-    visa: { src: '/images/payments/visa.webp', class: 'w-8 h-8 top-[1.1rem] ltr:right-3 rtl:left-3' },
-    mastercard: { src: '/images/payments/mastercard.webp', class: 'w-8 h-8 top-[0.9rem] ltr:right-3 rtl:left-3' },
-    mada: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] ltr:right-3 rtl:left-3' },
+    general: { src: '/images/payments/general.svg', class: 'w-6 h-6 top-11 ltr:right-3 rtl:left-3' },
+    VISA: { src: '/images/payments/visa.webp', class: 'w-8 h-8 top-12 ltr:right-3 rtl:left-3' },
+    MASTER: { src: '/images/payments/mastercard.webp', class: 'w-8 h-8 top-[2.9rem] ltr:right-3 rtl:left-3' },
+    MADA: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] ltr:right-3 rtl:left-3' },
     stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
 };
 
-async function submit() {
-    if (!(await validate()).valid) return;
-
+onUpdated(() => {
+    const cardBrand = document.querySelector('.card-brand') as Element;
+    cardBrand.classList.remove('hidden');
+});
+onMounted(async () => {
     try {
-        useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
+        // ${state.value.data?.service_id}
+        const data = await useApi(`/api/orders/85/buy`, {
             method: 'POST',
             body: {
                 type: state.value.data?.type,
-                brand : cardType.value
+
+                // TODO: unncomment the above line when finishing from testing
+                brand: 'visa'
+                // brand: cardType.valuee
             }
         });
 
-        
+        (window as any).wpwlOptions = {
+            style: 'plain',
+            // locale: 'ar',
+            brandDetection: true,
+            brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
+            labels: { cardNumber: 'رقم البطاقة', cvv: 'رمز التحقق (CVV)', expiryDate: 'تاريخ الإنتهاء', submit : 'متابعة'},
+            errorMessages: {
+                cvvError: 'رمز التحقق غير صالح',
+                cardNumberError: 'رقم البطاقة غير صالح',
+                expiryMonthError: 'تاريخ الإنتهاء غير صالج',
+                expiryYearError: 'تاريخ الإنتهاء غير صالج'
+            },
+            onFocusIframeCommunication: function () {
+                const form = this.$iframe[0] as HTMLElement;
 
-        next({
-            nextStepId: 'complete'
-        });
+
+                form.classList.add("activeIframe")
+            },
+            onBlurIframeCommunication: function () {
+                const form = this.$iframe[0] as HTMLElement;
+
+                form.classList.remove("activeIframe")
+
+            },
+            onChangeBrand: (data: string) => {
+                if (!data) {
+                    cardType.value = 'general';
+                    return;
+                }
+                cardType.value = data;
+            },
+            onReady: function () {
+                loading.value = false;
+
+                const cardGroup = document.querySelector('.wpwl-group-cardNumber');
+                const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
+                const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
+                const cardBrand = document.querySelector('.card-brand') as Element;
+
+                expiryGroup?.remove?.();
+                cvvGroup?.remove?.();
+
+                cardBrand.remove();
+
+                cardGroup?.append(cardBrand);
+                cardBrand.classList.remove('hidden');
+
+                const div = document.createElement('div');
+                div.classList.add('cvv-expiry-wrapper');
+                cardGroup?.insertAdjacentElement('afterend', div);
+
+                div.append(cvvGroup);
+                div.append(expiryGroup);
+            }
+        };
+
+        await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${data.id}`);
     } catch (error) {
-        alert('hello world');
+        console.log(error);
     }
-}
-
-function formatCardInput(event: any) {
-    const value: string = event.target.value;
-
-    cardNumber.value = formatCreditCard(value, {
-        strictMode: true,
-        delimiterLazyShow: true
-    });
-
-    const madaPattern = /^(4[^79]|5[^67]|6[3])$/;
-
-    if (madaPattern.test(value)) {
-        cardType.value = 'mada';
-        return;
-    }
-
-    cardType.value = getCreditCardType(value);
-}
-
-function formatExpiryDateInput(event: any) {
-    let value: string = (event.target.value as string).slice(0, 5);
-
-    expiryDate.value = formatDate(value, {
-        datePattern: ['m', 'y'],
-        delimiterLazyShow: true
-    });
-}
-
-function formatCvvInput(event: any) {
-    let value: string = event.target.value as string;
-    cvv.value = value.slice(0, 3);
-}
+});
 </script>
 
-<style scoped></style>
+<style>
+.wpwl-group-cardNumber {
+    @apply relative;
+}
+.wpwl-control-cardNumber {
+    @apply form-control h-[50px] pl-12 w-full;
+}
+
+.wpwl-control-expiry {
+    @apply form-control h-[50px] appearance-none w-full;
+}
+
+.wpwl-control-cvv {
+    @apply form-control h-[50px] appearance-none;
+}
+
+.cvv-expiry-wrapper {
+    @apply flex items-center justify-between space-x-5 rtl:space-x-reverse mb-2 w-full;
+}
+.wpwl-group {
+    @apply w-full space-y-3;
+    direction: rtl;
+}
+.wpwl-wrapper {
+    @apply w-full;
+}
+
+.wpwl-form {
+    @apply space-y-7;
+}
+
+.wpwl-label-cvv,
+.wpwl-label-expiry,
+.wpwl-label-cardNumber {
+    @apply block text-sm font-semibold xs:text-base w-full ml-5;
+}
+
+.wpwl-group-cardHolder,
+.wpwl-group-brand {
+    @apply hidden;
+}
+
+.wpwl-button-pay {
+    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black;
+}
+
+.wpwl-button-error {
+    @apply !cursor-not-allowed !bg-gray-100 !text-black !border-none;
+}
+
+.activeIframe { 
+    @apply  border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0
+}
+</style>
