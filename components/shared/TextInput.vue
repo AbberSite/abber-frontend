@@ -1,7 +1,7 @@
 <template>
     <div class="w-full space-y-3">
 
-        <label class="text-sm font-semibold xs:text-base" for="email">
+        <label class="text-sm font-semibold xs:text-base" :for="id">
             {{ label }}
         </label>
 

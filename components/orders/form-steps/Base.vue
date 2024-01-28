@@ -3,12 +3,15 @@
         class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
         aria-labelledby="contact-types-heading">
         <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
-            <!-- Heroicon name: outline/chevron-up-down -->
+
             <component :is="activeHeader.icon" class="w-6 h-6" />
+
         </div>
+        
         <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
             {{ activeHeader?.title }}
         </h1>
+        
         <div class="pt-4 text-sm text-gray-800 xs:text-base text-center" v-html="activeHeader?.description" />
         <div class="mx-auto w-full max-w-sm pt-10">
             <ClientOnly>
@@ -77,7 +80,7 @@ import Authentication from './Authentication.vue';
 import Payment from './Payment.vue';
 import TextContact from './TextContact.vue';
 import OrderComplete from './OrderComplete.vue';
-import type { Component, FunctionalComponent } from 'vue';
+import type { FunctionalComponent } from 'vue';
 
 const steps = [
     { id: 'contact-type', component: ContactType },
@@ -94,14 +97,7 @@ const { state, activeStepId, previous, activeStep, first, activeStepIndex, last,
     steps
 );
 
-
 onUnmounted(() => reset())
-
-// const inputTitle = computed(() =>
-//     state.value.data?.inputType == 'text_chat'
-//         ? 'أدخل معلومات و تفاصيل الحلم'
-//         : 'لديك دقيقتين يمكنك من خلالها إدخال تفاصيل الحلم'
-// );
 
 const arabicStepsTitle = ref([
     'الخطوة الأولى',

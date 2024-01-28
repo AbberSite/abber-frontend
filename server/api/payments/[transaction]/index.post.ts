@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const headers = getRequestHeaders(event);
     const body = await readBody(event);
 
-    const service = event.context.params?.service
+    const transaction = event.context.params?.transaction
 
     const Authorization = headers.authorization;
 
@@ -13,7 +13,11 @@ export default defineEventHandler(async (event) => {
 
     try {
 
-        const response = await axios.post(config.apiBasePath + `/orders/buy-now/${service}/`, body, {
+        const response = await axios(config.apiBasePath + `/payment/fetch-payment/${transaction}/`, {
+
+            params : {
+                id : body.id
+            },
 
             headers: {
                 'api-key': config.apiSecret,
@@ -27,7 +31,7 @@ export default defineEventHandler(async (event) => {
     } catch (error: any) {
 
         setResponseStatus(event, 500);
-        return error.response;
+        return error.response.data;
 
     }
 });

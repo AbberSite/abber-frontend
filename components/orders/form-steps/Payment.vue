@@ -3,17 +3,27 @@
         <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
     </Head>
     <div class="min-h-[20rem]">
-        <span
-            class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand hidden"
-            :class="cardImage.class">
-            <NuxtImg class="w-8" :src="cardImage.src" />
-        </span>
+        <div class="hidden">
+            <span
+                class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand "
+                :class="cardImage.class">
+                <NuxtImg class="w-8" :src="cardImage.src" />
+            </span>
+        </div>
 
         <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
             <Loading class="w-14 h-14" />
         </div>
 
-        <form dir="ltr" action="http://localhost:3000" class="paymentWidgets" data-brands="VISA MASTER"></form>
+        <InputError :message="error" /> 
+
+        <div class="payment-form" ref="paymentForm">
+            <form
+                dir="ltr"
+                action="/orders/complete"
+                class="paymentWidgets"
+                data-brands="VISA MASTER MADA"></form>
+        </div>
     </div>
 </template>
 
@@ -22,9 +32,14 @@ import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 
 const { state } = useFormWizard<OrderForm>('order');
+const { data } = useAuth()
 
 const cardType = ref('general');
 const loading = ref(true);
+const paymentForm = ref<HTMLDivElement | null>(null);
+const error = ref("")
+
+
 const cardImage = computed(
     () =>
         cardImages[cardType.value] ?? {
@@ -41,14 +56,93 @@ const cardImages: { [key: string]: { src: string; class: string } } = {
     stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
 };
 
-onUpdated(() => {
-    const cardBrand = document.querySelector('.card-brand') as Element;
-    cardBrand.classList.remove('hidden');
-});
+
+
 onMounted(async () => {
+
+    error.value = ''
     try {
+
+        const payment = await createCheckout();
+        loading.value = false;
+
+        if(!payment.id){
+            error.value = 'حدث خطأ ما'
+            return
+        }
+
+
+        (window as any).wpwlOptions = {
+            style: 'plain',
+            brandDetection: true,
+            brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
+            labels: {
+                cardNumber: 'رقم البطاقة',
+                cvv: 'رمز التحقق (CVV)',
+                expiryDate: 'تاريخ الإنتهاء',
+                submit: 'متابعة'
+            },
+            errorMessages: {
+                cvvError: 'رمز التحقق غير صالح',
+                cardNumberError: 'رقم البطاقة غير صالح',
+                expiryMonthError: 'تاريخ الإنتهاء غير صالج',
+                expiryYearError: 'تاريخ الإنتهاء غير صالج'
+            },
+            onFocusIframeCommunication: function () {
+                const form = this.$iframe[0] as HTMLElement;
+
+                form.classList.add('activeIframe');
+            },
+            onBlurIframeCommunication: function () {
+                const form = this.$iframe[0] as HTMLElement;
+
+                form.classList.remove('activeIframe');
+            },
+            onChangeBrand: (data: string) => {
+                if (!data) {
+                    cardType.value = 'general';
+                    return;
+                }
+                cardType.value = data;
+            },
+            onReady: function (array: Array<any>) {
+
+                const cardGroup = document.querySelector('.wpwl-group-cardNumber');
+                const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
+                const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
+                const cardBrand = document.querySelector('.card-brand') as Element;
+
+                const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement
+
+                cardHolderInput.value = data.value.username
+
+                expiryGroup?.remove?.();
+                cvvGroup?.remove?.();
+
+                cardBrand.remove();
+
+                cardGroup?.append(cardBrand);
+
+                const div = document.createElement('div');
+                div.classList.add('cvv-expiry-wrapper');
+                cardGroup?.insertAdjacentElement('afterend', div);
+
+                div.append(cvvGroup);
+                div.append(expiryGroup);
+            },
+      
+        };
+
+        await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${payment.id}`);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
+    return new Promise(async (resolve, reject) => {
         // ${state.value.data?.service_id}
-        const data = await useApi(`/api/orders/85/buy`, {
+        const checkout = await useApi(`/api/orders/85/buy`, {
             method: 'POST',
             body: {
                 type: state.value.data?.type,
@@ -59,67 +153,11 @@ onMounted(async () => {
             }
         });
 
-        (window as any).wpwlOptions = {
-            style: 'plain',
-            // locale: 'ar',
-            brandDetection: true,
-            brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
-            labels: { cardNumber: 'رقم البطاقة', cvv: 'رمز التحقق (CVV)', expiryDate: 'تاريخ الإنتهاء', submit : 'متابعة'},
-            errorMessages: {
-                cvvError: 'رمز التحقق غير صالح',
-                cardNumberError: 'رقم البطاقة غير صالح',
-                expiryMonthError: 'تاريخ الإنتهاء غير صالج',
-                expiryYearError: 'تاريخ الإنتهاء غير صالج'
-            },
-            onFocusIframeCommunication: function () {
-                const form = this.$iframe[0] as HTMLElement;
+        localStorage.setItem("abber:current-transaction-id", checkout.transaction_id)
 
-
-                form.classList.add("activeIframe")
-            },
-            onBlurIframeCommunication: function () {
-                const form = this.$iframe[0] as HTMLElement;
-
-                form.classList.remove("activeIframe")
-
-            },
-            onChangeBrand: (data: string) => {
-                if (!data) {
-                    cardType.value = 'general';
-                    return;
-                }
-                cardType.value = data;
-            },
-            onReady: function () {
-                loading.value = false;
-
-                const cardGroup = document.querySelector('.wpwl-group-cardNumber');
-                const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
-                const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
-                const cardBrand = document.querySelector('.card-brand') as Element;
-
-                expiryGroup?.remove?.();
-                cvvGroup?.remove?.();
-
-                cardBrand.remove();
-
-                cardGroup?.append(cardBrand);
-                cardBrand.classList.remove('hidden');
-
-                const div = document.createElement('div');
-                div.classList.add('cvv-expiry-wrapper');
-                cardGroup?.insertAdjacentElement('afterend', div);
-
-                div.append(cvvGroup);
-                div.append(expiryGroup);
-            }
-        };
-
-        await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${data.id}`);
-    } catch (error) {
-        console.log(error);
-    }
-});
+        resolve(checkout);
+    });
+}
 </script>
 
 <style>
@@ -165,14 +203,15 @@ onMounted(async () => {
 }
 
 .wpwl-button-pay {
-    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black;
+    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-button-error {
     @apply !cursor-not-allowed !bg-gray-100 !text-black !border-none;
 }
 
-.activeIframe { 
-    @apply  border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0
+.activeIframe {
+    @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
+
 </style>

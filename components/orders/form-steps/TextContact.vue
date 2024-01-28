@@ -12,7 +12,7 @@
                     placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />
             </div>
             <div class="w-full space-y-3">
-                <label class="text-sm font-semibold xs:text-base" for="email"> تاريخ الحلم </label>
+                <label class="text-sm font-semibold xs:text-base" for="date" @click="datePicker?.openMenu()"> تاريخ الحلم </label>
 
                 <DatePicker
                     placeholder="mm/dd/yyyy"
@@ -20,6 +20,8 @@
                     prevent-min-max-navigation
                     v-model="dream_time"
                     model-type="yyyy/MM/dd"
+                    ref="datePicker"
+                    id="date"
                     format="MM/dd/yyyy"
                     select-text="اختيار"
                     cancel-text="الغاء" />
@@ -42,14 +44,14 @@
 
             <div class="space-y-7" v-if="client">
                 <div class="w-full space-y-3">
-                    <label class="block text-sm font-semibold xs:text-base" for="select">الجنس</label>
+                    <label class="block text-sm font-semibold xs:text-base" for="sex">الجنس</label>
                     <select
                         v-model="gender"
                         class="form-control form-select h-[50px] appearance-none"
                         type="select"
                         :class="[errors.gender && 'form-invalid']"
                         name="select"
-                        id="select">
+                        id="sex">
                         <option value="male" selected>ذكر</option>
                         <option value="female">أنثى</option>
                     </select>
@@ -66,14 +68,14 @@
                         label="العمر" />
                 </div>
                 <div class="w-full space-y-3">
-                    <label class="block text-sm font-semibold xs:text-base" for="select">الحالة الإجتماعية</label>
+                    <label class="block text-sm font-semibold xs:text-base" for="martial_status">الحالة الإجتماعية</label>
                     <select
                         v-model="marital_status"
                         class="form-control form-select h-[50px] appearance-none"
                         :class="[errors.marital_status && 'form-invalid']"
                         type="select"
                         name="select"
-                        id="select">
+                        id="martial_status">
                         <option value="single" selected>أعزب</option>
                         <option value="">متزوج/ه</option>
                         <option>مطلق/ه</option>
@@ -120,6 +122,7 @@ import type { OrderForm } from '~/types';
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 const { next, state } = useFormWizard<OrderForm>('order');
+    import type { DatePickerInstance } from "@vuepic/vue-datepicker"
 
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
@@ -179,6 +182,10 @@ const [age] = defineField('age');
 const [gender] = defineField('gender', {});
 const [marital_status] = defineField('marital_status');
 const [profession] = defineField('profession');
+
+
+
+const datePicker = ref<DatePickerInstance>(null)
 
 async function submit() {
     if (!(await validate()).valid) return;

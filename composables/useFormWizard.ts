@@ -48,16 +48,31 @@ class FormWizard<T> {
         this.activeStepId.value = steps[0].id;
         this.navigationStack.push(steps[0].id);
         this.steps.value = steps;
+
+        if(!process.client) return
+
+
+        const persistedData = localStorage.getItem(FormWizard.getStorageKey(id))
+        if(!persistedData) return
+        this.state.value.data = JSON.parse(persistedData)
     }
 
-    static getInstance = <T>(id: string, steps?: Step[]) => {
+    static getInstance = <T>(id: string, steps?: Step[], data? : boolean) => {
         const existingForm = this.forms.find((form) => form.id == id);
 
         if (existingForm) return existingForm;
 
-        if (!steps) {
+
+        if(data) {
+            const persistedData = localStorage.getItem(FormWizard.getStorageKey(id))
+            if(!persistedData) return {}
+            return Object.assign(JSON.parse(persistedData), { clear : () => FormWizard.clearData(id)} )
+        }
+
+        if (!steps || steps.length == 0) {
             throw Error('No steps provided');
         }
+
 
         const newForm = new FormWizard<T>(id, steps);
 
@@ -81,6 +96,8 @@ class FormWizard<T> {
         }
 
         this.storedOptions = result.options;
+
+        localStorage.setItem(FormWizard.getStorageKey(this.id), JSON.stringify(this.state.value.data))
     };
 
     previous = (stepId?: string) => {
@@ -136,6 +153,15 @@ class FormWizard<T> {
         this.state.value.options = undefined;
         this.storedOptions = undefined;
     };
+
+    static clearData = (id : string) => {
+        localStorage.removeItem(FormWizard.getStorageKey(id))
+    }
+
+    static getStorageKey(id : string){
+        return `form-wizard:${id}`
+    }
+
 }
 
-export default <T>(id: string, steps?: Step[]): FormWizard<T> => FormWizard.getInstance<T>(id, steps);
+export default <T>(id: string, steps?: Step[], getData? : boolean): FormWizard<T> => FormWizard.getInstance<T>(id, steps, getData);
