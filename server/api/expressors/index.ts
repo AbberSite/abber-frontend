@@ -5,12 +5,20 @@ export default defineEventHandler(async (event) => {
 
     const config = useRuntimeConfig()
 
-    const response = await axios.get(config.apiBasePath + "/services/services/",{
-        headers : {
-            'api-key' : config.apiSecret
-        }
-    })
+    try {
+        
+        const response = await axios.get(config.apiBasePath + "/services/services/",{
+            headers : {
+                'api-key' : config.apiSecret
+            }
+        })
+    
+        return response?.data
+    
+    } catch (error : any) {
 
-    return response.data
+        return error.response?.data
+
+    }
 
 });

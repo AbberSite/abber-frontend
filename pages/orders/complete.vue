@@ -157,7 +157,6 @@
                             </div>
                         </div>
                     </div> -->
-
                 </template>
             </template>
         </section>
@@ -171,7 +170,7 @@ import type { OrderForm } from '~/types';
 
 const route = useRoute();
 const router = useRouter();
-
+const { refresh } = useAuth();
 const id = route.query.id;
 let transaction_id: string;
 
@@ -181,17 +180,14 @@ const paid = ref(true);
 const loading = ref(true);
 const error = ref('');
 
-
-const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000)
+const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
-
-    await getStatus()
-
+    await refresh();
+    await getStatus();
 });
 
-
-async function getStatus(){
+async function getStatus() {
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
 
     const service_id = data.service_id;
@@ -205,28 +201,24 @@ async function getStatus(){
 
     const { hasPaid, message } = await isPaid();
 
-
     if (!hasPaid) {
-
-        loading.value = false
+        loading.value = false;
         paid.value = false;
 
-        if(message == "transaction pending") {
-
-            if(!isActive.value) {
-                resume()
+        if (message == 'transaction pending') {
+            if (!isActive.value) {
+                resume();
             }
-            return
-
+            return;
         }
-        if(isActive.value) pause()
+        if (isActive.value) pause();
         error.value = message;
         localStorage.removeItem('abber:current-transaction-id');
 
         return;
     }
 
-    if(isActive) pause()
+    if (isActive) pause();
 
     // TODO : update this with real service id
     const result = await useApi(`/api/orders/85/buy`, {
@@ -240,7 +232,6 @@ async function getStatus(){
     });
 
     if (!result.paid) {
-
         paid.value = false;
         loading.value = false;
 
@@ -250,12 +241,14 @@ async function getStatus(){
         return;
     }
 
+    await updateOrderInfo(data);
+    return;
+
     localStorage.removeItem('abber:current-transaction-id');
 
     (data as any).clear();
 
     loading.value = false;
-
 }
 async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
     return new Promise(async (resolve, reject) => {
@@ -272,6 +265,23 @@ async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
 
         resolve({ hasPaid: true, message: '' });
     });
+}
+
+async function updateOrderInfo(data: OrderForm) {
+
+    try {
+        
+        const response = await useApi(`/api/orders/update/${data.order_id}`, {
+            method: 'POST',
+            body: data
+        });
+
+    } catch (error) {
+
+        alert("something went wrong")
+
+    }
+
 }
 
 definePageMeta({

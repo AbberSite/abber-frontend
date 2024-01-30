@@ -154,6 +154,9 @@ class FormWizard<T> {
         this.storedOptions = undefined;
     };
 
+    persist = () => {
+        localStorage.setItem(FormWizard.getStorageKey(this.id), JSON.stringify(this.state.value.data))
+    }
     static clearData = (id : string) => {
         localStorage.removeItem(FormWizard.getStorageKey(id))
     }

@@ -24,7 +24,7 @@
             </div>
 
             <!-- Show when founded notifications list -->
-            <template v-if="data.notifications.results.length != 0">
+            <template v-if="data?.notifications?.results?.length != 0">
                 <ul class="is-scroll divide-y divide-gray-100 overflow-y-auto pb-20 md:max-h-[400px] md:pb-0">
 
                     <template v-if="loading">
@@ -34,7 +34,7 @@
                         <SkeletonsNotification />
                     </template>
                     <template v-else>
-                        <HeaderNotification v-for="notification in data.notifications.results" :notification="notification" />
+                        <HeaderNotification v-for="notification in data?.notifications?.results" :notification="notification" />
                     </template>
                 </ul>
                 <div class="fixed bottom-0 z-40 w-full border-t border-gray-100 bg-white px-6 py-6 text-center md:relative">

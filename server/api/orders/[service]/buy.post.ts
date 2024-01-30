@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     const service = event.context.params?.service
 
     const Authorization = headers.authorization;
-
+    
     const config = useRuntimeConfig();
 
     try {

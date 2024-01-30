@@ -31,8 +31,8 @@
 import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 
-const { state } = useFormWizard<OrderForm>('order');
-const { data } = useAuth()
+const { state, persist } = useFormWizard<OrderForm>('order');
+const { data, refresh } = useAuth()
 
 const cardType = ref('general');
 const loading = ref(true);
@@ -44,14 +44,14 @@ const cardImage = computed(
     () =>
         cardImages[cardType.value] ?? {
             src: '/images/payments/general.svg',
-            class: 'w-6 h-6 top-11 ltr:right-3 rtl:left-3'
+            class: 'w-6 h-6 lg:top-11 top-9 ltr:right-3 rtl:left-3'
         }
 );
 
 const cardImages: { [key: string]: { src: string; class: string } } = {
-    general: { src: '/images/payments/general.svg', class: 'w-6 h-6 top-11 ltr:right-3 rtl:left-3' },
-    VISA: { src: '/images/payments/visa.webp', class: 'w-8 h-8 top-12 ltr:right-3 rtl:left-3' },
-    MASTER: { src: '/images/payments/mastercard.webp', class: 'w-8 h-8 top-[2.9rem] ltr:right-3 rtl:left-3' },
+    general: { src: '/images/payments/general.svg', class: 'w-6 h-6 lg:top-11 top-9 ltr:right-3 rtl:left-3' },
+    VISA: { src: '/images/payments/visa.webp', class: 'w-8 h-8 lg:top-12 top-10  ltr:right-3 rtl:left-3' },
+    MASTER: { src: '/images/payments/mastercard.webp', class: 'w-8 h-8 lg:top-[2.9rem] top-[2.3rem] ltr:right-3 rtl:left-3' },
     MADA: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] ltr:right-3 rtl:left-3' },
     stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
 };
@@ -59,6 +59,9 @@ const cardImages: { [key: string]: { src: string; class: string } } = {
 
 
 onMounted(async () => {
+
+
+    await refresh()
 
     error.value = ''
     try {
@@ -130,7 +133,7 @@ onMounted(async () => {
                 div.append(cvvGroup);
                 div.append(expiryGroup);
             },
-      
+
         };
 
         await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${payment.id}`);
@@ -141,6 +144,7 @@ onMounted(async () => {
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
     return new Promise(async (resolve, reject) => {
+        
         // ${state.value.data?.service_id}
         const checkout = await useApi(`/api/orders/85/buy`, {
             method: 'POST',
@@ -153,8 +157,13 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
             }
         });
 
-        localStorage.setItem("abber:current-transaction-id", checkout.transaction_id)
 
+        localStorage.setItem("abber:current-transaction-id", checkout.transaction_id); 
+
+        (state.value.data as OrderForm).order_id = checkout.order_id
+
+        persist()
+        
         resolve(checkout);
     });
 }
@@ -177,7 +186,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 .cvv-expiry-wrapper {
-    @apply flex items-center justify-between space-x-5 rtl:space-x-reverse mb-2 w-full;
+    @apply flex items-start justify-between space-x-5 rtl:space-x-reverse mb-2 w-full ;
 }
 .wpwl-group {
     @apply w-full space-y-3;
