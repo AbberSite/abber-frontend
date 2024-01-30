@@ -53,6 +53,7 @@
                             leave-to-class="translate-y-4 opacity-0">
                             <HeaderProfileDropdown
                                 @logout="logout"
+                                @close="profileDropdown = false"
                                 v-if="profileDropdown"
                                 v-on-click-outside="(profileOnClickOutside as any)" />
                         </transition>

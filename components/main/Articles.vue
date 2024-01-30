@@ -1,25 +1,26 @@
 <template>
     <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="articles-heading">
         <div class="flex items-end justify-between">
-            <div>
-                <h2
-                    class="inline-flex rounded-full bg-gray-900 px-4 pb-1.5 pt-2 text-xs font-semibold text-white"
-                    id="articles-heading">
-
-                    <!-- المدونة -->
-
-                    {{ title }}
-                </h2>
-                <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">
-
-                    <!-- اخر المقالات المقدمة إسبوعيا -->
-
-                    {{ description }}
+            <template v-if="!noHeader">
+                <div>
+                    <h2
+                        class="inline-flex rounded-full bg-gray-900 px-4 pb-1.5 pt-2 text-xs font-semibold text-white"
+                        id="articles-heading">
+                        <!-- المدونة -->
+                        {{ title }}
+                    </h2>
+                    <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">
+                        <!-- اخر المقالات المقدمة إسبوعيا -->
+                        {{ description }}
+                    </div>
                 </div>
-            </div>
-            <NuxtLink v-if="!currentPostSlug" class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex" :to="{ name: 'blog' }"
-                >عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink
-            >
+                <NuxtLink
+                    v-if="!currentPostSlug"
+                    class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex"
+                    :to="{ name: 'blog' }"
+                    >عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink
+                >
+            </template>
         </div>
         <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3">
             <template v-if="loading">
@@ -30,7 +31,7 @@
 
             <template v-else>
                 <BlogCard
-                    v-for="post in posts"
+                    v-for="post in firstThreePosts"
                     :type="post.post_category.name"
                     :title="post.title"
                     duration="5 دقائق قراءة"
@@ -78,6 +79,7 @@ const props = withDefaults(
         title?: string;
         description?: string;
         currentPostSlug?: string;
+        noHeader?: boolean;
     }>(),
     {
         title: 'المدونة',
@@ -85,28 +87,30 @@ const props = withDefaults(
         currentPostSlug: undefined
     }
 );
-const loading = ref(false);
+const loading = ref(true);
 
 const posts = ref<Post[]>();
+const { firstThreePosts } = storeToRefs(usePostsStore());
 
-async function fetchPosts() {
-    loading.value = true;
-
-    const { data } = (await useFetch(`/api/blog/posts`, {
-        params: {
-            active: true,
-            accepted: true
-        }
-    })) as { data: Ref<Response> };
-
-    posts.value = data.value?.results?.filter((post, index) => post.slug != props.currentPostSlug).filter((post, index) => index < 3);
-
-    loading.value = false;
-}
+const { fetchAll } = usePostsStore()
 
 onMounted(async () => {
-    await fetchPosts();
-    await fetchPosts();
+    // await fetchPosts();
+    // await fetchPosts();
+
+
+    if(firstThreePosts.value?.length === 3) {
+
+        console.log(firstThreePosts.value?.length );
+        
+        loading.value = false
+        return
+    }
+
+    await fetchAll()
+
+    loading.value = false;
+
 });
 </script>
 

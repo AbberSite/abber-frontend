@@ -28,7 +28,10 @@ export default defineNuxtConfig({
     },
     auth: {
         provider: {
-            type: 'refresh'
+            type: 'refresh',
+            pages : {
+                login : "/accounts/login"
+            }
         }
     },
     

@@ -9,21 +9,22 @@ export default defineEventHandler(async (event) => {
         const getUser = axios.get(config.apiBasePath + '/accounts/account/', {
             headers: {
                 Authorization,
-                'api-key': config.apiSecret
+                'api-key': config.apiSecret,
+                keepAlive: true
             }
         });
 
         const getNotifications = await axios.get(config.apiBasePath + '/alerts/notifications/', {
             headers: {
                 Authorization,
-                'api-key': config.apiSecret
+                'api-key': config.apiSecret,
+                keepAlive: true
             }
         });
 
         const [{ data: user }, { data: notifications }] = await Promise.all([getUser, getNotifications]);
 
         return Object.assign(user, { notifications });
-        
     } catch (error: any) {
         return {
             data: error,

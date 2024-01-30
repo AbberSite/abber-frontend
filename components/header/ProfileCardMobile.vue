@@ -29,17 +29,17 @@
         </div>
         <div class="pt-6">
             <NuxtLink
-                class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-                @click="$emit('navigate', { name: 'blog' })"
+                class="-mx-3 block rounded-lg px-3 pb-1 pt-4 font-semibold hover:bg-gray-50"
+                @click="$emit('navigate', { name: 'profile' })"
                 >الملف الشخصي
             </NuxtLink>
             <NuxtLink
-                class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                class="-mx-3 block rounded-lg px-3 pb-1 pt-4 font-semibold hover:bg-gray-50"
                 @click="$emit('navigate', { name: 'index' })"
                 >الإعدادات
             </NuxtLink>
             <button
-                class="-mx-3 w-full text-right block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+                class="-mx-3 w-full text-right block rounded-lg px-3 pb-1 pt-4 font-semibold hover:bg-gray-50"
                 @click="$emit('logout')">
                 تسجيل الخروج
             </button>
@@ -50,7 +50,6 @@
 <script setup lang="ts">
 
 import { PencilSquareIcon } from '@heroicons/vue/24/outline';
-
 
 const { data, status } = useAuth()
 

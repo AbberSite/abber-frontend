@@ -5,16 +5,18 @@
         aria-orientation="vertical"
         aria-labelledby="user-menu-button"
         tabindex="-1">
-        <a
+        <NuxtLink
             class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900"
-            href="#"
+            :to="{ name: 'profile' }"
             role="menuitem"
             tabindex="-1"
-            >الملف الشخصي</a
+            @click="$emit('close')"
+            >الملف الشخصي</NuxtLink
         >
         <a
             class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900"
             href="#"
+            @click="$emit('close')"
             role="menuitem"
             tabindex="-1"
             >الإعدادات</a
