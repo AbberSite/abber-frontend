@@ -10,10 +10,10 @@ export default defineEventHandler(async (event) => {
 
     const config = useRuntimeConfig();
 
-
     try {
-        const response = await axios.put(config.apiBasePath + `/orders/dream-info/${id}/`, {
-            body: JSON.stringify({
+        const response = await axios.put(
+            config.apiBasePath + `/orders/dream-info/${id}/`,
+            {
                 dream: body.dream,
                 dream_title: body.dream_title,
                 dream_time: body.dream_time,
@@ -22,12 +22,14 @@ export default defineEventHandler(async (event) => {
                 age: body.age,
                 marital_status: body.marital_status,
                 profession: body.profession
-            }),
-            headers: {
-                'api-key': config.apiSecret,
-                Authorization
+            },
+            {
+                headers: {
+                    'api-key': config.apiSecret,
+                    Authorization
+                }
             }
-        });
+        );
 
         return response?.data;
     } catch (error: any) {

@@ -19,10 +19,10 @@
                     :max-date="new Date()"
                     prevent-min-max-navigation
                     v-model="dream_time"
-                    model-type="yyyy/MM/dd"
+                    model-type="yyyy-MM-dd"
                     ref="datePicker"
                     id="date"
-                    format="MM/dd/yyyy"
+                    format="yyyy-MM-dd"
                     select-text="اختيار"
                     cancel-text="الغاء" />
 
@@ -207,6 +207,7 @@ async function submit() {
 </script>
 
 <style>
+
 :root {
     /*General*/
     --dp-border-radius: 0.375rem; /*Configurable border-radius*/
@@ -224,4 +225,5 @@ async function submit() {
 .dp__input:focus {
     border: 2px solid;
 }
+
 </style>

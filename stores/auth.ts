@@ -1,97 +1,97 @@
 import type { User } from '~/types';
 
 class AuthStore {
-    user = ref<User>({});
+    // user = ref<User>({});
 
-    authenticated = computed(() => !!this.user.value.id);
-    public accessToken = ref(""); 
-    public refreshToken  =  ref("");  
+    // authenticated = computed(() => !!this.user.value.id);
+    // public accessToken = ref(""); 
+    // public refreshToken  =  ref("");  
 
     public currentPhone = ref("")
 
 
 
 
-    register = async (email: string, password: string, phone: string) => {
-        const response = await useApi('POST', 'https://test.abber.co/api/authentication/register/', {
-            email,
-            password,
-            phone,
-            first_name: 'Mahdi Bouguerzi',
-        });
+    // register = async (email: string, password: string, phone: string) => {
+    //     const response = await useApi('POST', 'https://test.abber.co/api/authentication/register/', {
+    //         email,
+    //         password,
+    //         phone,
+    //         first_name: 'Mahdi Bouguerzi',
+    //     });
 
-        type AuthResponse = { accessToken: string; refreshToken: string; user: User };
+    //     type AuthResponse = { accessToken: string; refreshToken: string; user: User };
 
-        const data: AuthResponse = response.data.value as AuthResponse;
+    //     const data: AuthResponse = response.data.value as AuthResponse;
 
-        this.storeUser(data.user);
-        this.storeTokens(data.accessToken, data.refreshToken);
-    };
+    //     this.storeUser(data.user);
+    //     this.storeTokens(data.accessToken, data.refreshToken);
+    // };
 
-    login = async (email: string, password: string) => {
-        const response = await useApi('POST', '/api/login/', { email, password });
+    // login = async (email: string, password: string) => {
+    //     const response = await useApi('POST', '/api/login/', { email, password });
 
 
-        type AuthResponse = { access_token: string; refresh_token: string; user: User };
+    //     type AuthResponse = { access_token: string; refresh_token: string; user: User };
 
-        const data: AuthResponse = response.data.value as AuthResponse;
+    //     const data: AuthResponse = response.data.value as AuthResponse;
 
-        this.storeUser(data.user);
-        this.storeTokens(data.access_token, data.refresh_token);
-    };
+    //     this.storeUser(data.user);
+    //     this.storeTokens(data.access_token, data.refresh_token);
+    // };
 
-    init = async () => {
-        await this.refresh()
-    };
+    // init = async () => {
+    //     await this.refresh()
+    // };
 
-    refresh = async () => {
-        const { refreshToken } = this.getTokens();
+    // refresh = async () => {
+    //     const { refreshToken } = this.getTokens();
 
-        try {
+    //     try {
             
-            const { data } = await useApi('POST', '/api/auth/refresh', { refresh: refreshToken }) as { data : Ref<{ token : string}>}; 
+    //         const { data } = await useApi('POST', '/api/auth/refresh', { refresh: refreshToken }) as { data : Ref<{ token : string}>}; 
 
-            this.storeTokens(data.value.token, refreshToken);
+    //         this.storeTokens(data.value.token, refreshToken);
 
-        } catch (error) {
+    //     } catch (error) {
 
-            this.clear()
-            useRouter().push({ name : "accounts-login"})
+    //         this.clear()
+    //         useRouter().push({ name : "accounts-login"})
             
-        }
-    };
+    //     }
+    // };
 
-    storeTokens(accessToken?: string|null, refreshToken?: string|null) {
+    // storeTokens(accessToken?: string|null, refreshToken?: string|null) {
 
-        if(accessToken){
-            localStorage.setItem('abber:access_token', accessToken);
-        }
-        if(refreshToken){
-            localStorage.setItem('abber:refresh_token', refreshToken);
-        }
-    }
+    //     if(accessToken){
+    //         localStorage.setItem('abber:access_token', accessToken);
+    //     }
+    //     if(refreshToken){
+    //         localStorage.setItem('abber:refresh_token', refreshToken);
+    //     }
+    // }
 
-    getTokens() {
-        const accessToken = localStorage.getItem('abber:access_token');
-        const refreshToken = localStorage.getItem('abber:refresh_token');
+    // getTokens() {
+    //     const accessToken = localStorage.getItem('abber:access_token');
+    //     const refreshToken = localStorage.getItem('abber:refresh_token');
 
-        return { accessToken, refreshToken };
-    }
+    //     return { accessToken, refreshToken };
+    // }
 
-    clear() { 
+    // clear() { 
 
-        localStorage.setItem('abber:access_token', "");
-        localStorage.setItem('abber:refresh_token', "");
+    //     localStorage.setItem('abber:access_token', "");
+    //     localStorage.setItem('abber:refresh_token', "");
 
-        this.refreshToken.value = ""
-        this.accessToken.value = ""
+    //     this.refreshToken.value = ""
+    //     this.accessToken.value = ""
 
-    }
+    // }
 
 
-    storeUser(user: User) {
-        this.user.value = user;
-    }
+    // storeUser(user: User) {
+    //     this.user.value = user;
+    // }
 }
 
 export const useAuthStore = defineStore('auth-store', () => new AuthStore());

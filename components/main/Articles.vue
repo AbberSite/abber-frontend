@@ -95,16 +95,13 @@ const { firstThreePosts } = storeToRefs(usePostsStore());
 const { fetchAll } = usePostsStore()
 
 onMounted(async () => {
-    // await fetchPosts();
-    // await fetchPosts();
 
 
     if(firstThreePosts.value?.length === 3) {
 
-        console.log(firstThreePosts.value?.length );
-        
         loading.value = false
         return
+        
     }
 
     await fetchAll()

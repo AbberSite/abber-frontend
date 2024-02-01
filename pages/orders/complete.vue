@@ -242,8 +242,7 @@ async function getStatus() {
     }
 
     await updateOrderInfo(data);
-    return;
-
+    
     localStorage.removeItem('abber:current-transaction-id');
 
     (data as any).clear();

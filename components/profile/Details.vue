@@ -15,65 +15,70 @@
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">رقم الهاتف</div>
             <div class="text-sm font-semibold xs:text-base text-right" dir="ltr"> 
-                {{ data.phone }}
+                {{ data.phone ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">رقم IBAN</div>
             <div class="text-sm font-semibold xs:text-base">
-                {{ IBAN }}
+                {{ IBAN ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">الجنس</div>
             <div class="text-sm font-semibold xs:text-base">
-                {{ genders[data?.profile?.gender] }}
+                {{ genders[data?.profile?.gender] ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">تأريخ الميلاد</div>
             <div class="text-sm font-semibold xs:text-base">
-                {{ data?.profile?.birthday }}
+                {{ data?.profile?.birthday ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">الحالة الإجتماعة</div>
             <div class="text-sm font-semibold xs:text-base">
-                {{ martialStatus[data?.profile?.marital_status] }}
+                {{ martialStatus[data?.profile?.marital_status] ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">المهنة</div>
             <div class="text-sm font-semibold xs:text-base">
-                {{ data?.profile?.profession }}
+                {{ data?.profile?.profession ?? '-' }}
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const { data } = useAuth();
+const { data, getSession } = useAuth();
+
+
+
+onMounted(async () => {
+    await getSession()
+})
 
 
 const IBAN = computed(() => {
     const chunks =  data.value?.profile?.bank_account?.match?.(/.{1,4}/g);
     let iban = ""
 
-    if(!chunks) return ""
+    if(!chunks) return null
 
-    chunks.map((chunk, index) =>  iban += ' ' + chunk)
+    chunks.map((chunk : string, index : number) =>  iban += ' ' + chunk)
 
     return iban
 
 })
 
-
-const genders = {
+const genders : any = {
     Male : 'ذكر', 
     Female : 'أنثى'
 }
 
-const martialStatus = {
+const martialStatus : any = {
     married : 'متزوج',
     single : 'اعزب',
     divorced : 'مطلق',
