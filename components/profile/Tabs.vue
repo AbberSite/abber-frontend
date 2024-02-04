@@ -34,7 +34,7 @@
         ]">
         <span>إشارات مرجعية</span
         ><span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-            {{ total }}
+            {{ bookmarkedTotal }}
         </span>
     </button>
 </div>
@@ -48,7 +48,7 @@ const props = defineProps<{
     modelValue? : 'details' | 'posts',
 }>()
 
-const { total } = storeToRefs(usePostsStore());
+const { bookmarkedTotal } = storeToRefs(usePostsStore());
 
 const emits = defineEmits(['update:modelValue'])
 const activeTab = useVModel(props, 'modelValue', emits)

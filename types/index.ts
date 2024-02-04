@@ -101,3 +101,22 @@ export type OrderForm = {
     authenticationMethod? : "login"|"register"|"guest"|"otp",
     order_id? : string
 };
+
+export type Post = {
+    id: string;
+    user: string;
+    post_category: Category;
+    title: string;
+    content: string;
+    meta_content: string;
+    image: string;
+    image_alt: string;
+    slug: string;
+    active: boolean;
+    bookmark: [];
+};
+
+export type Category = {
+    id: number;
+    name: string;
+};

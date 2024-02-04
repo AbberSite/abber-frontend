@@ -41,7 +41,7 @@
                     :slug="post.slug" />
             </template>
 
-            <NuxtLink :to="{ name: 'blog' }" class="block text-center font-semibold xs:text-lg sm:hidden"
+            <NuxtLink v-if="!noHeader" :to="{ name: 'blog' }" class="block text-center font-semibold xs:text-lg sm:hidden"
                 >عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink
             >
         </div>

@@ -1,13 +1,10 @@
 <template>
-    <div class="fixed inset-0 z-30 sm:hidden" >
+    <div class="fixed inset-0 z-30 sm:hidden">
         <!-- Overlay -->
         <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm w-full" @click="$emit('close')"></div>
         <div
             class="is-scroll fixed bottom-0 z-40 max-h-[400px] w-full overflow-y-auto rounded-t-2xl border-t border-gray-100 bg-white px-6 py-6">
-            <button
-                class="mx-auto block h-1 w-8 rounded-lg bg-gray-300"
-                type="button"
-                @click="$emit('close')"></button>
+            <button class="mx-auto block h-1 w-8 rounded-lg bg-gray-300" type="button" @click="$emit('close')"></button>
             <nav class="pt-6">
                 <a class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50" href="/">
                     <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
@@ -28,7 +25,10 @@
                     </div>
                     <span class="ms-6 mt-1.5 font-semibold">تغيير كلمة المرور</span>
                 </a>
-                <a class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50" href="#" @click.prevent="logout">
+                <a
+                    class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
+                    href="#"
+                    @click.prevent="logout">
                     <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         <!-- Heroicon name: outline/home -->
                         <svg
@@ -47,7 +47,9 @@
                     </div>
                     <span class="ms-6 mt-1.5 font-semibold">تسجيل الحروج</span>
                 </a>
-                <a class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50" href="#" @click.prevent="$emit('deleteAccount')">
+                <NuxtLink
+                    class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
+                    :to="{ name: 'profile-delete' }">
                     <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         <!-- Heroicon name: outline/home -->
                         <svg
@@ -65,16 +67,14 @@
                         </svg>
                     </div>
                     <span class="ms-6 mt-1.5 font-semibold">حذف الحساب</span>
-                </a>
+                </NuxtLink>
             </nav>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-
 const { signOut } = useAuth();
-
 
 async function logout() {
     await signOut({ callbackUrl: '/accounts/login', redirect: true });

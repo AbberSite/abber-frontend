@@ -29,17 +29,17 @@
         </div>
         <div class="pt-6">
             <NuxtLink
-                class="-mx-3 block rounded-lg px-3 pb-1 pt-4 font-semibold hover:bg-gray-50"
+                class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 @click="$emit('navigate', { name: 'profile' })"
                 >الملف الشخصي
             </NuxtLink>
             <NuxtLink
-                class="-mx-3 block rounded-lg px-3 pb-1 pt-4 font-semibold hover:bg-gray-50"
+                class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 @click="$emit('navigate', { name: 'index' })"
                 >الإعدادات
             </NuxtLink>
             <button
-                class="-mx-3 w-full text-right block rounded-lg px-3 pb-1 pt-4 font-semibold hover:bg-gray-50"
+                class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 @click="$emit('logout')">
                 تسجيل الخروج
             </button>

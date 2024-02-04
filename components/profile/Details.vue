@@ -2,13 +2,13 @@
     <div class="grid w-full gap-x-8 gap-y-14 pt-16 sm:grid-cols-2 lg:grid-cols-3" x-show="activeTab === 1" x-cloak>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">الإسم الكامل</div>
-            <div class="text-sm font-semibold xs:text-base">
+            <div class="font-semibold">
                 {{ data.first_name }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">البريد الألكتروني</div>
-            <div class="text-sm font-semibold xs:text-base">
+            <div class="font-semibold">
                 {{ data.email }}
             </div>
         </div>
@@ -20,31 +20,31 @@
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">رقم IBAN</div>
-            <div class="text-sm font-semibold xs:text-base">
+            <div class="font-semibold">
                 {{ IBAN ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">الجنس</div>
-            <div class="text-sm font-semibold xs:text-base">
+            <div class="font-semibold">
                 {{ genders[data?.profile?.gender] ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">تأريخ الميلاد</div>
-            <div class="text-sm font-semibold xs:text-base">
+            <div class="font-semibold">
                 {{ data?.profile?.birthday ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">الحالة الإجتماعة</div>
-            <div class="text-sm font-semibold xs:text-base">
+            <div class="font-semibold">
                 {{ martialStatus[data?.profile?.marital_status] ?? '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">المهنة</div>
-            <div class="text-sm font-semibold xs:text-base">
+            <div class="font-semibold">
                 {{ data?.profile?.profession ?? '-' }}
             </div>
         </div>

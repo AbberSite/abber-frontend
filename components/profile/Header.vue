@@ -78,7 +78,7 @@
                             tabindex="-1">
                             <NuxtLink
                                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
-                                :to="{ name : 'profile-change-password' }"
+                                :to="{ name: 'profile-change-password' }"
                                 role="menuitem"
                                 tabindex="-1"
                                 >تغيير كلمة المرور
@@ -91,14 +91,13 @@
                                 tabindex="-1"
                                 >تسجيل الخروج</a
                             >
-                            <a
+                            <NuxtLink
                                 class="block px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50"
-                                href="#"
-                                @click.prevent="isOpen = true "
+                                :to="{ name : 'profile-delete'}"
                                 role="menuitem"
                                 tabindex="-1"
-                                >حذف الحساب</a
-                            >
+                                >حذف الحساب
+                            </NuxtLink>
                         </div>
                     </transition>
                 </div>
@@ -176,7 +175,7 @@
         <ProfileMobileModal v-if="openModal" @close="openModal = false" @deleteAccount="isOpen = true" />
     </transition>
 
-    <ProfileDeleteAccountModal :is-open="isOpen" @close="isOpen = false"/>
+    <!-- <ProfileDeleteAccountModal :is-open="isOpen" @close="isOpen = false"/> -->
 </template>
 
 <script setup lang="ts">
@@ -184,7 +183,7 @@ const { data, signOut } = useAuth();
 
 import { vOnClickOutside } from '@vueuse/components';
 
-const isOpen = ref(false)
+const isOpen = ref(false);
 const emits = defineEmits(['update:modelValue']);
 
 const openProfileDropdown = ref(false);

@@ -5,11 +5,6 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig();
     const body = await readBody(event)
 
-
-
-
-
-
     try {
         const response = await axios.post(
 
@@ -32,10 +27,11 @@ export default defineEventHandler(async (event) => {
 
         return { token: response.data.access };
 
-    } catch (error) {
+    } catch (error : any) {
 
-        return { token: error };
+
+        setResponseStatus(event, error?.response?.status ?? 500)
+        return { data : error.response.data, error : true };
 
     }
-    // return { token : response.data.access }
 });

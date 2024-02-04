@@ -231,6 +231,7 @@ type Response = {
 
 const loading = ref(true);
 const bookmarking = ref(false);
+const { data } = useAuth()
 
 const post = ref<Post>({ content: '' });
 
@@ -248,7 +249,7 @@ async function copy() {
     useNotification({ type: 'success', content: 'تم نسخ رابط المقال' });
 }
 
-const bookmarked = computed(() => (post.value?.bookmark?.length ? true : false));
+const bookmarked = computed(() => ((post.value?.bookmark as any)?.includes?.(data.value.id as any)));
 const contentEl = ref(null);
 
 async function addToBookmarks() {
@@ -264,7 +265,7 @@ async function addToBookmarks() {
         headers: {
             Authorization: `JWT ${rawToken.value}`
         },
-        params: { del: post.value?.bookmark?.length == 0 ? undefined : true }
+        params: { del: (post.value?.bookmark as any)?.includes?.(data.value.id as any) ? true : undefined }
     });
 
     await fetchPost();

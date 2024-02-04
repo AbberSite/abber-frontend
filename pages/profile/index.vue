@@ -62,7 +62,6 @@
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 sm:items-stretch md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="profile-heading">
-
             <ProfileHeader v-model="edit" />
 
             <template v-if="edit">
@@ -74,28 +73,48 @@
             <template v-else>
                 <ProfileTabs v-model="activeTab" />
                 <ProfileDetails v-if="activeTab == 'details'" />
-                <Articles no-header v-if="activeTab == 'posts'" class="w-full" />
-            </template>
 
+                <template v-if="activeTab == 'posts'">
+                    <Suspense>
+                        <template #fallback>
+                            <section
+                                class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44 w-full"
+                                aria-labelledby="articles-heading">
+                                <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
+                                    <SkeletonsPostCard />
+                                    <SkeletonsPostCard />
+                                    <SkeletonsPostCard />
+                                    <SkeletonsPostCard />
+                                    <SkeletonsPostCard />
+                                    <SkeletonsPostCard />
+                                </div>
+                            </section>
+                        </template>
+
+                        <template #default>
+                            <ProfileBookmarkedPosts class="w-full" />
+                        </template>
+                    </Suspense>
+                </template>
+            </template>
         </section>
     </main>
 </template>
 
 <script setup lang="ts">
-const { fetchAll } = usePostsStore();
+const { fetchBookmarked } = usePostsStore();
 const edit = ref(false);
 
 const activeTab = ref<'details' | 'posts'>('details');
 
 onMounted(async () => {
-    await fetchAll();
-    await fetchAll();
+    await fetchBookmarked()
+    await fetchBookmarked()
 });
 
 definePageMeta({
     middleware: 'auth'
 });
-
 </script>
 
 <style scoped></style>
