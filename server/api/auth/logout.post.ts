@@ -5,26 +5,15 @@ export default defineEventHandler(async (event) => {
     const headers = getRequestHeaders(event)
     const config = useRuntimeConfig()
     
-    const jwt = headers.authorization?.replace("Bearer", "")?.replace(" ", "")
-
-    if(!jwt) {
-
-        setResponseStatus(event, 401)
-
-        return { 
-            status : "error", 
-            error: "unauthorized"
-        }
-
-    }
+    const Authorization = headers.authorization
 
     try {
-        const response = await axios.get(
+        await axios.get(
             config.apiBasePath + '/authentication/logout/',
 
             {
                 headers :  {
-                    "Authorization" : `JWT ${jwt}`,
+                    Authorization,
                     'api-key':  config.apiSecret,
                 }
             },
@@ -41,7 +30,7 @@ export default defineEventHandler(async (event) => {
         setResponseStatus(event, 500)
 
         return { 
-
+            data : error.response.data,
             status : "error", 
             error : "حدث خطأ ما"
             

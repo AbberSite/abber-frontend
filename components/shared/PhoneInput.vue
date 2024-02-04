@@ -73,7 +73,10 @@
             utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js',
         });
 
-        iti.setNumber(props.modelValue as string); 
+        if(props.modelValue){
+          iti.setNumber(props.modelValue as string); 
+        }
+
 
         (phoneInput.value as HTMLInputElement)?.addEventListener('blur', () => {
             const errorCode = iti.getValidationError();
@@ -84,8 +87,6 @@
             error.value = ""
 
             const errorCode = iti.getValidationError();
-
-            console.log(errorCode);
 
             if(errorCode == 0){
                 error.value = ""

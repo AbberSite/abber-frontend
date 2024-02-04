@@ -60,7 +60,6 @@ class AccountStore {
 
                 resolve(true);
             } catch (error: any) {
-                console.log(error.response._data);
 
                 Object.assign(this.errors.value, error.response._data);
 

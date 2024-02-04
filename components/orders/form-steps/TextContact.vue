@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <title>عبر - طلب تعبير حلم - إدخال تفاصيل الحلم</title>
+    </Head>
     <form method="POST" @submit.prevent="submit">
         <fieldset class="space-y-7">
             <div class="w-full space-y-3">
@@ -12,7 +15,9 @@
                     placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />
             </div>
             <div class="w-full space-y-3">
-                <label class="text-sm font-semibold xs:text-base" for="date" @click="datePicker?.openMenu()"> تاريخ الحلم </label>
+                <label class="text-sm font-semibold xs:text-base" for="date" @click="datePicker?.openMenu()">
+                    تاريخ الحلم
+                </label>
 
                 <DatePicker
                     placeholder="mm/dd/yyyy"
@@ -26,7 +31,7 @@
                     select-text="اختيار"
                     cancel-text="الغاء" />
 
-                    <InputError :message="errors.dream_time" /> 
+                <InputError :message="errors.dream_time" />
 
                 <!-- <DatePicker date-picker />  -->
             </div>
@@ -68,7 +73,9 @@
                         label="العمر" />
                 </div>
                 <div class="w-full space-y-3">
-                    <label class="block text-sm font-semibold xs:text-base" for="martial_status">الحالة الإجتماعية</label>
+                    <label class="block text-sm font-semibold xs:text-base" for="martial_status"
+                        >الحالة الإجتماعية</label
+                    >
                     <select
                         v-model="marital_status"
                         class="form-control form-select h-[50px] appearance-none"
@@ -122,7 +129,7 @@ import type { OrderForm } from '~/types';
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 const { next, state } = useFormWizard<OrderForm>('order');
-    import type { DatePickerInstance } from "@vuepic/vue-datepicker"
+import type { DatePickerInstance } from '@vuepic/vue-datepicker';
 
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
@@ -183,9 +190,7 @@ const [gender] = defineField('gender', {});
 const [marital_status] = defineField('marital_status');
 const [profession] = defineField('profession');
 
-
-
-const datePicker = ref<DatePickerInstance>(null)
+const datePicker = ref<DatePickerInstance>(null);
 
 async function submit() {
     if (!(await validate()).valid) return;
@@ -207,7 +212,6 @@ async function submit() {
 </script>
 
 <style>
-
 :root {
     /*General*/
     --dp-border-radius: 0.375rem; /*Configurable border-radius*/
@@ -225,5 +229,4 @@ async function submit() {
 .dp__input:focus {
     border: 2px solid;
 }
-
 </style>

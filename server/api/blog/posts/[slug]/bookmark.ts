@@ -16,8 +16,6 @@ export default defineEventHandler(async (event) => {
 
     const url = config.apiBasePath +  `/blog/posts/${slug}/${del ? 'remove_from' : 'add_to'}_bookmark/`
 
-    console.log(url)
-
     try {
         
         const response = await axios.get(url,{

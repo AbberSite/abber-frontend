@@ -27,9 +27,12 @@
     const utilsStore = useUtilsStore()
 
     const hasUnreadNotifications = computed(() => {
+
         if (status.value != 'authenticated') return false;
 
-        for (const notification of data.value?.notifications.results) {
+        if(!data.value || !data.value?.notifcations) return false
+
+        for (const notification of data.value?.notifications?.results) {
             if (notification.hasOwnProperty('read') && notification['read'] === false) {
                 return true;
             }

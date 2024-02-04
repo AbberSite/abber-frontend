@@ -1,6 +1,7 @@
 <template>
     <Head>
-        <title>عبر - تسجيل الدخول</title>
+    <title>عبر - طلب تعبير حلم - متابعة كزائر</title>
+
     </Head>
 
     <form method="POST" @submit.prevent="send">

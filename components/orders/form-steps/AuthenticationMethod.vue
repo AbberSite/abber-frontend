@@ -1,4 +1,9 @@
 <template>
+    
+    <Head>
+        <title>عبر - طلب تعبير حلم - التسجيل</title>
+    </Head>
+
     <div>
         <form>
             <fieldset class="space-y-7">

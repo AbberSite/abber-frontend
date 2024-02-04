@@ -1,6 +1,7 @@
 <template>
     <Head>
-        <title>عبر - التسجيل</title>
+    <title>عبر - طلب تعبير حلم - التسجيل</title>
+
     </Head>
 
     <form method="POST" @submit.prevent="submit">
@@ -146,8 +147,12 @@ const phoneValid = ref(false);
 const { next } = useFormWizard<OrderForm>("order")
 
 const checkEmailExistence = useDebounceFn(async (value) => {
-    const response: any = await useApi('POST', '/api/auth/check-email', {
-        email: value
+    const response: any = await useApi('/api/auth/check-email', {
+
+        method : "POST", 
+        body : {
+            email: value
+        }
     });
 
     if (!response.data.value.registered) {

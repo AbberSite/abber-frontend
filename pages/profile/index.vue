@@ -61,28 +61,27 @@
         <!-- Profile section -->
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 sm:items-stretch md:pt-32 lg:px-8 xl:pb-44"
-            aria-labelledby="profile-heading"
-            x-data="{ openProfileDropdown: false, activeTab: 1 }">
+            aria-labelledby="profile-heading">
+
             <ProfileHeader v-model="edit" />
 
-        
-                <template v-if="edit">
-                    <ClientOnly>
-                        <ProfileEdit />
-                    </ClientOnly>
-                </template>
+            <template v-if="edit">
+                <ClientOnly>
+                    <ProfileEdit />
+                </ClientOnly>
+            </template>
 
-                <template v-else >
-                    <ProfileTabs v-model="activeTab" />
-                    <ProfileDetails v-if="activeTab == 'details'" />
-                    <Articles no-header v-if="activeTab == 'posts'" class="w-full" />
-                </template>
+            <template v-else>
+                <ProfileTabs v-model="activeTab" />
+                <ProfileDetails v-if="activeTab == 'details'" />
+                <Articles no-header v-if="activeTab == 'posts'" class="w-full" />
+            </template>
+
         </section>
     </main>
 </template>
 
 <script setup lang="ts">
-
 const { fetchAll } = usePostsStore();
 const edit = ref(false);
 

@@ -44,15 +44,15 @@ const cardImage = computed(
     () =>
         cardImages[cardType.value] ?? {
             src: '/images/payments/general.svg',
-            class: 'w-6 h-6 lg:top-11 top-9 ltr:right-3 rtl:left-3'
+            class: 'w-6 h-6 lg:top-11 md:top-11 top-9 ltr:right-3 rtl:left-3'
         }
 );
 
 const cardImages: { [key: string]: { src: string; class: string } } = {
-    general: { src: '/images/payments/general.svg', class: 'w-6 h-6 lg:top-11 top-9 ltr:right-3 rtl:left-3' },
-    VISA: { src: '/images/payments/visa.webp', class: 'w-8 h-8 lg:top-12 top-10  ltr:right-3 rtl:left-3' },
-    MASTER: { src: '/images/payments/mastercard.webp', class: 'w-8 h-8 lg:top-[2.9rem] top-[2.3rem] ltr:right-3 rtl:left-3' },
-    MADA: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] ltr:right-3 rtl:left-3' },
+    general: { src: '/images/payments/general.svg', class: 'w-6 h-6 lg:top-11 md:top-11 top-9 ltr:right-3 rtl:left-3' },
+    VISA: { src: '/images/payments/visa.webp', class: 'w-8 h-8 lg:top-12 md:top-12 top-10  ltr:right-3 rtl:left-3' },
+    MASTER: { src: '/images/payments/mastercard.webp', class: 'w-8 h-8 lg:top-[2.9rem] md:top-[2.9rem] top-[2.3rem] ltr:right-3 rtl:left-3' },
+    MADA: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] md:[1.2rem] ltr:right-3 rtl:left-3' },
     stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
 };
 

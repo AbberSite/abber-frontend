@@ -47,7 +47,7 @@
                     </div>
                     <span class="ms-6 mt-1.5 font-semibold">تسجيل الحروج</span>
                 </a>
-                <a class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50" href="/">
+                <a class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50" href="#" @click.prevent="$emit('deleteAccount')">
                     <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         <!-- Heroicon name: outline/home -->
                         <svg

@@ -293,9 +293,6 @@ onMounted(async () => {
 
     loading.value = false;
 
-    console.log(contentEl.value)
-
-
     tocbot.init({
         tocSelector: '.js-toc',
 

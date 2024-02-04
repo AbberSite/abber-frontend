@@ -1,6 +1,7 @@
 <template>
     <Head>
-        <title>عبر - طلب تعبير حلم - التسجيل</title>
+    <title>عبر - طلب تعبير حلم - تسجيل الدخول</title>
+
     </Head>
 
     <div class="mx-auto w-full max-w-sm pt-10">
@@ -134,7 +135,6 @@ async function submit() {
         })
         .catch((_error) => {
 
-            console.log(_error)
             if (_error.response._data.status !== 'error') return;
 
             error.value = _error.response._data.error;

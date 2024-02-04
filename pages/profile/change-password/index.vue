@@ -252,9 +252,9 @@
                     </fieldset>
                 </form>
                 <div class="pt-8 text-center text-sm xs:text-base">
-                    <a class="font-medium text-blue-600" href="/profile/"
-                        ><span aria-hidden="true">→</span> العودة للصفحة الشخصية</a
-                    >
+                    <NuxtLink class="font-medium text-blue-600" :to="{ name: 'profile' }"
+                        ><span aria-hidden="true">→</span> العودة للصفحة الشخصية
+                    </NuxtLink>
                 </div>
             </div>
         </section>
@@ -291,14 +291,12 @@ async function submit() {
 
         await signOut({ redirect: false });
 
-
         await router.push('/profile/change-password/done');
     } catch (error: any) {
         errors.value = error.response._data;
     }
 
     loading.value = false;
-
 }
 
 const show = ref(false);

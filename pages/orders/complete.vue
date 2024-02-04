@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <title>عبر - طلب تعبير حلم</title>
+    </Head>
     <Header />
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
@@ -242,7 +245,7 @@ async function getStatus() {
     }
 
     await updateOrderInfo(data);
-    
+
     localStorage.removeItem('abber:current-transaction-id');
 
     (data as any).clear();
@@ -267,20 +270,14 @@ async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
 }
 
 async function updateOrderInfo(data: OrderForm) {
-
     try {
-        
         const response = await useApi(`/api/orders/update/${data.order_id}`, {
             method: 'POST',
             body: data
         });
-
     } catch (error) {
-
-        alert("something went wrong")
-
+        alert('something went wrong');
     }
-
 }
 
 definePageMeta({

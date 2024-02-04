@@ -94,6 +94,7 @@
                             <a
                                 class="block px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50"
                                 href="#"
+                                @click.prevent="isOpen = true "
                                 role="menuitem"
                                 tabindex="-1"
                                 >حذف الحساب</a
@@ -172,8 +173,10 @@
         leave-active-class="transition-all"
         enter-from-class="opacity-0"
         leave-to-class="opacity-0">
-        <ProfileMobileModal v-if="openModal" @close="openModal = false" />
+        <ProfileMobileModal v-if="openModal" @close="openModal = false" @deleteAccount="isOpen = true" />
     </transition>
+
+    <ProfileDeleteAccountModal :is-open="isOpen" @close="isOpen = false"/>
 </template>
 
 <script setup lang="ts">
@@ -181,6 +184,7 @@ const { data, signOut } = useAuth();
 
 import { vOnClickOutside } from '@vueuse/components';
 
+const isOpen = ref(false)
 const emits = defineEmits(['update:modelValue']);
 
 const openProfileDropdown = ref(false);

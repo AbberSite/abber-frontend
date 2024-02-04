@@ -13,12 +13,11 @@ export default defineNuxtConfig({
     },
 
     runtimeConfig: {
-
         // prod
         // apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
         // apiBasePath: 'https://abber.co/api'
         // test
-        apiSecret: "d378b42b1f3f18f231edb2f253e43025dc01406f",
+        apiSecret: 'd378b42b1f3f18f231edb2f253e43025dc01406f',
         apiBasePath: 'https://test.abber.co/api'
     },
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
@@ -29,12 +28,37 @@ export default defineNuxtConfig({
     auth: {
         provider: {
             type: 'refresh',
-            pages : {
-                login : "/accounts/login"
-            }
+            pages: {
+                login: '/accounts/login'
+            },
+            // sessionDataType: {
+            //     'username': 'string',
+            //     'email': 'string',
+            //     first_name: 'Isabelle Walter',
+            //     phone: '++19214023523',
+            //     user_type: 'string',
+            //     role_id: 'number',
+            //     "id?": "string",
+            //     image_url: 'string',
+            //     'profile?': {
+            //         'bank_account?': 'string',
+            //         'gender?': 'string',
+            //         'birthday?': 'string',
+            //         'marital_status?': 'string',
+            //         'profession?': 'string'
+            //     },
+            //     phone_verified: 'boolean',
+            //     email_verified: 'boolean',
+            //     'notifications?': {
+            //         'count': 'number',
+            //         next: 'string',
+            //         previous: 'string',
+            //         results: 'any'
+            //     }
+            // }
         }
     },
-    
+
     build: {
         transpile: ['@vuepic/vue-datepicker']
     },

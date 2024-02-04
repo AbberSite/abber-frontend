@@ -26,8 +26,11 @@ export default defineEventHandler(async (event) => {
 
         return Object.assign(user, { notifications });
     } catch (error: any) {
+
+        setResponseStatus(event, error.response?.status ?? 500);
+
         return {
-            data: error,
+            data: error.response?.data,
             status: 'error',
             error: 'حدث خطأ ما'
         };
