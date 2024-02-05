@@ -1,5 +1,5 @@
 <template>
-    <div class="grid w-full gap-x-8 gap-y-14 pt-16 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid w-full gap-x-8 space-y-7 pt-16 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3">
         <div class="w-full space-y-3">
             <label class="block text-sm font-semibold xs:text-base" for="username">الإسم الكامل</label>
             <input
@@ -11,7 +11,7 @@
                 placeholder="ادخل إسمك الكامل"
                 dir="rtl"
                 required />
-                <InputError v-for="message in errors.first_name" :message="message" />
+            <InputError v-for="message in errors.first_name" :message="message" />
             <div class="text-[13px] leading-loose text-gray-500">يفضل أن يكون إسمك الكامل باللعة العربية</div>
         </div>
         <div class="w-full space-y-3">
@@ -34,7 +34,6 @@
             <PhoneInput v-model="tempAccount.phone" />
 
             <InputError v-for="message in errors.phone" :message="message" />
-
         </div>
         <div class="w-full space-y-3">
             <label class="block text-sm font-semibold xs:text-base" for="iban">رقم IBAN</label>
@@ -48,7 +47,6 @@
                 dir="rtl"
                 required />
             <InputError v-for="message in errors.profile?.bank_account" :message="message" />
-
         </div>
         <div class="w-full space-y-3">
             <label class="block text-sm font-semibold xs:text-base" for="gender">الجنس</label>
@@ -63,7 +61,6 @@
                 <option value="Female">أنثى</option>
             </select>
             <InputError v-for="message in errors.profile?.gender" :message="message" />
-
         </div>
         <div class="w-full space-y-3">
             <label class="text-sm font-semibold xs:text-base" for="date" @click="datePicker?.openMenu()">
@@ -84,7 +81,6 @@
 
             <!-- <InputError :message="errors.dream_time" /> -->
             <InputError v-for="message in errors.profile?.birthday" :message="message" />
-
         </div>
         <div class="w-full space-y-3">
             <label class="block text-sm font-semibold xs:text-base" for="select">الحالة الإجتماعة</label>
@@ -101,7 +97,6 @@
                 <option value="widowed">ارمل/ه</option>
             </select>
             <InputError v-for="message in errors.profile?.maritalStatus" :message="message" />
-
         </div>
         <div class="w-full space-y-3">
             <label class="block text-sm font-semibold xs:text-base" for="text">المهنة</label>
@@ -115,7 +110,6 @@
                 dir="rtl"
                 required />
             <InputError v-for="message in errors.profile?.profession" :message="message" />
-
         </div>
     </div>
 </template>
@@ -146,8 +140,24 @@ function syncData() {
 }
 
 onMounted(() => {
-    errors.value = {}
+    errors.value = {};
     syncData();
+});
+
+onUnmounted(() => {
+    tempAccount.value = {
+        image: undefined,
+        username: '',
+        email: '',
+        phone: '',
+        profile: {
+            iban: '',
+            gender: '',
+            birthdate: '',
+            maritalStatus: '',
+            profession: ''
+        }
+    };
 });
 </script>
 
