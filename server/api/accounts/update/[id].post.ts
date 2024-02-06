@@ -41,7 +41,9 @@ export default defineEventHandler(async (event) => {
               data.append("image", new BlobFromStream(stream, _data.data.length) as any, _data.filename)
               
         } else if (!_data.filename && _data.name) {
+
             data.append(_data.name, _data.data.toString() as any);
+            
         }
     });
 
