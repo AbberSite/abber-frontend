@@ -12,7 +12,7 @@
                         width=""
                         alt="صورة المستخدم" />
                 </div>
-                <div class="ms-3 flex flex-col">
+                <div class="ms-3 flex flex-col pt-1">
                     <div class="text-sm font-semibold">
                         {{ notification.sender.first_name }}
                     </div>

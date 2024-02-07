@@ -66,13 +66,15 @@
     
                 >لوحة التحكم
             </NuxtLink>
-            <a
+            <NuxtLink
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
-                href="/order/"
+                :to="{ name : 'orders'}"
+            @click="$emit('close')"
+
                 role="menuitem"
                 tabindex="-1"
-                >الطلبات</a
-            >
+                >الطلبات
+            </NuxtLink>
             <a
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 href="#"

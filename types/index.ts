@@ -74,17 +74,14 @@ export type Service = {
         maximum_orders: number;
         stock: number;
     };
-    service_methods: 
-        {
-            type: 'voice_communication'|'text_communication';
-            price: number;
-        }[]
-    ;
+    service_methods: {
+        type: 'voice_communication' | 'text_communication';
+        price: number;
+    }[];
     in_wishlist: boolean;
 };
 
 export type OrderForm = {
-
     inputType?: 'text_chat' | 'voice_chat';
     type?: 'text_communication' | 'voice_communication';
     dream_title?: string;
@@ -95,11 +92,11 @@ export type OrderForm = {
     gender?: string;
     marital_status?: string;
     profession?: string;
-    recordedAudio ?: Blob;
-    service_id ?: number,
-    selectedService? : number;
-    authenticationMethod? : "login"|"register"|"guest"|"otp",
-    order_id? : string
+    recordedAudio?: Blob;
+    service_id?: number;
+    selectedService?: number;
+    authenticationMethod?: 'login' | 'register' | 'guest' | 'otp';
+    order_id?: string;
 };
 
 export type Post = {
@@ -119,4 +116,17 @@ export type Post = {
 export type Category = {
     id: number;
     name: string;
+};
+
+export type Order = {
+    id: string;
+    buyer: {
+        username: string;
+        first_name: string;
+        last_name: string;
+        image: string;
+    };
+    status: 'in_progress' | 'completed';
+    type: 'text_communication' | 'voice_communication';
+    service: string;
 };

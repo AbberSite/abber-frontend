@@ -140,6 +140,23 @@ onMounted(async () => {
     }
 });
 
+watch(otp, async (value) => {
+    
+
+
+    if(!value) return
+
+    // console.log(value.toString().length);
+    
+    // if (value?.toString().length > 4) {
+    //     otp.value = value.toString().slice(0, 4); // Trim to 4 characters
+    // }
+
+    if (value?.toString().length == 4) {
+        await login();
+    }
+});
+
 async function login() {
     error.value = '';
 

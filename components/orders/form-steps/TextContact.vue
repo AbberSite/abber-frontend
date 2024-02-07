@@ -135,7 +135,7 @@ const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
             dream_title: yup.string().required('الرجاء ادخال عنوان الحلم').default(state.value.data?.dream_title),
-            dream_time: yup.string().required('الرجاء ادخال تاريخ الحلم').default(state.value.data?.dream_time),
+            dream_time: yup.string().required('الرجاء ادخال تاريخ الحلم').default( state.value.data?.dream_time ?? getCurrentDate()),
             dream: yup.string().required('الرجاء ادخال وصف الحلم').default(state.value.data?.dream),
             client: yup.boolean().default(state.value.data?.client),
 
@@ -208,6 +208,16 @@ async function submit() {
             profession: profession.value
         }
     });
+}
+
+
+function getCurrentDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  const day = today.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }
 </script>
 

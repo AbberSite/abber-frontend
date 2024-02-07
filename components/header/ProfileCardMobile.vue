@@ -1,5 +1,4 @@
 <template>
-
     <div class="pt-6" v-if="status == 'authenticated'">
         <div class="flex items-center justify-between pt-3">
             <div class="flex items-center">
@@ -20,24 +19,34 @@
                     </div>
                 </div>
             </div>
-            <a class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" href="#">
+            <NuxtLink
+                class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900"
+                href="#"
+                @click="$emit('navigate', { name: 'profile' })">
                 <span class="sr-only">تعديل البيانات</span>
                 <!-- Heroicon name: outline/pencil-square -->
                 <PencilSquareIcon class="h-6 w-6" />
-        
-            </a>
+            </NuxtLink>
         </div>
         <div class="pt-6">
             <NuxtLink
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
+                href="#"
                 @click="$emit('navigate', { name: 'profile' })"
-                >الملف الشخصي
+                >لوحة التحكم
             </NuxtLink>
             <NuxtLink
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
+                href="#"
                 @click="$emit('navigate', { name: 'index' })"
-                >الإعدادات
+                >الطلبات
             </NuxtLink>
+            <NuxtLink
+            class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
+            href="#"
+            @click="$emit('navigate', { name: 'index' })"
+            >المحفظة
+        </NuxtLink>
             <button
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 @click="$emit('logout')">
@@ -48,13 +57,9 @@
 </template>
 
 <script setup lang="ts">
-
 import { PencilSquareIcon } from '@heroicons/vue/24/outline';
 
-const { data, status } = useAuth()
-
+const { data, status } = useAuth();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

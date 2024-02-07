@@ -19,7 +19,6 @@
             </div>
         </fieldset>
     </form>
-
 </template>
 
 <script setup lang="ts">
@@ -35,11 +34,27 @@ const { refresh } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
 
-const otp = ref('');
+const otp = ref<any>(undefined);
 const loading = ref(false);
 
-const { next, state } = useFormWizard<OrderForm>("order")
+watch(otp, async (value) => {
+    
 
+
+    if(!value) return
+
+    // console.log(value.toString().length);
+    
+    // if (value?.toString().length > 4) {
+    //     otp.value = value.toString().slice(0, 4); // Trim to 4 characters
+    // }
+
+    if (value?.toString().length == 4) {
+        await login();
+    }
+});
+
+const { next, state } = useFormWizard<OrderForm>('order');
 
 const error = ref('');
 
@@ -80,12 +95,14 @@ async function login() {
 
                 await refresh();
 
-                next({ nextStepId : 'payment', options : {
-                    ignore : true
-                }})
+                next({
+                    nextStepId: 'payment',
+                    options: {
+                        ignore: true
+                    }
+                });
 
                 useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-                
             },
             async onResponseError({ response }) {
                 if (response?._data?.otp) {

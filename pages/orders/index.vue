@@ -177,15 +177,41 @@
                     @close="openFiltersMobileModal = false"
                     v-on-click-outside="() => (openFiltersMobileModal = false)" />
             </transition>
+
+            <OrdersTable :orders="orders"/>
+            <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchOrders" per-page="9" /> 
+
         </section>
     </main>
 </template>
 
 <script setup lang="ts">
+
+import type { Order, PaginationResponse } from '~/types';
 import { vOnClickOutside } from '@vueuse/components';
+
 const openFiltersMobileModal = ref(false);
-
 const openFiltersDropdown = ref(false);
-</script>
 
-<style scoped></style>
+const { fetchAll } = useOrdersStore();
+const orders = ref<Order[]>([]);
+const pagination = ref<PaginationResponse<any>>()
+
+await fetchOrders();
+
+onMounted(async () => {
+
+    if (orders.value.length != 0) return;
+
+    await fetchOrders();
+});
+
+async function fetchOrders(params? : any, update? : any) {
+    const data = await fetchAll(params);
+    pagination.value = data
+    orders.value = data?.results ?? [];
+
+    update?.()
+}
+
+</script>

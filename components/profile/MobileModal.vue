@@ -6,7 +6,7 @@
             class="is-scroll fixed bottom-0 z-40 max-h-[400px] w-full overflow-y-auto rounded-t-2xl border-t border-gray-100 bg-white px-6 py-6">
             <button class="mx-auto block h-1 w-8 rounded-lg bg-gray-300" type="button" @click="$emit('close')"></button>
             <nav class="pt-6">
-                <a class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50" href="/">
+                <NuxtLink class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name : 'profile-change-password'}">
                     <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         <!-- Heroicon name: outline/home -->
                         <svg
@@ -24,7 +24,7 @@
                         </svg>
                     </div>
                     <span class="ms-6 mt-1.5 font-semibold">تغيير كلمة المرور</span>
-                </a>
+                </NuxtLink>
                 <a
                     class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
                     href="#"
