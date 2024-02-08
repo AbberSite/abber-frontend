@@ -9,60 +9,12 @@
         >
         <div>
             <h3 class="text-sm font-semibold">حالة الطلب</h3>
-            <div class="space-y-3 pt-4">
-                <div class="flex items-center">
-                    <input
-                        class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                        type="checkbox"
-                        name="checkbox"
-                        id="checkbox" />
-                    <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">جديد</label>
-                </div>
-                <div class="flex items-center">
-                    <input
-                        class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                        type="checkbox"
-                        name="checkbox"
-                        id="checkbox" />
-                    <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">قد التقدم</label>
-                </div>
-                <div class="flex items-center">
-                    <input
-                        class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                        type="checkbox"
-                        name="checkbox"
-                        id="checkbox" />
-                    <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">ملغاة</label>
-                </div>
-                <div class="flex items-center">
-                    <input
-                        class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                        type="checkbox"
-                        name="checkbox"
-                        id="checkbox" />
-                    <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">بإنتظار الإستلام</label>
-                </div>
-                <div class="flex items-center">
-                    <input
-                        class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                        type="checkbox"
-                        name="checkbox"
-                        id="checkbox" />
-                    <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">مكتمل</label>
-                </div>
-                <div class="flex items-center">
-                    <input
-                        class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                        type="checkbox"
-                        name="checkbox"
-                        id="checkbox" />
-                    <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">بإنتظار الإلغاء</label>
-                </div>
-            </div>
+                <FiltersOrderStatus /> 
         </div>
         <div>
             <h3 class="text-sm font-semibold">نوع الطلب</h3>
-            <div class="space-y-3 pt-4">
+            <FiltersOrderType /> 
+            <!-- <div class="space-y-3 pt-4">
                 <div class="flex items-center">
                     <input
                         class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
@@ -79,7 +31,7 @@
                         id="checkbox" />
                     <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">محادثة نصية</label>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

@@ -8,12 +8,11 @@
                 </NuxtLink>
             </div>
             <div class="flex items-center md:hidden gap-3">
-                <!-- Notification Button -->
+                
                 <HeaderNotificationsButton
                     v-if="status == 'authenticated'"
                     @click="notificationDropdown = !notificationDropdown" />
 
-                <!-- Menu Button -->
                 <button
                     class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900"
                     type="button"
@@ -21,6 +20,7 @@
                     <span class="sr-only">فتح القائمة الرئيسية</span>
                     <Bars3Icon class="w-9 h-9" />
                 </button>
+
             </div>
             <HeaderNavigation />
 

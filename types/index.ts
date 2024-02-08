@@ -126,7 +126,22 @@ export type Order = {
         last_name: string;
         image: string;
     };
-    status: 'in_progress' | 'completed';
+    status: 'in_progress' | 'complete' | 'waiting_for_cancellation' | 'canceled' | 'new' | 'awaiting_delivery';
     type: 'text_communication' | 'voice_communication';
     service: string;
+    order_item_time_data: {
+        ordered_date: string;
+        complete_date?: string;
+        start_date?: string;
+        alerted: boolean;
+    };
+    add_review?: string;
+    dream_title?: string;
+    seller?: {
+        username: string;
+        first_name: string;
+        last_name: string;
+        image: string;
+        is_online: boolean;
+    };
 };

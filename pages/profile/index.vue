@@ -1,6 +1,7 @@
 <template>
     <Head>
-        <title>عبر - الملف الشخصي</title>
+        <title v-if="!edit">عبر - الملف الشخصي</title>
+        <title v-else>عبر - {{ data.first_name }}</title>
     </Head>
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
@@ -104,6 +105,7 @@
 <script setup lang="ts">
 const { fetchBookmarked } = usePostsStore();
 const edit = ref(false);
+const { data } = useAuth()
 
 const activeTab = ref<'details' | 'posts'>('details');
 

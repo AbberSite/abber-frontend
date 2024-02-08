@@ -2,26 +2,10 @@
     <tr>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><a class="text-blue-600" href="#">#{{order.id}}</a></td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            {{ order.service }}
+            {{ order.seller?.first_name ?? 'لا يوجد' }}
         </td>
         <td class="whitespace-nowrap pe-12">
-            <span
-                class="inline-flex items-center space-x-1 rounded-full bg-teal-100 px-3 pb-1 pt-1 text-xs font-medium text-teal-800 rtl:space-x-reverse">
-                <svg
-                    class="flex-shrink-0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    height="14"
-                    width="14">
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg
-                ><span class="pt-1">مكتمل</span></span
-            >
+           <OrderStatus :status="order.status" /> 
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             {{ order.buyer.first_name }}
@@ -40,7 +24,9 @@
                 ><span class="pt-2">**** 1898</span></span
             >
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+            {{ useFormattedDate(order.order_item_time_data.ordered_date) }}
+        </td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">
             <a href="#" title="عرض الطلب">
                 <svg

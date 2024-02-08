@@ -10,7 +10,7 @@
                 width="96"
                 alt="صورة المستخدم" />
 
-                <NuxtImg
+            <NuxtImg
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                 v-if="tempAccount.image"
                 :src="tempAccountImagePreview"
@@ -19,7 +19,7 @@
                 alt="صورة المستخدم" />
 
             <label
-            v-if="edit"
+                v-if="edit"
                 class="absolute bottom-[5px] start-[8px] cursor-pointer rounded-full border-4 border-[#f5f5f5] bg-[#f5f5f5] shadow-sm"
                 for="id_image">
                 <svg
@@ -144,7 +144,6 @@
     <small class="block pt-2 font-semibold sm:hidden">({{ data.user_type }})</small>
     <InputError v-for="message in errors.image" :message="message" />
 
-
     <div
         v-if="edit"
         class="fixed bottom-0 z-20 flex w-full items-center space-x-3 border-t border-gray-100 bg-white px-6 py-6 rtl:space-x-reverse sm:hidden">
@@ -202,15 +201,7 @@
         </button>
     </div>
 
-    <transition
-        enter-active-class="transition-all"
-        leave-active-class="transition-all"
-        enter-from-class="opacity-0"
-        leave-to-class="opacity-0">
-        <ProfileMobileModal v-if="openModal" @close="openModal = false" @deleteAccount="isOpen = true" />
-    </transition>
-
-    <!-- <ProfileDeleteAccountModal :is-open="isOpen" @close="isOpen = false"/> -->
+    <ProfileMobileModal :show="openModal" @close="openModal = false" @deleteAccount="isOpen = true" />
 </template>
 
 <script setup lang="ts">
@@ -225,9 +216,14 @@ const openProfileDropdown = ref(false);
 const edit = ref(false);
 const openModal = ref(false);
 const loading = ref(false);
+const route = useRoute();
 
 const { update } = useAccountStore();
-const { tempAccount, tempAccountImagePreview, errors } = storeToRefs(useAccountStore())
+const { tempAccount, tempAccountImagePreview, errors } = storeToRefs(useAccountStore());
+
+onMounted(() => {
+    edit.value = route.query.edit === 'true' ? true : false;
+});
 
 async function submitUpdate() {
     loading.value = true;

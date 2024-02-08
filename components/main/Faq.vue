@@ -68,7 +68,7 @@
                         </details>
                     </div>
                 </template>
-                <div class="flex justify-center pt-16" v-if="!moreFaqs">
+                <div class="flex justify-center pt-16" v-if="!moreFaqs && _faqs.results.length > 5">
                     <button
                         class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                         type="button"

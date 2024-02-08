@@ -13,6 +13,8 @@ export default defineNuxtConfig({
     },
 
     runtimeConfig: {
+
+        // HTTP_API_KEY=d378b42b1f3f18f231edb2f253e43025dc01406f
         // prod
         // apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
         // apiBasePath: 'https://abber.co/api'

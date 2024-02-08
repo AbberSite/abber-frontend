@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex w-full items-center justify-between " aria-label="Pagination">
+    <nav class="flex w-full items-center justify-between " v-if="results.next || results.previous" aria-label="Pagination">
         <div class="hidden sm:block">
             <p class="space-x-2 rtl:space-x-reverse">
                 <span>عرض</span><span class="font-semibold"> {{ from }} </span><span>إلى</span

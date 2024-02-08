@@ -167,26 +167,22 @@
                 </div>
             </div>
 
-            <transition
-                enter-active-class="transition-all"
-                leave-active-class="transition-all"
-                enter-from-class="translate-y-4 opacity-0"
-                leave-to-class="translate-y-4 opacity-0">
-                <FiltersMobileModal
-                    v-if="openFiltersMobileModal"
-                    @close="openFiltersMobileModal = false"
-                    v-on-click-outside="() => (openFiltersMobileModal = false)" />
-            </transition>
-
-            <OrdersTable :orders="orders"/>
-            <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchOrders" per-page="9" /> 
-
+            
+            <SkeletonsOrdersTable v-if="loading" />
+            <OrdersTable :orders="orders" v-else />
+            <Pagination
+                class="pt-10"
+                :results="(pagination as PaginationResponse<any>)"
+                @change="fetchAll"
+                per-page="9" />
         </section>
     </main>
+
+    <FiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
+
 </template>
 
 <script setup lang="ts">
-
 import type { Order, PaginationResponse } from '~/types';
 import { vOnClickOutside } from '@vueuse/components';
 
@@ -194,24 +190,14 @@ const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 
 const { fetchAll } = useOrdersStore();
-const orders = ref<Order[]>([]);
-const pagination = ref<PaginationResponse<any>>()
 
-await fetchOrders();
+const { orders, pagination, loading } = storeToRefs(useOrdersStore());
+
+await fetchAll();
 
 onMounted(async () => {
-
     if (orders.value.length != 0) return;
 
-    await fetchOrders();
+    await fetchAll();
 });
-
-async function fetchOrders(params? : any, update? : any) {
-    const data = await fetchAll(params);
-    pagination.value = data
-    orders.value = data?.results ?? [];
-
-    update?.()
-}
-
 </script>

@@ -37,7 +37,10 @@
         aria-labelledby="user-menu-button"
         tabindex="-1"
         x-cloak>
-        <a class="flex items-center px-4 pb-3 pt-4" href="/profile/">
+        <NuxtLink class="flex items-center px-4 pb-3 pt-4" to="/profile"
+        @click="$emit('close')"
+        
+        >
             <div class="flex-shrink-0">
                 <NuxtImg
                     class="lazyload h-10 w-10 rounded-full bg-gray-100"
@@ -53,8 +56,8 @@
                 <div class="pt-1 text-xs font-medium text-gray-600">
                     {{ data.user_type }}
                 </div>
-            </div></a
-        >
+            </div>
+        </NuxtLink>
         <div class="py-2">
             <NuxtLink
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"

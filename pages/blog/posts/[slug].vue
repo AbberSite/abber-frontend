@@ -90,7 +90,7 @@
                         width="384"
                         alt="صورة المقالة" />
                     <div
-                        class="js-toc-content prose prose-gray pt-8 lg:max-w-full"
+                        class="js-toc-content prose-sm sm:prose prose-gray pt-8 lg:max-w-full"
                         ref="contentEl"
                         v-html="post?.content" />
                     <div class="mt-8 border-t border-gray-100 pt-8">
