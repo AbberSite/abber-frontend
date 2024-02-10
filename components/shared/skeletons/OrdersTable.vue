@@ -1,5 +1,5 @@
 <template>
-    <table class="w-full animate-pulse text-sm ltr:text-left rtl:text-right">
+    <table class="w-full animate-pulse text-sm ltr:text-left rtl:text-right ">
         <thead class="border-b border-t">
             <tr>
                 <th class="py-6 pe-6" scope="col">

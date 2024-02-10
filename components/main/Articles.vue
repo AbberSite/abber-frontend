@@ -94,6 +94,17 @@ const { firstThreePosts } = storeToRefs(usePostsStore());
 
 const { fetchAll } = usePostsStore()
 
+
+if(firstThreePosts.value?.length !== 3) {
+
+await fetchAll()
+
+}
+
+
+loading.value = false;
+
+
 onMounted(async () => {
 
 

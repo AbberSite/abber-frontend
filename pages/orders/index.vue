@@ -105,6 +105,7 @@
                                     class="form-control h-[50px] px-12"
                                     type="search"
                                     name="q"
+                                    v-model="filters.search"
                                     id="search"
                                     placeholder="إبحث عن طلب معين"
                                     required />
@@ -151,25 +152,30 @@
                                         stroke-linejoin="round"
                                         d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"></path></svg
                                 ><span class="mt-1.5">تصفية</span></span
-                            ><span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">8</span>
+                            ><span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">
+                                {{ filtersCount }}
+                            </span>
                         </button>
 
-                        <transition
-                            enter-active-class="transition-all"
-                            leave-active-class="transition-all"
-                            enter-from-class="translate-y-4 opacity-0"
-                            leave-to-class="translate-y-4 opacity-0">
-                            <FiltersDropdown
-                                v-if="openFiltersDropdown"
-                                v-on-click-outside="() => (openFiltersDropdown = false)" />
-                        </transition>
+                        <ClientOnly>
+                            <transition
+                                enter-active-class="transition-all"
+                                leave-active-class="transition-all"
+                                enter-from-class="translate-y-4 opacity-0"
+                                leave-to-class="translate-y-4 opacity-0">
+                                <FiltersDropdown
+                                    v-if="openFiltersDropdown"
+                                    v-on-click-outside="() => (openFiltersDropdown = false)" />
+                            </transition>
+                        </ClientOnly>
                     </div>
                 </div>
             </div>
 
-            
             <SkeletonsOrdersTable v-if="loading" />
-            <OrdersTable :orders="orders" v-else />
+            <ClientOnly v-else >
+                <OrdersTable :orders="orders" />
+            </ClientOnly>
             <Pagination
                 class="pt-10"
                 :results="(pagination as PaginationResponse<any>)"
@@ -178,8 +184,9 @@
         </section>
     </main>
 
-    <FiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
-
+    <ClientOnly>
+        <FiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
+    </ClientOnly>
 </template>
 
 <script setup lang="ts">
@@ -191,7 +198,7 @@ const openFiltersDropdown = ref(false);
 
 const { fetchAll } = useOrdersStore();
 
-const { orders, pagination, loading } = storeToRefs(useOrdersStore());
+const { orders, pagination, loading, filtersCount, filters } = storeToRefs(useOrdersStore());
 
 await fetchAll();
 

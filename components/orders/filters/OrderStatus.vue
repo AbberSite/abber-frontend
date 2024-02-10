@@ -6,8 +6,9 @@
                 type="checkbox"
                 name="checkbox"
                 v-model="filters.status"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">جديد</label>
+                value="new"
+                id="new" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="new">جديد</label>
         </div>
         <div class="flex items-center">
             <input
@@ -16,8 +17,8 @@
                 value="in_progress"
                 v-model="filters.status"
                 name="checkbox"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">قد التقدم</label>
+                id="in_progress" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress">قد التقدم</label>
         </div>
         <div class="flex items-center">
             <input
@@ -25,9 +26,9 @@
                 v-model="filters.status"
                 type="checkbox"
                 name="checkbox"
-                value="canceled"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">ملغاة</label>
+                value="cancelled"
+                id="cancelled" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="cancelled">ملغاة</label>
         </div>
         <div class="flex items-center">
             <input
@@ -35,8 +36,9 @@
                 type="checkbox"
                 v-model="filters.status"
                 name="checkbox"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">بإنتظار الإستلام</label>
+                value="awaiting_delivery"
+                id="awaiting_delivery" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="awaiting_delivery">بإنتظار الإستلام</label>
         </div>
         <div class="flex items-center">
             <input
@@ -45,8 +47,8 @@
                 name="checkbox"
                 v-model="filters.status"
                 value="complete"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">مكتمل</label>
+                id="complete" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="complete">مكتمل</label>
         </div>
         <div class="flex items-center">
             <input
@@ -55,28 +57,14 @@
                 v-model="filters.status"
                 name="checkbox"
                 value="waiting_for_cancellation"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">بإنتظار الإلغاء</label>
+                id="waiting_for_cancellation" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="waiting_for_cancellation">بإنتظار الإلغاء</label>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const { fetchAll } = useOrdersStore();
-
 const { filters } = storeToRefs(useOrdersStore());
-
-watch(
-    () => filters.value.status,
-    async (value) => {
-        await fetchAll({
-            status: value
-        });
-    },
-    {
-        deep: true
-    }
-);
 </script>
 
 <style scoped></style>

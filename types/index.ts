@@ -126,7 +126,7 @@ export type Order = {
         last_name: string;
         image: string;
     };
-    status: 'in_progress' | 'complete' | 'waiting_for_cancellation' | 'canceled' | 'new' | 'awaiting_delivery';
+    status: 'in_progress' | 'complete' | 'waiting_for_cancellation' | 'cancelled' | 'new' | 'awaiting_delivery';
     type: 'text_communication' | 'voice_communication';
     service: string;
     order_item_time_data: {

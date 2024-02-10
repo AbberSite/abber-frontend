@@ -7,8 +7,8 @@
                 class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                 type="checkbox"
                 name="checkbox"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">محادثة صوتية</label>
+                id="voice" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="voice">محادثة صوتية</label>
         </div>
         <div class="flex items-center">
             <input
@@ -16,32 +16,14 @@
                 type="checkbox"
                 v-model="filters.type.text"
                 name="checkbox"
-                id="checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">محادثة نصية</label>
+                id="text" />
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="text">محادثة نصية</label>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const voice = ref(false);
-const text = ref(false);
-
-const { fetchAll } = useOrdersStore();
-
 const { filters } = storeToRefs(useOrdersStore());
-
-
-watch(() => filters.value.type.text, async (value) => {
-    await fetchAll({
-        type: filters.value.type.text && !filters.value.type.voice ? 'text_communication' : (filters.value.type.voice && !filters.value.type.text ? 'video_communication' : undefined)
-    });
-});
-
-watch(() => filters.value.type.voice, async (value) => {
-    await fetchAll({
-        type: filters.value.type.voice && !filters.value.type.text ? 'video_communication' : (filters.value.type.text && !filters.value.type.voice ? 'text_communication' : undefined)
-    });
-});
 </script>
 
 <style scoped></style>

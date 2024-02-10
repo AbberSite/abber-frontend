@@ -1,6 +1,6 @@
 <template>
     <TransitionRoot as="template">
-        <div class="fixed inset-0 z-30 sm:hidden" >
+        <div class="fixed inset-0 sm:hidden">
             <TransitionChild
                 as="template"
                 enter="duration-300 ease-out"
@@ -20,9 +20,7 @@
                 leave-from="translate-y-0"
                 leave-to="translate-y-full"
                 as="template">
-                <div
-                class=" bottom-0 fixed  z-40 max-h-[400px] w-full overflow-y-auto rounded-t-2xl border-t border-gray-100 bg-white px-6 py-6"
-                >
+                <div class="fixed bottom-0 z-40 w-full rounded-t-2xl border-t border-gray-100 bg-white px-6 py-6">
                     <button
                         class="mx-auto block h-1 w-8 rounded-lg bg-gray-300"
                         type="button"
@@ -31,6 +29,7 @@
                         <div class="flex items-center justify-between space-x-3 rtl:space-x-reverse">
                             <h3 class="mt-1.5 text-lg font-semibold">فلترة</h3>
                             <a
+                            @click.prevent="apply"
                                 class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800"
                                 href="/order/"
                                 >تطبيق</a
@@ -44,33 +43,43 @@
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                                             type="checkbox"
+                                            value="new"
+                                            v-model="status"
                                             name="checkbox"
-                                            id="checkbox" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">جديد</label>
+                                            id="new" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="new">جديد</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                                             type="checkbox"
+                                            value="in_progress"
+                                            v-model="status"
                                             name="checkbox"
-                                            id="checkbox" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">قد التقدم</label>
+                                            id="in_progress" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress"
+                                            >قد التقدم</label
+                                        >
                                     </div>
                                     <div class="flex items-center">
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                                             type="checkbox"
+                                            v-model="status"
+                                            value="cancelled"
                                             name="checkbox"
-                                            id="checkbox" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">ملغاة</label>
+                                            id="cancelled" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="cancelled">ملغاة</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            v-model="status"
                                             type="checkbox"
+                                            value="awaiting_delivery"
                                             name="checkbox"
-                                            id="checkbox" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox"
+                                            id="awaiting_delivery" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="awaiting_delivery"
                                             >بإنتظار الإستلام</label
                                         >
                                     </div>
@@ -78,17 +87,21 @@
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                                             type="checkbox"
+                                            v-model="status"
+                                            value="complete"
                                             name="checkbox"
-                                            id="checkbox" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox">مكتمل</label>
+                                            id="complete" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="complete">مكتمل</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                                             type="checkbox"
+                                            v-model="status"
+                                            value="waiting_for_cancellation"
                                             name="checkbox"
-                                            id="checkbox" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="checkbox"
+                                            id="waiting_for_cancellation" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="waiting_for_cancellation"
                                             >بإنتظار الإلغاء</label
                                         >
                                     </div>
@@ -101,15 +114,19 @@
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                                             type="checkbox"
+                                            v-model="video"
                                             name="checkbox"
-                                            id="checkbox" />
+                                            id="video" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="video">محادثة صوتية</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
                                             class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
                                             type="checkbox"
                                             name="checkbox"
-                                            id="checkbox" />
+                                            v-model="text"
+                                            id="text" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="text">محادثة نصية</label>
                                     </div>
                                 </div>
                             </div>
@@ -123,6 +140,34 @@
 
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
+
+
+const video = ref(false)
+const text = ref(false)
+
+const status =ref<string[]>([])
+
+const { filters } = storeToRefs(useOrdersStore())
+const emit = defineEmits(["close"])
+
+onMounted(() => {
+         video.value = filters.value.type.voice
+         text.value = filters.value.type.text
+
+         status.value = filters.value.status
+
+
+})
+
+
+function apply(){
+    filters.value.type.text = text.value
+    filters.value.type.voice = video.value
+    filters.value.status = status.value
+
+    emit("close")
+
+}
 </script>
 
 <style scoped></style>

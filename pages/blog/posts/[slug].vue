@@ -280,11 +280,13 @@ async function addToBookmarks() {
     useNotification({ type: 'success', content: 'تمت ازالة المقال من قائمة القراءة لاحقا' });
 }
 
+await fetchPost();
+
+
 onMounted(async () => {
 
     loading.value = true;
 
-    await fetchPost();
     await fetchPost();
 
 
