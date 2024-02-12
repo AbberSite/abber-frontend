@@ -83,11 +83,11 @@
                     <div class="mx-auto w-full max-w-sm">
                         <div>
                             <div class="mx-auto w-full max-w-sm pt-10">
-                                <a
+                                <NuxtLink
                                     class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                    href="/">
-                                    <span class="mt-1.5">تصفح الطلبات</span></a
-                                >
+                                    :to="{ name: 'orders' }">
+                                    <span class="mt-1.5">تصفح الطلبات</span>
+                                </NuxtLink>
                                 <div class="pt-4">
                                     <NuxtLink
                                         class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"

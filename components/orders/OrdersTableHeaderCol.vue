@@ -55,6 +55,8 @@ const desc = computed(() => filters.value.ordering == '-' + order?.value ? true 
 
 function toggle(){
 
+    if (!order.value) return
+
     if(!active.value || desc.value){
         filters.value.ordering = order?.value as string
         return

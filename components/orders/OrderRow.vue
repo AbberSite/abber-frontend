@@ -7,7 +7,7 @@
         <td class="whitespace-nowrap pe-12">
            <OrderStatus :status="order.status" /> 
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" v-if="data.user_type != 'عميل'">
             {{ order.buyer.first_name }}
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
@@ -56,6 +56,7 @@
 
 import type { Order } from '~/types';
 
+const { data } = useAuth()
 
 defineProps<{
     order : Order

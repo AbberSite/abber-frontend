@@ -4,10 +4,10 @@
             <thead class="border-b border-t">
                 <tr>
                     <OrdersTableHeaderCol content="الطلب"  order="id"/>
-                    <OrdersTableHeaderCol content="المعبر" order="expressor"/>
+                    <OrdersTableHeaderCol content="المعبر" />
                     <OrdersTableHeaderCol content="الحالة"  order="status"/>
-                    <OrdersTableHeaderCol content="العميل"  order="user"/>
-                    <OrdersTableHeaderCol content="النوع" order="type" />
+                    <OrdersTableHeaderCol content="العميل" v-if="data.user_type != 'عميل'"  order="buyer__first_name"/>
+                    <OrdersTableHeaderCol content="النوع" />
                     <OrdersTableHeaderCol content="عنوان الحلم" order="title"/>
                     <OrdersTableHeaderCol content="التأريخ" order="order_item_time_data__start_date" />
                     <th class="px-4 pb-1 pt-1" scope="col"></th>
@@ -25,17 +25,7 @@
 <script setup lang="ts">
 import type { Order } from '~/types';
 
-
-const { filters } = storeToRefs(useOrdersStore());
-const { fetchAll } = useOrdersStore()
-
-onMounted(() => {
-    const persistedFilters = localStorage.getItem("abber:filters")
-
-    if(!persistedFilters) return
-
-    filters.value = JSON.parse(persistedFilters)
-})
+const { data } = useAuth()
 
 defineProps<{
     orders: Order[];

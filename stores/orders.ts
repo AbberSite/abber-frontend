@@ -1,5 +1,6 @@
 import type { Order, PaginationResponse } from '~/types';
 import { useStorage, type RemovableRef } from '@vueuse/core';
+import { boolean } from 'yup';
 
 class OrdersStore {
     orders = ref<Order[]>([]);
@@ -16,7 +17,8 @@ class OrdersStore {
         },
         status: [],
         search: '',
-        ordering: 'order_item_time_data__start_date'
+        ordering: 'order_item_time_data__start_date',
+        ignore : undefined
     });
 
     filtersCount = computed(() => {
@@ -27,17 +29,36 @@ class OrdersStore {
         );
     });
 
+
+    static filtersWatch : undefined|any
+
     constructor() {
         this.filtersPipline = [this.getTypeFilterQuery, this.getStatusFilterQuery, this.search, this.order];
 
-        watch(
+        if(OrdersStore.filtersWatch) return
+        OrdersStore.filtersWatch = watch(
             this.filters,
-            async () => {
+            async (value) => {
+
+
+
+
+
+                console.log("igore value is : ", value.ignore);
+                
+                console.log(value.ignore === true);
+                
+
+                if(value.ignore === true) {
+                    this.filters.value.ignore = undefined
+                    return
+                }
+                
+                // if(value.ignore) return
+
                 if (!this) return;
 
                 // this.loading.value = true;
-
-                // const filtersQuery = this.pipeFilters()
 
                 await this.fetchAll();
 
@@ -62,6 +83,9 @@ class OrdersStore {
                         limit: 9,
                         ...this.pipeFilters(),
                         ...params
+                    },
+                    headers : {
+                        'X-Requested-With' : process.client ? "XMLHttpRequest" : ''
                     }
                 })) as PaginationResponse<Order>;
 
