@@ -57,10 +57,19 @@ async function fetchTestimonails() {
     }
 }
 
+
+if(!process.client){
+    await fetchTestimonails();
+}
+
 onMounted(async () => {
-    await fetchTestimonails();
-    await fetchTestimonails();
-});
+
+
+    if(testimonials.value?.results?.length == 0){
+        await fetchTestimonails();
+    }
+
+})
 </script>
 
 <style scoped></style>

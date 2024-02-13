@@ -227,8 +227,12 @@ const [terms] = defineField('terms');
 const phoneValid = ref(false);
 
 const checkEmailExistence = useDebounceFn(async (value) => {
-    const response: any = await useApi('POST', '/api/auth/check-email', {
-        email: value
+    const response: any = await useApi('/api/auth/check-email', {
+        method : 'POST', 
+
+        body : {
+            email: value
+        }
     });
 
     if (!response.data.value.registered) {

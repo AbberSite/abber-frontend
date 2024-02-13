@@ -32,37 +32,55 @@
 </template>
 
 <script setup lang="ts">
-import type { Service } from '~/types';
+import type { PaginationResponse, Service } from '~/types';
 
-const _expressors = ref<{ results: Service[] }>({ results: [] });
-const expressors = computed(() =>
-    _expressors.value.results
-        ? _expressors.value.results
-              .sort((a, b) => b.rate - a.rate)
-              .filter((expressor, index) => index < 6)
-              .sort((a, b) => b.ordered_count - a.ordered_count)
-        : []
-);
+const expressors = ref<Service[]>([]);
+// const expressors = computed(() =>
+//     _expressors.value.results
+//         ? _expressors.value.results
+//               .sort((a, b) => b.rate - a.rate)
+//               .filter((expressor, index) => index < 6)
+//               .sort((a, b) => b.ordered_count - a.ordered_count)
+//         : []
+// );
 const loading = ref(false);
 
+
+if(!process.client){
+    await fetchExpressors();
+}
+
 onMounted(async () => {
-    await fetchExpressors();
-    await fetchExpressors();
-});
+
+    if(expressors.value.length == 0){
+        await fetchExpressors();
+    }
+
+}) 
 
 async function fetchExpressors() {
     loading.value = true;
 
-    await useFetch('/api/expressors', {
-        onResponse({ response }) {
-            if (response.status === 200) {
-                if (!response._data) return;
+    const data = (await useApi('/api/expressors')) as  PaginationResponse<Service>;
 
-                const data: { results: Service[] } = response._data;
-                _expressors.value = data;
-            }
-        }
-    });
+
+    expressors.value = data?.results
+                    ? data.results
+                          .sort((a, b) => b.rate - a.rate)
+                          .filter((expressor, index) => index < 6)
+                          .sort((a, b) => b.ordered_count - a.ordered_count)
+                    : [];
+
+
+    // await useFetch('/api/expressors', {
+    //     onResponse({ response }) {
+    //         if (response.status === 200) {
+    //             if (!response._data) return;
+
+    //             const data: { results: Service[] } = response._data;
+    //         }
+    //     }
+    // });
 
     loading.value = false;
 }

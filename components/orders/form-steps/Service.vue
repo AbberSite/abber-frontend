@@ -31,7 +31,6 @@
                                 :service="service" />
                         </template>
 
-                        <template> </template>
                     </template>
                 </div>
             </fieldset>
@@ -40,7 +39,6 @@
 </template>
 
 <script setup lang="ts">
-import { ignorableWatch } from '@vueuse/core';
 import type { OrderForm, Service } from '~/types';
 
 const { state, next } = useFormWizard<OrderForm>('order');

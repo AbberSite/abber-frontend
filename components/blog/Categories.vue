@@ -67,9 +67,17 @@ async function fetchCategories() {
     loading.value = false;
 }
 
+if(!process.client){
+
+    await fetchCategories();
+
+}
+
 onMounted(async () => {
-    await fetchCategories();
-    await fetchCategories();
+
+    if(categories.value?.results?.length == 0){
+        await fetchCategories();
+    }
 });
 </script>
 

@@ -246,9 +246,10 @@ const total = ref<number | undefined>(0);
 const pagainationMeta = ref<{ offset: number | string; limit: number | string }>({ offset: 0, limit: perPage });
 
 onMounted(async () => {
-    await fetchPosts({ offset: 0, limit: perPage });
+
     await fetchPosts({ offset: 0, limit: perPage });
 
+    await fetchPosts({ offset: 0, limit: perPage });
     total.value = posts.value.count;
 });
 

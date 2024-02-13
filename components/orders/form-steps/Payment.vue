@@ -17,12 +17,13 @@
 
         <InputError :message="error" /> 
 
-        <div class="payment-form" ref="paymentForm">
+            <div dir="ltr" class="payment-form" ref="paymentForm" >
             <form
-                dir="ltr"
+            dir="ltr"
                 action="/orders/complete"
                 class="paymentWidgets"
                 data-brands="VISA MASTER MADA"></form>
+
         </div>
     </div>
 </template>
@@ -32,7 +33,7 @@ import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 
 const { state, persist } = useFormWizard<OrderForm>('order');
-const { data, refresh } = useAuth()
+const { data, getSession } = useAuth()
 
 const cardType = ref('general');
 const loading = ref(true);
@@ -60,8 +61,7 @@ const cardImages: { [key: string]: { src: string; class: string } } = {
 
 onMounted(async () => {
 
-
-    await refresh()
+    await getSession()
 
     error.value = ''
     try {
@@ -77,11 +77,12 @@ onMounted(async () => {
 
         (window as any).wpwlOptions = {
             style: 'plain',
+            locale : 'en',
             brandDetection: true,
             brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
             labels: {
-                cardNumber: 'رقم البطاقة',
-                cvv: 'رمز التحقق (CVV)',
+                cardNumber: '0000 0000 0000 0000',
+                cvv: '000',
                 expiryDate: 'تاريخ الإنتهاء',
                 submit: 'متابعة'
             },
@@ -91,8 +92,8 @@ onMounted(async () => {
                 expiryMonthError: 'تاريخ الإنتهاء غير صالج',
                 expiryYearError: 'تاريخ الإنتهاء غير صالج'
             },
-            onFocusIframeCommunication: function () {
-                const form = this.$iframe[0] as HTMLElement;
+            onFocusIframeCommunication: async function () {
+                const form = this.$iframe[0] as HTMLIFrameElement;
 
                 form.classList.add('activeIframe');
             },
@@ -115,6 +116,12 @@ onMounted(async () => {
                 const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
                 const cardBrand = document.querySelector('.card-brand') as Element;
 
+                const cardLabel = document.querySelector(".wpwl-label-cardNumber") as Element;
+                const cvvLabel = document.querySelector(".wpwl-label-cvv") as Element;
+
+                cardLabel.innerHTML = 'رقم البطاقة'
+                cvvLabel.innerHTML = 'رمز التحقق (CVV)'
+
                 const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement
 
                 cardHolderInput.value = data.value.username
@@ -130,8 +137,8 @@ onMounted(async () => {
                 div.classList.add('cvv-expiry-wrapper');
                 cardGroup?.insertAdjacentElement('afterend', div);
 
-                div.append(cvvGroup);
                 div.append(expiryGroup);
+                div.append(cvvGroup);
             },
 
         };
@@ -145,7 +152,10 @@ onMounted(async () => {
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
     return new Promise(async (resolve, reject) => {
         
+        // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
+
         // ${state.value.data?.service_id}
+
         const checkout = await useApi(`/api/orders/85/buy`, {
             method: 'POST',
             body: {
@@ -186,11 +196,10 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 .cvv-expiry-wrapper {
-    @apply flex items-start justify-between space-x-5 rtl:space-x-reverse mb-2 w-full ;
+    @apply flex items-start justify-between gap-5 mb-2 w-full ;
 }
 .wpwl-group {
     @apply w-full space-y-3;
-    direction: rtl;
 }
 .wpwl-wrapper {
     @apply w-full;
@@ -204,6 +213,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .wpwl-label-expiry,
 .wpwl-label-cardNumber {
     @apply block text-sm font-semibold xs:text-base w-full ml-5;
+    direction: rtl;
 }
 
 .wpwl-group-cardHolder,

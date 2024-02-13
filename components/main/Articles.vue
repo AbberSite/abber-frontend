@@ -95,7 +95,7 @@ const { firstThreePosts } = storeToRefs(usePostsStore());
 const { fetchAll } = usePostsStore()
 
 
-if(firstThreePosts.value?.length !== 3) {
+if(firstThreePosts.value?.length !== 3 && !process.client) {
 
 await fetchAll()
 

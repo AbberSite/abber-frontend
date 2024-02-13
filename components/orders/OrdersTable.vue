@@ -4,7 +4,7 @@
             <thead class="border-b border-t">
                 <tr>
                     <OrdersTableHeaderCol content="الطلب"  order="id"/>
-                    <OrdersTableHeaderCol content="المعبر" />
+                    <OrdersTableHeaderCol content="المعبر" v-if="data.user_type != 'معبر'"  />
                     <OrdersTableHeaderCol content="الحالة"  order="status"/>
                     <OrdersTableHeaderCol content="العميل" v-if="data.user_type != 'عميل'"  order="buyer__first_name"/>
                     <OrdersTableHeaderCol content="النوع" />

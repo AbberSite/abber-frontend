@@ -155,7 +155,7 @@ const checkEmailExistence = useDebounceFn(async (value) => {
         }
     });
 
-    if (!response.data.value.registered) {
+    if (!response.data?.value?.registered) {
         errorBag.value = {};
         return true;
     }

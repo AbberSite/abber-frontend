@@ -249,7 +249,7 @@ async function copy() {
     useNotification({ type: 'success', content: 'تم نسخ رابط المقال' });
 }
 
-const bookmarked = computed(() => ((post.value?.bookmark as any)?.includes?.(data.value.id as any)));
+const bookmarked = computed(() => ((post.value?.bookmark as any)?.includes?.(data.value?.id as any)));
 const contentEl = ref(null);
 
 async function addToBookmarks() {
@@ -265,7 +265,7 @@ async function addToBookmarks() {
         headers: {
             Authorization: `JWT ${rawToken.value}`
         },
-        params: { del: (post.value?.bookmark as any)?.includes?.(data.value.id as any) ? true : undefined }
+        params: { del: (post.value?.bookmark as any)?.includes?.(data.value?.id as any) ? true : undefined }
     });
 
     await fetchPost();
@@ -287,7 +287,7 @@ onMounted(async () => {
 
     loading.value = true;
 
-    await fetchPost();
+    // await fetchPost();
 
 
     if (contentEl.value) {

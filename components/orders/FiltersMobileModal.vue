@@ -58,7 +58,7 @@
                                             name="checkbox"
                                             id="in_progress" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress"
-                                            >قد التقدم</label
+                                            >قيد التنفيذ</label
                                         >
                                     </div>
                                     <div class="flex items-center">

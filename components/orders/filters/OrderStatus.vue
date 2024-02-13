@@ -18,7 +18,7 @@
                 v-model="filters.status"
                 name="checkbox"
                 id="in_progress" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress">قد التقدم</label>
+            <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress">قيد التنفيذ</label>
         </div>
         <div class="flex items-center">
             <input

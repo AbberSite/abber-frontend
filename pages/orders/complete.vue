@@ -173,7 +173,7 @@ import type { OrderForm } from '~/types';
 
 const route = useRoute();
 const router = useRouter();
-const { refresh } = useAuth();
+const { getSession } = useAuth();
 const id = route.query.id;
 let transaction_id: string;
 
@@ -186,7 +186,7 @@ const error = ref('');
 const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
-    await refresh();
+    await getSession();
     await getStatus();
 });
 

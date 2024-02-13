@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><a class="text-blue-600" href="#">#{{order.id}}</a></td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" v-if="data.user_type != 'معبر'">
             {{ order.seller?.first_name ?? 'لا يوجد' }}
         </td>
         <td class="whitespace-nowrap pe-12">
