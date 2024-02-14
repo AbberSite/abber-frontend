@@ -20,7 +20,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware : ['verified']
+  middleware : ['verified'], 
+  auth : false,
 })
 
 </script>

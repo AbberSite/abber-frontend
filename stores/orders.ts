@@ -6,6 +6,8 @@ class OrdersStore {
     orders = ref<Order[]>([]);
     pagination = ref<PaginationResponse<any>>();
 
+    order = ref<Order|undefined>(undefined)
+
     filtersPipline: Array<any>;
 
     loading = ref(true);
@@ -33,21 +35,12 @@ class OrdersStore {
     static filtersWatch : undefined|any
 
     constructor() {
-        this.filtersPipline = [this.getTypeFilterQuery, this.getStatusFilterQuery, this.search, this.order];
+        this.filtersPipline = [this.getTypeFilterQuery, this.getStatusFilterQuery, this.search, this.ordering];
 
         if(OrdersStore.filtersWatch) return
         OrdersStore.filtersWatch = watch(
             this.filters,
             async (value) => {
-
-
-
-
-
-                console.log("igore value is : ", value.ignore);
-                
-                console.log(value.ignore === true);
-                
 
                 if(value.ignore === true) {
                     this.filters.value.ignore = undefined
@@ -154,7 +147,7 @@ class OrdersStore {
         return { search: this.filters.value.search };
     };
 
-    order = () => {
+    ordering = () => {
         return { ordering: this.filters.value.ordering };
     };
 
@@ -163,6 +156,11 @@ class OrdersStore {
             return Object.assign(prev, curr());
         }, {});
     };
+
+    getOrder = async (id : string) => {
+        this.order.value = (await useApi(`/api/orders/order/${id}`)) as Order
+        return this.order.value
+    }
 }
 
 export const useOrdersStore = defineStore('orders', () => new OrdersStore());

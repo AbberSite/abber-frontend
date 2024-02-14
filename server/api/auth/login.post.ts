@@ -41,6 +41,7 @@ export default defineEventHandler(async (event) => {
 
         return { 
 
+            data : error?.response?.data, 
             status : "error", 
             error : "حدث خطأ ما"
             

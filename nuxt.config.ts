@@ -28,6 +28,7 @@ export default defineNuxtConfig({
         '/accounts/register': { ssr: false }
     },
     auth: {
+        globalAppMiddleware: true, 
         provider: {
             type: 'refresh',
             pages: {

@@ -7,15 +7,7 @@ export default defineEventHandler(async (event) => {
 
     const previousParams = await useStorage().getItem("filters")
 
-    console.log("from client : ", headers['x-requested-with'] == "XMLHttpRequest");
-    console.log("previous filters", previousParams)
-
     if(headers['x-requested-with'] != "XMLHttpRequest" && previousParams){
-        
-
-
-        
-        // params = {}
         filters = Object.assign(previousParams, params)
     }else {
         filters = params

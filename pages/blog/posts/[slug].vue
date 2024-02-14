@@ -202,6 +202,10 @@
 import * as tocbot from 'tocbot';
 import 'tocbot/src/scss/tocbot.scss';
 
+definePageMeta({
+    auth : false
+})
+
 const slug = useRoute().params.slug;
 
 type Post = {

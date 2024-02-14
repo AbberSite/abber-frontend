@@ -1,18 +1,20 @@
 <template>
     <tr>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><a class="text-blue-600" href="#">#{{order.id}}</a></td>
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+            <a class="text-blue-600" href="#">#{{ order.id }}</a>
+        </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" v-if="data.user_type != 'معبر'">
             {{ order.seller?.first_name ?? 'لا يوجد' }}
         </td>
         <td class="whitespace-nowrap pe-12">
-           <OrderStatus :status="order.status" /> 
+            <OrderStatus :status="order.status" />
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" v-if="data.user_type != 'عميل'">
             {{ order.buyer.first_name }}
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            {{ order.type == 'text_communication' ? 'محادثة نصية': 'محادثة صوتية' }}
-        </td> 
+            {{ order.type == 'text_communication' ? 'محادثة نصية' : 'محادثة صوتية' }}
+        </td>
         <td class="whitespace-nowrap pe-12 font-medium">
             {{ order.dream_title ?? 'لا يوجد' }}
             <!-- <span class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -29,7 +31,7 @@
             {{ useFormattedDate(order.order_item_time_data.ordered_date) }}
         </td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">
-            <a href="#" title="عرض الطلب">
+            <NuxtLink  :to="{ name: 'orders-id', params: { id: order.id } }" title="عرض الطلب">
                 <svg
                     class="flex-shrink-0"
                     xmlns="http://www.w3.org/2000/svg"
@@ -43,25 +45,21 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"></path>
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path></svg
-            ></a>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+                </svg>
+            </NuxtLink>
         </td>
     </tr>
 </template>
 
 <script setup lang="ts">
-
 import type { Order } from '~/types';
 
-const { data } = useAuth()
+const { data } = useAuth();
 
 defineProps<{
-    order : Order
-}>()
-
+    order: Order;
+}>();
 </script>
 
 <style scoped></style>

@@ -170,6 +170,10 @@
 import { useDebounceFn } from '@vueuse/core';
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 
+definePageMeta({
+    auth : false
+})
+
 type Post = {
     id: string;
     user: string;
