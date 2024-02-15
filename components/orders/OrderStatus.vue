@@ -119,7 +119,7 @@ class="inline-flex items-center space-x-1 rounded-full bg-yellow-100 px-3 pb-1 p
 import type { Order } from '~/types';
 
 defineProps<{
-    status: Order['status'];
+    status?: Order['status'];
 }>();
 </script>
 

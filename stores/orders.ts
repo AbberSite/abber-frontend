@@ -1,4 +1,4 @@
-import type { Order, PaginationResponse } from '~/types';
+import type { Message, Order, PaginationResponse } from '~/types';
 import { useStorage, type RemovableRef } from '@vueuse/core';
 import { boolean } from 'yup';
 
@@ -6,7 +6,7 @@ class OrdersStore {
     orders = ref<Order[]>([]);
     pagination = ref<PaginationResponse<any>>();
 
-    order = ref<Order|undefined>(undefined)
+    order = ref<Order | undefined>(undefined);
 
     filtersPipline: Array<any>;
 
@@ -20,8 +20,9 @@ class OrdersStore {
         status: [],
         search: '',
         ordering: 'order_item_time_data__start_date',
-        ignore : undefined
+        ignore: undefined
     });
+    messages = ref<Message[]>([]); 
 
     filtersCount = computed(() => {
         return (
@@ -31,22 +32,20 @@ class OrdersStore {
         );
     });
 
-
-    static filtersWatch : undefined|any
+    static filtersWatch: undefined | any;
 
     constructor() {
         this.filtersPipline = [this.getTypeFilterQuery, this.getStatusFilterQuery, this.search, this.ordering];
 
-        if(OrdersStore.filtersWatch) return
+        if (OrdersStore.filtersWatch) return;
         OrdersStore.filtersWatch = watch(
             this.filters,
             async (value) => {
-
-                if(value.ignore === true) {
-                    this.filters.value.ignore = undefined
-                    return
+                if (value.ignore === true) {
+                    this.filters.value.ignore = undefined;
+                    return;
                 }
-                
+
                 // if(value.ignore) return
 
                 if (!this) return;
@@ -57,15 +56,14 @@ class OrdersStore {
 
                 // this.loading.value = false;
 
-                if(process.client){
-                    localStorage.setItem('abber:filters', JSON.stringify(this.filters.value))
+                if (process.client) {
+                    localStorage.setItem('abber:filters', JSON.stringify(this.filters.value));
                 }
             },
             {
                 deep: true
             }
         );
-
     }
 
     fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<Order>> =>
@@ -77,8 +75,8 @@ class OrdersStore {
                         ...this.pipeFilters(),
                         ...params
                     },
-                    headers : {
-                        'X-Requested-With' : process.client ? "XMLHttpRequest" : ''
+                    headers: {
+                        'X-Requested-With': process.client ? 'XMLHttpRequest' : ''
                     }
                 })) as PaginationResponse<Order>;
 
@@ -94,6 +92,16 @@ class OrdersStore {
                 reject(error);
             }
         });
+
+    getOrder = async (id: string) => {
+        this.order.value = (await useApi(`/api/orders/order/${id}`)) as Order;
+        return this.order.value;
+    };
+
+    fetchMessages = async(id : string) => {
+        this.messages.value = (await useApi(`/api/orders/order/${id}/messages`)) as Message[];
+        return this.messages.value;
+    }
 
     getTypeFilterQuery = () => {
         if (!this) return {};
@@ -156,11 +164,6 @@ class OrdersStore {
             return Object.assign(prev, curr());
         }, {});
     };
-
-    getOrder = async (id : string) => {
-        this.order.value = (await useApi(`/api/orders/order/${id}`)) as Order
-        return this.order.value
-    }
 }
 
 export const useOrdersStore = defineStore('orders', () => new OrdersStore());

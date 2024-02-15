@@ -1,12 +1,14 @@
 <template>
+    <Head>
+        <title>عبر - الطلبات - الطلب #{{ order?.id }}</title>
+    </Head>
     <Header />
     <main class="min-h-screen outline-none">
         <HeroBackground />
 
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
-            aria-labelledby="order-details-heading"
-            x-data="{ openOrderDropdown: false, activeTab: 1 }">
+            aria-labelledby="order-details-heading">
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm sm:hidden">
                 <!-- Heroicon name: outline/swatch -->
                 <svg
@@ -24,9 +26,20 @@
                 </svg>
             </div>
 
-            <DetailsHeader />
-        </section>
+            <DetailsHeader :show-navigation="activeTab == 'details'" />
+            <DetailsTabs v-model="activeTab" />
+            <DetailsMobileCard v-if="activeTab == 'details'" />
+            <DetailsMobileChat v-if="activeTab == 'chat'" />
 
+            <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
+                <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
+                    <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
+                    <DetailsCard />
+                </div>
+                <DetailsChat /> 
+            </div>
+
+        </section>
     </main>
 </template>
 
@@ -37,6 +50,8 @@ definePageMeta({
 });
 
 const id = useRoute().params.id;
+
+const activeTab = ref<'details' | 'chat'>('details');
 
 const { order } = storeToRefs(useOrdersStore());
 

@@ -145,3 +145,27 @@ export type Order = {
         is_online: boolean;
     };
 };
+
+export type File = {
+    id: number;
+    file: string;
+    name: string;
+};
+
+export type Message = {
+    id: number;
+    user: {
+        username: string;
+        first_name: string;
+        last_name: string;
+        image: string;
+        is_online: boolean;
+    };
+    files?: File[];
+    message: string;
+    room: string;
+    date: string;
+    read: boolean;
+    index: number;
+    deleted: boolean;
+};

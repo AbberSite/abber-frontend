@@ -1,4 +1,5 @@
 <template>
+
     <div class="flex items-end justify-between pt-8 sm:w-full sm:pt-0">
         <h1 class="text-lg font-semibold xs:text-xl lg:text-2xl" id="order-details-heading">الطلب #{{ order?.id }}</h1>
         <!-- Options buttons on desktop devices -->
@@ -56,14 +57,18 @@
     </div>
 
     <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false" @show-review="showReviewModal = true" />
-    <DetailsMobileOptions @open-modal="showMobileModal = true" />
+    <DetailsMobileOptions v-if="showNavigation" @open-modal="showMobileModal = true" />
 
-    {{ showReviewModal }}
     <DetailsReviewModal :show="showReviewModal" @close="showReviewModal = false" /> 
+
 </template>
 
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
+
+defineProps<{
+    showNavigation? : boolean
+}>()
 
 const { order } = storeToRefs(useOrdersStore());
 
