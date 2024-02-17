@@ -24,9 +24,7 @@ export default defineNuxtConfig({
     },
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
 
-    routeRules: {
-        '/accounts/register': { ssr: false }
-    },
+    
     auth: {
         globalAppMiddleware: true, 
         provider: {

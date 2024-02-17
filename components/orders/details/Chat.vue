@@ -116,15 +116,17 @@
 </template>
 
 <script setup lang="ts">
+
 const { order, messages } = storeToRefs(useOrdersStore());
 const { fetchMessages } = useOrdersStore()
 
-
-
 const id = useRoute().params.id
+
 if(!process.client) {
   await fetchMessages(id)
 }
+
+await useChat(id)
 
 onMounted(async () => {
 
@@ -132,8 +134,6 @@ onMounted(async () => {
   await fetchMessages(id)
 
 })
-
-
 
 </script>
 

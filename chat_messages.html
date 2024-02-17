@@ -1,0 +1,76 @@
+{% load custom_tags %}
+{% load i18n %}
+{% for date in message_dates %}
+  {% if chat_messages|count_by_date:date %}
+    <div class="space-y-4 select-none">
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-gray-100 px-2 text-gray-500 text-sm">{{ date }}</span>
+        </div>
+      </div>
+    </div>
+    {% for message in chat_messages|filter_by_date:date %}
+      {% if  message.last_message.user != message.user or message.date.date != message.last_message.date.date %}
+        <div class="space-y-4 select-none" {% if not request.user == message.user %}dir="ltr"{% endif %}>
+          <div class="flex items-start space-x-3 {% if request.user == message.user %}space-x-reverse{% endif %} w-full">
+            <a href="{% if message.user.user_type.role_id == 3 %}{{ message.user.expressor_profile.get_absolute_url }}{% else %}#{% endif %}" class="flex items-center flex-shrink-0" title="{{ message.user.get_full_name }}">
+              <img src="{{ message.user.image.url }}" class="aspect-square bg-white h-10 rounded-full shadow-sm w-10" alt="{% trans 'user profile' %}">
+            </a>
+            <div class="space-y-2 w-full">
+              <div id="message-{{ message.id }}" class="space-y-2 w-fit max-w-[100%] min-w-[4rem] chat-message" sender="{{ message.user.username }}">
+                <p class="{% if request.user == message.user %}bg-sky-100{% else %}bg-white{% endif %} leading-[1.75] px-4 py-3 rounded-xl {% if request.user == message.user %}rounded-tr-none{% else %}rounded-tl-none{% endif %} shadow-sm text-gray-700 text-right break-words">
+                  <span>{{ message.message|safe }}</span>
+                  {% include 'src/includes/file.html' with files=message.files %}
+                  {% if request.user == message.user %}
+                    <span class="flex justify-end mb-[-0.25rem] ml-[-0.35rem]">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="10" width="10">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                      {% if message.read %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="10" width="10">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                      {% endif %}
+                    </span>
+                  {% endif %}
+                </p>
+                {% if not message.next_messages.count > 0 %}
+                  <p class="text-gray-500 text-[13px] {% if request.user == message.user %}text-left{% else %}text-right{% endif %}">{{ message.date|date:"h:i A" }}</p>
+                {% endif %}
+              </div>
+              {% for next_message in message.next_messages|filter_by_date:date %}
+                {% if next_message.date.date == date %}
+                  <div id="message-{{ next_message.id }}" class="space-y-2 w-fit max-w-[100%] min-w-[4rem] chat-message" sender="{{ message.user.username }}">
+                    <p class="{% if request.user == next_message.user %}bg-sky-100{% else %}bg-white{% endif %} leading-[1.75] px-4 py-3 rounded-xl {% if request.user == message.user %}rounded-tr-none{% else %}rounded-tl-none{% endif %} shadow-sm text-gray-700 text-right break-words">
+                      <span>{{ next_message.message|safe }}</span>
+                      {% include 'src/includes/file.html' with files=next_message.files %}
+                      {% if request.user == next_message.user %}
+                        <span class="flex justify-end mb-[-0.25rem] ml-[-0.35rem]">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="10" width="10">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                          </svg>
+                          {% if next_message.read %}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="10" width="10">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                          {% endif %}
+                        </span>
+                      {% endif %}
+                    </p>
+                    {% if not next_message.next_messages.count > 0 %}
+                      <p class="text-gray-500 text-[13px] {% if request.user == message.user %}text-left{% else %}text-right{% endif %}">
+                        {{ next_message.date|date:"h:i A" }}</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}

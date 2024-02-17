@@ -1,0 +1,799 @@
+{% extends 'src/layout.html' %}
+
+{% load custom_tags %}
+{% load i18n %}
+{% load static %}
+{% load tz %}
+
+{% block title %}{% trans 'Order' %} #{{ order.id }} - {% trans 'My Orders' %} - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <style>
+    .bg-primary audio::-webkit-media-controls-play-button,
+    .bg-primary audio::-webkit-media-controls-volume-slider,
+    .bg-primary audio::-webkit-media-controls-mute-button,
+    .bg-primary audio::-webkit-media-controls-timeline,
+    .bg-primary audio::-webkit-media-controls-current-time-display,
+    .bg-primary audio::-webkit-media-controls-time-remaining-display {
+      filter: invert(1);
+    }
+
+    audio.disabled::-webkit-media-controls-play-button {
+      visibility: hidden;
+    }
+
+
+    .bg-primary audio::-webkit-media-controls-panel {
+      background-color: rgb(0 21 64/var(--tw-bg-opacity)) !important;
+    }
+
+    .bg-white audio::-webkit-media-controls-panel {
+      background-color: rgb(255 255 255/var(--tw-bg-opacity));
+    }
+
+    .bg-sky-100 audio::-webkit-media-controls-panel {
+      background-color: rgb(224 242 254/var(--tw-bg-opacity));
+    }
+  </style>
+  {# Hero sections #}
+  <section id="tabs" class="bg-primary lg:p-8 lg:pb-16">
+    <div class="max-w-[1440px] mx-auto lg:border-2 border-secondary flex flex-col items-center md:px-8 px-6 py-16 rounded-xl text-center w-full   ">
+      <h1 class="font-medium leading-[1.75] px-2 text-2xl text-secondary">
+        {% trans 'Order' %} #{{ order.id }}
+      </h1>
+      <h2 class="max-w-prose pt-6 space-x-2 space-x-reverse text-gray-300">
+        <a href="{% url 'home' %}" class="text-gray-100">{% trans 'Home' %}</a>
+        <span>&rsaquo;</span>
+        <a href="
+
+          {% if request.user.user_type.role_id == 1 %}{% url 'orders:dashboard-orders' %}{% else %}{% url 'orders:orders' %}{% if request.user.user_type.role_id == 3 %}?type={{ order.type }}{% endif %}{% endif %}" class="text-gray-100">
+          {% if request.user.user_type.role_id == 4 %} {% trans 'My Orders' %}{% else %}{% trans 'Orders' %}{% endif %}</a>
+        <span>&rsaquo;</span>
+        <span>{% trans 'Order' %} #{{ order.id }}</span>
+      </h2>
+    </div>
+  </section>
+
+  <div class="max-w-[1440px] mx-auto bg-white flex flex-col items-center justify-center md:px-8 px-6 py-16 md:py-24 tabs-container w-full">
+    <div class="flex items-center justify-between max-w-screen-md w-full">
+      <div class="bg-primary flex items-center p-1 rounded-lg space-x-2 space-x-reverse tabs-header">
+        <button id="discuss-button" class="default-tab bg-gray-50 focus:outline-none font-medium px-5 py-3 text-primary dark:text-secondary dark:bg-light rounded-lg whitespace-nowrap shadow-sm">{% trans 'Chating' %}</button>
+        <button class="focus:outline-none font-medium text-gray-700 hover:text-gray-900 px-5 py-4 hover:bg-gray-50 rounded-lg ">{% trans 'Customer details' %}</button>
+      </div>
+      <div class="group mr-2 relative">
+        <button id="order-options" type="button" class="bg-primary px-4 py-4 rounded-lg text-gray-100" title="{% trans 'options' %}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="20" width="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </button>
+        <div class="absolute bg-primary dark:border dark:border-light divide-light divide-y duration-300 group-hover:opacity-100 group-hover:visible invisible left-0 opacity-0 rounded-lg shadow text-gray-200 top-[calc(100%+20px)] transition-all w-56 z-10">
+          <ul id="order-options-list" class="py-2">
+            {% if order.status == "complete" %}
+              {% if rate_able == True %}
+                <li>
+                  <button type="button" data-section="section-review" class="flex hover:bg-gray-800 hover:text-gray-100 items-center px-5 py-3 w-full" title="{% trans 'Service Evaluation' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                    </svg>
+                    <span class="pr-3">{% trans 'Service Evaluation' %}</span>
+                  </button>
+                </li>
+              {% endif %}
+              <li>
+                <a href="{% url 'orders:bill' order.id %}" type="button" data-section="section-review" class="flex hover:bg-gray-800 hover:text-gray-100 items-center px-5 py-3 w-full" title="{% trans 'Service Evaluation' %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z">
+                    </path>
+                  </svg>
+                  <span class="pr-3">{% trans 'Bill' %}</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if request.user == order.seller %}
+              {% if order.status == "in_progress" %}
+                <li>
+                  <button data-section="section-delivery-order" type="button" class="complete-order flex hover:bg-light hover:text-gray-100 items-center px-5 py-3 w-full cursor-pointer" title="{% trans 'Delivery of the order' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="pr-3">{% trans 'Delivery of the order' %}</span>
+                  </button>
+                </li>
+                {% if cancel_time == True %}
+                  <li>
+                    <a href="{% url 'orders:change_status' order.id 'cancel_time' %}" class="flex hover:bg-light hover:text-gray-100 items-center px-5 py-3 w-full" title="{% trans 'Cancellation of the implementation date' %}">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                      </svg>
+                      <span class="pr-3">{% trans 'Cancellation of the implementation date' %}</span>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endif %}
+              {% if order.status == "waiting_for_cancellation" %}
+                <li>
+                  <a href="{% url 'orders:change_status' order.id "cancelled" %}" class="flex hover:bg-light hover:text-gray-100 items-center px-5 py-3 w-full" title="{% trans 'Order Cancellation' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                    </svg>
+                    <span class="pr-3">{% trans 'Order Cancellation' %}</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if order.status == "awaiting_delivery" %}
+                <li>
+                  <a href="{% url 'orders:change_status' order.id 're_open' %}" class="flex hover:bg-light hover:text-gray-100 items-center px-5 py-3 w-full" title="{% trans 'Receive the order' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/>
+                    </svg>
+                    <span class="pr-3">{% trans 're-open the order' %}</span>
+                  </a>
+                </li>
+              {% endif %}
+            {% elif request.user == order.buyer and order.status == "awaiting_delivery" %}
+              <li>
+                <button data-section="section-policy" type="button" class="flex hover:bg-light hover:text-gray-100 items-center px-5 py-3 w-full" title="{% trans 'Receive the order' %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                  </svg>
+                  <span class="pr-3">{% trans 'Receive the order' %}</span>
+                </button>
+              </li>
+              {% elif request.user == order.buyer and order.status in "new|in_progress" and allow_cancel == True %}
+              <li>
+                <a href="{% url 'orders:change_status' order.id "cancelled" %}" class="flex hover:bg-light hover:text-gray-100 items-center px-5 py-3 w-full" title="{% trans 'Order Cancellation' %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                  </svg>
+                  <span class="pr-3">{% trans 'Order Cancellation' %}</span>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="pt-12 tabs-content w-full">
+      {# Discussion section #}
+      <div>
+        <div id="discuss-section" class="bg-gray-100 max-w-screen-md mx-auto rounded-xl w-full meeting-section">
+          {% if order.type == "video_communication" %}
+            <div class="md:px-8 px-6 py-12 divide-y max-w-md mx-auto space-y-6">
+              <div id="join-meeting">
+                <div class="bg-primary border border-transparent flex p-4 rounded-lg shadow-sm text-gray-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="22" width="22" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="leading-[1.75] pr-3 text-right">
+                            {% trans "The interview will be conducted by Zoom in case of sound problems please go to" %}
+                            <a href="{% url 'support:create-help' %}?action=create" class="flex group items-center space-x-2 space-x-reverse text-secondary">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 text-gray-500" height="14" width="14">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+                              </svg>
+                              <span class="font-medium">{% trans "Help Center" %}</span>
+                            </a>
+                          </span>
+                </div>
+                {% if request.user == order.buyer and video_session_data %}
+                  <div id="sessions-count" class="mt-2 bg-primary border border-transparent flex p-4 rounded-lg shadow-sm text-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="22" width="22" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="leading-[1.75] pr-3 text-right">{% trans "In front of you" %}
+                              {{ sessions_count }}
+                              {% trans "Sessions until it's your turn" %}
+                            </span>
+                  </div>
+                {% endif %}
+              </div>
+              {% if video_session_data %}
+                {% if request.user == order.buyer  and sessions_count == 0 %}
+                  <button id="join-meeting-button" type="button" meeting-url="{% url 'zoom:meeting' %}?meeting_number={{ video_session_data.id }}&password={{ video_session_data.password }}&metadata={{ request.user.id }}|{{ order.id }}" class="bg-primary border border-transparent disabled:cursor-not-allowed flex focus:outline-none font-medium h-[50px] hover:bg-light items-center justify-center px-6 py-3 rounded-full shadow-sm submit text-sm text-gray-100 w-full">
+                    {% trans "Entering an interview" %}
+                  </button>
+                {% endif %}
+              {% elif request.user == order.seller %}
+                <a href="{% url 'orders:orders' %}?get_meeting=true#tab2" class="bg-primary border border-transparent disabled:cursor-not-allowed flex focus:outline-none font-medium h-[50px] hover:bg-light items-center justify-center px-6 py-3 rounded-full shadow-sm submit text-sm text-gray-100 w-full">
+                  {% trans "Entering an interview" %}</a>
+              {% endif %}
+            </div>
+          {% else %}
+            {# Messages section #}
+            <div class="max-h-[500px] overflow-y-auto px-5 py-5 space-y-6 is-scroll">
+              {% if request.user == order.buyer and not order.content %}
+                <div class="space-y-4" dir="ltr">
+                  <div class="flex items-start space-x-3">
+                    <a href="#" class="flex items-center flex-shrink-0" title="{% trans 'bot' %}">
+                      <img src="{{ website_settings.general_settings.default_user_image.url }}" class="aspect-square bg-white h-10 rounded-full shadow-sm w-10" alt="{% trans 'user profile' %}">
+                    </a>
+                    <div class="max-w-md space-y-2">
+                      <p class="bg-white leading-[1.75] px-4 py-3 rounded-xl rounded-tl-none shadow-sm text-gray-700 text-right w-fit">
+                        {% trans "Send us a detailed message below will reply as soon as possible" %}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              {# chat for the old orders #}
+              {% comment %}
+                {% include 'src/includes/chat_messages.html' with message_dates=old_chat.message_dates chat_messages=old_chat.chat_messages %}
+                {% if old_chat.message_dates|length > 0 %}
+                  <div class="space-y-4">
+                    <div class="relative">
+                      <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div class="w-full border-t"></div>
+                      </div>
+                      <div class="relative flex justify-center">
+                        <span class="bg-gray-100 px-2 text-gray-500 text-sm">الطلبات القديمة</span>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endcomment %}
+              {# chat for the current order #}
+              {% if request.user == order.seller or request.user == order.buyer or perms.chat.view_chatmessage %}
+                {% include 'src/includes/chat_messages.html' with message_dates=message_dates chat_messages=chat_messages %}
+              {% endif %}
+            </div>
+            {# Form section #}
+            {% if order.status == "in_progress" or order.content.allow_chat %}
+              {% if request.user == order.seller or request.user == order.buyer and order.content %}
+                <div class="bg-gray-100 px-5 py-5 rounded-xl">
+                  <form id="chat-form" enctype="multipart/form-data">
+
+                    <audio controls class="audio-element hidden">
+                    </audio>
+                    <fieldset class="flex items-center relative w-full hidden-while-recording" disabled>
+                      {% csrf_token %}
+                      <input id="chat-message-input" type="text" maxlength="500" class="pl-14 appearance-none bg-white border focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-600 px-6 py-4 peer pr-14 rounded-full text-primary w-full" placeholder="{% trans 'Type Your Message here ..' %}" pattern=".*\S.*" required/>
+                      <button type="button" id="recorder" class="start-recording-button absolute flex h-full items-center justify-center text-gray-500 hover:text-primary w-16">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/>
+                        </svg>
+                      </button>
+                      <button id="send-message" type="submit" class="absolute focus:outline-none inset-0 px-6 py-3 right-auto text-gray-500 hover:text-primary" title="{% trans 'Send' %}">
+                        <svg class="send-message hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/>
+                        </svg>
+                        <svg class="animate-spin" height="20" width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                      </button>
+                    </fieldset>
+                    <fieldset class="flex items-center relative w-full recording-contorl-buttons-container hidden" disabled>
+                      <input type="text" maxlength="500" class="pl-14	appearance-none bg-white border focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-600 px-6 py-4 peer pr-14 rounded-full text-primary w-full" disabled/>
+                      <div class="absolute focus:outline-none inset-0 px-6 py-3 right-auto text-gray-500 flex items-center" title="{% trans 'Send' %}">
+                        <div class="recording-elapsed-time flex items-center">
+                          <button type="button" class=" focus:outline-none inset-0 px-6 py-3 text-gray-500 hover:text-red-700 text-red-600" title="{% trans 'Cancel' %}">
+                            <svg class="cancel-recording-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                          </button>
+                          <p class="elapsed-time"></p>
+                        </div>
+                        <div class="pr-6 py-3">
+                          <canvas id="visualizationCanvas" height="20px" width="100px" class="border-bottom"></canvas>
+                          <canvas id="visualizationCanvas2" height="20px" width="100px" style="transform: rotateX(180deg)"></canvas>
+                        </div>
+                        <button type="button" class="focus:outline-none inset-0 pr-6 py-3 text-gray-500 hover:text-primary" title="{% trans 'Send' %}">
+                          <svg class="stop-recording-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+              {% endif %}
+            {% endif %}
+
+          {% endif %}
+        </div>
+        {% if order.type == "text_communication" %}
+          <div class="flex justify-evenly max-w-screen-md mx-auto">
+            {% if request.user == order.seller and order.status in 'in_progress|awaiting_delivery' %}
+              {% if order.status == 'in_progress' %}
+                <div class="relative max-w-md w-full m-auto mt-2">
+                  <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t"></div>
+                  </div>
+                  <div class="relative flex justify-center">
+                    <span class="bg-white px-2 text-gray-500">بعد الانتهاء من تقديم الخدمة يرجى </span>
+                  </div>
+                </div>
+              {% endif %}
+              <button data-section="section-delivery-order" type="button" class="bg-primary disabled:cursor-not-allowed flex focus:outline-none font-medium h-[50px] hover:bg-light items-center justify-center px-6 py-3 rounded-full shadow-sm submit text-sm text-gray-100 whitespace-nowrap w-fit m-auto mt-4 cursor-pointer">
+                {% if order.status == "in_progress" %}
+                  {% trans 'Delivery of the order' %}
+                {% else %}
+                  {% trans 'Re-open the order' %}
+                {% endif %}
+              </button>
+            {% elif request.user == order.buyer and order.status == "awaiting_delivery" %}
+              {% if not order.content.inquiry %}
+                <button data-section="section-inquiry" type="button" class="bg-primary disabled:cursor-not-allowed flex focus:outline-none font-medium h-[50px] hover:bg-light items-center justify-center px-6 py-3 rounded-full shadow-sm submit text-sm text-gray-100 whitespace-nowrap w-fit mt-4 cursor-pointer">
+                  {% trans 'Inquiry to expressor' %}
+                </button>
+              {% endif %}
+              <button data-section="section-policy" type="button" class="bg-primary disabled:cursor-not-allowed flex focus:outline-none font-medium h-[50px] hover:bg-light items-center justify-center px-6 py-3 rounded-full shadow-sm submit text-sm text-gray-100 whitespace-nowrap w-fit mt-4 cursor-pointer">
+                {% trans 'Rate the expressor' %}
+              </button>
+            {% endif %}
+          </div>
+
+        {% endif %}
+      </div>
+
+      {# Details section #}
+      <ul class="flex flex-col max-w-md mx-auto rounded-lg text-gray-700 w-full">
+        {% if request.user == order.seller %}
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5 rounded-t-lg">
+            <span class="font-medium">{% trans "Client" %}</span>
+            <span>{{ order.buyer.get_full_name }}</span>
+          </li>
+          {% elif request.user == order.buyer %}
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5 rounded-t-lg">
+            <span class="font-medium">{% trans "Expressor" %}</span>
+            <a href="{{ order.seller.expressor_profile.get_absolute_url }}" class="flex group items-center space-x-2 space-x-reverse">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 group-hover:text-primary text-gray-500" height="14" width="14">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+              </svg>
+              <span class="font-medium group-hover:text-primary">{{ order.seller.get_full_name }}</span>
+            </a>
+          </li>
+          {% elif request.user.user_type.role_id == 1 %}
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5 rounded-t-lg">
+            <span class="font-medium">{% trans "Client" %}</span>
+            <span>{{ order.buyer.get_full_name }}</span>
+          </li>
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+            <span class="font-medium">{% trans "Expressor" %}</span>
+            <a href="{{ order.seller.expressor_profile.get_absolute_url }}" class="font-medium hover:text-primary">{{ order.seller.get_full_name }}</a>
+          </li>
+        {% endif %}
+        {% if request.user == order.seller or request.user.user_type.role_id == 1 %}
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+            <span class="font-medium">{% trans "Gender" %}</span>
+            <span>{{ order.buyer.profile.get_gender_display|default_if_none:"-" }}</span>
+          </li>
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+            <span class="font-medium">{% trans "Marital status" %}</span>
+            <span>{% if order.buyer.profile.marital_status %}{% trans order.buyer.profile.marital_status %}{% endif %}</span>
+          </li>
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+            <span class="font-medium">{% trans "Profession" %}</span>
+            <span>{{ order.buyer.profile.profession|default_if_none:"-" }}</span>
+          </li>
+          <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+            <span class="font-medium">{% trans "Age" %}</span>
+            <span>{{ order.buyer.profile.birthday|timesince|default_if_none:'-' }}</span>
+          </li>
+        {% endif %}
+        <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+          <span class="font-medium">{% trans "Order Type" %}</span>
+          <span>{{ order.type|replace_choice:SERVICE_TYPE }}</span>
+        </li>
+        <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+          <span class="font-medium">{% trans "Order status" %}</span>
+          <div class="
+
+            {{ order.status|replace_choice:STATUS_STYLE|replace:'dark| ' }} inline-flex items-center px-4 py-1.5 rounded-full space-x-2 space-x-reverse text-sm">
+            <span class="bg-current h-2.5 rounded-full w-2.5"></span>
+            <span>{{ order.status|replace_choice:STATUS }}</span>
+          </div>
+        </li>
+        <li class="even:bg-gray-50 flex py-5 items-center justify-between odd:bg-gray-100 px-5">
+          <span class="font-medium">{% trans "Implementation start date" %}</span>
+          <span>{{ order.order_item_time_data.start_date.date }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  {{ order.id|json_script:"json-roomname" }}
+  {{ "order"|json_script:"json-roompath" }}
+  {{ website_settings.policy_settings.record_max_elapsed_time|json_script:"json-max-elapsed-time-seconds" }}
+  {% csrf_token %}
+
+  {% if order.type == "video_communication" %}
+    {{ request.user.user_type.role_id|json_script:"json-user-role" }}
+
+    {% if request.user == order.buyer %}
+      {{ order.seller.username|json_script:"json-seller-username" }}
+    {% endif %}
+
+  {% endif %}
+  {{ sentry_public_dsn|json_script:"json-sentry-public-dsn" }}
+{% endblock %}
+
+{% block extra_content %}
+{% now "Y-m-d" as today %}
+
+{# Policy modal #}
+{% if request.user == order.buyer and order.status == "awaiting_delivery" %}
+<div class="fixed {% if request.GET.complete_popup %}flex{% else %}hidden{% endif %} items-end h-full overflow-hidden sm:py-8 section-policy sm:items-center w-full z-20">
+  <div data-section="section-policy" class="backdrop-blur-sm bg-light/80 cursor-pointer fixed inset-0"></div>
+  <form id="complete-order" class="bg-primary divide-light divide-y mx-auto rounded-t-[20px] shadow-2xl sm:max-w-sm sm:rounded-xl text-gray-200 w-full z-30">
+    <div class="bg-primary flex items-center justify-between px-6 py-7 rounded-t-[20px]" style="position:inherit;">
+      <h3 class="font-medium text-[17px] text-secondary">{% trans "Conditions for receiving the application" %}</h3>
+      <button type="button" data-section="section-policy" class="focus:outline-none text-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="22" width="22">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="is-scroll max-h-[400px] overflow-y-auto px-6 py-7 w-full">
+      {% autoescape off %}{{ website_settings.policy_settings.order_terms }}{% endautoescape %}
+    </div>
+    <div class="bg-primary flex justify-center px-6 py-6 rounded-b-[20px] flex-col" style="position:inherit;">
+      <a href="{% url 'orders:change_status' order.id "complete" %}?rating_popup=True" class="bg-secondary disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-100 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full mb-1">
+        {% trans "Receiving and evaluating the order" %}
+      </a>
+      <a href="{% url 'orders:change_status' order.id "complete" %}" class="bg-gray-100 disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-200 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full mb-1">
+        {% trans "Receive order and evaluation later" %}
+      </a>
+      {% if order.type == "text_communication" and request.user == order.buyer and order.status == "awaiting_delivery" and not order.content.inquiry %}
+        <button data-section="section-inquiry" type="button" class="bg-gray-100 disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-200 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full">
+          {% trans 'Inquiry to expressor' %}
+        </button>
+      {% endif %}
+    </div>
+  </form>
+</div>
+
+{% endif %}
+
+{# Delivery modal #}
+{% if order.type == "text_communication" and request.user == order.seller and order.status in "in_progress|awaiting_delivery" %}
+  <div class="fixed hidden items-end h-full overflow-hidden sm:py-8 section-delivery-order sm:items-center w-full z-20">
+    <div data-section="section-delivery-order" class="backdrop-blur-sm bg-light/80 cursor-pointer fixed inset-0"></div>
+    <div class="bg-primary divide-light divide-y mx-auto rounded-t-[20px] shadow-2xl sm:max-w-sm sm:rounded-xl text-gray-200 w-full z-30">
+      <div class="bg-primary flex items-center justify-between px-6 py-7 rounded-t-[20px]" style="position:inherit;">
+        <h3 class="font-medium text-[17px] text-secondary">{% trans "are you sure" %}</h3>
+        <button type="button" data-section="section-delivery-order" class="focus:outline-none text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="22" width="22">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="bg-primary flex justify-center px-6 py-6 rounded-b-[20px] flex-col" style="position:inherit;">
+        {% if order.status == "in_progress" %}
+          <a href="{% url 'orders:change_status' order.id 'awaiting_delivery' %}" class="complete-order bg-secondary disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-100 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full mb-1">{% trans 'Delivery of the order' %}</a>
+        {% else %}
+          <a href="{% url 'orders:change_status' order.id 're_open' %}" class="bg-secondary disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-100 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full mb-1"> {% trans 're-open the order' %}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+
+{# Rate modal #}
+{% if rate_able %}
+  <div class="fixed {% if request.GET.rating_popup %}flex{% else %}hidden{% endif %} items-end h-full overflow-hidden sm:py-8 section-review sm:items-center w-full z-20">
+    <div data-section="section-review" class="backdrop-blur-sm bg-light/80 cursor-pointer fixed inset-0"></div>
+    <form id="order-review" action="{% url 'services:add_rating' %}" id="rating-form" method="POST" class="bg-primary divide-light divide-y mx-auto rounded-t-[20px] shadow-2xl sm:max-w-sm sm:rounded-xl text-gray-200 w-full z-30">
+      {% csrf_token %}
+      <input hidden name="service_rating" value="true"/>
+      <input hidden name="order_id" value="{{ order.id }}"/>
+
+      <div class="bg-primary flex items-center justify-between px-6 py-7 rounded-t-[20px]" style="position:inherit;">
+        <h3 class="font-medium leading-[1.75] text-[17px]">{% trans "Tell us about your opinion about your previous order with the expressor" %}<span> ({{ order.seller }})</span>:
+        </h3>
+        <a href="{{ order.get_absolute_url }}" data-section="section-review" class="focus:outline-none text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="22" width="22">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </a>
+      </div>
+      <div class="is-scroll max-h-[400px] overflow-y-auto px-6 py-7 w-full">
+        <div class="space-y-8 w-full">
+          <fieldset class="space-y-2">
+            <label for="quality_rate" class="font-medium">{% trans "Quality of Service:" %}</label>
+            <select id="quality_rate" name="quality_rate" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-lg text-yellow-400 w-full">
+              <option value="5">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="4">&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="3">&#x2605;&#x2605;&#x2605;</option>
+              <option value="2">&#x2605;&#x2605;</option>
+              <option value="1">&#x2605;</option>
+            </select>
+          </fieldset>
+          <fieldset class="space-y-2">
+            <label for="delivery_rate" class="font-medium">{% trans "On time delivery:" %}</label>
+            <select id="delivery_rate" name="delivery_rate" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-lg text-yellow-400 w-full">
+              <option value="5">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="4">&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="3">&#x2605;&#x2605;&#x2605;</option>
+              <option value="2">&#x2605;&#x2605;</option>
+              <option value="1">&#x2605;</option>
+            </select>
+          </fieldset>
+          <fieldset class="space-y-2">
+            <label for="communication_rate" class="font-medium">{% trans "Communication and follow-up:" %}</label>
+            <select id="communication_rate" name="communication_rate" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-lg text-yellow-400 w-full">
+              <option value="5">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="4">&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="3">&#x2605;&#x2605;&#x2605;</option>
+              <option value="2">&#x2605;&#x2605;</option>
+              <option value="1">&#x2605;</option>
+            </select>
+          </fieldset>
+          <fieldset class="space-y-2">
+            <label for="professional_rate" class="font-medium">{% trans "Professionalism in dealing:" %}</label>
+            <select id="professional_rate" name="professional_rate" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-lg text-yellow-400 w-full">
+              <option value="5">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="4">&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="3">&#x2605;&#x2605;&#x2605;</option>
+              <option value="2">&#x2605;&#x2605;</option>
+              <option value="1">&#x2605;</option>
+            </select>
+          </fieldset>
+          <fieldset class="space-y-2">
+            <label for="again_rate" class="font-medium">{% trans "Deal with him/her again:" %}</label>
+            <select id="again_rate" name="again_rate" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-lg text-yellow-400 w-full">
+              <option value="5">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="4">&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="3">&#x2605;&#x2605;&#x2605;</option>
+              <option value="2">&#x2605;&#x2605;</option>
+              <option value="1">&#x2605;</option>
+            </select>
+          </fieldset>
+          <fieldset class="space-y-2">
+            <label for="expertise_rate" class="font-medium">{% trans "Experience :" %}</label>
+            <select id="expertise_rate" name="expertise_rate" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-lg text-yellow-400 w-full">
+              <option value="5">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="4">&#x2605;&#x2605;&#x2605;&#x2605;</option>
+              <option value="3">&#x2605;&#x2605;&#x2605;</option>
+              <option value="2">&#x2605;&#x2605;</option>
+              <option value="1">&#x2605;</option>
+            </select>
+          </fieldset>
+          <fieldset class="space-y-2">
+            <label for="review" class="font-medium">{% trans "Add a comment:" %}</label>
+            <textarea id="review" name="comment" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 px-4 py-3 rounded-lg text-gray-100 w-full" style="min-height:50px; max-height:300px" maxlength="100"></textarea>
+          </fieldset>
+        </div>
+      </div>
+      <div class="bg-primary flex justify-center px-6 py-6 rounded-b-[20px]" style="position:inherit;">
+        <button type="submit" class="bg-secondary disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-100 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full">{% trans "Send" %}</button>
+      </div>
+    </form>
+  </div>
+{% endif %}
+
+{# Gender & birthday modal #}
+{% if request.user == order.buyer %}
+  {% if not request.user.profile.gender and not request.user.profile.birthday %}
+    <div class="fixed flex items-end h-full overflow-hidden sm:py-8 sm:items-center w-full z-20">
+      <div class="backdrop-blur-sm bg-light/80 cursor-pointer fixed inset-0"></div>
+      <form action="{% url 'accounts:profile' %}" id="gender-birthday-form" method="POST" class="bg-primary divide-light divide-y mx-auto rounded-t-[20px] shadow-2xl sm:max-w-sm sm:rounded-xl text-gray-200 w-full z-30" up-submit="false">
+        {% csrf_token %}
+        <input name="set-gender" value="true" hidden/>
+
+        <div class="bg-primary flex flex-col items-center px-6 py-7 rounded-t-[20px]" style="position:inherit;">
+          <h3 class="font-medium text-[17px] text-secondary">
+            {% trans "Please enter the information of the account holder" %}
+          </h3>
+          <small class="pt-2">{% trans "your data is important to the expressor and depends on it by expressing your vision" %}</small>
+        </div>
+        <div class="is-scroll max-h-[400px] overflow-y-auto px-6 py-7 w-full">
+          <fieldset class="space-y-8 w-full">
+            <div class="space-y-4">
+              <label for="first_name" class="font-medium">{% trans "Full name" %}:</label>
+              <input type="text" name="first_name" autocomplete="name" placeholder="أدخل اسمك الكامل" maxlength="30" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" required id="id_first_name" pattern="^(?! *$)[a-zA-Z\u0621-\u064A ]+$" {% if not "guest" in request.user.first_name %}value="{{ request.user.first_name }}"{% endif %}>
+            </div>
+            <div class="space-y-4">
+              <label for="gender" class="font-medium">{% trans "Gender" %}:</label>
+              <select id="gender" name="gender" class="appearance-none bg-primary border border-light3 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-md text-gray-100 w-full">
+                <option value="Male">{% trans "Male" %}</option>
+                <option value="Female">{% trans "Female" %}</option>
+              </select>
+            </div>
+            <div class="space-y-4">
+              <label for="birthday" class="font-medium">{% trans "Date of birth" %}:</label>
+              <input id="birthday" type="date" name="birthday" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" min="1930-01-01" max="
+                {{ today|date:"Y-m-d" }}" required/>
+            </div>
+            <div class="space-y-4">
+              <label for="marital_status" class="font-medium">{% trans "Marital status" %}:</label>
+              <select id="marital_status" name="marital_status" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" required>
+                <option value="single">{% trans 'Single' %}</option>
+                <option value="married">{% trans 'Married' %}</option>
+                <option value="divorced">{% trans 'Divorced' %}</option>
+                <option value="widowed">{% trans 'Widowed' %}</option>
+              </select></div>
+            <div class="space-y-4">
+              <label for="profession" class="font-medium">{% trans "Profession" %}:</label>
+              <input id="profession" name="profession" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" minlength="3" maxlength="30" pattern="^(?! *$)[a-zA-Z\u0621-\u064A ]+$" required/>
+            </div>
+
+          </fieldset>
+        </div>
+        <div class="bg-primary flex justify-center px-6 py-6 rounded-b-[20px]" style="position:inherit;">
+          <button type="submit" class="bg-secondary disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-100 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full">{% trans "Continue" %}</button>
+        </div>
+      </form>
+    </div>
+  {% endif %}
+{% endif %}
+
+{# Dream modal #}
+{% if request.user == order.buyer and order.type != "video_communication" %}
+  {% if not order.content.dream_time and request.user.profile.gender %}
+    <div class="section-dream fixed flex items-end h-full overflow-hidden sm:py-8 sm:items-center w-full z-20">
+      <div data-section="section-dream" class="backdrop-blur-sm bg-light/80 cursor-pointer fixed inset-0"></div>
+      <form id="gender-birthday-form" method="POST" class="bg-primary divide-light divide-y mx-auto rounded-t-[20px] shadow-2xl sm:max-w-sm sm:rounded-xl text-gray-200 w-full z-30" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input name="dream-info" value="true" hidden/>
+
+        <div class="bg-primary flex items-center justify-between px-6 py-7 rounded-t-[20px]" style="position:inherit;">
+          <h3 class="font-medium text-[17px] text-secondary">{% trans "Please enter the following information" %}</h3>
+          <button type="button" data-section="section-dream" class="focus:outline-none text-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="22" width="22">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="is-scroll max-h-[400px] overflow-y-auto px-6 py-7 w-full">
+          <fieldset class="space-y-8 w-full">
+
+            <div class="space-y-4">
+              <label for="id_dream_title" class="font-medium">{% trans "Dream title" %}:</label>
+              <input id="id_dream_title" name="dream_title" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" placeholder="اكتب عنوان مثلا حلم العباية أو حلم العقرب"/>
+            </div>
+            <div class="space-y-4">
+              <label for="id_dream_time" class="font-medium">{% trans "Dream date" %}:</label>
+              <input id="id_dream_time" type="date" name="dream_time" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" value="{{ today }}" min="2020-01-01" max="
+                {{ tomorrow|date:"Y-m-d" }}" required/>
+            </div>
+            <div class="flex items-center justify-between text-primary space-y-4">
+              <div class="flex items-center">
+                <input id="client" name="client" type="checkbox" class="appearance-none border flex-shrink-0 h-5 rounded text-primary w-5" up-switch=".target">
+                <label for="client" class="font-medium pr-3 space-x-2 space-x-reverse bg-primary text-gray-100 border-gray-600 focus:ring-gray-200">الحلم لشخص اخر</label>
+              </div>
+
+            </div>
+            <div class="space-y-4 w-full target" up-show-for=":checked">
+              <div class="space-y-4">
+                <label for="gender" class="font-medium">{% trans "Gender" %}:</label>
+                <select id="gender" name="gender" class="appearance-none bg-primary border border-light3 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 form-select h-12 px-4 py-3 rounded-md text-gray-100 w-full">
+                  <option value="{% trans "Male" %}">{% trans "Male" %}</option>
+                  <option value="{% trans "Female" %}">{% trans "Female" %}</option>
+                </select>
+              </div>
+              <div class="space-y-4">
+                <label for="age" class="font-medium">{% trans "Age" %}:</label>
+                <input id="age" name="age" type="number" min="10" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" required/>
+              </div>
+              <div class="space-y-4">
+                <label for="marital_status" class="font-medium">{% trans "Marital status" %}:</label>
+                <select id="marital_status" name="marital_status" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" required>
+                  <option value="single">{% trans 'Single' %}</option>
+                  <option value="married">{% trans 'Married' %}</option>
+                  <option value="divorced">{% trans 'Divorced' %}</option>
+                  <option value="widowed">{% trans 'Widowed' %}</option>
+                </select>
+              </div>
+              <div class="space-y-4">
+                <label for="profession" class="font-medium">{% trans "Profession" %}:</label>
+                <input id="profession" name="profession" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" minlength="3" maxlength="30" required/>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <label for="id_dream" class="font-medium">{% trans "Dream" %}:</label>
+              <textarea placeholder="{% trans 'Describe the dream in detail' %}" id="id_dream" name="dream" class="appearance-none bg-transparent border border-gray-600 disabled:bg-gray-50 disabled:cursor-not-allowed focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-600 px-3 py-3 rounded-lg text-gray-100 text-sm w-full"></textarea>
+            </div>
+            <div class="space-y-4">
+              <input type="file" name="voice_note" class="audio-input-field appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full hidden" multiple/>
+              <audio controls controlsList="nodownload noplaybackrate" class="audio-element hidden audio-element  appearance-none bg-primary border border-gray-600  disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12  rounded-full text-gray-100 text-sm w-full">
+              </audio>
+            </div>
+
+
+            <div id="chat-form" enctype="multipart/form-data">
+              <div class="relative max-w-md w-full mb-2">
+                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                  <div class="w-full border-t border-gray-500"></div>
+                </div>
+                <div class="relative flex justify-center">
+                  <span class="bg-primary px-2">{% trans "or" %}</span>
+                </div>
+              </div>
+              <fieldset class="flex items-center relative w-full hidden-while-recording" disabled>
+                {% csrf_token %}
+                <input type="text" maxlength="500" class="appearance-none bg-transparent border border-gray-600  px-3 py-3 rounded-lg text-gray-100 text-sm w-full pr-14" placeholder="تسجيل صوتي بحد أقصى دقيقتين" disabled/>
+                <button type="button" id="recorder" class="start-recording-button absolute flex h-full items-center justify-center text-gray-100 hover:text-gray-500 w-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/>
+                  </svg>
+                </button>
+              </fieldset>
+              <fieldset class="flex items-center relative w-full recording-contorl-buttons-container hidden" disabled>
+                <input type="text" maxlength="500" class="appearance-none bg-transparent border border-gray-600  px-3 py-3 rounded-lg text-gray-100 text-sm w-full" disabled/>
+                <div class="absolute focus:outline-none inset-0 px-6 py-3 right-auto text-gray-500 flex items-center" title="{% trans 'Send' %}">
+                  <div class="recording-elapsed-time flex items-center">
+                    <button type="button" class=" focus:outline-none inset-0 px-6 py-3 hover:text-red-700 text-red-600" title="{% trans 'Cancel' %}">
+                      <svg class="cancel-recording-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                    </button>
+                    <p class="elapsed-time"></p>
+                  </div>
+                  <button type="button" class=" focus:outline-none inset-0 pr-6 py-3 text-gray-100 hover:text-gray-500" title="{% trans 'Send' %}">
+                    <svg class="stop-recording-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/>
+                    </svg>
+                  </button>
+                </div>
+              </fieldset>
+            </div>
+
+
+          </fieldset>
+        </div>
+        <fieldset class="bg-primary flex justify-center px-6 py-6 rounded-b-[20px]" style="position:inherit;">
+          <button type="submit" class="submit bg-secondary disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-100items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full">{% trans "Continue" %}</button>
+        </fieldset>
+      </form>
+    </div>
+  {% endif %}
+{% endif %}
+
+{# Inquiry modal #}
+{% if order.type == "text_communication" and request.user == order.buyer and order.status == "awaiting_delivery" and not order.content.inquiry %}
+  <div class="fixed hidden items-end h-full overflow-hidden sm:py-8 section-inquiry sm:items-center w-full z-20">
+    <div data-section="section-inquiry" class="backdrop-blur-sm bg-light/80 cursor-pointer fixed inset-0"></div>
+    <div class="bg-primary divide-light divide-y mx-auto rounded-t-[20px] shadow-2xl sm:max-w-sm sm:rounded-xl text-gray-200 w-full z-30">
+      <div class="bg-primary flex items-center justify-between px-6 py-7 rounded-t-[20px]" style="position:inherit;">
+        <h3 class="font-medium text-[17px] text-secondary">{% trans "Inquiry to expressor" %}</h3>
+        <button type="button" data-section="section-inquiry" class="focus:outline-none text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="22" width="22">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="inquiry-form" method="POST" class="bg-primary divide-light divide-y mx-auto rounded-t-[20px] shadow-2xl sm:max-w-sm sm:rounded-xl text-gray-200 w-full z-30">
+        {% csrf_token %}
+        <div class="is-scroll max-h-[400px] overflow-y-auto px-6 py-7 w-full">
+          <fieldset class="space-y-8 w-full">
+            <div class="space-y-4">
+                            <textarea name="message" class="appearance-none bg-transparent border border-gray-600 disabled:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-gray-200 h-12 px-4 py-3 rounded-lg text-gray-100 text-sm w-full" placeholder="{% trans 'Type Your Message here ..' %}" pattern=".*\S.*" required>
+
+                            </textarea>
+            </div>
+          </fieldset>
+        </div>
+        <div class="bg-primary flex justify-center px-6 py-6 rounded-b-[20px]" style="position:inherit;">
+          <button type="submit" class="bg-secondary disabled:cursor-not-allowed flex focus:outline-none font-medium hover:bg-gray-100 items-center justify-center h-[50px] px-8 py-3 rounded-full shadow-sm submit text-sm text-primary w-full">{% trans "Continue" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+{% endif %}
+
+
+{% endblock %}
+{% block extra_body %}
+  {{ block.super }}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      'event': 'view_item',
+      'ecommerce.currency': 'SAR',
+      'ecommerce.items.0.item_id': '{{ order.seller.id }}',
+      'ecommerce.items.0.item_name': '{{ order.service }}',
+      'ecommerce.items.0.quantity': '1',
+      'ecommerce.value': '{{ order.order_item_financial_data.fixed_amount_paid|floatformat }}',
+      'user_email': '{{ request.user.email }}',
+      'user_phone_number': '{{ request.user.phone }}',
+    });
+  </script>
+{% endblock %}

@@ -222,14 +222,18 @@ const { order, messages } = storeToRefs(useOrdersStore());
 const { fetchMessages } = useOrdersStore();
 
 const id = useRoute().params.id;
+
 if (!process.client) {
     await fetchMessages(id);
 }
 
 onMounted(async () => {
+
     if (messages.value.length != 0) return;
     await fetchMessages(id);
+    
 });
+
 </script>
 
 <style scoped></style>

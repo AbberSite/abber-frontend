@@ -36,7 +36,9 @@
                     <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
                     <DetailsCard />
                 </div>
-                <DetailsChat /> 
+                <ClientOnly>
+                    <DetailsChat /> 
+                </ClientOnly>
             </div>
 
         </section>
@@ -70,6 +72,7 @@ onMounted(async () => {
 onUnmounted(() => {
     order.value = undefined;
 });
+
 </script>
 
 <style scoped></style>
