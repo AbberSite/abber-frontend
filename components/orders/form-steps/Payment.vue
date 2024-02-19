@@ -17,7 +17,7 @@
 
         <InputError :message="error" /> 
 
-            <div dir="ltr" class="payment-form" ref="paymentForm" >
+            <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm" >
             <form
             dir="ltr"
                 action="/orders/complete"

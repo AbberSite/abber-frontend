@@ -15,7 +15,7 @@
                 </div>
                 <div class="flex items-center justify-center pt-2 text-yellow-400">
                     <svg
-                        v-for="i in expressor.rate"
+                        v-for="i in floor(expressor.rate) ?? 1"
                         class="flex-shrink-0"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -50,6 +50,11 @@
 
 <script setup lang="ts">
 import type { Service } from '~/types';
+
+
+function floor(n: number) {
+    return Math.floor(n);
+}
 
 defineProps<{
     expressor : Service

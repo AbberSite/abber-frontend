@@ -1,6 +1,4 @@
 import type { Message, Order, PaginationResponse } from '~/types';
-import { useStorage, type RemovableRef } from '@vueuse/core';
-import { boolean } from 'yup';
 
 class OrdersStore {
     orders = ref<Order[]>([]);

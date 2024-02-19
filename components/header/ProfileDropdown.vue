@@ -37,10 +37,7 @@
         aria-labelledby="user-menu-button"
         tabindex="-1"
         x-cloak>
-        <NuxtLink class="flex items-center px-4 pb-3 pt-4" to="/profile"
-        @click="$emit('close')"
-        
-        >
+        <NuxtLink class="flex items-center px-4 pb-3 pt-4" to="/profile" @click="$emit('close')">
             <div class="flex-shrink-0">
                 <NuxtImg
                     class="lazyload h-10 w-10 rounded-full bg-gray-100"
@@ -66,25 +63,25 @@
                 tabindex="-1"
                 :to="{ name: 'profile' }"
                 @click="$emit('close')"
-    
                 >لوحة التحكم
             </NuxtLink>
             <NuxtLink
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
-                :to="{ name : 'orders'}"
-            @click="$emit('close')"
-
+                :to="{ name: 'orders' }"
+                @click="$emit('close')"
                 role="menuitem"
                 tabindex="-1"
                 >الطلبات
             </NuxtLink>
-            <a
+            <NuxtLink
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
+                :to="{ name: 'wallet' }"
+                @click="$emit('close')"
                 href="#"
                 role="menuitem"
                 tabindex="-1"
-                >المحفظة</a
-            >
+                >المحفظة
+            </NuxtLink>
         </div>
         <div class="py-2">
             <a

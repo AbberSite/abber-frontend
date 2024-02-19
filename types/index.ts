@@ -169,3 +169,25 @@ export type Message = {
     index: number;
     deleted: boolean;
 };
+
+export type BalanceRecord = {
+    user: string;
+    balance: number;
+    date: string;
+    type: "credit"|"debit";
+    transaction: number;
+};
+
+export type Transaction = {
+    id: number;
+    amount: number;
+    date: string;
+    type: string;
+    status: string;
+    method: string;
+    balance_record: BalanceRecord[];
+    user: string;
+    process_additional_data: {
+        merchant_amount: number;
+    };
+};
