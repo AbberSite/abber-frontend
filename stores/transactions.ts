@@ -9,14 +9,18 @@ class TransactionsStore {
         success : ''|'true'|'false',
         search? : string, 
         ignore? : boolean,
-        ordering : string
+        ordering : string,
+        date : Array<string>
     }>({
         success : '',  
         ignore: undefined,
         search : undefined,
-        ordering: 'date',
-
+        ordering: 'date', 
+        date : []
     });
+
+
+    filtersLoading  =ref(false) ;
 
     transactions = ref<Transaction[]>([])
 
@@ -27,7 +31,7 @@ class TransactionsStore {
 
     filtersCount = computed(() => {
         return (
-            Number(this.filters.value.success !== '')
+            Number(this.filters.value.success !== '') + Number(this.filters.value.date.length != 0)
         );
     });
 
@@ -36,7 +40,7 @@ class TransactionsStore {
     loading = ref(false)
 
     constructor() {
-        this.filtersPipline = [this.typeFilter, this.ordering];
+        this.filtersPipline = [this.typeFilter, this.ordering, this.search, this.range];
 
         if (TransactionsStore.filtersWatch) return;
         TransactionsStore.filtersWatch = watch(
@@ -48,8 +52,10 @@ class TransactionsStore {
                 }
 
                 if (!this) return;
-
+                this.filtersLoading.value = true
                 await this.fetchAll();
+                this.filtersLoading.value = false
+
 
                 if (process.client) {
                     localStorage.setItem('abber:transactions-filters', JSON.stringify(this.filters.value));
@@ -98,9 +104,20 @@ class TransactionsStore {
 
     }
 
+    search = () => {
+        if (this.filters.value.search === '') return {};
+
+        return { search: this.filters.value.search };
+    };
+
     ordering = () => {
         return { ordering: this.filters.value.ordering };
     };
+
+    range = () => {
+
+        return { date__gte : this.filters.value.date[0], date__lte : this.filters.value.date[1]}
+    }
 
     pipeFilters = () => {
         return this.filtersPipline.reduce((prev: any, curr: any) => {

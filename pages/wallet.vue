@@ -49,7 +49,7 @@ const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards'>(route.qu
 
 if(!process.client){
 
-    await fetchAll();
+    // await fetchAll();
 
 }
 

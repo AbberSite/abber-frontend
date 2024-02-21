@@ -23,9 +23,11 @@
                             class="form-control h-[50px] px-12"
                             type="search"
                             name="q"
+                            v-model="filters.search"
                             id="search"
                             placeholder="إبحث عن عملية مالية معينة"
                             required />
+
                         <button
                             class="absolute h-[50px] items-center justify-center px-4 py-4 ltr:right-0 rtl:left-0 sm:hidden"
                             type="button"
@@ -47,7 +49,9 @@
                     </div>
                 </div>
             </form>
-            <div class="relative">
+            <div class="relative flex items-center gap-4">
+                <Loading v-if="filtersLoading" />
+
                 <button
                     class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex"
                     type="button"
@@ -72,19 +76,22 @@
                     ><span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount }}</span>
                 </button>
 
-                <transition
-                    enter-active-class="transition-all"
-                    leave-active-class="transition-all"
-                    enter-from-class="translate-y-4 opacity-0"
-                    leave-to-class="translate-y-4 opacity-0">
-                    <WalletTransactionsFiltersDropdown
-                        v-if="filtersDropdown"
-                        v-on-click-outside="() => (filtersDropdown = false)" />
-                </transition>
+                <KeepAlive>
+                    <transition
+                        enter-active-class="transition-all"
+                        leave-active-class="transition-all"
+                        enter-from-class="translate-y-4 opacity-0"
+                        leave-to-class="translate-y-4 opacity-0">
+                        <WalletTransactionsFiltersDropdown
+                            v-show="filtersDropdown"
+                            v-on-click-outside="() => (filtersDropdown = false)" />
+                    </transition>
+                </KeepAlive>
             </div>
         </div>
         <div class="is-scroll w-full overflow-x-auto pt-6">
-            <WalletTransactionsTable :transactions="transactions" />
+            <SkeletonsOrdersTable v-if="loading" />
+            <WalletTransactionsTable v-else :transactions="transactions" />
             <Pagination
                 class="pt-10"
                 :results="(pagination as PaginationResponse<any>)"
@@ -100,19 +107,24 @@
 import { vOnClickOutside } from '@vueuse/components';
 import type { PaginationResponse } from '~/types';
 const { fetchAll } = useTransactionsStore();
-const { transactions, filtersCount, pagination } = storeToRefs(useTransactionsStore());
+const { transactions, filtersCount, pagination, filters, filtersLoading } = storeToRefs(useTransactionsStore());
 
 const filtersDropdown = ref(false);
 const showModal = ref(false);
+const loading = ref(false);
 
 if (!process.client) {
     await fetchAll();
 }
 
 onMounted(async () => {
+
     if (transactions.value.length === 0) {
+        loading.value = true;
         await fetchAll();
+        loading.value = false;
     }
+
 });
 </script>
 

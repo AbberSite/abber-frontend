@@ -97,3 +97,22 @@
     @apply ltr:pl-1.5 rtl:pr-1.5;
   }
 }
+
+
+:root {
+  /*General*/
+  --dp-border-radius: 0.375rem; /*Configurable border-radius*/
+  --dp-input-padding: 0.8rem 0.25rem; /*Padding in the input*/
+  --dp-action-buttons-padding: 10px 10px; /*Adjust padding for the action buttons in action row*/
+}
+
+.dp__theme_light {
+  --dp-primary-color: rgb(17 24 39);
+}
+
+.dp__input::placeholder {
+  @apply !text-gray-600 !transition-none;
+}
+.dp__input:focus {
+  border: 2px solid;
+}

@@ -174,7 +174,7 @@ export type BalanceRecord = {
     user: string;
     balance: number;
     date: string;
-    type: "credit"|"debit";
+    type: 'credit' | 'debit';
     transaction: number;
 };
 
@@ -190,4 +190,5 @@ export type Transaction = {
     process_additional_data: {
         merchant_amount: number;
     };
+    performed: boolean;
 };

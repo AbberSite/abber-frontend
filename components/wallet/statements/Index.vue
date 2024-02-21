@@ -85,7 +85,9 @@ import type { WalletStatementsPDFExport } from '~/.nuxt/components';
             </div>
         </div>
         <div class="is-scroll w-full overflow-x-auto pt-6">
-            <WalletStatementsTable :transactions="transactions" />
+            <SkeletonsOrdersTable  v-if="loading" /> 
+
+            <WalletStatementsTable v-else :transactions="transactions" />
             <Pagination
             class="pt-10"
             :results="(pagination as PaginationResponse<any>)"
@@ -105,6 +107,7 @@ const { fetchAll } = useTransactionsStore();
 const { transactions, pagination } = storeToRefs(useTransactionsStore());
 
 
+const loading = ref(false)
 const pdfDropdown = ref(false);
 const showModal = ref(false);
 
@@ -115,7 +118,9 @@ if (!process.client) {
 
 onMounted(async () => {
     if (transactions.value.length === 0) {
+        loading.value = true
         await fetchAll();
+        loading.value = false
     }
 });
 

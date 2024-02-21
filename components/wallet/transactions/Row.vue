@@ -12,7 +12,7 @@
             {{ transaction.type }}
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            {{ transaction.status == 'pending' ? 'قيد التنفيذ' : (transaction.status == 'transferred' ? ' نعم' : 'لا') }}
+            {{ transaction.performed ? ' نعم' : 'لا' }}
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             {{ useFormattedDate(transaction.date) }}
