@@ -80,7 +80,7 @@
                         </a>
                         <span class="text-sm">5 دقائق قراءة</span>
                     </div>
-                    <h1 class="pt-6 text-2xl font-semibold leading-[1.75]">
+                    <h1 class="pt-6 text-xl font-semibold leading-[1.75] lg:text-2xl lg:leading-[1.75]">
                         {{ post?.title }}
                     </h1>
                     <img
