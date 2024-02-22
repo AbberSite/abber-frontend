@@ -68,7 +68,7 @@
             <h1 class="sr-only" id="login-heading">التسجيل</h1>
             <img class="aspect-square" src="/assets/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
             <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بك في عبر</div>
-            <div class="pt-4 text-sm text-gray-800 xs:text-base">هل تود إنشاء حساب جديد في عبر</div>
+            <div class="pt-4 text-sm text-gray-800 xs:text-base">إدخل التفاصيل أدناه لأنشاء حساب جديد</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="submit">
                     <fieldset class="space-y-7">
@@ -78,7 +78,7 @@
                             v-model="name"
                             :error="errors.name"
                             label="الإسم الكامل"
-                            placeholder="اكتب إسمك الكامل">
+                            placeholder="ادخل إسمك الكامل">
                             <template #append>
                                 <div class="text-[13px] leading-loose text-gray-500 mt-3">
                                     يفضل أن يكون إسمك الكامل باللعة العربية
@@ -92,14 +92,14 @@
                             v-model="email"
                             :error="errors.email"
                             label="البريد الألكتروني"
-                            placeholder="البريد الألكتروني" />
+                            placeholder="ادخل عنوان بريدك الإلكتروني" />
 
                         <TextInput
                             v-model="password"
                             :type="show ? 'text' : 'password'"
                             name="password"
                             :error="errors.password"
-                            placeholder="كلمة المرور"
+                            placeholder="ادخل كلمة مرور سهلة التذكر و قوية"
                             label="كلمة المرور">
                             <template #append>
                                 <button

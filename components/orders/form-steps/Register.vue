@@ -12,7 +12,7 @@
                 v-model="name"
                 :error="errors.name"
                 label="الإسم الكامل"
-                placeholder="اكتب إسمك الكامل">
+                placeholder="ادخل إسمك الكامل">
                 <template #append>
                     <div class="text-[13px] leading-loose text-gray-500 mt-3">
                         يفضل أن يكون إسمك الكامل باللعة العربية
@@ -26,7 +26,7 @@
                 v-model="email"
                 :error="errors.email"
                 label="البريد الألكتروني"
-                placeholder="البريد الألكتروني" />
+                placeholder="ادخل عنوان بريدك الإلكتروني" />
 
             <TextInput
                 v-model="password"

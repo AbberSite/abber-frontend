@@ -78,18 +78,14 @@
                 <template v-if="activeTab == 'posts'">
                     <Suspense>
                         <template #fallback>
-                            <section
-                                class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44 w-full"
-                                aria-labelledby="articles-heading">
-                                <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
-                                    <SkeletonsPostCard />
-                                    <SkeletonsPostCard />
-                                    <SkeletonsPostCard />
-                                    <SkeletonsPostCard />
-                                    <SkeletonsPostCard />
-                                    <SkeletonsPostCard />
-                                </div>
-                            </section>
+                            <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
+                                <SkeletonsPostCard />
+                                <SkeletonsPostCard />
+                                <SkeletonsPostCard />
+                                <SkeletonsPostCard />
+                                <SkeletonsPostCard />
+                                <SkeletonsPostCard />
+                            </div>
                         </template>
 
                         <template #default>
