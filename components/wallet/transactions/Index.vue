@@ -107,25 +107,24 @@
 import { vOnClickOutside } from '@vueuse/components';
 import type { PaginationResponse } from '~/types';
 const { fetchAll } = useTransactionsStore();
-const { transactions, filtersCount, pagination, filters, filtersLoading } = storeToRefs(useTransactionsStore());
+const { transactions, filtersCount, pagination, filters, filtersLoading, loading } = storeToRefs(useTransactionsStore());
 
 const filtersDropdown = ref(false);
 const showModal = ref(false);
-const loading = ref(false);
 
 if (!process.client) {
     await fetchAll();
 }
 
-onMounted(async () => {
+// onMounted(async () => {
 
-    if (transactions.value.length === 0) {
-        loading.value = true;
-        await fetchAll();
-        loading.value = false;
-    }
+//     if (transactions.value.length === 0) {
+//         loading.value = true;
+//         await fetchAll();
+//         loading.value = false;
+//     }
 
-});
+// });
 </script>
 
 <style scoped></style>

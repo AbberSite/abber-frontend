@@ -21,6 +21,7 @@ class OrdersStore {
         ignore: undefined
     });
     messages = ref<Message[]>([]); 
+    messagesPagination = ref<PaginationResponse<Message>>()
 
     filtersCount = computed(() => {
         return (
@@ -97,7 +98,8 @@ class OrdersStore {
     };
 
     fetchMessages = async(id : string) => {
-        this.messages.value = (await useApi(`/api/orders/order/${id}/messages`)) as Message[];
+        this.messagesPagination.value = (await useApi(`/api/orders/order/${id}/messages`)) as PaginationResponse<Message>;
+        this.messages.value = this.messagesPagination.value.results
         return this.messages.value;
     }
 

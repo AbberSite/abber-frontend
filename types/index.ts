@@ -129,6 +129,7 @@ export type Order = {
     status: 'in_progress' | 'complete' | 'waiting_for_cancellation' | 'cancelled' | 'new' | 'awaiting_delivery';
     type: 'text_communication' | 'voice_communication';
     service: string;
+    service_details: Service;
     order_item_time_data: {
         ordered_date: string;
         complete_date?: string;

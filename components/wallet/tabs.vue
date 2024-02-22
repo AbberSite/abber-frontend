@@ -30,7 +30,10 @@
         ">
         <span>العمليات المالية</span
         ><span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-            {{ pagination?.count ?? 0 }}
+            <Loading class="w-3 h-3" v-if="loading" /> 
+            <template v-else>
+                {{ pagination?.count ?? 0 }}
+            </template>
         </span>
     </button>
     <button
@@ -46,7 +49,10 @@
         ">
         <span>كشف الحساب</span
         ><span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
+            <Loading class="w-3 h-3" v-if="loading" /> 
+            <template v-else>
             {{ pagination?.count ?? 0 }}
+            </template>
         </span>
     </button>
     <button
@@ -75,7 +81,7 @@ const props = defineProps<{
     modelValue?: 'summary' | 'operations' | 'statement' | 'cards';
 }>();
 
-const { pagination } = storeToRefs(useTransactionsStore())
+const { pagination, loading } = storeToRefs(useTransactionsStore())
 
 const emits = defineEmits(['update:modelValue']);
 const activeTab = useVModel(props, 'modelValue', emits);
