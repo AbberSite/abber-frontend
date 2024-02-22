@@ -1,7 +1,7 @@
 <template>
     <th class="whitespace-nowrap pb-1 pt-1 pe-12 font-semibold" scope="col" @click="toggle">
 
-        <button class="flex w-full items-center justify-between rounded-md bg-gray-100 px-4 pb-2 pt-3" type="button" v-if="active">
+        <button class="flex w-full items-center justify-between space-x-3 rounded-md bg-gray-100 px-4 pb-2 pt-3 rtl:space-x-reverse" type="button" v-if="active">
             <span>
                 {{ content }}
             </span>

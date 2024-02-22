@@ -32,7 +32,7 @@
         </th>
         <th class="whitespace-nowrap pb-1 pt-1 pe-12 font-semibold" scope="col">
             <button
-                class="flex w-full items-center justify-between rounded-md bg-gray-100 px-4 pb-2 pt-3"
+                class="flex w-full items-center justify-between space-x-3 rounded-md bg-gray-100 px-4 pb-2 pt-3 rtl:space-x-reverse"
                 type="button">
                 <span>التأريخ</span>
                 <svg
