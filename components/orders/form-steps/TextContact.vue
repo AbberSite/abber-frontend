@@ -134,16 +134,16 @@ import type { DatePickerInstance } from '@vuepic/vue-datepicker';
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            dream_title: yup.string().required('الرجاء ادخال عنوان الحلم').default(state.value.data?.dream_title),
-            dream_time: yup.string().required('الرجاء ادخال تاريخ الحلم').default( state.value.data?.dream_time ?? getCurrentDate()),
-            dream: yup.string().required('الرجاء ادخال وصف الحلم').default(state.value.data?.dream),
+            dream_title: yup.string().required("هذا الحقل مطلوب").default(state.value.data?.dream_title),
+            dream_time: yup.string().required("هذا الحقل مطلوب").default( state.value.data?.dream_time ?? getCurrentDate()),
+            dream: yup.string().required("هذا الحقل مطلوب").default(state.value.data?.dream),
             client: yup.boolean().default(state.value.data?.client),
 
             age: yup
                 .number()
                 .when('client', {
                     is: true,
-                    then: (schema) => schema.required('الرجاء ادخال عمر الشخص'),
+                    then: (schema) => schema.required("هذا الحقل مطلوب"),
                     otherwise: (schema) => schema.notRequired()
                 })
                 .default(state.value.data?.age),
@@ -154,7 +154,7 @@ const { defineField, errors, validate } = useForm({
                 .when('client', {
                     is: true,
                     then: (schema) =>
-                        schema.oneOf(['male', 'female'], 'الرجاء ادخال جنس الشخص').required('الرجاء ادخال جنس الشخص'),
+                        schema.oneOf(['male', 'female'], "هذا الحقل مطلوب").required("هذا الحقل مطلوب"),
                     otherwise: (schema) => schema.notRequired()
                 })
                 .default(state.value.data?.gender),
@@ -164,7 +164,7 @@ const { defineField, errors, validate } = useForm({
                 .default('single')
                 .when('client', {
                     is: true,
-                    then: (schema) => schema.required('الرجاء ادخال الحالة الاجتماعية للشخص'),
+                    then: (schema) => schema.required("هذا الحقل مطلوب"),
                     otherwise: (schema) => schema.notRequired()
                 })
                 .default(state.value.data?.marital_status),
@@ -173,7 +173,7 @@ const { defineField, errors, validate } = useForm({
                 .string()
                 .when('client', {
                     is: true,
-                    then: (schema) => schema.required('الرجاء ادخال مهنة الشخص'),
+                    then: (schema) => schema.required("هذا الحقل مطلوب"),
                     otherwise: (schema) => schema.notRequired()
                 })
                 .default(state.value.data?.profession)

@@ -179,8 +179,8 @@ const { signIn } = useAuth();
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').required('هذا الحقل يجب أن لا يكون فارغ'),
-            password: yup.string().required('كلمة السر يجب أن لا تكون فارغة')
+            email: yup.string().email('هذا الحقل يجب أن يكون بريد الكتروني صجيج').required('"هذا الحقل مطلوب"'),
+            password: yup.string().required("هذا الحقل مطلوب")
         })
     )
 });
@@ -209,6 +209,9 @@ async function submit() {
             useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
         })
         .catch((_error) => {
+
+            console.log(_error);
+            
             if (_error.response._data.status !== 'error') return;
 
             error.value = _error.response._data.error;

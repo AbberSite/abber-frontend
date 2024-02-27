@@ -72,7 +72,7 @@
                 <div class="w-full space-y-3">
                     <div class="relative">
                         <input
-                            v-model="search"
+                            v-model.lazy="search"
                             class="form-control h-[50px] appearance-none ps-12"
                             type="search"
                             name="q"
@@ -201,7 +201,8 @@ type Response = {
 };
 
 const selectedCategory = ref('');
-const posts = ref<Response>({ results: [] });
+// const posts = ref<Response>({ results: [] });
+const { posts } = storeToRefs(usePostsStore())
 const loading = ref(true);
 const search = ref('');
 const perPage = 9;
@@ -251,10 +252,16 @@ const pagainationMeta = ref<{ offset: number | string; limit: number | string }>
 
 onMounted(async () => {
 
-    await fetchPosts({ offset: 0, limit: perPage });
+    if(posts.value.results.length != 0) {
 
+        console.log(posts.value.results.length);
+        return
+        
+    }
+    await fetchPosts({ offset: 0, limit: perPage });
     await fetchPosts({ offset: 0, limit: perPage });
     total.value = posts.value.count;
+    
 });
 
 const from = computed(() => Number.parseInt(pagainationMeta.value.offset as string) + 1);

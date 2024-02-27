@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
             {
                 headers: {
                     keepAlive: true,
-                    Authorization: getHeaders(event).authorization,
+                    // Authorization: getHeaders(event).authorization,
                     'api-key': config.apiSecret
                 }
             }
@@ -24,6 +24,6 @@ export default defineEventHandler(async (event) => {
         return { token: response?.data?.access };
     } catch (error: any) {
         setResponseStatus(event, error?.response?.status ?? 500);
-        return { data: error?.response?.data, error: true };
+        return { data: error, error: true };
     }
 });

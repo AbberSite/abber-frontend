@@ -52,14 +52,16 @@ useSeoMeta({
     'appleid-signin-nonce': 'something',
     'appleid-signin-use-popup': 'true'
 });
+//         const { getSession } = useAuth();
+
+// await getSession();
 
 onMounted(async () => {
-    const { rawRefreshToken } = useAuthState();
-    if (rawRefreshToken.value) {
-        const { refresh } = useAuth();
-
-        await refresh();
-    }
+    // const { rawRefreshToken } = useAuthState();
+    // const { refresh } = useAuth()
+    // if (rawRefreshToken.value) {
+    //     await refresh()
+    // }
 });
 </script>
 

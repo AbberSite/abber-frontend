@@ -22,6 +22,30 @@ class OrdersStore {
     });
     messages = ref<Message[]>([]); 
     messagesPagination = ref<PaginationResponse<Message>>()
+    segmentedMessages = computed<Array<{ index : string, messages : Message[]}>>(() => {
+
+        const segments: Array<{ index : string, messages : Message[]}> = [];
+    
+        this.messages.value?.map?.((message) => {
+    
+            const date = useArabicFormattedDate(message.date);
+    
+            const existingSegment = segments.find((segment) => segment.index === date);
+    
+            if(existingSegment) {
+                existingSegment.messages.push(message);
+                return;
+            }
+    
+            segments.push({
+                index : date,
+                messages : [message]
+            })
+    
+        });
+    
+        return segments.reverse();
+    });
 
     filtersCount = computed(() => {
         return (
@@ -97,8 +121,8 @@ class OrdersStore {
         return this.order.value;
     };
 
-    fetchMessages = async(id : string) => {
-        this.messagesPagination.value = (await useApi(`/api/orders/order/${id}/messages`)) as PaginationResponse<Message>;
+    fetchMessages = async(id : string, params : any = {}) => {
+        this.messagesPagination.value = (await useApi(`/api/orders/order/${id}/messages`, {params : Object.assign({ordering: '-date'}, params)})) as PaginationResponse<Message>;
         this.messages.value = this.messagesPagination.value.results
         return this.messages.value;
     }

@@ -112,17 +112,17 @@ const pdfDropdown = ref(false);
 const showModal = ref(false);
 
 
-if (!process.client) {
-    await fetchAll();
-}
+// if (!process.client) {
+//     await fetchAll();
+// }
 
-onMounted(async () => {
-    if (transactions.value.length === 0) {
-        loading.value = true
-        await fetchAll();
-        loading.value = false
-    }
-});
+// onMounted(async () => {
+//     if (transactions.value.length === 0) {
+//         loading.value = true
+//         await fetchAll();
+//         loading.value = false
+//     }
+// });
 
 </script>
 

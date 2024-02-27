@@ -163,7 +163,7 @@ export type Message = {
         is_online: boolean;
     };
     files?: File[];
-    message: string;
+    message: string|string[];
     room: string;
     date: string;
     read: boolean;

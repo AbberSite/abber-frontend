@@ -24,7 +24,7 @@
                 <div class="flex-shrink-0">
                     <NuxtImg
                         class="lazyload h-11 w-11 rounded-full bg-gray-100"
-                        :src="order?.seller?.image ?? ''"
+                        :src="order?.seller?.image ?? 'test'"
                         height="44"
                         width="44"
                         alt="" />
@@ -35,10 +35,9 @@
                             {{ order?.seller?.first_name }}
                         </div>
 
-                        <!-- TODO : add rating when the API is updated -->
                         <div class="mt-1.5 flex items-center pb-2 text-yellow-400">
                             <svg
-                                v-for="i in 5"
+                            v-for="i in  Math.floor(order?.service_details?.rate ?? 0 as number)"
                                 class="flex-shrink-0"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20"
@@ -52,16 +51,11 @@
                                     clip-rule="evenodd"></path>
                             </svg>
 
-                            <!-- TODO : add ordered count when the API is updated -->
-                            <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800">(13)</span>
+                            <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800">({{ order?.service_details?.ordered_count }})</span>
                         </div>
                     </div>
                     <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
-                        
-                        <!-- TODO : add about when the API is updated -->
-                        هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل
-                        الخارجي للنص
-
+                        {{ order?.service_details?.seller.about }}
                     </div>
                 </div>
             </div>

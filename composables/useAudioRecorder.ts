@@ -7,6 +7,8 @@ class AudioRecorder {
     mediaRecorder : undefined|MediaRecorder 
     element =  undefined 
 
+    mimeType? : string
+
 
     streamBeingCaptured :  undefined|MediaStream 
 
@@ -50,6 +52,8 @@ class AudioRecorder {
         this.streamBeingCaptured = stream;
 
         this.mediaRecorder = new MediaRecorder(stream);
+        
+        this.mimeType = this.mediaRecorder.mimeType
 
         this.audioBlobs = [];
 

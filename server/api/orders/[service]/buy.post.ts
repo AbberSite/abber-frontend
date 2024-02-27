@@ -26,8 +26,16 @@ export default defineEventHandler(async (event) => {
 
     } catch (error: any) {
 
-        setResponseStatus(event, 500);
-        return error.response;
+        setResponseStatus(event, error.response?.status ?? 500);
+
+       
+        return { 
+
+            data : error?.response?.data, 
+            status : "error", 
+            error : "حدث خطأ ما"
+            
+        }
 
     }
 });

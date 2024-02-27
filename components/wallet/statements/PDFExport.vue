@@ -22,7 +22,7 @@
             </div>
 
             <PrimaryButton @click="exportPDF" class="w-full" v-if="customRange?.[0] || customRange?.[1]" :loading="loading">
-                 استخراج
+                 تصدير
             </PrimaryButton>
 
             <!-- <div class="w-full space-y-3">

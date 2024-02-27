@@ -12,26 +12,57 @@ export default defineNuxtConfig({
         }
     },
 
+    routeRules :{
+        '/api-proxy/**' : {proxy : 'https://test.abber.co/api/**', headers : { 'api-key' : 'd378b42b1f3f18f231edb2f253e43025dc01406f'},  ssr : true, swr : true},
+        '/file/**' : {proxy : 'https://d336rd5betdm19.cloudfront.net/**', headers : { 'api-key' : '27fe0837909c033d8a143b33b1257dc165495349'}},
+
+    }, 
     runtimeConfig: {
 
         // HTTP_API_KEY=d378b42b1f3f18f231edb2f253e43025dc01406f
         // prod
-        apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
-        apiBasePath: 'https://abber.co/api'
+        // apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
+        // apiBasePath: 'https://abber.co/api'
         // test
-        // apiSecret: 'd378b42b1f3f18f231edb2f253e43025dc01406f',
-        // apiBasePath: 'https://test.abber.co/api'
+        apiSecret: 'd378b42b1f3f18f231edb2f253e43025dc01406f',
+        apiBasePath: 'https://test.abber.co/api'
     },
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
 
-    
     auth: {
         globalAppMiddleware: true, 
+        session : {
+            enableRefreshOnWindowFocus : false,
+            enableRefreshPeriodically : false
+        },
+
+        // baseURL : "/", 
+
         provider: {
+            
             type: 'refresh',
             pages: {
-                login: '/accounts/login'
+                login: '/accounts/login',
             },
+
+            // endpoints : {
+                // refresh : { path : "/api-proxy/authentication/token/refresh/", method : "post"},
+                // getSession : { path : "/api-proxy/accounts/account/", method : "get"},
+                // signIn : {path : "/api-proxy/authentication/login/", method : "post"}
+            // }, 
+
+            refreshToken : {
+                // signInResponseRefreshTokenPointer : "/refresh"
+
+            }, 
+            token : {
+                // signInResponseTokenPointer : "/access",
+                sameSiteAttribute : "strict"
+            }, 
+            
+
+            refreshOnlyToken : true,
+            
             // sessionDataType: {
             //     'username': 'string',
             //     'email': 'string',
@@ -72,7 +103,15 @@ export default defineNuxtConfig({
                 {
                     src: 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js',
                     type: 'text/javascript'
-                }
+                },
+                {
+                    src: '/audio-recorder/WebAudioRecorder.min.js',
+                    type: 'text/javascript'
+                },
+                {
+                    src: '/audio-recorder/Mp3LameEncoder.js',
+                    type: 'text/javascript'
+                },
             ]
         }
     },

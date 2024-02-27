@@ -73,7 +73,7 @@ async function login() {
 
     try {
         if (otp.value === '') {
-            error.value = 'يجب ادخال رمز OTP ';
+            error.value = "هذا الحقل مطلوب";
             return;
         }
 

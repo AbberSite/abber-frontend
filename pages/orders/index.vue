@@ -84,7 +84,7 @@
             {{ filters.search }}
 
 
-            <template v-if="orders.length == 0">
+            <template v-if="orders.length == 0 && !loading">
                 <div class="pt-4 text-sm text-gray-800 xs:text-base">لا توجد طلبات لعرضها</div>
                 <div class="w-full pt-8 sm:w-auto" v-if="data.user_type == 'عميل'">
                     <NuxtLink
@@ -215,11 +215,9 @@ const { fetchAll } = useOrdersStore();
 const { orders, pagination, loading, filtersCount, filters } = storeToRefs(useOrdersStore());
 const { data } = useAuth();
 
-loading.value = true;
 
-await fetchAll();
+// await fetchAll();
 
-loading.value = false;
 
 onMounted(async () => {
     const persistedFilters = localStorage.getItem('abber:filters');
@@ -227,6 +225,11 @@ onMounted(async () => {
         filters.value = Object.assign(JSON.parse(persistedFilters), { ignore: true });
     }
     if (orders.value.length != 0) return;
+loading.value = true;
+
     await fetchAll();
+
+loading.value = false;
+
 });
 </script>

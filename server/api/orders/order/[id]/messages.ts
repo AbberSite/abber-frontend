@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
     const id = event.context.params?.id
     const headers = getHeaders(event);
     const Authorization = headers.authorization;
+    const params = getQuery(event) 
 
 
     try {
@@ -15,6 +16,7 @@ export default defineEventHandler(async (event) => {
                 'api-key' : config.apiSecret,
                 Authorization
             }, 
+            params
         })
 
         return response.data

@@ -3,9 +3,9 @@ import type { PaginationResponse, Post } from "~/types";
 class PostsStore {
     total = ref<number | undefined>(0);
 
-    posts = ref<Post[]|undefined>([]);
+    posts = ref<PaginationResponse<Post>>({ results: [] });
 
-    firstThreePosts = computed(() => this.posts.value?.filter((post, index) => index < 3)) ?? [];
+    firstThreePosts = computed(() => this.posts.value?.results?.filter((post, index) => index < 3)) ?? [];
 
     bookmarkedTotal = ref<number|undefined>(0)
 
@@ -19,7 +19,7 @@ class PostsStore {
         })) as { data : Ref<PaginationResponse<Post>>};
 
         this.total.value = data.value?.count;
-        this.posts.value = data.value?.results
+        this.posts.value = data.value;
 
     };
 

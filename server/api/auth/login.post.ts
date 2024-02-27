@@ -20,7 +20,6 @@ export default defineEventHandler(async (event) => {
             },
         );
 
-
         return {
 
             token : response.data.access_token,

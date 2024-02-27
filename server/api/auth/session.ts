@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
         }
 
         return {
-            data: error.response?.data,
+            data: error,
             status: 'error',
             error: 'حدث خطأ ما'
         };

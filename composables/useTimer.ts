@@ -5,13 +5,25 @@ class Timer {
 
     public timout: undefined | number;
     public onTimeout: undefined | Function;
+    public hours : undefined | boolean
 
-    init = ({ timeout, onTimeout }: { timeout?: number; onTimeout?: Function }) => {
+    init = ({ timeout, onTimeout, hours }: { timeout?: number; onTimeout?: Function, hours? :boolean }) => {
 
         this.timout = timeout
         this.onTimeout = onTimeout
+        this.hours = hours
+
+        if(hours){
+
+            this.display.value = `00:00:00`;
+        }
+        else {
+            this.display.value = `00:00`;
+        }
 
         return {display: this.display}
+
+
     };
 
     start = () => {
@@ -19,9 +31,18 @@ class Timer {
 
             this.sec++;
 
-            this.display.value = `${this.pad(Math.floor(this.sec / 3600))}:${this.pad(
-                Math.floor(this.sec / 60)
-            )}:${this.pad(this.sec % 60)}`;
+
+            if(this.hours){
+
+                this.display.value = `${this.pad(Math.floor(this.sec / 3600))}:${this.pad(
+                    Math.floor(this.sec / 60)
+                )}:${this.pad(this.sec % 60)}`;
+            }else {
+                this.display.value = `${this.pad(
+                    Math.floor(this.sec / 60)
+                )}:${this.pad(this.sec % 60)}`;
+
+            }
 
             if (this.timout && this.sec === this.timout) {
                 await this.onTimeout?.();
@@ -35,7 +56,12 @@ class Timer {
     reset = () => {
         this.sec = 0;
         clearInterval(this.interval);
-        this.display.value = `00:00:00`;
+        if(this.hours){
+
+            this.display.value = `00:00:00`;
+        }else {
+            this.display.value = `00:00`;
+        }
     };
     pad = (val: number) => {
         return val > 9 ? val : `0` + val;

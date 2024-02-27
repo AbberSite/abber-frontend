@@ -197,17 +197,13 @@ definePageMeta({
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').required('هذا الحقل يجب أن لا يكون فارغ'),
-            name: yup.string().required('هذا الحقل يجب أن لا يكون فارغ'),
+            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').required("هذا الحقل مطلوب"),
+            name: yup.string().required("هذا الحقل مطلوب"),
             password: yup
                 .string()
                 .min(8, 'طول كلمة السر يجب أن يكون 8 حروف أو أكثر')
-                .matches(
-                    new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'),
-                    'كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام'
-                )
-                .required('هذا الحقل يجب أن لا يكون فارغ'),
-            phone: yup.string(),
+                .required("هذا الحقل مطلوب"),
+            phone: yup.string().required("هذا الحقل مطلوب"),
             terms: yup
                 .boolean()
                 .isTrue('يجب الموافقة على الشروط و الأحكام')
