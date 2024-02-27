@@ -46,7 +46,7 @@
             v-model="email"
             :error="errors.email"
             label="البريد الألكتروني"
-            placeholder="البريد الألكتروني" />
+            placeholder="ادخل عنوان بريدك الإلكتروني" />
 
             <div>
               <!-- <button

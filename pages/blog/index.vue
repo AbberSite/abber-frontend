@@ -115,9 +115,13 @@
             <nav class="flex w-full items-center justify-between pt-28" aria-label="Pagination">
                 <div class="hidden sm:block">
                     <p class="space-x-2 rtl:space-x-reverse">
-                        <span>عرض</span><span class="font-semibold"> {{ from }} </span><span>إلى</span
-                        ><span class="font-semibold"> {{ to }} </span><span>من</span
-                        ><span class="font-semibold">{{ posts.count }} </span><span>نتيجة</span>
+                        <span>عرض</span>
+                        <span class="font-semibold">{{ from }}</span>
+                        <span>إلى</span>
+                        <span class="font-semibold">{{ to }}</span>
+                        <span>من</span>
+                        <span class="font-semibold">{{ posts.count }}</span>
+                        <span>نتيجة</span>
                     </p>
                 </div>
                 <div class="flex w-full items-center justify-between sm:justify-end">

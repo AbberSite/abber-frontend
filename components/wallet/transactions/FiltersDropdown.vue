@@ -32,7 +32,7 @@
             </div>
 
             <div v-if="type == 'custom'" class="space-y-3 flex flex-col items-center">
-                <div v-if="!customRange?.[0] || !customRange?.[1]">أختر تاريخ البداية ثم النهاية</div>
+                <div v-if="!customRange?.[0] || !customRange?.[1]" class="font-semibold">أختر تاريخ البداية ثم النهاية</div>
                 <DatePicker
                     range
                     placeholder="mm/dd/yyyy"

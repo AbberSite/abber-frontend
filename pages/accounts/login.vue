@@ -77,13 +77,13 @@
                             v-model="email"
                             :error="errors.email"
                             label="البريد الألكتروني"
-                            placeholder="البريد الألكتروني" />
+                            placeholder="ادخل عنوان بريدك الإلكتروني" />
 
                         <TextInput
                             v-model="password"
                             :type="show ? 'text' : 'password'"
                             name="password"
-                            placeholder="كلمة المرور"
+                            placeholder="ادخل كلمة المرور الخاصة بك"
                             label="كلمة المرور" > 
                         
                             <template #append>

@@ -80,7 +80,7 @@
                         </a>
                         <span class="text-sm">5 دقائق قراءة</span>
                     </div>
-                    <h1 class="pt-6 text-2xl font-semibold leading-[1.75]">
+                    <h1 class="pt-6 text-xl font-semibold leading-[1.75] lg:text-2xl lg:leading-[1.75]">
                         {{ post?.title }}
                     </h1>
                     <img
@@ -90,7 +90,7 @@
                         width="384"
                         alt="صورة المقالة" />
                     <div
-                        class="js-toc-content prose-sm sm:prose prose-gray pt-8 lg:max-w-full"
+                        class="js-toc-content prose prose-sm prose-gray pt-8 lg:prose-base lg:max-w-full"
                         ref="contentEl"
                         v-html="post?.content" />
                     <div class="mt-8 border-t border-gray-100 pt-8">
