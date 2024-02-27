@@ -210,12 +210,7 @@ const { defineField, errors, validate, setErrors } = useForm({
             password: yup
                 .string()
                 .min(8, 'طول كلمة السر يجب أن يكون 8 حروف أو أكثر')
-                .matches(
-                    new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'),
-                    'كلمة السر يجب أن تكون مزيج من أحرف كبيرة و صغيرة و أرقام'
-                )
                 .required(),
-
             passwordConfirmation: yup.string().oneOf([yup.ref('password')], 'هذا الحقل يجب أن يطابق كلمة السر')
         })
     )

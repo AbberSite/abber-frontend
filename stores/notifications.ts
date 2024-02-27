@@ -5,10 +5,11 @@ class Notifications {
 
 	notifications = ref<Notification[]>([])
 
-	notification = (notification : Notification, duration : number) => {
+	notification = (notification : Notification, duration : number, timeout : boolean = true) => {
 		this.notifications.value.unshift(
 			Object.assign(notification, { id: Math.random() })
 		);
+		if(!timeout) return
 		setTimeout(() => this.notifications.value.pop(), duration);
 	};
 

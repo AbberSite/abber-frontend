@@ -72,6 +72,10 @@ onMounted(async () => {
     await fetchAll();
     await fetchAll();
 
+    if (voiceCommunicationServices.length == 0) {
+        useNotification({ content : 'الخدمة الصوتية متوقفة حاليا', type : 'warning'}, false);
+    }
+
 });
 
 const voiceCommunicationButtonClasses = computed(() => {

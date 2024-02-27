@@ -112,6 +112,7 @@
         id: number;
         type: 'success' | 'warning' | 'info' | 'danger';
     }>();
+    
 </script>
 
 <style scoped></style>
