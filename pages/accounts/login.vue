@@ -201,7 +201,7 @@ async function submit() {
     signIn(
         { email: email.value, password: password.value },
         {
-            callbackUrl: '/',
+            callbackUrl: '/profile',
             redirect: true
         }
     )
@@ -217,6 +217,7 @@ async function submit() {
             error.value = _error.response._data.error;
         })
         .finally(() => (loading.value = false));
+        
 }
 </script>
 

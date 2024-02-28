@@ -1,7 +1,6 @@
 <template>
     <div
         class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base">
-
         <template v-if="loading">
             <SkeletonsCategorie />
             <SkeletonsCategorie />
@@ -36,9 +35,7 @@
                     </span>
                 </a>
             </template>
-
         </template>
-        
     </div>
 </template>
 
@@ -47,15 +44,11 @@ const emits = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     total: number;
-    modelValue: string;
 }>();
 
-const selectedCategory = ref(props.modelValue);
+const { selectedCategory, categories } = storeToRefs(usePostsStore());
+
 const loading = ref(false);
-
-watch(selectedCategory, (value) => emits('update:modelValue', value));
-
-const categories = ref<{ results?: Array<{ name: string; id: string; posts_count: number }> }>({ results: [] });
 
 async function fetchCategories() {
     loading.value = true;
@@ -67,15 +60,12 @@ async function fetchCategories() {
     loading.value = false;
 }
 
-if(!process.client){
-
+if (!process.client) {
     await fetchCategories();
-
 }
 
 onMounted(async () => {
-
-    if(categories.value?.results?.length == 0){
+    if (categories.value?.results?.length == 0) {
         await fetchCategories();
     }
 });

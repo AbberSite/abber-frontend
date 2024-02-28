@@ -10,8 +10,7 @@
                     <OrdersTableHeaderCol content="النوع" />
                     <OrdersTableHeaderCol content="عنوان الحلم" order="title"/>
                     <OrdersTableHeaderCol content="التأريخ" order="order_item_time_data__start_date" />
-                    <th class="px-4 pb-1 pt-1" scope="col"></th>
-
+                    <!-- <th class="px-4 pb-1 pt-1" scope="col"></th> -->
                     <OrdersTableHeaderCol />
                 </tr>
             </thead>

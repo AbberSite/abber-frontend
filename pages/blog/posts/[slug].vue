@@ -195,7 +195,7 @@
         </div>
     </section>
 
-    <Articles :current-post-slug="post?.slug" title="مقالات" description="إقرأ المزيد من المقالات" />
+    <Articles :similar-posts="post.similar_posts" :similar="true" :current-post-slug="post?.slug" title="مقالات" description="إقرأ المزيد من المقالات" />
 </template>
 
 <script setup lang="ts">
@@ -219,6 +219,7 @@ type Post = {
     slug?: string;
     active?: boolean;
     bookmark?: [];
+    similar_posts : Post[]
 };
 
 type Category = {

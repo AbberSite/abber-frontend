@@ -175,8 +175,8 @@ import { useDebounceFn } from '@vueuse/core';
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 
 definePageMeta({
-    auth : false
-})
+    auth: false
+});
 
 type Post = {
     id: string;
@@ -204,9 +204,11 @@ type Response = {
     results: Post[];
 };
 
-const selectedCategory = ref('');
+const router = useRouter();
+const route = useRoute();
+
 // const posts = ref<Response>({ results: [] });
-const { posts } = storeToRefs(usePostsStore())
+const { posts, selectedCategory } = storeToRefs(usePostsStore());
 const loading = ref(true);
 const search = ref('');
 const perPage = 9;
@@ -225,12 +227,14 @@ const debouncedSearch = useDebounceFn(async (value) => {
 watch(search, debouncedSearch);
 
 watch(selectedCategory, async (value: string) => {
+    loading.value = true;
     await fetchPosts({ post_category: value, search: search.value });
+
+    router.push(`/blog?category=${value}`);
+    loading.value = false;
 });
 
 async function fetchPosts(params: any) {
-    loading.value = true;
-
     params.active = true;
     params.accepted = true;
     params.limit = perPage;
@@ -255,17 +259,14 @@ const total = ref<number | undefined>(0);
 const pagainationMeta = ref<{ offset: number | string; limit: number | string }>({ offset: 0, limit: perPage });
 
 onMounted(async () => {
-
-    if(posts.value.results.length != 0) {
-
-        console.log(posts.value.results.length);
-        return
-        
+    if (posts.value.results.length != 0) {
+        loading.value = false;
+        return;
     }
     await fetchPosts({ offset: 0, limit: perPage });
     await fetchPosts({ offset: 0, limit: perPage });
     total.value = posts.value.count;
-    
+    loading.value = false;
 });
 
 const from = computed(() => Number.parseInt(pagainationMeta.value.offset as string) + 1);

@@ -24,7 +24,6 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@ffmpeg/ffmpeg": "^0.12.10",
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.1.1",
     "@nuxt/image": "^1.1.0",
@@ -37,6 +36,7 @@
     "axios": "^1.6.2",
     "card-validator": "^9.0.0",
     "cleave-zen": "^0.0.17",
+    "ffmpeg.js": "^4.2.9003",
     "formidable": "^3.5.1",
     "google-oauth-gsi": "^4.0.0",
     "h3-formidable": "^1.0.0",

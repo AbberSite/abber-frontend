@@ -15,7 +15,7 @@ class TransactionsStore {
         success : '',  
         ignore: undefined,
         search : undefined,
-        ordering: 'date', 
+        ordering: '-date', 
         date : []
     });
 

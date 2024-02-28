@@ -258,7 +258,7 @@ async function submit() {
         await signUp(
             { name: name.value, email: email.value, password: password.value, phone: '+' + phone.value },
             {
-                callbackUrl: '/',
+                callbackUrl: '/profile',
                 redirect: true
             }
         );

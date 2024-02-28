@@ -25,10 +25,12 @@ class ServicesStore {
     };
 
     hasVideoService(service: Service): boolean {
+        if(service.service_methods.length == 0) return false
         return !!service.service_methods.filter((method) => method.type == 'voice_communication');
     }
 
     hasTextService(service: Service): boolean {
+        if(service.service_methods.length == 0) return false
         return !!service.service_methods.filter((method) => method.type == 'text_communication');
     }
 }

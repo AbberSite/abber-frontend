@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
     
     const config = useRuntimeConfig();
 
+
     try {
 
         const response = await axios.post(config.apiBasePath + `/orders/buy-now/${service}/`, body, {

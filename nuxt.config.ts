@@ -61,7 +61,7 @@ export default defineNuxtConfig({
             }, 
             
 
-            refreshOnlyToken : true,
+            // refreshOnlyToken : true,
             
             // sessionDataType: {
             //     'username': 'string',

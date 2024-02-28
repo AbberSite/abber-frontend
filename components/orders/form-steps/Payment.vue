@@ -154,9 +154,9 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         
         // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
 
-        // ${state.value.data?.service_id}
+        // 
 
-        const checkout = await useApi(`/api/orders/85/buy`, {
+        const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
             method: 'POST',
             body: {
                 type: state.value.data?.type,

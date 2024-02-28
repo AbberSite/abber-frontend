@@ -48,12 +48,10 @@ const emits = defineEmits(['next']);
 
 const loading = ref(false);
 
-// const services = ref<Service[]>([]);
-
 const selectedService = ref(state.value.data?.service_id);
-const { fetchAll, voiceCommunicationServices, textCommunicationServices } = useServicesStore();
+const { fetchAll } = useServicesStore();
 
-const { services } = storeToRefs(useServicesStore());
+const { services, voiceCommunicationServices, textCommunicationServices } = storeToRefs(useServicesStore());
 
 onMounted(async () => {
 

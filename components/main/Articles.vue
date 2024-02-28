@@ -41,7 +41,10 @@
                     :slug="post.slug" />
             </template>
 
-            <NuxtLink v-if="!noHeader" :to="{ name: 'blog' }" class="block text-center font-semibold xs:text-lg sm:hidden"
+            <NuxtLink
+                v-if="!noHeader"
+                :to="{ name: 'blog' }"
+                class="block text-center font-semibold xs:text-lg sm:hidden"
                 >عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink
             >
         </div>
@@ -60,6 +63,7 @@ type Post = {
     slug: string;
     active: boolean;
     bookmark: [];
+    similar_posts: Post[];
 };
 
 type Category = {
@@ -80,6 +84,8 @@ const props = withDefaults(
         description?: string;
         currentPostSlug?: string;
         noHeader?: boolean;
+        similar: true;
+        similarPosts: Post[];
     }>(),
     {
         title: 'المدونة',
@@ -92,33 +98,32 @@ const loading = ref(true);
 const posts = ref<Post[]>();
 const { firstThreePosts } = storeToRefs(usePostsStore());
 
-const { fetchAll } = usePostsStore()
+const { fetchAll } = usePostsStore();
 
-
-if(firstThreePosts.value?.length !== 3 && !process.client) {
-
-await fetchAll()
-
+if (firstThreePosts.value?.length !== 3 && !process.client && !props.similar) {
+    await fetchAll();
 }
 
+if (props.currentPostSlug) {
+    posts.value = props.similarPosts;
+}
 
 loading.value = false;
 
-
 onMounted(async () => {
+    if (firstThreePosts.value?.length === 3) {
+        loading.value = false;
 
-
-    if(firstThreePosts.value?.length === 3) {
-
-        loading.value = false
-        return
-        
+        return;
     }
 
-    await fetchAll()
-
+    if (props.similar) {
+        posts.value = props.similarPosts;
+        loading.value = false;
+        return;
+    }
+    await fetchAll();
     loading.value = false;
-
 });
 </script>
 

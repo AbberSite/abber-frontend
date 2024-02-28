@@ -11,7 +11,9 @@
             <p class="pt-4 text-justify text-sm text-gray-800 xs:text-base">في عبر، نساعدك على فهم أحلامك والرسائل الخفية
                 التي تحملها لك. لدينا فريق من المعبرين الموثوقين والمتخصصين في علم تفسير الأحلام، سيقدمون لك تفسيراً دقيقًا
                 ومنطقياً لأحلامك، بناءً على خبرتهم الواسعة ومعرفتهم بتعبير الأحلام.</p>
-            <div class="w-full pt-8 sm:w-auto">
+            <div class="w-full pt-8 sm:w-auto"
+            v-if="status === 'unauthenticated' ||  data.user_type == 'عميل'"
+            >
                 <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                     :to="{ name : 'orders-make'}"> <span class="mt-1.5">فسر حلمك الان</span></NuxtLink>
             </div>
@@ -85,6 +87,8 @@
 
 import { ArrowLeftEndOnRectangleIcon, UserGroupIcon, CreditCardIcon, ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 
+
+const { data, status } = useAuth()
 
 </script>
 
