@@ -42,7 +42,7 @@ export default defineNuxtConfig({
             
             type: 'refresh',
             pages: {
-                login: '/accounts/login',
+                login: '/accounts/sms',
             },
 
             // endpoints : {

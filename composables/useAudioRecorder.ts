@@ -21,7 +21,7 @@ class AudioRecorder {
         this.timer = timer
     }
 
-    init =  (options? : { timer? : { timeout?: number; onTimeout?: Function }}) : { status : Ref<Status>, timer : ReturnType<typeof useTimer>} => {
+    init =  (options? : { timer? : { timeout?: number; onTimeout?: Function, hours? :boolean }}) : { status : Ref<Status>, timer : ReturnType<typeof useTimer>} => {
 
         if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
             throw new Error('audio recording is not supported in your browser');
@@ -35,9 +35,9 @@ class AudioRecorder {
 
             if(timer){
 
-                const { timeout, onTimeout } = timer
+                const { timeout, onTimeout, hours } = timer
 
-                this.timer.init({ timeout, onTimeout})
+                this.timer.init({ timeout, onTimeout, hours})
     
             }
 

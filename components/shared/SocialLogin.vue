@@ -69,6 +69,25 @@
             <span class="ms-3 mt-1.5">سجل دخولك بواسطة ابل ايدي</span>
         </button>
     </div>
+
+    <div class="pt-4">
+        <NuxtLink
+            class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+            :to="{name :route.name == 'accounts-login' ? 'accounts-sms':  'accounts-login'}">
+            <svg
+                class="text-blue-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                height="22"
+                with="22">
+                <path
+                    d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"></path>
+                <path
+                    d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"></path></svg
+            ><span class="ms-3 mt-1.5">سجل دخولك بواسطة {{route.name == 'accounts-login' ? 'sms' : 'البريد'}}</span>
+        </NuxtLink>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -76,13 +95,14 @@ let googleLogin = () => console.log('google not initialized yet');
 
 const router = useRouter();
 
+const route = useRoute()
+
 onMounted(async () => {
     const googleProvider: any = await useGoogleProvider();
 
     googleLogin = googleProvider.useGoogleLogin({
         flow: 'implicit',
         onSuccess: async (response: { access_token: string }) => {
-            
             const { data } = await useFetch('/api/auth/google', {
                 method: 'POST',
                 body: {
@@ -95,7 +115,6 @@ onMounted(async () => {
             await useRouter().push({ name: 'index' });
 
             useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-
         }
     });
 

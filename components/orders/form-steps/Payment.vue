@@ -5,41 +5,89 @@
     <div class="min-h-[20rem]">
         <div class="hidden">
             <span
-                class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand "
+                class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
                 :class="cardImage.class">
                 <NuxtImg class="w-8" :src="cardImage.src" />
             </span>
+        </div>
+
+        <div class="w-full space-y-3" x-id="['input']" v-if="!loading">
+            <label class="block text-sm font-semibold xs:text-base" for="payment-method">نوع البطاقة</label>
+            <select
+                v-model="paymentMethod"
+                class="form-control form-select h-[50px] appearance-none"
+                type="select"
+                name="select"
+                id="payment-method"
+                required>
+                <option value="VISA MASTER MADA">فيزا كارد, ماستر كارد, مدى كارد</option>
+                <option value="APPLEPAY">ابل باي</option>
+                <option value="STC_PAY">اس تي سي باي</option>
+                <option value="WALLET" v-bind="{ disabled: !hasSufficientBallance }">
+                    المحفظة {{ !hasSufficientBallance ? '( ليس لديك الرصيد الكافي )' : '' }}
+                </option>
+            </select>
         </div>
 
         <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
             <Loading class="w-14 h-14" />
         </div>
 
-        <InputError :message="error" /> 
+        <InputError :message="error" />
 
-            <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm" >
-            <form
-            dir="ltr"
-                action="/orders/complete"
-                class="paymentWidgets"
-                data-brands="VISA MASTER MADA"></form>
-
+        <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm">
+            <form dir="ltr" action="/orders/complete" class="paymentWidgets" :data-brands="paymentMethod"></form>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
+import 'intl-tel-input/build/css/intlTelInput.css';
 import useScript from '~/composables/useScript';
+import intlTelInput from 'intl-tel-input';
 
 const { state, persist } = useFormWizard<OrderForm>('order');
-const { data, getSession } = useAuth()
+const { data, getSession } = useAuth();
+
+let hyper: any = undefined;
 
 const cardType = ref('general');
 const loading = ref(true);
 const paymentForm = ref<HTMLDivElement | null>(null);
-const error = ref("")
+const error = ref('');
 
+const { fetchBalance } = useWalletStore();
+
+const { balance } = storeToRefs(useWalletStore());
+
+const paymentMethod = ref('STC_PAY');
+
+const hasSufficientBallance = computed(() => {
+    if (!hyper) return false;
+
+    return balance.value.available_balance >= hyper?.checkout?.amount;
+});
+
+watch(paymentMethod, async (value) => {
+    if (value == 'WALLET') return;
+
+    hyper.unload();
+
+    const form = document.createElement('form');
+
+    form.dir = 'ltr';
+    form.action = '/orders/complete';
+    form.classList.add('paymentWidgets');
+
+    form.dataset.brands = value;
+
+    paymentForm.value?.append(form);
+
+    loading.value = false;
+
+    await loadHyper();
+});
 
 const cardImage = computed(
     () =>
@@ -52,109 +100,151 @@ const cardImage = computed(
 const cardImages: { [key: string]: { src: string; class: string } } = {
     general: { src: '/images/payments/general.svg', class: 'w-6 h-6 lg:top-11 md:top-11 top-9 ltr:right-3 rtl:left-3' },
     VISA: { src: '/images/payments/visa.webp', class: 'w-8 h-8 lg:top-12 md:top-12 top-10  ltr:right-3 rtl:left-3' },
-    MASTER: { src: '/images/payments/mastercard.webp', class: 'w-8 h-8 lg:top-[2.9rem] md:top-[2.9rem] top-[2.3rem] ltr:right-3 rtl:left-3' },
+    MASTER: {
+        src: '/images/payments/mastercard.webp',
+        class: 'w-8 h-8 lg:top-[2.9rem] md:top-[2.9rem] top-[2.3rem] ltr:right-3 rtl:left-3'
+    },
     MADA: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] md:[1.2rem] ltr:right-3 rtl:left-3' },
     stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
 };
 
-
-
 onMounted(async () => {
+    // await getSession()
 
-    await getSession()
-
-    error.value = ''
+    error.value = '';
     try {
-
-        const payment = await createCheckout();
-        loading.value = false;
-
-        if(!payment.id){
-            error.value = 'حدث خطأ ما'
-            return
-        }
-
-
-        (window as any).wpwlOptions = {
-            style: 'plain',
-            locale : 'en',
-            brandDetection: true,
-            brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
-            labels: {
-                cardNumber: '0000 0000 0000 0000',
-                cvv: '000',
-                expiryDate: 'تاريخ الإنتهاء',
-                submit: 'متابعة'
-            },
-            errorMessages: {
-                cvvError: 'رمز التحقق غير صالح',
-                cardNumberError: 'رقم البطاقة غير صالح',
-                expiryMonthError: 'تاريخ الإنتهاء غير صالج',
-                expiryYearError: 'تاريخ الإنتهاء غير صالج'
-            },
-            onFocusIframeCommunication: async function () {
-                const form = this.$iframe[0] as HTMLIFrameElement;
-
-                form.classList.add('activeIframe');
-            },
-            onBlurIframeCommunication: function () {
-                const form = this.$iframe[0] as HTMLElement;
-
-                form.classList.remove('activeIframe');
-            },
-            onChangeBrand: (data: string) => {
-                if (!data) {
-                    cardType.value = 'general';
-                    return;
-                }
-                cardType.value = data;
-            },
-            onReady: function (array: Array<any>) {
-
-                const cardGroup = document.querySelector('.wpwl-group-cardNumber');
-                const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
-                const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
-                const cardBrand = document.querySelector('.card-brand') as Element;
-
-                const cardLabel = document.querySelector(".wpwl-label-cardNumber") as Element;
-                const cvvLabel = document.querySelector(".wpwl-label-cvv") as Element;
-
-                cardLabel.innerHTML = 'رقم البطاقة'
-                cvvLabel.innerHTML = 'رمز التحقق (CVV)'
-
-                const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement
-
-                cardHolderInput.value = data.value.username
-
-                expiryGroup?.remove?.();
-                cvvGroup?.remove?.();
-
-                cardBrand.remove();
-
-                cardGroup?.append(cardBrand);
-
-                const div = document.createElement('div');
-                div.classList.add('cvv-expiry-wrapper');
-                cardGroup?.insertAdjacentElement('afterend', div);
-
-                div.append(expiryGroup);
-                div.append(cvvGroup);
-            },
-
-        };
-
-        await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${payment.id}`);
+        Promise.all([getCountry(), loadHyper(), fetchBalance()]);
+        // await loadHyper();
+        // await fetchBalance();
     } catch (error) {
         console.log(error);
     }
 });
+async function getCountry() {
+    try {
+        const url = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
+        const response = await fetch(url);
+        const data = await response.json();
+
+        countryCode.value = data.countryCode;
+    } catch (error) {
+        console.error(error);
+        return 'sa';
+    }
+}
+
+getCountry();
+
+const countryCode = ref('');
+
+async function loadHyper() {
+    const payment = await createCheckout();
+
+    if (!payment.id) {
+        error.value = 'حدث خطأ ما';
+        return;
+    }
+
+    (window as any).wpwlOptions = {
+        style: 'plain',
+        locale: 'en',
+        brandDetection: true,
+        brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
+        labels: {
+            cardNumber: '0000 0000 0000 0000',
+            cvv: '000',
+            expiryDate: 'تاريخ الإنتهاء',
+            submit: 'متابعة',
+            mobilePhoneNumber: 'رقم الهاتف'
+        },
+        errorMessages: {
+            cvvError: 'رمز التحقق غير صالح',
+            cardNumberError: 'رقم البطاقة غير صالح',
+            expiryMonthError: 'تاريخ الإنتهاء غير صالج',
+            expiryYearError: 'تاريخ الإنتهاء غير صالج'
+        },
+        onFocusIframeCommunication: async function () {
+            const form = this.$iframe[0] as HTMLIFrameElement;
+
+            form.classList.add('activeIframe');
+        },
+        onBlurIframeCommunication: function () {
+            const form = this.$iframe[0] as HTMLElement;
+
+            form.classList.remove('activeIframe');
+        },
+        onChangeBrand: (data: string) => {
+            if (!data) {
+                cardType.value = 'general';
+                return;
+            }
+            cardType.value = data;
+        },
+        onReady: function (array: Array<any>) {
+            loading.value = false;
+
+            // Groups
+            const cardGroup = document.querySelector('.wpwl-group-cardNumber');
+            const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
+            const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
+            const cardBrand = document.querySelector('.card-brand') as Element;
+
+            // labels
+            const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
+            const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
+            const phoneNumberLabel = document.querySelector('.wpwl-label-mobilePhone') as Element;
+
+            // input
+            const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
+
+            if (phoneNumber) {
+                const iti = intlTelInput(phoneNumber as Element, {
+                    initialCountry: countryCode.value,
+                    separateDialCode: true,
+                    nationalMode: true,
+                    utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+                });
+                phoneNumberLabel.innerHTML = 'رقم الهاتف';
+
+                (phoneNumber as HTMLInputElement).placeholder = '7835196169';
+
+                phoneNumber;
+            }
+
+            cardLabel.innerHTML = 'رقم البطاقة';
+            cvvLabel.innerHTML = 'رمز التحقق (CVV)';
+
+            const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
+
+            cardHolderInput.value = data.value.username;
+
+            expiryGroup?.remove?.();
+            cvvGroup?.remove?.();
+
+            cardBrand.remove();
+
+            cardGroup?.append(cardBrand);
+
+            const div = document.createElement('div');
+            div.classList.add('cvv-expiry-wrapper');
+            cardGroup?.insertAdjacentElement('afterend', div);
+
+            div.append(expiryGroup);
+            div.append(cvvGroup);
+        }
+    };
+
+    await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${payment.id}`);
+
+    // @ts-ignore
+    hyper = wpwl as any;
+}
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
     return new Promise(async (resolve, reject) => {
-        
         // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
 
-        // 
+        //
 
         const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
             method: 'POST',
@@ -162,18 +252,17 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
                 type: state.value.data?.type,
 
                 // TODO: unncomment the above line when finishing from testing
-                brand: 'visa'
+                brand: 'stc_pay'
                 // brand: cardType.valuee
             }
         });
 
+        localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
-        localStorage.setItem("abber:current-transaction-id", checkout.transaction_id); 
+        (state.value.data as OrderForm).order_id = checkout.order_id;
 
-        (state.value.data as OrderForm).order_id = checkout.order_id
+        persist();
 
-        persist()
-        
         resolve(checkout);
     });
 }
@@ -183,8 +272,14 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .wpwl-group-cardNumber {
     @apply relative;
 }
-.wpwl-control-cardNumber {
+.wpwl-control-cardNumber,
+.wpwl-control-mobilePhone {
     @apply form-control h-[50px] pl-12 w-full;
+}
+
+.wpwl-control-mobilePhone {
+    @apply form-control h-[50px]  block text-sm xs:text-base w-full;
+    direction: rtl;
 }
 
 .wpwl-control-expiry {
@@ -196,7 +291,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 .cvv-expiry-wrapper {
-    @apply flex items-start justify-between gap-5 mb-2 w-full ;
+    @apply flex items-start justify-between gap-5 mb-2 w-full;
 }
 .wpwl-group {
     @apply w-full space-y-3;
@@ -211,7 +306,8 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
 .wpwl-label-cvv,
 .wpwl-label-expiry,
-.wpwl-label-cardNumber {
+.wpwl-label-cardNumber,
+.wpwl-label-mobilePhone {
     @apply block text-sm font-semibold xs:text-base w-full ml-5;
     direction: rtl;
 }
@@ -232,5 +328,4 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .activeIframe {
     @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
-
 </style>

@@ -32,7 +32,7 @@
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
                     <!-- Mic Button -->
                     <ClientOnly>
-                        <ChatAudioInput v-model:recording="recording" />
+                        <ChatAudioInput v-model:recording="recorderStatus" />
                     </ClientOnly>
                     <!-- <button class="flex-shrink-0 text-gray-600 hover:text-gray-900" type="button">
                         <svg
@@ -52,8 +52,9 @@
                         </svg>
                     </button> -->
                     <!-- Send Button -->
+
                     <button
-                        v-if="!recording"
+                        v-if="recorderStatus != 'recording'"
                         class="rounded-md bg-gray-900 p-2 text-white"
                         type="button"
                         @click="sendMessage">
@@ -101,7 +102,7 @@ const id = useRoute().params.id;
 
 const { send } = useChat();
 
-const recording = ref(false);
+const recorderStatus = ref("intialized");
 
 const message = ref('');
 function sendMessage() {
