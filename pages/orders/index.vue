@@ -83,7 +83,6 @@
 
             {{ filters.search }}
 
-
             <template v-if="orders.length == 0 && !loading">
                 <div class="pt-4 text-sm text-gray-800 xs:text-base">لا توجد طلبات لعرضها</div>
                 <div class="w-full pt-8 sm:w-auto" v-if="data.user_type == 'عميل'">
@@ -96,7 +95,16 @@
             </template>
 
             <div class="pt-4 text-sm text-gray-800 xs:text-base" v-else>تصفح جمبع طلباتك الصادرة</div>
-            <template v-if="orders.length != 0 || filters.search.length != 0 || filters.status.length != 0 || filters.type.text || filters.type.voice">
+            <SkeletonsOrdersTable v-if="loading" class="pt-16" />
+
+            <template
+                v-if="
+                    orders.length != 0 ||
+                    filters.search.length != 0 ||
+                    filters.status.length != 0 ||
+                    filters.type.text ||
+                    filters.type.voice
+                ">
                 <div class="w-full pt-16">
                     <div class="flex items-center justify-between">
                         <form class="w-full sm:max-w-sm" method="GET">
@@ -187,8 +195,7 @@
                         </div>
                     </div>
                 </div>
-                <SkeletonsOrdersTable v-if="loading" />
-                <OrdersTable v-else :orders="orders" />
+                <OrdersTable  :orders="orders" />
                 <Pagination
                     class="pt-10"
                     :results="(pagination as PaginationResponse<any>)"
@@ -215,9 +222,7 @@ const { fetchAll } = useOrdersStore();
 const { orders, pagination, loading, filtersCount, filters } = storeToRefs(useOrdersStore());
 const { data } = useAuth();
 
-
 // await fetchAll();
-
 
 onMounted(async () => {
     const persistedFilters = localStorage.getItem('abber:filters');
@@ -225,11 +230,10 @@ onMounted(async () => {
         filters.value = Object.assign(JSON.parse(persistedFilters), { ignore: true });
     }
     if (orders.value.length != 0) return;
-loading.value = true;
+    loading.value = true;
 
     await fetchAll();
 
-loading.value = false;
-
+    loading.value = false;
 });
 </script>

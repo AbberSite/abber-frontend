@@ -132,11 +132,11 @@ function syncData() {
     tempAccount.value.username = data.value.first_name;
     tempAccount.value.email = data.value.email;
     tempAccount.value.phone = data.value.phone;
-    tempAccount.value.profile.iban = data.value.profile.bank_account;
-    tempAccount.value.profile.gender = data.value.profile.gender;
-    tempAccount.value.profile.birthdate = data.value.profile.birthday;
-    tempAccount.value.profile.maritalStatus = data.value.profile.marital_status;
-    tempAccount.value.profile.profession = data.value.profile.profession;
+    tempAccount.value.profile.iban = data.value.profile.bank_account ?? '';
+    tempAccount.value.profile.gender = data.value.profile.gender ?? '';
+    tempAccount.value.profile.birthdate = data.value.profile.birthday ?? '';
+    tempAccount.value.profile.maritalStatus = data.value.profile.marital_status ?? '';
+    tempAccount.value.profile.profession = data.value.profile.profession ?? '';
 }
 
 onMounted(() => {

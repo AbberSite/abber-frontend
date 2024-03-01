@@ -67,7 +67,9 @@ class AccountStore {
             //     })
             // );
 
-            data.append('profile.bank_account', this.tempAccount.value.profile.iban);
+            if (!this.tempAccount.value.profile.iban) {
+                data.append('profile.bank_account', this.tempAccount.value.profile.iban);
+            }
             data.append('profile.gender', this.tempAccount.value.profile.gender);
             data.append('profile.birthday', this.tempAccount.value.profile.birthdate);
             data.append('profile.marital_status', this.tempAccount.value.profile.maritalStatus);

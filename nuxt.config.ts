@@ -31,10 +31,6 @@ export default defineNuxtConfig({
 
     auth: {
         globalAppMiddleware: true, 
-        session : {
-            enableRefreshOnWindowFocus : false,
-            enableRefreshPeriodically : false
-        },
 
         // baseURL : "/", 
 

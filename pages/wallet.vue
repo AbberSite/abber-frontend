@@ -33,6 +33,7 @@
             <WalletFinancialSummary v-if="activeTab === 'summary'" />
             <WalletTransactions v-else-if="activeTab == 'operations'" />
             <WalletStatements v-else-if="activeTab == 'statement'" />
+            <WalletCards v-else-if="activeTab == 'cards'" />
             
         </section>
     </main>
