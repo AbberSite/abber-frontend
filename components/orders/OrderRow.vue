@@ -30,7 +30,7 @@
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             {{ useFormattedDate(order.order_item_time_data.ordered_date) }}
         </td>
-        <td class="flex items-center justify-center px-4 pb-4 pt-5">
+        <td class="flex items-center justify-center pe-4 pb-4 pt-5">
             <NuxtLink  :to="{ name: 'orders-id', params: { id: order.id } }" title="عرض الطلب">
                 <svg
                     class="flex-shrink-0"
