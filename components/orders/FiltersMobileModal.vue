@@ -25,7 +25,7 @@
                         class="mx-auto block h-1 w-8 rounded-lg bg-gray-300"
                         type="button"
                         @click="$emit('close')"></button>
-                    <div class="pt-8">
+                    <div class="pb-4 pt-8">
                         <div class="flex items-center justify-between space-x-3 rtl:space-x-reverse">
                             <h3 class="mt-1.5 text-lg font-semibold">فلترة</h3>
                             <a

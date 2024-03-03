@@ -37,7 +37,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -59,7 +59,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -81,7 +81,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -103,7 +103,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -125,7 +125,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -147,7 +147,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -169,7 +169,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -191,7 +191,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">
@@ -213,7 +213,7 @@
                 >
               </td>
               <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">06-02-2024</td>
-              <td class="flex items-center justify-center px-4 pb-4 pt-5">
+              <td class="flex items-center justify-center pe-4 pb-4 pt-5">
                 <button type="button" title="حذف">
                   <!-- Heroicon name: outline/trash -->
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20">

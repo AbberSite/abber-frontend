@@ -147,8 +147,6 @@
         <small class="mt-1.5 hidden sm:flex">({{ data.user_type }})</small>
     </div>
 
-    <small class="block pt-2 font-semibold sm:hidden">({{ data.user_type }})</small>
-
     <InputError v-for="message in errors.image" :message="message" />
 
     <div
