@@ -33,7 +33,6 @@ export default (type: string = "order") => {
 
   watch(chat.data, (value: string) => {
     const data = JSON.parse(value)
-    console.log(data)
     if (data.type === 'chat_message') { // New message added
       const receivedMesssage = data as { message: Message };
       messages.value.unshift(receivedMesssage.message);

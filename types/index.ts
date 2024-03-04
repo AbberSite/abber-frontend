@@ -162,17 +162,6 @@ export type Message = {
     image: string;
     is_online: boolean;
   };
-  last_message: {
-    id: number;
-    user: {
-      username: string;
-      first_name: string;
-      last_name: string;
-      image: string;
-      is_online: boolean;
-    };
-    date: string;
-  };
   files?: File[];
   message: string | string[];
   room: string;
