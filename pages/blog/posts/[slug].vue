@@ -72,7 +72,7 @@
 
                 <SkeletonsBlogPost v-if="loading" /> 
                 <div class="w-full"  v-show="!loading" >
-                    <div class="flex items-center justify-between text-gray-700 mb-4">
+                    <div class="flex items-center justify-between text-gray-700">
                         <a
                             class="rounded-full bg-gray-900 px-4 pb-1 pt-2.5 text-[13px] font-semibold text-white hover:bg-gray-800"
                             href="#">

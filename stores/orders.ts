@@ -20,7 +20,8 @@ class OrdersStore {
         ordering: 'order_item_time_data__start_date',
         ignore: undefined
     });
-    messages = ref<Message[]>([]); 
+  chatList = ref<null | HTMLElement>(null); 
+  messages = ref<Message[]>([]); 
     messagesPagination = ref<PaginationResponse<Message>>()
     segmentedMessages = computed<Array<{ index : string, messages : Message[]}>>(() => {
 
