@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
 
     const body = await readBody(event);
     const config = useRuntimeConfig()
+    const  { sender } = getQuery(event)
 
     try {
         const response = await axios.post(
@@ -11,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
             {
                 phone: body.phone,
-                sender : "whatsapp"
+                sender
             },
             {
                 headers: {

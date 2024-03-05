@@ -55,6 +55,7 @@
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
+const emit = defineEmits(["close"])
 
 const customRange = ref<Array<string>>([]);
 const loading = ref(false)
@@ -74,6 +75,7 @@ async function exportPDF(){
 
     download(url , 'test.pdf')
     loading.value = false
+    emit("close")
 
 }
 

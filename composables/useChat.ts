@@ -7,19 +7,6 @@ export default (type : string = "order") => {
 
     const id = useRoute().params.id
 
-    // VITE_WS_URL = wss://test.abber.co
-    // const exampleSocket = new WebSocket(
-    //  ,
-    // );
-
-    // exampleSocket.onopen = (event) => {
-    //   exampleSocket.send(JSON.stringify({
-    //     message : "Here's some text that the server is urgently awaiting!"
-    //   }));
-
-    //   resolve(exampleSocket)
-    // };
-
     if(currentChat) return {...currentChat, clear : () => currentChat = undefined }
 
     const { messages } = storeToRefs(useOrdersStore());

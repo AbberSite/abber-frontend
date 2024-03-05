@@ -113,7 +113,10 @@ const filtersDropdown = ref(false);
 const showModal = ref(false);
 
 if (!process.client) {
+    loading.value = true
     await fetchAll();
+    loading.value = true
+
 }
 
 // onMounted(async () => {

@@ -61,6 +61,7 @@
                 href="#"
                 role="menuitem"
                 tabindex="-1"
+                v-if="data.user_type == 'مدير'"
                 :to="{ name: 'profile' }"
                 @click="$emit('close')"
                 >لوحة التحكم

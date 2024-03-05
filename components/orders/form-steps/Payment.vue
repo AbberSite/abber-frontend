@@ -36,7 +36,47 @@
         <InputError :message="error" />
 
         <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm">
-            <form dir="ltr" action="/orders/complete" class="paymentWidgets" :data-brands="paymentMethod"></form>
+            <form
+                dir="ltr"
+                :action="state.data?.type == 'text_communication' ? '/orders/complete' : '/orders/video-complete'"
+                class="paymentWidgets"
+                :data-brands="paymentMethod"></form>
+        </div>
+
+        <div class="space-y-7" v-if="!loading">
+            <div class="flex items-center" x-id="['checkbox']">
+                <input
+                v-model="useWallet"
+                    class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
+                    type="checkbox"
+                    name="checkbox"
+                    id="use-wallet"
+                     />
+                <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="use-wallet"
+                    >إستخدام رصيد المحفظة للدفع</label
+                >
+            </div>
+            <div class="flex items-center" x-id="['checkbox']">
+                <input
+                    v-model="hasCoupon"
+                    class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
+                    type="checkbox"
+                    name="checkbox"
+                    id="have-coupon"
+                     />
+                <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="have-coupon">لدي كوبون خصم</label>
+            </div>
+            <div class="w-full space-y-3" v-if="hasCoupon">
+                <input
+                    class="form-control h-[50px] appearance-none"
+                    type="text"
+                    name="text"
+                    id="coupon"
+                    v-model="coupon"
+                    placeholder="إدخل كوبون الخصم"
+                    dir="rtl"
+                    required/>
+            </div>
         </div>
     </div>
 </template>
@@ -49,6 +89,10 @@ import intlTelInput from 'intl-tel-input';
 
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
+
+const hasCoupon = ref(false)
+const useWallet = ref(false)
+const coupon = ref("")
 
 let hyper: any = undefined;
 

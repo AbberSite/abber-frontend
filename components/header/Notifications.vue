@@ -70,6 +70,8 @@
 </template>
 
 <script setup lang="ts">
+import { useWebSocket } from '@vueuse/core';
+
 const { data } = useAuth() as { data: Ref<{ notifications: { results: Notification[] }, read : boolean }> };
 
 type User = {
@@ -92,11 +94,11 @@ type Notification = {
 const { status } = useAuth()
 
 const loading = computed(() => status.value == "loading")
-const utilsStore = useUtilsStore()
+const {readNotifications} = storeToRefs(useUtilsStore())
 
 onMounted(async () => {
 
-    const { rawToken } = useAuthState();
+    const { rawToken, data } = useAuthState();
 
     await useFetch('/api/notifications/read', {
         headers: {
@@ -104,7 +106,7 @@ onMounted(async () => {
         }
     });
 
-    utilsStore.readNotifications = true    
+    readNotifications.value = false
 
 });
 </script>

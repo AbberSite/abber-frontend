@@ -30,6 +30,11 @@ export default defineNuxtConfig({
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
 
     auth: {
+
+        session : {
+            enableRefreshOnWindowFocus : false,
+            enableRefreshPeriodically : false
+        },
         globalAppMiddleware: true, 
 
         // baseURL : "/", 

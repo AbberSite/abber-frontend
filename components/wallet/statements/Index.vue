@@ -80,6 +80,7 @@ import type { WalletStatementsPDFExport } from '~/.nuxt/components';
                     leave-to-class="translate-y-4 opacity-0">
                     <WalletStatementsPDFExport
                         v-if="pdfDropdown"
+                        @close="pdfDropdown = false"
                         v-on-click-outside="() => (pdfDropdown = false)" />
                 </transition>
             </div>

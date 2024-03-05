@@ -1,10 +1,10 @@
 <template>
     <h1 class="sr-only" id="profile-heading">الملف الشخصي</h1>
     <div class="flex items-center justify-between">
-        <div class="relative flex-shrink-0">
+        <div class="relative flex-shrink-0" >
             <NuxtImg
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
-                :src="data.image_url"
+                :src="data?.image_url"
                 height="96"
                 v-if="!tempAccount.image"
                 width="96"
@@ -143,11 +143,11 @@
     </div>
     
     <div v-else class="flex items-center space-x-1 pt-8 font-semibold rtl:space-x-reverse">
-        <span class="text-lg">{{ data.first_name }}</span>
-        <small class="mt-1.5 hidden sm:flex">({{ data.user_type }})</small>
+        <span class="text-lg">{{ data?.first_name }}</span>
+        <small class="mt-1.5 hidden sm:flex">({{ data?.user_type }})</small>
     </div>
 
-    <small class="block pt-2 font-semibold sm:hidden">({{ data.user_type }})</small>
+    <small class="block pt-2 font-semibold sm:hidden">({{ data?.user_type }})</small>
 
     <InputError v-for="message in errors.image" :message="message" />
 
@@ -235,7 +235,7 @@ onMounted(() => {
 async function submitUpdate() {
     loading.value = true;
 
-    const result = await update(data.value.id);
+    const result = await update(data?.value.id);
 
     loading.value = false;
 

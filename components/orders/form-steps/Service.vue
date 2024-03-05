@@ -25,11 +25,12 @@
 
                         <template v-else>
                             <ServiceRadioButton
-                                v-for="service in voiceCommunicationServices"
+                                v-for="service in videoServices"
                                 v-model="selectedService"
                                 @click.once="submit(service.id)"
                                 :service="service" />
                         </template>
+
 
                     </template>
                 </div>
@@ -51,11 +52,11 @@ const loading = ref(false);
 const selectedService = ref(state.value.data?.service_id);
 const { fetchAll } = useServicesStore();
 
-const { services, voiceCommunicationServices, textCommunicationServices } = storeToRefs(useServicesStore());
+const { services, textCommunicationServices, videoServices } = storeToRefs(useServicesStore());
 
 onMounted(async () => {
 
-    if (services.value) return;
+    if (services.value.length != 0) return;
 
     // something went wrong fetching the services in the previous step fetch again
     loading.value = true;

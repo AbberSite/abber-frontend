@@ -45,6 +45,11 @@ const route = useRoute();
 const { fetchAll } = useTransactionsStore();
 const { transactions, loading } = storeToRefs(useTransactionsStore());
 
+const { getSession } = useAuth()
+
+
+// await getSession()
+
 
 const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards'>(route.query.activeRoute ?? 'summary');
 
@@ -54,13 +59,13 @@ if(!process.client){
 
 }
 
-onMounted(async () => {
-    if (transactions.value.length === 0) {
-        loading.value = true
-        await fetchAll();
-        loading.value = false
-    }
-});
+// onMounted(async () => {
+//     if (transactions.value.length === 0) {
+//         loading.value = true
+//         await fetchAll();
+//         loading.value = false
+//     }
+// });
 </script>
 
 <style scoped></style>

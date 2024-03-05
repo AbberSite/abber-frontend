@@ -1,3 +1,5 @@
+import { useWebSocket } from '@vueuse/core';
+
 type UpdateAccountBody = {
     first_name?: string;
     phone?: string;
@@ -23,6 +25,8 @@ class AccountStore {
             profession: ''
         }
     });
+
+    goOffline : ((code?: number | undefined, reason?: string | undefined) => void) | undefined
 
     tempAccountImagePreview = computed(() =>
         this.tempAccount.value.image ? URL.createObjectURL(this.tempAccount.value.image as Blob) : ''
@@ -104,6 +108,19 @@ class AccountStore {
                 resolve(false);
             }
         });
+
+    goOnline = async () => {
+        const { rawToken } = useAuthState();
+
+        const { close } = useWebSocket(
+            import.meta.env.VITE_WS_URL + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
+            {
+                autoReconnect: true
+            }
+        );
+
+        return close
+    };
 }
 
 export const useAccountStore = defineStore('account', () => new AccountStore());
