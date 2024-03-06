@@ -14,7 +14,7 @@
         
         <div class="pt-4 text-sm text-gray-800 xs:text-base text-center" v-html="activeHeader?.description" />
         <div class="mx-auto w-full max-w-sm pt-10">
-            <ClientOnly>
+            <!-- <ClientOnly> -->
                 <transition
                     enter-active-class="transition-all"
                     leave-active-class="transition-all"
@@ -25,7 +25,7 @@
                         <component :is="activeStep" />
                     </div>
                 </transition>
-            </ClientOnly>
+            <!-- </ClientOnly> -->
 
             <div class="pt-8 text-center text-sm xs:text-base" v-if="!first && !last">
                 <button class="font-medium text-blue-600" @click="previous()">

@@ -39,7 +39,7 @@ async function send() {
 
     try {
         loading.value = true;
-        const { data } = (await useFetch('/api/auth/whatsapp/send', {
+        const { data } = (await useFetch('/api/auth/whatsapp/send?sender=whatsapp', {
             method: 'POST',
 
             body: {

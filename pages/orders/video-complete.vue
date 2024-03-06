@@ -224,7 +224,7 @@ async function getStatus() {
     if (isActive) pause();
 
     // TODO : update this with real service id
-    const result = await useApi(`/api/orders/${service_id}/buy`, {
+    const result = await useApi(`/api/orders/85/buy`, {
         method: 'POST',
         body: {
             type: data.type,

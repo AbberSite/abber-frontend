@@ -1,4 +1,5 @@
 <template>
+    <NuxtLoadingIndicator color="#000" />
     <NuxtLayout>
         <NuxtPage />
         <Alerts />
@@ -13,6 +14,8 @@
 </template>
 
 <script setup>
+import { useWebSocket } from '@vueuse/core';
+
 useHead({
     bodyAttrs: {
         dir: 'rtl',
@@ -56,12 +59,62 @@ useSeoMeta({
 
 // await getSession();
 
+
+
 onMounted(async () => {
     // const { rawRefreshToken } = useAuthState();
     // const { refresh } = useAuth()
     // if (rawRefreshToken.value) {
     //     await refresh()
     // }
+
+    const { getSession } = useAuth();
+
+    await getSession();
+
+    const { status, rawToken, data } = useAuthState();
+
+    const { goOnline} = useAccountStore();
+
+    let goOffline
+
+    watch(
+        status,
+        async (value) => {
+            if(value == 'loading') return
+            if(value == "authenticated"){
+                console.log("going online...");
+                goOffline = await goOnline()
+                return
+            }
+            console.log("going offline...");
+            goOffline()
+        }
+    );
+
+    if (status.value === 'unauthenticated') return;
+
+    goOffline = await goOnline();
+
+    const { readNotifications } = storeToRefs(useUtilsStore());
+
+    const chat = useWebSocket(
+        import.meta.env.VITE_WS_URL +
+            `/ws/notifications/${data.value.username}/` +
+            `?authorization=JWT ${rawToken.value}`,
+        {
+            autoReconnect: true
+        }
+    );
+
+    watch(chat.data, (value) => {
+        // console.log(data.value.notifications.results);
+        const notification = JSON.parse(value).notification;
+        data.value.notifications.results.unshift(notification);
+        readNotifications.value = true;
+
+        var audio = new Audio('/sounds/notification.wav');
+        audio.play();
+    });
 });
 </script>
-

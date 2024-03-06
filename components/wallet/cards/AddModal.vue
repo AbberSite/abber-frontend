@@ -21,7 +21,28 @@
                 leave-to="translate-x-full"
                 as="template">
                 <div class="fixed inset-0 z-40 bg-white sm:w-[340px]" v-cloak >
-                    <div class="flex h-full flex-col">
+                    <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8">
+                        <h2 class="text-lg font-semibold xs:text-xl">إضافة بطاقة إئتمانية</h2>
+                        <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
+                          <span class="sr-only">إغلاق القائمة</span>
+                          <!-- Heroicon name: outline/x-mark -->
+                          <svg height="26" width="26" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    <div class="flex h-full flex-col gap-7 px-4 py-8 pb-36">
+                        <div class="w-full overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm" x-show="alert" role="alert">
+                            <div class="mt-1.5 flex">
+                              <span class="me-3 flex-shrink-0">
+                                <!-- Heroicon name: outline/information-circle -->
+                                <svg class="text-blue-500" height="24" width="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path>
+                                </svg>
+                              </span>
+                              <div class="w-0 flex-1 text-sm font-medium leading-loose">رسوم إضافة بطاقة إئتمانية 1 ر.س. يمكنك الدفع من رصيد المحفظة</div>
+                            </div>
+                          </div>
                         <div class="min-h-[20rem]">
                             
                             <div class="hidden">
@@ -56,11 +77,18 @@
                     
                             <InputError :message="error" />
                     
-                            <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm">
+                            <div dir="ltr" class="payment-form" ref="paymentForm">
                                 <form dir="ltr" action="/orders/complete" class="paymentWidgets" :data-brands="paymentMethod"></form>
                             </div>
+                            <div class="flex items-center" x-id="['checkbox']">
+                                <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox" id="use-wallet" x-model="checkedBox" />
+                                <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="use-wallet">إستخدام رصيد المحفظة للدفع</label>
+                              </div>
                         </div>
                     </div>
+                    <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
+                        <button @click="execute" class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="submit"><span class="mt-1.5">متابعة</span></button>
+                      </div>
                 </div>
             </TransitionChild>
         </div>
@@ -88,7 +116,7 @@ const { fetchBalance } = useWalletStore();
 
 const { balance } = storeToRefs(useWalletStore());
 
-const paymentMethod = ref('STC_PAY');
+const paymentMethod = ref('VISA MASTER MADA');
 
 const hasSufficientBallance = computed(() => {
     if (!hyper) return false;
@@ -116,6 +144,24 @@ watch(paymentMethod, async (value) => {
     await loadHyper();
 });
 
+// onUnmounted(async () => {
+//     hyper.unload();
+
+// const form = document.createElement('form');
+
+// form.dir = 'ltr';
+// form.action = '/orders/complete';
+// form.classList.add('paymentWidgets');
+
+// form.dataset.brands = paymentMethod.value;
+
+// paymentForm.value?.append(form);
+
+// loading.value = false;
+
+// await loadHyper();
+// })
+
 const cardImage = computed(
     () =>
         cardImages[cardType.value] ?? {
@@ -134,6 +180,11 @@ const cardImages: { [key: string]: { src: string; class: string } } = {
     MADA: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] md:[1.2rem] ltr:right-3 rtl:left-3' },
     stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
 };
+
+function execute(){
+
+    hyper.executePayment()
+}
 
 onMounted(async () => {
     // await getSession()
@@ -208,6 +259,9 @@ async function loadHyper() {
             cardType.value = data;
         },
         onReady: function (array: Array<any>) {
+
+            // console.log(array);
+            
             loading.value = false;
 
             // Groups
@@ -291,6 +345,11 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         resolve(checkout);
     });
 }
+
+function submit(){
+
+
+}
 </script>
 
 <style>
@@ -333,7 +392,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .wpwl-label-expiry,
 .wpwl-label-cardNumber,
 .wpwl-label-mobilePhone {
-    @apply block text-sm font-semibold xs:text-base w-full ml-5;
+    @apply block text-sm font-semibold xs:text-base w-full;
     direction: rtl;
 }
 
@@ -343,7 +402,8 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 .wpwl-button-pay {
-    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+    /* @apply flex */
+    @apply hidden  h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-button-error {

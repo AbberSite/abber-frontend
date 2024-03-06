@@ -7,20 +7,7 @@ export default (type: string = "order") => {
 
   const id = useRoute().params.id
 
-  // VITE_WS_URL = wss://test.abber.co
-  // const exampleSocket = new WebSocket(
-  //  ,
-  // );
-
-  // exampleSocket.onopen = (event) => {
-  //   exampleSocket.send(JSON.stringify({
-  //     message : "Here's some text that the server is urgently awaiting!"
-  //   }));
-
-  //   resolve(exampleSocket)
-  // };
-
-  if (currentChat) return { ...currentChat, clear: () => currentChat = undefined }
+    if(currentChat) return {...currentChat, clear : () => currentChat = undefined }
 
   const { messages, chatList } = storeToRefs(useOrdersStore());
 
@@ -36,7 +23,9 @@ export default (type: string = "order") => {
     if (data.type === 'chat_message') { // New message added
       const receivedMesssage = data as { message: Message };
       messages.value.unshift(receivedMesssage.message);
-      chatList.value.scrollTop = chatList.value.scrollHeight; // Scroll to new messages
+      if(chatList.value) {
+        chatList.value.scrollTop = chatList?.value?.scrollHeight as number; // Scroll to new messages
+      }
     }
     else if (data.type === 'read_message') { // Read existing message
       const readMessage = data as { message: { id: Number } };

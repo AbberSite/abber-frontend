@@ -64,22 +64,33 @@ import type { OrderForm } from '~/types';
 const { state, next } = useFormWizard<OrderForm>('order');
 
 const selectedOption = ref(state.value.data?.type);
-const { fetchAll, voiceCommunicationServices } = useServicesStore();
+const { fetchAll, fetchVideoServices } = useServicesStore();
+
+const { videoServices, videoServicesPagination } = storeToRefs(useServicesStore());
+
+if (process.server) {
+    await fetchAll();
+    await fetchAll();
+    await fetchVideoServices();
+}
 
 onMounted(async () => {
-
     // fetch services before selection step for optimazation
-    await fetchAll();
-    await fetchAll();
 
-    if (voiceCommunicationServices.length == 0) {
-        useNotification({ content : 'الخدمة الصوتية متوقفة حاليا', type : 'warning'}, false);
+    // if (videoServicesPagination.value?.results?.length == 0) {
+        await fetchAll();
+        await fetchAll();
+        await fetchVideoServices();
+    // }
+
+    if (videoServicesPagination?.value?.count == 0) {
+        useNotification({ content: 'الخدمة الصوتية متوقفة حاليا', type: 'warning', id : 445 }, false);
     }
-
 });
 
 const voiceCommunicationButtonClasses = computed(() => {
-    if (voiceCommunicationServices.length == 0) return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
+    if (videoServicesPagination?.value?.count == 0)
+        return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
     if (selectedOption.value == 'voice_communication') return 'border-gray-900 ring-1 ring-gray-900';
 });
 

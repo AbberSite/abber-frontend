@@ -120,11 +120,15 @@
 
     const loading = ref(false);
 
+    const router = useRouter();
+
 
 
     async function logout() {
+
+        await router.push("/accounts/sms")
         loading.value = true;
-        await signOut({ callbackUrl: '/accounts/login', redirect: true });
+        await signOut({ callbackUrl: '/accounts/sms', redirect: true });
         loading.value = false;
 
         useNotification({ type: 'success', content: 'تم تسجيل الخروج بنجاح' });

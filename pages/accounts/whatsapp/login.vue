@@ -95,7 +95,7 @@ async function send() {
 
     try {
         loading.value = true
-        const { data } = await useFetch("/api/auth/whatsapp/send", {
+        const { data } = await useFetch("/api/auth/whatsapp/send?sender=whatsapp", {
             method: 'POST',
 
             body: {
@@ -128,7 +128,7 @@ async function send() {
 
         sessionStorage.setItem("abber:whatsapp-number", phone.value)
 
-        router.push({ name: "accounts-whatsapp-otp" })
+        router.push({ name: "accounts-whatsapp-otp", query: { sender : "whatsapp"} })
 
     } catch (error: any) {
 
