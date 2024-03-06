@@ -24,7 +24,7 @@
     <div class="pt-6">
         <NuxtLink
             class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-            @click="$emit('navigate', { name: 'accounts-login' })"
+            @click="$emit('navigate', { name: 'accounts-sms' })"
             >
             تسجيل الدخول
         </NuxtLink>
