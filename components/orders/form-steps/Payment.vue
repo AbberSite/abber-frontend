@@ -35,7 +35,7 @@
 
         <InputError :message="error" />
 
-        <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm">
+        <div dir="ltr" class="payment-form" ref="paymentForm">
             <form
                 dir="ltr"
                 :action="state.data?.type == 'text_communication' ? '/orders/complete' : '/orders/video-complete'"
@@ -352,7 +352,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .wpwl-label-expiry,
 .wpwl-label-cardNumber,
 .wpwl-label-mobilePhone {
-    @apply block text-sm font-semibold xs:text-base w-full ml-5;
+    @apply block text-sm font-semibold xs:text-base w-full;
     direction: rtl;
 }
 
