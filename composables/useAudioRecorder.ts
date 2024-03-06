@@ -1,142 +1,163 @@
-type Status = 'initialized'|'paused'|'recording'|'finished'|'reseted'
+type Status = 'initialized' | 'paused' | 'recording' | 'finished' | 'reseted'
 
 
 class AudioRecorder {
-    audioBlobs : Blob[] =  []
+  audioBlobs: Blob[] = []
 
-    mediaRecorder : undefined|MediaRecorder 
-    element =  undefined 
+  mediaRecorder: undefined | MediaRecorder
+  element = undefined
 
-    mimeType? : string
+  mimeType?: string
+  recorder: any
 
 
-    streamBeingCaptured :  undefined|MediaStream 
+  streamBeingCaptured: undefined | MediaStream
 
-    status =  ref<Status>('initialized')
+  status = ref<Status>('initialized')
 
-    timer: ReturnType<typeof useTimer>
+  timer: ReturnType<typeof useTimer>
 
-    constructor(timer : ReturnType<typeof useTimer>){
 
-        this.timer = timer
+  constructor(timer: ReturnType<typeof useTimer>) {
+
+    this.timer = timer
+  }
+
+  init = (options?: { timer?: { timeout?: number; onTimeout?: Function, hours?: boolean } }): { status: Ref<Status>, timer: ReturnType<typeof useTimer>, audioBlobs: Blob[] } => {
+
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
+      throw new Error('audio recording is not supported in your browser');
     }
 
-    init =  (options? : { timer? : { timeout?: number; onTimeout?: Function, hours? :boolean }}) : { status : Ref<Status>, timer : ReturnType<typeof useTimer>} => {
 
-        if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-            throw new Error('audio recording is not supported in your browser');
-        }
+    if (options) {
 
-
-        if(options){
-
-            const { timer } = options
+      const { timer } = options
 
 
-            if(timer){
+      if (timer) {
 
-                const { timeout, onTimeout, hours } = timer
+        const { timeout, onTimeout, hours } = timer
 
-                this.timer.init({ timeout, onTimeout, hours})
-    
-            }
+        this.timer.init({ timeout, onTimeout, hours })
 
-        }
-
-        return { status: this.status, timer: this.timer};
-
-    }
-    play =  async () => {
-        const stream: MediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-        this.streamBeingCaptured = stream;
-
-        this.mediaRecorder = new MediaRecorder(stream);
-        
-        this.mimeType = this.mediaRecorder.mimeType
-
-        this.audioBlobs = [];
-
-        this.mediaRecorder.addEventListener('dataavailable', (event) => {
-            this.audioBlobs.push(event.data);
-        });
-
-        this.mediaRecorder.start();
-
-        this.status.value = 'recording';
-        this.timer.start();
-    }
-
-    pause =  async () => {
-
-        this.mediaRecorder?.pause()
-        this.timer.stop()
-        this.status.value = 'paused';
+      }
 
     }
 
-    resume  = async () => {
+    return { status: this.status, timer: this.timer, audioBlobs: this.audioBlobs };
 
-        this.mediaRecorder?.resume()
-        this.timer.start()
-        this.status.value = 'recording';
+  }
+  play = async () => {
+    const stream: MediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
+    var audioContext; //new audio context to help us record
+    audioContext = new AudioContext();
+    let input = audioContext.createMediaStreamSource(stream);
+    let blobs = this.audioBlobs;
+    let status = this.status;
 
-    }
+    const recorder = new WebAudioRecorder(input, {
+      workerDir: "/audio-recorder/",   // must end with slash
+      encoding: 'mp3',
 
-    stop =  () : Promise<Blob> => {
-        return new Promise((resolve) => {
+    })
+    recorder.onComplete = function (recorder, blob) {
+      var blobUrl = URL.createObjectURL(blob);
+      blobs.push(blob);
+      status.value = 'finished';
 
-            let mimeType = this.mediaRecorder?.mimeType;
-
-            this.mediaRecorder?.addEventListener('stop', () => {
-                let audioBlob = new Blob(this.audioBlobs, { type: mimeType });
-
-                resolve(audioBlob);
-            });
-
-            this.mediaRecorder?.stop();
-
-            this.stopStream();
-
-            this.status.value = 'finished';
-
-            this.timer.stop();
-            this.timer.reset();
-
-            this.resetRecordingProperties();
-
-        });
-    }
-
-    cancel =  () =>  {
-
-        this.mediaRecorder?.stop();
- 
-        this.stopStream();
-
-        this.status.value = 'initialized';
-        this.timer.reset()
-
-        this.resetRecordingProperties();
 
     }
-    
 
-    reset = () => {
 
-        this.resetRecordingProperties()
-        this.status.value = 'initialized'
+    this.streamBeingCaptured = stream;
 
-    }
-    stopStream =  () => {
-        this.streamBeingCaptured?.getTracks().forEach((track) => track.stop());
-    }
-    resetRecordingProperties =  () => {
+    this.recorder = recorder;
+    recorder.setOptions({
+      encodeAfterRecord: true,
+    });
 
-        this.mediaRecorder = undefined;
-        this.streamBeingCaptured = undefined;
+    //start the recording process
+    recorder.startRecording();
 
-    }
+    // this.mimeType = this.mediaRecorder.mimeType
+
+
+    // this.mediaRecorder.addEventListener('dataavailable', (event) => {
+      // this.audioBlobs.push(event.data);
+    // });
+
+    // this.mediaRecorder.start();
+
+    this.status.value = 'recording';
+    this.timer.start();
+  }
+
+  pause = async () => {
+
+    this.mediaRecorder?.pause()
+    this.timer.stop()
+    this.status.value = 'paused';
+
+  }
+
+  resume = async () => {
+
+    this.mediaRecorder?.resume()
+    this.timer.start()
+    this.status.value = 'recording';
+
+  }
+
+  stop = (): Promise<Blob> => {
+    return new Promise((resolve) => {
+
+      console.log('Stopping Audio Recording...');
+
+      //stop the recording using the audio recording API
+
+      this.recorder.finishRecording();
+      this.stopStream();
+
+
+      this.timer.stop();
+      this.timer.reset();
+
+      this.resetRecordingProperties();
+
+    });
+  }
+
+  cancel = () => {
+
+    this.mediaRecorder?.stop();
+
+    this.stopStream();
+
+    this.status.value = 'initialized';
+    this.timer.reset()
+
+    this.resetRecordingProperties();
+
+  }
+
+
+  reset = () => {
+
+    this.resetRecordingProperties()
+    this.status.value = 'initialized'
+
+  }
+  stopStream = () => {
+    this.streamBeingCaptured?.getTracks().forEach((track) => track.stop());
+  }
+  resetRecordingProperties = () => {
+
+    this.mediaRecorder = undefined;
+    this.streamBeingCaptured = undefined;
+
+  }
 };
 
 export default () => new AudioRecorder(useTimer());

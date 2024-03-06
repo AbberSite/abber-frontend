@@ -110,10 +110,9 @@ export default defineNuxtConfig({
                     src: '/audio-recorder/WebAudioRecorder.min.js',
                     type: 'text/javascript'
                 },
-                {
-                    src: '/audio-recorder/Mp3LameEncoder.js',
-                    type: 'text/javascript'
-                },
+           
+              
+              
             ]
         }
     },

@@ -43,10 +43,20 @@ const { send } = useChat();
 
 const audioRecorder = useAudioRecorder()
 
-const { status, timer } = audioRecorder.init({
+const { status, timer, audioBlobs } = audioRecorder.init({
     timer : { }
 })
-watch(status, (value) => emit('update:recording', value));
+watch(status, (value) => {emit('update:recording', value);
+if (value == 'finished'){
+  console.log(audioBlobs)
+  const data = new FormData();
+  data.append("file", audioBlobs[0], getRandomFileName() + ".mp3");
+  const response = useApi("/api/audio", {
+    method: "post",
+    body: data
+  })
+}
+});
 
 function getRandomFileName() {
     var timestamp = new Date().toISOString().replace(/[-:.]/g, '');
@@ -57,9 +67,6 @@ function getRandomFileName() {
 
 
 async function toggleRecording(){
-
-    console.log(status.value);
-
     if(status.value === "recording"){
         audioRecorder.cancel()
         return
@@ -72,12 +79,7 @@ async function toggleRecording(){
 async function finishRecording(){
 
     const audioBlob = await audioRecorder.stop();
-    const data =  new FormData();
-    data.append("file", audioBlob, getRandomFileName() + ".webm");
-    const response = await useApi("/api/audio", {
-        method : "post", 
-        body : data
-    })
+    
     
 }
 </script>
