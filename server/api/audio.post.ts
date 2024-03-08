@@ -7,15 +7,11 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const headers = getRequestHeaders(event);
   const Authorization = headers.authorization;
-  const id = event.context.params?.id;
 
   const fileData = body[0]
   const blob = new Blob([fileData.data]); // Convert audio buffer to blob
   const formData = new FormData();
-  console.log(fileData)
-  formData.append(fileData.name, blob, fileData.filename );
-
-
+  formData.append(fileData.name, blob, fileData.filename);
 
 
   try {
