@@ -57,6 +57,8 @@ class AudioRecorder {
     let blobs = this.audioBlobs;
     let status = this.status;
 
+    blobs.length = 0; // reset blobs []
+
     const recorder = new WebAudioRecorder(input, {
       workerDir: "/audio-recorder/",   // must end with slash
       encoding: 'mp3',

@@ -151,6 +151,7 @@ export type File = {
   id: number;
   file: string;
   name: string;
+  mimetype:string
 };
 
 export type Message = {
@@ -169,6 +170,7 @@ export type Message = {
   read: boolean;
   index: number;
   deleted: boolean;
+  sent?: boolean; 
 };
 
 export type BalanceRecord = {
