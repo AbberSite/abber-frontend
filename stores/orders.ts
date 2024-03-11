@@ -1,194 +1,194 @@
 import type { Message, Order, PaginationResponse } from '~/types';
 
 class OrdersStore {
-    orders = ref<Order[]>([]);
-    pagination = ref<PaginationResponse<any>>();
+  orders = ref<Order[]>([]);
+  pagination = ref<PaginationResponse<any>>();
 
-    order = ref<Order | undefined>(undefined);
+  order = ref<Order | undefined>(undefined);
 
-    filtersPipline: Array<any>;
+  filtersPipline: Array<any>;
 
-    loading = ref(true);
+  loading = ref(true);
 
-    filters = ref({
-        type: {
-            voice: false,
-            text: false
-        },
-        status: [],
-        search: '',
-        ordering: 'order_item_time_data__start_date',
-        ignore: undefined
-    });
-  chatList = ref<null | HTMLElement>(null); 
-  messages = ref<Message[]>([]); 
-    messagesPagination = ref<PaginationResponse<Message>>()
-    segmentedMessages = computed<Array<{ index : string, messages : Message[]}>>(() => {
+  filters = ref({
+    type: {
+      voice: false,
+      text: false
+    },
+    status: [],
+    search: '',
+    ordering: 'order_item_time_data__start_date',
+    ignore: undefined
+  });
+  chatList = ref<null | HTMLElement>(null);
+  messages = ref<Message[]>([]);
+  messagesPagination = ref<PaginationResponse<Message>>()
+  segmentedMessages = computed<Array<{ index: string, messages: Message[] }>>(() => {
 
-        const segments: Array<{ index : string, messages : Message[]}> = [];
-    
-        this.messages.value?.map?.((message) => {
-    
-            const date = useArabicFormattedDate(message.date);
-    
-            const existingSegment = segments.find((segment) => segment.index === date);
-    
-            if(existingSegment) {
-                existingSegment.messages.push(message);
-                return;
-            }
-    
-            segments.push({
-                index : date,
-                messages : [message]
-            })
-    
-        });
-    
-        return segments.reverse();
+    const segments: Array<{ index: string, messages: Message[] }> = [];
+
+    this.messages.value?.map?.((message) => {
+
+      const date = useArabicFormattedDate(message.date);
+
+      const existingSegment = segments.find((segment) => segment.index === date);
+
+      if (existingSegment) {
+        existingSegment.messages.push(message);
+        return;
+      }
+
+      segments.push({
+        index: date,
+        messages: [message]
+      })
+
     });
 
-    filtersCount = computed(() => {
-        return (
-            this.filters.value.status.length +
-            Number(this.filters.value.type.voice) +
-            +Number(this.filters.value.type.text)
-        );
+    return segments.reverse();
+  });
+
+  filtersCount = computed(() => {
+    return (
+      this.filters.value.status.length +
+      Number(this.filters.value.type.voice) +
+      +Number(this.filters.value.type.text)
+    );
+  });
+
+  static filtersWatch: undefined | any;
+
+  constructor() {
+    this.filtersPipline = [this.getTypeFilterQuery, this.getStatusFilterQuery, this.search, this.ordering];
+
+    if (OrdersStore.filtersWatch) return;
+    OrdersStore.filtersWatch = watch(
+      this.filters,
+      async (value) => {
+        if (value.ignore === true) {
+          this.filters.value.ignore = undefined;
+          return;
+        }
+
+        // if(value.ignore) return
+
+        if (!this) return;
+
+        // this.loading.value = true;
+
+        await this.fetchAll();
+
+        // this.loading.value = false;
+
+        if (process.client) {
+          localStorage.setItem('abber:filters', JSON.stringify(this.filters.value));
+        }
+      },
+      {
+        deep: true
+      }
+    );
+  }
+
+  fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<Order>> =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const data = (await useApi('/api/orders', {
+          params: {
+            limit: 9,
+            ...this.pipeFilters(),
+            ...params
+          },
+          headers: {
+            'X-Requested-With': process.client ? 'XMLHttpRequest' : ''
+          }
+        })) as PaginationResponse<Order>;
+
+        this.orders.value = data.results;
+
+        this.pagination.value = data;
+
+        update?.();
+        resolve(data);
+
+        this.loading.value = false;
+      } catch (error: any) {
+        reject(error);
+      }
     });
 
-    static filtersWatch: undefined | any;
+  getOrder = async (id: string) => {
+    this.order.value = (await useApi(`/api/orders/order/${id}`)) as Order;
+    return this.order.value;
+  };
 
-    constructor() {
-        this.filtersPipline = [this.getTypeFilterQuery, this.getStatusFilterQuery, this.search, this.ordering];
+  fetchMessages = async (id: string, params: any = {}) => {
+    this.messagesPagination.value = (await useApi(`/api/orders/order/${id}/messages`, { params: Object.assign({ ordering: '-date' }, params) })) as PaginationResponse<Message>;
+    this.messages.value = this.messagesPagination.value.results
+    return this.messages.value;
+  }
 
-        if (OrdersStore.filtersWatch) return;
-        OrdersStore.filtersWatch = watch(
-            this.filters,
-            async (value) => {
-                if (value.ignore === true) {
-                    this.filters.value.ignore = undefined;
-                    return;
-                }
+  getTypeFilterQuery = () => {
+    if (!this) return {};
 
-                // if(value.ignore) return
-
-                if (!this) return;
-
-                // this.loading.value = true;
-
-                await this.fetchAll();
-
-                // this.loading.value = false;
-
-                if (process.client) {
-                    localStorage.setItem('abber:filters', JSON.stringify(this.filters.value));
-                }
-            },
-            {
-                deep: true
-            }
-        );
+    if (
+      (this.filters.value.type.text && this.filters.value.type.voice) ||
+      (!this.filters.value.type.text && !this.filters.value.type.voice)
+    ) {
+      return {};
     }
 
-    fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<Order>> =>
-        new Promise(async (resolve, reject) => {
-            try {
-                const data = (await useApi('/api/orders', {
-                    params: {
-                        limit: 9,
-                        ...this.pipeFilters(),
-                        ...params
-                    },
-                    headers: {
-                        'X-Requested-With': process.client ? 'XMLHttpRequest' : ''
-                    }
-                })) as PaginationResponse<Order>;
-
-                this.orders.value = data.results;
-
-                this.pagination.value = data;
-
-                update?.();
-                resolve(data);
-
-                this.loading.value = false;
-            } catch (error: any) {
-                reject(error);
-            }
-        });
-
-    getOrder = async (id: string) => {
-        this.order.value = (await useApi(`/api/orders/order/${id}`)) as Order;
-        return this.order.value;
-    };
-
-    fetchMessages = async(id : string, params : any = {}) => {
-        this.messagesPagination.value = (await useApi(`/api/orders/order/${id}/messages`, {params : Object.assign({ordering: '-date'}, params)})) as PaginationResponse<Message>;
-        this.messages.value = this.messagesPagination.value.results
-        return this.messages.value;
+    if (this.filters.value.type.text) {
+      return {
+        type: 'text_communication'
+      };
     }
 
-    getTypeFilterQuery = () => {
-        if (!this) return {};
-
-        if (
-            (this.filters.value.type.text && this.filters.value.type.voice) ||
-            (!this.filters.value.type.text && !this.filters.value.type.voice)
-        ) {
-            return {};
-        }
-
-        if (this.filters.value.type.text) {
-            return {
-                type: 'text_communication'
-            };
-        }
-
-        return {
-            type: 'video_communication'
-        };
+    return {
+      type: 'video_communication'
     };
+  };
 
-    getStatusFilterQuery = () => {
-        if (!this || this.filters.value.status.length === 0) return {};
+  getStatusFilterQuery = () => {
+    if (!this || this.filters.value.status.length === 0) return {};
 
-        if (this.filters.value.status.length === 1) {
-            return {
-                status: this.filters.value.status[0]
-            };
-        }
+    if (this.filters.value.status.length === 1) {
+      return {
+        status: this.filters.value.status[0]
+      };
+    }
 
-        let status = '';
+    let status = '';
 
-        this.filters.value.status.map((_status: string, index: number) => {
-            if (index == 0) {
-                status += _status;
-                return;
-            }
+    this.filters.value.status.map((_status: string, index: number) => {
+      if (index == 0) {
+        status += _status;
+        return;
+      }
 
-            status += ',' + _status;
-        });
+      status += ',' + _status;
+    });
 
-        return {
-            status__in: status
-        };
+    return {
+      status__in: status
     };
+  };
 
-    search = () => {
-        if (this.filters.value.search === '') return {};
+  search = () => {
+    if (this.filters.value.search === '') return {};
 
-        return { search: this.filters.value.search };
-    };
+    return { search: this.filters.value.search };
+  };
 
-    ordering = () => {
-        return { ordering: this.filters.value.ordering };
-    };
+  ordering = () => {
+    return { ordering: this.filters.value.ordering };
+  };
 
-    pipeFilters = () => {
-        return this.filtersPipline.reduce((prev: any, curr: any) => {
-            return Object.assign(prev, curr());
-        }, {});
-    };
+  pipeFilters = () => {
+    return this.filtersPipline.reduce((prev: any, curr: any) => {
+      return Object.assign(prev, curr());
+    }, {});
+  };
 }
 
 export const useOrdersStore = defineStore('orders', () => new OrdersStore());
