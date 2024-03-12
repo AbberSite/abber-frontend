@@ -25,7 +25,7 @@
       </changeList>
     </div>
 
-    <ChatInput />
+    <ChatInput v-if="order?.status === 'in_progress' || order?.content?.allow_chat" />
   </div>
 </template>
 

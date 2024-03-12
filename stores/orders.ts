@@ -185,38 +185,38 @@ class OrdersStore {
     return { ordering: this.filters.value.ordering };
   };
 
-    pipeFilters = () => {
-        return this.filtersPipline.reduce((prev: any, curr: any) => {
-            return Object.assign(prev, curr());
-        }, {});
-    };
+  pipeFilters = () => {
+    return this.filtersPipline.reduce((prev: any, curr: any) => {
+      return Object.assign(prev, curr());
+    }, {});
+  };
 
 
-    subscribeToOrderStatus = async (orderId : string) => {
+  subscribeToOrderStatus = async (orderId: string) => {
 
-        const { rawToken } = useAuthState();
+    const { rawToken } = useAuthState();
 
-        const status = await useWebSocket(
-            import.meta.env.VITE_WS_URL +
-                `/ws/order-status/${orderId}/` +
-                `?authorization=JWT ${rawToken.value}`,
-            {
-                autoReconnect: true
-            }
-        );
+    const status = await useWebSocket(
+      import.meta.env.VITE_WS_URL +
+      `/ws/order-status/${orderId}/` +
+      `?authorization=JWT ${rawToken.value}`,
+      {
+        autoReconnect: true
+      }
+    );
 
-        return status
-    }
-    updateOrderStatus = async (orderId? : string, status : Order['status']) => {
-        const response = await useProxy(`/orders/my-orders/${orderId}/`, {
-            method : "PATCH", 
-            body : {
-                change_status : status
-            }
-        })
-
-        return response
-    }
+    return status
+  }
+  updateOrderStatus = async (orderId?: string, status: Order['status']) => {
+    const response = await useProxy(`/orders/my-orders/${orderId}/`, {
+      method: "PATCH",
+      body: {
+        change_status : status
+      }
+    })
+    this.getOrder(orderId); // Update order data after update status
+    return response
+  }
 }
 
 export const useOrdersStore = defineStore('orders', () => new OrdersStore());
