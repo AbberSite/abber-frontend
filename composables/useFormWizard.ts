@@ -1,4 +1,5 @@
 import type { Component } from 'vue';
+import { useEventBus } from '@vueuse/core'
 
 type Options = { activeNavigationIndex?: number; ignore?: boolean; previous?: Function };
 
@@ -32,6 +33,7 @@ class FormWizard<T> {
     activeStepId = ref<string | undefined>();
 
     navigationStack = useStack<string | undefined>();
+    bus : ReturnType<typeof useEventBus<string>>|undefined
 
     first = computed<boolean>(() => this.activeStepId.value == this.steps.value[0].id);
     last = computed<boolean>(() => this.activeStepId.value == this.steps.value[this.steps.value.length - 1].id);
@@ -48,6 +50,7 @@ class FormWizard<T> {
         this.activeStepId.value = steps[0].id;
         this.navigationStack.push(steps[0].id);
         this.steps.value = steps;
+        this.bus = useEventBus<string>(id)
 
         if(!process.client) return
 
@@ -99,6 +102,11 @@ class FormWizard<T> {
 
         localStorage.setItem(FormWizard.getStorageKey(this.id), JSON.stringify(this.state.value.data))
     };
+
+
+    emitNext = () => {
+        this.bus?.emit("next", this.activeStepId.value)
+    }
 
     previous = (stepId?: string) => {
         if (stepId) {

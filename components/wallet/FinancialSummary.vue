@@ -235,8 +235,9 @@
 
         <ClientOnly>
 
-            <WalletDepoit :show="showDepoit" @close="showDepoit = false"/>
+            <WalletDeposit :show="showDepoit" @close="showDepoit = !showDepoit"/>
             <WalletWithdrawal :show="showWithdrawal" @close="showWithdrawal = false" />
+            
         </ClientOnly>
     </div>
 </template>

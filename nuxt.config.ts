@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     routeRules :{
         '/api-proxy/**' : {proxy : 'https://test.abber.co/api/**', headers : { 'api-key' : 'd378b42b1f3f18f231edb2f253e43025dc01406f'},  ssr : true, swr : true},
         '/file/**' : {proxy : 'https://d336rd5betdm19.cloudfront.net/**', headers : { 'api-key' : '27fe0837909c033d8a143b33b1257dc165495349'}},
+        // '/orders/video/**' : {ssr : false}
 
     }, 
     runtimeConfig: {
@@ -31,16 +32,15 @@ export default defineNuxtConfig({
         // apiBasePath: 'https://abber.co/api'
         // test
         apiSecret: 'd378b42b1f3f18f231edb2f253e43025dc01406f',
-        apiBasePath: 'https://test.abber.co/api'
+        apiBasePath: 'https://test.abber.co/api',
+        public :{
+            zoomSdkKey : "jFmC2HUOQl6JVb_PHPXxNQ"
+        }
     },
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
 
     auth: {
 
-        session : {
-            enableRefreshOnWindowFocus : false,
-            enableRefreshPeriodically : false
-        },
         globalAppMiddleware: true, 
 
         // baseURL : "/", 

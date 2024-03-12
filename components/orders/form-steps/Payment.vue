@@ -38,7 +38,7 @@
         <div dir="ltr" class="payment-form" ref="paymentForm">
             <form
                 dir="ltr"
-                :action="state.data?.type == 'text_communication' ? '/orders/complete' : '/orders/video-complete'"
+                :action="state.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete'"
                 class="paymentWidgets"
                 :data-brands="paymentMethod"></form>
         </div>
@@ -121,7 +121,7 @@ watch(paymentMethod, async (value) => {
     const form = document.createElement('form');
 
     form.dir = 'ltr';
-    form.action = '/orders/complete';
+    form.action = state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete';
     form.classList.add('paymentWidgets');
 
     form.dataset.brands = value;
@@ -273,8 +273,8 @@ async function loadHyper() {
             div.classList.add('cvv-expiry-wrapper');
             cardGroup?.insertAdjacentElement('afterend', div);
 
-            div.append(expiryGroup);
             div.append(cvvGroup);
+            div.append(expiryGroup);
         }
     };
 
@@ -286,9 +286,6 @@ async function loadHyper() {
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
     return new Promise(async (resolve, reject) => {
-        // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
-
-        //
 
         const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
             method: 'POST',

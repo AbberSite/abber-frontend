@@ -63,12 +63,12 @@
         <section
             class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="contact-types-heading">
-            <template v-if="loading">
+            <template v-if="loading || paid">
                 <div class="w-full flex justify-center items-center h-full"><Loading /></div>
             </template>
 
             <template v-else>
-                <template v-if="paid">
+                <!-- <template v-if="paid">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <CheckCircleIcon class="w-6 h-6" />
                     </div>
@@ -105,9 +105,9 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </template> -->
 
-                <template v-else-if="!paid && !isActive">
+                <template v-if="!paid && !isActive">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <XCircleIcon class="w-6 h-6" />
                     </div>
@@ -224,7 +224,7 @@ async function getStatus() {
     if (isActive) pause();
 
     // TODO : update this with real service id
-    const result = await useApi(`/api/orders/85/buy`, {
+    const result = await useApi(`/api/orders/${service_id}/buy`, {
         method: 'POST',
         body: {
             type: data.type,
@@ -244,11 +244,13 @@ async function getStatus() {
         return;
     }
 
-    await updateOrderInfo(data);
+    // await updateOrderInfo(data);
 
     localStorage.removeItem('abber:current-transaction-id');
 
     (data as any).clear();
+
+    router.push(`/orders/video/${result.order_id}`)
 
     loading.value = false;
 }
@@ -269,16 +271,16 @@ async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
     });
 }
 
-async function updateOrderInfo(data: OrderForm) {
-    try {
-        const response = await useApi(`/api/orders/update/${data.order_id}`, {
-            method: 'POST',
-            body: data
-        });
-    } catch (error) {
-        alert('something went wrong');
-    }
-}
+// async function updateOrderInfo(data: OrderForm) {
+//     try {
+//         const response = await useApi(`/api/orders/update/${data.order_id}`, {
+//             method: 'POST',
+//             body: data
+//         });
+//     } catch (error) {
+//         alert('something went wrong');
+//     }
+// }
 
 definePageMeta({
     layout: false

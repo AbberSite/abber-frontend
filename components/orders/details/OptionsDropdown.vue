@@ -7,6 +7,7 @@
         type="button"
         @click="$emit('show-review')"
         role="menuitem"
+        v-if="!order?.add_review"
         tabindex="-1">
         تقييم المعبر
     </button>
@@ -33,6 +34,9 @@
 </template>
 
 <script setup lang="ts">
+
+
+const { order } = storeToRefs(useOrdersStore())
 
 </script>
 

@@ -13,7 +13,7 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
     return $fetch<T, R>("/api-proxy" + request as R, {
         ...options,
         headers: {
-            Authorization: status.value == 'authenticated' ? `Bearer ${rawToken.value}` : '',
+            Authorization: `Bearer ${rawToken.value}` ,
             ...options?.headers
         }
     });

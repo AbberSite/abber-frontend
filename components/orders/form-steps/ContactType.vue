@@ -28,7 +28,7 @@
                     value="text_communication" />
             </label>
             <label
-                @click.once="submit('voice_communication')"
+                @click.once="submit('video_communication')"
                 class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
                 :class="voiceCommunicationButtonClasses">
                 <div class="flex pt-1.5">
@@ -47,7 +47,7 @@
                     id="voice-communication"
                     type="radio"
                     name="type"
-                    value="voice_communication" />
+                    value="video_communication" />
             </label>
 
             <!-- <PrimaryButton :disabled="!selectedOption" class="w-full">
@@ -91,14 +91,14 @@ onMounted(async () => {
 const voiceCommunicationButtonClasses = computed(() => {
     if (videoServicesPagination?.value?.count == 0)
         return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
-    if (selectedOption.value == 'voice_communication') return 'border-gray-900 ring-1 ring-gray-900';
+    if (selectedOption.value == 'video_communication') return 'border-gray-900 ring-1 ring-gray-900';
 });
 
-function submit(value: 'text_communication' | 'voice_communication') {
+function submit(value: 'text_communication' | 'video_communication') {
     selectedOption.value = value;
 
     next({
-        nextStepId: selectedOption.value === 'voice_communication' ? 'service' : 'dream-details',
+        nextStepId: selectedOption.value === 'video_communication' ? 'service' : 'dream-details',
         data: {
             type: selectedOption.value
         }

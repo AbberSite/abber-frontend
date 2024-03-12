@@ -20,7 +20,7 @@
                 leave-from="translate-x-0"
                 leave-to="translate-x-full"
                 as="template">
-                <div class="fixed inset-0 z-40 bg-white sm:w-[340px]" v-cloak >
+                <div class="fixed inset-0 z-40 bg-white sm:w-[340px]" v-cloak>
                     <div class="flex h-full flex-col">
                         <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8">
                             <h2 class="text-lg font-semibold xs:text-xl">تقييم المعبر</h2>
@@ -51,6 +51,7 @@
                                 <label class="block text-sm font-semibold xs:text-base" for="select">جودة الخدمة</label>
                                 <select
                                     class="form-control form-select h-[50px] appearance-none"
+                                    v-model="rating.quality_rate"
                                     name="select"
                                     id="select"
                                     required>
@@ -68,6 +69,7 @@
                                 <select
                                     class="form-control form-select h-[50px] appearance-none"
                                     name="select"
+                                    v-model="rating.delivery_rate"
                                     id="select"
                                     required>
                                     <option value="5">★★★★★</option>
@@ -84,6 +86,7 @@
                                 <select
                                     class="form-control form-select h-[50px] appearance-none"
                                     name="select"
+                                    v-model="rating.communication_rate"
                                     id="select"
                                     required>
                                     <option value="5">★★★★★</option>
@@ -101,6 +104,7 @@
                                     class="form-control form-select h-[50px] appearance-none"
                                     name="select"
                                     id="select"
+                                    v-model="rating.professional_rate"
                                     required>
                                     <option value="5">★★★★★</option>
                                     <option value="4">★★★★</option>
@@ -116,6 +120,7 @@
                                 <select
                                     class="form-control form-select h-[50px] appearance-none"
                                     name="select"
+                                    v-model="rating.again_rate"
                                     id="select"
                                     required>
                                     <option value="5">★★★★★</option>
@@ -130,6 +135,7 @@
                                 <select
                                     class="form-control form-select h-[50px] appearance-none"
                                     name="select"
+                                    v-model="rating.expertise_rate"
                                     id="select"
                                     required>
                                     <option value="5">★★★★★</option>
@@ -144,17 +150,16 @@
                                     >إضافة تعليق</label
                                 >
                                 <textarea
+                                    v-model="rating.comment"
                                     class="form-control block max-h-[300px] min-h-[200px] py-4"
                                     name="textarea"
                                     id="textarea"
                                     rows="5"
                                     required></textarea>
                             </div>
-                            <button
-                                class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                type="submit">
+                            <PrimaryButton @click="submit" :loading="loading" type="submit">
                                 <span class="mt-1.5">حفظ</span>
-                            </button>
+                            </PrimaryButton>
                         </fieldset>
                     </div>
                 </div>
@@ -166,7 +171,41 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
+const id = useRoute().params.id;
 const emit = defineEmits(['close']);
+
+const loading = ref(false);
+
+const { order } = storeToRefs(useOrdersStore());
+
+const rating = ref({
+    professional_rate: 5,
+    communication_rate: 5,
+    quality_rate: 5,
+    expertise_rate: 5,
+    delivery_rate: 5,
+    again_rate: 5,
+    comment: '',
+    order_id: id
+});
+
+async function submit() {
+    loading.value = true;
+    try {
+        const data = await useProxy(`/services/services/${order.value?.service}/ratings/`, {
+            method: 'POST',
+            body: rating.value
+        });
+
+        emit('close');
+        useNotification({ type: 'success', content: 'تم اضافة التقييم.' });
+    } catch (error: any) {
+        emit('close');
+        useNotification({ type: 'danger', content: 'خدث خطأ عند اضافة التقييم.' });
+    } finally {
+        loading.value = false;
+    }
+}
 </script>
 
 <style scoped></style>
