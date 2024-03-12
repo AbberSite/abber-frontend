@@ -18,21 +18,22 @@
 </template>
 
 <script setup lang="ts">
+import { boolean } from 'yup';
+
 const props = defineProps<{
-  user: User,
+  isSeller: boolean,
+  isBuyer: boolean
 }>()
 
 const { order } = storeToRefs(useOrdersStore())
 const { updateOrderStatus } = useOrdersStore()
-const isSeller = props.user.username === order.value?.seller?.username
-const isBuyer = props.user.username === order.value?.buyer?.username
 
-const allowCancelOrder = (['in_progress', 'new'].includes(order.value?.status) && isBuyer) || (order.value?.status === 'waiting_for_cancellation' && isSeller);
+const allowCancelOrder = (['in_progress', 'new'].includes(order.value?.status) && props.isBuyer) || (order.value?.status === 'waiting_for_cancellation' && props.isSeller);
 async function cancelOrder() {
   await updateOrderStatus(order.value?.id, 'cancelled');
-  
 
-  useNotification({ content: isBuyer ? 'تم طلب إلغاء الطلب' : 'تم إلغاء الطلب', type: 'success' });
+
+  useNotification({ content: props.isBuyer ? 'تم طلب إلغاء الطلب' : 'تم إلغاء الطلب', type: 'success' });
 }
 </script>
 
