@@ -29,18 +29,45 @@
             <DetailsHeader :show-navigation="activeTab == 'details'" />
             <DetailsTabs v-model="activeTab" />
             <DetailsMobileCard v-if="activeTab == 'details'" />
-            <!-- <DetailsMobileChat v-if="activeTab == 'chat'" /> -->
-            <!-- <DetailsChat v-if="activeTab == 'chat'"  />  -->
-            <div class="sm:hidden" v-if="activeTab == 'chat'">something</div>
+            <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
+                <ClientOnly v-if="canJoin">
+                    <Meeting />
+                </ClientOnly>
+            </div>
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
                 <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
                     <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
                     <DetailsCard />
                 </div>
-                <ClientOnly>
-                    <!-- <DetailsChat />  -->
-                    something
+                <div
+                    class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2"
+                    v-if="order?.status == 'complete' || order?.status == 'awaiting_delivery'">
+                    <h2 class="text-xl font-semibold">هذا الطلب مكتمل</h2>
+                    
+                    <CheckCircleIcon class="h-8 w-8" />
+                </div>
+
+                <div
+                class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2"
+                v-if="order?.status == 'cancelled' || order?.status == 'waiting_for_cancellation'">
+                <h2 class="text-xl font-semibold">هذا الطلب ملغى</h2>
+                
+                <CheckCircleIcon class="h-8 w-8" />
+            </div>
+                <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2" v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
+                    <h2 class="text-xl font-semibold">يرجى الإنتظار حتى يحين دورك</h2>
+                    <div class="flex items-center justify-center space-x-3 pt-16 rtl:space-x-reverse">
+                      <div class="flex flex-col items-center justify-center px-4 py-2">
+                        <p class="text-2xl font-bold">{{ meeting.sessions_count }}</p>
+                        <p class="text-sm font-semibold text-gray-500 xs:text-base">أشخاص</p>
+                      </div>
+                    </div>
+                </div>
+                <ClientOnly  v-if="!isMobile && canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
+                    <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100  lg:col-span-2 relative">
+                        <Meeting />
+                    </div>
                 </ClientOnly>
             </div>
         </section>
@@ -48,49 +75,95 @@
 </template>
 
 <script setup lang="ts">
+import { useMediaQuery } from '@vueuse/core';
 import { useWebSocket } from '@vueuse/core';
+import { CheckCircleIcon } from '@heroicons/vue/24/outline';
 
 definePageMeta({
     middleware: 'auth',
     layout: false
 });
 
+const isMobile = useMediaQuery('(max-width: 1023px)');
 const id = useRoute().params.id;
 
 const activeTab = ref<'details' | 'chat'>('details');
 
+const { getSession } = useAuth();
+
 const { order } = storeToRefs(useOrdersStore());
 
-const { getOrder } = useOrdersStore();
+const { getOrder, subscribeToOrderStatus } = useOrdersStore();
 
-if (!process.client) {
-    await getOrder(id as string);
-}
+const { getMeetingStatus, bus } = useMeetingStore();
 
-async function getMeetingStatus() {
-    const data = await useProxy(`/orders/my-orders/${id}/meeting/`);
-}
+const { meeting } = storeToRefs(useMeetingStore());
+
+const canJoin = computed(() => meeting.value.sessions_count == 0);
+
+const done = ref(false);
 
 async function initChannel() {
     const { rawToken } = useAuthState();
 
     const { data } = useWebSocket(
         import.meta.env.VITE_WS_URL +
-            `ws/meeting/${order.value?.seller?.username}` +
+            `/ws/meeting/${order.value?.seller?.username}/` +
             `?authorization=JWT ${rawToken.value}`,
         {
             autoReconnect: true
         }
     );
+
+    watch(data, async (value) => {
+        await getMeetingStatus(order.value?.id as string);
+    });
 }
 
+await getSession();
+
+await getOrder(id as string);
+
+const orderStatus = await subscribeToOrderStatus(order.value?.id as string);
+
+if (order.value?.status == 'new' || order.value?.status == 'in_progress') {
+    await getMeetingStatus(order.value?.id as string);
+}
+
+watch(orderStatus.data, async (value) => {
+    if (!value) return;
+
+    const data = JSON.parse(value) as { status: Order['status'] };
+
+    if (order.value) {
+        order.value.status = data.status;
+    }
+
+    if (data.status != 'awaiting_delivery' && data.status !='complete' ) return;
+
+
+    if (data.status == 'awaiting_delivery') {
+        useNotification({
+            content: 'تم تسليم الطلب',
+            type: 'info'
+        });
+    }
+
+    bus.emit('leave');
+});
+
 onMounted(async () => {
+    await getSession();
+
     if (!order.value) {
         await getOrder(id as string);
     }
 
-    await getMeetingStatus();
-    await initChannel();
+    if (order.value?.status == 'new' || order.value?.status == 'in_progress') {
+        await initChannel();
+    }
+    // await getMeetingStatus(order.value?.id as string);
+    // await getMeetingSignature(0);
 });
 
 onUnmounted(() => {

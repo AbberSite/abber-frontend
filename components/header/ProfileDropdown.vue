@@ -66,6 +66,17 @@
                 @click="$emit('close')"
                 >لوحة التحكم
             </NuxtLink>
+
+            <NuxtLink
+                class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
+                href="#"
+                role="menuitem"
+                tabindex="-1"
+                v-if="data.user_type == 'معبر'"
+                :to="{ name: 'profile-service' }"
+                @click="$emit('close')"
+                >إدارة الخدمة
+            </NuxtLink>
             <NuxtLink
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 :to="{ name: 'orders' }"

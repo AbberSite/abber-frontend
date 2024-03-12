@@ -83,7 +83,7 @@ export type Service = {
 
 export type OrderForm = {
   inputType?: 'text_chat' | 'voice_chat';
-  type?: 'text_communication' | 'voice_communication';
+  type?: 'text_communication' | 'video_communication';
   dream_title?: string;
   dream_time?: string;
   dream?: string;
@@ -127,7 +127,7 @@ export type Order = {
     image: string;
   };
   status: 'in_progress' | 'complete' | 'waiting_for_cancellation' | 'cancelled' | 'new' | 'awaiting_delivery';
-  type: 'text_communication' | 'voice_communication';
+  type: 'text_communication' | 'video_communication';
   service: string;
   service_details: Service;
   order_item_time_data: {

@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths" : {
-      
+      "*": ["types/*.d.ts"], 
       "~/*" : ["*"],
       "@components/*" : ["components/*"]
     },

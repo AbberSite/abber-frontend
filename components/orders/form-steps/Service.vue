@@ -82,14 +82,6 @@ function submit(service_id: number) {
 
     next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
 }
-
-function hasVideoService(service: Service): boolean {
-    return !!service.service_methods.filter((method) => method.type == 'voice_communication');
-}
-
-function hasTextService(service: Service): boolean {
-    return !!service.service_methods.filter((method) => method.type == 'text_communication');
-}
 </script>
 
 <style scoped></style>

@@ -96,13 +96,13 @@
 </template>
 
 <script setup lang="ts">
+import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 import type { OrderForm } from '~/types';
 import 'intl-tel-input/build/css/intlTelInput.css';
 import useScript from '~/composables/useScript';
 import intlTelInput from 'intl-tel-input';
-import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'show']);
 const { data, getSession } = useAuth();
 
 let hyper: any = undefined;

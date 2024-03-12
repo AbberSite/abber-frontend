@@ -95,7 +95,6 @@
             </template>
 
             <div class="pt-4 text-sm text-gray-800 xs:text-base" v-else>تصفح جمبع طلباتك الصادرة</div>
-            <SkeletonsOrdersTable v-if="loading" class="pt-16" />
 
             <template
                 v-if="
@@ -202,6 +201,7 @@
                     @change="fetchAll"
                     per-page="9" />
             </template>
+            <SkeletonsOrdersTable v-if="loading" class="pt-16" />
         </section>
     </main>
 
