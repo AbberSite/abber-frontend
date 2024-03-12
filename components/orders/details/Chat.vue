@@ -1,12 +1,14 @@
 <template>
-  <div class="flex flex-col sm:block gap-6 sm:space-y-6 pb-6 sm:pb-0 rounded-lg sm:border sm:border-gray-100 sm:px-6 sm:py-6 lg:col-span-2 w-full">
+  <div class="space-y-6 rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2">
     <div class="flex justify-center">
       <Loading v-if="loading" />
     </div>
 
     <div ref="chatList" class="max-h-[40rem] overflow-y-scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
-        <ChatMessage v-for="(message, i) in messages" :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]" :id="'message-' + message.id"> </ChatMessage>
+        <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
+          :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
+          :id="'message-' + message.id"> </ChatMessage>
         <div class="relative w-full">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t"></div>
@@ -18,6 +20,9 @@
           </div>
         </div>
       </div>
+      <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data"
+        :class="{ 'hidden': !changeMessage }">
+      </changeList>
     </div>
 
     <ChatInput />
@@ -29,6 +34,7 @@ import type { Message, PaginationResponse } from "~/types";
 // import InfiniteLoading from "v3-infinite-loading";
 // import "v3-infinite-loading/lib/style.css";
 import { useInfiniteScroll } from "@vueuse/core";
+import changeList from "~/components/chat/changeList.vue";
 const { order, messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useOrdersStore());
 const { fetchMessages } = useOrdersStore();
 
@@ -39,6 +45,10 @@ const { data } = useAuth();
 const { clear } = useChat();
 
 const loading = ref(false);
+
+const contextMenu = ref<null | HTMLElement>(null);
+
+const changeMessage = ref<Message | undefined>(undefined)
 
 onMounted(async () => {
   if (messages.value.length == 0) {
@@ -54,6 +64,10 @@ onMounted(async () => {
     direction: "top",
     canLoadMore: () => !!messagesPagination.value?.next,
   });
+
+  // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
+  document.addEventListener("click", resetChangeMessage);
+
 });
 
 function formatTime(_date: string) {
@@ -87,8 +101,16 @@ async function load() {
   chatList.value.scrollTop = 300;
 }
 
+function showContextMenu(e: any, message: Message) {
+  changeMessage.value = message;
+  contextMenu.value.$el.style = `top: ${e.layerY}px;left: ${e.layerX}px;`;
+}
+
+const resetChangeMessage = () => changeMessage.value = undefined
+
 onUnmounted(() => {
   clear();
+  resetChangeMessage();
   messages.value = [];
   messagesPagination.value = undefined;
 });

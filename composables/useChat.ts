@@ -8,7 +8,7 @@ export default (type: string = "order") => {
 
   const id = useRoute().params.id
 
-    if(currentChat) return {...currentChat, clear : () => currentChat = undefined }
+  if (currentChat) return { ...currentChat, clear: () => currentChat = undefined }
 
   const { messages, chatList } = storeToRefs(useOrdersStore());
 
@@ -21,29 +21,30 @@ export default (type: string = "order") => {
 
   watch(chat.data, (value: string) => {
     const parsedData = JSON.parse(value)
-    const isMessageFromCurrentUser =  data.value.username == parsedData.message.user.username
+
+    const isMessageFromCurrentUser = data.value.username == parsedData.message.user?.username
     if (parsedData.type === 'chat_message') { // New message added
       const receivedMesssage = parsedData as { message: Message };
 
-      
-      if (receivedMesssage.message.files?.length > 0 && isMessageFromCurrentUser){
+
+      if (receivedMesssage.message.files?.length > 0 && isMessageFromCurrentUser) {
         const messageToUpdateIndex = messages.value.findIndex(
-          (msg: Message) =>msg.files?.length > 0 && msg.files[0].name == receivedMesssage.message.files[0].name + '.mp3'
-          
+          (msg: Message) => msg.files?.length > 0 && msg.files[0].name == receivedMesssage.message.files[0].name + '.mp3'
+
         ); // Find the message by its ID to update it as read
         if (messageToUpdateIndex !== -1) {
           // Update the message 
           messages.value[messageToUpdateIndex] = receivedMesssage.message;
 
-          
+
         }
-      
-     }else{
-       messages.value.unshift(receivedMesssage.message);
-       if (chatList.value) {
-         chatList.value.scrollTop = chatList?.value?.scrollHeight as number; // Scroll to new messages
-       }
-     }
+
+      } else {
+        messages.value.unshift(receivedMesssage.message);
+        if (chatList.value) {
+          chatList.value.scrollTop = chatList?.value?.scrollHeight as number; // Scroll to new messages
+        }
+      }
     }
     else if (parsedData.type === 'read_message' && isMessageFromCurrentUser) { // Read existing message
       const readMessage = parsedData as { message: { id: Number } };
@@ -54,9 +55,15 @@ export default (type: string = "order") => {
         messages.value[messageToUpdateIndex].read = true; // Update the message as read
       }
     }
+    else if (parsedData.type === 'delete_message') { // Delete message
+      const messageIdToDelete = parsedData as { message: { message: Number } };
+      messages.value = messages.value.filter(message => message.id != messageIdToDelete.message);
+
+    }
+
   });
 
   currentChat = chat
-  
+
   return { ...chat, clear: () => currentChat = undefined }
 };
