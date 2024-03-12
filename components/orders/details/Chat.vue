@@ -1,19 +1,14 @@
 <template>
-  <div
-    class="flex flex-col sm:block gap-6 sm:space-y-6 pb-6 sm:pb-0 rounded-lg sm:border sm:border-gray-100 sm:px-6 sm:py-6 lg:col-span-2 w-full">
+  <div class="space-y-6 rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2">
     <div class="flex justify-center">
       <Loading v-if="loading" />
     </div>
 
-    <div ref="chatList" class="max-h-[40rem] overflow-y-scroll ">
+    <div ref="chatList" class="max-h-[40rem] overflow-y-scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
-        <!-- :class="[messages[i + 1]?.user?.username == message.user.username && 'pr-10 pt-0']" -->
-        <ChatMessage :user="data" :message="message"
-          :last-message="message.last_message ? message.last_message : messages[i + 1]"
-          v-for="(message, i) in messages"
-          :id="'message-'+message.id">
-        </ChatMessage>
-
+        <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
+          :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
+          :id="'message-' + message.id"> </ChatMessage>
         <div class="relative w-full">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t"></div>
@@ -25,6 +20,9 @@
           </div>
         </div>
       </div>
+      <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data"
+        :class="{ 'hidden': !changeMessage }">
+      </changeList>
     </div>
 
     <ChatInput />
@@ -32,10 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Message, PaginationResponse } from '~/types';
+import type { Message, PaginationResponse } from "~/types";
 // import InfiniteLoading from "v3-infinite-loading";
 // import "v3-infinite-loading/lib/style.css";
-import { useInfiniteScroll } from '@vueuse/core';
+import { useInfiniteScroll } from "@vueuse/core";
+import changeList from "~/components/chat/changeList.vue";
 const { order, messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useOrdersStore());
 const { fetchMessages } = useOrdersStore();
 
@@ -47,6 +46,9 @@ const { clear } = useChat();
 
 const loading = ref(false);
 
+const contextMenu = ref<null | HTMLElement>(null);
+
+const changeMessage = ref<Message | undefined>(undefined)
 
 onMounted(async () => {
   if (messages.value.length == 0) {
@@ -59,19 +61,23 @@ onMounted(async () => {
   useInfiniteScroll(chatList.value, async () => await load(), {
     interval: 500,
     distance: 5,
-    direction: 'top',
-    canLoadMore: () => !!messagesPagination.value?.next
+    direction: "top",
+    canLoadMore: () => !!messagesPagination.value?.next,
   });
+
+  // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
+  document.addEventListener("click", resetChangeMessage);
+
 });
 
 function formatTime(_date: string) {
   const date = new Date(_date);
 
-  return new Intl.DateTimeFormat('ar-AR', {
-    hour: 'numeric',
-    minute: '2-digit',
+  return new Intl.DateTimeFormat("ar-AR", {
+    hour: "numeric",
+    minute: "2-digit",
     hour12: true,
-    numberingSystem: 'latn'
+    numberingSystem: "latn",
   }).format(date);
 }
 
@@ -83,25 +89,31 @@ async function load() {
   loading.value = true;
 
   const newMessages = (await useApi(`/api/orders/order/${order.value?.id}/messages`, {
-    params
+    params,
   })) as PaginationResponse<Message>;
 
   loading.value = false;
 
-  messages.value.push(...newMessages.results);
+  // messages.value.push(...newMessages.results);
   messagesPagination.value = newMessages;
 
   if (!chatList.value) return;
   chatList.value.scrollTop = 300;
 }
 
+function showContextMenu(e: any, message: Message) {
+  changeMessage.value = message;
+  contextMenu.value.$el.style = `top: ${e.layerY}px;left: ${e.layerX}px;`;
+}
+
+const resetChangeMessage = () => changeMessage.value = undefined
+
 onUnmounted(() => {
-
-  clear()
-  messages.value = []
-  messagesPagination.value = undefined
-
-})
+  clear();
+  resetChangeMessage();
+  messages.value = [];
+  messagesPagination.value = undefined;
+});
 </script>
 
 <style scoped></style>

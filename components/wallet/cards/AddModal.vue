@@ -77,7 +77,7 @@
                     
                             <InputError :message="error" />
                     
-                            <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm">
+                            <div dir="ltr" class="payment-form" ref="paymentForm">
                                 <form dir="ltr" action="/orders/complete" class="paymentWidgets" :data-brands="paymentMethod"></form>
                             </div>
                             <div class="flex items-center" x-id="['checkbox']">
@@ -392,7 +392,7 @@ function submit(){
 .wpwl-label-expiry,
 .wpwl-label-cardNumber,
 .wpwl-label-mobilePhone {
-    @apply block text-sm font-semibold xs:text-base w-full ml-5;
+    @apply block text-sm font-semibold xs:text-base w-full;
     direction: rtl;
 }
 
