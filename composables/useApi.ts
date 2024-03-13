@@ -13,7 +13,7 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
     return $fetch<T, R>(request, {
         ...options,
         headers: {
-            Authorization: status.value == 'authenticated' ? `Bearer ${rawToken.value}` : '',
+            Authorization: status.value == 'unauthenticated' && rawToken.value ? `Bearer ${rawToken.value}` : '',
             ...options?.headers
         }
     });

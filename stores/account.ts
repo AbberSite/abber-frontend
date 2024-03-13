@@ -60,17 +60,6 @@ class AccountStore {
                 data.append('image', this.tempAccount.value.image as Blob);
             }
 
-            // data.append(
-            //     'profile',
-            //     JSON.stringify({
-            //         bank_account: this.tempAccount.value.profile.iban,
-            //         gender: this.tempAccount.value.profile.gender,
-            //         birthday: this.tempAccount.value.profile.birthdate,
-            //         marital_status: this.tempAccount.value.profile.maritalStatus,
-            //         profession: this.tempAccount.value.profile.profession
-            //     })
-            // );
-
             if (!this.tempAccount.value.profile.iban) {
                 data.append('profile.bank_account', this.tempAccount.value.profile.iban);
             }

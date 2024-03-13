@@ -7,10 +7,6 @@ class Notifications {
 
 	notification = (notification : Notification, duration : number, timeout : boolean = true) => {
 
-
-
-		console.log("notifiying");
-		
 		const existingNotification = this.notifications.value.find((_notification) => _notification.id == notification.id)
 
 		if(existingNotification) return
