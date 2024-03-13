@@ -16,11 +16,15 @@ class AudioRecorder {
   status = ref<Status>('initialized')
 
   timer: ReturnType<typeof useTimer>
-
+  timeLimit: Number | undefined = undefined
 
   constructor(timer: ReturnType<typeof useTimer>) {
-
-    this.timer = timer
+    this.timer = timer;
+    const { settings } = storeToRefs(useSettingsStore());
+    const { getSettings } = useSettingsStore();
+    getSettings().then(() => {
+      this.timeLimit = settings.value?.policy_settings.record_max_elapsed_time
+    });
   }
 
   init = (options?: { timer?: { timeout?: number; onTimeout?: Function, hours?: boolean } }): { status: Ref<Status>, timer: ReturnType<typeof useTimer>, audioBlobs: Blob[] } => {
@@ -34,7 +38,6 @@ class AudioRecorder {
 
       const { timer } = options
 
-
       if (timer) {
 
         const { timeout, onTimeout, hours } = timer
@@ -45,6 +48,8 @@ class AudioRecorder {
 
     }
 
+
+
     return { status: this.status, timer: this.timer, audioBlobs: this.audioBlobs };
 
   }
@@ -54,31 +59,24 @@ class AudioRecorder {
     var audioContext; //new audio context to help us record
     audioContext = new AudioContext();
     let input = audioContext.createMediaStreamSource(stream);
-    let blobs = this.audioBlobs;
-    let status = this.status;
-
-    blobs.length = 0; // reset blobs []
+    this.audioBlobs.length = 0; // reset blobs []
+    this.streamBeingCaptured = stream;
 
     const recorder = new WebAudioRecorder(input, {
       workerDir: "/audio-recorder/",   // must end with slash
       encoding: 'mp3',
 
     })
-    recorder.onComplete = function (recorder, blob) {
-      var blobUrl = URL.createObjectURL(blob);
-      blobs.push(blob);
-      status.value = 'finished';
 
+    recorder.onComplete = this.finish
 
-    }
-
-
-    this.streamBeingCaptured = stream;
-
-    this.recorder = recorder;
     recorder.setOptions({
       encodeAfterRecord: true,
+      timeLimit: this.timeLimit
     });
+
+    this.recorder = recorder;
+
 
     //start the recording process
     recorder.startRecording();
@@ -87,7 +85,7 @@ class AudioRecorder {
 
 
     // this.mediaRecorder.addEventListener('dataavailable', (event) => {
-      // this.audioBlobs.push(event.data);
+    // this.audioBlobs.push(event.data);
     // });
 
     // this.mediaRecorder.start();
@@ -120,15 +118,19 @@ class AudioRecorder {
       //stop the recording using the audio recording API
 
       this.recorder.finishRecording();
-      this.stopStream();
 
-
-      this.timer.stop();
-      this.timer.reset();
-
-      this.resetRecordingProperties();
 
     });
+  }
+  finish = (recorder: object, blob: Blob) => {
+    this.audioBlobs.push(blob);
+    this.status.value = 'finished';
+    this.stopStream();
+
+    this.timer.stop();
+
+    this.resetRecordingProperties();
+
   }
 
   cancel = () => {
@@ -158,6 +160,7 @@ class AudioRecorder {
 
     this.mediaRecorder = undefined;
     this.streamBeingCaptured = undefined;
+    this.timer.reset();
 
   }
 };

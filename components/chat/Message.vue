@@ -11,13 +11,13 @@
 
           <ChatFile :files="message.files"></ChatFile>
           <div v-html="message.message"></div>
-          <div class="flex justify-end" >
-            <svg v-if="message.sent !== false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" height="10" width="10">
+          <div class="flex justify-end" v-if="message.user.username === user.username">
+            <svg v-if="message.sent !== false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" height="10" width="10">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
             </svg>
-            <svg v-if="message.read" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" height="10" width="10">
+            <svg v-if="message.read" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" height="10" width="10">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
             </svg>
           </div>

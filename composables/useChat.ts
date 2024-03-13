@@ -21,6 +21,7 @@ export default (type: string = "order") => {
 
   watch(chat.data, (value: string) => {
     const parsedData = JSON.parse(value)
+    console.log(parsedData)
 
     const isMessageFromCurrentUser = data.value.username == parsedData.message.user?.username
     if (parsedData.type === 'chat_message') { // New message added
@@ -44,9 +45,13 @@ export default (type: string = "order") => {
         if (chatList.value) {
           chatList.value.scrollTop = chatList?.value?.scrollHeight as number; // Scroll to new messages
         }
+
+        if (!isMessageFromCurrentUser){
+          chat.send(JSON.stringify({ type: 'read_message', message: receivedMesssage.message.id })); // read message
+        }
       }
     }
-    else if (parsedData.type === 'read_message' && isMessageFromCurrentUser) { // Read existing message
+    else if (parsedData.type === 'read_message') { // Read existing message
       const readMessage = parsedData as { message: { id: Number } };
       const messageToUpdateIndex = messages.value.findIndex(
         (msg: Message) => msg.id === readMessage.message.id
@@ -58,7 +63,6 @@ export default (type: string = "order") => {
     else if (parsedData.type === 'delete_message') { // Delete message
       const messageIdToDelete = parsedData as { message: { message: Number } };
       messages.value = messages.value.filter(message => message.id != messageIdToDelete.message);
-
     }
 
   });

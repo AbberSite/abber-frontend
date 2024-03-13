@@ -145,6 +145,9 @@ export type Order = {
     image: string;
     is_online: boolean;
   };
+  content?:{
+    allow_chat?:boolean
+  }
 };
 
 export type File = {

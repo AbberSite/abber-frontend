@@ -46,8 +46,8 @@ class SettingsStore {
 
   settings = ref<WebsiteSettings | undefined>(undefined);
 
-  getSettings = async (id: string) => {
-    this.settings.value = (await useApi(`/api/settings/settings/${id}`)) as WebsiteSettings;
+  getSettings = async () => {
+    this.settings.value = (await useApi(`/api/settings/`)) as WebsiteSettings;
     return this.settings.value;
   };
 

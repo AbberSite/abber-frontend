@@ -106,12 +106,7 @@ async function toggleRecording() {
 
 }
 
-async function finishRecording() {
-
-  const audioBlob = await audioRecorder.stop();
-
-
-}
+const finishRecording = async () => await audioRecorder.stop();
 </script>
 
 <style scoped></style>

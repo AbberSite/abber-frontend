@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6 rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2">
+  <div class="flex flex-col justify-between space-y-6 rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2 w-full">
     <div class="flex justify-center">
       <Loading v-if="loading" />
     </div>
@@ -25,7 +25,7 @@
       </changeList>
     </div>
 
-    <ChatInput />
+    <ChatInput v-if="order?.status === 'in_progress' || order?.content?.allow_chat" />
   </div>
 </template>
 
