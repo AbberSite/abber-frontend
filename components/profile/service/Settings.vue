@@ -115,12 +115,13 @@ const form = ref({
     }
 });
 
+const{data:user}= useAuth()
 const loading = ref(false);
 
 async function getServiceDetails() {
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await useProxy(`/services/services/user/`);
+          const data = await useProxy(`/services/services/${user.value.username}/`);
 
             resolve(data);
         } catch (error) {
@@ -146,7 +147,7 @@ async function submit() {
 
     try {
 
-        await useProxy(`/services/services/user/`, {
+      await useProxy(`/services/services/${user.value.username}/`, {
             method: 'PUT',
             body: data
         });
