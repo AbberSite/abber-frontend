@@ -98,6 +98,8 @@
                     @input="record.commercial_record_image = ($event?.target as HTMLInputElement)?.files?.[0]"
                     dir="rtl"
                     required />
+                <a class="text-[13px] leading-loose text-gray-500 underline" target="_blank" :href="(record.commercial_record_image as any)" v-if="record.commercial_record_image">الصورة الحالية</a>
+
             </div>
             <div class="w-full space-y-3">
                 <label class="block text-sm font-semibold xs:text-base" for="tax-number">رقم التسجيل الضريبي</label>
@@ -124,6 +126,10 @@
                     id="tax-register-number"
                     dir="rtl"
                     required />
+                <a class="text-[13px] leading-loose text-gray-500 underline" target="_blank" :href="(record.tax_record_image as any)" v-if="record.tax_record_image">الصورة الحالية</a>
+
+                    
+                    
             </div>
         </div>
         <div class="pt-8 sm:pt-14">
@@ -204,8 +210,15 @@ async function submitRecord() {
 
     const data = new FormData()
 
-    data.append("commercial_record_image", record.value.commercial_record_image as File)
-    data.append("tax_record_image", record.value.tax_record_image as File)
+
+    console.log(typeof record.value.commercial_record_image);
+    
+    if(typeof record.value.commercial_record_image !== 'string'){
+        data.append("commercial_record_image", record.value.commercial_record_image as File)
+    }
+    if(typeof record.value.tax_record_image !== 'string'){
+        data.append("tax_record_image", record.value.tax_record_image as File)
+    }
     data.append("commercial_record", record.value.commercial_record)
     data.append("tax_record", record.value.tax_record)
 

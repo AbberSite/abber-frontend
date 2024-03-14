@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
         return Object.assign(user, { notifications });
     } catch (error: any) {
 
-
+        setResponseStatus(event, error?.response?.status ?? 500);
         if(error.response?.data?.code == 'user_inactive'){
             return { status : "error", error : error?.response?.data?.detail }
         }
@@ -37,5 +37,6 @@ export default defineEventHandler(async (event) => {
             status: 'error',
             error: 'حدث خطأ ما'
         };
+        
     }
 });

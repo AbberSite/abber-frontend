@@ -22,9 +22,10 @@
                 </button>
 
             </div>
+
             <HeaderNavigation />
 
-            <div v-if="status == 'authenticated' && !loading" class="hidden md:flex md:flex-1 md:justify-end">
+            <div v-if="status == 'authenticated' || data?.id" class="hidden md:flex md:flex-1 md:justify-end">
                 <div class="flex items-center">
                     <!-- Notification Button -->
 
@@ -59,11 +60,6 @@
                         </transition>
                     </div>
                 </div>
-            </div>
-            <div v-else-if="status == 'loading' || loading" class="hidden md:flex md:flex-1 md:justify-end 2xl:text-lg">
-                <Loading />
-
-                <!-- <a class="font-semibold" href="/accounts/login"></a> -->
             </div>
             <div v-else class="hidden md:flex md:flex-1 md:justify-end 2xl:text-lg">
                 <!-- Login Link -->

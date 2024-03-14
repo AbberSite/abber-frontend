@@ -26,7 +26,9 @@ class AccountStore {
         }
     });
 
-    goOffline : ((code?: number | undefined, reason?: string | undefined) => void) | undefined
+    zoomAccount: Ref<ZoomAccount | undefined> = ref<ZoomAccount | undefined>(undefined);
+
+    goOffline: ((code?: number | undefined, reason?: string | undefined) => void) | undefined;
 
     tempAccountImagePreview = computed(() =>
         this.tempAccount.value.image ? URL.createObjectURL(this.tempAccount.value.image as Blob) : ''
@@ -108,8 +110,71 @@ class AccountStore {
             }
         );
 
-        return close
+        return close;
     };
+
+    sendEmailVerification = async (email: string) =>
+        new Promise(async (resolve, reject) => {
+            try {
+                await useProxy(`/authentication/register/resend-email/`, {
+                    method: 'POST',
+                    body: {
+                        email
+                    }
+                });
+
+                resolve(true);
+            } catch (error: any) {
+                reject(error);
+            }
+        });
+
+    verifyEmail = async (key: string) =>
+        new Promise(async (resolve, reject) => {
+            try {
+                const response = await useProxy(`/authentication/register/verify-email/`, {
+                    method: 'POST',
+                    body: {
+                        key
+                    }
+                });
+
+                if (response.detail === 'ok') {
+                    resolve({ error: false });
+                } else {
+                    reject({ error: true, message: 'something went wrong' });
+                }
+            } catch (error) {
+                reject({ error: true, message: error });
+            }
+        });
+
+    getZoomAccounts = async (): Promise<ZoomAccount | undefined> =>
+        new Promise(async (resolve, reject) => {
+            try {
+                const accounts = (await useProxy(`/zoom/accounts/`)) as PaginationResponse<ZoomAccount>;
+
+                this.zoomAccount.value = accounts?.results?.[0] ?? undefined;
+                resolve(accounts?.results?.[0] ?? undefined);
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+    createZoomAccount = async (): Promise<any> =>
+        new Promise(async (resolve, reject) => {
+            try {
+
+                const accounts = (await useProxy(`/zoom/accounts/`, {
+                    method: 'POST'
+                })) as PaginationResponse<ZoomAccount>;
+
+                resolve(true);
+
+            } catch (error) {
+                reject(error);
+            }
+        });
 }
 
 export const useAccountStore = defineStore('account', () => new AccountStore());

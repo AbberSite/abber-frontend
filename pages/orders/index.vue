@@ -194,7 +194,7 @@
                         </div>
                     </div>
                 </div>
-                <OrdersTable  :orders="orders" />
+                <OrdersTable :orders="orders" />
                 <Pagination
                     class="pt-10"
                     :results="(pagination as PaginationResponse<any>)"
@@ -208,19 +208,52 @@
     <ClientOnly>
         <FiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
     </ClientOnly>
+
+    <template v-if="data.user_type == 'معبر'">
+        <div
+            class="fixed bottom-4 flex flex-col space-y-3 ltr:right-4 rtl:left-4 xs:bottom-6 ltr:xs:right-6 rtl:xs:left-6 lg:bottom-8 ltr:lg:right-8 rtl:lg:left-8">
+            <button
+                class="rounded-full bg-gray-900 px-4 py-4 text-white hover:bg-gray-800 focus:outline-none"
+                type="button"
+                @click="openCreateSessionModal = true"
+                aria-label="إضافة">
+                <!-- Heroicon name: outline/video-camera -->
+
+                <VideoCameraIcon class="mx-auto w-6 h-6" /> 
+           
+            </button>
+        </div>
+        <ClientOnly>
+
+            <MeetingCreateSessionModal :show="openCreateSessionModal" @close="openCreateSessionModal = false" @session-created="handleSessionCreated" />
+
+            <MeetingExpressorSession :show="openSessionModal" @close="openSessionModal = false"  /> 
+
+        </ClientOnly>
+    </template>
 </template>
 
 <script setup lang="ts">
 import type { PaginationResponse } from '~/types';
 import { vOnClickOutside } from '@vueuse/components';
 
+import { VideoCameraIcon } from '@heroicons/vue/24/outline';
+
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
+const openCreateSessionModal = ref(false)
+const openSessionModal = ref(false)
 
 const { fetchAll } = useOrdersStore();
 
 const { orders, pagination, loading, filtersCount, filters } = storeToRefs(useOrdersStore());
 const { data } = useAuth();
+
+
+function handleSessionCreated(){
+    openCreateSessionModal.value = false
+    openSessionModal.value = true
+}
 
 // await fetchAll();
 

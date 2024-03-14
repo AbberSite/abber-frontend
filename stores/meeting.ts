@@ -5,7 +5,7 @@ class MeetingStore {
 
         meeting_number : "",
         password : "",
-        sessions_count : 4,
+        sessions_count : 0,
         signature : ""
 
     });
@@ -16,12 +16,18 @@ class MeetingStore {
     bus = useEventBus<string>('meeting')
     
     getMeetingStatus  = async (orderId : string) => {
-        console.log("getting meeting status ...");
-        
+
         const meeting = await useProxy(`/orders/my-orders/${orderId}/meeting/`) as Meeting;
         this.meeting.value = meeting
+
     }
 
+    openSession = async () => {
+        
+        const meeting = await useProxy(`/zoom/meetings/new/`) as Meeting;
+        this.meeting.value = meeting
+
+    }
 
     getMeetingSignature = async (role : 0|1) => {
         const response = await useProxy("/zoom/auth/", {

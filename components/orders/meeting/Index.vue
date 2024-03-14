@@ -10,17 +10,15 @@ const { meeting } = storeToRefs(useMeetingStore());
 const { data } = useAuthState();
 const runtimeConfig = useRuntimeConfig();
 
-// const id = useRoute().params.id;
-
-// const { getSession } = useAuth();
-
-// const { order } = storeToRefs(useOrdersStore());
-
-// const { getOrder } = useOrdersStore();
+const props = withDefaults(defineProps<{
+    role : 0|1  
+}>(), {
+    role : 0
+})
 
 const client  = ZoomMtgEmbedded.createClient();
 
-const { getMeetingStatus, getMeetingSignature, bus } = useMeetingStore();
+const { getMeetingSignature, bus } = useMeetingStore();
 
 
 const isMobile = useMediaQuery('(max-width: 1023px)');
@@ -31,6 +29,7 @@ bus.on(event => {
     if(event == "leave"){
         client.leaveMeeting()
     }
+
 })
 
 onMounted(async () => {
@@ -38,7 +37,7 @@ onMounted(async () => {
 });
 
 async function joinMeeting() {
-    await getMeetingSignature(0);
+    await getMeetingSignature(props.role);
 
     let meetingSDKElement = document.getElementById('meetingSDKElement');
 
@@ -58,13 +57,25 @@ async function joinMeeting() {
         }
     });
 
-    client.join({
+
+    console.log(
+        {
         sdkKey: runtimeConfig.public.zoomSdkKey,
-        signature: meeting.value.signature, // role in SDK signature needs to be 1
+        signature: meeting.value.signature, 
         meetingNumber: meeting.value.meeting_number,
         password: meeting.value.password,
         userName: data.value.username
-        // zak: zakToken // the host's zak token
+    }
+    );
+    
+
+
+    client.join({
+        sdkKey: runtimeConfig.public.zoomSdkKey,
+        signature: meeting.value.signature, 
+        meetingNumber: meeting.value.meeting_number,
+        password: meeting.value.password,
+        userName: data.value.username
     });
 }
 
