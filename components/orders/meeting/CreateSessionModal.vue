@@ -48,26 +48,14 @@
                         </div>
 
                         <template v-if="!data.email_verified">
-                           <MeetingVerifyEmail /> 
+                            <MeetingVerifyEmail />
                         </template>
                         <template v-else>
-
                             <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
                                 <fieldset class="space-y-7">
-                                    <MeetingCreateZoomAccount v-if="!zoomAccount?.active" /> 
-                                    <!-- <div
-                                        class="w-full overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm"
-                                        role="alert">
-                                        <div class="mt-1.5 flex">
-                                            <span class="me-3 flex-shrink-0">
-                                                <InformationCircleIcon class="text-blue-500 w-6 h-6" />
-                                            </span>
-                                            <div class="w-0 flex-1 text-sm font-medium leading-loose">
-                                                تم إنشاء حساب Zoom الخاص بك يرجي تفعيله قبل البَدْء في استقبال الطلبات
-                                                تقد البريد الإلكتروني الخاص بك لتفعيله
-                                            </div>
-                                        </div>
-                                    </div> -->
+
+                                    <MeetingCreateZoomAccount v-if="!zoomAccount?.active" />
+                                    
                                     <template v-if="zoomAccount && zoomAccount?.active">
                                         <div class="flex items-center mb-9">
                                             <input
@@ -146,6 +134,7 @@ const zoomAccount = await getZoomAccounts();
 await fetchSessions();
 
 const loading = ref(false);
+const router = useRouter();
 
 async function submit() {
     loading.value = true;
@@ -153,11 +142,22 @@ async function submit() {
     try {
         await createSession();
 
-        if (!canJoin.value) return;
+        if (!canJoin.value) {
+            loading.value = false;
+            emit('close');
 
-        await openSession();
+            useNotification({ type: 'success', content: 'تم تحديث بيانات الجلسة' });
 
-        emit('sessionCreated');
+            return;
+        }
+
+        await router.push('/orders/video/session');
+
+        useNotification({ type: 'success', content: 'تم انشاء جلسة جديدة بنجاح' });
+
+        // await openSession();
+
+        // emit('sessionCreated');
     } catch (error) {
         useNotification({ type: 'danger', content: 'خدث خطأ عند اضافة جلسة .' });
     } finally {
@@ -166,8 +166,8 @@ async function submit() {
 }
 
 async function fetchSessions() {
-    const response = (await useProxy(`/meetings/video-session/`));
-    currentSession.value = response?? { capacity: 0 };
+    const response = await useProxy(`/meetings/video-session/`);
+    currentSession.value = response ?? { capacity: 0 };
 }
 
 async function createSession() {

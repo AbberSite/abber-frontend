@@ -67,8 +67,6 @@ async function joinMeeting() {
         userName: data.value.username
     }
     );
-    
-
 
     client.join({
         sdkKey: runtimeConfig.public.zoomSdkKey,
@@ -82,6 +80,8 @@ async function joinMeeting() {
 onUnmounted(() => {
     client.leaveMeeting();
 });
+
+
 </script>
 
 <style scoped></style>

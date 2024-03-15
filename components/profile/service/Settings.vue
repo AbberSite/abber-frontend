@@ -141,8 +141,13 @@ async function submit() {
     data.append("service_prices.video",form.value.service_prices.video as any)
     data.append("active",form.value.active as any)
     data.append("service_prices.text",form.value.service_prices.text as any)
-    data.append("service_prices.text_price",form.value.service_prices.text_price as any)
-    data.append("service_prices.video_price",form.value.service_prices.video_price as any)
+    if(form.value.service_prices.text_price != 0 ){
+        data.append("service_prices.text_price",form.value.service_prices.text_price as any)
+    }
+    if(form.value.service_prices.video_price != 0 ){
+        data.append("service_prices.video_price",form.value.service_prices.video_price as any)
+    }
+  
     data.append("text_service_capacity.maximum_orders",form.value.text_service_capacity.maximum_orders as any)
 
     try {

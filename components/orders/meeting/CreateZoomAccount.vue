@@ -26,7 +26,7 @@
     </div>
 
 
-    <PrimaryButton v-if="!zoomAccount" class="w-full" :loading="loading" @click="submit" >
+    <PrimaryButton v-if="!zoomAccount" class="w-full" :loading="loading" @click="submit" :disabled="sent" >
         {{ sent ? 'تم ارسال رسالة التفعيل' : 'أنشئ حساب' }}
     </PrimaryButton>
 
