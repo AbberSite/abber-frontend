@@ -68,7 +68,7 @@ const showReviewModal = ref(false);
 const isSeller = user.value.username === order.value?.seller?.username
 const isBuyer = user.value.username === order.value?.buyer?.username
 
-const completeMessage = isSeller ? 'تسليم الطلب' : isBuyer ? 'إستلام الطلب' : ''
+const completeMessage = isSeller ? 'تسليم الطلب' : isBuyer ? 'إستلام الطلب' : 'تسليم الطلب'
 bus.on(event => event === 'leave' ? showReviewModal.value = true : false)
 
 async function completeOrder() {
