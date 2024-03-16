@@ -14,7 +14,11 @@
         </svg>
       </div>
 
-      <DetailsHeader :show-navigation="activeTab == 'details'" />
+      <DetailsHeader :show-navigation="activeTab == 'details'">
+        <slot>
+          <CurrentSessionOrdersDropdown :orders="orders" />
+        </slot>
+      </DetailsHeader>
       <DetailsTabs v-model="activeTab" />
       <DetailsMobileCard v-if="activeTab == 'details'" />
       <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
@@ -53,14 +57,13 @@ const activeTab = ref<"details" | "chat">("details");
 
 const { getSession, data } = useAuth();
 
-const { order } = storeToRefs(useOrdersStore());
-const { getOrder, subscribeToOrderStatus } = useOrdersStore();
+const { order, orders, filters } = storeToRefs(useOrdersStore());
+const { getOrder, subscribeToOrderStatus,fetchAll } = useOrdersStore();
 
 const { getMeetingStatus, bus, openSession } = useMeetingStore();
 
 const { meeting } = storeToRefs(useMeetingStore());
 
-const meetingCurrentOrder = ref<number | null>(null);
 
 async function initChannel() {
   const { rawToken } = useAuthState();
@@ -71,10 +74,11 @@ async function initChannel() {
 
   watch(meetingData, async (value) => {
     const parsedMeetingData = JSON.parse(meetingData.value);
-    console.log(parsedMeetingData,parsedMeetingData.meeting_data.order_item_id , order.value?.id,parsedMeetingData.meeting_data.order_item_id != order.value?.id);
+    console.log(parsedMeetingData, parsedMeetingData.meeting_data.order_item_id, order.value?.id, parsedMeetingData.meeting_data.order_item_id != order.value?.id);
     if (parsedMeetingData.meeting_data.order_item_id && parsedMeetingData.meeting_data.order_item_id != order.value?.id) {
       getOrder(parsedMeetingData.meeting_data.order_item_id.toString());
     }
+    fetchAll();
   });
 }
 
@@ -86,10 +90,16 @@ onMounted(async () => {
   await initChannel();
 
   await openSession();
+
+  filters.value.status = ["new", "in_progress",];
+  filters.value.type.voice = true;
+  
 });
 
 onUnmounted(() => {
   order.value = undefined;
+  filters.value.status = [];
+  filters.value.type.voice = false;
 });
 </script>
 

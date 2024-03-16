@@ -19,6 +19,8 @@
           <span class="mt-1.5" v-text="completeMessage"></span>
         </template>
       </a>
+      <slot></slot>
+
       <div class="relative">
         <button class="flex items-center justify-center rounded-md border bg-white px-4 py-3 shadow-sm hover:bg-gray-50"
           type="button" @click="showDropdown = true" aria-expanded="false" aria-haspopup="true">
