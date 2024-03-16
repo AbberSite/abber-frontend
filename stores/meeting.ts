@@ -6,7 +6,8 @@ class MeetingStore {
         meeting_number : "",
         password : "",
         sessions_count : 0,
-        signature : ""
+        signature : "",
+        order_item_id:undefined
 
     });
 

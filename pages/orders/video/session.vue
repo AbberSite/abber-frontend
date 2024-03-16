@@ -16,7 +16,7 @@
 
       <DetailsHeader :show-navigation="activeTab == 'details'">
         <slot>
-          <CurrentSessionOrdersDropdown :orders="orders" />
+          <CurrentSessionOrdersDropdown v-if="orders.length > 0" :orders="orders" />
         </slot>
       </DetailsHeader>
       <DetailsTabs v-model="activeTab" />
@@ -83,6 +83,7 @@ async function initChannel() {
 }
 
 await getSession();
+
 onMounted(async () => {
   // await getSession();
 
@@ -92,7 +93,10 @@ onMounted(async () => {
 
   filters.value.status = ["new", "in_progress"];
   filters.value.type.voice = true;
+  if (meeting.value.order_item_id) {
+getOrder(meeting.value.order_item_id.toString());  }
   
+  fetchAll({ type: "video_communication" });
 });
 
 onUnmounted(() => {
