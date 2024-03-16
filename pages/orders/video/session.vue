@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
 import { useWebSocket } from "@vueuse/core";
+import CurrentSessionOrdersDropdown from "~/components/orders/meeting/CurrentSessionOrdersDropdown.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -58,12 +59,11 @@ const activeTab = ref<"details" | "chat">("details");
 const { getSession, data } = useAuth();
 
 const { order, orders, filters } = storeToRefs(useOrdersStore());
-const { getOrder, subscribeToOrderStatus,fetchAll } = useOrdersStore();
+const { getOrder, subscribeToOrderStatus, fetchAll } = useOrdersStore();
 
 const { getMeetingStatus, bus, openSession } = useMeetingStore();
 
 const { meeting } = storeToRefs(useMeetingStore());
-
 
 async function initChannel() {
   const { rawToken } = useAuthState();
@@ -78,12 +78,11 @@ async function initChannel() {
     if (parsedMeetingData.meeting_data.order_item_id && parsedMeetingData.meeting_data.order_item_id != order.value?.id) {
       getOrder(parsedMeetingData.meeting_data.order_item_id.toString());
     }
-    fetchAll();
+    fetchAll({ type: "video_communication" });
   });
 }
 
 await getSession();
-
 onMounted(async () => {
   // await getSession();
 
@@ -91,7 +90,7 @@ onMounted(async () => {
 
   await openSession();
 
-  filters.value.status = ["new", "in_progress",];
+  filters.value.status = ["new", "in_progress"];
   filters.value.type.voice = true;
   
 });
