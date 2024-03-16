@@ -72,7 +72,19 @@ async function joinMeeting() {
 }
 
 onUnmounted(() => {
-  client.leaveMeeting();
+  console.log(client.getAttendeeslist(), props.role);
+
+  if (props.role == 1) {
+    // client.endMeeting();
+    console.log(client.getAttendeeslist());
+    client.getAttendeeslist().forEach((attendee) => {
+      if (!attendee.isHost) {
+        client.putOnHold(attendee.userId, true);
+      }
+    });
+  } else {
+    client.leaveMeeting();
+  }
 });
 </script>
 
