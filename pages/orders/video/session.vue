@@ -74,7 +74,6 @@ async function initChannel() {
 
   watch(meetingData, async (value) => {
     const parsedMeetingData = JSON.parse(meetingData.value);
-    console.log(parsedMeetingData, parsedMeetingData.meeting_data.order_item_id, order.value?.id, parsedMeetingData.meeting_data.order_item_id != order.value?.id);
     if (parsedMeetingData.meeting_data.order_item_id && parsedMeetingData.meeting_data.order_item_id != order.value?.id) {
       getOrder(parsedMeetingData.meeting_data.order_item_id.toString());
     }
@@ -94,8 +93,9 @@ onMounted(async () => {
   filters.value.status = ["new", "in_progress"];
   filters.value.type.voice = true;
   if (meeting.value.order_item_id) {
-getOrder(meeting.value.order_item_id.toString());  }
-  
+    getOrder(meeting.value.order_item_id.toString());
+  }
+
   fetchAll({ type: "video_communication" });
 });
 

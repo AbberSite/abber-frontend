@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
 import ZoomMtgEmbedded from "@zoom/meetingsdk/embedded";
+import { lannguageDictAR } from "~/utils/zoom/ar-SA";
 
 const { meeting } = storeToRefs(useMeetingStore());
 const { data } = useAuthState();
@@ -56,7 +57,6 @@ async function joinMeeting() {
       },
     },
   });
-
   var joinMeetingOptions = {
     sdkKey: runtimeConfig.public.zoomSdkKey,
     signature: meeting.value.signature,
@@ -69,6 +69,7 @@ async function joinMeeting() {
   }
 
   client.join(joinMeetingOptions);
+  client.updateLanguageTranslation("en-US", lannguageDictAR);
 }
 
 onUnmounted(() => {
