@@ -28,7 +28,8 @@
 
             <DetailsHeader :show-navigation="activeTab == 'details'" />
             <DetailsTabs v-model="activeTab" />
-            <DetailsMobileCard v-if="activeTab == 'details'" />
+            <MeetingClientCardMobile v-if="activeTab == 'details'" />
+
             <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
                 <ClientOnly >
                     <Meeting :role="1" v-if="meeting.meeting_number" />
@@ -38,7 +39,7 @@
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
                 <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
                     <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
-                    <DetailsCard />
+                    <MeetingClientCard />
                 </div>
                 <ClientOnly v-if="!isMobile">
                     <div
@@ -78,7 +79,7 @@ const { meeting } = storeToRefs(useMeetingStore());
 async function initChannel() {
     const { rawToken } = useAuthState();
 
-    useWebSocket(
+    const { data : meetingEvents } = useWebSocket(
         import.meta.env.VITE_WS_URL +
             `/ws/meeting/${data?.value?.username}/` +
             `?authorization=JWT ${rawToken.value}`,
@@ -87,6 +88,13 @@ async function initChannel() {
         }
     );
 
+    watch(meetingEvents, value => {
+
+        value = JSON.parse(value)
+
+        console.log("meeting event : ", value);
+
+    })
 }
 
 await getSession();

@@ -105,7 +105,7 @@ class OrdersStore {
           }
         })) as PaginationResponse<Order>;
 
-        this.orders.value = data.results;
+        this.orders.value = data.results ?? [];
 
         this.pagination.value = data;
 

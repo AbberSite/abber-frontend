@@ -81,12 +81,13 @@
             </div>
             <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">الطلبات</h1>
 
-            {{ filters.search }}
+            <!-- {{ filters.search }} -->
 
-            <template v-if="orders.length == 0 && !loading">
+            <template v-if="orders?.length == 0 && !loading">
                 <div class="pt-4 text-sm text-gray-800 xs:text-base">لا توجد طلبات لعرضها</div>
                 <div class="w-full pt-8 sm:w-auto" v-if="data.user_type == 'عميل'">
                     <NuxtLink
+                        v-if="data.user_type != 'معبر'"
                         class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                         :to="{ name: 'orders-make' }">
                         <span class="mt-1.5">فسر حلمك الان</span></NuxtLink
@@ -98,7 +99,7 @@
 
             <template
                 v-if="
-                    orders.length != 0 ||
+                    orders?.length != 0 ||
                     filters.search.length != 0 ||
                     filters.status.length != 0 ||
                     filters.type.text ||
@@ -194,7 +195,7 @@
                         </div>
                     </div>
                 </div>
-                <OrdersTable :orders="orders" />
+                <OrdersTable :orders="orders ?? []" />
                 <Pagination
                     class="pt-10"
                     :results="(pagination as PaginationResponse<any>)"
@@ -219,16 +220,16 @@
                 aria-label="إضافة">
                 <!-- Heroicon name: outline/video-camera -->
 
-                <VideoCameraIcon class="mx-auto w-6 h-6" /> 
-           
+                <VideoCameraIcon class="mx-auto w-6 h-6" />
             </button>
         </div>
         <ClientOnly>
+            <MeetingCreateSessionModal
+                :show="openCreateSessionModal"
+                @close="openCreateSessionModal = false"
+                @session-created="handleSessionCreated" />
 
-            <MeetingCreateSessionModal :show="openCreateSessionModal" @close="openCreateSessionModal = false" @session-created="handleSessionCreated" />
-
-            <MeetingExpressorSession :show="openSessionModal" @close="openSessionModal = false"  /> 
-
+            <MeetingExpressorSession :show="openSessionModal" @close="openSessionModal = false" />
         </ClientOnly>
     </template>
 </template>
@@ -241,18 +242,17 @@ import { VideoCameraIcon } from '@heroicons/vue/24/outline';
 
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
-const openCreateSessionModal = ref(false)
-const openSessionModal = ref(false)
+const openCreateSessionModal = ref(false);
+const openSessionModal = ref(false);
 
 const { fetchAll } = useOrdersStore();
 
 const { orders, pagination, loading, filtersCount, filters } = storeToRefs(useOrdersStore());
 const { data } = useAuth();
 
-
-function handleSessionCreated(){
-    openCreateSessionModal.value = false
-    openSessionModal.value = true
+function handleSessionCreated() {
+    openCreateSessionModal.value = false;
+    openSessionModal.value = true;
 }
 
 // await fetchAll();
@@ -262,7 +262,7 @@ onMounted(async () => {
     if (persistedFilters) {
         filters.value = Object.assign(JSON.parse(persistedFilters), { ignore: true });
     }
-    if (orders.value.length != 0) return;
+    if (orders?.value?.length != 0) return;
     loading.value = true;
 
     await fetchAll();
