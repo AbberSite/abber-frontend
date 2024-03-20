@@ -19,6 +19,8 @@
           <span class="mt-1.5" v-text="completeMessage"></span>
         </template>
       </a>
+      <slot></slot>
+
       <div class="relative">
         <button class="flex items-center justify-center rounded-md border bg-white px-4 py-3 shadow-sm hover:bg-gray-50"
           type="button" @click="showDropdown = true" aria-expanded="false" aria-haspopup="true">
@@ -68,7 +70,7 @@ const showReviewModal = ref(false);
 const isSeller = user.value.username === order.value?.seller?.username
 const isBuyer = user.value.username === order.value?.buyer?.username
 
-const completeMessage = isSeller ? 'تسليم الطلب' : isBuyer ? 'إستلام الطلب' : ''
+const completeMessage = isSeller ? 'تسليم الطلب' : isBuyer ? 'إستلام الطلب' : 'تسليم الطلب'
 bus.on(event => event === 'leave' ? showReviewModal.value = true : false)
 
 async function completeOrder() {

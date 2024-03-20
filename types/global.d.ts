@@ -3,6 +3,7 @@ type Meeting = {
     password: string;
     sessions_count: number;
     signature: string;
+    order_item_id:number|string|undefined
 };
 type User = {
     id?: number;

@@ -31,7 +31,7 @@
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
                 <ClientOnly v-if="canJoin">
-                    <Meeting />
+                    <Meeting :order-id="order.id" />
                 </ClientOnly>
             </div>
 
@@ -66,7 +66,7 @@
                 </div>
                 <ClientOnly  v-if="!isMobile && canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
                     <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100  lg:col-span-2 relative">
-                        <Meeting />
+                        <Meeting :order-id="order.id" />
                     </div>
                 </ClientOnly>
             </div>
