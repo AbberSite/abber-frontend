@@ -36,22 +36,27 @@
 
         <transition enter-active-class="transition-all" leave-active-class="transition-all"
           enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-          <DetailsOptionsDropdown @show-review="showReviewModal = true" v-if="showDropdown"
-            v-on-click-outside="() => (showDropdown = false)" :is-buyer="isBuyer" :is-seller="isSeller" />
+          <DetailsOptionsDropdown @show-review="showReviewModal = true" @inquiry="showInquiryModal = true"
+            v-if="showDropdown" v-on-click-outside="() => (showDropdown = false)" :order="order" :is-buyer="isBuyer"
+            :is-seller="isSeller" />
         </transition>
       </div>
     </div>
   </div>
 
   <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false"
-    @show-review="showReviewModal = true" />
+    @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" :order="order" :is-buyer="isBuyer"
+    :is-seller="isSeller" />
+
   <DetailsMobileOptions v-if="showNavigation" @open-modal="showMobileModal = true" />
 
   <DetailsReviewModal :show="showReviewModal" @close="showReviewModal = false" />
+
+  <DetailsInquiryModal :show="showInquiryModal" @close="showInquiryModal = false" />
 </template>
 
 <script setup lang="ts">
-import { vOnClickOutside } from '@vueuse/components';
+import { vOnClickOutside } from "@vueuse/components";
 
 defineProps<{
   showNavigation?: boolean;
@@ -59,47 +64,50 @@ defineProps<{
 
 const { order } = storeToRefs(useOrdersStore());
 const { updateOrderStatus } = useOrdersStore();
-const { data: user } = useAuth()
-const { bus } = useMeetingStore()
+const { data: user } = useAuth();
+const { bus } = useMeetingStore();
 
 const loading = ref(false);
 
 const showDropdown = ref(false);
 const showMobileModal = ref(false);
 const showReviewModal = ref(false);
+const showInquiryModal = ref(false);
 
-const isSeller = ref(false)
-const isBuyer = ref(false)
+const isSeller = ref(false);
+const isBuyer = ref(false);
 
 const isBuyerOrSeller = () => {
   isSeller.value = user.value.username === order.value?.seller?.username;
   isBuyer.value = user.value.username === order.value?.buyer?.username;
-}
+};
 
-await isBuyerOrSeller()
+await isBuyerOrSeller();
 
 watch(order, (value) => {
-  isBuyerOrSeller()
-})
-bus.on(event => { (event === 'leave' && isBuyer.value) ? showReviewModal.value = true : false })
+  isBuyerOrSeller();
+});
+bus.on((event) => {
+  event === "leave" && isBuyer.value ? (showReviewModal.value = true) : false;
+});
 
 async function completeOrder() {
   loading.value = true;
 
   const statusMessage = () => {
     if (isBuyer.value) {
-      return { status: 'complete', message: 'تم إستلام الطلب' };
+      return { status: "complete", message: "تم إستلام الطلب" };
     } else {
-      if (order.value?.status === 'awaiting_delivery') {
-        return { status: 're_open', message: 'تم إعادة فتح الطلب' };
+      if (order.value?.status === "awaiting_delivery") {
+        return { status: "re_open", message: "تم إعادة فتح الطلب" };
       } else {
-        return { status: 'awaiting_delivery', message: 'تم تسليم الطلب' };
+        return { status: "awaiting_delivery", message: "تم تسليم الطلب" };
       }
     }
   };
 
   await updateOrderStatus(order.value?.id, statusMessage().status);
-  useNotification({ content: statusMessage().message, type: 'success' });
+  useNotification({ content: statusMessage().message, type: "success" });
   loading.value = false;
 }
 </script>

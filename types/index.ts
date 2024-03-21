@@ -146,7 +146,8 @@ export type Order = {
     is_online: boolean;
   };
   content?:{
-    allow_chat?:boolean
+    allow_chat?:boolean;
+    inquiry?:boolean;
   }
 };
 
