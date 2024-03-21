@@ -37,16 +37,16 @@
         <transition enter-active-class="transition-all" leave-active-class="transition-all"
           enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
           <DetailsOptionsDropdown @show-review="showReviewModal = true" @inquiry="showInquiryModal = true"
-            v-if="showDropdown" v-on-click-outside="() => (showDropdown = false)" :order="order" :is-buyer="isBuyer"
-            :is-seller="isSeller" />
+            @cancel-order="cancelOrder()" v-if="showDropdown" v-on-click-outside="() => (showDropdown = false)"
+            :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
         </transition>
       </div>
     </div>
   </div>
 
   <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false"
-    @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" :order="order" :is-buyer="isBuyer"
-    :is-seller="isSeller" />
+    @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="cancelOrder()"
+    :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
 
   <DetailsMobileOptions v-if="showNavigation" @open-modal="showMobileModal = true" />
 
@@ -109,6 +109,13 @@ async function completeOrder() {
   await updateOrderStatus(order.value?.id, statusMessage().status);
   useNotification({ content: statusMessage().message, type: "success" });
   loading.value = false;
+}
+
+
+
+async function cancelOrder() {
+  await updateOrderStatus(order.value?.id, 'cancelled');
+  useNotification({ content: isBuyer.value ? 'تم طلب إلغاء الطلب' : 'تم إلغاء الطلب', type: 'success' });
 }
 </script>
 

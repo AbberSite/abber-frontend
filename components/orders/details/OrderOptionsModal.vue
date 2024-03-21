@@ -59,7 +59,7 @@
             <button
               v-if="(['in_progress', 'new'].includes(props.order?.status) && props.isBuyer) || (order?.status === 'waiting_for_cancellation' && props.isSeller)"
               class="group -mx-3 flex w-full items-center rounded-lg p-3 hover:bg-gray-50" type="button"
-              @click="() => true">
+              @click="$emit('cancel-order')">
               <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                 <!-- Heroicon name: outline/home -->
                 <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -84,5 +84,5 @@ const props = defineProps<{
   order: Order;
 }>();
 
-const emit = defineEmits(["close", "show-review", "inquiry"]);
+const emit = defineEmits(["close", "show-review", "inquiry","cancel-order"]);
 </script>
