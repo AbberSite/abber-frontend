@@ -15,7 +15,7 @@
       v-if="(['in_progress', 'new'].includes(order?.status) && props.isBuyer) || (order?.status === 'waiting_for_cancellation' && props.isSeller)"
       class="block px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50" @click.prevent="cancelOrder"
       role="menuitem" tabindex="-1">إلغاء الطلب</button>
-
+      
   </div>
 </template>
 

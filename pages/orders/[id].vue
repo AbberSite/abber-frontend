@@ -59,7 +59,9 @@ const activeTab = ref<'details' | 'chat'>('details');
 
 const { order } = storeToRefs(useOrdersStore());
 
-const { getOrder } = useOrdersStore();
+const { getOrder,subscribeToOrderStatus } = useOrdersStore();
+
+subscribeToOrderStatus(id as string);
 
 if (!process.client) {
     await getOrder(id as string);

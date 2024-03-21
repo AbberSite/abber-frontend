@@ -205,13 +205,19 @@ class OrdersStore {
       }
     );
 
+    // update order data after status change
+    watch(status.data, () => {
+      this.getOrder(orderId);
+    });
+
     return status
   }
+  
   updateOrderStatus = async (orderId?: string, status: Order['status']) => {
     const response = await useProxy(`/orders/my-orders/${orderId}/`, {
       method: "PATCH",
       body: {
-        change_status : status
+        change_status: status
       }
     })
     this.getOrder(orderId); // Update order data after update status

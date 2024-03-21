@@ -142,13 +142,6 @@ watch(orderStatus.data, async (value) => {
     if (data.status != 'awaiting_delivery' && data.status !='complete' ) return;
 
 
-    if (data.status == 'awaiting_delivery') {
-        useNotification({
-            content: 'تم تسليم الطلب',
-            type: 'info'
-        });
-    }
-
     bus.emit('leave');
 });
 
