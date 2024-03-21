@@ -1,7 +1,7 @@
 <template>
     <li
     :class="[notification.read ? 'hover:bg-gray-50' : 'bg-gray-50']">
-    <NuxtLink :to="notification.url" class="flex flex-col px-6 py-8 md:py-6">
+    <NuxtLink :to="notification.url.replace('orders/order','orders')" class="flex flex-col px-6 py-8 md:py-6">
         <div class="flex items-start justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
