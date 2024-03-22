@@ -10,7 +10,7 @@
       class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
       role="menuitem" tabindex="-1">
       فاتورة الطلب
-  </a>
+    </a>
 
     <button class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
       role="menuitem" tabindex="-1">
