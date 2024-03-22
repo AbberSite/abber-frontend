@@ -6,6 +6,12 @@
       تقييم المعبر
     </button>
 
+    <a :href="billUrl" target="_blank"
+      class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
+      role="menuitem" tabindex="-1">
+      فاتورة الطلب
+  </a>
+
     <button class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
       role="menuitem" tabindex="-1">
       الإبلاغ عن مشكلة
@@ -32,5 +38,5 @@ const props = defineProps<{
   isBuyer: boolean,
   order: Order,
 }>()
+const billUrl = `${useRuntimeConfig().public.websiteBasePath}/orders/bill/${props.order?.id}/?action=download`
 </script>
-

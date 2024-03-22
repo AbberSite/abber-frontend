@@ -34,7 +34,9 @@ export default defineNuxtConfig({
         apiSecret: 'd378b42b1f3f18f231edb2f253e43025dc01406f',
         apiBasePath: 'https://test.abber.co/api',
         public :{
-            zoomSdkKey : "jFmC2HUOQl6JVb_PHPXxNQ"
+            zoomSdkKey : "jFmC2HUOQl6JVb_PHPXxNQ",
+          websiteBasePath: 'https://test.abber.co',
+
         }
     },
     modules: ['@nuxt/image', '@pinia/nuxt', '@sidebase/nuxt-auth'],
