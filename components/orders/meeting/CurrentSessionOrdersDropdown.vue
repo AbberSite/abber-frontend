@@ -5,7 +5,7 @@
       type="button" @click="showOrdersDropdown = true" aria-expanded="false" aria-haspopup="true">
       <span class="sr-only">فتح قائمة الطلبات</span>
       <span
-        class="absolute top-[3px] px-[6.5px] rounded-full borde bg-gray-900 text-white leading-tight ltr:left-0 rtl:right-0"
+        class="absolute top-[3px] px-[6.5px] rounded-full bg-gray-900 text-white leading-tight ltr:left-0 rtl:right-0"
         v-text="orders.length"></span>
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
         stroke="currentColor" stroke-width="2">
