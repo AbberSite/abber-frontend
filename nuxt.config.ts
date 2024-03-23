@@ -129,5 +129,12 @@ export default defineNuxtConfig({
         '~/components/partials',
         '~/components/shared',
         '~/components/orders'
-    ]
+    ],
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: 'append'
+      }
+    }
+  }
 });
