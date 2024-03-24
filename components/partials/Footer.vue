@@ -36,7 +36,7 @@
                     <li>
                         <NuxtLink
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
-                            :to="{ name: 'about-us' }"
+                            :to="{ name: 'about' }"
                             up-target="body"
                             >من نحن</NuxtLink
                         >
@@ -44,7 +44,7 @@
                     <li>
                         <NuxtLink
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
-                            :to="{ name: 'terms-conditions' }"
+                            :to="{ name: 'terms' }"
                             up-target="body"
                             >الشروط والأحكام</NuxtLink
                         >
