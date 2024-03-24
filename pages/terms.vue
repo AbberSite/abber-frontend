@@ -64,7 +64,7 @@
         </section>
 
 
-        <section class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content" v-html="settings?.policy_settings?.user_agreement">
+        <section class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content" v-html="settings?.policy_settings?.terms">
 
         </section>
 
@@ -72,31 +72,19 @@
 </template>
 
 <script setup lang="ts">
-
 const { settings } = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
 await getSettings();
-
 </script>
 
 <style>
 
-.content p:first-child {
-    @apply text-4xl my-8 font-bold
-}
-
-.content p {
-    @apply text-center
-}
-
-
-
 .content h2 {
-    @apply lg:text-2xl text-xl my-2 font-semibold
+    @apply text-4xl my-10 font-bold
 }
 
 .content h3 {
-    @apply lg:text-xl text-lg my-6 font-bold
+    @apply text-2xl my-6 font-semibold
 }
 
 

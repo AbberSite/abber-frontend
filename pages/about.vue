@@ -1,20 +1,20 @@
+
 <template>
 
-    <Head>
-        <title>عبر - الشروط و الأحكام</title>
+  <Head>
+    <title>عبر - من نحن</title>
 
-    </Head>
+  </Head>
 
 
-    <main class="min-h-screen outline-none">
+  <main class="min-h-screen outline-none">
 
-        <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
-            <div
-                class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                aria-hidden="true">
-                <div
-                    class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                    style="
+    <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
+      <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        aria-hidden="true">
+        <div
+          class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          style="
                         clip-path: polygon(
                             74.1% 44.1%,
                             100% 61.6%,
@@ -34,13 +34,13 @@
                             74.1% 44.1%
                         );
                     "></div>
-            </div>
-            <div
-                class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-                aria-hidden="true">
-                <div
-                    class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                    style="
+      </div>
+      <div
+        class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+        aria-hidden="true">
+        <div
+          class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+          style="
                         clip-path: polygon(
                             74.1% 44.1%,
                             100% 61.6%,
@@ -60,52 +60,43 @@
                             74.1% 44.1%
                         );
                     "></div>
-            </div>
-        </section>
+      </div>
+    </section>
 
 
-        <section class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content" v-html="settings?.policy_settings?.user_agreement">
+    <section
+      class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content"
+      v-html="settings?.general_settings?.about">
 
-        </section>
+    </section>
 
-    </main>
+  </main>
 </template>
 
 <script setup lang="ts">
-
 const { settings } = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
 await getSettings();
-
 </script>
 
 <style>
 
-.content p:first-child {
-    @apply text-4xl my-8 font-bold
+.content h1 {
+    @apply text-4xl my-10 font-bold
+
+
 }
-
-.content p {
-    @apply text-center
-}
-
-
-
-.content h2 {
-    @apply lg:text-2xl text-xl my-2 font-semibold
-}
-
-.content h3 {
-    @apply lg:text-xl text-lg my-6 font-bold
-}
-
 
 .content img {
     @apply rounded-xl my-2
+
+
 }
 
 .content p {
     @apply my-4 text-xl
+
+
 }
 
 </style>
