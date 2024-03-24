@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         
-        const response = await axios.get(config.apiBasePath + "/services/services/",{
+        const response = await axios.get(config.apiBasePath + "/services/services/?limit=50",{
             headers : {
                 'api-key' : config.apiSecret
             }

@@ -230,7 +230,7 @@ watch(selectedCategory, async (value: string) => {
     loading.value = true;
     await fetchPosts({ post_category: value, search: search.value });
 
-    router.push(`/blog?category=${value}`);
+    router.push(`/blog/?category=${value}`);
     loading.value = false;
 });
 

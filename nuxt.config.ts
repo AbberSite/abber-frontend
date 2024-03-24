@@ -134,7 +134,7 @@ export default defineNuxtConfig({
     defaults: {
       nuxtLink: {
         trailingSlash: 'append'
-      }
+      },
     }
   }
 });
