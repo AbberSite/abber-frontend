@@ -170,9 +170,9 @@
                 <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base">
                     <span>لديك حساب سابقا؟</span>
 
-                    <RouterLink class="font-medium text-blue-600" :to="{ name: 'accounts-login' }">
+                    <NuxtLink class="font-medium text-blue-600" :to="{ name: 'accounts-login' }">
                         سجل دخولك الان
-                    </RouterLink>
+                    </NuxtLink>
                 </div>
             </div>
         </section>
