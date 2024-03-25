@@ -1,42 +1,37 @@
 <template>
-    <Head>
-        <title>عبر - طلب تعبير حلم - إختيار المعبر</title>
-    </Head>
 
+  <Head>
+    <title>عبر - طلب تعبير حلم - إختيار المعبر</title>
+  </Head>
+
+  <div>
     <div>
-        <div>
 
-            <fieldset class="space-y-7">
-                <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1">
-                    <template v-if="loading">
-                        <SkeletonsServiceRadioButton />
-                        <SkeletonsServiceRadioButton />
-                        <SkeletonsServiceRadioButton />
-                        <SkeletonsServiceRadioButton />
-                    </template>
-                    <template v-else>
-                        <template v-if="state.data?.type == 'text_communication'">
-                            <ServiceRadioButton
-                                v-for="service in textCommunicationServices"
-                                v-model="selectedService"
-                                @click.once="submit(service.id)"
-                                :service="service" />
-                        </template>
+      <fieldset class="space-y-7">
+        <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1">
+          <template v-if="loading">
+            <SkeletonsServiceRadioButton />
+            <SkeletonsServiceRadioButton />
+            <SkeletonsServiceRadioButton />
+            <SkeletonsServiceRadioButton />
+          </template>
+          <template v-else>
+            <template v-if="state.data?.type == 'text_communication'">
+              <ServiceRadioButton v-for="service in textCommunicationServices" v-model="selectedService"
+                @click.once="submit(service.id)" :service="service" />
+            </template>
 
-                        <template v-else>
-                            <ServiceRadioButton
-                                v-for="service in videoServices"
-                                v-model="selectedService"
-                                @click.once="submit(service.id)"
-                                :service="service" />
-                        </template>
+            <template v-else>
+              <ServiceRadioButton v-for="service in videoServices" v-model="selectedService"
+                @click.once="submit(service.id)" :service="service" />
+            </template>
 
 
-                    </template>
-                </div>
-            </fieldset>
+          </template>
         </div>
+      </fieldset>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
