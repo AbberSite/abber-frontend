@@ -128,7 +128,7 @@ onMounted(async () => {
     AppleID.auth.init({
       clientId: 'co.abber.signin',
       scope: 'name email',
-      redirectURI: 'https://theme.abber.co/',
+      redirectURI: 'https://test.abber.co/',
       state: time.toString(),
         usePopup: true
     });
@@ -137,8 +137,20 @@ onMounted(async () => {
 async function appleLogin() {
     try {
         const data = await AppleID.auth.signIn();
+        console.log('apple login',data);
+            const loginData = await useProxy('/api/auth/apple', {
+                method: 'POST',
+                body: {
+                  access_token: data.id_token,
+                }
+            });
 
-        console.log('apple login');
+      await useAuthenticateUser(loginData.value);
+
+            await useRouter().push({ name: 'index' });
+
+            useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
+        
         // Handle successful response.
     } catch (error) {
         // Handle error.
