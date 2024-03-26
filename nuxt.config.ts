@@ -19,8 +19,8 @@ export default defineNuxtConfig({
     },
 
     routeRules :{
-      '/api-proxy/**': { proxy: 'https://abber.co/api/**', headers: { 'api-key': 'cdd3de90eee5c5f0bc89027ed7e9742e420d2f24'},  ssr : true, swr : true},
-      '/file/**': { proxy: 'https://d336rd5betdm19.cloudfront.net/**', headers: { 'api-key': 'cdd3de90eee5c5f0bc89027ed7e9742e420d2f24'}},
+      '/api-proxy/**': { proxy: 'https://abber.co/api/**', headers: { 'api-key': 'a011ff6611fa1cfa9be83e5e22533976b2ede3df'},  ssr : true, swr : true},
+      '/file/**': { proxy: 'https://d336rd5betdm19.cloudfront.net/**', headers: { 'api-key': 'a011ff6611fa1cfa9be83e5e22533976b2ede3df'}},
         // '/orders/video/**' : {ssr : false}
 
     }, 
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
         // apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
         // apiBasePath: 'https://abber.co/api'
         // test
-      apiSecret: 'cdd3de90eee5c5f0bc89027ed7e9742e420d2f24',
+      apiSecret: 'a011ff6611fa1cfa9be83e5e22533976b2ede3df',
         apiBasePath: 'https://abber.co/api',
         public :{
             zoomSdkKey : "jFmC2HUOQl6JVb_PHPXxNQ",
