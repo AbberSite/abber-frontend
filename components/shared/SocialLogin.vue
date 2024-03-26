@@ -123,13 +123,13 @@ onMounted(async () => {
             useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
         }
     });
+  const time = new Date();
 
     AppleID.auth.init({
-        clientId: '[CLIENT_ID]',
-        scope: '[SCOPES]',
-        redirectURI: '[REDIRECT_URI]',
-        state: '[STATE]',
-        nonce: '[NONCE]',
+      clientId: 'co.abber.signin',
+      scope: 'name email',
+      redirectURI: 'https://theme.abber.co/',
+      state: time.toString(),
         usePopup: true
     });
 });
@@ -142,6 +142,7 @@ async function appleLogin() {
         // Handle successful response.
     } catch (error) {
         // Handle error.
+        console.log('apple login error', error);
     }
 }
 </script>
