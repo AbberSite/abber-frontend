@@ -6,6 +6,7 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <NuxtImg
+                        loading="lazy"
                         class="lazyload h-11 w-11 rounded-full bg-gray-100 md:h-10 md:w-10"
                         :src="notification.sender.image"
                         height=""

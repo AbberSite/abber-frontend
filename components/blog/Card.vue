@@ -1,7 +1,7 @@
 <template>
   <article>
     <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
-      <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" />
+      <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" loading="lazy" />
     </NuxtLink>
 
     <div class="flex w-full flex-col space-y-4 pt-8 text-right">
