@@ -128,7 +128,7 @@ onMounted(async () => {
     AppleID.auth.init({
       clientId: 'co.abber.signin',
       scope: 'name email',
-      redirectURI: 'https://test.abber.co/',
+      redirectURI: 'https://theme.abber.co/',
       state: time.toString(),
         usePopup: true
     });
