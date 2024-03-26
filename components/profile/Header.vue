@@ -3,6 +3,7 @@
     <div class="flex items-center justify-between">
         <div class="relative flex-shrink-0" >
             <NuxtImg
+                loading="lazy"
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                 :src="data?.image_url"
                 height="96"
@@ -11,6 +12,7 @@
                 alt="صورة المستخدم" />
 
             <NuxtImg
+                loading="lazy"
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                 v-if="tempAccount.image"
                 :src="tempAccountImagePreview"

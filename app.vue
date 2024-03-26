@@ -18,10 +18,10 @@ import { useWebSocket } from '@vueuse/core';
 
 useHead({
     bodyAttrs: {
-        dir: 'rtl',
         class: 'antialiased'
     },
     htmlAttrs: {
+        lang: 'ar',
         dir: 'rtl'
     }
 });

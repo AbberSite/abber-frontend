@@ -40,6 +40,7 @@
         <NuxtLink class="flex items-center px-4 pb-3 pt-4" to="/profile" @click="$emit('close')">
             <div class="flex-shrink-0">
                 <NuxtImg
+                    loading="lazy"
                     class="lazyload h-10 w-10 rounded-full bg-gray-100"
                     :src="data.image_url"
                     height="40"
