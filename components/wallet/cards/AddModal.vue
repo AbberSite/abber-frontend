@@ -105,6 +105,7 @@ import intlTelInput from 'intl-tel-input';
 const emit = defineEmits(['close', 'show']);
 const { data, getSession } = useAuth();
 
+const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
 let hyper: any = undefined;
 
 const cardType = ref('general');
@@ -315,7 +316,7 @@ async function loadHyper() {
         }
     };
 
-    await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${payment.id}`);
+    await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}`);
 
     // @ts-ignore
     hyper = wpwl as any;

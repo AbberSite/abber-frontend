@@ -90,6 +90,8 @@ import intlTelInput from 'intl-tel-input';
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
 
+const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
+
 const hasCoupon = ref(false)
 const useWallet = ref(false)
 const coupon = ref("")
@@ -278,7 +280,7 @@ async function loadHyper() {
         }
     };
 
-    await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${payment.id}`);
+    await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}`);
 
     // @ts-ignore
     hyper = wpwl as any;
