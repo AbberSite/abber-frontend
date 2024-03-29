@@ -7,7 +7,7 @@ module.exports = {
       instances: 'max',
       script: './.output/server/index.mjs',
       env: {
-        NODE_ENV: "production", 
+        NODE_ENV: "dev", 
       }
     }
   ]
