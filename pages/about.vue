@@ -73,7 +73,7 @@
           </path>
         </svg></div>
       <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">من نحن</h1>
-      <div class="pt-16 prose prose-sm prose-gray lg:prose-base" v-html="settings.general_settings.about" />
+      <div class="pt-16 prose prose-sm prose-gray lg:prose-base " v-html="settings.general_settings.about" />
     </section>
 
   </main>
@@ -83,19 +83,22 @@
 const { settings } = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
 await getSettings();
-definePageMeta({ auth: false })
+definePageMeta({ auth: false });
+
+
 </script>
 
 <style>
-/* .content h1 {
-  @apply text-4xl my-10 font-bold
-} */
+.content h1 {
+  @apply text-xl m-0 font-bold
+}
 
 .content img {
   @apply rounded-xl my-2
 }
 
-/* .content p {
-  @apply my-4 text-xl
-} */
+.content p, .content p:first-child {
+  @apply my-4 text-[1rem]
+}
+
 </style>

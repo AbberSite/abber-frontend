@@ -111,17 +111,17 @@ definePageMeta({ auth: false })
 </script>
 
 <style>
-/* .content h1 {
-  @apply text-4xl my-10 font-bold
-} */
-
-.content img {
-    @apply rounded-xl my-2
+.content h1 {
+  @apply text-xl m-0 font-bold
 }
 
-/* .content p {
-  @apply my-4 text-xl
-} */
+.content img {
+  @apply rounded-xl my-2
+}
+
+.content p, .content p:first-child {
+  @apply my-4 text-[1rem]
+}
 </style>
 
 
