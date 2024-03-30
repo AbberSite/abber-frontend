@@ -73,19 +73,16 @@
           </path>
         </svg></div>
       <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">من نحن</h1>
-      <div class="pt-16 prose prose-sm prose-gray lg:prose-base">
-              <p>أهلاً بك في عبر، منصتك الموثوقة لتفسير الرؤى تفسيرًا دقيقًا، وفهم المعاني الخفية لأحلامك. حيث تضم مجموعة من أفضل المعبرين في الوطن العربي والذين يجمعون بين العلم بالقرآن الكريم والسنة النبوية الشريفة وبين تعبير الرؤى.</p>
-              <p>نعمل على توفير تجربة مميزة في تعبير الأحلام والرؤى عن طريق التواصل المباشر مع أحد معبرينا، والاستفادة من خبراتهم الواسعة التي لا تقل عن 15 عامًا في مجال تعبير الرؤى، وذلك للحصول على تفسير دقيق وسريع لرؤياك في نفس الوقت.</p>
-              <p>لدينا أيضًا مدونة تحوي العديد من المقالات التي تضم رموز الأحلام ومعانيها، بالإضافة لمواضيع أخرى داخل عالم الأحلام يمكنك استكشافها بنفسك.</p>
-              <p>نحن هنا دائمًا لمساعدتك في فهم أحلامك، ونأمل أن نسمع منك قريبًا!.</p>
-              <p>شركة سمو لتقنية المعلومات المشغله لمنصة عبَّر Abber، وهي شركة سعودية، سجل تجاري رقم (1131299687).</p>
-            </div>
+      <div class="pt-16 prose prose-sm prose-gray lg:prose-base" v-html="settings.general_settings.about" />
     </section>
 
   </main>
 </template>
 
 <script setup lang="ts">
+const { settings } = storeToRefs(useSettingsStore());
+const { getSettings } = useSettingsStore();
+await getSettings();
 definePageMeta({ auth: false })
 </script>
 
