@@ -64,7 +64,7 @@
         </section>
 
 
-        <section class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content" >
+        <section class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content" id="userAgreement">
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
           <!-- Heroicon name: outline/identification -->
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
@@ -72,7 +72,7 @@
           </svg>
         </div>
         <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="agreement-heading">إتفاقية المستخدم</h1>
-        <div class="prose prose-sm prose-gray lg:prose-base" v-html="settings?.policy_settings?.user_agreement"></div>
+        <div class="prose prose-sm prose-gray lg:prose-base pt-16" v-html="settings?.policy_settings?.user_agreement"></div>
         </section>
 
     </main>
@@ -88,26 +88,25 @@ definePageMeta({auth: false})
 
 <style>
 
-.content p:first-child {
+#userAgreement .content p:first-child {
     @apply text-4xl my-8 font-bold
 }
 
-.content p {
+#userAgreement .content p {
     @apply text-right text-[1rem]
 }
 
 
-
-.content h2 {
+#userAgreement .content h2 {
     @apply lg:text-2xl text-xl my-2 font-semibold
 }
 
-.content h3 {
+#userAgreement .content h3 {
     @apply lg:text-xl text-lg my-6 font-bold
 }
 
 
-.content img {
+#userAgreement .content img {
     @apply rounded-xl my-2
 }
 
