@@ -158,32 +158,29 @@
             <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر 2023.</p>
             <div class="flex justify-center space-x-6 pt-8 rtl:space-x-reverse md:pt-0">
                 <a href="#" target="_blank">
-                    <img loading="lazy"                         class="lazyload max-w-none"
+                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/mastercard.webp"
                         height="24"
                         width="36"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <img loading="lazy"                         class="lazyload max-w-none"
+                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/visa.webp"
                         height="24"
-                        width="45"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <img loading="lazy"                         class="lazyload max-w-none"
+                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/mada.png"
                         height="24"
-                        width="48"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <img loading="lazy" 
+                    <NuxtImg loading="lazy" 
                         class="lazyload max-w-none"
                         src="/images/payments/stc_pay.webp"
                         height="24"
-                        width="52"
                         alt="شعار وسيلة الدفع" />
                 </a>
             </div>

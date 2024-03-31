@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between pt-3">
             <NuxtLink class="flex items-center" @click="$emit('navigate', { name: 'profile' })">
                 <div class="flex-shrink-0">
-                    <img
+                    <NuxtImg
                         class="lazyload h-11 w-11 rounded-full bg-gray-50"
                         :src="data.image_url"
                         height="44"

@@ -65,6 +65,7 @@
       aria-labelledby="login-heading">
       <h1 class="sr-only" id="login-heading">تسجيل الدخول</h1>
       <img class="aspect-square" src="/assets/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
+      <!-- <img class="aspect-square" src="../../assets/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" /> -->
       <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بعودتك مجددا</div>
       <div class="pt-4 text-sm text-gray-800 xs:text-base">الرجاء تسجيل الدخول الى حسابك</div>
       <div class="mx-auto w-full max-w-sm pt-10">
