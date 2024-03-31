@@ -11,7 +11,7 @@
     <transition enter-active-class="transition-all" leave-active-class="transition-all" enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
       <div v-if="showOrdersDropdown && orders.length > 0" class="absolute top-[calc(100%+15px)] z-20 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 ltr:right-0 rtl:left-0">
         <template v-for="(order, index) in orders">
-          <button v-on-click-outside="() => (showOrdersDropdown = false)" v-if="order.status === 'in_progress'" class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button" role="menuitem" tabindex="-1">تسليم طلب {{ order.buyer.first_name }}</button>
+          <button v-on-click-outside="() => (showOrdersDropdown = false)" v-if="order.status === 'in_progress' || order.status === 'new' " class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button" role="menuitem" tabindex="-1">تسليم طلب {{ order.buyer.first_name }}</button>
         </template>
       </div>
     </transition>
