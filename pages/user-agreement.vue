@@ -79,10 +79,14 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useSettingsStore } from '~/stores/settings';
 
 const { settings } = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
-await getSettings();
+if(settings.value == undefined){
+  await getSettings();
+}
 definePageMeta({auth: false})
 </script>
 
