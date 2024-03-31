@@ -36,16 +36,16 @@
                     <li>
                         <NuxtLink
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
-                            :to="{ name: 'about-us' }"
-                            up-target="body"
+                            :to="{ name: 'about' }"
+                            
                             >من نحن</NuxtLink
                         >
                     </li>
                     <li>
                         <NuxtLink
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
-                            :to="{ name: 'terms-conditions' }"
-                            up-target="body"
+                            :to="{ name: 'terms' }"
+                            
                             >الشروط والأحكام</NuxtLink
                         >
                     </li>
@@ -53,7 +53,7 @@
                         <NuxtLink
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
                             :to="{ name: 'user-agreement' }"
-                            up-target="body"
+                            
                             >إتفاقية المستخدم</NuxtLink
                         >
                     </li>
@@ -67,7 +67,7 @@
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
                             :href="settings.social_settings?.twitter"
                             target="_blank"
-                            up-target="body"
+                            
                             >تويتر</a
                         >
                     </li>
@@ -76,7 +76,7 @@
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
                             :href="settings.social_settings?.facebook"
                             target="_blank"
-                            up-target="body"
+                            
                             >فيسبوك</a
                         >
                     </li>
@@ -85,7 +85,7 @@
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
                             :href="settings.social_settings?.instagram"
                             target="_blank"
-                            up-target="body"
+                            
                             >إنستغرام</a
                         >
                     </li>
@@ -95,7 +95,7 @@
                 <h3 class="text-sm font-semibold xs:text-base">إتصل بنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" up-target="body">
+                        <a href="#" class="text-sm text-gray-800 hover:text-gray-900 xs:text-base" >
                             {{ settings.general_settings?.address }}
                         </a>
                     </li>
@@ -103,7 +103,7 @@
                         <a
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
                             :href="'tel:' + settings.general_settings?.phone"
-                            up-target="body">
+                            >
                             {{ settings.general_settings?.phone }}
                         </a>
                     </li>
@@ -111,7 +111,7 @@
                         <a
                             class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
                             :href="'mailto:' + settings.general_settings?.email"
-                            up-target="body">
+                            >
                             {{ settings.general_settings?.email }}
                         </a>
                     </li>
@@ -158,35 +158,32 @@
             <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر 2023.</p>
             <div class="flex justify-center space-x-6 pt-8 rtl:space-x-reverse md:pt-0">
                 <a href="#" target="_blank">
-                    <img
-                        class="lazyload max-w-none"
+                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/mastercard.webp"
                         height="24"
                         width="36"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <img
-                        class="lazyload max-w-none"
+                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/visa.webp"
                         height="24"
-                        width="45"
+                        width="60"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <img
-                        class="lazyload max-w-none"
+                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/mada.png"
                         height="24"
-                        width="48"
+                        width="72"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <img
+                    <NuxtImg loading="lazy" 
                         class="lazyload max-w-none"
                         src="/images/payments/stc_pay.webp"
                         height="24"
-                        width="52"
+                        width="82"
                         alt="شعار وسيلة الدفع" />
                 </a>
             </div>

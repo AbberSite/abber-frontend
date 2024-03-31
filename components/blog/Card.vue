@@ -1,7 +1,7 @@
 <template>
   <article>
-    <NuxtLink v-if="slug" :to="{ name: 'blog-posts-slug', params: { slug: props?.slug  } }">
-      <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" />
+    <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
+      <NuxtImg class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt" loading="lazy" />
     </NuxtLink>
 
     <div class="flex w-full flex-col space-y-4 pt-8 text-right">
@@ -17,7 +17,7 @@
       </div>
 
       <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
-        <NuxtLink v-if="slug" :to="{ name: 'blog-posts-slug', params: { slug: props?.slug  } }">
+        <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
           {{ title }}
         </NuxtLink>
       </h3>
@@ -27,7 +27,7 @@
       </p>
 
       <div class="text-sm font-semibold xs:text-base">
-        <NuxtLink v-if="slug" :to="{ name: 'blog-posts-slug', params: { slug: slug } }">إقرأ المزيد <span aria-hidden="true">←</span></NuxtLink>
+        <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: slug } }">إقرأ المزيد <span aria-hidden="true">←</span></NuxtLink>
       </div>
 
     </div>

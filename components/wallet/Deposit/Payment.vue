@@ -61,6 +61,8 @@ const { state, bus } = useFormWizard<any>('deposit');
 const emit = defineEmits(['close']);
 const { data, getSession } = useAuth();
 
+const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
+
 let hyper: any = undefined;
 let executePayment: (() => void) | undefined;
 
@@ -182,7 +184,7 @@ async function loadHyper() {
         return;
     }
 
-    await useScript(`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${payment.id}`);
+    await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}`);
 
     // @ts-ignore
     hyper = wpwl as any;

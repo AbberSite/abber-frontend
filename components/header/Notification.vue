@@ -1,11 +1,12 @@
 <template>
     <li
     :class="[notification.read ? 'hover:bg-gray-50' : 'bg-gray-50']">
-    <NuxtLink :to="notification.url" class="flex flex-col px-6 py-8 md:py-6">
+    <NuxtLink :to="notification.url.replace('orders/order','orders')" class="flex flex-col px-6 py-8 md:py-6">
         <div class="flex items-start justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <NuxtImg
+                        loading="lazy"
                         class="lazyload h-11 w-11 rounded-full bg-gray-100 md:h-10 md:w-10"
                         :src="notification.sender.image"
                         height=""

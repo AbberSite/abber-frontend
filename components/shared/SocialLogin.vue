@@ -123,13 +123,13 @@ onMounted(async () => {
             useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
         }
     });
+  const time = new Date();
 
     AppleID.auth.init({
-        clientId: '[CLIENT_ID]',
-        scope: '[SCOPES]',
-        redirectURI: '[REDIRECT_URI]',
-        state: '[STATE]',
-        nonce: '[NONCE]',
+      clientId: 'co.abber.signin',
+      scope: 'name email',
+      redirectURI: 'https://theme.abber.co/',
+      state: time.toString(),
         usePopup: true
     });
 });
@@ -137,11 +137,25 @@ onMounted(async () => {
 async function appleLogin() {
     try {
         const data = await AppleID.auth.signIn();
+        console.log('apple login',data);
+      const loginData = await useProxy('/authentication/apple/connect/', {
+                method: 'POST',
+                body: {
+                  id_token: data.authorization.id_token,
+                  code: data.authorization.code,
+                }
+            });
 
-        console.log('apple login');
+      await useAuthenticateUser(loginData.value);
+
+            await useRouter().push({ name: 'index' });
+
+            useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
+        
         // Handle successful response.
     } catch (error) {
         // Handle error.
+        console.log('apple login error', error);
     }
 }
 </script>

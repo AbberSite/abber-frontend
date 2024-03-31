@@ -6,35 +6,37 @@
       تقييم المعبر
     </button>
 
+    <a :href="billUrl" target="_blank"
+      class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
+      role="menuitem" tabindex="-1">
+      فاتورة الطلب
+    </a>
+
     <button class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
-      @click="$emit('show-review')" role="menuitem" tabindex="-1">
+      role="menuitem" tabindex="-1">
       الإبلاغ عن مشكلة
     </button>
 
-    <button v-if="allowCancelOrder" class="block px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50"
-      @click.prevent="cancelOrder" role="menuitem" tabindex="-1">إلغاء الطلب</button>
+    <button v-if="isBuyer && order?.status === 'awaiting_delivery' && !order?.content?.inquiry"
+      @click="$emit('inquiry')" class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50"
+      type="button" role="menuitem" tabindex="-1">
+      استفسار للمعبر
+    </button>
+
+    <button
+      v-if="(['in_progress', 'new'].includes(order?.status) && props.isBuyer) || (order?.status === 'waiting_for_cancellation' && props.isSeller)"
+      class="block px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50" @click="$emit('cancel-order')"
+      role="menuitem" tabindex="-1">إلغاء الطلب</button>
+
 
   </div>
 </template>
 
 <script setup lang="ts">
-import { boolean } from 'yup';
-
 const props = defineProps<{
   isSeller: boolean,
-  isBuyer: boolean
+  isBuyer: boolean,
+  order: Order,
 }>()
-
-const { order } = storeToRefs(useOrdersStore())
-const { updateOrderStatus } = useOrdersStore()
-
-const allowCancelOrder = (['in_progress', 'new'].includes(order.value?.status) && props.isBuyer) || (order.value?.status === 'waiting_for_cancellation' && props.isSeller);
-async function cancelOrder() {
-  await updateOrderStatus(order.value?.id, 'cancelled');
-
-
-  useNotification({ content: props.isBuyer ? 'تم طلب إلغاء الطلب' : 'تم إلغاء الطلب', type: 'success' });
-}
+const billUrl = `${useRuntimeConfig().public.websiteBasePath}/orders/bill/${props.order?.id}/?action=download`
 </script>
-
-<style scoped></style>
