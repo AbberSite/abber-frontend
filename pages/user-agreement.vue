@@ -92,9 +92,9 @@ definePageMeta({auth: false})
     @apply text-4xl my-8 font-bold
 }
 
-#userAgreement .content p {
+/* #userAgreement .content p {
     @apply text-right text-[1rem]
-}
+} */
 
 
 #userAgreement .content h2 {

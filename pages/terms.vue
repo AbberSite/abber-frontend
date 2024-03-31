@@ -119,9 +119,6 @@ definePageMeta({ auth: false })
   @apply rounded-xl my-2
 }
 
-.content p, .content p:first-child {
-  @apply my-4 text-[1rem]
-}
 </style>
 
 
