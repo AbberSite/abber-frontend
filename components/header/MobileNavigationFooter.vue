@@ -7,7 +7,7 @@
         >
         <NuxtLink
             class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-            to="/#faqs"
+            @click="$emit('navigate', {name: 'index', hash: '#faqs'})"
             >الأسئلة الشائعة</NuxtLink
         >
         <NuxtLink
