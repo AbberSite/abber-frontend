@@ -75,7 +75,9 @@
 <script setup lang="ts">
 let googleLogin = () => console.log('google not initialized yet');
 
-const route = useRoute()
+const route = useRoute();
+const redirectURI = window.location.origin + '/';
+
 onMounted(async () => {
   const googleProvider: any = await useGoogleProvider();
 
@@ -97,7 +99,6 @@ onMounted(async () => {
     }
   });
   const time = new Date();
-  const redirectURI = window.location.origin + '/';
 
   AppleID.auth.init({
     clientId: 'co.abber.signin',
