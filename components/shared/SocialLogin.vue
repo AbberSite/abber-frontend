@@ -112,7 +112,6 @@ onMounted(async () => {
 async function appleLogin() {
   try {
     const data = await AppleID.auth.signIn();
-    console.log("apple login", data);
 
     const loginData = await useProxy("/authentication/apple/connect/", {
       method: "POST",
@@ -122,8 +121,6 @@ async function appleLogin() {
         callback_url: redirectURI
       }
     });
-
-    console.log("apple login data", loginData);
 
     await useAuthenticateUser(loginData);
 
