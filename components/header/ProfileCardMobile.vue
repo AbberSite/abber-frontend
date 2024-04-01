@@ -41,7 +41,7 @@
             <NuxtLink
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 href="#"
-                @click="$emit('navigate', { name: 'index' })"
+                @click="$emit('navigate', { name: 'wallet' })"
                 >المحفظة
             </NuxtLink>
             <button

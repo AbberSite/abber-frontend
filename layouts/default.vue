@@ -2,11 +2,10 @@
     <Header /> 
     <slot/>
     
-    <Footer v-if="route.fullPath != '/profile?edit=true'"/> 
+    <Footer/> 
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
 </script>
 
 <style scoped>

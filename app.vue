@@ -1,5 +1,6 @@
 <template>
     <NuxtLoadingIndicator color="#000" />
+    <!-- <RtlNuxtLoadingIndicator color="#000"/> -->
     <NuxtLayout>
         <NuxtPage />
         <Alerts />
@@ -118,3 +119,4 @@ onMounted(async () => {
     });
 });
 </script>
+
