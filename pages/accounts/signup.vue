@@ -143,7 +143,7 @@
                             </template>
                         </TextInput>
                         
-                        <PhoneInput v-model="phone" v-model:valid="phoneValid" />
+                        <PhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
 
                         <div class="flex items-center text-sm xs:text-base">
                             <input
@@ -256,7 +256,7 @@ async function submit() {
         loading.value = true;
 
         await signUp(
-            { name: name.value, email: email.value, password: password.value, phone: '+' + phone.value },
+            { name: name.value, email: email.value, password: password.value, phone: phone.value },
             {
                 callbackUrl: '/profile',
                 redirect: true
