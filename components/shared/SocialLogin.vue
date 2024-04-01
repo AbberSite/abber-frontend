@@ -76,7 +76,6 @@
 let googleLogin = () => console.log('google not initialized yet');
 
 const route = useRoute()
-const websiteBasePath = useRuntimeConfig().public.websiteBasePath;
 onMounted(async () => {
   const googleProvider: any = await useGoogleProvider();
 
@@ -98,11 +97,12 @@ onMounted(async () => {
     }
   });
   const time = new Date();
+  const redirectURI = window.location.origin + '/';
 
   AppleID.auth.init({
     clientId: 'co.abber.signin',
     scope: 'name email',
-    redirectURI: websiteBasePath,
+    redirectURI: redirectURI,
     state: time.toString(),
     usePopup: true
   });
@@ -117,7 +117,7 @@ async function appleLogin() {
       body: {
         id_token: data.authorization.id_token,
         code: data.authorization.code,
-        callback_url: websiteBasePath
+        callback_url: redirectURI
       }
     });
 
