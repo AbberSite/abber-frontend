@@ -91,15 +91,14 @@ async function appleLogin() {
   try {
     const data = await AppleID.auth.signIn();
     console.log("apple login", data);
-    const body = new FormData();
-    body.append("id_token", data.authorization.id_token);
-    body.append("code", data.authorization.code);
-    body.append("callback_url", redirectURI);
 
     const loginData = await useProxy("/authentication/apple/connect/", {
       method: "POST",
-      body: body,
-    });
+      body: {
+        id_token: data.authorization.id_token,
+        code: data.authorization.code,
+        callback_url: redirectURI
+      }    });
 
     console.log("apple login data", loginData);
 
