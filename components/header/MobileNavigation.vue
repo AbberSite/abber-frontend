@@ -5,7 +5,7 @@
                 <span class="sr-only">عبر</span>
                 <NuxtImg
                     class="lazyload h-14 w-auto"
-                    src="../assets/images/logo.webp"
+                    src="/images/logo.webp"
                     height="56"
                     width="56"
                     alt="" />
