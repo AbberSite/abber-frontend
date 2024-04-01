@@ -160,30 +160,30 @@
                 <a href="#" target="_blank">
                     <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/mastercard.webp"
-                        height="24"
+                        height="21"
                         width="36"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
                     <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/visa.webp"
-                        height="24"
-                        width="60"
+                        height="18"
+                        width="45"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
                     <NuxtImg loading="lazy"                         class="lazyload max-w-none"
                         src="/images/payments/mada.png"
-                        height="24"
-                        width="72"
+                        height="16"
+                        width="48"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
                     <NuxtImg loading="lazy" 
                         class="lazyload max-w-none"
                         src="/images/payments/stc_pay.webp"
-                        height="24"
-                        width="82"
+                        height="15"
+                        width="52"
                         alt="شعار وسيلة الدفع" />
                 </a>
             </div>
