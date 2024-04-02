@@ -21,6 +21,7 @@ class PostsStore {
         })) as { data: Ref<PaginationResponse<Post>> };
 
         this.total.value = data.value?.count;
+        // this.total.value = 250;
         this.posts.value = data.value;
     };
 

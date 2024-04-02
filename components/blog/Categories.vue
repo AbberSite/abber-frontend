@@ -39,11 +39,11 @@
 <script setup lang="ts">
 const emits = defineEmits(['update:modelValue']);
 
-const props = defineProps<{
-    total: number;
-}>();
+// const props = defineProps<{
+//     total: number;
+// }>();
 
-const { selectedCategory, categories } = storeToRefs(usePostsStore());
+const { selectedCategory, categories, total } = storeToRefs(usePostsStore());
 
 const loading = ref(false);
 
@@ -52,7 +52,6 @@ async function fetchCategories() {
     const { data: categoriesData } = await useFetch('/api/blog/categories');
 
     if (!categoriesData.value) return;
-
     categories.value = categoriesData.value;
     loading.value = false;
 }
@@ -66,6 +65,8 @@ onMounted(async () => {
         await fetchCategories();
     }
 });
+
+
 </script>
 
 <style scoped></style>
