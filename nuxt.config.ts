@@ -107,10 +107,10 @@ export default defineNuxtConfig({
       charset: "utf-8",
       link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
       script: [
-        {
-          src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
-          type: "text/javascript",
-        },
+        // {
+        //   src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
+        //   type: "text/javascript",
+        // },
         {
           src: "/audio-recorder/WebAudioRecorder.min.js",
           type: "text/javascript",
