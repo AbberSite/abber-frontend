@@ -111,10 +111,10 @@ export default defineNuxtConfig({
         //   src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
         //   type: "text/javascript",
         // },
-        {
-          src: "/audio-recorder/WebAudioRecorder.min.js",
-          type: "text/javascript",
-        },
+        // {
+        //   src: "/audio-recorder/WebAudioRecorder.min.js",
+        //   type: "text/javascript",
+        // },
       ],
     },
   },
