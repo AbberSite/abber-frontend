@@ -75,6 +75,7 @@
 
       <div class="text-center" v-if="error.statusCode == 500">
         <p class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">حدثت مشكلة في الاتصال</p>
+        <p dir="ltr">{{ error }}</p>
         <p class="pt-4 text-center text-sm text-gray-800 xs:text-base">عذرا, قم بإعادة تحميل الصفحة.</p>
       </div>
 
