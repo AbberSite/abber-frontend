@@ -83,9 +83,7 @@
 
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
-import 'intl-tel-input/build/css/intlTelInput.css';
 import useScript from '~/composables/useScript';
-import intlTelInput from 'intl-tel-input';
 
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
@@ -159,29 +157,13 @@ onMounted(async () => {
 
     error.value = '';
     try {
-        Promise.all([getCountry(), loadHyper(), fetchBalance()]);
+        Promise.all([loadHyper(), fetchBalance()]);
         // await loadHyper();
         // await fetchBalance();
     } catch (error) {
         console.log(error);
     }
 });
-async function getCountry() {
-    try {
-        const url = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
-        const response = await fetch(url);
-        const data = await response.json();
-
-        countryCode.value = data.countryCode;
-    } catch (error) {
-        console.error(error);
-        return 'sa';
-    }
-}
-
-getCountry();
-
-const countryCode = ref('');
 
 async function loadHyper() {
     const payment = await createCheckout();
@@ -193,9 +175,9 @@ async function loadHyper() {
 
     (window as any).wpwlOptions = {
         style: 'plain',
-        locale: 'en',
+        locale: 'ar',
         brandDetection: true,
-        brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
+        brandDetectionPriority: ['VISA', 'MASTER', 'MADA'],
         labels: {
             cardNumber: '0000 0000 0000 0000',
             cvv: '000',
@@ -244,17 +226,7 @@ async function loadHyper() {
             const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
 
             if (phoneNumber) {
-                const iti = intlTelInput(phoneNumber as Element, {
-                    initialCountry: countryCode.value,
-                    separateDialCode: true,
-                    nationalMode: true,
-                    utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
-                });
-                phoneNumberLabel.innerHTML = 'رقم الهاتف';
-
-                (phoneNumber as HTMLInputElement).placeholder = '7835196169';
-
-                phoneNumber;
+              (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
             }
 
             cardLabel.innerHTML = 'رقم البطاقة';
