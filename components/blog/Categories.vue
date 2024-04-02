@@ -15,7 +15,7 @@
         @click.prevent="selectedCategory = ''" :to="{ name: 'blog' }">
         <span>الكل</span>
         <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-          {{ total }}
+          {{ posts.count }}
         </span>
       </NuxtLink>
 
@@ -43,7 +43,7 @@ const emits = defineEmits(['update:modelValue']);
 //     total: number;
 // }>();
 
-const { selectedCategory, categories, total } = storeToRefs(usePostsStore());
+const { selectedCategory, categories, posts } = storeToRefs(usePostsStore());
 
 const loading = ref(false);
 

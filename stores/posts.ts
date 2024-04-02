@@ -1,7 +1,7 @@
 import type { PaginationResponse, Post } from '~/types';
 
 class PostsStore {
-    total = ref<number | undefined>(0);
+    // total = ref<number | undefined>(0);
 
     posts = ref<PaginationResponse<Post>>({ results: [] });
 
@@ -20,7 +20,7 @@ class PostsStore {
             }
         })) as { data: Ref<PaginationResponse<Post>> };
 
-        this.total.value = data.value?.count;
+        // this.total.value = data.value?.count;
         // this.total.value = 250;
         this.posts.value = data.value;
     };
