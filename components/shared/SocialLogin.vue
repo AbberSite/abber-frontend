@@ -67,54 +67,54 @@
           d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97ZM6.75 8.25a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H7.5Z"
           clip-rule="evenodd"></path>
       </svg>
-      <span class="ms-3 mt-1.5">سجل دخولك بواسطة {{ route.name == 'accounts-login' ? 'SMS' : 'البريد' }}</span>
+      <span class="ms-3 mt-1.5">سجل دخولك بواسطة {{ route.name == "accounts-login" ? "SMS" : "البريد" }}</span>
     </NuxtLink>
   </div>
 </template>
 
 <script setup lang="ts">
-let googleLogin = () => console.log('google not initialized yet');
+let googleLogin = () => console.log("google not initialized yet");
 
 const route = useRoute();
-const redirectURI = window.location.origin + '/';
+const redirectURI = window.location.origin + "/";
 
 onMounted(async () => {
   const googleProvider: any = await useGoogleProvider();
 
   googleLogin = googleProvider.useGoogleLogin({
-    flow: 'implicit',
+    flow: "implicit",
     onSuccess: async (response: { access_token: string }) => {
-      const { data } = await useFetch('/api/auth/google', {
-        method: 'POST',
+      const { data } = await useFetch("/api/auth/google", {
+        method: "POST",
         body: {
-          access_token: response.access_token
-        }
+          access_token: response.access_token,
+        },
       });
 
       await useAuthenticateUser(data.value);
 
-      await useRouter().push({ name: 'index' });
+      await useRouter().push({ name: "index" });
 
-      useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-    }
+      useNotification({ type: "success", content: "تم تسجيل دخولك بنجاح" });
+    },
   });
   const time = new Date();
 
   AppleID.auth.init({
-    clientId: 'co.abber.signin',
-    scope: 'name email',
+    clientId: "co.abber.signin",
+    scope: "name email",
     redirectURI: redirectURI,
     state: time.toString(),
-    usePopup: true
+    usePopup: true,
   });
 });
 
 async function appleLogin() {
   try {
     const data = await AppleID.auth.signIn();
-    console.log('apple login', data);
-    const loginData = await useProxy('/authentication/apple/connect/', {
-      method: 'POST',
+
+    const loginData = await useProxy("/authentication/apple/connect/", {
+      method: "POST",
       body: {
         id_token: data.authorization.id_token,
         code: data.authorization.code,
@@ -122,18 +122,16 @@ async function appleLogin() {
       }
     });
 
-    console.log('apple login data', loginData);
+    await useAuthenticateUser(loginData);
 
-    await useAuthenticateUser(loginData.value);
+    await useRouter().push({ name: "index" });
 
-    await useRouter().push({ name: 'index' });
-
-    useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
+    useNotification({ type: "success", content: "تم تسجيل دخولك بنجاح" });
 
     // Handle successful response.
   } catch (error) {
     // Handle error.
-    console.log('apple login error', error);
+    console.log("apple login error", error);
   }
 }
 </script>
