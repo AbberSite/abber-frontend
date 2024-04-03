@@ -13,7 +13,8 @@ export default (type: string = "order") => {
   const { messages, chatList } = storeToRefs(useOrdersStore());
 
   const chat = useWebSocket(
-    import.meta.env.VITE_WS_URL + `/ws/${type}/${id}/` + `?authorization=JWT ${rawToken.value}`,
+    useRuntimeConfig().public.ws_url + `/ws/${type}/${id}/` + `?authorization=JWT ${rawToken.value}`,
+    // import.meta.env.VITE_WS_URL + `/ws/${type}/${id}/` + `?authorization=JWT ${rawToken.value}`,
     {
       autoReconnect: true
     }
