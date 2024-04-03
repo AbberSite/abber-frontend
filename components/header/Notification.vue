@@ -7,7 +7,8 @@
                 <div class="flex-shrink-0">
                     <NuxtImg
                         class="lazyload h-11 w-11 rounded-full bg-gray-100 md:h-10 md:w-10"
-                        :src="notification.sender.image"
+                        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        :data-src="notification.sender.image"
                         height=""
                         width=""
                         alt="صورة المستخدم" />

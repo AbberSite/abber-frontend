@@ -44,7 +44,7 @@
                             aria-expanded="false"
                             aria-haspopup="true">
                             <span class="sr-only">فتح قائمة المستخدم</span>
-                            <NuxtImg class="lazyload h-10 w-10 rounded-full" :src="data.image_url" height="40" width="40" alt="" />
+                            <NuxtImg class="lazyload h-10 w-10 rounded-full" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="data.image_url" height="40" width="40" alt="" />
                         </button>
 
                         <transition

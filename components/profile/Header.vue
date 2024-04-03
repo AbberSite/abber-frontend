@@ -4,7 +4,8 @@
         <div class="relative flex-shrink-0" >
             <NuxtImg
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
-                :src="data?.image_url"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                :data-src="data?.image_url"
                 height="96"
                 v-if="!tempAccount.image"
                 width="96"
@@ -13,7 +14,8 @@
             <NuxtImg
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                 v-if="tempAccount.image"
-                :src="tempAccountImagePreview"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                :data-src="tempAccountImagePreview"
                 height="96"
                 width="96"
                 alt="صورة المستخدم" />

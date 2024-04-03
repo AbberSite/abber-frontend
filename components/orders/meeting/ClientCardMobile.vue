@@ -25,7 +25,8 @@
                     <div class="flex-shrink-0">
                         <NuxtImg
                             class="lazyload h-11 w-11 rounded-full bg-gray-100"
-                            :src="order?.buyer?.first_name ?? 'test'"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                            :data-src="order?.buyer?.first_name ?? 'test'"
                             height="44"
                             width="44"
                             alt="" />
