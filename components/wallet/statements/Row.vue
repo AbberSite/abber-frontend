@@ -25,7 +25,7 @@
     <td class="whitespace-nowrap pe-12 font-medium">
       <span class="flex items-center space-x-1 rtl:space-x-reverse">
         <NuxtImg :src="cardImages[transaction.method]?.src ?? cardImages['general'].src"
-          :class="cardImages[transaction.method]?.class ?? cardImages['general'].class" alt="" srcset="" class="lazyload">
+          :class="cardImages[transaction.method]?.class ?? cardImages['general'].class" alt="" srcset="" class="lazyload"/>
         <span class="pt-2">**** 1898</span>
       </span>
     </td>
