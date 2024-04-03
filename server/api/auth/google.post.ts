@@ -35,10 +35,8 @@ export default defineEventHandler(async (event) => {
     // return error.response.data
 
 
-    if (error?.response?.data?.non_field_errors[0]) {
-
+    if (error?.response?.data?.non_field_errors?.[0]) {
       return { status: "error", error: error?.response?.data?.non_field_errors[0] }
-
     }
 
     return {

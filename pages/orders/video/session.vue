@@ -16,7 +16,7 @@
 
       <DetailsHeader :show-navigation="activeTab == 'details'">
         <slot>
-          <CurrentSessionOrdersDropdown v-if="orders.length > 0" :orders="orders" />
+          <MeetingCurrentSessionOrdersDropdown v-if="orders.length > 0" :orders="orders" />
         </slot>
       </DetailsHeader>
       <DetailsTabs v-model="activeTab" />
@@ -45,7 +45,6 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
 import { useWebSocket } from "@vueuse/core";
-import CurrentSessionOrdersDropdown from "~/components/orders/meeting/CurrentSessionOrdersDropdown.vue";
 
 definePageMeta({
   middleware: "auth",

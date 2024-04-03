@@ -220,7 +220,7 @@ class OrdersStore {
         change_status: status
       }
     })
-    this.getOrder(orderId); // Update order data after update status
+    this.getOrder(orderId as string); // Update order data after update status
     return response
   }
 }

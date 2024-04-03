@@ -269,4 +269,9 @@ onMounted(async () => {
 
     loading.value = false;
 });
+
+
+onUnmounted(() => {
+    orders.value = []
+})
 </script>
