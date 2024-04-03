@@ -7,7 +7,7 @@
         </div>
         <div class="mx-auto flex max-w-2xl flex-col items-center pb-20 pt-28 text-center sm:pb-28 sm:pt-32 2xl:py-36">
 
-            <NuxtImg class="mb-10 aspect-square" src="/images/logo.webp" height="85" width="85" alt="شعار منصة عبر" />
+            <NuxtImg class="mb-10 aspect-square lazyload" src="/images/logo.webp" height="85" width="85" alt="شعار منصة عبر" />
             <h1 class="text-xl font-semibold lg:text-2xl 2xl:text-3xl">عبر - عالمك الخاص لتفسير الأحلام</h1>
             <p class="pt-4 text-justify text-sm text-gray-800 xs:text-base">في عبر، نساعدك على فهم أحلامك والرسائل الخفية
                 التي تحملها لك. لدينا فريق من المعبرين الموثوقين والمتخصصين في علم تفسير الأحلام، سيقدمون لك تفسيراً دقيقًا

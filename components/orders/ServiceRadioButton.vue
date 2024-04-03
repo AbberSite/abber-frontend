@@ -7,7 +7,6 @@
         <div class="flex pt-1.5">
             <div class="flex-shrink-0">
                 <NuxtImg
-                    loading="lazy"
                     class="lazyload h-11 w-11 rounded-full bg-gray-100"
                     :src="service?.seller?.image"
                     height="44"

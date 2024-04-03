@@ -7,7 +7,7 @@
             <span
                 class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
                 :class="cardImage.class">
-                <NuxtImg class="w-8" :src="cardImage.src" />
+                <NuxtImg class="lazyload w-8" :src="cardImage.src" />
             </span>
         </div>
 

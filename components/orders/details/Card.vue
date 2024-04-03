@@ -21,7 +21,6 @@
         <div class="flex">
             <div class="flex-shrink-0">
                 <NuxtImg
-                    loading="lazy"
                     class="lazyload h-11 w-11 rounded-full bg-gray-100"
                     :src="order?.seller?.image ?? 'something'"
                     height="44"

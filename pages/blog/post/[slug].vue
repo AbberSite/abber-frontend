@@ -81,7 +81,7 @@
           <h1 class="pt-6 text-xl font-semibold leading-[1.75] lg:text-2xl lg:leading-[1.75]">
             {{ post?.title }}
           </h1>
-          <NuxtImg class="mt-8 w-full rounded-xl bg-gray-50" :src="post?.image" height="216" width="384"
+          <NuxtImg class="mt-8 w-full rounded-xl bg-gray-50 lazyload" :src="post?.image" height="216" width="384"
             alt="صورة المقالة" />
           <div class="js-toc-content prose prose-sm prose-gray pt-8 lg:prose-base lg:max-w-full" ref="contentEl"
             v-html="post?.content" />

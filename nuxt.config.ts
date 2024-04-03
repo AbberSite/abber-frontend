@@ -107,6 +107,10 @@ export default defineNuxtConfig({
       charset: "utf-8",
       link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
       script: [
+        {
+          src: '/lazysizes.min.js',
+          type: 'text/javascript'
+        }
       ],
     },
   },
