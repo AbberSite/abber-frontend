@@ -4,7 +4,7 @@
         <nav class="flex items-center justify-between px-4 py-6 xs:px-6 md:px-8" aria-label="Global">
             <div class="flex md:flex-1">
                 <NuxtLink :to="{ name: 'index' }" class="-m-1.5 p-1.5" aria-label="home button" href="/">
-                    <img class="lazyload h-14 w-auto" src="/images/logo.webp" height="56" width="56" alt="عبر" />
+                    <NuxtImg src="/images/logo.webp" class="h-14 w-auto" height="56" width="56" alt="عبر" />
                 </NuxtLink>
             </div>
             <div class="flex items-center md:hidden gap-3">
