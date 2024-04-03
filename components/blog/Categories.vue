@@ -39,10 +39,6 @@
 <script setup lang="ts">
 const emits = defineEmits(['update:modelValue']);
 
-// const props = defineProps<{
-//     total: number;
-// }>();
-
 const { selectedCategory, categories, posts } = storeToRefs(usePostsStore());
 
 const loading = ref(false);
