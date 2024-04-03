@@ -109,7 +109,8 @@ export default defineNuxtConfig({
       script: [
         {
           src: '/lazysizes.min.js',
-          type: 'text/javascript'
+          type: 'text/javascript',
+          async: true 
         }
       ],
     },
