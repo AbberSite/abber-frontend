@@ -150,7 +150,7 @@
                 <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchAll"
                     per-page="9" />
             </template>
-            <SkeletonsOrdersTable v-if="loading" class="pt-16" />
+            <SkeletonsOrdersTable v-if="loading" class="mt-16" />
         </section>
     </main>
 
