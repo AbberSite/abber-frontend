@@ -3,6 +3,7 @@
         <title v-if="!edit">عبر - الملف الشخصي</title>
         <title v-else>عبر - {{ data.first_name }}</title>
     </Head>
+    <Header/>
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
         <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
@@ -96,6 +97,7 @@
             </template>
         </section>
     </main>
+    <Footer v-if="!edit"/>
 </template>
 
 <script setup lang="ts">
@@ -111,7 +113,8 @@ onMounted(async () => {
 });
 
 definePageMeta({
-    middleware: 'auth'
+    middleware: 'auth',
+    layout: false
 });
 </script>
 

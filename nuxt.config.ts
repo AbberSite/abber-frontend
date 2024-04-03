@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     apiSecret: apiSecret,
     apiBasePath: apiBasePath,
     public: {
+      ws_url: process.env.NODE_ENV === 'production' ? import.meta.env.VITE_WS_URL : 'ws://localhost:3000',
       zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
       paymentWidgetURL:`https://${!production?'test.':''}oppwa.com/v1/paymentWidgets.js`
@@ -108,13 +109,10 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
       script: [
         {
-          src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
-          type: "text/javascript",
-        },
-        {
-          src: "/audio-recorder/WebAudioRecorder.min.js",
-          type: "text/javascript",
-        },
+          src: '/lazysizes.min.js',
+          type: 'text/javascript',
+          defer: true 
+        }
       ],
     },
   },

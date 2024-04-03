@@ -15,7 +15,7 @@
         @click.prevent="selectedCategory = ''" :to="{ name: 'blog' }">
         <span>الكل</span>
         <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-          {{ total }}
+          {{ posts.count }}
         </span>
       </NuxtLink>
 
@@ -39,11 +39,7 @@
 <script setup lang="ts">
 const emits = defineEmits(['update:modelValue']);
 
-const props = defineProps<{
-    total: number;
-}>();
-
-const { selectedCategory, categories } = storeToRefs(usePostsStore());
+const { selectedCategory, categories, posts } = storeToRefs(usePostsStore());
 
 const loading = ref(false);
 
@@ -52,7 +48,6 @@ async function fetchCategories() {
     const { data: categoriesData } = await useFetch('/api/blog/categories');
 
     if (!categoriesData.value) return;
-
     categories.value = categoriesData.value;
     loading.value = false;
 }
@@ -66,6 +61,8 @@ onMounted(async () => {
         await fetchCategories();
     }
 });
+
+
 </script>
 
 <style scoped></style>

@@ -10,7 +10,7 @@
         <Expressors /> 
         <Articles />
         <Testimonials />
-        <Faq />
+        <Faq id="faqs"/>
         <SupportFloatingButton />
     </main>
 

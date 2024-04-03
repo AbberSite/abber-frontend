@@ -24,8 +24,8 @@
     <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">#{{ transaction.id }}</td>
     <td class="whitespace-nowrap pe-12 font-medium">
       <span class="flex items-center space-x-1 rtl:space-x-reverse">
-        <NuxtImg :src="cardImages[transaction.method]?.src ?? cardImages['general'].src"
-          :class="cardImages[transaction.method]?.class ?? cardImages['general'].class" alt="" srcset="" />
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="cardImages[transaction.method]?.src ?? cardImages['general'].src"
+          :class="cardImages[transaction.method]?.class ?? cardImages['general'].class" alt="" srcset="" class="lazyload"/>
         <span class="pt-2">**** 1898</span>
       </span>
     </td>

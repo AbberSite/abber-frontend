@@ -99,7 +99,8 @@ onMounted(async () => {
     const { readNotifications } = storeToRefs(useUtilsStore());
 
     const chat = useWebSocket(
-        import.meta.env.VITE_WS_URL +
+        useRuntimeConfig().public.ws_url +
+        // import.meta.env.VITE_WS_URL +
             `/ws/notifications/${data.value.username}/` +
             `?authorization=JWT ${rawToken.value}`,
         {
@@ -118,3 +119,9 @@ onMounted(async () => {
     });
 });
 </script>
+
+<style>
+.nuxt-loading-indicator {
+    transform-origin: right !important;
+}
+</style>

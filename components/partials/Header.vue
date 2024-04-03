@@ -4,7 +4,7 @@
         <nav class="flex items-center justify-between px-4 py-6 xs:px-6 md:px-8" aria-label="Global">
             <div class="flex md:flex-1">
                 <NuxtLink :to="{ name: 'index' }" class="-m-1.5 p-1.5" aria-label="home button" href="/">
-                    <NuxtImg class="h-14 w-auto" src="/images/logo.webp" height="56" width="56" alt="عبر" />
+                    <img class="lazyload h-14 w-auto" src="/images/logo.webp" height="56" width="56" alt="عبر" />
                 </NuxtLink>
             </div>
             <div class="flex items-center md:hidden gap-3">
@@ -44,7 +44,7 @@
                             aria-expanded="false"
                             aria-haspopup="true">
                             <span class="sr-only">فتح قائمة المستخدم</span>
-                            <NuxtImg class="h-10 w-10 rounded-full" :src="data.image_url" height="40" width="40" alt="" />
+                            <img class="lazyload h-10 w-10 rounded-full" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="data.image_url" height="40" width="40" alt="" />
                         </button>
 
                         <transition

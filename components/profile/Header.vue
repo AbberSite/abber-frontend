@@ -2,20 +2,20 @@
     <h1 class="sr-only" id="profile-heading">الملف الشخصي</h1>
     <div class="flex items-center justify-between">
         <div class="relative flex-shrink-0" >
-            <NuxtImg
-                loading="lazy"
+            <img
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
-                :src="data?.image_url"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                :data-src="data?.image_url"
                 height="96"
                 v-if="!tempAccount.image"
                 width="96"
                 alt="صورة المستخدم" />
 
-            <NuxtImg
-                loading="lazy"
+            <img
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                 v-if="tempAccount.image"
-                :src="tempAccountImagePreview"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                :data-src="tempAccountImagePreview"
                 height="96"
                 width="96"
                 alt="صورة المستخدم" />
@@ -149,7 +149,7 @@
         <small class="mt-1.5 hidden sm:flex">({{ data?.user_type }})</small>
     </div>
 
-    <small class="block pt-2 font-semibold sm:hidden">({{ data?.user_type }})</small>
+    <small class="block pt-2 font-semibold sm:hidden" v-if="!edit">({{ data?.user_type }})</small>
 
     <InputError v-for="message in errors.image" :message="message" />
 

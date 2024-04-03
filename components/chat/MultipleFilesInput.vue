@@ -34,7 +34,7 @@
                 <template v-for="(file, i) in modelValue">
                     <div class="relative">
                         <span class="cursor-pointer absolute right-0 top-0" @click="removeImage(i)">X</span>
-                        <NuxtImg class="w-20 h-20 rounded-md border " :src="file.preview" alt="" />
+                        <img class="lazyload w-20 h-20 rounded-md border " src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="file.preview" alt="" />
                     </div>
                 </template>
             </div>

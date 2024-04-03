@@ -158,32 +158,36 @@
             <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر 2023.</p>
             <div class="flex justify-center space-x-6 pt-8 rtl:space-x-reverse md:pt-0">
                 <a href="#" target="_blank">
-                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
-                        src="/images/payments/mastercard.webp"
-                        height="24"
+                    <img                         class="lazyload max-w-none"
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        data-src="/images/payments/mastercard.webp"
+                        height="21"
                         width="36"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
-                        src="/images/payments/visa.webp"
-                        height="24"
-                        width="60"
+                    <img class="lazyload max-w-none"
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        data-src="/images/payments/visa.webp"
+                        height="18"
+                        width="45"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <NuxtImg loading="lazy"                         class="lazyload max-w-none"
-                        src="/images/payments/mada.png"
-                        height="24"
-                        width="72"
+                    <img                      class="lazyload max-w-none"
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        data-src="/images/payments/mada.png"
+                        height="16"
+                        width="48"
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <NuxtImg loading="lazy" 
+                    <img 
                         class="lazyload max-w-none"
-                        src="/images/payments/stc_pay.webp"
-                        height="24"
-                        width="82"
+                        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        data-src="/images/payments/stc_pay.webp"
+                        height="15"
+                        width="52"
                         alt="شعار وسيلة الدفع" />
                 </a>
             </div>
