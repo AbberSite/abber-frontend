@@ -39,7 +39,7 @@
         x-cloak>
         <NuxtLink class="flex items-center px-4 pb-3 pt-4" to="/profile" @click="$emit('close')">
             <div class="flex-shrink-0">
-                <NuxtImg
+                <img
                     class="lazyload h-10 w-10 rounded-full bg-gray-100"
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                     :data-src="data.image_url"

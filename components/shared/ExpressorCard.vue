@@ -3,7 +3,7 @@
         <figure class="rounded-xl bg-gray-50 px-6 py-6">
             <figcaption class="flex flex-col items-center">
                 <div class="flex-shrink-0">
-                    <NuxtImg class="lazyload h-20 w-20 rounded-full bg-gray-100 object-cover"
+                    <img class="lazyload h-20 w-20 rounded-full bg-gray-100 object-cover"
                         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                         :data-src="expressor.seller.image"
                         height="80"

@@ -2,7 +2,7 @@
     <h1 class="sr-only" id="profile-heading">الملف الشخصي</h1>
     <div class="flex items-center justify-between">
         <div class="relative flex-shrink-0" >
-            <NuxtImg
+            <img
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                 :data-src="data?.image_url"
@@ -11,7 +11,7 @@
                 width="96"
                 alt="صورة المستخدم" />
 
-            <NuxtImg
+            <img
                 class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                 v-if="tempAccount.image"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="

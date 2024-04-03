@@ -64,7 +64,7 @@
       class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
       aria-labelledby="login-heading">
       <h1 class="sr-only" id="login-heading">تسجيل الدخول</h1>
-      <NuxtImg class="aspect-square lazyload" src="/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
+      <img class="aspect-square lazyload" src="/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
       <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بعودتك مجددا</div>
       <div class="pt-4 text-sm text-gray-800 xs:text-base">الرجاء تسجيل الدخول الى حسابك</div>
       <div class="mx-auto w-full max-w-sm pt-10">

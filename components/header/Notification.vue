@@ -5,7 +5,7 @@
         <div class="flex items-start justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <NuxtImg
+                    <img
                         class="lazyload h-11 w-11 rounded-full bg-gray-100 md:h-10 md:w-10"
                         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                         :data-src="notification.sender.image"

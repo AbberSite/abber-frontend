@@ -158,7 +158,7 @@
             <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر 2023.</p>
             <div class="flex justify-center space-x-6 pt-8 rtl:space-x-reverse md:pt-0">
                 <a href="#" target="_blank">
-                    <NuxtImg                         class="lazyload max-w-none"
+                    <img                         class="lazyload max-w-none"
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                         data-src="/images/payments/mastercard.webp"
                         height="21"
@@ -166,7 +166,7 @@
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <NuxtImg class="lazyload max-w-none"
+                    <img class="lazyload max-w-none"
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                         data-src="/images/payments/visa.webp"
                         height="18"
@@ -174,7 +174,7 @@
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <NuxtImg                      class="lazyload max-w-none"
+                    <img                      class="lazyload max-w-none"
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                         data-src="/images/payments/mada.png"
                         height="16"
@@ -182,7 +182,7 @@
                         alt="شعار وسيلة الدفع" />
                 </a>
                 <a href="#" target="_blank">
-                    <NuxtImg 
+                    <img 
                         class="lazyload max-w-none"
                         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                         data-src="/images/payments/stc_pay.webp"

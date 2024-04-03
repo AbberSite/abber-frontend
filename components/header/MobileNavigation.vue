@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <a class="-m-1.5 p-1.5" href="/">
                 <span class="sr-only">عبر</span>
-                <NuxtImg
+                <img
                     class="lazyload h-14 w-auto"
                     src="/images/logo.webp"
                     height="56"
