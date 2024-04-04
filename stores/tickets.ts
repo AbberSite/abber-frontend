@@ -9,7 +9,8 @@ class TicketsStore {
     loading = ref(true);
     filters = ref({
         status: [],
-        search: ''
+        search: '',
+        ordering: 'ticket_item_time_data__start_date'
     });
     static filtersWatch: undefined | any;
     constructor() {
