@@ -6,8 +6,8 @@
   <div method="POST">
     <fieldset class="space-y-7">
       <template v-if="loading">
-        <SkeletonsServiceRadioButton />
-        <SkeletonsServiceRadioButton />
+        <SkeletonsContactType />
+        <SkeletonsContactType />
       </template>
       <template v-else>
         <label @click.once="submit('text_communication')"
@@ -68,7 +68,6 @@ const loading = ref(false);
 if (process.server) {
   loading.value = true;
     await fetchAll();
-    await fetchAll();
     await fetchVideoServices();
     loading.value = false;
 }
@@ -78,7 +77,6 @@ onMounted(async () => {
 
     // if (videoServicesPagination.value?.results?.length == 0) {
       loading.value = true;
-        await fetchAll();
         await fetchAll();
         await fetchVideoServices();
         loading.value = false;

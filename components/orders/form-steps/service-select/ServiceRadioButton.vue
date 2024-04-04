@@ -34,7 +34,11 @@
           </div>
         </div>
         <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
-          {{ service?.seller?.about }}
+          {{ service?.seller?.about.slice(0, 100) + (service?.seller?.about.length > 100 ? '...' : '') }}
+        </div>
+        <div class="ms-3 space-x-2 text-justify text-sm font-semibold leading-loose rtl:space-x-reverse">
+          <span>سعر الخدمة يبدأ من:</span>
+          <span>{{ minPrice }} ر.س. </span>
         </div>
       </div>
     </div>
@@ -55,4 +59,8 @@ const props = defineProps<{
 const selected = ref(props.modelValue);
 
 watch(selected, value => emits("update:modelValue", value))
+
+const minPrice = computed(() => {
+  return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, props.service.service_methods[0].price);
+});
 </script>
