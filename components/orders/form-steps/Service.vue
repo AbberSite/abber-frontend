@@ -17,12 +17,13 @@
           </template>
           <template v-else>
             <template v-if="state.data?.type == 'text_communication'">
-              <ServiceRadioButton v-for="service in textCommunicationServices" v-model="selectedService"
-                @click.once="submit(service.id)" :service="service" />
+              <FormStepsServiceSelectUrgentOrderService @click.once="submit(0)" v-model="selectedService" />
+              <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices"
+                v-model="selectedService" @click.once="submit(service.id)" :service="service" />
             </template>
 
             <template v-else>
-              <ServiceRadioButton v-for="service in videoServices" v-model="selectedService"
+              <FormStepsServiceSelectServiceRadioButton v-for="service in videoServices" v-model="selectedService"
                 @click.once="submit(service.id)" :service="service" />
             </template>
 
@@ -51,31 +52,31 @@ const { services, textCommunicationServices, videoServices } = storeToRefs(useSe
 
 onMounted(async () => {
 
-    if (services.value.length != 0) return;
+  if (services.value.length != 0) return;
 
-    // something went wrong fetching the services in the previous step fetch again
-    loading.value = true;
-    await fetchAll();
-    loading.value = false;
+  // something went wrong fetching the services in the previous step fetch again
+  loading.value = true;
+  await fetchAll();
+  loading.value = false;
 
 });
 
 function submit(service_id: number) {
-    selectedService.value = service_id;
+  selectedService.value = service_id;
 
 
-    if(status.value == 'loading') return 
-    if (status.value == 'authenticated') {
-        next({
-            nextStepId: 'payment',
-            data: {
-                service_id: selectedService.value
-            }
-        });
-        return;
-    }
+  if (status.value == 'loading') return
+  if (status.value == 'authenticated') {
+    next({
+      nextStepId: 'payment',
+      data: {
+        service_id: selectedService.value
+      }
+    });
+    return;
+  }
 
-    next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
+  next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
 }
 </script>
 
