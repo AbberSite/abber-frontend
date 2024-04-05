@@ -199,3 +199,13 @@ export type Transaction = {
   };
   performed: boolean;
 };
+
+
+export type Ticket = {
+  id: number;
+  user: {
+    username: string;
+  };
+  status: string;
+  date: string
+};
