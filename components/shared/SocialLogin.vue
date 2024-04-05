@@ -98,6 +98,7 @@ onMounted(async () => {
   });
   const time = new Date();
 
+  //@ts-ignore
   AppleID.auth.init({
     clientId: "co.abber.signin",
     scope: "name email",
@@ -109,6 +110,7 @@ onMounted(async () => {
 
 async function appleLogin() {
   try {
+    //@ts-ignore
     const data = await AppleID.auth.signIn();
 
     const loginData = await useProxy("/authentication/apple/connect/", {

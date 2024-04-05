@@ -101,7 +101,7 @@
             </div>
         </fieldset>
     </form>
-    <SocialLogin />
+    <FormStepsSocialLogin />
 </template>
 
 <script setup lang="ts">

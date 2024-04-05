@@ -9,6 +9,7 @@
             mode="out-in">
             <div :key="state.data?.authenticationMethod">
                 <FormStepsLogin v-if="state.data?.authenticationMethod == 'login'" />
+                <FormStepsSms v-else-if="state.data?.authenticationMethod == 'login-sms'" />
                 <FormStepsGuest v-else-if="state.data?.authenticationMethod == 'guest'" />
                 <FormStepsOtp v-else-if="state.data?.authenticationMethod == 'otp'" />
                 <FormStepsRegister v-else-if="state.data?.authenticationMethod == 'register'" />
@@ -19,8 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import type { OrderForm } from '~/types';
-
 const { state } = useFormWizard<OrderForm>('order');
 </script>
 

@@ -84,7 +84,9 @@
             </fieldset>
         </form>
 
-        <SocialLogin />
+        <!-- <SocialLogin /> -->
+
+        <FormStepsSocialLogin /> 
 
     </div>
 </template>

@@ -102,7 +102,7 @@ type OrderForm = {
   recordedAudio?: Blob;
   service_id?: number;
   selectedService?: number;
-  authenticationMethod?: 'login' | 'register' | 'guest' | 'otp';
+  authenticationMethod?: 'login' | 'login-sms' | 'register' | 'guest' | 'otp';
   order_id?: string;
 };
 
