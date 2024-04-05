@@ -68,8 +68,8 @@ const props = withDefaults(
     description?: string;
     currentPostSlug?: string;
     noHeader?: boolean;
-    similar: true;
-    similarPosts: Post[];
+    similar?: true;
+    similarPosts?: Post[];
   }>(),
   {
     title: 'المدونة',

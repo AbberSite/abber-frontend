@@ -24,7 +24,7 @@ const props = defineProps<{
 }>();
 
 const phone = ref('');
-const countryPhoneLength = ref(10)
+const countryPhoneLength = ref(9)
 async function getCountry() {
   try {
     const url = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
