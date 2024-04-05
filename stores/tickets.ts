@@ -8,7 +8,7 @@ class TicketsStore {
     filtersPipline: Array<any>;
     loading = ref(true);
     filters = ref({
-        status: [],
+        status: '',
         search: '',
         ordering: 'ticket_item_time_data__start_date'
     });
@@ -18,14 +18,15 @@ class TicketsStore {
         if (TicketsStore.filtersWatch) return;
         TicketsStore.filtersWatch = watch(this.filters,
             async (value) => {
-                if (value.ignore) {
-                    this.filters.value.ignore = undefined;
-                    return;
-                }
+                console.log(value)
+                // if (value.ignore) {
+                //     this.filters.value.ignore = undefined;
+                //     return;
+                // }
                 if (!this) return;
                 await this.fetchAll();
                 if (process.client) {
-                    localStorage.setItem('abber:filters', JSON.stringify(this.filters.value));
+                    localStorage.setItem('abber:filters-tickets', JSON.stringify(this.filters.value));
                 }
             },
             {
@@ -65,30 +66,24 @@ class TicketsStore {
     };
 
     getStatusFilterQuery = ()=> {
-        if(!this || this.filters.value.status.length === 0) return {};
-        if(this.filters.value.status.length === 1){
-            return {
-                status: this.filters.value.status[0]
-            }
+        if(this.filters.value.status){
+            return this.filters.value.status;
         }
         let status = '';
-        this.filters.value.status.map((_status: string, index: number)  => {
-            if(index == 0) {
-                status += _status;
-                return;
-            }
-            status += ',' + _status;
-        });
 
-        return {
-            status__in: status
-        }
+        return status
     };
 
     search = () => {
         if(this.filters.value.search === '') return {};
         return {search: this.filters.value.search};
-    }
+    };
+
+    filtersCount = computed(()=> {
+        return (
+            this.filters.value.status == '' ? 0 : 1
+        )
+    })
 }
 
 export const useTicketsStore = defineStore('tickets', () => new TicketsStore());
