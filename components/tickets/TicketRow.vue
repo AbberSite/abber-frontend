@@ -1,22 +1,22 @@
 <template>
     <tr>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <NuxtLink  to="/" >{{ '#' + ticket.id }}</NuxtLink>
+            <NuxtLink  :to="`/details/${ticket.id}`" class="text-blue-600">#{{ ticket.id }}</NuxtLink>
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <div>اريد حل مشكلة معينة</div>
+            <div>{{ticket.title}}</div>
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <div>{{ useFormattedDate('2020-02-01') }}</div>
+            <div>{{ useFormattedDate(ticket.date) }}</div>
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <div>مفتوحة</div>
+            <TicketStatus :status="ticket.status"/>
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <div>{{ useFormattedDate('2020-02-01') }}</div>
+            <div>{{ useFormattedDate(ticket.end_date) }}</div>
         </td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">
-            <NuxtLink  to="/gg" title="عرض الطلب">
+            <NuxtLink :to="`/details/${ticket.id}`" title="عرض الطلب">
                 <svg
                     class="flex-shrink-0"
                     xmlns="http://www.w3.org/2000/svg"
@@ -39,5 +39,6 @@
 
 <script setup lang="ts">
 import type { Ticket } from '~/types';
+import TicketStatus from '~/components/tickets/TicketStatus.vue';
 defineProps<{ticket: Ticket}>();
 </script>

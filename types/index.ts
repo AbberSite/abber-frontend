@@ -203,9 +203,11 @@ export type Transaction = {
 
 export type Ticket = {
   id: number;
+  title: string;
   user: {
     username: string;
   };
   status: string;
-  date: string
+  date: string;
+  end_date: string;
 };
