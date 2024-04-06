@@ -4,7 +4,6 @@ export default defineEventHandler(async (event) => {
     // return "hello world"
     const config = useRuntimeConfig();
     const body = await readBody(event);
-
     try {
         const response = await axios.post(
             config.apiBasePath + '/authentication/token/refresh/',

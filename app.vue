@@ -69,12 +69,11 @@ onMounted(async () => {
     // }
 
 
-    await refresh();
     // await refresh()
-    // setInterval(async() => {
+    setInterval(async() => {
         // await getSession().catch(async()=> await refresh())
-    //     await refresh();
-    // }, 10000);
+        await refresh();
+    }, 10000);
     const { status, rawToken, data } = useAuthState();
 
     const { goOnline} = useAccountStore();

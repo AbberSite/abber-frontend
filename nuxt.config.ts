@@ -48,7 +48,7 @@ export default defineNuxtConfig({
 
     globalAppMiddleware: true,
 
-    baseURL : apiBasePath,
+    // baseURL : apiBasePath,
 
     provider: {
       type: "refresh",
@@ -56,15 +56,18 @@ export default defineNuxtConfig({
         login: "/accounts/login",
       },
       endpoints: {
-        refresh: { path: "/authentication/token/refresh/", method: "post"},
-        getSession: { path: "/accounts/account/", method: "get" },
-        signIn: { path: "/authentication/login/", method: "post" }
+        refresh: { path: "/refresh", method: "post"},
+        getSession: { path: "/session", method: "get" },
+        signIn: { path: "/login", method: "post" }
       },
 
       refreshToken: {
-        // signInResponseRefreshTokenPointer : "/refresh"
+
+        // refreshRequestTokenPointer:'refresh',
+        // signInResponseRefreshTokenPointer : "refresh_token"
       },
       token: {
+
         // signInResponseTokenPointer : "/access",
         sameSiteAttribute: "strict",
 

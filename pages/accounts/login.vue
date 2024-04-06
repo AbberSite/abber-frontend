@@ -132,6 +132,15 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 
+useHead({
+    script: [
+        {
+            src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
+            type: "text/javascript",
+        }
+    ]
+})
+
 definePageMeta({
     middleware: 'auth',
     auth: {
