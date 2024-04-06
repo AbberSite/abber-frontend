@@ -8,7 +8,6 @@ export default defineEventHandler(async (event) => {
     try {
         const response = await axios.post(
             config.apiBasePath + '/authentication/token/refresh/',
-
             {
                 refresh: body.refreshToken
             },

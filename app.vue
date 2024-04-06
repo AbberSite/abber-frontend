@@ -15,7 +15,6 @@
 
 <script setup>
 import { useWebSocket } from '@vueuse/core';
-
 useHead({
     bodyAttrs: {
         class: 'antialiased'
@@ -59,6 +58,7 @@ useSeoMeta({
 
 // await getSession();
 
+const { getSession, refresh } = useAuth();
 
 
 onMounted(async () => {
@@ -68,10 +68,13 @@ onMounted(async () => {
     //     await refresh()
     // }
 
-    const { getSession } = useAuth();
 
-    await getSession();
-
+    await refresh();
+    // await refresh()
+    // setInterval(async() => {
+        // await getSession().catch(async()=> await refresh())
+    //     await refresh();
+    // }, 10000);
     const { status, rawToken, data } = useAuthState();
 
     const { goOnline} = useAccountStore();
@@ -118,6 +121,10 @@ onMounted(async () => {
         audio.play();
     });
 });
+
+// onUpdated(async()=> {
+//     await refresh();
+// })
 </script>
 
 <style>

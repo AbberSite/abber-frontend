@@ -39,27 +39,27 @@ export default defineNuxtConfig({
       ws_url: process.env.NODE_ENV === 'production' ? import.meta.env.VITE_WS_URL : 'ws://localhost:3000',
       zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
-      paymentWidgetURL:`https://${!production?'test.':''}oppwa.com/v1/paymentWidgets.js`
+      paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`
     },
   },
   modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth"],
 
   auth: {
+
     globalAppMiddleware: true,
 
-    // baseURL : "/",
+    baseURL : apiBasePath,
 
     provider: {
       type: "refresh",
       pages: {
-        login: "/accounts/sms",
+        login: "/accounts/login",
       },
-
-      // endpoints : {
-      // refresh : { path : "/api-proxy/authentication/token/refresh/", method : "post"},
-      // getSession : { path : "/api-proxy/accounts/account/", method : "get"},
-      // signIn : {path : "/api-proxy/authentication/login/", method : "post"}
-      // },
+      endpoints: {
+        refresh: { path: "/authentication/token/refresh/", method: "post"},
+        getSession: { path: "/accounts/account/", method: "get" },
+        signIn: { path: "/authentication/login/", method: "post" }
+      },
 
       refreshToken: {
         // signInResponseRefreshTokenPointer : "/refresh"
@@ -67,6 +67,7 @@ export default defineNuxtConfig({
       token: {
         // signInResponseTokenPointer : "/access",
         sameSiteAttribute: "strict",
+
       },
 
       // refreshOnlyToken : true,
@@ -111,7 +112,7 @@ export default defineNuxtConfig({
         {
           src: '/lazysizes.min.js',
           type: 'text/javascript',
-          async: true, 
+          async: true,
           body: true
         }
       ],

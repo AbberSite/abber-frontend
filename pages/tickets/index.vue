@@ -128,6 +128,7 @@ function handleSessionCreated() {
     openCreateSessionModal.value = false;
     openSessionModal.value = true;
 }
+
 onMounted(async () => {
     const persistedFilters = localStorage.getItem('abber:filters-tickets');
     if (persistedFilters) {

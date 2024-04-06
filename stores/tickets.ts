@@ -18,11 +18,10 @@ class TicketsStore {
         if (TicketsStore.filtersWatch) return;
         TicketsStore.filtersWatch = watch(this.filters,
             async (value) => {
-                console.log(value)
-                // if (value.ignore) {
-                //     this.filters.value.ignore = undefined;
-                //     return;
-                // }
+                if (value.ignore) {
+                    this.filters.value.ignore = undefined;
+                    return;
+                }
                 if (!this) return;
                 await this.fetchAll();
                 if (process.client) {
@@ -37,10 +36,11 @@ class TicketsStore {
     fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<Order>> =>
         new Promise(async (resolve, reject) => {
             try {
+                // console.log({"store": params})
                 const data = (await useApi('/api/tickets', {
                     params: {
-                        limit: 9,
-                        ...this.pipeFilters(),
+                        // limit: 9,
+                        // ...this.pipeFilters(),
                         ...params
                     },
                     headers: {
@@ -69,9 +69,6 @@ class TicketsStore {
         if(this.filters.value.status){
             return this.filters.value.status;
         }
-        let status = '';
-
-        return status
     };
 
     search = () => {

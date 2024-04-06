@@ -13,12 +13,13 @@ export default defineEventHandler(async (event) => {
     const Authorization = headers.authorization;
     const config = useRuntimeConfig();
     try {
+        // console.log({"api": params});
         const response = await axios.get(config.apiBasePath + '/support/tickets/', {
             headers: {
                 'api-key': config.apiSecret,
                 Authorization
             },
-            params: filters
+            params: {status: ""}
         });
         await useStorage().setItem("filters", params);
         return response.data;
