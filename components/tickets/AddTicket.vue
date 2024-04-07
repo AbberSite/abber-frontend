@@ -61,7 +61,7 @@
                     </select>
                   </div>
                 </div>
-                <div v-show="finished && categoriesForProblem.third_level != '' && categoriesForProblem.forth_level.count != 0" x-cloak>
+                <div v-show="!finished && categoriesForProblem.third_level != '' && categoriesForProblem.forth_level.count != 0" x-cloak>
                   <div class="w-full space-y-3">
                     <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="categoriesForProblem.forth_level" required>
                       <option value="">أختر</option>
@@ -106,8 +106,8 @@
                   </div>
                 </div>
               </fieldset>
-              <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]" v-show="categoriesForProblem.third_level === 'أريد إلغاء طلب الدومين' || categoriesForProblem.third_level === 'بياناتي غبر صحيحة' || categoriesForProblem.third_level === 'صفحة لا تعمل بشكل صحيح' || categoriesForProblem.third_level === 'طلب إستفسار'" cloak>
-                <button class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="submit"><span class="mt-1.5">محادثة الدعم</span></button>
+              <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]" v-show="finished" cloak>
+                <button class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="submit" @click="submit()"><span class="mt-1.5">محادثة الدعم</span></button>
               </div>
             </div>
           </div>
@@ -144,9 +144,11 @@ onMounted(async () => {
 });
 
 
-function submit(){
-
-
+async function submit(){
+    const data = await useProxy('/api/tickets/createTicket', {
+        method: 'POST',
+        body: {nesting_levels: {"0":4,"1":34,"2":35}}
+    })
 };
 async function getSecondSelection(){
     const data = await useApi('/api/tickets/getProblems', { params: {nesting_level: 1, parent__id: categoriesForProblem.first_level}});
