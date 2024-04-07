@@ -6,20 +6,7 @@
 
     <main class="min-h-screen outline-none">
         <!-- hero section -->
-        <section class="relative px-4 isolate pt-14 xs:px-6 lg:px-8">
-            <div class="absolute insert-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:top-80"
-                aria-hidden="true">
-                <div class="relative left-[calc(50% - 11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                    style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
-                </div>
-            </div>
-            <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-                aria-hidden="true">
-                <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                    style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
-                </div>
-            </div>
-        </section>
+        <HeroBackground/>
 
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
@@ -60,9 +47,8 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    <input v-model="filters.search"
-                                        class="form-control h-[50px] px-12 "
-                                        name="q" id="search" placeholder="أبحث عن تذكرة معينة" required />
+                                    <input v-model="filters.search" class="form-control h-[50px] px-12 " name="q"
+                                        id="search" placeholder="أبحث عن تذكرة معينة" required />
                                     <button
                                         class="absolute h-[50px] items-center justify-center px-4 py-4 ltr:right-0 rtl:left-0 sm:hidden"
                                         type="button" @click="openFiltersMobileModal = true">
@@ -91,7 +77,8 @@
                                     <span class="mt-1.5">تصفية</span>
                                 </span>
                                 <!-- <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">1</span> -->
-                                <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount }}</span>
+                                <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount
+                                    }}</span>
                             </button>
                             <ClientOnly>
                                 <transition enter-active-class="transition-all" leave-active-class="transition-all"
@@ -104,7 +91,23 @@
                     </div>
                     <!-- table support center  -->
                     <TicketsTable :tickets="tickets ?? []" />
-                    <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="9"/>
+                    <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchAll"
+                        per-page="9" />
+                    <!-- open new ticket button -->
+                    <div
+                        class="fixed bottom-4 flex flex-col space-y-3 ltr:right-4 rtl:left-4 xs:bottom-6 ltr:xs:right-6 rtl:xs:left-6 lg:bottom-8 ltr:lg:right-8 rtl:lg:left-8">
+                        <button
+                            class="rounded-full bg-gray-900 px-4 py-4 text-white hover:bg-gray-800 focus:outline-none"
+                            type="button" @click="formModal = true" aria-label="إضافة">
+                            <!-- Heroicon name: outline/plus -->
+                            <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <AddTicket :show="formModal" @close="formModal = false"/>
                 </div>
             </template>
 
@@ -117,13 +120,14 @@
 import { ref, onMounted } from 'vue';
 import FiltersDropdownTickets from '~/components/tickets/FiltersDropdownTickets.vue';
 import { vOnClickOutside } from '@vueuse/components';
+import AddTicket from '~/components/tickets/AddTicket.vue';
 import type { PaginationResponse } from '~/types';
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const openCreateSessionModal = ref(false);
 const openSessionModal = ref(false);
 const { fetchAll } = useTicketsStore();
-
+const formModal = ref(false);
 const { tickets, loading, pagination, filters, filtersCount } = storeToRefs(useTicketsStore());
 function handleSessionCreated() {
     openCreateSessionModal.value = false;
