@@ -104,6 +104,7 @@
                     </div>
                     <!-- table support center  -->
                     <TicketsTable :tickets="tickets ?? []" />
+                    <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="9"/>
                 </div>
             </template>
 
@@ -115,7 +116,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import FiltersDropdownTickets from '~/components/tickets/FiltersDropdownTickets.vue';
-import {VOnClickOutside} from '@vueuse/components'
+import { vOnClickOutside } from '@vueuse/components';
 import type { PaginationResponse } from '~/types';
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);

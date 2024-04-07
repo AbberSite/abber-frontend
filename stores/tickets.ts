@@ -10,20 +10,21 @@ class TicketsStore {
     filters = ref({
         status: '',
         search: '',
-        ordering: 'ticket_item_time_data__start_date'
+        ordering: 'ticket_item_time_data__start_date',
+        ignore: undefined
     });
     static filtersWatch: undefined | any;
     constructor() {
-        this.filtersPipline = [this.getStatusFilterQuery, this.search];
+        this.filtersPipline = [this.getStatusFilterQuery, this.search, this.ordering];
         if (TicketsStore.filtersWatch) return;
         TicketsStore.filtersWatch = watch(this.filters,
             async (value) => {
-                if (value.ignore) {
+                if (value.ignore === true) {
                     this.filters.value.ignore = undefined;
                     return;
                 }
                 if (!this) return;
-                await this.fetchAll();
+                await this.fetchAll(this.filters.value);
                 if (process.client) {
                     localStorage.setItem('abber:filters-tickets', JSON.stringify(this.filters.value));
                 }
@@ -36,13 +37,9 @@ class TicketsStore {
     fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<Order>> =>
         new Promise(async (resolve, reject) => {
             try {
-                // console.log({"store": params})
+                // console.log({"store": params.value.status})
                 const data = (await useApi('/api/tickets', {
-                    params: {
-                        // limit: 9,
-                        // ...this.pipeFilters(),
-                        ...params
-                    },
+                    params: params,
                     headers: {
                         'X-Requested-With': process.client ? 'XMLHttpRequest' : ''
                     }
@@ -80,7 +77,10 @@ class TicketsStore {
         return (
             this.filters.value.status == '' ? 0 : 1
         )
-    })
+    });
+    ordering = () => {
+        return { ordering: this.filters.value.ordering };
+    };
 }
 
 export const useTicketsStore = defineStore('tickets', () => new TicketsStore());
