@@ -101,7 +101,7 @@ onMounted(async () => {
     const { readNotifications } = storeToRefs(useUtilsStore());
 
     const chat = useWebSocket(
-        useRuntimeConfig().public.ws_url +
+        useRuntimeConfig().public.WebsocketURL +
         // import.meta.env.VITE_WS_URL +
             `/ws/notifications/${data.value.username}/` +
             `?authorization=JWT ${rawToken.value}`,

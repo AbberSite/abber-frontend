@@ -67,7 +67,7 @@ const { meeting } = storeToRefs(useMeetingStore());
 async function initChannel() {
   const { rawToken } = useAuthState();
 
-  const { data: meetingData } = useWebSocket(useRuntimeConfig().public.ws_url + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
+  const { data: meetingData } = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
   // const { data: meetingData } = useWebSocket(import.meta.env.VITE_WS_URL + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
     autoReconnect: true,
   });
