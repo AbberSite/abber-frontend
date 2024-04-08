@@ -50,11 +50,12 @@
 </template>
 
 <script setup lang="ts">
-import type {OrderForm} from '~/types';
+import type { OrderForm } from '~/types';
 const { state, next } = useFormWizard<OrderForm>('order');
-const {textCommunicationServices } = storeToRefs(useServicesStore());
+const { textCommunicationServices } = storeToRefs(useServicesStore());
+const { status } = useAuth();
 const loading = ref(false);
-const selected:number = ref(state.value.data?.service_id);
+const selected: number = ref(state.value.data?.service_id);
 const selectedsService = ref([]);
 let yes = ref(false);
 function sendResponse(res: boolean) {
@@ -66,10 +67,21 @@ function sendResponse(res: boolean) {
     }
 }
 
-function submit(){
-    next({
-        nextStepId: 'authentication-method',
-        data: {selectedServices: selectedsService.value, selectedService: selected}
-    })
+function submit() {
+    if (status.value == 'authenticated') {
+        next({
+            nextStepId: 'payment',
+            data: {
+                selectedServices: selectedsService.value, selectedService: selected
+            }
+        });
+        return;
+    } else {
+        next({
+            nextStepId: 'authentication-method',
+            data: { selectedServices: selectedsService.value, selectedService: selected }
+        })
+    }
+
 };
 </script>

@@ -66,20 +66,7 @@ function submit(service_id: number) {
 
 
   if (status.value == 'loading') return
-  if (status.value == 'authenticated') {
-    next({
-      nextStepId: 'payment',
-      data: {
-        service_id: selectedService.value
-      }
-    });
-    return;
-  }
-  // if(selectedService.value === 0){
-  //   next({nextStepId: 'my-urgent-order-service', data: {service_id: selectedService.value} })
-  // } else {
-  //   next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
-  // }
+  
   next({ nextStepId: 'my-urgent-order-service', data: { service_id: selectedService.value } });
 
   
