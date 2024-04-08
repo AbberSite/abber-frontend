@@ -107,7 +107,7 @@ async function initChannel() {
     const { rawToken } = useAuthState();
 
     const { data } = useWebSocket(
-        useRuntimeConfig().public.ws_url +
+        useRuntimeConfig().public.WebsocketURL +
         // import.meta.env.VITE_WS_URL +
             `/ws/meeting/${order.value?.seller?.username}/` +
             `?authorization=JWT ${rawToken.value}`,

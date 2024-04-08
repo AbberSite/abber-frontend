@@ -104,7 +104,7 @@ class AccountStore {
         const { rawToken } = useAuthState();
 
         const { close } = useWebSocket(
-            useRuntimeConfig().public.ws_url + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
+            useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
             // import.meta.env.VITE_WS_URL + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
             {
                 autoReconnect: true

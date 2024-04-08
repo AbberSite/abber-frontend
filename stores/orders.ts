@@ -197,7 +197,7 @@ class OrdersStore {
     const { rawToken } = useAuthState();
 
     const status = await useWebSocket(
-      useRuntimeConfig().public.ws_url +
+      useRuntimeConfig().public.WebsocketURL +
       // import.meta.env.VITE_WS_URL +
       `/ws/order-status/${orderId}/` +
       `?authorization=JWT ${rawToken.value}`,
