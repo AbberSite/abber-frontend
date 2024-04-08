@@ -25,15 +25,9 @@
                                 @click="sendResponse(false)"><span class="mt-1.5">لا</span></button>
                         </div>
 
-                        <FormStepsServiceSelectServiceCheckboxButton v-if="state.data?.type == 'text_communication'"
+                        <FormStepsServiceSelectServiceCheckboxButton 
                             v-show="yes" v-for="service in textCommunicationServices" v-model="selectedsService"
                             :service="service" :selected-id="selected" />
-
-                        <FormStepsServiceSelectServiceCheckboxButton v-else v-show="yes"
-                            v-for="service in videoServices" v-model="selectedsService" :service="service"
-                            :selected-id="selected" />
-
-
                     </template>
 
                 </div>
@@ -49,7 +43,7 @@
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
 const { state, next } = useFormWizard<OrderForm>('order');
-const { textCommunicationServices, videoServices } = storeToRefs(useServicesStore());
+const { textCommunicationServices } = storeToRefs(useServicesStore());
 const { status } = useAuth();
 const loading = ref(false);
 const selected: number = ref(state.value.data?.service_id);

@@ -24,7 +24,7 @@
 
             <template v-else>
               <FormStepsServiceSelectServiceRadioButton v-for="service in videoServices" v-model="selectedService"
-                @click.once="submit(service.id)" :service="service" />
+                @click.once="submitVideo(service.id)" :service="service" />
             </template>
 
 
@@ -68,6 +68,19 @@ function submit(service_id: number) {
   if (status.value == 'loading') return
   
   next({ nextStepId: 'my-urgent-order-service', data: { service_id: selectedService.value } });
+
+  
+}
+
+function submitVideo(service_id: number) {
+  selectedService.value = service_id;
+
+
+  if (status.value == 'loading') return
+  if(status.value == 'authenticated')
+    next({ nextStepId: 'payment', data: { service_id: selectedService.value } });
+  else 
+    next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
 
   
 }
