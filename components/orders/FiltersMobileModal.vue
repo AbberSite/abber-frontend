@@ -165,7 +165,7 @@ function apply(){
     filters.value.type.voice = video.value
     filters.value.status = status.value
 
-    emit("close")
+    emit("close");
 
 }
 </script>

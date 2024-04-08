@@ -1,8 +1,8 @@
 <template>
-    <TransitionRoot as="div">
+    <TransitionRoot as="template">
         <div class="fixed inset-0 z-50">
             <TransitionChild
-                as="div"
+                as="template"
                 enter="duration-300 ease-out"
                 enter-from="opacity-0"
                 enter-to="opacity-100"
@@ -19,11 +19,9 @@
                 leave="transition ease-in-out duration-300 transform"
                 leave-from="translate-x-0"
                 leave-to="translate-x-full"
-                as="div">
+                as="template">
 
-                <!-- Open new support card modal -->
-        <div class="fixed inset-0 z-40 bg-white sm:w-[340px]" x-cloak>
-          <div class="flex h-full flex-col">
+        <div class="fixed inset-0 z-40 bg-white sm:w-[340px]" v-cloak>
             <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8">
               <h2 class="text-lg font-semibold xs:text-xl">كيف يمكننا مساعدتك</h2>
               <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
@@ -111,7 +109,6 @@
               </div>
             </div>
           </div>
-        </div>
 
             </TransitionChild>
         </div>
@@ -147,9 +144,11 @@ onMounted(async () => {
 async function submit(){
     const data = await useProxy('/support/tickets/', {
         method: 'POST',
-        body: {nesting_levels: {"0":"4","1":"34","2":"35"}}
-    })
-    console.log(data);
+        body: {nesting_levels: {"0":categoriesForProblem.first_level.toString(),"1":categoriesForProblem.second_level.toString(),"2":categoriesForProblem.third_level.toString()}}
+    });
+    if(data) {
+      navigateTo('/');
+    }
 };
 async function getSecondSelection(){
     const data = await useApi('/api/tickets/getProblems', { params: {nesting_level: 1, parent__id: categoriesForProblem.first_level}});

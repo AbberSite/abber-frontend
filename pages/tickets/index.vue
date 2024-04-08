@@ -6,7 +6,7 @@
 
     <main class="min-h-screen outline-none">
         <!-- hero section -->
-        <HeroBackground/>
+        <HeroBackground />
 
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
@@ -30,10 +30,10 @@
             <SkeletonsOrdersTable v-if="loading" class="mt-16" />
 
             <!-- support center -->
-            <template v-if="tickets?.length != 0 || filters.search.length != 0 ||
+            <template v-if=" tickets?.length != 0 || filters.search.length != 0 ||
                 !filters.status
                 ">
-                <div class="w-full pt-16">
+                <div v-if="!loading" class="w-full pt-16">
                     <div class="flex items-center justify-between">
                         <form class="w-full sm:max-w-sm" method="GET">
                             <div class="w-full space-y-3">
@@ -98,7 +98,7 @@
                         class="fixed bottom-4 flex flex-col space-y-3 ltr:right-4 rtl:left-4 xs:bottom-6 ltr:xs:right-6 rtl:xs:left-6 lg:bottom-8 ltr:lg:right-8 rtl:lg:left-8">
                         <button
                             class="rounded-full bg-gray-900 px-4 py-4 text-white hover:bg-gray-800 focus:outline-none"
-                            type="button" @click="formModal = true" aria-label="إضافة">
+                            type="button" @click="showAddModal = true" aria-label="إضافة">
                             <!-- Heroicon name: outline/plus -->
                             <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -107,18 +107,22 @@
                         </button>
                     </div>
 
-                    <AddTicket :show="formModal" @close="formModal = false"/>
+                    <AddTicket :show="showAddModal" @close="showAddModal = false" />
                 </div>
             </template>
 
         </section>
     </main>
 
+    <ClientOnly>
+        <FiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
+    </ClientOnly>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import FiltersDropdownTickets from '~/components/tickets/FiltersDropdownTickets.vue';
+import FiltersMobileModal from '~/components/tickets/FiltersMobileModal.vue';
 import { vOnClickOutside } from '@vueuse/components';
 import AddTicket from '~/components/tickets/AddTicket.vue';
 import type { PaginationResponse } from '~/types';
@@ -127,7 +131,7 @@ const openFiltersDropdown = ref(false);
 const openCreateSessionModal = ref(false);
 const openSessionModal = ref(false);
 const { fetchAll } = useTicketsStore();
-const formModal = ref(false);
+const showAddModal = ref(false)
 const { tickets, loading, pagination, filters, filtersCount } = storeToRefs(useTicketsStore());
 function handleSessionCreated() {
     openCreateSessionModal.value = false;
