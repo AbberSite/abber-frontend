@@ -16,7 +16,7 @@
                         <SkeletonsServiceRadioButton />
                     </template>
                     <template v-else>
-                        <template v-if="state.data?.type == 'text_communication'">
+                        <template >
                             <div class="flex justify-center gap-3" v-show="!yes">
                                 <button
                                     class="relative flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
@@ -26,10 +26,13 @@
                                     @click="sendResponse(false)"><span class="mt-1.5">لا</span></button>
                             </div>
 
-                            <FormStepsServiceSelectServiceCheckboxButton v-show="yes"
+                            <FormStepsServiceSelectServiceCheckboxButton v-if="state.data?.type == 'text_communication'" v-show="yes"
                                 v-for="service in textCommunicationServices" v-model="selectedsService"
                                 :service="service" :selected-id="selected" />
 
+                                <FormStepsServiceSelectServiceCheckboxButton v-else v-show="yes"
+                                v-for="service in videoServices" v-model="selectedsService"
+                                :service="service" :selected-id="selected" />
                         </template>
                         <!-- <template v-else>
                             <FormStepsServiceSelectServiceRadioButton v-for="service in videoServices"
@@ -52,7 +55,7 @@
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
 const { state, next } = useFormWizard<OrderForm>('order');
-const { textCommunicationServices } = storeToRefs(useServicesStore());
+const { textCommunicationServices, videoServices } = storeToRefs(useServicesStore());
 const { status } = useAuth();
 const loading = ref(false);
 const selected: number = ref(state.value.data?.service_id);
