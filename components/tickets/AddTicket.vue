@@ -147,7 +147,7 @@ onMounted(async () => {
 async function submit(){
     const data = await useProxy('/api/tickets/createTicket', {
         method: 'POST',
-        body: {nesting_levels: {"0":4,"1":34,"2":35}}
+        body: {nesting_levels: {"0":"4","1":"34","2":"35"}}
     })
 };
 async function getSecondSelection(){

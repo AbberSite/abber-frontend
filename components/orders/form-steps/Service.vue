@@ -75,8 +75,14 @@ function submit(service_id: number) {
     });
     return;
   }
+  // if(selectedService.value === 0){
+  //   next({nextStepId: 'my-urgent-order-service', data: {service_id: selectedService.value} })
+  // } else {
+  //   next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
+  // }
+  next({ nextStepId: 'my-urgent-order-service', data: { service_id: selectedService.value } });
 
-  next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
+  
 }
 </script>
 

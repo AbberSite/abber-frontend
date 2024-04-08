@@ -95,6 +95,7 @@ export type OrderForm = {
   recordedAudio?: Blob;
   service_id?: number;
   selectedService?: number;
+  selectedServices?: number[];
   authenticationMethod?: 'login' | 'register' | 'guest' | 'otp';
   order_id?: string;
 };

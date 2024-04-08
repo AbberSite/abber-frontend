@@ -6,15 +6,12 @@ export default defineEventHandler(async (event)=> {
     const Authorization = headers.authorization;
     const config = useRuntimeConfig();
     try {
-        console.log(body);
         const response = await axios.post(config.apiBasePath + '/support/tickets', {
             headers: {
                 'api-key': config.apiSecret,
                 Authorization
             }, 
-            body: {
-                nesting_levels: {"0":5,"1":6,"2":8,"3":10}
-            }
+            body: body
         });
         return response.data;
     } catch (error: any) {

@@ -70,7 +70,8 @@ import {
     UserIcon,
     LockClosedIcon,
     CreditCardIcon,
-    CheckCircleIcon
+    CheckCircleIcon,
+UserGroupIcon
 } from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
 import ContactType from './ContactType.vue';
@@ -80,12 +81,14 @@ import Authentication from './Authentication.vue';
 import Payment from './Payment.vue';
 import TextContact from './TextContact.vue';
 import OrderComplete from './OrderComplete.vue';
+import MyUrgentOrderService from './MyUrgentOrderService.vue';
 import type { FunctionalComponent } from 'vue';
 
 const steps = [
     { id: 'contact-type', component: ContactType },
     { id: 'dream-details', component: TextContact },
     { id: 'service', component: Service },
+    { id: 'my-urgent-order-service', component: MyUrgentOrderService},
     { id: 'authentication-method', component: AuthenticationMethod },
     { id: 'authentication', component: Authentication, noDotStep: true },
     { id: 'payment', component: Payment },
@@ -121,6 +124,7 @@ const activeHeader = computed<{ title: string; description: string; icon: Functi
             icon: IdentificationIcon
         },
         service: { title: 'إختيار المعبر', description: 'أختر أحد المعبرين ليقوم بتعبير حلمك', icon: UserIcon },
+        'my-urgent-order-service': {title: 'العرض على أكثر من معبر', description: 'هل تود عرض حلمك على معبر اخر', icon: UserGroupIcon},
         authentication: { title: 'التسجيل', description: 'سجل دخولك أو إنشأ حسابا جديدا في عبر', icon: LockClosedIcon },
         'authentication-method': {
             title: 'التسجيل',
