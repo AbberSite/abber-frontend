@@ -147,7 +147,8 @@ async function submit(){
         body: {nesting_levels: {"0":categoriesForProblem.first_level.toString(),"1":categoriesForProblem.second_level.toString(),"2":categoriesForProblem.third_level.toString()}}
     });
     if(data) {
-      navigateTo('/');
+      useNotification({type: 'success', content: 'لقد تم انشاء تذكرتك بنجاح!'});
+      emit('close');
     }
 };
 async function getSecondSelection(){
