@@ -36,7 +36,7 @@
         <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
           {{ service?.seller?.about.slice(0, 100) + (service?.seller?.about.length > 100 ? '...' : '') }}
         </div>
-        <div class="ms-3 space-x-2 text-justify text-sm font-semibold leading-loose rtl:space-x-reverse">
+        <div class="ms-3 space-x-2 text-sm font-semibold leading-loose rtl:space-x-reverse">
           <span>سعر الخدمة يبدأ من:</span>
           <span>{{ minPrice }} ر.س. </span>
         </div>
