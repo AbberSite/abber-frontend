@@ -62,29 +62,27 @@ const { getSession, refresh } = useAuth();
 
 
 onMounted(async () => {
-    // const { rawRefreshToken } = useAuthState();
-    // const { refresh } = useAuth()
-    // if (rawRefreshToken.value) {
-    //     await refresh()
-    // }
 
-
-    // await refresh()
-    setInterval(async() => {
-        // await getSession().catch(async()=> await refresh())
-        await refresh();
-    }, 10000);
+    setInterval(async () => {
+        const cookies = document.cookie.split(";").map(cookie => cookie.trim());
+        const authTokenCookie = cookies.find(cookie => cookie.startsWith("auth:token="));
+        const authRefreshTokenCookie = cookies.find(cookie => cookie.startsWith("auth:refresh-token="));
+        // console.log(`refresh token is: ${authRefreshTokenCookie.split("=")[1]}`)
+        if (!authTokenCookie && authRefreshTokenCookie.split("=")[1]) {
+            await refresh();
+        }
+    }, 1000);
     const { status, rawToken, data } = useAuthState();
 
-    const { goOnline} = useAccountStore();
+    const { goOnline } = useAccountStore();
 
     let goOffline
 
     watch(
         status,
         async (value) => {
-            if(value == 'loading') return
-            if(value == "authenticated"){
+            if (value == 'loading') return
+            if (value == "authenticated") {
                 console.log("going online...");
                 goOffline = await goOnline()
                 return
@@ -103,8 +101,8 @@ onMounted(async () => {
     const chat = useWebSocket(
         useRuntimeConfig().public.WebsocketURL +
         // import.meta.env.VITE_WS_URL +
-            `/ws/notifications/${data.value.username}/` +
-            `?authorization=JWT ${rawToken.value}`,
+        `/ws/notifications/${data.value.username}/` +
+        `?authorization=JWT ${rawToken.value}`,
         {
             autoReconnect: true
         }
