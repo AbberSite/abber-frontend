@@ -145,10 +145,11 @@ onMounted(async () => {
 
 
 async function submit(){
-    const data = await useProxy('/api/tickets/createTicket', {
+    const data = await useProxy('/support/tickets/', {
         method: 'POST',
         body: {nesting_levels: {"0":4,"1":34,"2":35}}
     })
+    console.log(data);
 };
 async function getSecondSelection(){
     const data = await useApi('/api/tickets/getProblems', { params: {nesting_level: 1, parent__id: categoriesForProblem.first_level}});
