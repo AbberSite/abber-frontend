@@ -16,28 +16,22 @@
                         <SkeletonsServiceRadioButton />
                     </template>
                     <template v-else>
-                        <template >
-                            <div class="flex justify-center gap-3" v-show="!yes">
-                                <button
-                                    class="relative flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
-                                    type="button" @click="sendResponse(true)"><span class="mt-1.5">نعم</span></button>
-                                <button
-                                    class="relative ms-3 inline-flex items-center rounded-md border bg-white px-6 py-2 text-sm font-semibold shadow-sm hover:bg-gray-50"
-                                    @click="sendResponse(false)"><span class="mt-1.5">لا</span></button>
-                            </div>
+                        <div class="flex justify-center gap-3" v-show="!yes">
+                            <button
+                                class="relative flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800"
+                                type="button" @click="sendResponse(true)"><span class="mt-1.5">نعم</span></button>
+                            <button
+                                class="relative ms-3 inline-flex items-center rounded-md border bg-white px-6 py-2 text-sm font-semibold shadow-sm hover:bg-gray-50"
+                                @click="sendResponse(false)"><span class="mt-1.5">لا</span></button>
+                        </div>
 
-                            <FormStepsServiceSelectServiceCheckboxButton v-if="state.data?.type == 'text_communication'" v-show="yes"
-                                v-for="service in textCommunicationServices" v-model="selectedsService"
-                                :service="service" :selected-id="selected" />
+                        <FormStepsServiceSelectServiceCheckboxButton v-if="state.data?.type == 'text_communication'"
+                            v-show="yes" v-for="service in textCommunicationServices" v-model="selectedsService"
+                            :service="service" :selected-id="selected" />
 
-                                <FormStepsServiceSelectServiceCheckboxButton v-else v-show="yes"
-                                v-for="service in videoServices" v-model="selectedsService"
-                                :service="service" :selected-id="selected" />
-                        </template>
-                        <!-- <template v-else>
-                            <FormStepsServiceSelectServiceRadioButton v-for="service in videoServices"
-                                v-model="selectedService" @click.once="submit(service.id)" :service="service" />
-                        </template> -->
+                        <FormStepsServiceSelectServiceCheckboxButton v-else v-show="yes"
+                            v-for="service in videoServices" v-model="selectedsService" :service="service"
+                            :selected-id="selected" />
 
 
                     </template>
