@@ -30,10 +30,10 @@
 
             <WalletTabs v-model="activeTab" />
 
-            <WalletFinancialSummary v-if="activeTab === 'summary'" />
-            <WalletTransactions v-else-if="activeTab == 'operations'" />
-            <WalletStatements v-else-if="activeTab == 'statement'" />
-            <WalletCards v-else-if="activeTab == 'cards'" />
+            <WalletFinancialSummary v-show="activeTab === 'summary'" />
+            <WalletTransactions v-show="activeTab == 'operations'" />
+            <WalletStatements v-show="activeTab == 'statement'" />
+            <WalletCards v-show="activeTab == 'cards'" />
             
         </section>
     </main>
@@ -42,10 +42,10 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const { fetchAll } = useTransactionsStore();
-const { transactions, loading } = storeToRefs(useTransactionsStore());
+// const { fetchAll } = useTransactionsStore();
+// const { transactions, loading } = storeToRefs(useTransactionsStore());
 
-const { getSession } = useAuth()
+// const { getSession } = useAuth()
 
 
 // await getSession()
@@ -54,7 +54,6 @@ const { getSession } = useAuth()
 const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards'>(route.query.activeRoute ?? 'summary');
 
 if(!process.client){
-
     // await fetchAll();
 
 }
