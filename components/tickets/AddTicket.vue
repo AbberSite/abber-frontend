@@ -24,7 +24,7 @@
           </div>
           <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
             <fieldset class="space-y-7">
-              <div class="w-full space-y-3">
+              <div class="w-full space-y-3" v-if="cateForProblem.first_level.length != 0">
                 <label class="block text-sm font-semibold xs:text-base">نوع المشكلة</label>
                 <select class="form-control form-select h-[50px] appearance-none" name="select"
                   v-model="categoriesForProblem.first_level" @change="getSecondSelection()" required>
@@ -34,7 +34,7 @@
                 </select>
               </div>
               <!-- Second level select fields -->
-              <div v-show="categoriesForProblem.first_level != ''" x-cloak>
+              <div v-show="categoriesForProblem.first_level != '' && cateForProblem.second_level.length != 0" v-cloak>
                 <div class="w-full space-y-3">
                   <select class="form-control form-select h-[50px] appearance-none" name="select"
                     v-model="categoriesForProblem.second_level" @change="getThirdSelection()" required>
@@ -45,7 +45,7 @@
                 </div>
               </div>
               <!-- Third level select fields -->
-              <div v-if="categoriesForProblem.second_level != ''" x-cloak>
+              <div v-if="categoriesForProblem.second_level != '' && cateForProblem.third_level.length != 0" v-cloak>
                 <div class="w-full space-y-3">
                   <select class="form-control form-select h-[50px] appearance-none" name="select"
                     v-model="categoriesForProblem.third_level" @change="getForthSelection()" required>
@@ -55,28 +55,7 @@
                   </select>
                 </div>
               </div>
-              <div
-                v-show="!finished && categoriesForProblem.third_level != '' && categoriesForProblem.forth_level.count != 0"
-                x-cloak>
-                <div class="w-full space-y-3">
-                  <select class="form-control form-select h-[50px] appearance-none" name="select"
-                    v-model="categoriesForProblem.forth_level" required>
-                    <option value="">أختر</option>
-                    <option v-for="name of cateForProblem.forth_level.results" :key="name.id" :value="name.id">
-                      {{ name.name }}</option>
-                  </select>
-                </div>
-              </div>
-              <div v-show="categoriesForProblem.forth_level != ''" x-cloak>
-                <div class="w-full space-y-3">
-                  <select class="form-control form-select h-[50px] appearance-none" name="select"
-                    v-model="categoriesForProblem.fifth_level" required>
-                    <option value="">أختر</option>
 
-                    <!-- <option value="طلب إستفسار">طلب إستفسار</option> -->
-                  </select>
-                </div>
-              </div>
               <!-- Four level select fields -->
               <div v-show="finished" x-cloak>
                 <div
@@ -140,8 +119,7 @@ const categoriesForProblem = reactive({
   first_level: '',
   second_level: '',
   third_level: '',
-  forth_level: '',
-  fifth_level: ''
+  forth_level: ''
 });
 const cateForProblem = reactive({
   first_level: [],
@@ -168,21 +146,27 @@ async function submit() {
 };
 async function getSecondSelection() {
   const data = await useApi('/api/tickets/getProblems', { params: { nesting_level: 1, parent__id: categoriesForProblem.first_level } });
-  // if(data.results[0].result != null){
-  //     finished.value = true;
-  // } else {
   cateForProblem.second_level = data.results;
-  // }
-  if(finished.value)
+  if (finished.value)
     finished.value = false;
+
+  categoriesForProblem.second_level = '';
+  categoriesForProblem.third_level = '';
+  categoriesForProblem.forth_level = '';
 };
 
 async function getThirdSelection() {
   const data = await useApi('/api/tickets/getProblems', { params: { nesting_level: 2, parent__id: categoriesForProblem.second_level } });
-  
-  cateForProblem.third_level = data.results;
-  if(finished.value)
-    finished.value = false;
+  if (!data.count) {
+    finished.value = true;
+  } else {
+    cateForProblem.third_level = data.results;
+    if (finished.value)
+      finished.value = false;
+  }
+
+  categoriesForProblem.third_level = '';
+  categoriesForProblem.forth_level = '';
 }
 
 async function getForthSelection() {
@@ -193,6 +177,7 @@ async function getForthSelection() {
     cateForProblem.forth_level = data;
     finished.value = false
   }
+  categoriesForProblem.forth_level = '';
 }
 </script>
 
