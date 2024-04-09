@@ -32,8 +32,8 @@
 
             <WalletFinancialSummary v-show="activeTab === 'summary'" />
             <WalletTransactions v-if="activeTab == 'operations'" />
-            <!-- <WalletStatements v-show="activeTab == 'statement'" /> -->
-            <!-- <WalletCards v-show="activeTab == 'cards'" /> -->
+            <WalletStatements v-if="activeTab == 'statement'" />
+            <WalletCards v-if="activeTab == 'cards'" />
             
         </section>
     </main>
