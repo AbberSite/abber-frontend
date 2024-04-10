@@ -47,7 +47,8 @@
 <script setup lang="ts">
 
 definePageMeta({
-    layout: false
+    layout: false,
+    auth: false
 })
 </script>
 
