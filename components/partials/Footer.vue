@@ -155,7 +155,7 @@
             </div>
         </div>
         <div class="py-8 md:flex md:items-center md:justify-between">
-            <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر 2023.</p>
+            <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر {{ new Date().getFullYear() }}.</p>
             <div class="flex justify-center space-x-6 pt-8 rtl:space-x-reverse md:pt-0">
                 <a href="#" target="_blank">
                     <img                         class="lazyload max-w-none"

@@ -20,7 +20,6 @@ export default defineEventHandler(async (event) => {
                 },
             },
         );
-
         return {
             "phone": response.data.phone,
             "registered": response.data.registered,

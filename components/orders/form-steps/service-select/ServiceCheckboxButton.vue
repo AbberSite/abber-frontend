@@ -68,7 +68,6 @@ const selected = ref<number[]>(props.modelValue ?? []);
 const toggleSelection = (id: number) => {
   if (selected.value.includes(id)) {
     const indexOf = selected.value.indexOf(id);
-    console.log(indexOf);
     selected.value.splice(indexOf, 1);
     wasSelected.value = false;
   } else {
