@@ -1,5 +1,5 @@
 <template>
-    <a v-if="['in_progress', 'awaiting_delivery'].includes(order?.status)"
+    <a v-if="['in_progress', 'awaiting_delivery'].includes(order?.status) && order?.service"
       class="flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse"
       @click.prevent="completeOrder" href="/profile/update">
       <template v-if="loading">
