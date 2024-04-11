@@ -36,7 +36,7 @@
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="login">
                     <fieldset class="space-y-7">
-                        <div class="flex items-center justify-center space-x-3 rtl:flex-row-reverse">
+                        <!-- <div class="flex items-center justify-center space-x-3 rtl:flex-row-reverse">
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
                                 name="verfication" v-model="my_opt[0]" maxlength="1" required />
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
@@ -45,17 +45,21 @@
                                 name="verfication" v-model="my_opt[2]" maxlength="1" required />
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
                                 name="verfication" v-model="my_opt[3]" maxlength="1" required />
-                        </div>
-                        <div class="text-red-700 font-semibold" v-if="error">{{ error }}</div>
-                        <!-- <TextInput
-                            name="otp"
-                            type="number"
-                            id="otp"
-                            v-model="otp"
-                            :error="error"
-                            label="رمز التأكد (OPT)"
-                            placeholder="ادخل الرمز المكون من 4 ارقام" /> -->
+                        </div> -->
 
+                        <div class="flex items-center justify-center space-x-3 rtl:flex-row-reverse">
+                            <input class="form-control h-[50px] appearance-none text-center" type="text"
+                                v-model="my_opt[0]" autofocus="true" axlength="1" required />
+                            <input class="form-control h-[50px] appearance-none text-center" type="text"
+                                v-model="my_opt[1]" maxlength="1" required />
+                            <input class="form-control h-[50px] appearance-none text-center" type="text"
+                                v-model="my_opt[2]" maxlength="1" required />
+                            <input class="form-control h-[50px] appearance-none text-center" type="text"
+                                v-model="my_opt[3]" maxlength="1" required />
+                        </div>
+
+
+                        <div class="text-red-700 font-semibold" v-if="error">{{ error }}</div>
                         <div>
                             <PrimaryButton class="w-full" :loading="loading"> تسجيل الدخول </PrimaryButton>
                         </div>
@@ -88,7 +92,7 @@ const { refresh } = useAuth();
 const { getSession } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
-const my_opt = ref([]) 
+const my_opt = ref([])
 const loading = ref(false);
 
 const sender = useRoute().query.sender;
@@ -105,25 +109,12 @@ onMounted(async () => {
     }
 });
 
-watch(my_opt, async (value)=> {
-    if(value.length < 4) return; 
+
+
+watch(my_opt, async (value) => {
+    if (value.length < 4) return;
     await login();
-}, {deep: true})
-
-// watch(otp, async (value) => {
-//     if (!value) return;
-
-//     // console.log(value.toString().length);
-
-//     // if (value?.toString().length > 4) {
-//     //     otp.value = value.toString().slice(0, 4); // Trim to 4 characters
-//     // }
-
-//     if (value?.toString().length == 4) {
-//         await login();
-//     }
-// });
-
+}, { deep: true })
 
 
 async function login() {
