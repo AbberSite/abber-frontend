@@ -34,7 +34,7 @@
                 أدخل رمز التحقق الذي تم إرساله الى حسابك في الواتساب
             </div>
             <div class="mx-auto w-full max-w-sm pt-10">
-                <form method="POST" @submit.prevent="loginTwo">
+                <form method="POST" @submit.prevent="login">
                     <fieldset class="space-y-7">
                         <div class="flex items-center justify-center space-x-3 rtl:flex-row-reverse">
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
@@ -89,7 +89,6 @@ const { getSession } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
 const my_opt = ref([]) 
-const otp = ref('');
 const loading = ref(false);
 
 const sender = useRoute().query.sender;
@@ -108,7 +107,7 @@ onMounted(async () => {
 
 watch(my_opt, async (value)=> {
     if(value.length < 4) return; 
-    await loginTwo();
+    await login();
 }, {deep: true})
 
 // watch(otp, async (value) => {
@@ -125,58 +124,9 @@ watch(my_opt, async (value)=> {
 //     }
 // });
 
+
+
 async function login() {
-    error.value = '';
-
-    try {
-        if (otp.value === '') {
-            error.value = 'هذا الحقل مطلوب';
-            return;
-        }
-
-        loading.value = true;
-
-        const { data } = (await useFetch('/api/auth/whatsapp/otp', {
-            method: 'POST',
-
-            body: {
-                phone: currentPhone.value,
-                key: otp.value
-            },
-
-            async onResponse({ response }) {
-                if (response.status !== 200) return;
-
-                rawRefreshToken.value = response._data.refreshToken;
-                rawToken.value = response._data.token;
-
-                await refresh();
-
-                useRouter().push({ name: 'index' });
-
-                useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-            },
-            async onResponseError({ response }) {
-                if (response?._data?.otp) {
-                    error.value = response._data.otp;
-                }
-            }
-        })) as {
-            data: Ref<{
-                token?: string;
-                refreshToken?: string;
-                user: object;
-            }>;
-        };
-    } catch (error) {
-    } finally {
-        loading.value = false;
-    }
-}
-
-
-
-async function loginTwo() {
     error.value = '';
 
     try {
