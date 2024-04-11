@@ -53,7 +53,7 @@
 
         <InputError :message="error" />
 
-        <div dir="ltr" class="payment-form" ref="paymentForm">
+        <div dir="ltr" class="payment-form" ref="paymentForm" >
             <form
                 dir="ltr"
                 :action="state.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete'"
