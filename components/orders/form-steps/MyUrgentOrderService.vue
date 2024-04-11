@@ -54,7 +54,7 @@ function sendResponse(res: boolean) {
         yes.value = true;
         // next({ nextStepId: '', data: { selectedService: 0 } });
     } else {
-        next({ nextStepId: 'authentication-method', data: { service_id: selected.value } });
+        submit();
     }
 }
 

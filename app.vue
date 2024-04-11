@@ -71,7 +71,7 @@ onMounted(async () => {
         if (!authTokenCookie && authRefreshTokenCookie.split("=")[1]) {
             await refresh();
         }
-    }, 8000);
+    }, 3000);
     const { status, rawToken, data } = useAuthState();
 
     const { goOnline } = useAccountStore();

@@ -12,7 +12,25 @@
         </div>
 
         <div class="w-full space-y-3" x-id="['input']" v-if="!loading">
-            <label class="block text-sm font-semibold xs:text-base" for="payment-method">نوع البطاقة</label>
+
+
+
+
+
+
+            <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm" aria-orientation="horizontal">
+                
+                <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg" id-of-card="MASTER" v-model="paymentMethod" width="26" height="26" />
+                <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg" id-of-card="VISA" v-model="paymentMethod" width="26" height="26" />
+                <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA" v-model="paymentMethod"  width="40" height="40" />
+                <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod"  width="40" height="40" />
+                <FormStepsCardComponent title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"  width="24" height="24" />
+                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg" id-of-card="WALLET" v-model="paymentMethod" v-bind="{ disabled: !hasSufficientBallance }" width="24" height="24" />
+
+            </div>
+
+
+            <!-- <label class="block text-sm font-semibold xs:text-base" for="payment-method">نوع البطاقة</label>
             <select
                 v-model="paymentMethod"
                 class="form-control form-select h-[50px] appearance-none"
@@ -26,7 +44,7 @@
                 <option value="WALLET" v-bind="{ disabled: !hasSufficientBallance }">
                     المحفظة {{ !hasSufficientBallance ? '( ليس لديك الرصيد الكافي )' : '' }}
                 </option>
-            </select>
+            </select> -->
         </div>
 
         <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
@@ -88,6 +106,8 @@ import useScript from '~/composables/useScript';
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
 
+
+
 const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
 
 const hasCoupon = ref(false)
@@ -96,7 +116,7 @@ const coupon = ref("")
 
 let hyper: any = undefined;
 
-const cardType = ref('general');
+
 const loading = ref(true);
 const paymentForm = ref<HTMLDivElement | null>(null);
 const error = ref('');
@@ -105,8 +125,8 @@ const { fetchBalance } = useWalletStore();
 
 const { balance } = storeToRefs(useWalletStore());
 
-const paymentMethod = ref('STC_PAY');
-
+const paymentMethod = ref('MASTER');
+const cardType = ref(paymentMethod.value);
 const hasSufficientBallance = computed(() => {
     if (!hyper) return false;
 
@@ -115,9 +135,8 @@ const hasSufficientBallance = computed(() => {
 
 watch(paymentMethod, async (value) => {
     if (value == 'WALLET') return;
-
+    loading.value = true; 
     hyper.unload();
-
     const form = document.createElement('form');
 
     form.dir = 'ltr';
@@ -252,6 +271,7 @@ async function loadHyper() {
         }
     };
 
+
     await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}`);
 
     // @ts-ignore
@@ -267,7 +287,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
                 type: state.value.data?.type,
 
                 // TODO: unncomment the above line when finishing from testing
-                brand: 'stc_pay'
+                brand: paymentMethod.value
                 // brand: cardType.valuee
             }
         });
