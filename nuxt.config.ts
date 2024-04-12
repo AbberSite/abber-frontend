@@ -40,6 +40,7 @@ export default defineNuxtConfig({
       zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
       paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`
+      // paymentWidgetURL: `https://eu-test.oppwa.com/v1/paymentWidgets.js`
     },
   },
   modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth"],
