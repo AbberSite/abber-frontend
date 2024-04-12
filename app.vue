@@ -62,17 +62,21 @@ const { getSession, refresh } = useAuth();
 
 
 onMounted(async () => {
+    await refresh();
 
-    setInterval(async () => {
-        const cookies = document.cookie.split(";").map(cookie => cookie.trim());
-        const authTokenCookie = cookies.find(cookie => cookie.startsWith("auth:token="));
-        const authRefreshTokenCookie = cookies.find(cookie => cookie.startsWith("auth:refresh-token="));
-        // console.log(`refresh token is: ${authRefreshTokenCookie.split("=")[1]}`)
-        if (!authTokenCookie && authRefreshTokenCookie.split("=")[1]) {
-            await refresh();
-        }
-    }, 3000);
+    // setInterval(async () => {
+    //     const cookies = document.cookie.split(";").map(cookie => cookie.trim());
+    //     const authTokenCookie = cookies.find(cookie => cookie.startsWith("auth:token="));
+    //     const authRefreshTokenCookie = cookies.find(cookie => cookie.startsWith("auth:refresh-token="));
+    //     // console.log(`refresh token is: ${authRefreshTokenCookie.split("=")[1]}`)
+    //     if (!authTokenCookie && authRefreshTokenCookie.split("=")[1]) {
+    //         await refresh();
+    //     }
+    // }, 3000);
+    
     const { status, rawToken, data } = useAuthState();
+    const { getSession } = useAuth();
+    await getSession();
 
     const { goOnline } = useAccountStore();
 
