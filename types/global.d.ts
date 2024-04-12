@@ -3,7 +3,7 @@ type Meeting = {
   password: string;
   sessions_count: number;
   signature: string;
-  order_item_id: number | string | undefined
+  order_item_id: number | string | undefined;
 };
 type User = {
   id?: number;
@@ -11,11 +11,11 @@ type User = {
   email?: string;
   firstname?: string;
   phone?: string;
-  user_type?: 'عميل' | 'معبر';
+  user_type?: "عميل" | "معبر";
   image_url?: string;
   profile?: {
     bank_account?: string;
-    gender?: 'ذكر' | 'انثى';
+    gender?: "ذكر" | "انثى";
     birthday?: string;
     martial_status?: string;
     profession?: string;
@@ -32,7 +32,7 @@ type _User = {
 
 type Notification = {
   id?: number;
-  type: 'success' | 'warning' | 'info' | 'danger';
+  type: "success" | "warning" | "info" | "danger";
   content: string;
 };
 
@@ -82,15 +82,15 @@ type Service = {
     stock: number;
   };
   service_methods: {
-    type: 'voice_communication' | 'text_communication';
+    type: "voice_communication" | "text_communication";
     price: number;
   }[];
   in_wishlist: boolean;
 };
 
 type OrderForm = {
-  inputType?: 'text_chat' | 'voice_chat';
-  type?: 'text_communication' | 'video_communication';
+  inputType?: "text_chat" | "voice_chat";
+  type?: "text_communication" | "video_communication";
   dream_title?: string;
   dream_time?: string;
   dream?: string;
@@ -102,7 +102,7 @@ type OrderForm = {
   recordedAudio?: Blob;
   service_id?: number;
   selectedService?: number;
-  authenticationMethod?: 'login' | 'login-sms' | 'register' | 'guest' | 'otp';
+  authenticationMethod?: "login" | "login-sms" | "register" | "guest" | "otp";
   order_id?: string;
 };
 
@@ -133,8 +133,8 @@ type Order = {
     last_name: string;
     image: string;
   };
-  status: 'in_progress' | 'complete' | 'waiting_for_cancellation' | 'cancelled' | 'new' | 'awaiting_delivery';
-  type: 'text_communication' | 'video_communication';
+  status: "in_progress" | "complete" | "waiting_for_cancellation" | "cancelled" | "new" | "awaiting_delivery";
+  type: "text_communication" | "video_communication";
   service: string;
   service_details: Service;
   order_item_time_data: {
@@ -197,7 +197,7 @@ type BalanceRecord = {
   user: string;
   balance: number;
   date: string;
-  type: 'credit' | 'debit';
+  type: "credit" | "debit";
   transaction: number;
 };
 
@@ -217,6 +217,15 @@ type Transaction = {
 };
 
 type ZoomAccount = {
-  active: boolean,
-  zoom_email: string
-}
+  active: boolean;
+  zoom_email: string;
+};
+
+type Problem = {
+  id: number;
+  parent: number | null;
+  nesting_level: number;
+  name: string;
+  result: string;
+  role: string;
+};
