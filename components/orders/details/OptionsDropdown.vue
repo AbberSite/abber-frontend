@@ -12,10 +12,10 @@
       فاتورة الطلب
     </a>
 
-    <button class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
+    <NuxtLink to="/tickets" class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50"
       role="menuitem" tabindex="-1">
       الإبلاغ عن مشكلة
-    </button>
+  </NuxtLink>
 
     <button v-if="isBuyer && order?.status === 'awaiting_delivery' && !order?.content?.inquiry"
       @click="$emit('inquiry')" class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50"
