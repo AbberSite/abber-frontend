@@ -23,7 +23,7 @@
               placeholder="ادخل عنوان بريدك الإلكتروني" />
 
             <TextInput v-model="password" :type="show ? 'text' : 'password'" name="password"
-              placeholder="ادخل كلمة المرور الخاصة بك" label="كلمة المرور">
+              placeholder="ادخل كلمة المرور الخاصة بك" label="كلمة المرور" :error="errors.password">
 
               <template #append>
                 <button
