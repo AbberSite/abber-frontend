@@ -4,7 +4,6 @@ export default defineEventHandler(async (event) => {
     
     const headers = getRequestHeaders(event);
     const body = await readBody(event);
-
     const Authorization = headers.authorization;
     
     const config = useRuntimeConfig();

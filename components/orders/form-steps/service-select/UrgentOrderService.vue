@@ -21,7 +21,7 @@
       </div>
     </div>
     <input class="h-5 w-5 flex-shrink-0 appearance-none rounded-full" id="abdullah" type="radio" v-model="selected"
-      @input="emits('update:modelValue', selected)" name="type" :value="0" x-model="selectedOption" />
+      @input="emits('update:modelValue', selected)" name="type" :value="0" />
   </label>
 </template>
 

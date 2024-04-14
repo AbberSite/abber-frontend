@@ -1,3 +1,7 @@
+import { defineStore } from "pinia";
+
+
+
 class WalletStore {
 
     balance = ref<{
@@ -11,9 +15,6 @@ class WalletStore {
         suspended_balance: 0,
         withdrawn_balance: 0,
     });
-
-
-
     fetchBalance = async () => {
         this.balance.value = await useApi("/api/wallet/balance")
     }

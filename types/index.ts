@@ -222,4 +222,20 @@ export type Coupon = {
   multi_use: boolean;
   type: string;
   user: number;
+};
+
+
+export type Card = {
+    bin: number;
+    binCountry: string
+    last4Digits: number,
+    holder: string;
+    expiryMonth: string;
+    expiryYear: number,
+    issuer: {
+      bank: string;
+      website: string;
+      phone: string;
+    },
+
 }
