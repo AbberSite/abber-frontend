@@ -15,7 +15,7 @@
 
 
 
-
+            <h1 class="text-center font-semibold">سعر الخدمة : <span class="text-blue-600" >{{ hyper.checkout.amount }} ر.س</span></h1>
 
 
             <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm" aria-orientation="horizontal">
@@ -105,7 +105,6 @@ import useScript from '~/composables/useScript';
 
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
-
 
 
 const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
