@@ -47,9 +47,9 @@
                                 name="verfication" v-model="my_opt[3]" maxlength="1" required />
                         </div> -->
 
-                        <div class="flex items-center justify-center space-x-3 rtl:flex-row-reverse">
+                        <div class="flex items-center justify-center space-x-11 rtl:flex-row-reverse">
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                v-model="my_opt[0]" autofocus="true" axlength="1" required />
+                                v-model="my_opt[0]" autofocus="true" maxlength="1" required />
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
                                 v-model="my_opt[1]" maxlength="1" required />
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
