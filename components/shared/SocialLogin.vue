@@ -1,6 +1,6 @@
 <template>
   <div class="pt-4">
-    <button
+    <button v-if="settings.api_settings?.active_login_methods?.website.includes('google')"
       class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       @click="googleLogin">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
@@ -21,7 +21,7 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة جوجل</span>
     </button>
   </div>
-  <div class="pt-4">
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp')" >
     <NuxtLink
       class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       :to="{ name: 'accounts-whatsapp-login' }">
@@ -37,7 +37,7 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة واتساب</span>
     </NuxtLink>
   </div>
-  <div class="pt-4">
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('apple')" >
     <button @click="appleLogin"
       class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50">
       <svg class="flekx-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22"
@@ -50,7 +50,7 @@
     </button>
   </div>
 
-  <div class="pt-4">
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('phone')" >
     <NuxtLink
       class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       :to="{ name: route.name == 'accounts-login' ? 'accounts-sms' : 'accounts-login' }">
@@ -73,8 +73,14 @@
 </template>
 
 <script setup lang="ts">
-let googleLogin = () => console.log("google not initialized yet");
+import { useSettingsStore } from '~/stores/settings';
 
+let googleLogin = () => console.log("google not initialized yet");
+const {settings} = storeToRefs(useSettingsStore());
+const { getSettings } = useSettingsStore();
+if(settings.value == undefined){
+  await getSettings();
+}
 const route = useRoute();
 onMounted(async () => {
   const googleProvider: any = await useGoogleProvider();
