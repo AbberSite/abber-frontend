@@ -304,7 +304,10 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 </script>
 
 <style>
-.wpwl-group-cardNumber {
+.wpwl-container {
+    @apply pt-[20px] px-2;
+}
+/* .wpwl-group-cardNumber {
     @apply relative;
 }
 .wpwl-control-cardNumber,
@@ -336,7 +339,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 .wpwl-form {
-    @apply space-y-7;
+    @apply rounded-md
 }
 
 .wpwl-label-cvv,
@@ -363,4 +366,5 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .activeIframe {
     @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
+ */
 </style>
