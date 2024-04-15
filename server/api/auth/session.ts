@@ -28,7 +28,6 @@ export default defineEventHandler(async (event) => {
 
         return Object.assign(user, { notifications });
     } catch (error: any) {
-    console.log(`error - ${error} -  ${new Date()}`)
 
         setResponseStatus(event, error?.response?.status ?? 500);
         if(error.response?.data?.code == 'user_inactive'){
