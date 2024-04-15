@@ -139,7 +139,7 @@ watch(paymentMethod, async (value) => {
     const form = document.createElement('form');
 
     form.dir = 'ltr';
-    form.action = state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete';
+    form.action = window.location.origin + (state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete');
     form.classList.add('paymentWidgets');
 
     form.dataset.brands = value;
