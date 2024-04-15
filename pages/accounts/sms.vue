@@ -100,6 +100,8 @@
 </template>
 
 <script setup lang="ts">
+import useNotification from '~/composables/useNotification';
+
 definePageMeta({
     middleware: 'auth',
     auth: {
@@ -147,9 +149,9 @@ async function send() {
         };
 
         if (!data.value.registered) {
-            errors.value.phone = 'هذا الرقم غير مسجل ';
+            useNotification({type: 'info', content: 'الرقم غير مسجل، يمكنك انشاء حساب به.'})
+            navigateTo('/accounts/signup/')
             loading.value = false;
-
             return;
         }
 

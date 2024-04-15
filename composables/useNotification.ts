@@ -1,6 +1,6 @@
 import type { Notification } from "~/types";
 
-export default async ( _notification : Notification, timeout: boolean = true,duration : number = 5000) => {
+export default async ( _notification : Notification, timeout: boolean = true,duration : number = 3000) => {
 
     const { notification } = useNotificationsStore()
 

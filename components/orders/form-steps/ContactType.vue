@@ -54,6 +54,7 @@
 
 <script setup lang="ts">
 import { ChatBubbleLeftEllipsisIcon, MicrophoneIcon } from '@heroicons/vue/24/outline';
+import useNotification from '~/composables/useNotification';
 import type { OrderForm } from '~/types';
 
 const { state, next } = useFormWizard<OrderForm>('order');
@@ -83,7 +84,7 @@ onMounted(async () => {
     // }
 
     if (videoServicesPagination?.value?.count == 0) {
-        useNotification({ content: 'الخدمة الصوتية متوقفة حاليا', type: 'warning', id : 445 }, false);
+        useNotification({ content: 'الخدمة الصوتية متوقفة حاليا', type: 'warning', id : 445 }, true, 2000);
     }
 });
 
