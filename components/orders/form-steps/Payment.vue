@@ -56,7 +56,7 @@
         <div dir="ltr" class="payment-form" ref="paymentForm" >
             <form
                 dir="ltr"
-                :action="state.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete'"
+                :action="callbackURL"
                 class="paymentWidgets"
                 :data-brands="paymentMethod"></form>
         </div>
@@ -106,6 +106,7 @@ import useScript from '~/composables/useScript';
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
 
+const callbackURL = window.location.origin + (state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete');
 
 const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
 
@@ -139,7 +140,7 @@ watch(paymentMethod, async (value) => {
     const form = document.createElement('form');
 
     form.dir = 'ltr';
-    form.action = state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete';
+    form.action = callbackURL;
     form.classList.add('paymentWidgets');
 
     form.dataset.brands = value;
