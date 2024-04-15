@@ -23,7 +23,7 @@
               placeholder="ادخل عنوان بريدك الإلكتروني" />
 
             <TextInput v-model="password" :type="show ? 'text' : 'password'" name="password"
-              placeholder="ادخل كلمة المرور الخاصة بك" label="كلمة المرور">
+              placeholder="ادخل كلمة المرور الخاصة بك" label="كلمة المرور" :error="errors.password">
 
               <template #append>
                 <button
@@ -103,7 +103,7 @@ const { signIn } = useAuth();
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون بريد الكتروني صجيج').required('"هذا الحقل مطلوب"'),
+            email: yup.string().email('هذا الحقل يجب أن يكون بريد الكتروني صحيح').required('"هذا الحقل مطلوب"'),
             password: yup.string().required("هذا الحقل مطلوب")
         })
     )

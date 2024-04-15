@@ -68,7 +68,7 @@
         ">
         <span>البطاقات الإئتمانية</span
         ><span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-            0
+            {{cardsCount}}
         </span>
     </button>
 </div>
@@ -80,11 +80,11 @@ import { useVModel } from '@vueuse/core';
 const props = defineProps<{
     modelValue?: 'summary' | 'operations' | 'statement' | 'cards';
 }>();
-
 const { pagination, loading } = storeToRefs(useTransactionsStore())
-
 const emits = defineEmits(['update:modelValue']);
 const activeTab = useVModel(props, 'modelValue', emits);
+const {count:cardsCount} = await useProxy('/wallets/cards/');
+
 </script>
 
 <style scoped></style>

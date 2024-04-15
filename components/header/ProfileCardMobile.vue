@@ -33,6 +33,8 @@
                 @click="$emit('navigate', { name: 'profile' })"
                 >لوحة التحكم
             </NuxtLink>
+            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
+                href="/profile/service" v-if="data.user_type == 'معبر'" @click="$emit('navigate', { name:'profile-service' })"  >إدارة الخدمة</NuxtLink>
             <NuxtLink
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 href="#"

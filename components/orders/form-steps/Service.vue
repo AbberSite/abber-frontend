@@ -19,7 +19,7 @@
             <template v-if="state.data?.type == 'text_communication'">
               <FormStepsServiceSelectUrgentOrderService @click.once="submit(0)" v-model="selectedService" />
               <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices"
-                v-model="selectedService" @click.once="submit(service.id)" :service="service" />
+                v-model="selectedService" @click.once="submit(service.id, service.service_prices.text_price)" :service="service" />
             </template>
 
             <template v-else>
@@ -46,6 +46,7 @@ const emits = defineEmits(['next']);
 const loading = ref(false);
 
 const selectedService = ref(state.value.data?.service_id);
+
 const { fetchAll } = useServicesStore();
 
 const { services, textCommunicationServices, videoServices } = storeToRefs(useServicesStore());
@@ -67,7 +68,7 @@ function submit(service_id: number) {
 
   if (status.value == 'loading') return
   
-  next({ nextStepId: 'my-urgent-order-service', data: { service_id: selectedService.value } });
+  next({ nextStepId: 'my-urgent-order-service', data: { service_id: selectedService.value} });
 
   
 }

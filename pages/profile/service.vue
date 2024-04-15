@@ -26,6 +26,7 @@
             <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="settings-heading">إدارة الخدمة</h1>
             <div class="pt-4 text-sm text-gray-800 xs:text-base">قم بإدراة خدمة تعبير الأحلام الخاصة بك</div>
 
+            
             <TabGroup as="template">
                 <TabList
                     class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base"
@@ -99,6 +100,9 @@
                     <TabPanel as="div" class="w-full">
                         <ProfileServiceDiscounts /> 
                     </TabPanel>
+                    <TabPanel as="div" class="w-full pt-10" >
+                        <ProfileServiceCoupons />
+                    </TabPanel>
                 </TabPanels>
             </TabGroup>
         </section>
@@ -107,6 +111,7 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
+
 </script>
 
 <style scoped></style>

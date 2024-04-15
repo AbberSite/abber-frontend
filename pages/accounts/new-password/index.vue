@@ -221,7 +221,8 @@ const [password] = defineField('password');
 const [passwordConfirmation] = defineField('passwordConfirmation');
 
 definePageMeta({
-    layout: false
+    layout: false,
+    auth: false
 });
 
 const uid = useRoute().query.uid;

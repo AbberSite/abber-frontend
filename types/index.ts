@@ -212,3 +212,30 @@ export type Ticket = {
   date: string;
   end_date: string;
 };
+
+export type Coupon = {
+  id: number;
+  code: string;
+  start_date: string;
+  end_date: string;
+  amout: number;
+  multi_use: boolean;
+  type: string;
+  user: number;
+};
+
+
+export type Card = {
+    bin: number;
+    binCountry: string
+    last4Digits: number,
+    holder: string;
+    expiryMonth: string;
+    expiryYear: number,
+    issuer: {
+      bank: string;
+      website: string;
+      phone: string;
+    },
+
+}

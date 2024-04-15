@@ -70,7 +70,7 @@ function submit() {
     } else {
         next({
             nextStepId: 'authentication-method',
-            data: { selectedServices: selectedsService.value, selectedService: selected }
+            data: { selectedServices: selectedsService.value, selectedService: selected}
         })
     }
 
