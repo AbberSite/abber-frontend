@@ -20,7 +20,7 @@
                     <div class="pt-1 text-xs font-medium text-gray-600">مدير</div>
                 </div>
             </div>
-            <time class="text-xs text-gray-600" datetime="2023-11-07">
+            <time class="text-xs text-gray-600" :datetime="notification.date">
                 {{ getTimeDifference(notification.date) }}
             </time>
         </div>
