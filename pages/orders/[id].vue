@@ -30,7 +30,7 @@
             <DetailsTabs v-model="activeTab" />
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <!-- <DetailsMobileChat v-if="activeTab == 'chat'" /> -->
-            <DetailsChat v-if="activeTab == 'chat'"  /> 
+            <Chat v-if="activeTab == 'chat'"  /> 
 
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
@@ -39,7 +39,7 @@
                     <DetailsCard />
                 </div>
                 <ClientOnly>
-                    <DetailsChat /> 
+                    <Chat /> 
                 </ClientOnly>
             </div>
 
