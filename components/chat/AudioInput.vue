@@ -39,7 +39,7 @@ const emit = defineEmits(['update:recording']);
 
 const { send } = useChat();
 
-const { messages } = storeToRefs(useOrdersStore())
+const { messages } = storeToRefs(useChatStore())
 
 const audioRecorder = useAudioRecorder()
 

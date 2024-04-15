@@ -131,16 +131,8 @@
 <script setup lang="ts">
 import type { PaginationResponse } from '~/types';
 import { vOnClickOutside } from '@vueuse/components';
-
 import { VideoCameraIcon } from '@heroicons/vue/24/outline';
-useHead({
-    script: [
-        {
-            src: "/audio-recorder/WebAudioRecorder.min.js",
-            type: "text/javascript",
-        }
-    ]
-})
+
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const openCreateSessionModal = ref(false);

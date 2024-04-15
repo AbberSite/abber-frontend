@@ -6,9 +6,7 @@
 
     <div ref="chatList" class="max-h-[40rem] overflow-y-scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
-        <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
-          :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
-          :id="'message-' + message.id"> </ChatMessage>
+        <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages" :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]" :id="'message-' + message.id"> </ChatMessage>
         <div class="relative w-full">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t"></div>
@@ -20,12 +18,10 @@
           </div>
         </div>
       </div>
-      <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data"
-        :class="{ 'hidden': !changeMessage }">
-      </changeList>
+      <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data" :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
-    <ChatInput v-if="order?.status === 'in_progress' || order?.content?.allow_chat" />
+    <ChatInput v-if="allowInput" />
   </div>
 </template>
 
@@ -35,8 +31,20 @@ import type { Message, PaginationResponse } from "~/types";
 // import "v3-infinite-loading/lib/style.css";
 import { useInfiniteScroll } from "@vueuse/core";
 import changeList from "~/components/chat/changeList.vue";
-const { order, messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useOrdersStore());
-const { fetchMessages } = useOrdersStore();
+
+useHead({
+    script: [
+        {
+            src: "/audio-recorder/WebAudioRecorder.min.js",
+            type: "text/javascript",
+        }
+    ]
+})
+
+const props = defineProps({ allowInput: Boolean, roomName: String });
+
+const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
+const { fetchMessages } = useChatStore();
 
 const id = useRoute().params.id;
 
@@ -48,11 +56,11 @@ const loading = ref(false);
 
 const contextMenu = ref<null | HTMLElement>(null);
 
-const changeMessage = ref<Message | undefined>(undefined)
+const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
   if (messages.value.length == 0) {
-    await fetchMessages(id, { limit: 9 });
+    await fetchMessages( { room:props.roomName,limit: 9 });
   }
 
   if (!chatList.value) return;
@@ -67,7 +75,6 @@ onMounted(async () => {
 
   // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
   document.addEventListener("click", resetChangeMessage);
-
 });
 
 function formatTime(_date: string) {
@@ -88,8 +95,8 @@ async function load() {
 
   loading.value = true;
 
-  const newMessages = (await useApi(`/api/orders/order/${order.value?.id}/messages`, {
-    params,
+  const newMessages = (await useApi(`/api/chat/messages/`, {
+    params: { ...params, room: props.roomName }
   })) as PaginationResponse<Message>;
 
   loading.value = false;
@@ -106,7 +113,7 @@ function showContextMenu(e: any, message: Message) {
   contextMenu.value.$el.style = `top: ${e.layerY}px;left: ${e.layerX}px;`;
 }
 
-const resetChangeMessage = () => changeMessage.value = undefined
+const resetChangeMessage = () => (changeMessage.value = undefined);
 
 onUnmounted(() => {
   clear();
