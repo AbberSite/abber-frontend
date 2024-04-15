@@ -25,7 +25,7 @@
             </template>
 
             <template v-else>
-                <ExpressorCard v-for="expressor in expressors" :expressor="expressor" />
+                <ExpressorCard v-for="expressor in expressors" :expressor="expressor"  />
             </template>
         </div>
     </section>
@@ -67,7 +67,6 @@ async function fetchExpressors() {
     expressors.value = data?.results
                     ? data.results
                           .sort((a, b) => b.rate - a.rate)
-                          .filter((expressor, index) => index < 6)
                           .sort((a, b) => b.ordered_count - a.ordered_count)
                     : [];
 

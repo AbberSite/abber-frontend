@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full pt-8 sm:inline-block">
+    <div class="w-full pt-8 sm:inline-block" v-if="expressor.active" >
         <figure class="rounded-xl bg-gray-50 px-6 py-6">
             <figcaption class="flex flex-col items-center">
                 <div class="flex-shrink-0">

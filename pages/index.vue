@@ -6,7 +6,7 @@
 
     <main class="min-h-screen outline-none">
         <Hero />
-        <HowItWorks />
+        <!-- <HowItWorks /> -->
         <Expressors /> 
         <Articles />
         <Testimonials />
