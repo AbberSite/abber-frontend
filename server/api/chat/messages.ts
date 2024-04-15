@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         
-        const response = await axios.get(config.apiBasePath + `/chat/chat-messages/?room=order_${id}`,{
+        const response = await axios.get(config.apiBasePath + `/chat/chat-messages/`,{
             headers : {
                 'api-key' : config.apiSecret,
                 Authorization

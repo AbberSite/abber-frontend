@@ -10,7 +10,7 @@ export default (type: string = "order") => {
 
   if (currentChat) return { ...currentChat, clear: () => currentChat = undefined }
 
-  const { messages, chatList } = storeToRefs(useOrdersStore());
+  const { messages, chatList } = storeToRefs(useChatStore());
 
   const chat = useWebSocket(
     useRuntimeConfig().public.WebsocketURL + `/ws/${type}/${id}/` + `?authorization=JWT ${rawToken.value}`,
