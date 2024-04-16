@@ -11,7 +11,7 @@
             </span>
         </div>
 
-        <div class="w-full space-y-3" x-id="['input']" v-if="!loading">
+        <div class="w-full space-y-3" v-if="!loading">
 
 
             <!-- <h2 dir="ltr">{{ hyper }}</h2> -->
@@ -26,7 +26,7 @@
                 <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA" v-model="paymentMethod"  width="40" height="40" />
                 <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod"  width="40" height="40" />
                 <FormStepsCardComponent title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"  width="24" height="24" />
-                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg" id-of-card="WALLET" v-model="paymentMethod" v-bind="{ disabled: !hasSufficientBallance }" width="24" height="24" />
+                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg" id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" />
 
             </div>
 
@@ -54,7 +54,7 @@
 
         <InputError :message="error" />
 
-        <div dir="ltr" class="payment-form" ref="paymentForm" >
+        <div dir="ltr" class="payment-form" ref="paymentForm" v-if="paymentMethod != 'WALLET'">
             <form
                 dir="ltr"
                 :action="callbackURL"
@@ -62,8 +62,11 @@
                 :data-brands="paymentMethod"></form>
         </div>
 
+        <div v-if="!loading && paymentMethod=='WALLET' && !hasSufficientBallance" class="py-3">
+            عذرا، لا يوجد لديك رصيد متاح في المحفظة
+        </div>
         <div class="space-y-7" v-if="!loading">
-            <div class="flex items-center" x-id="['checkbox']">
+            <div class="flex items-center"  >
                 <input
                 v-model="useWallet"
                     class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
@@ -75,7 +78,7 @@
                     >إستخدام رصيد المحفظة للدفع</label
                 >
             </div>
-            <div class="flex items-center" x-id="['checkbox']">
+            <div class="flex items-center" >
                 <input
                     v-model="hasCoupon"
                     class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
