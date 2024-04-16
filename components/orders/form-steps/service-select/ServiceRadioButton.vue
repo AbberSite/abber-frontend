@@ -61,6 +61,10 @@ const selected = ref(props.modelValue);
 watch(selected, value => emits("update:modelValue", value))
 
 const minPrice = computed(() => {
-  return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, props.service.service_methods[0].price);
+  try {
+    return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, props.service.service_methods[0].price);
+  } catch(e){
+    return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, 0);
+  }
 });
 </script>
