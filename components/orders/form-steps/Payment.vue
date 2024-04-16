@@ -14,7 +14,6 @@
         <div class="w-full space-y-3" v-if="!loading">
 
 
-            <!-- <h2 dir="ltr">{{ hyper }}</h2> -->
 
             <h1 class="text-center font-semibold">سعر الخدمة : <span class="text-blue-600" >{{ hyper.checkout.amount }} ر.س</span></h1>
 
@@ -25,7 +24,7 @@
                 <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg" id-of-card="VISA" v-model="paymentMethod" width="26" height="26" />
                 <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA" v-model="paymentMethod"  width="40" height="40" />
                 <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod"  width="40" height="40" />
-                <FormStepsCardComponent title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"  width="24" height="24" />
+                <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"  width="24" height="24" />
                 <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg" id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" />
 
             </div>
@@ -106,7 +105,7 @@
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
-
+const {isApple, isWindows} = useDevice()
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
 
