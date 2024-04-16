@@ -51,7 +51,7 @@
 
                 <NuxtLink
                     class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer"
-                    @click="$emit('navigate', { name: 'tickets' })">
+                    @click="$emit('navigate', { name: 'support' })">
                     <div
                         class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         <!-- Heroicon name: outline/Lifebuoy -->
