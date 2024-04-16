@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <NuxtLink  :to="`/details/${ticket.id}`" class="text-blue-600">#{{ ticket.id }}</NuxtLink>
+            <NuxtLink :to="{ name: 'support-id', params: { id: ticket.id } }" class="text-blue-600">#{{ ticket.id }}</NuxtLink>
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <div>{{ticket.title}}</div>
@@ -16,7 +16,7 @@
             <div>{{ useFormattedDate(ticket.end_date) }}</div>
         </td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">
-            <NuxtLink :to="`/details/${ticket.id}`" title="عرض الطلب">
+            <NuxtLink :to="{ name: 'support-id', params: { id: ticket.id } }" title="عرض الطلب">
                 <svg
                     class="flex-shrink-0"
                     xmlns="http://www.w3.org/2000/svg"

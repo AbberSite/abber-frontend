@@ -1,7 +1,7 @@
 <template>
-    <Head>
+    <!-- <Head>
         <title>عبر - الطلبات - الطلب #{{ order?.id }}</title>
-    </Head>
+    </Head> -->
     <Header />
     <main class="min-h-screen outline-none">
         <HeroBackground />
@@ -30,7 +30,7 @@
             <DetailsTabs v-model="activeTab" />
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <!-- <DetailsMobileChat v-if="activeTab == 'chat'" /> -->
-            <Chat v-if="activeTab == 'chat'"  /> 
+            <Chat v-if="activeTab == 'chat'" :room-name="`chat_${id}`"/> 
 
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
@@ -57,24 +57,22 @@ const id = useRoute().params.id;
 
 const activeTab = ref<'details' | 'chat'>('details');
 
-const { order } = storeToRefs(useOrdersStore());
+const { ticket } = storeToRefs(useTicketsStore());
 
-const { getOrder,subscribeToOrderStatus } = useOrdersStore();
-
-subscribeToOrderStatus(id as string);
+const { getTicket } = useTicketsStore();
 
 if (!process.client) {
-    await getOrder(id as string);
+    await getTicket(id as string);
 }
 
 onMounted(async () => {
-    if (!order.value) {
-        await getOrder(id as string);
+    if (!ticket.value) {
+        await getTicket(id as string);
     }
 });
 
 onUnmounted(() => {
-    order.value = undefined;
+    ticket.value = undefined;
 });
 
 </script>

@@ -3,7 +3,7 @@
         <NuxtLink class="font-semibold" :to="{ name: 'index' }"> الرئيسية </NuxtLink>
         <NuxtLink class="font-semibold" :to="{ name: 'blog' }"> المدونة </NuxtLink>
         <NuxtLink class="font-semibold" v-if="status == 'authenticated'" :to="{ name: 'orders' }"> الطلبات </NuxtLink>
-        <NuxtLink class="font-semibold" :to="{ name: 'tickets' }"> مركز الدعم </NuxtLink>
+        <NuxtLink class="font-semibold" :to="{ name: 'support' }"> مركز الدعم </NuxtLink>
     </div>
 </template>
 

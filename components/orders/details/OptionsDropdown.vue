@@ -12,7 +12,7 @@
       فاتورة الطلب
     </a>
 
-    <NuxtLink to="/tickets" class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50"
+    <NuxtLink to="/support" class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50"
       role="menuitem" tabindex="-1">
       الإبلاغ عن مشكلة
   </NuxtLink>

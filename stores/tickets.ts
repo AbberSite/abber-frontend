@@ -55,6 +55,10 @@ class TicketsStore {
         })
 
 
+  getTicket = async (id: string) => {
+    this.ticket.value = (await useApi(`/api/tickets/${id}`)) as Order;
+    return this.ticket.value;
+  };
 
     pipeFilters = () => {
         return this.filtersPipline.reduce((prev: any, curr: any) => {
