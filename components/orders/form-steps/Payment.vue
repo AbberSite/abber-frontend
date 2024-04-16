@@ -201,7 +201,8 @@ async function loadHyper() {
             cardNumber: '0000 0000 0000 0000',
             cvv: '000',
             expiryDate: 'تاريخ الإنتهاء',
-            submit: 'متابعة',
+            showOtherPaymentMethods: 'الدفع ببطاقة أخرى',
+            submit: 'دفع الأن',
             mobilePhoneNumber: 'رقم الهاتف'
         },
         errorMessages: {
@@ -305,8 +306,76 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
 <style>
 .wpwl-container {
-    @apply pt-[20px] px-2;
+    @apply pt-[20px] px-2 ;
 }
+.wpwl-form-has-inputs{
+    @apply shadow-none form-control;
+}
+.wpwl-group-registration {
+    @apply w-full flex ;
+}
+.wpwl-container .wpwl-registration {
+    @apply flex items-center justify-around w-full flex-row-reverse;
+}
+.wpwl-container .wpwl-registration div{
+    @apply pl-0;
+}
+.wpwl-container .wpwl-wrapper-registration-registrationId{
+    @apply flex justify-center
+}
+.wpwl-container .wpwl-wrapper-registration-cvv {
+    @apply hidden;
+}
+.wpwl-container .wpwl-wrapper-registration-details{
+    @apply flex justify-around flex-row-reverse;
+}
+
+.wpwl-container .wpwl-button-pay {
+    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+}
+
+.wpwl-form {
+    @apply flex flex-col items-center;
+}
+.wpwl-form .wpwl-wrapper-submit{
+    @apply w-full;
+}
+.wpwl-form .wpwl-wrapper-submit button{
+    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+}
+
+.wpwl-container-card {
+    @apply pt-4
+}
+.wpwl-form .wpwl-group-brand, .wpwl-form .wpwl-group-cardHolder {
+    @apply hidden;
+}
+.wpwl-form .wpwl-group-cardNumber{
+    @apply flex flex-col;
+}
+.wpwl-form .wpwl-label-cardNumber {
+    @apply text-right w-full block text-sm font-semibold xs:text-base;
+}
+.wpwl-form .wpwl-group-cardNumber iframe {
+    @apply form-control h-[50px] pl-12 w-full mt-2;
+}
+.wpwl-form .wpwl-wrapper-cardNumber {
+    @apply w-full;
+}
+.wpwl-form .wpwl-group-cardNumber .card-brand {
+    @apply  top-[54px];
+}
+.cvv-expiry-wrapper{
+    @apply flex items-center justify-between gap-3 flex-row-reverse;
+}
+
+.cvv-expiry-wrapper div{
+    @apply flex flex-col text-right w-full;
+}
+.cvv-expiry-wrapper div input, .cvv-expiry-wrapper div iframe{
+    @apply form-control h-[50px] pl-12 w-full mt-2 text-end;
+}
+
 /* .wpwl-group-cardNumber {
     @apply relative;
 }
