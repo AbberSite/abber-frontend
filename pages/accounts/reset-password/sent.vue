@@ -22,7 +22,7 @@
             <div class="pt-4 text-sm text-gray-800 xs:text-base">لقد أرسلنا إليك رابط إعادة تعيين كلمة المرور</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <a class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                    href="/accounts/password/reset/key/set-password"> <span class="mt-1.5">فتح تطبيق البريد
+                    > <span class="mt-1.5">فتح تطبيق البريد
                         الإلكتروني</span></a>
                 <div class="pt-8 text-center text-sm xs:text-base"><a class="font-medium text-blue-600"
                         href="/accounts/login">العودة لتسجيل الدخول <span aria-hidden="true">←</span></a></div>
