@@ -62,7 +62,7 @@
                 :data-brands="paymentMethod"></form>
         </div>
 
-        <div v-if="!loading && paymentMethod=='WALLET' && !hasSufficientBallance" class="py-3">
+        <div v-if="!loading && paymentMethod=='WALLET' && !hasSufficientBallance" class="py-3 text-center">
             عذرا، لا يوجد لديك رصيد متاح في المحفظة
         </div>
         <div class="space-y-7" v-if="!loading">

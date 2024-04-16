@@ -4,7 +4,7 @@
 
         <div class="is-scroll overflow-y-auto flex h-full flex-col gap-7 px-4 py-8 pb-36">
             <fieldset class="space-y-7">
-                <div class="w-full overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm"
+                <div class="max-w-[320px] overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm"
                     x-show="alert" role="alert">
                     <div class="mt-1.5 flex">
                         <span class="me-3 flex-shrink-0">
@@ -32,17 +32,20 @@
                         </span>
                     </div>
 
-                    <div class="w-full space-y-3" x-id="['input']" v-if="!loading">
-                        <label class="block text-sm font-semibold xs:text-base" for="payment-method">نوع البطاقة</label>
-                        <select v-model="paymentMethod" class="form-control form-select h-[50px] appearance-none"
-                            type="select" name="select" id="payment-method" required>
-                            <option value="VISA MASTER MADA">فيزا كارد, ماستر كارد, مدى كارد</option>
-                            <option value="APPLEPAY">ابل باي</option>
-                            <option value="STC_PAY">اس تي سي باي</option>
-                            <option value="WALLET" v-bind="{ disabled: !hasSufficientBallance }">
-                                المحفظة {{ !hasSufficientBallance ? '( ليس لديك الرصيد الكافي )' : '' }}
-                            </option>
-                        </select>
+                    <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse max-w-[320px]"
+                        aria-orientation="horizontal">
+                        <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg"
+                            id-of-card="MASTER" v-model="paymentMethod" width="26" height="26" />
+                        <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg"
+                            id-of-card="VISA" v-model="paymentMethod" width="26" height="26" />
+                        <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png"
+                            id-of-card="MADA" v-model="paymentMethod" width="40" height="40" />
+                        <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp"
+                            id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
+                        <FormStepsCardComponent title="أبل باي" logo="/images/payments/section/apple-pay.svg"
+                            id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
+                        <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg"
+                            id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" />
                     </div>
 
                     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
@@ -94,7 +97,7 @@ const { fetchBalance } = useWalletStore();
 
 const { balance } = storeToRefs(useWalletStore());
 
-const paymentMethod = ref('VISA MASTER MADA');
+const paymentMethod = ref('MASTER');
 
 const hasSufficientBallance = computed(() => {
     if (!hyper) return false;
@@ -162,7 +165,7 @@ const cardImages: { [key: string]: { src: string; class: string } } = {
 function execute() {
 
     hyper.executePayment()
-    
+
 }
 
 onMounted(async () => {
@@ -332,67 +335,77 @@ function submit() {
 </script>
 
 <style>
-.wpwl-group-cardNumber {
-    @apply relative;
+.wpwl-container {
+    @apply pt-[20px] px-2 ;
+}
+.wpwl-form-has-inputs{
+    @apply shadow-none form-control;
+}
+.wpwl-group-registration {
+    @apply w-full flex ;
+}
+.wpwl-container .wpwl-registration {
+    @apply flex items-center justify-around w-full flex-row-reverse;
+}
+.wpwl-container .wpwl-registration div{
+    @apply pl-0;
+}
+.wpwl-container .wpwl-wrapper-registration-registrationId{
+    @apply flex justify-center
+}
+.wpwl-container .wpwl-wrapper-registration-cvv {
+    @apply hidden;
+}
+.wpwl-container .wpwl-wrapper-registration-details{
+    @apply flex justify-around flex-row-reverse;
 }
 
-.wpwl-control-cardNumber,
-.wpwl-control-mobilePhone {
-    @apply form-control h-[50px] pl-12 w-full;
-}
-
-.wpwl-control-mobilePhone {
-    @apply form-control h-[50px] block text-sm xs:text-base w-full;
-    direction: rtl;
-}
-
-.wpwl-control-expiry {
-    @apply form-control h-[50px] appearance-none w-full;
-}
-
-.wpwl-control-cvv {
-    @apply form-control h-[50px] appearance-none;
-}
-
-.cvv-expiry-wrapper {
-    @apply flex items-start justify-between gap-5 mb-2 w-full;
-}
-
-.wpwl-group {
-    @apply w-full space-y-3;
-}
-
-.wpwl-wrapper {
-    @apply w-full;
+.wpwl-container .wpwl-button-pay {
+    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-form {
-    @apply space-y-7;
+    @apply flex flex-col items-center;
+}
+.wpwl-form .wpwl-wrapper-submit{
+    @apply w-full;
+}
+.wpwl-form .wpwl-wrapper-submit button{
+    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
-.wpwl-label-cvv,
-.wpwl-label-expiry,
-.wpwl-label-cardNumber,
-.wpwl-label-mobilePhone {
-    @apply block text-sm font-semibold xs:text-base w-full;
-    direction: rtl;
+.wpwl-container-card {
+    @apply pt-4
 }
-
-.wpwl-group-cardHolder,
-.wpwl-group-brand {
+.wpwl-form .wpwl-group-brand, .wpwl-form .wpwl-group-cardHolder {
     @apply hidden;
 }
-
-.wpwl-button-pay {
-    /* @apply flex */
-    @apply hidden h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+.wpwl-form .wpwl-group-cardNumber{
+    @apply flex flex-col;
+}
+.wpwl-form .wpwl-label-cardNumber {
+    @apply text-right w-full block text-sm font-semibold xs:text-base;
+}
+.wpwl-form .wpwl-group-cardNumber iframe {
+    @apply form-control h-[50px] pl-12 w-full mt-2;
+}
+.wpwl-form .wpwl-wrapper-cardNumber {
+    @apply w-full;
+}
+.wpwl-form .wpwl-group-cardNumber .card-brand {
+    @apply  top-[54px];
+}
+.cvv-expiry-wrapper{
+    @apply flex items-center justify-between gap-3;
+}
+.cvv-expiry-wrapper .wpwl-label-cvv {
+    direction: rtl;
+}
+.cvv-expiry-wrapper div{
+    @apply flex flex-col text-right w-full;
+}
+.cvv-expiry-wrapper div input, .cvv-expiry-wrapper div iframe{
+    @apply form-control h-[50px] pl-12 w-full mt-2 text-end;
 }
 
-.wpwl-button-error {
-    @apply !cursor-not-allowed !bg-gray-100 !text-black !border-none;
-}
-
-.activeIframe {
-    @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
-}
 </style>
