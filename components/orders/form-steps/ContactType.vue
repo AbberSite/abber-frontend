@@ -66,12 +66,14 @@ const { videoServices, videoServicesPagination } = storeToRefs(useServicesStore(
 
 const loading = ref(false);
 
-if (process.server) {
-  loading.value = true;
-    await fetchAll();
-    await fetchVideoServices();
-    loading.value = false;
-}
+// if (process.server) {
+//   loading.value = true;
+//     await fetchAll();
+//     await fetchVideoServices();
+//     loading.value = false;
+// }
+
+console.log(process.server)
 
 onMounted(async () => {
     // fetch services before selection step for optimazation
