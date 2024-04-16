@@ -112,7 +112,7 @@
                         </div>
                     </fieldset>
                 </form>
-                <SocialLogin />
+                <!-- <SocialLogin /> -->
 
                 <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base">
                     <span>لديك حساب سابقا؟</span>
