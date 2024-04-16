@@ -3,7 +3,7 @@
     <label class="block text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label>
 
     <input ref="phoneInput" class="form-control h-[50px] appearance-none" type="text" name="phone" id="tel"
-      placeholder="12XXXXXXX" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model="phone"
+      placeholder="12345XXXX" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model="phone"
       :class="[(validationError !== '' || error) && 'form-invalid']" autocomplete="tel" dir="ltr" required />
     <InputError :message="error" />
     <InputError :message="validationError" />

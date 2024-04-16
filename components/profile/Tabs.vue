@@ -32,7 +32,7 @@
                 ? 'border-gray-900'
                 : 'border-transparent text-gray-500 hover:text-gray-900'
         ]">
-        <span>إشارات مرجعية</span
+        <span>المفضلة</span
         ><span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
             {{ bookmarkedTotal }}
         </span>
