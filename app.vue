@@ -60,8 +60,6 @@ useSeoMeta({
 
 const { getSession, refresh } = useAuth();
 
-console.log(`production is: ${import.meta.env.ABBER_ENV}`)
-
 onMounted(async () => {
     await refresh();
 
