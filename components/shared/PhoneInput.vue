@@ -20,7 +20,7 @@ const phoneInput = ref<Element>();
 const props = defineProps<{
   modelValue?: string;
   error?: string;
-
+  sms?: boolean;
 }>();
 
 const phone = ref('');
@@ -36,8 +36,13 @@ async function getCountry() {
     return 'sa';
   }
 }
-
-const countryCode = await getCountry();
+let countryCode;
+if(props.sms){
+  countryCode = 'SA';
+} else {
+  countryCode = await getCountry();
+}
+// const countryCode = await getCountry();
 const errorMap = [
   'أدخل رقم هاتف صالح (مثال 7835196169).',
   'رمز الدولة غير صحيح.',
@@ -54,6 +59,7 @@ const validationError = ref('');
 onMounted(() => {
   const iti = intlTelInput(phoneInput.value as Element, {
     initialCountry: countryCode,
+    allowDropdown: props.sms ? false : true,
     separateDialCode: true,
     nationalMode: true,
     utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'

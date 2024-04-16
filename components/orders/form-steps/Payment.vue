@@ -14,6 +14,7 @@
         <div class="w-full space-y-3" x-id="['input']" v-if="!loading">
 
 
+            <!-- <h2 dir="ltr">{{ hyper }}</h2> -->
 
             <h1 class="text-center font-semibold">سعر الخدمة : <span class="text-blue-600" >{{ hyper.checkout.amount }} ر.س</span></h1>
 
@@ -118,7 +119,7 @@ let hyper: any = undefined;
 
 
 const loading = ref(true);
-const paymentForm = ref<HTMLDivElement | null>(null);
+let paymentForm = ref<HTMLDivElement | null>(null);
 const error = ref('');
 
 const { fetchBalance } = useWalletStore();
@@ -195,8 +196,7 @@ async function loadHyper() {
     (window as any).wpwlOptions = {
         style: 'plain',
         locale: 'ar',
-        brandDetection: true,
-        brandDetectionPriority: ['VISA', 'MASTER', 'MADA'],
+        // brandDetectionPriority: paymentMethod.value,
         labels: {
             cardNumber: '0000 0000 0000 0000',
             cvv: '000',
@@ -220,13 +220,6 @@ async function loadHyper() {
             const form = this.$iframe[0] as HTMLElement;
 
             form.classList.remove('activeIframe');
-        },
-        onChangeBrand: (data: string) => {
-            if (!data) {
-                cardType.value = 'general';
-                return;
-            }
-            cardType.value = data;
         },
         onReady: function (array: Array<any>) {
             loading.value = false;
@@ -274,7 +267,6 @@ async function loadHyper() {
 
 
     await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}`);
-
     // @ts-ignore
     hyper = wpwl as any;
 }
@@ -366,9 +358,11 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     @apply  top-[54px];
 }
 .cvv-expiry-wrapper{
-    @apply flex items-center justify-between gap-3 flex-row-reverse;
+    @apply flex items-center justify-between gap-3;
 }
-
+.cvv-expiry-wrapper .wpwl-label-cvv {
+    direction: rtl;
+}
 .cvv-expiry-wrapper div{
     @apply flex flex-col text-right w-full;
 }
