@@ -125,10 +125,10 @@ const activeHeader = computed<{ title: string; description: string; icon: Functi
         },
         service: { title: 'إختيار المعبر', description: 'أختر أحد المعبرين ليقوم بتعبير حلمك', icon: UserIcon },
         'my-urgent-order-service': {title: 'العرض على أكثر من معبر', description: 'هل تود عرض حلمك على معبر اخر', icon: UserGroupIcon},
-        authentication: { title: 'التسجيل', description: 'سجل دخولك أو إنشأ حسابا جديدا في عبر', icon: LockClosedIcon },
+        authentication: { title: 'التسجيل', description: 'سجل دخولك أو أنشئ حسابا جديدا في عبر', icon: LockClosedIcon },
         'authentication-method': {
             title: 'التسجيل',
-            description: 'سجل دخولك أو إنشأ حسابا جديدا في عبر',
+            description: 'سجل دخولك أو أنشئ حسابا جديدا في عبر',
             icon: LockClosedIcon
         },
         payment: {

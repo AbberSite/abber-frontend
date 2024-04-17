@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="w-full space-y-4">
-            <div class="text-sm font-semibold text-gray-500 xs:text-base">تأريخ الميلاد</div>
+            <div class="text-sm font-semibold text-gray-500 xs:text-base">تاريخ الميلاد</div>
             <div class="font-semibold">
                 {{ data?.profile?.birthday ?? '-' }}
             </div>
