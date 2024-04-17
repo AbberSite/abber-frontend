@@ -103,8 +103,8 @@ const { signIn } = useAuth();
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').required('هذا الحقل يجب أن لا يكون فارغ'),
-            password: yup.string().required('كلمة السر يجب أن لا تكون فارغة')
+            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').required('هذا الحقل مطلوب'),
+            password: yup.string().required(' هذا الحقل مطلوب')
         })
     )
 });

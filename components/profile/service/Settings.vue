@@ -46,7 +46,7 @@
                 <input
                     class="form-control h-[50px] appearance-none"
                     type="number"
-                    v-model.number="form.text_service_capacity.maximum_orders"  :class="{'border-red-500 text-red-400': error?.type == 'text_price'}"
+                    v-model.number="form.text_service_capacity.maximum_orders"  :class="{'border-red-500 text-red-400': error?.type == 'maximum_orders'}"
                     name="number"
                     id="total"
                     placeholder="ادخل عدد الطلبات الكلي"
@@ -118,7 +118,7 @@ const form = ref({
         // stock: 0
     }
 });
-let error = ref<{type: string; message: string;} | undefined>(undefined)
+let error = ref<{type: 'text_price' | 'video_price' | 'maximum_orders'; message: string;} | undefined>(undefined)
 const{data:user}= useAuth()
 const loading = ref(false);
 
@@ -177,12 +177,23 @@ async function submit() {
 
 
 function validation(){
-    if(form.value.service_prices.text_price < 0 || form.value.service_prices.text_price > 100){
-        error.value = {type: 'text_price', message: 'يجب ان يكون السعر فوق 1.0 ريال واقل من 100' }
-    } else if(form.value.service_prices.video_price < 0 || form.value.service_prices.video_price > 100){
-        error.value = {type: 'video_price', message: 'يجب ان يكون السعر فوق 1.0 ريال وأقل من 100'}
-    } else if(form.value.text_service_capacity.maximum_orders < 0){
-        error.value = {type: 'maximum_orders', message: 'يجب ان يكون العدد اكبر من 1 '}
+    if(form.value.service_prices.text_price <= 0){
+        error.value = {type: 'text_price', message: 'هذا الحقل مطلوب' }
+    } else if( form.value.service_prices.text_price > 100){
+        error.value = {
+            type: 'text_price',
+            message: 'يجب ان لا يتخطى السعر 100 ر.س'
+        }
+    } else if(form.value.service_prices.video_price <= 0){
+        error.value = {type: 'video_price', message: 'هذا الحقل مطلوب'}
+    } else if(form.value.service_prices.video_price > 100){
+        error.value = {
+            type: 'video_price',
+            message: 'يجب ان لا يتخطى السعر 100 ر.س'
+        };
+    }
+    else if(form.value.text_service_capacity.maximum_orders <= 0){
+        error.value = {type: 'maximum_orders', message: 'هذا الحقل مطلوب'}
     } else {
         error.value = undefined;
     }
