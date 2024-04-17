@@ -25,7 +25,7 @@
                 <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA" v-model="paymentMethod"  width="40" height="40" />
                 <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod"  width="40" height="40" />
                 <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"  width="24" height="24" />
-                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg" id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" />
+                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg" id-of-card="BALANCE" v-model="paymentMethod" width="24" height="24" />
 
             </div>
 
@@ -61,8 +61,11 @@
                 :data-brands="paymentMethod"></form>
         </div>
 
-        <div v-if="!loading && paymentMethod=='WALLET' && !hasSufficientBallance" class="py-3 text-center">
-            عذرا، لا يوجد لديك رصيد متاح في المحفظة
+        <div v-if="!loading && paymentMethod=='BALANCE'" class="py-3 text-center">
+            <PrimaryButton v-if="hasSufficientBallance"
+                ><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
+
+                <span v-if="!hasSufficientBallance"  >عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
         </div>
         <div class="space-y-7" v-if="!loading">
             <div class="flex items-center"  >
