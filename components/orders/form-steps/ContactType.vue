@@ -67,44 +67,44 @@ const { videoServices, videoServicesPagination } = storeToRefs(useServicesStore(
 const loading = ref(false);
 
 if (process.server) {
+  console.log(`server: ${process.server}`)
   loading.value = true;
-    await fetchAll();
-    await fetchVideoServices();
-    loading.value = false;
+  await fetchAll();
+  await fetchVideoServices();
+  loading.value = false;
 }
 
-console.log(process.server)
 
 onMounted(async () => {
-    // fetch services before selection step for optimazation
+  // fetch services before selection step for optimazation
 
-    // if (videoServicesPagination.value?.results?.length == 0) {
-      loading.value = true;
-        await fetchAll();
-        await fetchVideoServices();
-        loading.value = false;
-    // }
+  // if (videoServicesPagination.value?.results?.length == 0) {
+  loading.value = true;
+  await fetchAll();
+  await fetchVideoServices();
+  loading.value = false;
+  // }
 
-    if (videoServicesPagination?.value?.count == 0) {
-        useNotification({ content: 'الخدمة الصوتية متوقفة حاليا', type: 'warning', id : 445 }, true, 2000);
-    }
+  if (videoServicesPagination?.value?.count == 0) {
+    useNotification({ content: 'الخدمة الصوتية متوقفة حاليا', type: 'warning', id: 445 }, true, 2000);
+  }
 });
 
 const voiceCommunicationButtonClasses = computed(() => {
-    if (videoServicesPagination?.value?.count == 0)
-        return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
-    if (selectedOption.value == 'video_communication') return 'border-gray-900 ring-1 ring-gray-900';
+  if (videoServicesPagination?.value?.count == 0)
+    return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
+  if (selectedOption.value == 'video_communication') return 'border-gray-900 ring-1 ring-gray-900';
 });
 
 function submit(value: 'text_communication' | 'video_communication') {
-    selectedOption.value = value;
+  selectedOption.value = value;
 
-    next({
-        nextStepId: selectedOption.value === 'video_communication' ? 'service' : 'dream-details',
-        data: {
-            type: selectedOption.value
-        }
-    });
+  next({
+    nextStepId: selectedOption.value === 'video_communication' ? 'service' : 'dream-details',
+    data: {
+      type: selectedOption.value
+    }
+  });
 }
 </script>
 
