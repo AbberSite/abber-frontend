@@ -67,7 +67,6 @@ const { videoServices, videoServicesPagination } = storeToRefs(useServicesStore(
 const loading = ref(false);
 
 if (process.server) {
-  console.log(`server: ${process.server}`)
   loading.value = true;
   await fetchAll();
   await fetchVideoServices();

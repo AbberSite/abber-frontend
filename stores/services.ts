@@ -29,7 +29,6 @@ class ServicesStore {
         admin_active: true,
       }
     });
-    console.log(data);
     this.servicesPagination.value = data;
     this.services.value = data.results;
     return data.value;
