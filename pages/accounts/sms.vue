@@ -70,7 +70,7 @@
                             <input class="form-control h-[50px] appearance-none" type="tel" name="phone" id="tel"
                                 placeholder="7835196169" autocomplete="tel" required /> -->
 
-                            <PhoneInput v-model="phone" v-model:valid="valid" :sms="true" />
+                            <PhoneInput v-model="phone" v-model:valid="valid" :sms="true" placeholder="5XXXXXXXX"/>
                             <div class="text-red-500 text-sm">
                                 {{ errors.phone }}
                             </div>

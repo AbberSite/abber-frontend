@@ -19,6 +19,9 @@ const emit = defineEmits(["done", 'update:modelValue'])
 watch(digits.value, () =>emit('update:modelValue', digits.value));
 onMounted(() => {
     inputs.value.forEach((input, index) => {
+        if(index == 0){
+            input.select();
+        }
         input.addEventListener('keyup', function (e: Event) {
             e.preventDefault();
             if (e.key === 'Backspace') {

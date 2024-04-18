@@ -1,9 +1,9 @@
 <template>
   <div class="w-full space-y-3">
-    <label class="block text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label>
+    <label class="block text-sm font-semibold xs:text-base" for="tel">رقم الجوال</label>
 
-    <input ref="phoneInput" class="form-control h-[50px] appearance-none" type="text" name="phone" id="tel"
-      placeholder="12345XXXX" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model="phone"
+    <input ref="phoneInput" class="form-control h-[50px] appearance-none" type="number" name="phone" id="tel"
+      :placeholder="placeholder ?? '12345XXXX'" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model="phone"
       :class="[(validationError !== '' || error) && 'form-invalid']" autocomplete="tel" dir="ltr" required />
     <InputError :message="error" />
     <InputError :message="validationError" />
@@ -21,6 +21,7 @@ const props = defineProps<{
   modelValue?: string;
   error?: string;
   sms?: boolean;
+  placeholder?: string;
 }>();
 
 const phone = ref('');
@@ -81,8 +82,8 @@ onMounted(() => {
   });
 
   watch(phone, (value) => {
-
-    phone.value = phone.value.replace(/\D/g, '');
+    phone.value = phone.value.toString().replace(/\D/g, '');
+    console.log(typeof phone.value)
 
     validationError.value = '';
 
