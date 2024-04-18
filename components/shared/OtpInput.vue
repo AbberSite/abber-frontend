@@ -21,6 +21,7 @@ onMounted(() => {
     inputs.value.forEach((input, index) => {
         if(index == 0){
             input.select();
+            input.click();
         }
         input.addEventListener('keyup', function (e: Event) {
             e.preventDefault();
