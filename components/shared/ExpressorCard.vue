@@ -30,7 +30,7 @@
                     </svg>
                     <svg
                         v-for="i in  Math.ceil(5 - expressor.rate)"
-                        class="flex-shrink-0 text-gray-100"
+                        class="flex-shrink-0 text-gray-200"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
