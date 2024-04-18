@@ -30,7 +30,7 @@
                 href="#"
                 v-if="data.user_type == 'إدارة'"
 
-                @click="$emit('navigate', { name: 'profile' })"
+                @click="$emit('navigate', '/dashboard')"
                 >لوحة التحكم
             </NuxtLink>
             <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"

@@ -63,7 +63,7 @@
                 role="menuitem"
                 tabindex="-1"
                 v-if="data.user_type == 'إدارة'"
-                :to="{ name: 'profile' }"
+                to="/dashboard"
                 @click="$emit('close')"
                 >لوحة التحكم
             </NuxtLink>
