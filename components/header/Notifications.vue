@@ -37,7 +37,7 @@
                         <HeaderNotification v-for="notification in data?.notifications?.results" :notification="notification" />
                     </template>
                 </ul>
-                <div class="fixed bottom-0 z-40 w-full border-t border-gray-100 bg-white px-6 py-6 text-center md:relative">
+                <div class="fixed bottom-0 z-40 w-full border-t border-gray-100 bg-white px-6 py-6 text-center md:relative" v-if="false"  >
                     <a class="px-6 py-3 font-semibold md:text-sm" href="#">عرض جميع الإشعارات <span aria-hidden="true">←</span></a>
                 </div>
             </template>

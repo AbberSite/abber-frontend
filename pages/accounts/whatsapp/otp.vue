@@ -30,8 +30,11 @@
                 </svg>
             </div>
             <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">تسجيل الدخول</div>
-            <div class="pt-4 text-sm text-gray-800 xs:text-base">
+            <div class="pt-4 text-sm text-gray-800 xs:text-base" v-if="sender == 'whatsapp'">
                 أدخل رمز التحقق الذي تم إرساله الى حسابك في الواتساب
+            </div>
+            <div class="pt-4 text-sm text-gray-800 xs:text-base" v-else>
+                أدخل رمز التحقق الذي تم إرساله الى رقمك على SMS
             </div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="login">
@@ -46,7 +49,7 @@
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
                                 name="verfication" v-model="my_opt[3]" maxlength="1" required />
                         </div> -->
-
+                        <h1 class="font-bold" >رمز التأكد (OTP)</h1>
                         <div class="flex items-center justify-center space-x-11 rtl:flex-row-reverse">
                             <input class="form-control h-[50px] appearance-none text-center" type="text"
                                 v-model="my_opt[0]" autofocus="true" maxlength="1" required />
