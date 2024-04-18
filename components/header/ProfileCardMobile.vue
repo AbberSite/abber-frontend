@@ -28,7 +28,7 @@
             <NuxtLink
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 href="#"
-                v-if="data.user_type == 'مدير'"
+                v-if="data.user_type == 'إدارة'"
 
                 @click="$emit('navigate', { name: 'profile' })"
                 >لوحة التحكم
@@ -39,13 +39,13 @@
                 href="/profile"  @click="$emit('navigate', { name:'profile' })"  >الملف الشخصي</NuxtLink>
             <NuxtLink
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
-                href="#"
+                href="#" v-if="data.user_type != 'إدارة'"
                 @click="$emit('navigate', { name: 'orders' })"
                 >الطلبات
             </NuxtLink>
             <NuxtLink
                 class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
-                href="#"
+                href="#" v-if="data.user_type != 'إدارة'"
                 @click="$emit('navigate', { name: 'wallet' })"
                 >المحفظة
             </NuxtLink>

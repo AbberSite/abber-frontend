@@ -62,7 +62,7 @@
                 href="#"
                 role="menuitem"
                 tabindex="-1"
-                v-if="data.user_type == 'مدير'"
+                v-if="data.user_type == 'إدارة'"
                 :to="{ name: 'profile' }"
                 @click="$emit('close')"
                 >لوحة التحكم
@@ -73,7 +73,7 @@
                 href="#"
                 role="menuitem"
                 tabindex="-1"
-                v-if="data.user_type == 'معبر'"
+                v-if="data.user_type == 'معبر' && data.user_type != 'إدارة'"
                 :to="{ name: 'profile-service' }"
                 @click="$emit('close')"
                 >إدارة الخدمة
@@ -82,6 +82,7 @@
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 href="#"
                 role="menuitem"
+                v-if="data.user_type != 'إدارة'"
                 tabindex="-1"
                 :to="{ name: 'profile' }"
                 @click="$emit('close')"
@@ -91,6 +92,7 @@
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 :to="{ name: 'orders' }"
                 @click="$emit('close')"
+                v-if="data.user_type != 'إدارة'"
                 role="menuitem"
                 tabindex="-1"
                 >الطلبات
@@ -100,6 +102,7 @@
                 :to="{ name: 'wallet' }"
                 @click="$emit('close')"
                 href="#"
+                v-if="data.user_type != 'إدارة'"
                 role="menuitem"
                 tabindex="-1"
                 >المحفظة
