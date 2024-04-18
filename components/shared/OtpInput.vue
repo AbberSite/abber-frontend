@@ -37,7 +37,6 @@ onMounted(() => {
 
         input.addEventListener('keyup', function (e: Event) {
             e.preventDefault();
-            console.log(input.value);
             if (input.value == '') {
                 input.value = '';
                 return;
