@@ -68,7 +68,7 @@
                 <span v-if="!hasSufficientBallance"  >عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
         </div>
         <div class="space-y-7" v-if="!loading">
-            <div class="flex items-center"  >
+            <!-- <div class="flex items-center"  >
                 <input
                 v-model="useWallet"
                     class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
@@ -79,7 +79,7 @@
                 <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="use-wallet"
                     >إستخدام رصيد المحفظة للدفع</label
                 >
-            </div>
+            </div> -->
             <div class="flex items-center" >
                 <input
                     v-model="hasCoupon"
@@ -140,7 +140,12 @@ const hasSufficientBallance = computed(() => {
 });
 
 watch(paymentMethod, async (value) => {
-    if (value == 'WALLET') return;
+    if (value == 'BALANCE') {
+        const payment = await createCheckout();
+        if(payment)
+            navigateTo(callbackURL + '?balance=true', {external: true});
+        return;
+    }
     loading.value = true; 
     hyper.unload();
     const form = document.createElement('form');
@@ -191,8 +196,8 @@ onMounted(async () => {
 });
 
 async function loadHyper() {
+    if(paymentMethod.value == "BALANCE") return;
     const payment = await createCheckout();
-
     if (!payment.id) {
         error.value = 'حدث خطأ ما';
         return;
@@ -277,6 +282,19 @@ async function loadHyper() {
 }
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
+    if(paymentMethod.value == 'BALANCE'){
+        const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
+            method: 'POST',
+            body: {
+                type: state.value.data?.type,
+
+                // TODO: unncomment the above line when finishing from testing
+                brand: paymentMethod.value
+                // brand: cardType.valuee
+            }
+        });
+        return checkout.paid;
+    }
     return new Promise(async (resolve, reject) => {
 
         const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
@@ -291,7 +309,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         });
 
         localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
-
+        
         (state.value.data as OrderForm).order_id = checkout.order_id;
 
         persist();

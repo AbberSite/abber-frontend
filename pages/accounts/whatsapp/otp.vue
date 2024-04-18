@@ -39,28 +39,12 @@
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="login">
                     <fieldset class="space-y-7">
-                        <!-- <div class="flex items-center justify-center space-x-3 rtl:flex-row-reverse">
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                name="verfication" v-model="my_opt[0]" maxlength="1" required />
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                name="verfication" v-model="my_opt[1]" maxlength="1" required />
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                name="verfication" v-model="my_opt[2]" maxlength="1" required />
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                name="verfication" v-model="my_opt[3]" maxlength="1" required />
-                        </div> -->
                         <h1 class="font-bold" >رمز التأكد (OTP)</h1>
-                        <div class="flex items-center justify-center space-x-11 rtl:flex-row-reverse">
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                v-model="my_opt[0]" autofocus="true" maxlength="1" required />
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                v-model="my_opt[1]" maxlength="1" required />
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                v-model="my_opt[2]" maxlength="1" required />
-                            <input class="form-control h-[50px] appearance-none text-center" type="text"
-                                v-model="my_opt[3]" maxlength="1" required />
-                        </div>
+                        
+                        <OtpInput v-model="my_opt" @done="login()"/>
 
+
+                      
 
                         <div class="text-red-700 font-semibold" v-if="error">{{ error }}</div>
                         <div>
@@ -89,6 +73,8 @@ definePageMeta({
     layout: false
 });
 
+
+
 const { rawRefreshToken, rawToken } = useAuthState();
 
 const { refresh } = useAuth();
@@ -111,13 +97,6 @@ onMounted(async () => {
         useRouter().push({ name: 'accounts-whatsapp-login' });
     }
 });
-
-
-
-watch(my_opt, async (value) => {
-    if (value.length < 4) return;
-    await login();
-}, { deep: true })
 
 
 async function login() {

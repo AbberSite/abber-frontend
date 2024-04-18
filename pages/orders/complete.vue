@@ -15,7 +15,7 @@
             </template>
 
             <template v-else>
-                <template v-if="paid">
+                <template v-if="paid || balance">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <CheckCircleIcon class="w-6 h-6" />
                     </div>
@@ -54,7 +54,7 @@
                     </div>
                 </template>
 
-                <template v-else-if="!paid && !isActive">
+                <template v-else-if="!paid && !isActive && !balance">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <XCircleIcon class="w-6 h-6" />
                     </div>
@@ -122,6 +122,8 @@ const route = useRoute();
 const router = useRouter();
 const { getSession } = useAuth();
 const id = route.query.id;
+const balance = route.query.balance ;
+console.log(balance);
 let transaction_id: string;
 
 let data;
