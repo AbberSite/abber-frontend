@@ -3,10 +3,7 @@
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-7">
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base">الرمز</label>
-          <input class="form-control h-[50px] appearance-none" :class="{'border-red-500 placeholder:text-red-300': error?.id == 'code'}" type="text" name="text" placeholder="إدخل رمز الكوبون"
-            dir="rtl" v-model="coupon.code" required />
-            <span class="text-red-500" v-if="error?.id == 'code'">{{ error.message  }}</span>
+          <TextInput name="code" type="text" v-model="code" label="رمز الخصم" placeholder="ادخل رمز الخصم" :error="errors.code"/>
         </div>
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">نوع الخصم</label>
@@ -16,20 +13,22 @@
           </select>
         </div>
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base">مبلغ الخصم</label>
-          <input class="form-control h-[50px] appearance-none" :class="{'border-red-500 placeholder:text-red-300': error?.id == 'coupon'}" type="number" name="number"
-            placeholder="ادخل مبلغ الخصم بالريال السعودي" dir="rtl" v-model="coupon.amount" required />
-            <span class="text-red-500" v-if="error?.id == 'coupon'">{{ error.message  }}</span>
+          <TextInput name="amount" type="number" v-model="amount" label="مبلغ الخصم" placeholder="ادخل مبلغ الخصم بالريال السعودي" :error="errors.amount"/>
+
         </div>
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">تأريخ بدأ الكوبون</label>
-          <input class="form-control h-[50px] appearance-none" :class="{'border-red-500 placeholder:text-red-300': error?.id == 'start_date'}" type="date" name="date" dir="rtl" v-model="coupon.start_date" required />
-          <span class="text-red-500" v-if="error?.id == 'start_date'">{{ error.message  }}</span>
+          <DatePicker placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
+          v-model="start_date" model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
+          cancel-text="الغاء" />
+        <InputError :message="errors.start_date" />
         </div>
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">تأريخ إنتهاء الكوبون</label>
-          <input class="form-control h-[50px] appearance-none" :class="{'border-red-500 placeholder:text-red-300': error?.id == 'end_date'}" type="date" name="date" dir="rtl" v-model="coupon.end_date" required />
-          <span class="text-red-500" v-if="error?.id == 'end_date'">{{ error.message  }}</span>
+          <DatePicker placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
+          v-model="end_date" model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
+          cancel-text="الغاء" />
+        <InputError :message="errors.end_date" />
         </div>
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">المنصات المتاحة</label>
@@ -57,33 +56,47 @@
 </template>
 
 <script lang="ts" setup>
+import DatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+import type { DatePickerInstance } from '@vuepic/vue-datepicker';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
+import { toTypedSchema } from '@vee-validate/yup';
+const datePicker = ref<DatePickerInstance>(null);
+const { errors, defineField, validate } = useForm({
+  validationSchema: toTypedSchema(
+    yup.object({
+      code: yup.string().min(3, 'هذا الحقل يجب ان يحتوي 3 احرف على الاقل').required('هذا الحقل مطلوب'),
+      start_date: yup.string().required("هذا الحقل مطلوب").default(getCurrentDate()).required('هذا الحقل مطلوب'),
+      end_date: yup.string().required("هذا الحقل مطلوب").required('هذا الحقل مطلوب'),
+      amount: yup.number().min(1, 'يجب ان يكون هذا الحقل رقم صحيح').required('هذا الحقل مطلوب')
+    })
+  )
+})
 const emit = defineEmits(['close', 'refreshCoupons']);
+const [code] = defineField('code');
+const [start_date] = defineField('start_date');
+const [end_date] = defineField('end_date');
+const [amount] = defineField('amount');
 const coupon = ref<{
-  code: string | '' | undefined | null;
   type: 'percentage' | 'fixed_amount';
-  amount: number | undefined;
-  start_date: string | null;
-  end_date: string | null;
   active_platforms: [] | string;
   multi_use: boolean;
 }>({
-  code: null,
   type: 'percentage',
-  amount: undefined,
-  start_date: null,
-  end_date: null,
   active_platforms: [],
   multi_use: false
 });
-let error = ref<{
-  id: string;
-  message: string;
-} | undefined>(undefined);
+
 async function submit(){
-  validation()
-  if(error.value != undefined ) return;
+  const validation = await validate();
+  if(!validation.valid ) return;
 
   coupon.value.active_platforms = coupon.value.active_platforms.toString();
+  coupon.value.code = code.value;
+  coupon.value.amount = amount.value;
+  coupon.value.start_date = start_date.value;
+  coupon.value.end_date = end_date.value;
   const res = await useProxy('/coupons/coupons/', {
     method: 'POST',
     body: coupon.value
@@ -96,37 +109,13 @@ async function submit(){
 };
 
 
-async function validation(){
-  if(coupon.value.code == null || coupon.value.code.length <= 3){
-    error.value = {
-      id: 'code',
-      message: 'هذا الحقل يجب ان لا يترك فارغا ولا يقل عن 3 احرف'
-    }
-  } else if(!coupon.value.amount){
-    error.value = {
-      id: 'coupon',
-      message: 'هذا الحقل يجب ان لا يترك فارغا'
-    }
-  } else if(coupon.value.start_date == null){
-    error.value = {
-      id: 'start_date',
-      message: 'هذا الحقل يجب ان لا يترك فارغا'
-    }
-  }
-  
-  else if(coupon.value.end_date == null){
-    error.value = {
-      id: 'end_date',
-      message: 'هذا الحقل يجب ان لا يترك فارغا'
-    }
-  } else if(!coupon.value.active_platforms.length){
-    error.value = {
-      id: 'active_platforms',
-      message: 'هذا الحقل يجب ان لا يترك فارغا'
-    }
-  } else {
-    error.value = undefined;
-  }
+function getCurrentDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  const day = today.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }
 
 </script>
