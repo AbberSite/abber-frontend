@@ -20,8 +20,11 @@ watch(digits.value, () =>emit('update:modelValue', digits.value));
 onMounted(() => {
     inputs.value.forEach((input, index) => {
         if(index == 0){
+            input.focus();
             input.select();
             input.click();
+            const event = new KeyboardEvent('keypress', {key: '0'});
+            input.dispatchEvent(event);
         }
         input.addEventListener('keyup', function (e: Event) {
             e.preventDefault();
