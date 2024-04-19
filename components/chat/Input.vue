@@ -1,11 +1,11 @@
 <template>
-    <div class="relative w-full">
+    <div class="sticky bottom-0 z-20 w-full border-t border-gray-100 bg-white py-6">
         <textarea
             @keydown="handleMessageInput"
             class="form-control block min-h-[200px] py-4"
             :value="message"
             rows="5"
-            placeholder="إدخل نص الرسالة هنا..."
+            placeholder="إبدأ الكتابة هنا..."
             required></textarea>
         <!-- Toolbar -->
         <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4">

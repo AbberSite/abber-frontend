@@ -1,5 +1,5 @@
 <template>
-    <div class="pre-alpine-content px-6 pt-6" x-show="!loaded">
+    <div class="pre-alpine-content px-6 pt-6" v-show="!loaded">
         <div class="flex animate-pulse items-center justify-between py-4">
             <span class="h-2 w-[35%] rounded-full bg-gray-200"></span
             ><span class="h-2 w-[35%] rounded-full bg-gray-200"></span>
