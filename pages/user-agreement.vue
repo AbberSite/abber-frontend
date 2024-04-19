@@ -1,7 +1,7 @@
 <template>
 
     <Head>
-        <title>عبر - الشروط و الأحكام</title>
+        <title>عبر - إتفاقية المستخدم</title>
 
     </Head>
 
