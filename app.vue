@@ -61,8 +61,20 @@ useSeoMeta({
 const { getSession, refresh } = useAuth();
 
 onMounted(async () => {
-    await refresh();
+    let sending = false;
+    setInterval(async ()=> {
+        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+        const authtokenCookie = cookies.find(cookie => cookie.startsWith('auth:token='));
+        const authRefreshTokenCookie = cookies.find(cookie => cookie.startsWith('auth:refresh-token='));
+        if(!sending && !authtokenCookie && authRefreshTokenCookie.split('=')[1]){
+            sending = true;
+            await refresh();
+            sending = false;
+        }
+    }, 100)
 
+
+    // await refresh();
     // setInterval(async () => {
     //     const cookies = document.cookie.split(";").map(cookie => cookie.trim());
     //     const authTokenCookie = cookies.find(cookie => cookie.startsWith("auth:token="));
