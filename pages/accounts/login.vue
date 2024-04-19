@@ -103,7 +103,7 @@ const { signIn } = useAuth();
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون بريد الكتروني صحيح').required('هذا الحقل مطلوب'),
+            email: yup.string().email('هذا الحقل يجب أن يكون بريد الكتروني صحيح').matches(/[^a-zA-z0-9._%+-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/, 'يجب ادخال ايميل صحيح').required('هذا الحقل مطلوب'),
             password: yup.string().required("هذا الحقل مطلوب")
         })
     )

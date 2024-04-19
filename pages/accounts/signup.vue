@@ -144,7 +144,7 @@ definePageMeta({
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').required('هذا الحقل مطلوب'),
+            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').matches(/[^a-zA-z0-9._%+-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/, 'يجب ادخال ايميل صحيح').required('هذا الحقل مطلوب'),
             name: yup.string().required("هذا الحقل مطلوب"),
             password: yup
                 .string()
