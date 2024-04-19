@@ -83,10 +83,10 @@
                         type="select"
                         name="select"
                         id="martial_status">
-                        <option value="single" selected>أعزب</option>
-                        <option value="">متزوج/ه</option>
-                        <option>مطلق/ه</option>
-                        <option>ارمل/ه</option>
+                        <option value="أعزب" selected>أعزب</option>
+                        <option value="متزوج">متزوج/ه</option>
+                        <option value="مطلق">مطلق/ه</option>
+                        <option value="ارمل" >ارمل/ه</option>
                     </select>
                     <InputError :message="errors.marital_status" />
                 </div>
