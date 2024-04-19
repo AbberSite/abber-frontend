@@ -8,7 +8,7 @@
       leave-to-class="translate-y-4 opacity-0"
     >
       <div class="mx-auto  w-fit space-y-3" v-if="open">
-        <a class="block rounded-full bg-[#40c351] px-2 py-2 hover:bg-green-500 focus:outline-none" href="#"
+        <a class="block rounded-full bg-[#40c351] px-2 py-2 hover:bg-green-500 focus:outline-none" :href="`https://wa.me/${settings?.general_settings.phone}`"
           title="خدمة العملاء">
           <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
             viewBox="0 0 48 48">
@@ -52,7 +52,11 @@
 </template>
 
 <script setup lang="ts">
-
+const {settings} = storeToRefs(useSettingsStore());
+const {getSettings} = useSettingsStore();
+if(settings.value == undefined){
+  await getSettings();
+}
 const open = ref(false)
 
 </script>
