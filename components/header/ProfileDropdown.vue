@@ -68,7 +68,7 @@
                 >لوحة التحكم
             </NuxtLink>
 
-            <NuxtLink
+            <!-- <NuxtLink
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 href="#"
                 role="menuitem"
@@ -77,7 +77,7 @@
                 :to="{ name: 'profile-service' }"
                 @click="$emit('close')"
                 >إدارة الخدمة
-            </NuxtLink>
+            </NuxtLink> -->
             <NuxtLink
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 href="#"
