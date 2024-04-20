@@ -56,7 +56,7 @@
                 dir="ltr"
                 :action="callbackURL"
                 class="paymentWidgets"
-                :data-brands="paymentMethod"></form>
+                :data-brands="paymentMethod === 'CARD' ? 'VISA MASTER MADA' : paymentMethod"></form>
         </div>
 
         <div v-if="!loading && paymentMethod=='BALANCE'" class="py-3 text-center">
@@ -152,7 +152,7 @@ watch(paymentMethod, async (value) => {
     form.action = callbackURL;
     form.classList.add('paymentWidgets');
 
-    form.dataset.brands = value;
+    form.dataset.brands = value == 'CARD' ? 'VISA MASTER MADA' : value;
 
     paymentForm.value?.append(form);
 
@@ -406,6 +406,19 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     @apply form-control h-[50px] pl-12 w-full mt-2 text-end;
 }
 
+.wpwl-control-mobilePhone {
+    @apply form-control h-[50px]  block text-sm xs:text-base w-full;
+    direction: rtl;
+}
+
+.wpwl-label-mobilePhone {
+    @apply block text-sm font-semibold xs:text-base w-full mb-3;
+    direction: rtl;
+}
+
+.wpwl-group-mobilePhone {
+    @apply flex flex-col items-center text-center 
+}
 /* .wpwl-group-cardNumber {
     @apply relative;
 }
