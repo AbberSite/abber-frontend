@@ -27,6 +27,8 @@ jobs:
         port: 22
         script: |
           cd /abber-frontend
+          npm i
+          npm i pm2
           pm2 kill
           git pull origin master
           git status
