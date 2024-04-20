@@ -33,7 +33,6 @@ jobs:
       uses: actions/setup-node@master
       with:
         node-version: 'latest'
-    - run: cd /abber-frontend
     - run: npm i
     - run: npm i pm2 -g
     - run: pm2 kill
