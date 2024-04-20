@@ -17,6 +17,9 @@ RUN npm ci && npm cache clean --force
 # copy over all files to the work directory
 ADD . /abber-frontend
 
+# install
+RUN npm i
+
 # build the project
 RUN npm run build
 
