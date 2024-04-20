@@ -110,7 +110,7 @@
 <script setup lang="ts">
 
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'refreshTickets']);
 const categoriesForProblem = reactive({
   first_level: '',
   second_level: '',
@@ -137,6 +137,7 @@ async function submit() {
   if (data) {
     useNotification({ type: 'success', content: 'لقد تم انشاء تذكرتك بنجاح!' });
     emit('close');
+    emit('refreshTickets');
   }
 };
 

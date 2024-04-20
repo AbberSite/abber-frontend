@@ -115,7 +115,7 @@
     </main>
 
     <ClientOnly>
-        <FiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
+        <FiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" @refreshTickets="fetchAll()" />
     </ClientOnly>
 </template>
 
