@@ -29,4 +29,5 @@ jobs:
           cd /abber-frontend
           git pull origin master
           git status
+          
 
