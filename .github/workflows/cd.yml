@@ -28,7 +28,7 @@ jobs:
         script: |
           cd /abber-frontend
           git pull origin main
-           - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
     - name: Use Node.js 20
       uses: actions/setup-node@master
       with:
