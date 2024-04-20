@@ -26,7 +26,7 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: 22
         script: |
-          cd ~/abber-frontend
+          cd /abber-frontend
           pm2 kill
           git pull origin master
           git status
