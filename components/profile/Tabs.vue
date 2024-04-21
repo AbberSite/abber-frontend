@@ -37,54 +37,7 @@
         <span>بيانات المعبر</span
         >
     </button>
-    <button v-if="isExperosser()"
-        class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-2"
-        type="button"
-        @click="activeTab = 'settingsService'"
-        role="tab"
-        aria-labelledby="tabpanel-preview-2"
-        aria-controls="tabpanel-preview-2"
-        :class="[
-            activeTab === 'settingsService'
-                ? 'border-gray-900'
-                : 'border-transparent text-gray-500 hover:text-gray-900'
-        ]">
-        <span>إعدادات الخدمة</span
-        >
-    </button>
-    <button v-if="isExperosser()"
-        class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-2"
-        type="button"
-        @click="activeTab = 'discountService'"
-        role="tab"
-        aria-labelledby="tabpanel-preview-2"
-        aria-controls="tabpanel-preview-2"
-        :class="[
-            activeTab === 'discountService'
-                ? 'border-gray-900'
-                : 'border-transparent text-gray-500 hover:text-gray-900'
-        ]">
-        <span>الخصومات</span
-        >
-    </button>
-    <button v-if="isExperosser()"
-        class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-2"
-        type="button"
-        @click="activeTab = 'couponsService'"
-        role="tab"
-        aria-labelledby="tabpanel-preview-2"
-        aria-controls="tabpanel-preview-2"
-        :class="[
-            activeTab === 'couponsService'
-                ? 'border-gray-900'
-                : 'border-transparent text-gray-500 hover:text-gray-900'
-        ]">
-        <span>الكوبونات</span
-        >
-    </button>
+    
     
     <button
         class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"

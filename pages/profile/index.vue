@@ -45,15 +45,7 @@
                 <template v-if="activeTab == 'informationsService'">
                     <ProfileServiceInformation/>
                 </template>
-                <template v-if="activeTab == 'settingsService'" >
-                    <ProfileServiceSettings/>
-                </template>
-                <template v-if="activeTab == 'discountService'">
-                    <ProfileServiceDiscounts/>
-                </template>
-                <template v-if="activeTab == 'couponsService'" >
-                    <ProfileServiceCoupons/>
-                </template>
+                
             </template>
         </section>
     </main>
