@@ -1,5 +1,5 @@
 <template>
-  <Modal title="كيف يمكننا مساعدتك">
+  <Modal title="كيف يمكننا مساعدتك" @close="$emit('close')">
     <fieldset class="is-scroll space-y-7 overflow-y-auto px-6 py-8">
       <div class="w-full space-y-3" v-for="(levelProblems, level) in sortedProblems" :key="level">
         <label class="block text-sm font-semibold xs:text-base" v-if="level === 0">نوع المشكلة</label>
