@@ -27,4 +27,6 @@ jobs:
           script: |
             cd /abber-frontend
             git pull origin main
+                        node -v
+
 
