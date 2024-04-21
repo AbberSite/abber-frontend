@@ -1,13 +1,15 @@
 <template>
+
     <Head>
         <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
     </Head>
     <div class="min-h-[20rem]">
         <div class="hidden">
-            <span
-                class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
+            <span class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
                 :class="cardImage.class">
-                <img class="lazyload w-8" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="cardImage.src" />
+                <img class="lazyload w-8"
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                    :data-src="cardImage.src" />
             </span>
         </div>
 
@@ -15,15 +17,22 @@
 
 
 
-            <h1 class="text-center font-semibold">سعر الخدمة : <span class="text-blue-600" >{{ hyper.checkout.amount }} ر.س</span></h1>
+            <h1 class="text-center font-semibold">سعر الخدمة : <span class="text-blue-600">{{ hyper.checkout.amount }}
+                    ر.س</span></h1>
 
 
-            <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm" aria-orientation="horizontal">
-                
-                <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26" height="26" :multi="true" />
-                <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod"  width="40" height="40" />
-                <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"  width="24" height="24" />
-                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE" v-model="paymentMethod" width="24" height="24" />
+            <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
+                aria-orientation="horizontal">
+
+                <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
+                    height="26" :multi="true" />
+                <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp"
+                    id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
+                <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي"
+                    logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"
+                    width="24" height="24" />
+                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE"
+                    v-model="paymentMethod" width="24" height="24" />
 
             </div>
 
@@ -52,18 +61,14 @@
         <InputError :message="error" />
 
         <div dir="ltr" class="payment-form" ref="paymentForm" v-if="paymentMethod != 'WALLET'">
-            <form
-                dir="ltr"
-                :action="callbackURL"
-                class="paymentWidgets"
+            <form dir="ltr" :action="callbackURL" class="paymentWidgets"
                 :data-brands="paymentMethod === 'CARD' ? 'VISA MASTER MADA' : paymentMethod"></form>
         </div>
 
-        <div v-if="!loading && paymentMethod=='BALANCE'" class="py-3 text-center">
-            <PrimaryButton v-if="hasSufficientBallance"
-                ><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
+        <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
+            <PrimaryButton v-if="hasSufficientBallance"><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
 
-                <span v-if="!hasSufficientBallance"  >عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
+            <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
         </div>
         <div class="space-y-7" v-if="!loading">
             <!-- <div class="flex items-center"  >
@@ -78,26 +83,14 @@
                     >إستخدام رصيد المحفظة للدفع</label
                 >
             </div> -->
-            <div class="flex items-center" >
-                <input
-                    v-model="hasCoupon"
-                    class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
-                    type="checkbox"
-                    name="checkbox"
-                    id="have-coupon"
-                     />
+            <div class="flex items-center">
+                <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
+                    name="checkbox" id="have-coupon" />
                 <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="have-coupon">لدي كوبون خصم</label>
             </div>
             <div class="w-full space-y-3" v-if="hasCoupon">
-                <input
-                    class="form-control h-[50px] appearance-none"
-                    type="text"
-                    name="text"
-                    id="coupon"
-                    v-model="coupon"
-                    placeholder="إدخل كوبون الخصم"
-                    dir="rtl"
-                    required/>
+                <input class="form-control h-[50px] appearance-none" type="text" name="text" id="coupon"
+                    v-model="coupon" placeholder="إدخل كوبون الخصم" dir="rtl" required />
             </div>
         </div>
     </div>
@@ -106,7 +99,7 @@
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
-const {isApple, isSafari} = useDevice()
+const { isApple, isSafari } = useDevice()
 const { state, persist } = useFormWizard<OrderForm>('order');
 const { data, getSession } = useAuth();
 
@@ -140,11 +133,11 @@ const hasSufficientBallance = computed(() => {
 watch(paymentMethod, async (value) => {
     if (value == 'BALANCE') {
         const payment = await createCheckout();
-        if(payment)
-            navigateTo(callbackURL + '?balance=true', {external: true});
+        if (payment)
+            navigateTo(callbackURL + '?balance=true', { external: true });
         return;
     }
-    loading.value = true; 
+    loading.value = true;
     hyper.unload();
     const form = document.createElement('form');
 
@@ -194,7 +187,7 @@ onMounted(async () => {
 });
 
 async function loadHyper() {
-    if(paymentMethod.value == "BALANCE") return;
+    if (paymentMethod.value == "BALANCE") return;
     const payment = await createCheckout();
     if (!payment.id) {
         error.value = 'حدث خطأ ما';
@@ -239,7 +232,7 @@ async function loadHyper() {
             cardType.value = data;
             const card = document.querySelector('.w-8.lazyloaded');
             card?.removeAttribute('data-src');
-            if(card?.src !== undefined)
+            if (card?.src !== undefined)
                 card.src = cardImage.value.src;
 
             console.log(card)
@@ -262,7 +255,9 @@ async function loadHyper() {
             const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
 
             if (phoneNumber) {
-              (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
+                (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
+                (phoneNumber as HTMLInputElement).maxLength = 10;
+                (phoneNumber as HTMLInputElement).type = 'number';
             }
 
             cardLabel.innerHTML = 'رقم البطاقة';
@@ -295,7 +290,7 @@ async function loadHyper() {
 }
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
-    if(paymentMethod.value == 'BALANCE'){
+    if (paymentMethod.value == 'BALANCE') {
         const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
             method: 'POST',
             body: {
@@ -322,7 +317,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         });
 
         localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
-        
+
         (state.value.data as OrderForm).order_id = checkout.order_id;
 
         persist();
@@ -334,27 +329,34 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
 <style>
 .wpwl-container {
-    @apply pt-[20px] px-2 ;
+    @apply pt-[20px] px-2;
 }
-.wpwl-form-has-inputs{
+
+.wpwl-form-has-inputs {
     @apply shadow-none form-control;
 }
+
 .wpwl-group-registration {
-    @apply w-full flex ;
+    @apply w-full flex;
 }
+
 .wpwl-container .wpwl-registration {
     @apply flex items-center justify-around w-full flex-row-reverse;
 }
-.wpwl-container .wpwl-registration div{
+
+.wpwl-container .wpwl-registration div {
     @apply pl-0;
 }
-.wpwl-container .wpwl-wrapper-registration-registrationId{
+
+.wpwl-container .wpwl-wrapper-registration-registrationId {
     @apply flex justify-center
 }
+
 .wpwl-container .wpwl-wrapper-registration-cvv {
     @apply hidden;
 }
-.wpwl-container .wpwl-wrapper-registration-details{
+
+.wpwl-container .wpwl-wrapper-registration-details {
     @apply flex justify-around flex-row-reverse;
 }
 
@@ -365,49 +367,62 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .wpwl-form {
     @apply flex flex-col items-center;
 }
-.wpwl-form .wpwl-wrapper-submit{
+
+.wpwl-form .wpwl-wrapper-submit {
     @apply w-full;
 }
-.wpwl-form .wpwl-wrapper-submit button{
+
+.wpwl-form .wpwl-wrapper-submit button {
     @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-container-card {
     @apply pt-4
 }
+
 .wpwl-form .wpwl-group-brand, .wpwl-form .wpwl-group-cardHolder {
     @apply hidden;
 }
-.wpwl-form .wpwl-group-cardNumber{
+
+.wpwl-form .wpwl-group-cardNumber {
     @apply flex flex-col;
 }
+
 .wpwl-form .wpwl-label-cardNumber {
     @apply text-right w-full block text-sm font-semibold xs:text-base;
 }
+
 .wpwl-form .wpwl-group-cardNumber iframe {
     @apply form-control h-[50px] pl-12 w-full mt-2;
 }
+
 .wpwl-form .wpwl-wrapper-cardNumber {
     @apply w-full;
 }
+
 .wpwl-form .wpwl-group-cardNumber .card-brand {
-    @apply  top-[54px];
+    @apply top-[54px];
 }
-.cvv-expiry-wrapper{
+
+.cvv-expiry-wrapper {
     @apply flex items-center justify-between gap-3;
 }
+
 .cvv-expiry-wrapper .wpwl-label-cvv {
     direction: rtl;
 }
-.cvv-expiry-wrapper div{
+
+.cvv-expiry-wrapper div {
     @apply flex flex-col text-right w-full;
 }
-.cvv-expiry-wrapper div input, .cvv-expiry-wrapper div iframe{
+
+.cvv-expiry-wrapper div input,
+.cvv-expiry-wrapper div iframe {
     @apply form-control h-[50px] pl-12 w-full mt-2 text-end;
 }
 
 .wpwl-control-mobilePhone {
-    @apply form-control h-[50px]  block text-sm xs:text-base w-full;
+    @apply form-control h-[50px] block text-sm xs:text-base w-full;
     direction: rtl;
 }
 
@@ -417,8 +432,9 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 .wpwl-group-mobilePhone {
-    @apply flex flex-col items-center text-center 
+    @apply flex flex-col items-center text-center
 }
+
 /* .wpwl-group-cardNumber {
     @apply relative;
 }
