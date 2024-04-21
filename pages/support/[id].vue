@@ -58,7 +58,7 @@ definePageMeta({
 });
 
 const id = useRoute().params.id;
-const roomName = `chat_${id}`;
+const roomName = `${id}`;
 const activeTab = ref<'details' | 'chat'>('details');
 
 const { ticket } = storeToRefs(useTicketsStore());
