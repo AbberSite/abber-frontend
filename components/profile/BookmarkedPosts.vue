@@ -40,7 +40,7 @@
                 v-for="post in posts"
                 :type="post.post_category.name"
                 :title="post.title"
-                duration="5 دقائق قراءة"
+                :duration="post.reading_time"
                 :image-alt="post.image_alt"
                 :resume="post.meta_content"
                 :image="post.image"
