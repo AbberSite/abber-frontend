@@ -6,7 +6,9 @@
 
     <div ref="chatList" class="max-h-[40rem] overflow-y-scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
-        <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages" :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]" :id="'message-' + message.id"> </ChatMessage>
+        <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
+          :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
+          :id="'message-' + message.id"> </ChatMessage>
         <div class="relative w-full">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t"></div>
@@ -18,7 +20,8 @@
           </div>
         </div>
       </div>
-      <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data" :class="{ hidden: !changeMessage }"> </changeList>
+      <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data"
+        :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
     <ChatInput v-if="allowInput" />
@@ -33,15 +36,15 @@ import { useInfiniteScroll } from "@vueuse/core";
 import changeList from "~/components/chat/changeList.vue";
 
 useHead({
-    script: [
-        {
-            src: "/audio-recorder/WebAudioRecorder.min.js",
-            type: "text/javascript",
-        }
-    ]
+  script: [
+    {
+      src: "/audio-recorder/WebAudioRecorder.min.js",
+      type: "text/javascript",
+    }
+  ]
 })
 
-const props = defineProps({ allowInput: Boolean, roomName: String});
+const props = defineProps({ allowInput: Boolean, roomName: String });
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
@@ -50,7 +53,7 @@ const id = useRoute().params.id;
 
 const { data } = useAuth();
 
-const { clear } = useChat();
+const { clear } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support');
 
 const loading = ref(false);
 
@@ -60,7 +63,7 @@ const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
   if (messages.value.length == 0) {
-    await fetchMessages( { room:props.roomName,limit: 9 });
+    await fetchMessages({ room: props.roomName, limit: 9 });
   }
 
   if (!chatList.value) return;
