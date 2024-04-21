@@ -12,7 +12,7 @@
           {{ type }}
         </a>
         <span class="text-[13px]">
-          {{ duration }}
+        {{ duration }} دقائق قراءة
         </span>
       </div>
 
@@ -39,7 +39,7 @@
 const props = defineProps<{
   type: string,
   title: string,
-  duration: string,
+  duration: number,
   resume: string,
   image: string
   imageAlt: string,

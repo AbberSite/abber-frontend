@@ -118,6 +118,8 @@ type Post = {
   slug: string;
   active: boolean;
   bookmark: [];
+    reading_time?:number|null;
+
 };
 
 type Category = {

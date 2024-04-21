@@ -44,7 +44,7 @@
 
         <template v-else>
           <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
-            duration="5 دقائق قراءة" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image"
+            :duration="post.reading_time" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image"
             :slug="post.slug" />
         </template>
       </div>
@@ -102,29 +102,12 @@
 <script setup lang="ts">
 import { useDebounceFn } from "@vueuse/core";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
+import type { Post } from '~/types';
 
 definePageMeta({
   auth: false,
 });
 
-type Post = {
-  id: string;
-  user: string;
-  post_category: Category;
-  title: string;
-  content: string;
-  meta_content: string;
-  image: string;
-  image_alt: string;
-  slug: string;
-  active: boolean;
-  bookmark: [];
-};
-
-type Category = {
-  id: number;
-  name: string;
-};
 
 type Response = {
   count?: number;

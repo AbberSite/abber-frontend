@@ -62,29 +62,7 @@ const { getSession, refresh } = useAuth();
 
 onMounted(async () => {
     let sending = false;
-    setInterval(async ()=> {
-        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
-        const authtokenCookie = cookies.find(cookie => cookie.startsWith('auth:token='));
-        const authRefreshTokenCookie = cookies.find(cookie => cookie.startsWith('auth:refresh-token='));
-        if(!sending && !authtokenCookie && authRefreshTokenCookie.split('=')[1]){
-            sending = true;
-            await refresh();
-            sending = false;
-        }
-    }, 100)
 
-
-    // await refresh();
-    // setInterval(async () => {
-    //     const cookies = document.cookie.split(";").map(cookie => cookie.trim());
-    //     const authTokenCookie = cookies.find(cookie => cookie.startsWith("auth:token="));
-    //     const authRefreshTokenCookie = cookies.find(cookie => cookie.startsWith("auth:refresh-token="));
-    //     // console.log(`refresh token is: ${authRefreshTokenCookie.split("=")[1]}`)
-    //     if (!authTokenCookie && authRefreshTokenCookie.split("=")[1]) {
-    //         await refresh();
-    //     }
-    // }, 3000);
-    
     const { status, rawToken, data } = useAuthState();
     const { getSession } = useAuth();
     await getSession();

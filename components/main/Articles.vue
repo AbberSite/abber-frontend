@@ -26,7 +26,7 @@
 
       <template v-else>
         <BlogCard v-for="post in similarPosts ? similarPosts : firstThreePosts" :type="post.post_category.name"
-          :title="post.title" duration="5 دقائق قراءة" :image-alt="post.image_alt" :resume="post.meta_content"
+          :title="post.title" :duration="post.reading_time" :image-alt="post.image_alt" :resume="post.meta_content"
           :image="post.image" :slug="post.slug" />
       </template>
 
@@ -37,30 +37,9 @@
 </template>
 
 <script setup lang="ts">
-type Post = {
-  user: string;
-  post_category: Category;
-  title: string;
-  content: string;
-  meta_content: string;
-  image: string;
-  image_alt: string;
-  slug: string;
-  active: boolean;
-  bookmark: [];
-};
+import type { Post } from '~/types';
 
-type Category = {
-  id: number;
-  name: string;
-};
 
-type Response = {
-  count?: number;
-  next?: string;
-  previous?: string;
-  results?: Post[];
-};
 
 const props = withDefaults(
   defineProps<{

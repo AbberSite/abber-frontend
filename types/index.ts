@@ -102,16 +102,17 @@ export type OrderForm = {
 
 export type Post = {
   id: string;
-  user: string;
-  post_category: Category;
-  title: string;
-  content: string;
-  meta_content: string;
-  image: string;
-  image_alt: string;
-  slug: string;
-  active: boolean;
-  bookmark: [];
+  user?: string;
+  post_category?: Category;
+  title?: string;
+  content?: string;
+  meta_content?: string;
+  image?: string;
+  image_alt?: string;
+  slug?: string;
+  active?: boolean;
+  bookmark?: [];
+  reading_time?:number|null;
 };
 
 export type Category = {
