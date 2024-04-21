@@ -19,6 +19,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 12.x
-    - run: npm i
-    - run: npm i pm2 -g
-    - run: ABBER_ENV=production NODE_OPTIONS="--max-old-space-size=900" npm run build --if-present
+      - run: npm i
+      - run: npm i pm2 -g
+      - run: pm2 kill
+      - run: ABBER_ENV=production NODE_OPTIONS="--max-old-space-size=900" npm run build --if-present
+      - run: pm2 start ecosystem.config.cjs
