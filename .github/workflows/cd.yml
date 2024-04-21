@@ -26,6 +26,7 @@ jobs:
           port: 22
           script: |
             cd /abber-frontend
+            git reset --hard
             git pull origin main
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
@@ -33,6 +34,6 @@ jobs:
             npm i pm2 -g
             pm2 kill
             ABBER_ENV=production NODE_OPTIONS="--max-old-space-size=900" npm run build --if-present
-            
+            ABBER_ENV=production NODE_OPTIONS="--max-old-space-size=900" pm2 start ecosystem.config.cjs
 
 
