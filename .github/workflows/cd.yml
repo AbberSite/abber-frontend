@@ -29,6 +29,10 @@ jobs:
             git pull origin main
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            npm --help
+            npm i
+            npm i pm2 -g
+            pm2 kill
+            ABBER_ENV=production NODE_OPTIONS="--max-old-space-size=900" npm run build --if-present
+            
 
 
