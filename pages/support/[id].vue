@@ -39,7 +39,7 @@
                     <DetailsCard  />
                 </div>
                 <ClientOnly>
-                    <Chat :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'"/> 
+                    <Chat :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" /> 
                 </ClientOnly>
             </div>
 
@@ -58,7 +58,7 @@ definePageMeta({
 });
 
 const id = useRoute().params.id;
-const roomName = `support_${id}`;
+const roomName = `chat_${id}`;
 const activeTab = ref<'details' | 'chat'>('details');
 
 const { ticket } = storeToRefs(useTicketsStore());

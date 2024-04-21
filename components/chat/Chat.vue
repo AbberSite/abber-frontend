@@ -41,7 +41,7 @@ useHead({
     ]
 })
 
-const props = defineProps({ allowInput: Boolean, roomName: String });
+const props = defineProps({ allowInput: Boolean, roomName: String});
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
