@@ -20,12 +20,10 @@
 
             <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm" aria-orientation="horizontal">
                 
-                <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg" id-of-card="MASTER" v-model="paymentMethod" width="26" height="26" />
-                <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg" id-of-card="VISA" v-model="paymentMethod" width="26" height="26" />
-                <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA" v-model="paymentMethod"  width="40" height="40" />
+                <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26" height="26" :multi="true" />
                 <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod"  width="40" height="40" />
                 <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod"  width="24" height="24" />
-                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg" id-of-card="BALANCE" v-model="paymentMethod" width="24" height="24" />
+                <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE" v-model="paymentMethod" width="24" height="24" />
 
             </div>
 
@@ -58,7 +56,7 @@
                 dir="ltr"
                 :action="callbackURL"
                 class="paymentWidgets"
-                :data-brands="paymentMethod"></form>
+                :data-brands="paymentMethod === 'CARD' ? 'VISA MASTER MADA' : paymentMethod"></form>
         </div>
 
         <div v-if="!loading && paymentMethod=='BALANCE'" class="py-3 text-center">
@@ -131,8 +129,8 @@ const { fetchBalance } = useWalletStore();
 
 const { balance } = storeToRefs(useWalletStore());
 
-const paymentMethod = ref('MASTER');
-const cardType = ref(paymentMethod.value);
+const paymentMethod = ref('CARD');
+const cardType = ref('general');
 const hasSufficientBallance = computed(() => {
     if (!hyper) return false;
 
@@ -154,7 +152,7 @@ watch(paymentMethod, async (value) => {
     form.action = callbackURL;
     form.classList.add('paymentWidgets');
 
-    form.dataset.brands = value;
+    form.dataset.brands = value == 'CARD' ? 'VISA MASTER MADA' : value;
 
     paymentForm.value?.append(form);
 
@@ -206,7 +204,8 @@ async function loadHyper() {
     (window as any).wpwlOptions = {
         style: 'plain',
         locale: 'ar',
-        // brandDetectionPriority: paymentMethod.value,
+        brandDetection: true,
+        brandDetectionPriority: ['VISA', 'MASTER', 'MADA'],
         labels: {
             cardNumber: '0000 0000 0000 0000',
             cvv: '000',
@@ -230,6 +229,20 @@ async function loadHyper() {
             const form = this.$iframe[0] as HTMLElement;
 
             form.classList.remove('activeIframe');
+        },
+        onChangeBrand: (data: string) => {
+            // console.log(`brand is: ${data}  --- ${new Date()}`)
+            if (!data) {
+                cardType.value = 'general';
+                return;
+            }
+            cardType.value = data;
+            const card = document.querySelector('.w-8.ls-is-cached.lazyloaded');
+            card?.removeAttribute('data-src');
+            if(card?.src !== undefined)
+                card.src = cardImage.value.src;
+
+            // console.log(card)
         },
         onReady: function (array: Array<any>) {
             loading.value = false;
@@ -393,6 +406,19 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     @apply form-control h-[50px] pl-12 w-full mt-2 text-end;
 }
 
+.wpwl-control-mobilePhone {
+    @apply form-control h-[50px]  block text-sm xs:text-base w-full;
+    direction: rtl;
+}
+
+.wpwl-label-mobilePhone {
+    @apply block text-sm font-semibold xs:text-base w-full mb-3;
+    direction: rtl;
+}
+
+.wpwl-group-mobilePhone {
+    @apply flex flex-col items-center text-center 
+}
 /* .wpwl-group-cardNumber {
     @apply relative;
 }

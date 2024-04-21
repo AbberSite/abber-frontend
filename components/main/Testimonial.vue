@@ -6,12 +6,12 @@
                     {{ testimonial.additional_comments }}
                 </p>
             </blockquote>
-            <figcaption class="flex items-center pt-6">
+            <figcaption class="flex items-center pt-6" v-if="testimonial.user">
                 <div class="flex-shrink-0">
                     <img
                         class="lazyload h-11 w-11 rounded-full bg-gray-100"
                         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-                        :data-src="testimonial.user.image"
+                        :data-src="testimonial.user?.image "
                         height="44"
                         width="44"
                         alt="" />
