@@ -237,12 +237,12 @@ async function loadHyper() {
                 return;
             }
             cardType.value = data;
-            const card = document.querySelector('.w-8.ls-is-cached.lazyloaded');
+            const card = document.querySelector('.w-8.lazyloaded');
             card?.removeAttribute('data-src');
             if(card?.src !== undefined)
                 card.src = cardImage.value.src;
 
-            // console.log(card)
+            console.log(card)
         },
         onReady: function (array: Array<any>) {
             loading.value = false;

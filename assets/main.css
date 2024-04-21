@@ -38,9 +38,25 @@
     background-size: 100% 100%;
     border-color: transparent;
   }
+
+
+   /* Chrome, Safari, Edge, Opera */
+ input::-webkit-outer-spin-button,
+ input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+ }
+
+ /* Firefox */
+ input[type=number] {
+   -moz-appearance: textfield;
+ }
+
+ 
 }
 
 @layer components {
+
   /* Inputs */
   .form-control {
     @apply w-full rounded-md border bg-white px-4 py-3 text-sm shadow-sm placeholder:text-gray-600 focus:border-gray-900 focus:text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:placeholder:opacity-0;
@@ -84,6 +100,7 @@
   .prose ol {
     @apply leading-[2.25] xs:leading-loose !important;
   }
+
   .prose :where(h2):not(:where([class~='not-prose'] *)) {
     @apply mt-0 pt-8;
   }
@@ -101,4 +118,3 @@
     @apply ltr:pl-1.5 rtl:pr-1.5;
   }
 }
-

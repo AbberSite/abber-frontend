@@ -10,7 +10,7 @@ class TicketsStore {
     filters = ref({
         status: '',
         search: '',
-        ordering: 'ticket_item_time_data__start_date',
+        ordering: 'date',
         ignore: undefined
     });
     static filtersWatch: undefined | any;
@@ -55,8 +55,8 @@ class TicketsStore {
         })
 
 
-  getTicket = async (id: string) => {
-    this.ticket.value = (await useApi(`/api/tickets/${id}`)) as Order;
+  getTicket = async (id: number) => {
+    this.ticket.value = (await useApi(`/api/tickets/${id}`)) as Ticket;
     return this.ticket.value;
   };
 

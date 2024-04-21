@@ -1,7 +1,7 @@
 <template>
-    <!-- <Head>
-        <title>عبر - الطلبات - الطلب #{{ order?.id }}</title>
-    </Head> -->
+    <Head>
+        <title>عبر - الدعم - التذكرة #{{ ticket?.id }}</title>
+    </Head>
     <Header />
     <main class="min-h-screen outline-none">
         <HeroBackground />
@@ -26,20 +26,20 @@
                 </svg>
             </div>
 
-            <DetailsHeader :show-navigation="activeTab == 'details'" />
+            <!-- <DetailsHeader :show-navigation="activeTab == 'details'" /> -->
             <DetailsTabs v-model="activeTab" />
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <!-- <DetailsMobileChat v-if="activeTab == 'chat'" /> -->
-            <Chat v-if="activeTab == 'chat'" :room-name="`chat_${id}`"/> 
+            <Chat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" /> 
 
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
                 <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
-                    <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
-                    <DetailsCard />
+                    <div class="px-6 font-semibold xs:text-lg">تفاصيل التذكرة</div>
+                    <DetailsCard  />
                 </div>
                 <ClientOnly>
-                    <Chat /> 
+                    <Chat :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'"/> 
                 </ClientOnly>
             </div>
 
@@ -48,13 +48,17 @@
 </template>
 
 <script setup lang="ts">
+
+import DetailsTabs from '~/components/tickets/details/Tabs.vue';
+import DetailsMobileCard from '~/components/tickets/details/MobileCard.vue';
+import DetailsCard from '~/components/tickets/details/Card.vue';
 definePageMeta({
     middleware: 'auth',
     layout: false
 });
 
 const id = useRoute().params.id;
-
+const roomName = `support_${id}`;
 const activeTab = ref<'details' | 'chat'>('details');
 
 const { ticket } = storeToRefs(useTicketsStore());
@@ -62,12 +66,13 @@ const { ticket } = storeToRefs(useTicketsStore());
 const { getTicket } = useTicketsStore();
 
 if (!process.client) {
-    await getTicket(id as string);
+    await getTicket(id as number);
 }
+
 
 onMounted(async () => {
     if (!ticket.value) {
-        await getTicket(id as string);
+        await getTicket(id as number);
     }
 });
 
