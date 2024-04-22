@@ -57,13 +57,21 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           targetPath: '/abber-frontend'
           sourcePath: 'out'
-          preCommands: |
-                     ls -a
-          commands: |
-           ls -a
-           cd /abber-frontend 
-           tar -xzvf nuxt_archive.tar.gz
-           export NVM_DIR=~/.nvm
-           source ~/.nvm/nvm.sh
-           pm2 start ecosystem.config.cjs
 
+          
+      - name: ABBER_FRONTEND
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd /abber-frontend
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd /abber-frontend 
+            tar -xzvf nuxt_archive.tar.gz
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            pm2 start ecosystem.config.cjs
