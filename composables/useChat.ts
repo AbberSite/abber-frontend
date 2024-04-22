@@ -22,6 +22,7 @@ export default (type: string = "order") => {
 
   watch(chat.data, (value: string) => {
     const parsedData = JSON.parse(value)
+    console.log(value)
 
     const isMessageFromCurrentUser = data.value.username == parsedData.message.user?.username
     if (parsedData.type === 'chat_message') { // New message added

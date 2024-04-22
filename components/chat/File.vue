@@ -12,4 +12,5 @@ import type { File } from '~/types';
 defineProps<{
   files: File[];
 }>();
+
 </script>
