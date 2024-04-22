@@ -1,5 +1,5 @@
 <template>
-    <div class="sticky bottom-0 z-20 w-full border-t border-gray-100 bg-white py-6">
+    <div class="relative w-full">
         <textarea
             @keydown="handleMessageInput"
             class="form-control block min-h-[200px] py-4"
