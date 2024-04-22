@@ -49,12 +49,15 @@ jobs:
           user: ${{ secrets.USERNAME }}
           port: '22'
           password: ${{ secrets.PASSWORD }}
-          targetPath: '/abber-frontend/.nuxt'
-          sourcePath: '.nuxt'
+          targetPath: '/abber-frontend/.output'
+          sourcePath: '.output'
           preCommands: |
                      ls -a
           commands: |
-                 ls -a
-
+           ls -a
+           cd /abber-frontend 
+           export NVM_DIR=~/.nvm
+           source ~/.nvm/nvm.sh
+           pm2 start ecosystem.config.cjs
 
 
