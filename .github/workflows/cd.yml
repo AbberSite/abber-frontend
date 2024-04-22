@@ -46,7 +46,7 @@ jobs:
       - run: npm run build --if-present
       - run: mkdir -p out
       - run: cd out
-      - run: tar -czvf nuxt_archive.tar.gz ../.output
+      - run: tar -czvf nuxt_archive.tar.gz /home/runner/work/abber-frontend/abber-frontend/.output
       - run: ls
       # - run: pm2 start ecosystem.config.cjs
       - name: DeployStep
