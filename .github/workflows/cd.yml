@@ -45,10 +45,10 @@ jobs:
       - name: DeployStep
         uses: STDSuperman/deploy-files@master
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          user: ${{ secrets.SERVER_USER }}
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USERNAME }}
           port: '22'
-          password: ${{ secrets.SERVER_PASSWORD }}
+          password: ${{ secrets.PASSWORD }}
           targetPath: '/abber-frontend/.nuxt'
           sourcePath: '.nuxt'
           preCommands: |
