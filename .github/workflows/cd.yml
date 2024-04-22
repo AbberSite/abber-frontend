@@ -31,6 +31,8 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             pm2 kill
+            tar -czvf nuxt_archive.tar.gz .output
+
 
       - uses: actions/checkout@v4
       - name: Use Node.js 12
@@ -49,13 +51,14 @@ jobs:
           user: ${{ secrets.USERNAME }}
           port: '22'
           password: ${{ secrets.PASSWORD }}
-          targetPath: '/abber-frontend/.output'
-          sourcePath: '.output'
+          targetPath: '/abber-frontend/nuxt_archive.tar.gz'
+          sourcePath: 'nuxt_archive.tar.gz'
           preCommands: |
                      ls -a
           commands: |
            ls -a
            cd /abber-frontend 
+           tar -xzvf nuxt_archive.tar.gz
            export NVM_DIR=~/.nvm
            source ~/.nvm/nvm.sh
            pm2 start ecosystem.config.cjs
