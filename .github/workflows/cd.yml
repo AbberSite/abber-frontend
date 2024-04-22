@@ -42,7 +42,9 @@ jobs:
       - run: npm i
       # - run: pm2 kill
       - run: npm run build --if-present
-      - run: tar -czvf /out/nuxt_archive.tar.gz .output
+      - run: mkdir -p out
+      - run: cd out
+      - run: tar -czvf nuxt_archive.tar.gz ../.output
       - run: ls
       # - run: pm2 start ecosystem.config.cjs
       - name: DeployStep
