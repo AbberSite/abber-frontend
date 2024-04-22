@@ -1,5 +1,5 @@
 <template>
-    <div class="relative w-full">
+    <div class="sticky bottom-0 z-20 w-full border-t border-gray-100 bg-white py-6">
         <textarea
             @keydown="handleMessageInput"
             class="form-control block min-h-[200px] py-4"
@@ -99,15 +99,50 @@ onChange((_files) => {
 });
 
 const id = useRoute().params.id;
-
+const { messages } = storeToRefs(useChatStore());
+const { data } = useAuth()
 const { send } = useChat();
 
 const recorderStatus = ref("intialized");
 
 const message = ref('');
-function sendMessage() {
+async function sendMessage() {
     if (message.value.trim() === '') return;
-
+    if(files.value.length){
+        const fileName = getRandomFileName() + '.png';
+        messages.value.unshift({
+            user: {
+                username: data.value.username,
+                image: data.value.image_url,
+                first_name: data.value.first_name,
+                last_name: data.value.last_name,
+                is_online: data.value.is_online
+            },
+            message: message.value,
+            files: [{
+                id: 0,
+                file: files.value[0].preview,
+                name: fileName,
+                mimetype: files.value[0].type
+            }],
+            date: new Date().toISOString(),
+            sent: false
+        });
+        const body = new FormData();
+        body.append("file", files.value[0], fileName);
+        await useApi("/api/audio", {
+            method: 'post',
+            body: body
+        }).then(file=> {
+            files.value = [];
+            send(JSON.stringify({
+                message: message.value,
+                files: [file.id]
+            }))
+        });
+        message.value = '';
+        return;
+    };
     send(
         JSON.stringify({
             message: message.value
@@ -128,6 +163,13 @@ function handleMessageInput(event: KeyboardEvent) {
 
         event.preventDefault();
     }
+}
+
+function getRandomFileName() {
+  var timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  var random = ('' + Math.random()).substring(2, 8);
+  var random_number = timestamp + random;
+  return random_number;
 }
 </script>
 

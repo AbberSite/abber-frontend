@@ -56,7 +56,6 @@ watch(status, (value) => {
   if (value === 'finished') { // Use strict equality comparison
     const fileName = getRandomFileName() + ".mp3";
     let blobUrl = URL.createObjectURL(audioBlobs[0]); // Use 'const' for variables that won't be reassigned
-
     messages.value.unshift({
       user: {
         username: data.value.username,

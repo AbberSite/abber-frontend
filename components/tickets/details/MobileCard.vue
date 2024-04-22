@@ -7,7 +7,7 @@
             <TicketStatus :status="ticket?.status" />
         </div>
         <div class="w-full space-y-4">
-            <div class="text-sm font-semibold text-gray-500 xs:text-base">تأريخ فتح التذكرة</div>
+            <div class="text-sm font-semibold text-gray-500 xs:text-base">تاريخ فتح التذكرة</div>
             <div class="font-semibold">
                 {{ useFormattedDate(ticket?.date) }}
             </div>
