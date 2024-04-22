@@ -44,10 +44,7 @@ jobs:
       - run: npm i
       # - run: pm2 kill
       - run: npm run build --if-present
-      - run: mkdir -p out
-      - run: cd out
-      - run: tar -czvf nuxt_archive.tar.gz /home/runner/work/abber-frontend/abber-frontend/.output
-      - run: ls /home/runner/work/abber-frontend/abber-frontend/out
+      - run: tar -czvf nuxt_archive.tar.gz .output
       # - run: pm2 start ecosystem.config.cjs
       - name: DeployStep
         uses: STDSuperman/deploy-files@master
@@ -57,7 +54,7 @@ jobs:
           port: '22'
           password: ${{ secrets.PASSWORD }}
           targetPath: '/abber-frontend'
-          sourcePath: 'out'
+          sourcePath: 'nuxt_archive.tar.gz'
           preCommands: |
                      ls -a
           commands: |
