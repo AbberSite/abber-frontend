@@ -57,7 +57,7 @@ jobs:
           port: '22'
           password: ${{ secrets.PASSWORD }}
           targetPath: '/abber-frontend'
-          sourcePath: '/out'
+          sourcePath: 'out'
           preCommands: |
                      ls -a
           commands: |
