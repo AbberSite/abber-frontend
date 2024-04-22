@@ -1,7 +1,7 @@
 <template>
     <div class="w-full pt-16">
-        <form class="w-full sm:max-w-sm" method="GET">
-            <div class="w-full space-y-3" x-id="['input']">
+        <form class="w-full sm:max-w-sm" >
+            <div class="w-full space-y-3">
                 <div class="relative">
                     <span
                         class="absolute h-[50px] items-center justify-center px-4 py-4 ltr:left-0 rtl:right-0 rtl:scale-x-flip">
@@ -10,7 +10,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
                         </svg></span>
-                    <input class="form-control h-[50px] px-12" type="search" name="q" id="cards-search"
+                    <input class="form-control h-[50px] px-12" type="text" v-model="search"
                         placeholder="إبحث عن بطاقة معيتة" required />
                 </div>
             </div>
@@ -34,14 +34,21 @@
 
 <script setup lang="ts">
 let cards = ref([]);
+const search = ref('');
+let all_cards ;
 onMounted(async () => {
     await refreshCards();
 })
 async function refreshCards(){
     const my_cards = await useProxy('/wallets/cards/');
     cards.value = my_cards.results;
+    all_cards = cards.value;
 }
-const showAddModal = ref(false)
+const showAddModal = ref(false);
+
+watch(search, async(value) => {
+    cards.value = all_cards.filter((card)=> card?.last4Digits.startsWith(value));
+}, {deep: true});
 </script>
 
 <style scoped></style>
