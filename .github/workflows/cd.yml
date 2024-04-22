@@ -43,7 +43,7 @@ jobs:
 
       - run: npm i
       # - run: pm2 kill
-      - run: npm run build --if-present
+      - run: ABBER_ENV=production npm run build --if-present
       - run: mkdir -p out
 
       - run: tar -czvf out/nuxt_archive.tar.gz .output
@@ -74,4 +74,4 @@ jobs:
             tar -xzvf nuxt_archive.tar.gz
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            pm2 start ecosystem.config.cjs
+            ABBER_ENV=production pm2 start ecosystem.config.cjs
