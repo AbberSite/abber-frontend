@@ -51,7 +51,7 @@ jobs:
           user: ${{ secrets.USERNAME }}
           port: '22'
           password: ${{ secrets.PASSWORD }}
-          targetPath: '/abber-frontend/nuxt_archive.tar.gz'
+          targetPath: '/abber-frontend'
           sourcePath: 'nuxt_archive.tar.gz'
           preCommands: |
                      ls -a
