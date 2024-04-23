@@ -214,6 +214,7 @@ async function loadHyper() {
             cardNumber: '0000 0000 0000 0000',
             cvv: '000',
             expiryDate: 'تاريخ الإنتهاء',
+            mmyy: 'الشهر / السنة',
             submit: 'متابعة',
             mobilePhoneNumber: 'رقم الهاتف'
         },
@@ -239,6 +240,8 @@ async function loadHyper() {
                 return;
             }
             cardType.value = data;
+            const cardNumberInput = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber');
+            (cardNumberInput as HTMLInputElement).maxLength = 16;
         },
         onReady: function (array: Array<any>) {
 
@@ -396,7 +399,7 @@ function submit() {
     @apply  top-[54px];
 }
 .cvv-expiry-wrapper{
-    @apply flex items-center justify-between gap-3;
+    @apply flex items-center justify-between gap-3 flex-row-reverse;
 }
 .cvv-expiry-wrapper .wpwl-label-cvv {
     direction: rtl;

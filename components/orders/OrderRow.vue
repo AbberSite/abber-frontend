@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <NuxtLink :to="{ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } }" title="عرض الطلب" class="text-blue-600" href="#">#{{ order.id }}</NuxtLink>
+            <NuxtLink :to="{ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } }" title="عرض الطلب" class="text-blue-600">#{{ order.id }}</NuxtLink>
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" v-if="data.user_type != 'معبر'">
             {{ order.seller?.first_name ?? 'لا يوجد' }}
