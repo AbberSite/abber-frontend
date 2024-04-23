@@ -58,10 +58,7 @@ useSeoMeta({
 
 // await getSession();
 
-const { getSession, refresh } = useAuth();
-
 onMounted(async () => {
-    let sending = false;
 
     const { status, rawToken, data } = useAuthState();
     const { getSession } = useAuth();
