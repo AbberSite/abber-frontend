@@ -7,7 +7,7 @@
     <Header />
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
-        <HeroBackground/>
+        <HeroBackground />
         <!-- Profile section -->
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 sm:items-stretch md:pt-32 lg:px-8 xl:pb-44"
@@ -43,9 +43,9 @@
                     </Suspense>
                 </template>
                 <template v-if="activeTab == 'informationsService'">
-                    <ProfileServiceInformation/>
+                    <ProfileServiceInformation />
                 </template>
-                
+
             </template>
         </section>
     </main>
@@ -59,21 +59,16 @@ const { data } = useAuth()
 const route = useRoute();
 
 const activeTab = ref('details');
-onBeforeMount(()=> {
-    if (route.fullPath == '/profile?status=new') {
-        if (data.value.user_type == 'معبر'){
-            setTimeout(()=>{
-                navigateTo('/orders/');
-            }, 2000)
-        }
-        else {
+onBeforeMount(() => {
+    if(route.fullPath == '/profile?status=new'){
+        if(data.value.user_type == 'معبر'){
+            location.href = '/orders/';
+        } else {
             navigateTo('/');
         }
     }
 })
 onMounted(async () => {
-    
-
     await fetchBookmarked()
     await fetchBookmarked()
 

@@ -224,7 +224,6 @@ async function loadHyper() {
             form.classList.remove('activeIframe');
         },
         onChangeBrand: (data: string) => {
-            // console.log(`brand is: ${data}  --- ${new Date()}`)
             if (!data) {
                 cardType.value = 'general';
                 return;

@@ -6,7 +6,7 @@
   <Header />
   <main class="min-h-screen outline-none">
     <!-- Hero section -->
-    <HeroBackground/>
+    <HeroBackground />
     <!-- Login form section -->
     <section
       class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
@@ -81,32 +81,32 @@ import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 
 useHead({
-    script: [
-        {
-            src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
-            type: "text/javascript",
-        }
-    ]
+  script: [
+    {
+      src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
+      type: "text/javascript",
+    }
+  ]
 })
 
 definePageMeta({
-    middleware: 'auth',
-    auth: {
-        unauthenticatedOnly: true,
-        navigateAuthenticatedTo: '/'
-    },
-    layout: false
+  middleware: 'auth',
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/'
+  },
+  layout: false
 });
 
 const { signIn } = useAuth();
 
 const { defineField, errors, validate } = useForm({
-    validationSchema: toTypedSchema(
-        yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون بريد الكتروني صحيح').matches(/[^a-zA-z0-9._%+-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/, 'يجب ادخال ايميل صحيح').required('هذا الحقل مطلوب'),
-            password: yup.string().required("هذا الحقل مطلوب")
-        })
-    )
+  validationSchema: toTypedSchema(
+    yup.object({
+      email: yup.string().email('هذا الحقل يجب أن يكون بريد الكتروني صحيح').matches(/[^a-zA-z0-9._%+-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/, 'يجب ادخال ايميل صحيح').required('هذا الحقل مطلوب'),
+      password: yup.string().required("هذا الحقل مطلوب")
+    })
+  )
 });
 
 const [email] = defineField('email');
@@ -116,32 +116,32 @@ const error = ref('');
 const loading = ref(false);
 
 async function submit() {
-    const validation = await validate();
+  const validation = await validate();
 
-    if (!validation.valid) return;
+  if (!validation.valid) return;
 
-    loading.value = true;
+  loading.value = true;
 
-    signIn(
-        { email: email.value, password: password.value },
-        {
-            callbackUrl: '/profile?status=new',
-            redirect: true
-        }
-    )
-        .then(() => {
-            useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
-        })
-        .catch((_error) => {
+  signIn(
+    { email: email.value, password: password.value },
+    {
+      callbackUrl: '/profile?status=new',
+      redirect: true
+    }
+  )
+    .then(() => {
+      useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
+    })
+    .catch((_error) => {
 
-            console.log(_error);
-            
-            if (_error.response._data.status !== 'error') return;
+      console.log(_error);
 
-            error.value = _error.response._data.error;
-        })
-        .finally(() => (loading.value = false));
-        
+      if (_error.response._data.status !== 'error') return;
+
+      error.value = _error.response._data.error;
+    })
+    .finally(() => (loading.value = false));
+
 }
 </script>
 
