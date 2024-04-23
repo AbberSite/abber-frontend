@@ -235,7 +235,6 @@ async function loadHyper() {
             if (card?.src !== undefined)
                 card.src = cardImage.value.src;
 
-            console.log(card)
         },
         onReady: function (array: Array<any>) {
             loading.value = false;

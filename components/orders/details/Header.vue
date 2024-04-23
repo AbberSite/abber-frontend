@@ -36,7 +36,7 @@
     <DetailsCompleteButton class="h-[50px] w-full" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" />
   </DetailsMobileOptions>
 
-  <DetailsReviewModal :show="showReviewModal" @close="showReviewModal = false" />
+  <DetailsReviewModal :show="showReviewModal" @close="showReviewModal = false" @rated_success="order.add_review = false" />
 
   <DetailsInquiryModal :show="showInquiryModal" @close="showInquiryModal = false" />
 </template>
