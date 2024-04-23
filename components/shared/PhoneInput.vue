@@ -83,7 +83,6 @@ onMounted(() => {
 
   watch(phone, (value) => {
     phone.value = phone.value.toString().replace(/\D/g, '');
-    console.log(typeof phone.value)
 
     validationError.value = '';
 
