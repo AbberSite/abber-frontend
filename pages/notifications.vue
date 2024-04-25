@@ -24,8 +24,8 @@
                 <SkeletonsOrdersTable class="mt-16" />
             </template>
             <template v-else>
-                <Table :notifications="notifications ?? []" class="w-full mt-16" />
-                <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" per-page="9" @change="fetchNotifications" />
+                <Table :notifications="all_notifications ?? []" class="w-full mt-16" />
+                <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" per-page="9" @change="fetchAll" />
             </template>
         </section>
     </main>
@@ -33,21 +33,15 @@
 
 <script lang="ts" setup>
 import Table from '~/components/notifications/NotificationsTable.vue';
-import type { Notification, PaginationResponse } from '~/types';
-let notifications = ref<Notification[]>();
+import type { PaginationResponse } from '~/types';
 let loading = ref(true);
-let pagination = ref<PaginationResponse<any>>()
+const {all_notifications, pagination} = storeToRefs(useNotificationsStore());
+const {fetchAll} = useNotificationsStore();
 onMounted(async () => {
     try {
-        await fetchNotifications();
+        await fetchAll();
         loading.value = false;
     } catch (error) {
     }
 })
-
-async function fetchNotifications() {
-    const data = await useProxy('/alerts/notifications/?limit=9&offset=9');
-    notifications.value = data.results;
-    pagination.value = data;
-}
 </script>
