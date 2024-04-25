@@ -49,7 +49,7 @@ export default defineNuxtConfig({
 
     globalAppMiddleware: true,
 
-    // baseURL : apiBasePath,
+    baseURL : apiBasePath + '/auth',
 
     provider: {
       type: "refresh",
