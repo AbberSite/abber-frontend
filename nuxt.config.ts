@@ -49,8 +49,6 @@ export default defineNuxtConfig({
 
     globalAppMiddleware: true,
 
-    // baseURL : apiBasePath,
-
     provider: {
       type: "refresh",
       pages: {
