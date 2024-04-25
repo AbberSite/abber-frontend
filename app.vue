@@ -25,9 +25,7 @@ useHead({
     }
 });
 
-definePageMeta({
-    middleware: ['verified']
-});
+
 useSeoMeta({
     author: 'عبر',
     robots: 'index, follow',
