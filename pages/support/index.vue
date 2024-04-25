@@ -10,8 +10,7 @@
 
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
-            aria-labelledby="support-heading"
-            x-data="{ alert: true, openFilterDropdown: false, firstLevelSelect: '', secondLevelSelect: '', thirdLevelSelect: '' }">
+            aria-labelledby="support-heading">
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                 <!-- Heroicon name: outline/lifebuoy -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

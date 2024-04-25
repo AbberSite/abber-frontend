@@ -27,6 +27,16 @@ export type Notification = {
   id?: number;
   type: 'success' | 'warning' | 'info' | 'danger';
   content: string;
+  sender?: {
+    first_name: string;
+  };
+  user?: {
+    first_name: string;
+  };
+  message?: string;
+  date?: string; 
+  url?: string;
+  
 };
 
 export interface PaginationResponse<Type> {
