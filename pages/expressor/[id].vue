@@ -55,12 +55,11 @@
                                 d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800 xs:text-sm">({{
-            expressor.ordered_count }})</span>
+                        <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800 xs:text-sm">({{ rate_count }})</span>
                     </div>
                     <p class="max-w-prose pt-8 text-justify text-sm text-gray-800 xs:text-base">{{
             expressor?.seller.about }}</p>
-                    <ExpressorTabs v-model="tab" :count_rates="expressor?.ordered_count" />
+                    <ExpressorTabs v-model="tab" :count_rates="rate_count" />
                     <div v-if="tab == 'workTime'" class="w-full max-w-prose pt-10">
                         <p class="text-justify text-sm text-gray-800 xs:text-base">{{expressor?.work_hours}}</p>
                         
@@ -81,6 +80,9 @@
                             </NuxtLink>
                         </div>
                     </template>
+                    <template v-else class="w-full space-y-7 divide-y divide-gray-100 pt-8">
+                        <RateCard v-for="rate of rates"  :my_rate="rate" />
+                    </template>
                 </div>
             </template>
         </section>
@@ -89,21 +91,24 @@
 
 
 <script lang="ts" setup>
-import type { Service } from '~/types';
+import type { Service, Rate } from '~/types';
 const route = useRoute();
 let expressor = ref<Service | undefined>(undefined);
 let loading = ref(true);
 const tab = ref<'workTime' | 'rates'>('workTime');
+let rates = ref<Rate[] | undefined>(undefined);
+let rate_count = ref(0);
 definePageMeta({
     auth: false
 })
 onMounted(async () => {
     const data = await useProxy(`/services/services/${route.params.id}`);
     const dataExpressor = await useProxy(`/expressors/expressors/${route.params.id}`);
-    const rates = await useProxy(`/services/services/${route.params.id}/ratings`);
+    const ratesData = await useProxy(`/services/services/${route.params.id}/ratings`);
     expressor.value = data;
     expressor.value.work_hours = dataExpressor.work_hours;
     loading.value = false;
-    console.log(rates.count);
+    rates.value = ratesData.results;
+    rate_count.value = ratesData.count;
 })
 </script>

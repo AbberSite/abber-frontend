@@ -34,9 +34,9 @@ export type Notification = {
     first_name: string;
   };
   message?: string;
-  date?: string; 
+  date?: string;
   url?: string;
-  
+
 };
 
 export interface PaginationResponse<Type> {
@@ -123,7 +123,7 @@ export type Post = {
   slug?: string;
   active?: boolean;
   bookmark?: [];
-  reading_time?:number|null;
+  reading_time?: number | null;
 };
 
 export type Category = {
@@ -158,9 +158,9 @@ export type Order = {
     image: string;
     is_online: boolean;
   };
-  content?:{
-    allow_chat?:boolean;
-    inquiry?:boolean;
+  content?: {
+    allow_chat?: boolean;
+    inquiry?: boolean;
   }
 };
 
@@ -168,7 +168,7 @@ export type File = {
   id: number;
   file: string;
   name: string;
-  mimetype:string
+  mimetype: string
 };
 
 export type Message = {
@@ -187,7 +187,7 @@ export type Message = {
   read: boolean;
   index: number;
   deleted: boolean;
-  sent?: boolean; 
+  sent?: boolean;
 };
 
 export type BalanceRecord = {
@@ -238,16 +238,38 @@ export type Coupon = {
 
 
 export type Card = {
-    bin: number;
-    binCountry: string
-    last4Digits: number,
-    holder: string;
-    expiryMonth: string;
-    expiryYear: number,
-    issuer: {
-      bank: string;
-      website: string;
-      phone: string;
-    },
+  bin: number;
+  binCountry: string
+  last4Digits: number,
+  holder: string;
+  expiryMonth: string;
+  expiryYear: number,
+  issuer: {
+    bank: string;
+    website: string;
+    phone: string;
+  },
 
+};
+
+export type Rate = {
+  id: number;
+  service: string;
+  user: {
+    username: string;
+    first_name: string;
+    last_name: string;
+    image: string;
+    is_online: boolean;
+
+  };
+  date: string;
+  professional_rate: number;
+  communication_rate: number;
+  quality_rate: number;
+  expertise_rate: number;
+  delivery_rate: number;
+  again_rate: number;
+  comment: string;
+  order_id: number;
 }
