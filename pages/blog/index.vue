@@ -5,7 +5,7 @@
   </Head>
   <main class="min-h-screen outline-none">
     <!-- Hero section -->
-    <HeroBackground/>
+    <HeroBackground />
     <!-- Blog section -->
     <section
       class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <BlogCategories  v-model="selectedCategory" />
+      <BlogCategories v-model="selectedCategory" />
       <!-- <BlogCategories :total="(total as number)" v-model="selectedCategory" /> -->
 
       <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
@@ -63,9 +63,9 @@
         </div>
         <div class="flex w-full items-center justify-between sm:justify-end">
           <button @click="async () => {
-                previousLoading = true;
-                await fetchPosts(getParams(posts?.previous)), (previousLoading = false);
-              }
+              previousLoading = true;
+              await fetchPosts(getParams(posts?.previous)), (previousLoading = false);
+            }
               " :disabled="!posts?.previous?.length"
             class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             type="button">
@@ -83,10 +83,10 @@
             </span>
           </p>
           <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="async () => {
-                nextLoading = true;
-                await fetchPosts(getParams(posts?.next));
-                nextLoading = false;
-              }
+              nextLoading = true;
+              await fetchPosts(getParams(posts?.next));
+              nextLoading = false;
+            }
               "
             class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             href="#">
@@ -96,6 +96,19 @@
         </div>
       </nav>
     </section>
+    <div
+      class="fixed bottom-0 z-20 flex w-full items-center space-x-3 border-t border-gray-100 bg-white px-4 py-6 rtl:space-x-reverse xs:px-6 sm:hidden">
+      <NuxtLink :to="{ name: 'orders-make' }"
+        class="flex h-[50px] w-full items-center justify-center space-x-2 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse">
+        <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59">
+          </path>
+        </svg>
+        <span class="mt-1.5">طلب تفسير حلم</span>
+      </NuxtLink>
+    </div>
   </main>
 </template>
 
@@ -154,7 +167,7 @@ async function fetchPosts(params: any) {
   const { data } = (await useFetch(`/api/blog/posts/`, {
     params,
   })) as { data: Ref<Response> };
-    
+
   loading.value = false;
 
   if (!data.value) return;
