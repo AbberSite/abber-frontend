@@ -1,4 +1,12 @@
 <template>
+    <div class="pt-6">
+        <NuxtLink
+            class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
+            @click="$emit('navigate', { name: 'accounts-sms' })"
+            >
+            تسجيل الدخول
+        </NuxtLink>
+    </div>
     <div class="space-y-3 py-6">
         <NuxtLink
             class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
@@ -21,14 +29,7 @@
             >إتفاقية المستخدم</NuxtLink
         >
     </div>
-    <div class="pt-6">
-        <NuxtLink
-            class="-mx-3 block rounded-lg px-3 pb-2.5 pt-4 font-semibold hover:bg-gray-50"
-            @click="$emit('navigate', { name: 'accounts-sms' })"
-            >
-            تسجيل الدخول
-        </NuxtLink>
-    </div>
+    
 </template>
 
 <script setup lang="ts">
