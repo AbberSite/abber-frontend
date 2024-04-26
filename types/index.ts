@@ -89,6 +89,7 @@ export type Service = {
     price: number;
   }[];
   in_wishlist: boolean;
+  work_hours?: string;
 };
 
 export type OrderForm = {
