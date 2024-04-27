@@ -233,6 +233,9 @@ async function loadHyper() {
       if (card?.src !== undefined)
         card.src = cardImage.value.src;
 
+      const numberCardInput = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber');
+      (numberCardInput as HTMLInputElement).maxLength = 16;
+      console.log(numberCardInput);
     },
     onReady: function (array: Array<any>) {
       loading.value = false;
@@ -250,13 +253,15 @@ async function loadHyper() {
 
       // input
       const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
-
+      const cardNumber = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber') as Element;
       if (phoneNumber) {
         (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
         (phoneNumber as HTMLInputElement).maxLength = 10;
         (phoneNumber as HTMLInputElement).type = 'number';
       }
 
+      (cardNumber as HTMLInputElement).maxLength = 16;
+      // (cardNumber as HTML)
       cardLabel.innerHTML = 'رقم البطاقة';
       cvvLabel.innerHTML = 'رمز التحقق (CVV)';
 
