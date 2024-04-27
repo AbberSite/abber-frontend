@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-8">
+    <div class="pt-8 w-full">
               <div class="flex">
                 <div class="flex-shrink-0"><img class="lazyload h-11 w-11 rounded-full bg-gray-100" :src="my_rate.user.image"  height="44" width="44" alt="" /></div>
                 <div class="space-y-3">
@@ -22,8 +22,7 @@
                         </svg>
                     </div>
                   </div>
-                  <div class="ms-3 w-screen max-w-prose text-justify text-[13px] leading-loose text-gray-700">{{  my_rate.comment  }}</div>
-                  <!-- <div class="ms-3 w-screen max-w-prose text-justify text-[13px] leading-loose text-gray-700"> المقروء  للنص</div> -->
+                  <div class="ms-3  max-w-prose text-justify text-[13px] leading-loose text-gray-700">{{  my_rate.comment  }}</div>
                 </div>
               </div>
             </div>
