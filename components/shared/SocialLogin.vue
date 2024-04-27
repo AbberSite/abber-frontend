@@ -73,6 +73,14 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+    script: [
+        {
+            src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
+            type: "text/javascript",
+        }
+    ]
+})
 import { useSettingsStore } from '~/stores/settings';
 
 let googleLogin = () => console.log("google not initialized yet");

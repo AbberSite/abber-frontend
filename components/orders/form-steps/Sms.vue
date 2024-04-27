@@ -30,14 +30,7 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-    script: [
-        {
-            src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
-            type: "text/javascript",
-        }
-    ]
-})
+
 const router = useRouter();
 
 const { next, state } = useFormWizard<OrderForm>("order")
