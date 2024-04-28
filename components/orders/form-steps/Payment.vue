@@ -24,12 +24,12 @@
       <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
         aria-orientation="horizontal">
 
+        <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
+          id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
         <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
           height="26" :multi="true" />
         <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY"
           v-model="paymentMethod" width="40" height="40" />
-        <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
-          id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
         <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE"
           v-model="paymentMethod" width="24" height="24" />
 
@@ -188,10 +188,12 @@ onMounted(async () => {
 async function loadHyper() {
   if (paymentMethod.value == "BALANCE") return;
   const payment = await createCheckout();
+  console.log(payment);
   if (!payment.id) {
     error.value = 'حدث خطأ ما';
     return;
   }
+
 
   (window as any).wpwlOptions = {
     style: 'plain',
@@ -233,9 +235,9 @@ async function loadHyper() {
       if (card?.src !== undefined)
         card.src = cardImage.value.src;
 
-      const numberCardInput = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber');
-      (numberCardInput as HTMLInputElement).maxLength = 16;
-      console.log(numberCardInput);
+      // const numberCardInput = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber');
+      // (numberCardInput as HTMLInputElement).maxLength = 16;
+      // console.log(numberCardInput);
     },
     onReady: function (array: Array<any>) {
       loading.value = false;
@@ -284,8 +286,6 @@ async function loadHyper() {
       div.append(expiryGroup);
     }
   };
-  console.log('payment', payment);
-
 
   await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
   // @ts-ignore

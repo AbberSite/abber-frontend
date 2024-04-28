@@ -29,7 +29,6 @@ const { refresh } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
 const my_opt = ref([]);
-const otp = ref<any>(undefined);
 const loading = ref(false);
 
 const { next, state } = useFormWizard<OrderForm>('order');
