@@ -1,17 +1,20 @@
 <template>
+
     <Head>
         <title>عبر - طلب تعبير حلم</title>
     </Head>
     <Header />
     <main class="min-h-screen outline-none">
         <!-- Hero section -->
-        <HeroBackground/>
+        <HeroBackground />
 
         <section
             class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="contact-types-heading">
             <template v-if="loading">
-                <div class="w-full flex justify-center items-center h-full"><Loading /></div>
+                <div class="w-full flex justify-center items-center h-full">
+                    <Loading />
+                </div>
             </template>
 
             <template v-else>
@@ -122,8 +125,7 @@ const route = useRoute();
 const router = useRouter();
 const { getSession } = useAuth();
 const id = route.query.id;
-const balance = route.query.balance ;
-console.log(balance);
+const balance = route.query.balance;
 let transaction_id: string;
 
 let data;
@@ -135,13 +137,20 @@ const error = ref('');
 const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
+    data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
+    if (balance && data?.dream != undefined) {
+        await updateOrderInfo(data);
+        localStorage.removeItem('abber:current-transaction-id');
+        loading.value = false;
+        (data as any).clear();
+        return; 
+    }
     await getSession();
     await getStatus();
 });
 
 async function getStatus() {
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
-
     const service_id = data.service_id;
 
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;

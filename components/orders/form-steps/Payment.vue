@@ -59,13 +59,13 @@
 
     <InputError :message="error" />
 
-    <div dir="ltr" class="payment-form" ref="paymentForm" v-if="paymentMethod != 'WALLET'">
+    <div dir="ltr" class="payment-form" ref="paymentForm" v-if="paymentMethod != 'BALANCE'">
       <form dir="ltr" :action="callbackURL" class="paymentWidgets"
         :data-brands="paymentMethod === 'CARD' ? 'VISA MASTER MADA' : paymentMethod"></form>
     </div>
 
     <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
-      <PrimaryButton v-if="hasSufficientBallance"><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
+      <PrimaryButton v-if="hasSufficientBallance" :loading="true" class="w-full" ><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
 
       <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
     </div>
@@ -124,9 +124,7 @@ const { balance } = storeToRefs(useWalletStore());
 const paymentMethod = ref('CARD');
 const cardType = ref('general');
 const hasSufficientBallance = computed(() => {
-  if (!hyper) return false;
-
-  return balance.value.available_balance >= hyper?.checkout?.amount;
+  return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
 });
 
 watch(paymentMethod, async (value) => {
@@ -188,7 +186,6 @@ onMounted(async () => {
 async function loadHyper() {
   if (paymentMethod.value == "BALANCE") return;
   const payment = await createCheckout();
-  console.log(payment);
   if (!payment.id) {
     error.value = 'حدث خطأ ما';
     return;
@@ -234,10 +231,6 @@ async function loadHyper() {
       card?.removeAttribute('data-src');
       if (card?.src !== undefined)
         card.src = cardImage.value.src;
-
-      // const numberCardInput = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber');
-      // (numberCardInput as HTMLInputElement).maxLength = 16;
-      // console.log(numberCardInput);
     },
     onReady: function (array: Array<any>) {
       loading.value = false;
