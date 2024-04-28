@@ -24,12 +24,12 @@
       <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
         aria-orientation="horizontal">
 
+        <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
+          id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
         <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
           height="26" :multi="true" />
         <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY"
           v-model="paymentMethod" width="40" height="40" />
-        <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
-          id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
         <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE"
           v-model="paymentMethod" width="24" height="24" />
 
@@ -59,13 +59,13 @@
 
     <InputError :message="error" />
 
-    <div dir="ltr" class="payment-form" ref="paymentForm" v-if="paymentMethod != 'WALLET'">
+    <div dir="ltr" class="payment-form" ref="paymentForm" v-if="paymentMethod != 'BALANCE'">
       <form dir="ltr" :action="callbackURL" class="paymentWidgets"
         :data-brands="paymentMethod === 'CARD' ? 'VISA MASTER MADA' : paymentMethod"></form>
     </div>
 
     <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
-      <PrimaryButton v-if="hasSufficientBallance"><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
+      <PrimaryButton v-if="hasSufficientBallance" :loading="true" class="w-full" ><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
 
       <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
     </div>
@@ -124,9 +124,7 @@ const { balance } = storeToRefs(useWalletStore());
 const paymentMethod = ref('CARD');
 const cardType = ref('general');
 const hasSufficientBallance = computed(() => {
-  if (!hyper) return false;
-
-  return balance.value.available_balance >= hyper?.checkout?.amount;
+  return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
 });
 
 watch(paymentMethod, async (value) => {
@@ -193,6 +191,7 @@ async function loadHyper() {
     return;
   }
 
+
   (window as any).wpwlOptions = {
     style: 'plain',
     locale: 'ar',
@@ -232,7 +231,6 @@ async function loadHyper() {
       card?.removeAttribute('data-src');
       if (card?.src !== undefined)
         card.src = cardImage.value.src;
-
     },
     onReady: function (array: Array<any>) {
       loading.value = false;
@@ -250,13 +248,15 @@ async function loadHyper() {
 
       // input
       const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
-
+      const cardNumber = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber') as Element;
       if (phoneNumber) {
         (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
         (phoneNumber as HTMLInputElement).maxLength = 10;
         (phoneNumber as HTMLInputElement).type = 'number';
       }
 
+      (cardNumber as HTMLInputElement).maxLength = 16;
+      // (cardNumber as HTML)
       cardLabel.innerHTML = 'رقم البطاقة';
       cvvLabel.innerHTML = 'رمز التحقق (CVV)';
 
@@ -279,8 +279,6 @@ async function loadHyper() {
       div.append(expiryGroup);
     }
   };
-  console.log('payment', payment);
-
 
   await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
   // @ts-ignore
