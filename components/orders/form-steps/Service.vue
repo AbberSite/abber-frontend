@@ -46,7 +46,8 @@ const emits = defineEmits(['next']);
 
 const loading = ref(false);
 
-const selectedService = ref(state.value.data?.service_id);
+// const selectedService = ref(state.value.data?.service_id);
+const selectedService = ref(0);
 
 const { fetchAll } = useServicesStore();
 
