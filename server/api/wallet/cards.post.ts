@@ -10,7 +10,6 @@ export default defineEventHandler(async (event) => {
 
 
     try {
-
         const response = await axios.post(config.apiBasePath + `/wallets/cards/`, body, {
 
             headers: {

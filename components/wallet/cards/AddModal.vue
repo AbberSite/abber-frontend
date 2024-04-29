@@ -40,12 +40,12 @@
                             id-of-card="VISA" v-model="paymentMethod" width="26" height="26" />
                         <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png"
                             id-of-card="MADA" v-model="paymentMethod" width="40" height="40" />
-                        <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp"
+                        <!-- <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp"
                             id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
                         <FormStepsCardComponent title="أبل باي" logo="/images/payments/section/apple-pay.svg"
                             id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
                         <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg"
-                            id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" />
+                            id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" /> -->
                     </div>
 
                     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
@@ -207,7 +207,7 @@ async function loadHyper() {
 
     (window as any).wpwlOptions = {
         style: 'plain',
-        locale: 'en',
+        locale: 'ar',
         brandDetection: true,
         brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
         labels: {
@@ -315,10 +315,10 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         const checkout = await useApi(`/api/wallet/cards/`, {
             method: 'POST',
             body: {
-                type: 'VISA',
+                type: paymentMethod.value,
 
                 // TODO: unncomment the above line when finishing from testing
-                brand: 'visa'
+                brand: paymentMethod.value.toLowerCase()
                 // brand: cardType.valuee
             }
         });

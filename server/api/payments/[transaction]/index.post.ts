@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig();
 
     try {
-
+        
         const response = await axios(config.apiBasePath + `/payment/fetch-payment/${transaction}/`, {
 
             params : {
