@@ -22,7 +22,7 @@
 
 
       <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
-        aria-orientation="horizontal">
+        id="payment-scrolling" aria-orientation="horizontal">
 
         <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
           id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
@@ -65,7 +65,8 @@
     </div>
 
     <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
-      <PrimaryButton v-if="hasSufficientBallance" :loading="true" class="w-full" ><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
+      <PrimaryButton v-if="hasSufficientBallance" :loading="true" class="w-full"><span class="mt-1.5">الدفع
+          بالمحفظة</span></PrimaryButton>
 
       <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
     </div>
@@ -90,6 +91,7 @@
       <div class="w-full space-y-3" v-if="hasCoupon">
         <input class="form-control h-[50px] appearance-none" type="text" name="text" id="coupon" v-model="coupon"
           placeholder="إدخل كوبون الخصم" dir="rtl" required />
+        <PrimaryButton @click="checkCoupon()">تحقق</PrimaryButton>
       </div>
     </div>
   </div>
@@ -172,10 +174,13 @@ const cardImages: { [key: string]: { src: string; class: string } } = {
 
 onMounted(async () => {
   // await getSession()
+  let done: boolean = false;
+  // while (!done && loading.value) {
 
+  // }
   error.value = '';
   try {
-    Promise.all([loadHyper(), fetchBalance()]);
+    Promise.all([loadHyper(), fetchBalance(), scrollPayments()]);
     // await loadHyper();
     // await fetchBalance();
   } catch (error) {
@@ -192,6 +197,7 @@ async function loadHyper() {
   }
 
 
+  // payment_scroll.scrollTo({ behavior: 'smooth', left: -230 });
   (window as any).wpwlOptions = {
     style: 'plain',
     locale: 'ar',
@@ -234,7 +240,10 @@ async function loadHyper() {
     },
     onReady: function (array: Array<any>) {
       loading.value = false;
-
+      console.log("I'm in onReady() function in hyperpay")
+      setTimeout(() => {
+        scrollPayments();
+      }, 1000)
       // Groups
       const cardGroup = document.querySelector('.wpwl-group-cardNumber');
       const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
@@ -283,6 +292,7 @@ async function loadHyper() {
   await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
   // @ts-ignore
   hyper = wpwl as any;
+
 }
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
@@ -320,6 +330,33 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
     resolve(checkout);
   });
+};
+
+async function checkCoupon() {
+  try {
+    const data = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
+      method: 'POST',
+      body: {
+        type: 'text_communication',
+        coupon: coupon.value
+      }
+    });
+
+  } catch (e) {
+
+  }
+}
+
+async function scrollPayments() {
+  let payment_scroll = document.getElementById('payment-scrolling') as Element;
+  try {
+    payment_scroll.scrollTo({ left: -230, behavior: 'smooth' });
+    setTimeout(() => {
+      payment_scroll.scrollTo({ left: 0, behavior: 'smooth' });
+    }, 800)
+  } catch (e) {
+
+  }
 }
 </script>
 

@@ -8,7 +8,7 @@
     <div>
 
       <fieldset class="space-y-7">
-        <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1">
+        <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1" id="list-expressors">
           <template v-if="loading">
             <SkeletonsServiceRadioButton />
             <SkeletonsServiceRadioButton />
@@ -19,7 +19,8 @@
             <template v-if="state.data?.type == 'text_communication'">
               <FormStepsServiceSelectUrgentOrderService @click.once="submit(0)" v-model="selectedService" />
               <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices"
-                v-model="selectedService" @click.once="submit(service.id, service.service_prices.text_price)" :service="service" />
+                v-model="selectedService" @click.once="submit(service.id, service.service_prices.text_price)"
+                :service="service" />
             </template>
 
             <template v-else>
@@ -53,6 +54,14 @@ const { services, textCommunicationServices, videoServices } = storeToRefs(useSe
 
 onMounted(async () => {
 
+  let listExpressorElement = document.getElementById('list-expressors') as Element;
+  setTimeout(() => {
+    listExpressorElement.scrollTo({ behavior: 'smooth', top: listExpressorElement.scrollHeight / 2 })
+  }, 800);
+  setTimeout(() => {
+    listExpressorElement.scrollTo({ behavior: 'smooth', top: 0 })
+  }, 2000);
+
   if (services.value.length != 0) return;
 
   // something went wrong fetching the services in the previous step fetch again
@@ -67,22 +76,22 @@ function submit(service_id: number) {
 
 
   if (status.value == 'loading') return
-  if(!service_id){
+  if (!service_id) {
     if (status.value == 'authenticated') {
-        next({
-            nextStepId: 'payment'
-        });
-        return;
+      next({
+        nextStepId: 'payment'
+      });
+      return;
     } else {
-        next({
-            nextStepId: 'authentication-method'
-        })
+      next({
+        nextStepId: 'authentication-method'
+      })
     }
     return;
   }
-  next({ nextStepId: 'my-urgent-order-service', data: { service_id: selectedService.value} });
+  next({ nextStepId: 'my-urgent-order-service', data: { service_id: selectedService.value } });
 
-  
+
 }
 
 function submitVideo(service_id: number) {
@@ -90,12 +99,12 @@ function submitVideo(service_id: number) {
 
 
   if (status.value == 'loading') return
-  if(status.value == 'authenticated')
+  if (status.value == 'authenticated')
     next({ nextStepId: 'payment', data: { service_id: selectedService.value } });
-  else 
+  else
     next({ nextStepId: 'authentication-method', data: { service_id: selectedService.value } });
 
-  
+
 }
 </script>
 
