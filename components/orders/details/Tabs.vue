@@ -30,7 +30,7 @@
                 'border-gray-900': activeTab === 'chat',
                 'border-transparent text-gray-500 hover:text-gray-900': activeTab === 'details'
             }">
-            الشات
+            المحادثة
         </button>
     </div>
 </template>

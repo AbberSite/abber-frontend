@@ -240,7 +240,6 @@ async function loadHyper() {
     },
     onReady: function (array: Array<any>) {
       loading.value = false;
-      console.log("I'm in onReady() function in hyperpay")
       setTimeout(() => {
         scrollPayments();
       }, 1000)

@@ -66,6 +66,9 @@
 
 <script setup lang="ts">
 const { order } = storeToRefs(useOrdersStore());
+onMounted(function(){
+    window.scrollTo({top: document.body.scrollHeight / 4, behavior: 'smooth'});
+})
 </script>
 
 <style scoped></style>

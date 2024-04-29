@@ -1,6 +1,7 @@
 <template>
   <div class="flex items-end justify-between pt-8 sm:w-full sm:pt-0">
     <h1 class="text-lg font-semibold xs:text-xl lg:text-2xl" id="order-details-heading">الطلب #{{ order?.id }}</h1>
+    <!-- <Tree class="block lg:hidden" url="home/orders"/> -->
     <!-- Options buttons on desktop devices -->
     <div class="hidden items-center space-x-3 rtl:space-x-reverse sm:flex">
       <DetailsCompleteButton :order="order" :is-seller="isSeller" :is-buyer="isBuyer" />

@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr class="cursor-pointer" @click="navigateTo(`/support/${ticket.id}/`)" >
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <NuxtLink :to="{ name: 'support-id', params: { id: ticket.id } }" class="text-blue-600">#{{ ticket.id }}</NuxtLink>
         </td>

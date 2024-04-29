@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse max-w-[320px]"
-                        aria-orientation="horizontal">
+                        id="payment-scrolling" aria-orientation="horizontal">
                         <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg"
                             id-of-card="MASTER" v-model="paymentMethod" width="26" height="26" />
                         <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg"
@@ -248,7 +248,9 @@ async function loadHyper() {
             // console.log(array);
 
             loading.value = false;
-
+            setTimeout(()=> {
+                scrollPayments()
+            }, 1000)
             // Groups
             const cardGroup = document.querySelector('.wpwl-group-cardNumber');
             const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
@@ -331,9 +333,16 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     });
 }
 
-function submit() {
+async function scrollPayments() {
+  let payment_scroll = document.getElementById('payment-scrolling') as Element;
+  try {
+    payment_scroll.scrollTo({ left: -230, behavior: 'smooth' });
+    setTimeout(() => {
+      payment_scroll.scrollTo({ left: 0, behavior: 'smooth' });
+    }, 800)
+  } catch (e) {
 
-
+  }
 }
 </script>
 

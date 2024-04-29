@@ -35,8 +35,8 @@
                             <div class="mx-auto w-full max-w-sm pt-10">
                                 <NuxtLink
                                     class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                    :to="{ name: 'orders' }">
-                                    <span class="mt-1.5">تصفح الطلبات</span>
+                                    :to="`/orders/${data?.order_id}/`">
+                                    <span class="mt-1.5">متابعة الطلب</span>
                                 </NuxtLink>
                                 <div class="pt-4">
                                     <NuxtLink

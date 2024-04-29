@@ -4,7 +4,7 @@
       <Loading v-if="loading" />
     </div>
 
-    <div ref="chatList" class="max-h-[40rem] overflow-y-scroll">
+    <div ref="chatList" class="max-h-[40rem] overflow-y-scroll" id="chat_scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
         <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
           :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
@@ -68,7 +68,7 @@ onMounted(async () => {
 
   if (!chatList.value) return;
   chatList.value.scrollTop = chatList.value.scrollHeight;
-
+  window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
   useInfiniteScroll(chatList.value, async () => await load(), {
     interval: 500,
     distance: 5,
