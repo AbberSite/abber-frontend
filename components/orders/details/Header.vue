@@ -40,12 +40,12 @@
   <DetailsReviewModal :show="showReviewModal" @close="showReviewModal = false" @rated_success="order.add_review = false" />
 
   <DetailsInquiryModal :show="showInquiryModal" @close="showInquiryModal = false" />
-  
+  <Tree class="block lg:hidden"/>
 </template>
 
 <script setup lang="ts">
 import { vOnClickOutside } from "@vueuse/components";
-
+import Tree from '~/components/shared/Tree.vue';
 defineProps<{
   showNavigation?: boolean;
 }>();
