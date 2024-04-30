@@ -152,6 +152,7 @@ onMounted(async () => {
 async function getStatus() {
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
     const service_id = data.service_id;
+  let another_service = data.selectedServices.map(service => service).join(',')
 
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
 
@@ -186,6 +187,7 @@ async function getStatus() {
         method: 'POST',
         body: {
             type: data.type,
+          another_service: another_service,
             // TODO: unncomment the above line when finishing from testing
             brand: 'visa'
             // brand: cardType.valuee
