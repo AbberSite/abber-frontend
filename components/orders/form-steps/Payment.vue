@@ -295,11 +295,13 @@ async function loadHyper() {
 }
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
+  let another_service = state.value.data?.selectedServices.map(service => service).join(',')
   if (paymentMethod.value == 'BALANCE') {
     const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
       method: 'POST',
       body: {
         type: state.value.data?.type,
+        another_service: another_service,
 
         // TODO: unncomment the above line when finishing from testing
         brand: paymentMethod.value
@@ -314,6 +316,8 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
       method: 'POST',
       body: {
         type: state.value.data?.type,
+        another_service: another_service,
+
 
         // TODO: unncomment the above line when finishing from testing
         brand: paymentMethod.value
