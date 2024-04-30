@@ -4,7 +4,7 @@
     
     <!-- Options buttons on desktop devices -->
     <div class="hidden items-center space-x-3 rtl:space-x-reverse sm:flex">
-      <DetailsCompleteButton :order="order" :is-seller="isSeller" :is-buyer="isBuyer" />
+      <DetailsCompleteButton :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @showIt="showConfirmComplete = true" />
       <slot></slot>
 
       <div class="relative">
@@ -29,13 +29,13 @@
     </div>
   </div>
 
-  <!-- <DetailsConfirmComplete :show="true" /> -->
+  <DetailsConfirmComplete :show="showConfirmComplete" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @rating="showConfirmComplete = false; showReviewModal = true;" />
   <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false"
     @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="cancelOrder()"
     :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
 
   <DetailsMobileOptions v-if="showNavigation" @open-modal="showMobileModal = true">
-    <DetailsCompleteButton class="h-[50px] w-full" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" />
+    <DetailsCompleteButton class="h-[50px] w-full" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @showIt="showConfirmComplete = true"  />
   </DetailsMobileOptions>
 
   <DetailsReviewModal :show="showReviewModal" @close="showReviewModal = false" @rated_success="order.add_review = false" />
@@ -60,7 +60,7 @@ const showDropdown = ref(false);
 const showMobileModal = ref(false);
 const showReviewModal = ref(false);
 const showInquiryModal = ref(false);
-
+const showConfirmComplete = ref(false);
 const isSeller = ref(false);
 const isBuyer = ref(false);
 
@@ -82,6 +82,7 @@ async function cancelOrder() {
   await updateOrderStatus(order.value?.id, 'cancelled');
   useNotification({ content: isBuyer.value ? 'تم طلب إلغاء الطلب' : 'تم إلغاء الطلب', type: 'success' });
 }
+
 </script>
 
 <style scoped></style>
