@@ -41,7 +41,7 @@
                     <fieldset class="space-y-7">
                         <h1 class="font-bold" >رمز التأكد (OTP)</h1>
                         
-                        <OtpInput v-model="my_opt" @done="login()"/>
+                        <OtpInput v-model="my_opt" @done="waitForLogin()"/>
 
 
                       
@@ -146,6 +146,12 @@ async function login() {
     } finally {
         loading.value = false;
     }
+};
+
+function waitForLogin(){
+    setTimeout(()=> {
+        login()
+    }, 200)
 }
 </script>
 

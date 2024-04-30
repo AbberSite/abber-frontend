@@ -22,7 +22,7 @@
                         <img class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
                             :src="expressor?.seller.image" height="96" width="96" alt="صورة المستخدم" />
                     </div>
-                    <div class="hidden items-center space-x-3 rtl:space-x-reverse sm:flex">
+                    <div class="hidden items-center space-x-3 rtl:space-x-reverse sm:flex" v-if="!['إدارة', 'معبر'].includes(user?.user_type)">
                         <NuxtLink
                             class="flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse"
                             :to="{ name: 'orders-make' }">
@@ -80,6 +80,7 @@
 
 <script lang="ts" setup>
 import type { Service, Rate } from '~/types';
+const {data:user} = await useAuth()
 const route = useRoute();
 let expressor = ref<Service | undefined>(undefined);
 let loading = ref(true);

@@ -29,6 +29,7 @@
     </div>
   </div>
 
+  <!-- <DetailsConfirmComplete :show="true" /> -->
   <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false"
     @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="cancelOrder()"
     :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />

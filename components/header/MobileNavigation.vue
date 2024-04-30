@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { XMarkIcon, HomeIcon, RssIcon, LifebuoyIcon } from "@heroicons/vue/24/outline";
+import {XMarkIcon, HomeIcon, RssIcon, LifebuoyIcon} from "@heroicons/vue/24/outline";
 </script>
 
 <style lang="scss" scoped></style>

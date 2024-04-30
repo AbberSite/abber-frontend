@@ -48,12 +48,11 @@
             <template v-if="edit">
                 <div class="hidden items-center space-x-3 rtl:space-x-reverse sm:flex">
                     <PrimaryButton @click.prevent="submitUpdate" :loading="loading">حفظ</PrimaryButton>
-                    <a
+                    <NuxtLink
                         @click.prevent="edit = false"
                         class="flex h-[50px] items-center rounded-md border bg-white px-6 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50"
-                        href="/profile/">
-                        <span class="mt-1.5">إلغاء</span></a
-                    >
+                        to="/profile">
+                        <span class="mt-1.5">إلغاء</span></NuxtLink>
                 </div>
             </template>
             <template v-else>
@@ -227,6 +226,7 @@ const openModal = ref(false);
 const loading = ref(false);
 const route = useRoute();
 
+
 const { update } = useAccountStore();
 const { tempAccount, tempAccountImagePreview, errors } = storeToRefs(useAccountStore());
 
@@ -250,8 +250,11 @@ async function submitUpdate() {
 async function logout() {
     await signOut({ callbackUrl: '/accounts/login', redirect: true });
     useNotification({ type: 'success', content: 'تم تسجيل الخروج بنجاح' });
-}
-
+};
+function cancel(){
+    edit.value = false;
+    location.href = route.fullPath.slice('?')[0];
+};
 watch(edit, (value) => emits('update:modelValue', value));
 
 definePageMeta({
