@@ -55,7 +55,7 @@ export default defineNuxtConfig({
         login: "/accounts/login",
       },
       endpoints: {
-        refresh: { path: "/refresh", method: "post"},
+        refresh: { path: "/refresh", method: "post" },
         getSession: { path: "/session", method: "get" },
         signIn: { path: "/login", method: "post" }
       },
@@ -110,13 +110,18 @@ export default defineNuxtConfig({
     head: {
       charset: "utf-8",
       link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
+
       script: [
         {
-          src: '/lazysizes.min.js',
-          type: 'text/javascript',
-          async: true,
-          body: true
-        }
+        src: "https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js",
+        type: "text/javascript",
+      },
+      {
+        src: '/lazysizes.min.js',
+        type: 'text/javascript',
+        async: true,
+        body: true
+      }
       ],
     },
   },
