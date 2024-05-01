@@ -1,7 +1,7 @@
 <template>
     <a v-if="['in_progress', 'awaiting_delivery'].includes(order?.status) && order?.service"
-      class="flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse"
-      @click.prevent="completeOrder" href="/profile/update">
+      class="flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse cursor-pointer"
+      @click.prevent="emit('showIt')" >
       <template v-if="loading">
         <Loading />
       </template>
@@ -25,29 +25,13 @@ const props = defineProps<{
   isBuyer: boolean;
 }>();
 
+const emit = defineEmits(['showIt']);
+
 const loading = ref(false);
 
-const { updateOrderStatus } = useOrdersStore();
+// const { updateOrderStatus } = useOrdersStore();
 
-async function completeOrder() {
-  loading.value = true;
 
-  const statusMessage = () => {
-    if (props.isBuyer) {
-      return { status: "complete", message: "تم إستلام الطلب" };
-    } else {
-      if (props.order?.status === "awaiting_delivery") {
-        return { status: "re_open", message: "تم إعادة فتح الطلب" };
-      } else {
-        return { status: "awaiting_delivery", message: "تم تسليم الطلب" };
-      }
-    }
-  };
-
-  await updateOrderStatus(props.order?.id, statusMessage().status);
-  useNotification({ content: statusMessage().message, type: "success" });
-  loading.value = false;
-}
 </script>
 
 <style>

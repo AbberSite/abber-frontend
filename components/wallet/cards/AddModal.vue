@@ -302,7 +302,7 @@ async function loadHyper() {
         }
     };
 
-    await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}`);
+    await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
 
     // @ts-ignore
     hyper = wpwl as any;
