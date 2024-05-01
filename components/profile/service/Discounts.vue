@@ -30,19 +30,19 @@
       </thead>
       <tbody class="divide-y text-center">
         <tr v-for="offer of offers">
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-right">
             {{ offer.type == 'percentage' ? 'نسبة المئوية' : 'مبلغ ثابت' }}
           </td>
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-right">
             {{ useFormattedDate(offer.start_date) }}
           </td>
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-right">
             {{ useFormattedDate(offer.end_date) }}
           </td>
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-right">
             {{ offer.text_amount }}
           </td>
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-right">
             {{ offer.video_amount }}
           </td>
           <td class="flex justify-center items-center pb-4 pe-4 pt-5">
