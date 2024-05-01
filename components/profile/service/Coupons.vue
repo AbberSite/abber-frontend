@@ -10,10 +10,12 @@
             </svg>
         </button>
     </div>
-    
-    <ProfileServiceCreateNewCoupon :show="isOpen" @close="isOpen = false" @refresh-coupons="refreshCoupons()"/>
-    <div class="is-scroll w-full overflow-x-auto pt-6">
-        <table class="w-full text-sm ltr:text-left rtl:text-right">
+
+    <ProfileServiceCreateNewCoupon :show="isOpen" @close="isOpen = false" @refresh-coupons="refreshCoupons()" />
+    <div class="is-scroll w-full overflow-x-auto">
+        <SkeletonsOrdersTable v-if="loading" />
+        <p v-else-if="!coupons.length" class="text-center">لا يوجد لديك اي كوبون حاليا</p>
+        <table v-else class="w-full text-sm ltr:text-left rtl:text-right">
             <thead class="border-b border-t">
                 <tr>
                     <OrdersTableHeaderCol content="الرمز" />
@@ -53,20 +55,25 @@
 
 <script setup lang="ts">
 import type { Coupon } from '~/types';
-let coupons = ref<Coupon[]>();
+let coupons = ref<Coupon[]>([]);
 let isOpen = ref(false);
+let loading = ref(false);
 onMounted(async () => {
     refreshCoupons();
 });
-async function refreshCoupons(){
-    coupons.value = await useApi('/api/coupons')
+async function refreshCoupons() {
+    loading.value = true;
+    coupons.value = await useApi('/api/coupons');
+    loading.value = false;
 }
-async function deleteCoupon(id: number){
-  await useProxy('/coupons/coupons/'+ id, {
-    method: 'DELETE'
-  }).then(()=> {
-    useNotification({type: 'success', content: 'لقد تم حذف الكوبون'});
-    refreshCoupons()
-  })
-}
+async function deleteCoupon(id: number) {
+    loading.value = true;
+    await useProxy('/coupons/coupons/' + id, {
+        method: 'DELETE'
+    }).then(() => {
+        loading.value = false;
+        useNotification({ type: 'success', content: 'لقد تم حذف الكوبون' });
+        refreshCoupons()
+    });
+};
 </script>

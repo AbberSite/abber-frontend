@@ -34,7 +34,7 @@
           <label class="block text-sm font-semibold xs:text-base">المنصات المتاحة</label>
           <select class="form-control block max-h-[300px] min-h-[50px] appearance-none space-y-2 py-4 lg:min-h-[200px]" :class="{'border-red-500 placeholder:text-red-300': error?.id == 'active_platforms'}"
             name="multiple" v-model="coupon.active_platforms" multiple required>
-            <option value="site" >الموقع</option>
+            <option value="website" >الموقع</option>
             <option value="android" >تطبيق الاندرويد</option>
             <option value="ios" >تطبيق الايفون</option>
           </select>
@@ -49,7 +49,7 @@
     </div>
     <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
       <PrimaryButton
-        class="flex h-[50px] w-full items-center justify-center rounded-md " @click="submit()"
+        class="flex h-[50px] w-full items-center justify-center rounded-md " :loading="loading" @click="submit()"
         type="submit"><span class="mt-1.5">حفظ</span></PrimaryButton>
     </div>
   </Modal>
@@ -74,6 +74,7 @@ const { errors, defineField, validate } = useForm({
   )
 })
 const emit = defineEmits(['close', 'refreshCoupons']);
+let loading = ref(false);
 const [code] = defineField('code');
 const [start_date] = defineField('start_date');
 const [end_date] = defineField('end_date');
@@ -91,8 +92,8 @@ const coupon = ref<{
 async function submit(){
   const validation = await validate();
   if(!validation.valid ) return;
-
-  coupon.value.active_platforms = coupon.value.active_platforms.toString();
+  loading.value = true
+  coupon.value.active_platforms = reWriteActivePlatforms(coupon.value.active_platforms);
   coupon.value.code = code.value;
   coupon.value.amount = amount.value;
   coupon.value.start_date = start_date.value;
@@ -102,6 +103,7 @@ async function submit(){
     body: coupon.value
   })
   if(res){
+    loading.value = false;
     useNotification({type: 'success', content: 'لقد انشاءت الكوبون بنجاح'});
     emit('close');
     emit('refreshCoupons');
@@ -118,6 +120,13 @@ function getCurrentDate() {
   return `${year}-${month}-${day}`;
 }
 
+function reWriteActivePlatforms(active_platforms: []){
+  let stringArray:string = ""; 
+  for(const platform of active_platforms){
+    stringArray += `'${platform}',`
+  }
+  return `[${stringArray}]`;
+}
 </script>
 
 <style></style>
