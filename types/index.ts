@@ -272,4 +272,16 @@ export type Rate = {
   again_rate: number;
   comment: string;
   order_id: number;
+};
+
+export type Offer = {
+  id: number;
+  type: 'percentage' | 'fixed_amount';
+  text: boolean;
+  text_amount: number;
+  video: boolean;
+  video_amount: number;
+  service: number;
+  start_date: string;
+  end_date: string;
 }
