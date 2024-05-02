@@ -1,9 +1,7 @@
 
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async(to, from) => {
 
-    const { data, status } = useAuthState()
-    
-    // console.log(document.cookie);
+    const { data, status } = useAuthState();
     if(status.value !== "authenticated"){ 
 
         return true

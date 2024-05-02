@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     //     if (rawRefreshToken.value && status.value == 'unauthenticated') {
     //         await refresh();
     //     }
-    
+
     // }
 
 
@@ -27,9 +27,13 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     // console.log(`the dicide: ${useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined}`)
     // console.log(`auth:token : ${useCookie('auth:token').value}`)
     // console.log(`auth:refreshToken : ${useCookie('auth:refresh-token').value}`)
-    const { refresh } = await useAuth()
-    if(useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined)
-        refresh();
+    
+    const { refresh, getSession } = await useAuth()
+    // console.log(`my status is : ${status.value} - ${new Date()}`)
+    if (useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined) {
+        await refresh();
+        await getSession();
+    }
 
     // console.log("Shiekh global middleware");
 });

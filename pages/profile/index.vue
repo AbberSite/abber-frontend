@@ -62,7 +62,7 @@ const activeTab = ref('details');
 onBeforeMount(() => {
     if(route.fullPath == '/profile?status=new'){
         if(data.value.user_type == 'معبر'){
-            location.href = '/orders/';
+            navigateTo({name: 'orders'});
         } else {
             navigateTo('/');
         }
