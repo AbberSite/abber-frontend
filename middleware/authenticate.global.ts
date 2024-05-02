@@ -24,4 +24,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     //     navigateTo("/blog")
 
     // }
+    console.log(`the dicide: ${useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined}`)
+    console.log(`auth:token : ${useCookie('auth:token').value}`)
+    console.log(`auth:refreshToken : ${useCookie('auth:refresh-token').value}`)
+    const {refresh} = await useAuth()
+    if(useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined)
+        refresh();
+
+    console.log("Shiekh global middleware");
 });

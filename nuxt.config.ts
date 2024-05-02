@@ -132,5 +132,6 @@ export default defineNuxtConfig({
         trailingSlash: "append",
       },
     },
+    asyncContext: true
   },
 });
