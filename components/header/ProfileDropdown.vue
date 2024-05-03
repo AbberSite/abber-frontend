@@ -68,14 +68,17 @@
             </NuxtLink>
         </div>
         <div class="py-2">
-            <a @click.prevent="$emit('logout')" class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
+            <a @click.prevent="showConfirmDailog = true" class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 href="#" role="menuitem" tabindex="-1">تسجيل الخروج</a>
         </div>
+        <ConfirmDialog :show="showConfirmDailog" title="هل انت متاكد؟" descritpion="هل انت متأكد من انك تريد تسجيل الخروج من حسابك؟" @close="showConfirmDailog = false" @continue="$emit('logout')"/>
+   
     </div>
 </template>
 
 <script setup lang="ts">
 const { data } = useAuth();
+let showConfirmDailog = ref(false)
 </script>
 
 <style scoped></style>
