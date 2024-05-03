@@ -41,6 +41,7 @@ jobs:
           node-version: "latest"
       - run: pwd
 
+      - run: npm audit fix
       - run: npm i
       # - run: pm2 kill
       - run: ABBER_ENV=production npm run build --if-present
