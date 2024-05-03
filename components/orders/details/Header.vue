@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <DetailsConfirmComplete :show="showConfirmComplete" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @rating="showConfirmComplete = false; showReviewModal = true;" />
+  <DetailsConfirmComplete :show="showConfirmComplete" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @rating="showConfirmComplete = false; showReviewModal = true;" @close="showConfirmComplete = false" />
   <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false"
     @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="cancelOrder()"
     :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />

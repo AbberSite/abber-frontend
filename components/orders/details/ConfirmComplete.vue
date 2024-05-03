@@ -25,7 +25,7 @@
 
 
     <TransitionRoot appear :show="true" as="template">
-        <Dialog as="div" class="relative z-50" >
+        <Dialog as="div" class="relative z-50" @close="emit('close')" >
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
                 leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="fixed inset-0 bg-black/25" />
@@ -38,18 +38,24 @@
                         leave-to="opacity-0 scale-95" >
                         <DialogPanel
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
-                            <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-                                شروط استلام الطلب
+                            <DialogTitle as="div" class="flex justify-between items-center" >
+                              <h3 class="text-lg font-medium leading-6 text-gray-900">شروط استلام الطلب</h3>
+                              <XMarkIcon class="w-6 h-6 cursor-pointer" @click="emit('close')"/>
                             </DialogTitle>
                             <div class="mt-2">
                                 <p class="text-sm text-gray-500"  v-html="settings?.policy_settings?.order_terms" />
                             </div>
 
-                            <div class="mt-4">
+                            <div class="mt-4 flex flex-col gap-2">
                                 <PrimaryButton :loading="loading"
-                                    class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                    class="w-full"
                                     @click="completeOrder()">
                                     إستلام الطلب وتقييمه
+                                </PrimaryButton>
+                                <PrimaryButton :loading="loadingWithoutReview"
+                                    class="w-full text-black"
+                                    @click="completeOrder(true)">
+                                    تلقي الطلب والتقييم لاحقا
                                 </PrimaryButton>
                             </div>
                         </DialogPanel>
@@ -62,6 +68,7 @@
 
 <script setup lang="ts">
 // import { TransitionRoot, TransitionChild } from "@headlessui/vue";
+import { XMarkIcon } from '@heroicons/vue/24/outline';
 const { settings } = storeToRefs(useSettingsStore());
 import {
     TransitionRoot,
@@ -76,14 +83,17 @@ const props = defineProps<{
   isSeller: boolean;
   isBuyer: boolean;
 }>();
-const emit = defineEmits(['rating'])
+const emit = defineEmits(['rating', 'close'])
 const loading = ref(false);
-
+let loadingWithoutReview = ref(false)
 const { updateOrderStatus } = useOrdersStore();
 
-async function completeOrder() {
-  loading.value = true;
-
+async function completeOrder(noReview?: boolean) {
+  if(noReview)
+    loadingWithoutReview.value = true;
+  else
+    loading.value = true;
+  
   const statusMessage = () => {
     if (props.isBuyer) {
       return { status: "complete", message: "تم إستلام الطلب" };
@@ -98,7 +108,12 @@ async function completeOrder() {
 
   await updateOrderStatus(props.order?.id, statusMessage().status);
   useNotification({ content: statusMessage().message, type: "success" });
-  emit('rating');
-  loading.value = false;
+  if(!noReview){
+    emit('rating');
+    loading.value = false;
+  } else {
+    loadingWithoutReview.value = false;
+    emit('close');
+  }
 }
 </script>

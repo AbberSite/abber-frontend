@@ -103,6 +103,7 @@
             </div>
             <div class="w-full space-y-3">
                 <label class="block text-sm font-semibold xs:text-base" for="textarea">وصف الحلم</label>
+                <div class="text-sm text-yellow-700" >نضمن لكم السرية الخاصة ويمنع إرسال أرقام التواصل للمعبر</div>
                 <textarea
                     class="form-control block max-h-[300px] min-h-[200px] py-4"
                     name="textarea"
