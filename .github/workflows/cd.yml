@@ -43,7 +43,7 @@ jobs:
 
       - run: npm i
       # - run: pm2 kill
-      - run: ABBER_ENV=production npm run build --dotenv .env.production --if-present
+      - run: ABBER_ENV=production npm run --dotenv .env.production build --if-present
       - run: mkdir -p out
 
       - run: tar -czvf out/nuxt_archive.tar.gz .output
