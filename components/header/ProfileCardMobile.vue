@@ -20,7 +20,7 @@
                     <PencilSquareIcon class="h-6 w-6" />
                 </NuxtLink>
                 <NuxtLink class="-m-2.5 p-2.5 cursor-pointer"
-                    @click="$emit('logout')">
+                    @click="showConfirmDailog = true">
                     <span class="sr-only">تسجيل الخروج</span>
                     <ArrowLeftStartOnRectangleIcon class="h-6 w-6" />
                 </NuxtLink>
@@ -42,17 +42,20 @@
                 v-if="data.user_type != 'إدارة'" @click="$emit('navigate', { name: 'wallet' })">المحفظة
             </NuxtLink>
             <button class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
-                @click="$emit('logout')">
+                @click="showConfirmDailog = true">
                 تسجيل الخروج
             </button>
         </div>
+        <ConfirmDialog :show="showConfirmDailog" title="هل انت متاكد؟" descritpion="هل انت متأكد من انك تريد تسجيل الخروج من حسابك؟" @close="showConfirmDailog = false" @continue="$emit('logout')"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { PencilSquareIcon, ArrowLeftStartOnRectangleIcon } from '@heroicons/vue/24/outline';
+import { PencilSquareIcon, ArrowLeftStartOnRectangleIcon} from '@heroicons/vue/24/outline';
 
 const { data, status } = useAuth();
+
+let showConfirmDailog = ref(false)
 </script>
 
 <style scoped></style>
