@@ -80,7 +80,7 @@ function submit(service_id: number) {
   if (!service_id) {
     if (status.value == 'authenticated') {
       next({
-        nextStepId: 'payment'
+        nextStepId: 'payment', data: { service_id: 0 }
       });
       return;
     } else {
