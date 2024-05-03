@@ -65,7 +65,7 @@
     </div>
 
     <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
-      <PrimaryButton v-if="hasSufficientBallance" :loading="true" class="w-full"><span class="mt-1.5">الدفع
+      <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="useBalance()" class="w-full"><span class="mt-1.5">الدفع
           بالمحفظة</span></PrimaryButton>
 
       <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
@@ -109,9 +109,9 @@ const callbackURL = window.location.origin + (state.value?.data?.type === 'text_
 const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
 
 const hasCoupon = ref(false)
-const useWallet = ref(false)
+const waitingByBalance = ref(false)
 const coupon = ref("")
-
+let isPaymentScrolled = ref<boolean>(false);
 let hyper: any = undefined;
 
 
@@ -131,9 +131,7 @@ const hasSufficientBallance = computed(() => {
 
 watch(paymentMethod, async (value) => {
   if (value == 'BALANCE') {
-    const payment = await createCheckout();
-    if (payment)
-      navigateTo(callbackURL + '?balance=true', { external: true });
+
     return;
   }
   loading.value = true;
@@ -180,7 +178,7 @@ onMounted(async () => {
   // }
   error.value = '';
   try {
-    Promise.all([loadHyper(), fetchBalance(), scrollPayments()]);
+    Promise.all([loadHyper(), fetchBalance()]);
     // await loadHyper();
     // await fetchBalance();
   } catch (error) {
@@ -240,9 +238,12 @@ async function loadHyper() {
     },
     onReady: function (array: Array<any>) {
       loading.value = false;
-      setTimeout(() => {
-        scrollPayments();
-      }, 1000)
+      if (!isPaymentScrolled.value) {
+        setTimeout(() => {
+          scrollPayments()
+          isPaymentScrolled.value = true;
+        }, 1000);
+      }
       // Groups
       const cardGroup = document.querySelector('.wpwl-group-cardNumber');
       const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
@@ -295,7 +296,10 @@ async function loadHyper() {
 }
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
-  let another_service = state.value.data?.selectedServices.map(service => service).join(',')
+  var another_service; 
+  try{
+    another_service = state.value.data?.selectedServices.map(service => service).join(',')
+  } catch(e){}
   if (paymentMethod.value == 'BALANCE') {
     const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
       method: 'POST',
@@ -360,6 +364,12 @@ async function scrollPayments() {
   } catch (e) {
 
   }
+}
+async function useBalance() {
+  waitingByBalance.value = true;
+  const payment = await createCheckout();
+  if (payment)
+    navigateTo(callbackURL + '?balance=true', { external: true });
 }
 </script>
 
