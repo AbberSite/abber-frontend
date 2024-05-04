@@ -65,7 +65,7 @@
     </div>
 
     <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
-      <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="useBalance()" class="w-full"><span class="mt-1.5">الدفع
+      <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="showConfirmDailog = true" class="w-full"><span class="mt-1.5">الدفع
           بالمحفظة</span></PrimaryButton>
 
       <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
@@ -95,6 +95,7 @@
       </div>
     </div>
   </div>
+  <ConfirmDialog v-if="showConfirmDailog" :title="`تأكيد خصم ${hyper.checkout.amount} ر.س من محفظتك`" :descritpion="`هل انت متأكد من رغبتك في خصم ${hyper.checkout.amount} ريال سعودي من محفظتك`" @close="showConfirmDailog = false" @continue="useBalance(); showConfirmDailog = false;" />
 </template>
 
 <script setup lang="ts">
@@ -107,7 +108,7 @@ const { data, getSession } = useAuth();
 const callbackURL = window.location.origin + (state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete');
 
 const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
-
+let showConfirmDailog = ref(false);
 const hasCoupon = ref(false)
 const waitingByBalance = ref(false)
 const coupon = ref("")
