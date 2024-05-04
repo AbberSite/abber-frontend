@@ -23,7 +23,7 @@
 
                             <div class="mt-4 flex flex-col gap-2">
                                 <PrimaryButton @click="emit('continue')"
-                                    class="w-full ">
+                                    class="w-full">
                                     المتابعة
                                 </PrimaryButton>
                                 <button @click="emit('close')"
@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 // import { TransitionRoot, TransitionChild } from "@headlessui/vue";
-import { XMarkIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
+import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 import {
     TransitionRoot,
     TransitionChild,
