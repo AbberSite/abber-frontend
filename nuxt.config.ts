@@ -39,8 +39,8 @@ export default defineNuxtConfig({
       WebsocketURL: import.meta.env.VITE_WS_URL,  // 'wss://abber.co'
       zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
-      paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`
-      // paymentWidgetURL: `https://eu-test.oppwa.com/v1/paymentWidgets.js`
+      paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`,
+      // paymentWidgetURL: `https://eu-test.oppwa.com/v1/paymentWidgets.js`,
     },
   },
   modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth", '@nuxtjs/device'],
@@ -48,7 +48,7 @@ export default defineNuxtConfig({
   auth: {
 
     globalAppMiddleware: true,
-
+    baseURL : import.meta.env.VITE_AUTH_URL,
     provider: {
       type: "refresh",
       pages: {
@@ -115,6 +115,8 @@ export default defineNuxtConfig({
         {
         src: "https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js",
         type: "text/javascript",
+        body: true
+
       },
       {
         src: '/lazysizes.min.js',
