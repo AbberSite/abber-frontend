@@ -13,8 +13,8 @@
       </span>
     </div>
 
-    <div class="w-full space-y-3" v-if="!loading">
-      <h1 class="text-center font-semibold">سعر الخدمة : <span class="text-blue-600">{{ hyper.checkout.amount }}
+    <div class="w-full space-y-3" >
+      <h1 class="text-center font-semibold" v-if="!loading">سعر الخدمة : <span class="text-blue-600">{{ hyper.checkout.amount }}
           ر.س</span></h1>
 
 
