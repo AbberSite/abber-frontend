@@ -47,7 +47,7 @@ jobs:
       - run: |
           echo "ABBER_ENV='production'" > .env
           echo "VITE_WS_URL='wss://abber.co'" > .env
-          echo "VITE_AUTH_URL='http://localhost:3000/api/auth'" > .env
+          echo "VITE_AUTH_URL='https://theme.abber.co/api/auth'" > .env
           echo "VITE_API_SECRET='a011ff6611fa1cfa9be83e5e22533976b2ede3df'" > .env
           echo "VITE_GOOGLE_CLIENT_ID='916666485232-27mv7pmigoe6is7728af1fdenmqc1e6n.apps.googleusercontent.co'" > .env
       - run: npm run build --if-present
