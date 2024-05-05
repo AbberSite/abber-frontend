@@ -124,7 +124,8 @@ const { fetchBalance } = useWalletStore();
 
 const { balance } = storeToRefs(useWalletStore());
 
-const paymentMethod = ref('CARD');
+// const paymentMethod = ref('CARD');
+const paymentMethod = ref(isApple && isSafari ? 'APPLEPAY' : 'CARD');
 const cardType = ref('general');
 const hasSufficientBallance = computed(() => {
   return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
@@ -215,7 +216,11 @@ async function loadHyper() {
     error.value = 'حدث خطأ ما';
     return;
   }
-
+  // if(paymentMethod.value == 'APPLEPAY'){
+  //   loading.value = false;
+  //   console.log("i maked loading is false! -- " + loading.value)
+  // }
+  
   (window as any).wpwlOptions = {
     style: 'plain',
     locale: 'ar',
@@ -237,12 +242,12 @@ async function loadHyper() {
     },
     onFocusIframeCommunication: async function () {
       const form = this.$iframe[0] as HTMLIFrameElement;
-
+      
       form.classList.add('activeIframe');
     },
     onBlurIframeCommunication: function () {
       const form = this.$iframe[0] as HTMLElement;
-
+      
       form.classList.remove('activeIframe');
     },
     onChangeBrand: (data: string) => {
@@ -255,65 +260,67 @@ async function loadHyper() {
       const card = document.querySelector('.w-8.lazyloaded');
       card?.removeAttribute('data-src');
       if (card?.src !== undefined)
-        card.src = cardImage.value.src;
-    },
-    onReady: function (array: Array<any>) {
-      loading.value = false;
-      if (!isPaymentScrolled.value) {
-        setTimeout(() => {
-          scrollPayments()
-          isPaymentScrolled.value = true;
-        }, 1000);
-      }
-      
-      // Groups
-      const cardGroup = document.querySelector('.wpwl-group-cardNumber');
-      const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
-      const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
-      const cardBrand = document.querySelector('.card-brand') as Element;
-      
-      // labels
-      const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
-      const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
-      const phoneNumberLabel = document.querySelector('.wpwl-label-mobilePhone') as Element;
-      
-      // input
-      const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
-      const cardNumber = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber') as Element;
-      if (phoneNumber) {
-        (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
-        (phoneNumber as HTMLInputElement).maxLength = 10;
-        (phoneNumber as HTMLInputElement).type = 'number';
-      }
-      
-      (cardNumber as HTMLInputElement).maxLength = 16;
-      // (cardNumber as HTML)
-      cardLabel.innerHTML = 'رقم البطاقة';
-      cvvLabel.innerHTML = 'رمز التحقق (CVV)';
-      
-      const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
-      
-      cardHolderInput.value = data.value.username;
-      
-      // expiryGroup?.remove();
-      // cvvGroup?.remove?.();
-      // console.log(expiryGroup)
-      // cardBrand.remove();
-      if(cardBrand)
-        cardGroup?.append(cardBrand);
-      
-      const div = document.createElement('div');
-      div.classList.add('cvv-expiry-wrapper');
-      cardGroup?.insertAdjacentElement('afterend', div);
-      div.append(cvvGroup);
-      div.append(expiryGroup);
+      card.src = cardImage.value.src;
+  },
+  onReady: function (array: Array<any>) {
+    loading.value = false;
+    if (!isPaymentScrolled.value) {
+      setTimeout(() => {
+        scrollPayments()
+        isPaymentScrolled.value = true;
+      }, 1000);
     }
     
-  };
+    // Groups
+    const cardGroup = document.querySelector('.wpwl-group-cardNumber');
+    const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
+    const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
+    const cardBrand = document.querySelector('.card-brand') as Element;
+    
+    // labels
+    const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
+    const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
+    const phoneNumberLabel = document.querySelector('.wpwl-label-mobilePhone') as Element;
+    
+    // input
+    const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
+    const cardNumber = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber') as Element;
+    if (phoneNumber) {
+      (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
+      (phoneNumber as HTMLInputElement).maxLength = 10;
+      (phoneNumber as HTMLInputElement).type = 'number';
+    }
+    
+    (cardNumber as HTMLInputElement).maxLength = 16;
+    // (cardNumber as HTML)
+    cardLabel.innerHTML = 'رقم البطاقة';
+    cvvLabel.innerHTML = 'رمز التحقق (CVV)';
+    
+    const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
+    
+    cardHolderInput.value = data.value.username;
+    
+    // expiryGroup?.remove();
+    // cvvGroup?.remove?.();
+    // console.log(expiryGroup)
+    // cardBrand.remove();
+    if(cardBrand)
+    cardGroup?.append(cardBrand);
+  
+  const div = document.createElement('div');
+  div.classList.add('cvv-expiry-wrapper');
+  cardGroup?.insertAdjacentElement('afterend', div);
+  div.append(cvvGroup);
+  div.append(expiryGroup);
+}
 
-  await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
-  // @ts-ignore
-  hyper = wpwl as any;
+};
+
+await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
+// @ts-ignore
+hyper = wpwl as any;
+if(paymentMethod.value == 'APPLEPAY')
+  loading.value = false;
 
 }
 
