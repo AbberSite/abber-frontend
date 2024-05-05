@@ -46,7 +46,7 @@
                 تسجيل الخروج
             </button>
         </div>
-        <ConfirmDialog :show="showConfirmDailog" title="هل انت متاكد؟" descritpion="هل انت متأكد من انك تريد تسجيل الخروج من حسابك؟" @close="showConfirmDailog = false" @continue="$emit('logout')"/>
+        <ConfirmDialog v-if="showConfirmDailog" title="هل انت متاكد؟" descritpion="هل انت متأكد من انك تريد تسجيل الخروج من حسابك؟" @close="showConfirmDailog = false" @continue="$emit('logout')"/>
     </div>
 </template>
 
