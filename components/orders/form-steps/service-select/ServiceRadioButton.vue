@@ -1,7 +1,7 @@
 <template>
-  <label @click="selected = service.id" v-if="minPrice != 0"
+  <label @click="selected = service.id" v-if="minPrice != 0 "
     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm  focus:outline-none"
-    :class="[service.id == modelValue && 'border-gray-900 ring-1 ring-gray-900']">
+    :class="[service.id == modelValue && 'border-gray-900 ring-1 ring-gray-900']" >
     <div class="flex pt-1.5">
       <div class="flex-shrink-0">
         <img class="lazyload h-11 w-11 rounded-full bg-gray-100"

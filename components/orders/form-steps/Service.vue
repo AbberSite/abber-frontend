@@ -18,7 +18,7 @@
           <template v-else>
             <template v-if="state.data?.type == 'text_communication'">
               <FormStepsServiceSelectUrgentOrderService @click.once="submit(0)" v-model="selectedService" />
-              <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices"
+              <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices" 
                 v-model="selectedService" @click.once="submit(service.id, service.service_prices.text_price)"
                 :service="service" />
             </template>
