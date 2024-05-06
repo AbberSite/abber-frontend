@@ -112,12 +112,6 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
 
       script: [
-        {
-        src: "https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js",
-        type: "text/javascript",
-        body: true
-
-      },
       {
         src: '/lazysizes.min.js',
         type: 'text/javascript',
