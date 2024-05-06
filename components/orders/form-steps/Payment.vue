@@ -138,6 +138,7 @@ const hasSufficientBallance = computed(() => {
   return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
 });
 
+await useScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js');
 await useScript('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js');
 
 watch(paymentMethod, async (value) => {
