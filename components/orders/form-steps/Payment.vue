@@ -89,7 +89,9 @@
       <div class="w-full space-y-3" v-if="hasCoupon">
         <input class="form-control h-[50px] appearance-none" type="text" name="text" id="coupon" v-model="coupon"
           placeholder="إدخل كوبون الخصم" dir="rtl" required />
-        <PrimaryButton @click="checkCoupon()">تحقق</PrimaryButton>
+          <p v-if="couponResponse?.error" class="text-red-500" >{{ couponResponse?.message }}</p>
+          <p v-if="!couponResponse?.error" class="text-green-500">{{ couponResponse?.message }}</p>
+        <PrimaryButton @click="checkCoupon()" :loading="loadingCoupon" >تحقق</PrimaryButton>
       </div>
     </div>
   </div>
@@ -112,11 +114,16 @@ let showConfirmDailog = ref(false);
 const hasCoupon = ref(false)
 const waitingByBalance = ref(false)
 const coupon = ref("")
+let couponResponse = ref<{
+  error: boolean;
+  message: string;
+} | null>(null);
 let isPaymentScrolled = ref<boolean>(false);
 let hyper: any = undefined;
 
 
 const loading = ref(true);
+let loadingCoupon = ref(false);
 let paymentForm = ref<HTMLDivElement | null>(null);
 const error = ref('');
 
@@ -369,6 +376,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 };
 
 async function checkCoupon() {
+  loadingCoupon.value = true;
   try {
     const data = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
       method: 'POST',
@@ -377,10 +385,18 @@ async function checkCoupon() {
         coupon: coupon.value
       }
     });
-
+    couponResponse.value = {
+      error: false,
+      message: 'لقد تم تفعيل الكوبون بنجاح'
+    }
+    hyper.checkout.amount = data.amount;
   } catch (e) {
-
+    couponResponse.value = {
+      error: true,
+      message: "رمز غير صالح أو منتهي الصلاحية"
+    }
   }
+  loadingCoupon.value = false; 
 }
 
 async function scrollPayments() {
