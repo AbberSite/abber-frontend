@@ -2,7 +2,7 @@
   <div class="w-full space-y-3">
     <label class="block text-sm font-semibold xs:text-base" for="tel">رقم الجوال</label>
 
-    <input ref="phoneInput" class="form-control h-[50px] appearance-none" type="text" pattern="\d*" name="phone" id="tel"
+    <input ref="phoneInput" class="form-control h-[50px] appearance-none" :type="isApple ? 'text' : 'number'" pattern="\d*" name="phone" id="tel"
       :placeholder="placeholder ?? '12345XXXX'" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model.number="phone"
       :class="[(validationError !== '' || error) && 'form-invalid']" autocomplete="tel" dir="ltr" required />
     <InputError :message="error" />
@@ -16,7 +16,7 @@ import 'intl-tel-input/build/css/intlTelInput.css';
 import intlTelInput from 'intl-tel-input';
 
 const phoneInput = ref<Element>();
-
+const {isApple} = useDevice();
 const props = defineProps<{
   modelValue?: string;
   error?: string;
@@ -71,10 +71,7 @@ onMounted(() => {
   if (props.modelValue) {
     iti.setNumber(props.modelValue as string);
   }
-  (phoneInput.value as HTMLInputElement).addEventListener('keyup', function(){
-    console.log((phoneInput.value as HTMLInputElement).value)
-  });
-
+  
   (phoneInput.value as HTMLInputElement)?.addEventListener('blur', () => {
     const errorCode = iti.getValidationError();
   });
