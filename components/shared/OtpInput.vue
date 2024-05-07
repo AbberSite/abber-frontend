@@ -19,7 +19,7 @@ onMounted(() => {
         if (index == 0) {
             input.focus();
             input.select();
-            input.click();
+            input.click()
             const event = new KeyboardEvent('keypress', { key: '0' });
             input.dispatchEvent(event);
         }
