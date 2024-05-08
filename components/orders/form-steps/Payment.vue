@@ -608,6 +608,7 @@ async function useBalance() {
 .wpwl-clearfix {
   display: flex;
   justify-content: center;
+  direction: rtl;
 }
 .wpwl-apple-pay-button  {
   background-color: black;
