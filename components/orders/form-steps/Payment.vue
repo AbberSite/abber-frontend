@@ -300,11 +300,12 @@ async function loadHyper() {
       (phoneNumber as HTMLInputElement).maxLength = 10;
       (phoneNumber as HTMLInputElement).type = 'number';
     }
-    
-    // (cardNumber as HTMLInputElement).maxLength = 16;
-    // (cardNumber as HTML)
-    cardLabel.innerHTML = 'رقم البطاقة';
-    cvvLabel.innerHTML = 'رمز التحقق (CVV)';
+    if(paymentMethod.value == 'CARD'){
+      (cardNumber as HTMLInputElement).maxLength = 16;
+      // (cardNumber as HTML)
+      cardLabel.innerHTML = 'رقم البطاقة';
+      cvvLabel.innerHTML = 'رمز التحقق (CVV)';
+    }
     
     const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
     
