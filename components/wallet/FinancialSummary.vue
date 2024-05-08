@@ -1,6 +1,6 @@
 <template>
     <div
-        class="grid w-full gap-x-8 gap-y-8 pt-16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        class="grid w-full gap-x-8 gap-y-8 pt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         x-show="activeTab === 1"
         x-cloak>
         <div class="relative flex justify-between rounded-md border bg-white px-4 py-4 shadow-sm">

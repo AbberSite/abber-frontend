@@ -1,6 +1,6 @@
 import type { WalletStatementsPDFExport } from '~/.nuxt/components';
 <template>
-    <div class="w-full pt-16">
+    <div class="w-full pt-8">
         <div class="flex items-center justify-between">
             <form class="w-full sm:max-w-sm" method="GET">
                 <div class="w-full space-y-3">

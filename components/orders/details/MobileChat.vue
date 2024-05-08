@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full flex flex-col items-center space-y-6 pb-6 pt-16 lg:hidden" >
+    <div class="w-full flex flex-col items-center space-y-6 pb-6 lg:hidden" >
         <div class="flex justify-center">
             <Loading v-if="loading" />
         </div>

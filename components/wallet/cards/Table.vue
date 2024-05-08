@@ -45,7 +45,7 @@
               <img class="lazyload max-w-none" v-if="card.brand == 'MADA'"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                 data-src="/images/payments/section/mada.png" height="20" width="20"/>
-              <span class="pt-2">**** {{ card.last4Digits }}</span></span>
+              </span>
           </td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">{{ card.expiryMonth + '/' + card.expiryYear }}</td>
           <td class="flex items-center justify-center pe-4 pb-4 pt-5">

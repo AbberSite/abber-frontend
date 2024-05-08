@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full pt-16">
+    <div class="w-full pt-4">
         <form class="w-full sm:max-w-sm" >
             <div class="w-full space-y-3">
                 <div class="relative">
@@ -41,7 +41,11 @@ onMounted(async () => {
 })
 async function refreshCards(){
     const my_cards = await useProxy('/wallets/cards/');
-    cards.value = my_cards.results;
+    for(let card of my_cards.results){
+        if(!cards.value.filter((c) => c.last4Digits === card.last4Digits).length){
+            cards.value.push(card);
+        }
+    }
     all_cards = cards.value;
 }
 const showAddModal = ref(false);
@@ -49,6 +53,7 @@ const showAddModal = ref(false);
 watch(search, async(value) => {
     cards.value = all_cards.filter((card)=> card?.last4Digits.startsWith(value));
 }, {deep: true});
+
 </script>
 
 <style scoped></style>

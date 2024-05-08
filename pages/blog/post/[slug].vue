@@ -25,10 +25,10 @@
     aria-labelledby="blog-heading">
     <div class="grid w-full gap-x-8 lg:grid-cols-3">
       <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block">
-        <div class="px-6 text-lg font-semibold">جدول المحتويات</div>
+        <SkeletonsSidebarPost v-if="loading"/>
+        <div class="px-6 text-lg font-semibold" v-if="!loading" >جدول المحتويات</div>
         <div class="js-toc leading-[1.75]"></div>
-        <SkeletonsToc v-if="loading" />
-        <SkeletonsToc v-if="loading" />
+        
       </div>
 
       <div class="mx-auto max-w-prose lg:col-span-2 lg:max-w-full w-full">
