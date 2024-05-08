@@ -351,7 +351,9 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         // brand: cardType.valuee
       }
     });
-    return checkout.paid;
+    // if(checkout.cart.length > 1)
+    //   (state.value.data as OrderFrom).orders = checkout.cart;
+    return checkout;
   }
   return new Promise(async (resolve, reject) => {
 
@@ -371,7 +373,8 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
     (state.value.data as OrderForm).order_id = checkout.order_id;
-
+    if(checkout.cart.length > 1)
+      (state.value.data as OrderFrom).orders = checkout.cart;
     persist();
 
     resolve(checkout);
@@ -416,7 +419,7 @@ async function scrollPayments() {
 async function useBalance() {
   waitingByBalance.value = true;
   const payment = await createCheckout();
-  if (payment)
+  if (payment.paid)
     navigateTo(callbackURL + '?balance=true', { external: true });
 }
 </script>

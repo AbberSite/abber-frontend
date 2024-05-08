@@ -138,12 +138,13 @@ const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
+    console.log(data);
     if (balance && data?.dream != undefined) {
         await updateOrderInfo(data);
         localStorage.removeItem('abber:current-transaction-id');
         loading.value = false;
         (data as any).clear();
-        return; 
+        return;
     }
     await getSession();
     await getStatus();
@@ -152,7 +153,7 @@ onMounted(async () => {
 async function getStatus() {
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
     const service_id = data.service_id;
-  let another_service = data.selectedServices.map(service => service).join(',')
+    let another_service = data.selectedServices.map(service => service).join(',')
 
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
 
@@ -187,7 +188,7 @@ async function getStatus() {
         method: 'POST',
         body: {
             type: data.type,
-          another_service: another_service,
+            another_service: another_service,
             // TODO: unncomment the above line when finishing from testing
             brand: 'visa'
             // brand: cardType.valuee
@@ -230,13 +231,26 @@ async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
 }
 
 async function updateOrderInfo(data: OrderForm) {
-    try {
-        const response = await useApi(`/api/orders/update/${data.order_id}`, {
-            method: 'POST',
-            body: data
-        });
-    } catch (error) {
-        alert('something went wrong');
+    if (data.orders?.length > 1) {
+        for (const order of data.orders) {
+            try {
+                const response = await useApi(`/api/orders/update/${order}`, {
+                    method: 'POST',
+                    body: data
+                });
+            } catch (error) {
+                alert('something went wrong');
+            }
+        }
+    } else {
+        try {
+            const response = await useApi(`/api/orders/update/${data.order_id}`, {
+                method: 'POST',
+                body: data
+            });
+        } catch (error) {
+            alert('something went wrong');
+        }
     }
 }
 

@@ -109,6 +109,7 @@ export type OrderForm = {
   selectedServices?: number[];
   authenticationMethod?: 'login' | 'register' | 'guest' | 'otp';
   order_id?: string;
+  orders?: string[]
 };
 
 export type Post = {
