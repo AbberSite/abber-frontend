@@ -138,7 +138,6 @@ const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
-    console.log(data);
     if (balance && data?.dream != undefined) {
         await updateOrderInfo(data);
         localStorage.removeItem('abber:current-transaction-id');

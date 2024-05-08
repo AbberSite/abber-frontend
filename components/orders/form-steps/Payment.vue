@@ -301,7 +301,7 @@ async function loadHyper() {
       (phoneNumber as HTMLInputElement).type = 'number';
     }
     
-    (cardNumber as HTMLInputElement).maxLength = 16;
+    // (cardNumber as HTMLInputElement).maxLength = 16;
     // (cardNumber as HTML)
     cardLabel.innerHTML = 'رقم البطاقة';
     cvvLabel.innerHTML = 'رمز التحقق (CVV)';
