@@ -323,6 +323,9 @@ async function loadHyper() {
         cardGroup?.insertAdjacentElement('afterend', div);
         div.append(cvvGroup);
         div.append(expiryGroup);
+      } else if (paymentMethod.value == 'APPLEPAY'){
+        let applepayButton = document.getElementsByClassName('wpwl-apple-pay-button') as HTMLButtonElement;
+        applepayButton.value = 'الدفع بإستخدام Apple Pay';
       }
     }
 
