@@ -13,8 +13,9 @@
       </span>
     </div>
 
-    <div class="w-full space-y-3" >
-      <h1 class="text-center font-semibold" v-if="!loading">سعر الخدمة : <span class="text-blue-600">{{ hyper.checkout.amount }}
+    <div class="w-full space-y-3">
+      <h1 class="text-center font-semibold" v-if="!loading">سعر الخدمة : <span class="text-blue-600">{{
+        hyper.checkout.amount }}
           ر.س</span></h1>
 
 
@@ -89,9 +90,9 @@
       <div class="w-full space-y-3" v-if="hasCoupon">
         <input class="form-control h-[50px] appearance-none" type="text" name="text" id="coupon" v-model="coupon"
           placeholder="إدخل كوبون الخصم" dir="rtl" required />
-          <p v-if="couponResponse?.error" class="text-red-500" >{{ couponResponse?.message }}</p>
-          <p v-if="!couponResponse?.error" class="text-green-500">{{ couponResponse?.message }}</p>
-        <PrimaryButton @click="checkCoupon()" :loading="loadingCoupon" >تحقق</PrimaryButton>
+        <p v-if="couponResponse?.error" class="text-red-500">{{ couponResponse?.message }}</p>
+        <p v-if="!couponResponse?.error" class="text-green-500">{{ couponResponse?.message }}</p>
+        <PrimaryButton @click="checkCoupon()" :loading="loadingCoupon">تحقق</PrimaryButton>
       </div>
     </div>
   </div>
@@ -154,7 +155,7 @@ watch(paymentMethod, async (value) => {
       script.remove();
     }
   })
-  if(value == 'CARD'){
+  if (value == 'CARD') {
     hyper = undefined;
     const form = document.createElement('form');
     form.dir = 'ltr'
@@ -230,7 +231,7 @@ async function loadHyper() {
   //   loading.value = false;
   //   console.log("i maked loading is false! -- " + loading.value)
   // }
-  
+
   (window as any).wpwlOptions = {
     style: 'plain',
     locale: 'ar',
@@ -252,12 +253,12 @@ async function loadHyper() {
     },
     onFocusIframeCommunication: async function () {
       const form = this.$iframe[0] as HTMLIFrameElement;
-      
+
       form.classList.add('activeIframe');
     },
     onBlurIframeCommunication: function () {
       const form = this.$iframe[0] as HTMLElement;
-      
+
       form.classList.remove('activeIframe');
     },
     onChangeBrand: (data: string) => {
@@ -270,68 +271,68 @@ async function loadHyper() {
       const card = document.querySelector('.w-8.lazyloaded');
       card?.removeAttribute('data-src');
       if (card?.src !== undefined)
-      card.src = cardImage.value.src;
-  },
-  onReady: function (array: Array<any>) {
+        card.src = cardImage.value.src;
+    },
+    onReady: function (array: Array<any>) {
+      loading.value = false;
+      if (!isPaymentScrolled.value) {
+        setTimeout(() => {
+          scrollPayments()
+          isPaymentScrolled.value = true;
+        }, 1000);
+      }
+
+      // Groups
+      const cardGroup = document.querySelector('.wpwl-group-cardNumber');
+      const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
+      const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
+      const cardBrand = document.querySelector('.card-brand') as Element;
+
+      // labels
+      const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
+      const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
+      const phoneNumberLabel = document.querySelector('.wpwl-label-mobilePhone') as Element;
+
+      // input
+      const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
+      const cardNumber = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber') as Element;
+      if (phoneNumber) {
+        (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
+        (phoneNumber as HTMLInputElement).maxLength = 10;
+        (phoneNumber as HTMLInputElement).type = 'number';
+      }
+      if (paymentMethod.value == 'CARD') {
+        (cardNumber as HTMLInputElement).maxLength = 16;
+        // (cardNumber as HTML)
+        cardLabel.innerHTML = 'رقم البطاقة';
+        cvvLabel.innerHTML = 'رمز التحقق (CVV)';
+
+        const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
+
+        cardHolderInput.value = data.value.username;
+
+        // expiryGroup?.remove();
+        // cvvGroup?.remove?.();
+        // console.log(expiryGroup)
+        // cardBrand.remove();
+        if (cardBrand)
+          cardGroup?.append(cardBrand);
+
+        const div = document.createElement('div');
+        div.classList.add('cvv-expiry-wrapper');
+        cardGroup?.insertAdjacentElement('afterend', div);
+        div.append(cvvGroup);
+        div.append(expiryGroup);
+      }
+    }
+
+  };
+
+  await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
+  // @ts-ignore
+  hyper = wpwl as any;
+  if (paymentMethod.value == 'APPLEPAY')
     loading.value = false;
-    if (!isPaymentScrolled.value) {
-      setTimeout(() => {
-        scrollPayments()
-        isPaymentScrolled.value = true;
-      }, 1000);
-    }
-    
-    // Groups
-    const cardGroup = document.querySelector('.wpwl-group-cardNumber');
-    const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
-    const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
-    const cardBrand = document.querySelector('.card-brand') as Element;
-    
-    // labels
-    const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
-    const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
-    const phoneNumberLabel = document.querySelector('.wpwl-label-mobilePhone') as Element;
-    
-    // input
-    const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
-    const cardNumber = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber') as Element;
-    if (phoneNumber) {
-      (phoneNumber as HTMLInputElement).placeholder = '05XXXXXXXX';
-      (phoneNumber as HTMLInputElement).maxLength = 10;
-      (phoneNumber as HTMLInputElement).type = 'number';
-    }
-    if(paymentMethod.value == 'CARD'){
-      (cardNumber as HTMLInputElement).maxLength = 16;
-      // (cardNumber as HTML)
-      cardLabel.innerHTML = 'رقم البطاقة';
-      cvvLabel.innerHTML = 'رمز التحقق (CVV)';
-      
-      const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
-      
-      cardHolderInput.value = data.value.username;
-      
-      // expiryGroup?.remove();
-      // cvvGroup?.remove?.();
-      // console.log(expiryGroup)
-      // cardBrand.remove();
-      if(cardBrand)
-      cardGroup?.append(cardBrand);
-    
-    const div = document.createElement('div');
-    div.classList.add('cvv-expiry-wrapper');
-    cardGroup?.insertAdjacentElement('afterend', div);
-    div.append(cvvGroup);
-    div.append(expiryGroup);
-  }
-}
-
-};
-
-await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
-// @ts-ignore
-hyper = wpwl as any;
-if(paymentMethod.value == 'APPLEPAY')
-  loading.value = false;
 
 }
 
@@ -374,7 +375,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
     (state.value.data as OrderForm).order_id = checkout.order_id;
-    if(checkout.cart.length > 1)
+    if (checkout.cart.length > 1)
       (state.value.data as OrderFrom).orders = checkout.cart;
     persist();
 
@@ -403,7 +404,7 @@ async function checkCoupon() {
       message: "رمز غير صالح أو منتهي الصلاحية"
     }
   }
-  loadingCoupon.value = false; 
+  loadingCoupon.value = false;
 }
 
 async function scrollPayments() {
@@ -593,34 +594,34 @@ async function useBalance() {
     @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
  */
-        .wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line {
-          background-color: black;
-          color: rgb(241 245 249);
-          display: flex;
-          border-radius: 9999px;
-          align-items: center;
-          font-weight: 500;
-          font-size: .875rem;
-          line-height: 1.25rem;
-          padding-left: 1.25rem;
-          padding-right: 1.25rem;
-          padding-bottom: 0.75rem;
-          padding-top: 0.75rem;
-          border-color: transparent;
-          border-width: 1px;
-          border-radius: 9999px;
-          justify-content: center;
-    
-        }
-    
-        .wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line p {
-          margin: 0;
-          padding-left: 0.45rem;
-        }
-    
-        .wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line img {
-          filter: invert();
-          width: 2.5rem;
-    
-        }
+.wpwl-apple-pay-button wpwl-apple-pay-button-white-with-line {
+  background-color: black;
+  color: rgb(241 245 249);
+  display: flex;
+  border-radius: 9999px;
+  align-items: center;
+  font-weight: 500;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+  border-color: transparent;
+  border-width: 1px;
+  border-radius: 9999px;
+  justify-content: center;
+
+}
+
+.wpwl-apple-pay-button wpwl-apple-pay-button-white-with-line p {
+  margin: 0;
+  padding-left: 0.45rem;
+}
+
+.wpwl-apple-pay-button wpwl-apple-pay-button-white-with-line img {
+  filter: invert();
+  width: 2.5rem;
+
+}
 </style>
