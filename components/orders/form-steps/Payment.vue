@@ -305,24 +305,24 @@ async function loadHyper() {
       // (cardNumber as HTML)
       cardLabel.innerHTML = 'رقم البطاقة';
       cvvLabel.innerHTML = 'رمز التحقق (CVV)';
-    }
+      
+      const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
+      
+      cardHolderInput.value = data.value.username;
+      
+      // expiryGroup?.remove();
+      // cvvGroup?.remove?.();
+      // console.log(expiryGroup)
+      // cardBrand.remove();
+      if(cardBrand)
+      cardGroup?.append(cardBrand);
     
-    const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
-    
-    cardHolderInput.value = data.value.username;
-    
-    // expiryGroup?.remove();
-    // cvvGroup?.remove?.();
-    // console.log(expiryGroup)
-    // cardBrand.remove();
-    if(cardBrand)
-    cardGroup?.append(cardBrand);
-  
-  const div = document.createElement('div');
-  div.classList.add('cvv-expiry-wrapper');
-  cardGroup?.insertAdjacentElement('afterend', div);
-  div.append(cvvGroup);
-  div.append(expiryGroup);
+    const div = document.createElement('div');
+    div.classList.add('cvv-expiry-wrapper');
+    cardGroup?.insertAdjacentElement('afterend', div);
+    div.append(cvvGroup);
+    div.append(expiryGroup);
+  }
 }
 
 };
