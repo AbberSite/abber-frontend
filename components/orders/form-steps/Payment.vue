@@ -138,7 +138,7 @@ const hasSufficientBallance = computed(() => {
   return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
 });
 
-await useScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js');
+await useScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js');
 await useScript('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js');
 
 watch(paymentMethod, async (value) => {
@@ -592,4 +592,34 @@ async function useBalance() {
     @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
  */
+        .wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line {
+          background-color: black;
+          color: rgb(241 245 249);
+          display: flex;
+          border-radius: 9999px;
+          align-items: center;
+          font-weight: 500;
+          font-size: .875rem;
+          line-height: 1.25rem;
+          padding-left: 1.25rem;
+          padding-right: 1.25rem;
+          padding-bottom: 0.75rem;
+          padding-top: 0.75rem;
+          border-color: transparent;
+          border-width: 1px;
+          border-radius: 9999px;
+          justify-content: center;
+    
+        }
+    
+        .wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line p {
+          margin: 0;
+          padding-left: 0.45rem;
+        }
+    
+        .wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line img {
+          filter: invert();
+          width: 2.5rem;
+    
+        }
 </style>
