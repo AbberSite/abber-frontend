@@ -605,7 +605,7 @@ async function useBalance() {
 }
  */
 
-.wpwl-clearfix {
+.wpwl-container-virtualAccount-APPLEPAY {
   display: flex;
   justify-content: center;
   direction: rtl;
@@ -627,7 +627,6 @@ async function useBalance() {
   border-width: 1px;
   border-radius: 9999px;
   justify-content: center;
-
 }
 
 .wpwl-apple-pay-button p {
