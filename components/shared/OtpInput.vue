@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center space-x-11 rtl:flex-row-reverse">
-        <input ref="inputs" type="number" :class="`index_${index}`"
+        <input ref="inputs" :type="isApple ?'text': 'number'" pattern="\d*" 
             class="form-control h-[50px] appearance-none text-center" :autofocus="index === 0" maxlength="1"
             v-model="digits[index]" v-for="_, index in 4" />
     </div>
@@ -10,7 +10,7 @@
 const inputs = ref<Array<HTMLInputElement>>([]);
 
 const digits = ref<number[]>([])
-
+const {isApple} = useDevice();
 const emit = defineEmits(["done", 'update:modelValue'])
 watch(digits.value, () => emit('update:modelValue', digits.value));
 onMounted(() => {
