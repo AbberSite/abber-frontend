@@ -324,8 +324,15 @@ async function loadHyper() {
         div.append(cvvGroup);
         div.append(expiryGroup);
       } else if (paymentMethod.value == 'APPLEPAY'){
-        let applepayButton = document.getElementsByClassName('wpwl-apple-pay-button') as HTMLButtonElement;
-        applepayButton.value = 'الدفع بإستخدام Apple Pay';
+        let applepayButton = document.querySelector(".wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line");
+        let my_text = document.createElement('p');
+        my_text.textContent = "شراء بإستخدام";
+        applepayButton?.appendChild(my_text);
+        let applepaylogo = document.createElement('img');
+        applepaylogo.src = '/images/payments/applepay.svg';
+        applepaylogo.width = 24;
+        applepaylogo.height = 24;
+        applepayButton?.appendChild(applepaylogo);
       }
     }
 
@@ -597,13 +604,18 @@ async function useBalance() {
     @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
  */
+
+.wpwl-clearfix {
+  display: flex;
+  justify-content: center;
+}
 .wpwl-apple-pay-button  {
   background-color: black;
   color: rgb(241 245 249);
   display: flex;
   border-radius: 9999px;
   align-items: center;
-  font-weight: 500;
+  font-weight: 700;
   font-size: .875rem;
   line-height: 1.25rem;
   padding-left: 1.25rem;
