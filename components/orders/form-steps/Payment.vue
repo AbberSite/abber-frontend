@@ -594,7 +594,7 @@ async function useBalance() {
     @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
  */
-.wpwl-apple-pay-button wpwl-apple-pay-button-white-with-line {
+.wpwl-apple-pay-button  {
   background-color: black;
   color: rgb(241 245 249);
   display: flex;
@@ -614,12 +614,12 @@ async function useBalance() {
 
 }
 
-.wpwl-apple-pay-button wpwl-apple-pay-button-white-with-line p {
+.wpwl-apple-pay-button p {
   margin: 0;
   padding-left: 0.45rem;
 }
 
-.wpwl-apple-pay-button wpwl-apple-pay-button-white-with-line img {
+.wpwl-apple-pay-button img {
   filter: invert();
   width: 2.5rem;
 
