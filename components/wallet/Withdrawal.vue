@@ -178,7 +178,8 @@ async function submit() {
         useNotification({type: 'success', content: response.message})
     } catch(e){
         loading.value = false;
-        useNotification({type: 'danger', content: 'حدث خطأ اثناء طلب السحب'})
+        emit('close');
+        useNotification({type: 'danger', content: 'هناك مشكلة، يجب عليك تعبئة بياناتك البنكية'})
     }
 
 }

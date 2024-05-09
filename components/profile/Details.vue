@@ -15,7 +15,7 @@
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">رقم الهاتف</div>
             <div class="text-sm font-semibold xs:text-base text-right" dir="ltr"> 
-                {{ data.phone ?? '-' }}
+                {{ data.phone ? data.phone.startsWith('++') ? data.phone.substring(1) : data.phone : '-' }}
             </div>
         </div>
         <div class="w-full space-y-4">
