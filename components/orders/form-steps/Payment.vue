@@ -151,7 +151,6 @@ watch(paymentMethod, async (value) => {
   hyper.unload();
   document.querySelectorAll('script').forEach((script: HTMLScriptElement) => {
     if (script.src.includes('static.min.js')) {
-      console.log('i removed static.min.js');
       script.remove();
     }
   })
@@ -311,10 +310,6 @@ async function loadHyper() {
 
         cardHolderInput.value = data.value.username;
 
-        // expiryGroup?.remove();
-        // cvvGroup?.remove?.();
-        // console.log(expiryGroup)
-        // cardBrand.remove();
         if (cardBrand)
           cardGroup?.append(cardBrand);
 
