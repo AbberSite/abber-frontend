@@ -7,7 +7,7 @@
       :class="[lastMessage?.user?.username != message.user.username ? 'space-y-3' : 'space-y-2']">
       <div class="w-fit min-w-[4rem] max-w-full space-y-2">
         <div class="rounded-lg rounded-tr-none px-4 py-4 text-right text-sm leading-loose min-w-[5rem]"
-          :class="[user.username == message.user.username ? 'bg-sky-100 ' : 'bg-gray-50 ', lastMessage?.user?.username == message.user.username && '-mt-4', user.username == message.user.username && lastMessage?.user?.username == message.user.username && 'mr-11', user.username != message.user.username && lastMessage?.user?.username == message.user.username && 'ml-11']">
+          :class="[user.username == message.user.username ? 'bg-sky-100 ' : 'bg-gray-100 ', lastMessage?.user?.username == message.user.username && '-mt-4', user.username == message.user.username && lastMessage?.user?.username == message.user.username && 'mr-11', user.username != message.user.username && lastMessage?.user?.username == message.user.username && 'ml-11']">
 
           <ChatFile :files="message.files"></ChatFile>
           <div v-html="message.message"></div>

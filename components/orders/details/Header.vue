@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-end justify-between pt-8 sm:w-full sm:pt-0">
+  <div class="flex items-end justify-between pt-4 sm:w-full sm:pt-0">
     <h1 class="text-lg font-semibold xs:text-xl lg:text-2xl" id="order-details-heading">الطلب #{{ order?.id }}</h1>
     
     <!-- Options buttons on desktop devices -->
