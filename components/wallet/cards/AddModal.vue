@@ -105,11 +105,12 @@ const hasSufficientBallance = computed(() => {
     return balance.value.available_balance >= hyper?.checkout?.amount;
 });
 
+let isPaymentScrolled = ref<boolean>(false);
+
 watch(paymentMethod, async (value) => {
-    if (value == 'WALLET') return;
-
+    loading.value = true;
     hyper.unload();
-
+    hyper = undefined;
     const form = document.createElement('form');
 
     form.dir = 'ltr';
@@ -120,9 +121,9 @@ watch(paymentMethod, async (value) => {
 
     paymentForm.value?.append(form);
 
+    await loadHyper();
     loading.value = false;
 
-    await loadHyper();
 });
 
 // onUnmounted(async () => {
@@ -209,7 +210,7 @@ async function loadHyper() {
         style: 'plain',
         locale: 'ar',
         brandDetection: true,
-        brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
+        brandDetectionPriority: ['VISA', 'MASTER', 'MADA'],
         labels: {
             cardNumber: '0000 0000 0000 0000',
             cvv: '000',
@@ -244,13 +245,13 @@ async function loadHyper() {
             (cardNumberInput as HTMLInputElement).maxLength = 16;
         },
         onReady: function (array: Array<any>) {
-
-            // console.log(array);
-
             loading.value = false;
-            setTimeout(()=> {
-                scrollPayments()
-            }, 1000)
+            if (!isPaymentScrolled.value) {
+                setTimeout(() => {
+                    scrollPayments();
+                    isPaymentScrolled.value = true;
+                }, 1000);
+            }
             // Groups
             const cardGroup = document.querySelector('.wpwl-group-cardNumber');
             const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
@@ -262,23 +263,10 @@ async function loadHyper() {
             const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
             const phoneNumberLabel = document.querySelector('.wpwl-label-mobilePhone') as Element;
 
-            // input
-            const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
+            const cardNumber = document.querySelector('.wpwl-control.wpwl-control-iframe.wpwl-control-cardNumber') as Element;
 
-            if (phoneNumber) {
-                const iti = intlTelInput(phoneNumber as Element, {
-                    initialCountry: countryCode.value,
-                    separateDialCode: true,
-                    nationalMode: true,
-                    utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
-                });
-                phoneNumberLabel.innerHTML = 'رقم الهاتف';
-
-                (phoneNumber as HTMLInputElement).placeholder = '7835196169';
-
-                phoneNumber;
-            }
-
+            (cardNumber as HTMLInputElement).maxLength = 16;
+            // (cardNumber as HTML)
             cardLabel.innerHTML = 'رقم البطاقة';
             cvvLabel.innerHTML = 'رمز التحقق (CVV)';
 
@@ -286,12 +274,8 @@ async function loadHyper() {
 
             cardHolderInput.value = data.value.username;
 
-            expiryGroup?.remove?.();
-            cvvGroup?.remove?.();
-
-            cardBrand.remove();
-
-            cardGroup?.append(cardBrand);
+            if (cardBrand)
+                cardGroup?.append(cardBrand);
 
             const div = document.createElement('div');
             div.classList.add('cvv-expiry-wrapper');
@@ -334,41 +318,48 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 async function scrollPayments() {
-  let payment_scroll = document.getElementById('payment-scrolling') as Element;
-  try {
-    payment_scroll.scrollTo({ left: -230, behavior: 'smooth' });
-    setTimeout(() => {
-      payment_scroll.scrollTo({ left: 0, behavior: 'smooth' });
-    }, 800)
-  } catch (e) {
+    let payment_scroll = document.getElementById('payment-scrolling') as Element;
+    try {
+        payment_scroll.scrollTo({ left: -230, behavior: 'smooth' });
+        setTimeout(() => {
+            payment_scroll.scrollTo({ left: 0, behavior: 'smooth' });
+        }, 800)
+    } catch (e) {
 
-  }
+    }
 }
 </script>
 
 <style>
 .wpwl-container {
-    @apply pt-[20px] px-2 ;
+    @apply pt-[20px] px-2;
 }
-.wpwl-form-has-inputs{
+
+.wpwl-form-has-inputs {
     @apply shadow-none form-control;
 }
+
 .wpwl-group-registration {
-    @apply w-full flex ;
+    @apply w-full flex;
 }
+
 .wpwl-container .wpwl-registration {
     @apply flex items-center justify-around w-full flex-row-reverse;
 }
-.wpwl-container .wpwl-registration div{
+
+.wpwl-container .wpwl-registration div {
     @apply pl-0;
 }
-.wpwl-container .wpwl-wrapper-registration-registrationId{
+
+.wpwl-container .wpwl-wrapper-registration-registrationId {
     @apply flex justify-center
 }
+
 .wpwl-container .wpwl-wrapper-registration-cvv {
     @apply hidden;
 }
-.wpwl-container .wpwl-wrapper-registration-details{
+
+.wpwl-container .wpwl-wrapper-registration-details {
     @apply flex justify-around flex-row-reverse;
 }
 
@@ -379,45 +370,57 @@ async function scrollPayments() {
 .wpwl-form {
     @apply flex flex-col items-center;
 }
-.wpwl-form .wpwl-wrapper-submit{
+
+.wpwl-form .wpwl-wrapper-submit {
     @apply w-full;
 }
-.wpwl-form .wpwl-wrapper-submit button{
+
+.wpwl-form .wpwl-wrapper-submit button {
     @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-container-card {
     @apply pt-4
 }
+
 .wpwl-form .wpwl-group-brand, .wpwl-form .wpwl-group-cardHolder {
     @apply hidden;
 }
-.wpwl-form .wpwl-group-cardNumber{
+
+.wpwl-form .wpwl-group-cardNumber {
     @apply flex flex-col;
 }
+
 .wpwl-form .wpwl-label-cardNumber {
     @apply text-right w-full block text-sm font-semibold xs:text-base;
 }
+
 .wpwl-form .wpwl-group-cardNumber iframe {
     @apply form-control h-[50px] pl-12 w-full mt-2;
 }
+
 .wpwl-form .wpwl-wrapper-cardNumber {
     @apply w-full;
 }
+
 .wpwl-form .wpwl-group-cardNumber .card-brand {
-    @apply  top-[54px];
+    @apply top-[54px];
 }
-.cvv-expiry-wrapper{
+
+.cvv-expiry-wrapper {
     @apply flex items-center justify-between gap-3 flex-row-reverse;
 }
+
 .cvv-expiry-wrapper .wpwl-label-cvv {
     direction: rtl;
 }
-.cvv-expiry-wrapper div{
+
+.cvv-expiry-wrapper div {
     @apply flex flex-col text-right w-full;
 }
-.cvv-expiry-wrapper div input, .cvv-expiry-wrapper div iframe{
+
+.cvv-expiry-wrapper div input,
+.cvv-expiry-wrapper div iframe {
     @apply form-control h-[50px] pl-12 w-full mt-2 text-end;
 }
-
 </style>
