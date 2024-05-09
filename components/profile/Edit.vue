@@ -39,7 +39,7 @@
             <label class="block text-sm font-semibold xs:text-base" for="iban">رقم IBAN</label>
             <input
                 class="form-control h-[50px] appearance-none"
-                v-model="tempAccount.profile.iban"
+                v-model="tempAccount.profile.bank_account"
                 type="text"
                 name="text"
                 id="iban"
@@ -132,7 +132,7 @@ function syncData() {
     tempAccount.value.username = data.value.first_name;
     tempAccount.value.email = data.value.email;
     tempAccount.value.phone = data.value.phone;
-    tempAccount.value.profile.iban = data.value.profile.bank_account ?? '';
+    tempAccount.value.profile.bank_account = data.value.profile.bank_account ?? '';
     tempAccount.value.profile.gender = data.value.profile.gender ?? '';
     tempAccount.value.profile.birthdate = data.value.profile.birthday ?? '';
     tempAccount.value.profile.maritalStatus = data.value.profile.marital_status ?? '';
@@ -151,7 +151,7 @@ onUnmounted(() => {
         email: '',
         phone: '',
         profile: {
-            iban: '',
+            bank_account: '',
             gender: '',
             birthdate: '',
             maritalStatus: '',
