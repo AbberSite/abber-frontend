@@ -14,7 +14,7 @@
     </div>
 
     <div class="w-full space-y-3">
-      <h1 class="text-center font-semibold" v-if="!loading">سعر الخدمة : <span class="text-blue-600">{{
+      <h1 class="text-center font-semibold" v-if="!loading">السعر الإجمالي : <span class="text-blue-600">{{
         hyper.checkout.amount }}
           ر.س</span></h1>
 
@@ -395,6 +395,21 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
 async function checkCoupon() {
   loadingCoupon.value = true;
+  let thereIsCoupon: boolean = false; 
+  if(state.value.data?.selectedServices){
+    for(const service of state.value.data.selectedServices){
+      try{
+        const res = await useProxy(`/orders/check-coupon/${service}/`, {
+          method: 'POST',
+          body: {
+            type: 'text_communication',
+            coupon: coupon.value
+          }
+        });
+        thereIsCoupon = true;
+      } catch(e){}
+    }
+  }
   try {
     const data = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
       method: 'POST',
@@ -403,16 +418,26 @@ async function checkCoupon() {
         coupon: coupon.value
       }
     });
+    thereIsCoupon = true;
+    // couponResponse.value = {
+    //   error: false,
+    //   message: 'لقد تم تفعيل الكوبون بنجاح'
+    // }
+    // hyper.checkout.amount = data.amount;
+    // await hyper.unload();
+    // await loadHyper();
+  } catch (e) {
+  //   couponResponse.value = {
+  //     error: true,
+  //     message: "رمز غير صالح أو منتهي الصلاحية"
+  //   }
+  }
+  if(thereIsCoupon){
     couponResponse.value = {
       error: false,
       message: 'لقد تم تفعيل الكوبون بنجاح'
     }
-    hyper.checkout.amount = data.amount;
-  } catch (e) {
-    couponResponse.value = {
-      error: true,
-      message: "رمز غير صالح أو منتهي الصلاحية"
-    }
+    await loadHyper();
   }
   loadingCoupon.value = false;
 }
