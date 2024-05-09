@@ -84,7 +84,7 @@
                                             حدد المبلغ المراد سحبه من محفظتك
                                         </div>
                                         <template v-if="selectedOption === 'part'">
-                                            <div class="w-full space-y-3" x-id="['input']">
+                                            <div class="w-full space-y-3" >
                                                 <input
                                                     v-model="amount"
                                                     class="form-control h-[50px] appearance-none"
@@ -133,12 +133,12 @@
                         </fieldset>
                     </div>
                     <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
-                        <button
+                        <PrimaryButton
                             @click="submit"
                             class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                            type="submit">
+                            :loading="loading">
                             <span class="mt-1.5">متابعة</span>
-                        </button>
+                        </PrimaryButton>
                     </div>
                 </div>
             </TransitionChild>
@@ -151,24 +151,35 @@ import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 const selectedOption = ref<'part' | 'all'>('part');
 const amount = ref(0);
-
+let loading = ref(false);
+const emit = defineEmits(['close']);
 const errors = ref<{ amount?: string }>({});
 
 async function submit() {
     errors.value = {};
-
+    
     if (selectedOption.value == 'part' && !amount.value) {
         errors.value.amount = 'هذا الحقل مطلوب';
         return;
     }
-
-    useProxy("/wallets/balance-withdrawal/", {
-        method: 'POST',
-        body: {
-            part_or_all: selectedOption.value,
-            amount: selectedOption.value == 'part' ? amount.value : undefined
-        }
-    })
+    
+    loading.value = true;
+    try{
+        const response = await useProxy("/wallets/balance-withdrawal/", {
+            method: 'POST',
+            body: {
+                part_or_all: selectedOption.value,
+                amount: selectedOption.value == 'part' ? amount.value : undefined
+            }
+        });
+        loading.value = false;
+        emit('close');
+        console.log(response)
+        useNotification({type: 'success', content: response.message})
+    } catch(e){
+        loading.value = false;
+        useNotification({type: 'danger', content: 'حدث خطأ اثناء طلب السحب'})
+    }
 
 }
 </script>
