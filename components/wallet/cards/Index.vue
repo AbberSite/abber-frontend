@@ -1,5 +1,9 @@
 <template>
     <div class="w-full pt-4">
+        <template v-if="loading">
+            <SkeletonsOrdersTable/>
+        </template>
+        <template v-else>
         <form class="w-full sm:max-w-sm" >
             <div class="w-full space-y-3">
                 <div class="relative">
@@ -27,7 +31,7 @@
                 </svg>
             </button>
         </div>
-
+    </template>
         <WalletCardsAddModal v-if="showAddModal"  :show="showAddModal" @close="showAddModal = false" />
     </div>
 </template>
@@ -36,10 +40,12 @@
 let cards = ref([]);
 const search = ref('');
 let all_cards ;
+let loading = ref<boolean>(false);
 onMounted(async () => {
     await refreshCards();
 })
 async function refreshCards(){
+    loading.value = true;
     const my_cards = await useProxy('/wallets/cards/');
     for(let card of my_cards.results){
         if(!cards.value.filter((c) => c.last4Digits === card.last4Digits).length){
@@ -47,6 +53,7 @@ async function refreshCards(){
         }
     }
     all_cards = cards.value;
+    loading.value = false;
 }
 const showAddModal = ref(false);
 

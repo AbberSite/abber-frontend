@@ -24,8 +24,14 @@
 
         <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
           id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
-        <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
-          height="26" :multi="true" />
+        <!-- <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
+          height="26" :multi="true" /> -->
+        <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg" id-of-card="MASTER"
+          v-model="paymentMethod" width="26" height="26" />
+        <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg" id-of-card="VISA"
+          v-model="paymentMethod" width="26" height="26" />
+        <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA"
+          v-model="paymentMethod" width="40" height="40" />
         <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY"
           v-model="paymentMethod" width="40" height="40" />
         <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE"
@@ -300,7 +306,7 @@ async function loadHyper() {
         (phoneNumber as HTMLInputElement).maxLength = 10;
         (phoneNumber as HTMLInputElement).type = 'number';
       }
-      if (paymentMethod.value == 'CARD') {
+      if (paymentMethod.value != 'APPLEPAY') {
         (cardNumber as HTMLInputElement).maxLength = 16;
         // (cardNumber as HTML)
         cardLabel.innerHTML = 'رقم البطاقة';
@@ -318,7 +324,7 @@ async function loadHyper() {
         cardGroup?.insertAdjacentElement('afterend', div);
         div.append(cvvGroup);
         div.append(expiryGroup);
-      } else if (paymentMethod.value == 'APPLEPAY'){
+      } else if (paymentMethod.value == 'APPLEPAY') {
         let applepayButton = document.querySelector(".wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line");
         let my_text = document.createElement('p');
         my_text.textContent = "شراء بإستخدام";
@@ -390,10 +396,10 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
 async function checkCoupon() {
   loadingCoupon.value = true;
-  let thereIsCoupon: boolean = false; 
-  if(state.value.data?.selectedServices){
-    for(const service of state.value.data.selectedServices){
-      try{
+  let thereIsCoupon: boolean = false;
+  if (state.value.data?.selectedServices) {
+    for (const service of state.value.data.selectedServices) {
+      try {
         const res = await useProxy(`/orders/check-coupon/${service}/`, {
           method: 'POST',
           body: {
@@ -402,7 +408,7 @@ async function checkCoupon() {
           }
         });
         thereIsCoupon = true;
-      } catch(e){}
+      } catch (e) { }
     }
   }
   try {
@@ -422,12 +428,12 @@ async function checkCoupon() {
     // await hyper.unload();
     // await loadHyper();
   } catch (e) {
-  //   couponResponse.value = {
-  //     error: true,
-  //     message: "رمز غير صالح أو منتهي الصلاحية"
-  //   }
+    //   couponResponse.value = {
+    //     error: true,
+    //     message: "رمز غير صالح أو منتهي الصلاحية"
+    //   }
   }
-  if(thereIsCoupon){
+  if (thereIsCoupon) {
     couponResponse.value = {
       error: false,
       message: 'لقد تم تفعيل الكوبون بنجاح'
@@ -630,7 +636,8 @@ async function useBalance() {
   justify-content: center;
   direction: rtl;
 }
-.wpwl-apple-pay-button  {
+
+.wpwl-apple-pay-button {
   background-color: black;
   color: rgb(241 245 249);
   display: flex;
