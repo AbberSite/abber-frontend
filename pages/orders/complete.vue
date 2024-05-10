@@ -189,7 +189,7 @@ async function getStatus() {
             type: data.type,
             another_service: another_service,
             // TODO: unncomment the above line when finishing from testing
-            brand: 'visa'
+            brand: 'VISA'
             // brand: cardType.valuee
         }
     });

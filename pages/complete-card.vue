@@ -25,13 +25,6 @@ const route = useRoute();
 const id = route.query.id;
 let transaction_id: string;
 
-// await useApi(`/api/wallet/cards/`, {
-//         method: 'POST',
-//         body: {
-//             type: 'MATSTER',
-//             brand: 'master'
-//         }
-//     });
 async function isPaid() {
     return new Promise(async (resolve, reject) => {
         const response = await useApi(`/api/payments/${transaction_id}`, {
@@ -47,7 +40,17 @@ async function isPaid() {
 onMounted(async () => {
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
     if (transaction_id && id) {
-        await isPaid();
+        const paid = await isPaid();
+        console.log(paid);
+        if (paid){
+
+          await useApi(`/api/wallet/cards/`, {
+            method: 'POST',
+            body: {
+              brand: 'CARD'
+            }
+          });
+        }
         localStorage.removeItem('abber:current-transaction-id');
     } else {
         navigateTo({name: 'wallet'})

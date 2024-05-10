@@ -202,7 +202,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
                 // type: 'VISA',
                 amount: state.value.data.amount,
                 // TODO: unncomment the above line when finishing from testing
-                brand: 'visa'
+              brand: 'VISA'
                 // brand: cardType.valuee
             }
         });

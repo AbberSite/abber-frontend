@@ -229,7 +229,7 @@ async function getStatus() {
         body: {
             type: data.type,
             // TODO: unncomment the above line when finishing from testing
-            brand: 'visa'
+          brand: 'VISA'
             // brand: cardType.valuee
         }
     });
