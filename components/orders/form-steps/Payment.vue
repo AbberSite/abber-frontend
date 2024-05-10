@@ -160,7 +160,7 @@ watch(paymentMethod, async (value) => {
       script.remove();
     }
   })
-  if (value == 'CARD') {
+  if (value == 'VISA' || value == 'MASTER' || value == 'MADA') {
     hyper = undefined;
     const form = document.createElement('form');
     form.dir = 'ltr'

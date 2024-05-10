@@ -1,5 +1,5 @@
 <template>
-    <section class="relative isolate px-4 pt-14 xs:px-6 lg:px-8">
+    <section class="relative isolate px-4 xs:px-6 lg:px-8">
         <div
             class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
             aria-hidden="true">

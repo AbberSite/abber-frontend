@@ -1,9 +1,9 @@
 <template>
-    <div class="sticky bottom-0 z-20 w-full border-t border-gray-100 bg-white py-6">
+    <div class="sticky bottom-0 z-20 w-full border-t border-gray-100 bg-white py-2 my-2">
         <textarea @keydown="handleMessageInput" class="form-control block min-h-[20px] py-4" :value="message" rows="5"
             placeholder="إبدأ الكتابة هنا..." required></textarea>
         <!-- Toolbar -->
-        <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4">
+        <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4 mb-2">
             <div class="flex items-center justify-between">
                 <!-- Attach Button -->
                 <!-- <button class="text-gray-600 hover:text-gray-900" type="button" @click="() => open()">

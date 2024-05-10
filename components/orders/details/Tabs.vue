@@ -1,6 +1,6 @@
 <template>
     <div
-        class="is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-8 text-sm rtl:space-x-reverse xs:text-base lg:hidden"
+        class="sticky is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-8 text-sm rtl:space-x-reverse xs:text-base lg:hidden"
         role="tablist"
         aria-labelledby="tablist-profile"
         aria-orientation="horizontal">

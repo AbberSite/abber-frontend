@@ -12,12 +12,12 @@
                 {{ order?.type == 'text_communication' ? 'محادثة نصية' : 'محادثة صوتية' }}
             </div>
         </div>
-        <div class="w-full space-y-4">
+        <!-- <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">تأريخ الشراء</div>
             <div class="font-semibold">
                 {{ useFormattedDate(order?.order_item_time_data.ordered_date) }}
             </div>
-        </div>
+        </div> -->
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">المعبر</div>
             <div class="flex">
@@ -55,9 +55,9 @@
                             <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800">({{ order?.service_details?.ordered_count }})</span>
                         </div>
                     </div>
-                    <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
+                    <!-- <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
                         {{ order?.service_details?.seller.about }}
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
