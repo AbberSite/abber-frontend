@@ -32,7 +32,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     // console.log(`my status is : ${status.value} - ${new Date()}`)
     if (useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined) {
         await refresh();
-        await getSession();
+        // await getSession();
     } 
     // console.log(data.value);
 
