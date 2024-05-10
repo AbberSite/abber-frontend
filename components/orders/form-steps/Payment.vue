@@ -24,14 +24,8 @@
 
         <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
           id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
-        <!-- <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
-          height="26" :multi="true" /> -->
-        <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg" id-of-card="MASTER"
-          v-model="paymentMethod" width="26" height="26" />
-        <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg" id-of-card="VISA"
-          v-model="paymentMethod" width="26" height="26" />
-        <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA"
-          v-model="paymentMethod" width="40" height="40" />
+        <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
+          height="26" :multi="true" />
         <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY"
           v-model="paymentMethod" width="40" height="40" />
         <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE"
@@ -160,7 +154,7 @@ watch(paymentMethod, async (value) => {
       script.remove();
     }
   })
-  if (value == 'VISA' || value == 'MASTER' || value == 'MADA') {
+  if (value == 'CARD') {
     hyper = undefined;
     const form = document.createElement('form');
     form.dir = 'ltr'
