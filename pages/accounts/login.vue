@@ -125,7 +125,7 @@ async function submit() {
   signIn(
     { email: email.value, password: password.value },
     {
-      callbackUrl: '/profile?status=new',
+      callbackUrl: '/profile',
       redirect: true
     }
   )
