@@ -61,11 +61,13 @@ const route = useRoute();
 const activeTab = ref('details');
 onBeforeMount(() => {
     if(route.fullPath == '/profile?status=new'){
-        if(data.value.user_type == 'معبر'){
-            navigateTo({name: 'orders'});
-        } else {
-            navigateTo('/');
-        }
+            if(data.value.user_type == 'معبر'){
+                setTimeout(()=> {
+                    navigateTo({name: 'orders'})
+                }, 2500)
+            } else {
+                navigateTo('/');
+            }
     }
 })
 onMounted(async () => {

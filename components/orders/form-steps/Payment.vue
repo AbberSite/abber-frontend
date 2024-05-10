@@ -63,6 +63,10 @@
     </div>
 
     <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
+      <div class="flex justify-between items-center py-2">
+        <p class="font-semibold">الرصيد الحالي:</p>
+        <p class="font-semibold px-2">{{ balance?.withdrawal_balance + balance?.available_balance }} ر.س</p>
+      </div>
       <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="showConfirmDailog = true"
         class="w-full"><span class="mt-1.5">الدفع
           بالمحفظة</span></PrimaryButton>
