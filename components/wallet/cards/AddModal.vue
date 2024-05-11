@@ -55,7 +55,7 @@
                     <InputError :message="error" />
 
                     <div dir="ltr" class="payment-form" ref="paymentForm">
-                        <form dir="ltr" action="/completeCard" class="paymentWidgets" :data-brands="paymentMethod">
+                        <form dir="ltr" action="/complete-card" class="paymentWidgets" :data-brands="paymentMethod">
                         </form>
                     </div>
                     <div class="flex items-center" x-id="['checkbox']">
@@ -114,7 +114,7 @@ watch(paymentMethod, async (value) => {
     const form = document.createElement('form');
 
     form.dir = 'ltr';
-    form.action = '/completeCard';
+    form.action = '/complete-card';
     form.classList.add('paymentWidgets');
 
     form.dataset.brands = value;
