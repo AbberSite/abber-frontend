@@ -71,7 +71,7 @@
         class="w-full"><span class="mt-1.5">الدفع
           بالمحفظة</span></PrimaryButton>
 
-      <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد متاح في المحفظة</span>
+      <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
     </div>
     <div class="space-y-7" v-if="!loading">
       <!-- <div class="flex items-center"  >
