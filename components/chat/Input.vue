@@ -1,6 +1,6 @@
 <template>
-    <div class="sticky bottom-0 z-20 w-full border-t border-gray-100 bg-white py-2 my-2">
-        <textarea @keydown="handleMessageInput" class="form-control block min-h-[20px] py-4" :value="message" rows="5"
+    <div class="relative w-full border-t border-gray-100 bg-white py-2 my-2">
+        <textarea @keydown="handleMessageInput" class="form-control block py-4" :class="{'h-[200px]':files.length, 'h-[120px]': !files.length}" :value="message" rows="5"
             placeholder="إبدأ الكتابة هنا..." required></textarea>
         <!-- Toolbar -->
         <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4 mb-2">
@@ -73,7 +73,7 @@ const { open, reset, onChange } = useFileDialog({
 });
 
 const files = ref<File[]>([])
-
+const emit = defineEmits(['sendMessage']);
 const previews = computed(() => {
 
     return files.value.map((file: File) => {
@@ -95,7 +95,6 @@ const recorderStatus = ref("intialized");
 
 const message = ref('');
 async function sendMessage() {
-    if (message.value.trim() === '') return;
     if (files.value.length) {
         files.value.forEach(async(file, index) => {
             const fileName = getRandomFileName() + '.png';
@@ -135,6 +134,7 @@ async function sendMessage() {
         message.value = '';
         return;
     };
+    if (message.value.trim() === '') return;
     send(
         JSON.stringify({
             message: message.value
@@ -142,6 +142,7 @@ async function sendMessage() {
     );
 
     message.value = '';
+    emit('sendMessage');
 }
 
 function handleMessageInput(event: KeyboardEvent) {

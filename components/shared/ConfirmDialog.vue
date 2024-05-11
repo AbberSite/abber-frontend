@@ -15,7 +15,8 @@
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
                             <DialogTitle as="div" class="flex flex-col-reverse items-center" >
                               <h3 class="text-[16px] font-semibold leading-6 text-gray-900 py-1">{{title}}</h3>
-                              <ExclamationTriangleIcon class="w-8 h-8" />
+                              <ExclamationTriangleIcon class="w-8 h-8" v-if="!payment" />
+                              <CheckCircleIcon class="w-8 h-8" v-else/>
                             </DialogTitle>
                             <div class="mt-2">
                                 <p class="text-sm text-gray-500 text-center"  v-text="descritpion" />
@@ -41,7 +42,7 @@
 
 <script setup lang="ts">
 // import { TransitionRoot, TransitionChild } from "@headlessui/vue";
-import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
+import { ExclamationTriangleIcon, CheckCircleIcon } from '@heroicons/vue/24/outline';
 import {
     TransitionRoot,
     TransitionChild,
@@ -53,6 +54,7 @@ import {
 const props = defineProps<{
   title: string; 
   descritpion: string;
+  payment?:boolean
 }>();
 const emit = defineEmits(['continue', 'close'])
 

@@ -102,7 +102,7 @@
   </div>
   <ConfirmDialog v-if="showConfirmDailog" :title="`تأكيد خصم ${hyper.checkout.amount} ر.س من محفظتك`"
     :descritpion="`هل انت متأكد من رغبتك في خصم ${hyper.checkout.amount} ريال سعودي من محفظتك`"
-    @close="showConfirmDailog = false" @continue="useBalance(); showConfirmDailog = false;" />
+    @close="showConfirmDailog = false" @continue="useBalance(); showConfirmDailog = false;" :payment="true"/>
 </template>
 
 <script setup lang="ts">

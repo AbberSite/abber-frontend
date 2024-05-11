@@ -101,7 +101,11 @@ async function toggleRecording() {
     return
   }
 
-  await audioRecorder.play()
+  try {
+    await audioRecorder.play();
+  } catch (e){
+    useNotification({type: 'danger', content: ' يرجى اعطى صلاحية الوصول إلى المايكرفون'})
+  }
 
 }
 

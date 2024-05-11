@@ -1,9 +1,9 @@
 <template>
-    <div class="w-full flex flex-col items-center space-y-6 pb-6 lg:hidden" >
+    <div class="w-full flex flex-col items-center space-y-6 pb-6 lg:hidden">
         <div class="flex justify-center">
             <Loading v-if="loading" />
         </div>
-        <div ref="chatList" class="max-h-[16rem] overflow-y-scroll w-full" id="chat_scroll" >
+        <div ref="chatList" class="max-h-[50vh] overflow-y-scroll w-full" id="chat_scroll">
             <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
                 <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
                     :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
@@ -23,7 +23,7 @@
                 :user="data" :class="{ hidden: !changeMessage }"> </changeList>
         </div>
 
-        <ChatInput v-if="allowInput" />
+        <ChatInput v-if="allowInput" @send-message="scrollDown" />
     </div>
 </template>
 <script setup lang="ts">
@@ -59,14 +59,15 @@ const contextMenu = ref<null | HTMLElement>(null);
 
 const changeMessage = ref<Message | undefined>(undefined);
 
-onMounted(async function ()  {
+onMounted(async function () {
     if (messages.value.length == 0) {
         await fetchMessages({ room: props.roomName, limit: 9 });
     }
 
     if (!chatList.value) return;
-    chatList.value.scrollTop = chatList.value.scrollHeight;
-    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    setTimeout(() => {
+        scrollDown();
+    }, 3000);
     useInfiniteScroll(chatList.value, async () => await load(), {
         interval: 500,
         distance: 5,
@@ -122,6 +123,18 @@ onUnmounted(() => {
     messages.value = [];
     messagesPagination.value = undefined;
 });
+function scrollDown(chatList?) {
+    if (chatList == undefined) {
+        let chat_list = document.getElementById('chat_scroll');
+        chat_list.scrollTop = chat_list?.scrollHeight;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+        return;
+    }
+    chatList.value.scrollTop = chatList.value.scrollHeight;
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+}
 </script>
 
 <style scoped></style>

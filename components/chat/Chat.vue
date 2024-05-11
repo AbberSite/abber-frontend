@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col justify-between space-y-6 rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2 w-full">
+  <div class="flex flex-col justify-between rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2 w-full">
     <div class="flex justify-center">
       <Loading v-if="loading" />
     </div>
 
-    <div ref="chatList" class="max-h-[40rem] overflow-y-scroll" id="chat_scroll">
+    <div ref="chatList" class="max-h-[50vh] overflow-y-scroll mt-0" id="chat_scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
         <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
           :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
@@ -24,7 +24,7 @@
         :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
-    <ChatInput v-if="allowInput" />
+    <ChatInput v-if="allowInput" class="flex-1" />
   </div>
 </template>
 
