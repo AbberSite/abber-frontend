@@ -34,21 +34,7 @@
       </div>
 
 
-      <!-- <label class="block text-sm font-semibold xs:text-base" for="payment-method">نوع البطاقة</label>
-            <select
-                v-model="paymentMethod"
-                class="form-control form-select h-[50px] appearance-none"
-                type="select"
-                name="select"
-                id="payment-method"
-                required>
-                <option value="VISA MASTER MADA">فيزا كارد, ماستر كارد, مدى كارد</option>
-                <option value="APPLEPAY">ابل باي</option>
-                <option value="STC_PAY">اس تي سي باي</option>
-                <option value="WALLET" v-bind="{ disabled: !hasSufficientBallance }">
-                    المحفظة {{ !hasSufficientBallance ? '( ليس لديك الرصيد الكافي )' : '' }}
-                </option>
-            </select> -->
+      
     </div>
 
     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
@@ -74,18 +60,6 @@
       <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
     </div>
     <div class="space-y-7" v-if="!loading">
-      <!-- <div class="flex items-center"  >
-                <input
-                v-model="useWallet"
-                    class="h-6 w-6 flex-shrink-0 appearance-none rounded border"
-                    type="checkbox"
-                    name="checkbox"
-                    id="use-wallet"
-                     />
-                <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="use-wallet"
-                    >إستخدام رصيد المحفظة للدفع</label
-                >
-            </div> -->
       <div class="flex items-center">
         <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
           name="checkbox" id="have-coupon" />

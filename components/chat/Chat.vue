@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col justify-between rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2 w-full">
+  <div class="flex flex-col justify-between rounded-lg border border-gray-300 px-6 py-6 lg:col-span-2 w-full">
     <div class="flex justify-center">
       <Loading v-if="loading" />
     </div>
-
-    <div ref="chatList" class="max-h-[50vh] overflow-y-scroll mt-0" id="chat_scroll">
+    <SkeletonsChatDesktop v-if="loading_chat"/>
+    <div v-else ref="chatList" class="max-h-[50vh] overflow-y-scroll mt-0" id="chat_scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
         <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
           :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
@@ -56,6 +56,7 @@ const { data } = useAuth();
 const { clear } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support');
 
 const loading = ref(false);
+let loading_chat = ref<boolean>(true);
 
 const contextMenu = ref<null | HTMLElement>(null);
 
@@ -64,10 +65,12 @@ const changeMessage = ref<Message | undefined>(undefined);
 onMounted(async () => {
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
+    loading_chat.value = false;
+    chatList.value.scrollTop = chatList.value.scrollHeight;
   }
 
   if (!chatList.value) return;
-  chatList.value.scrollTop = chatList.value.scrollHeight;
+  
   window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
   useInfiniteScroll(chatList.value, async () => await load(), {
     interval: 500,
