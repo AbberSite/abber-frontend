@@ -39,25 +39,40 @@
                         <DialogPanel
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
                             <DialogTitle as="div" class="flex justify-between items-center" >
-                              <h3 class="text-lg font-medium leading-6 text-gray-900">شروط استلام الطلب</h3>
+                              
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-if="isBuyer">شروط استلام الطلب</h3>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-if="isSeller && order.status == 'in_progress'">هل انت متاكد من انك تريد تسليم الطلب؟</h3>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-if="isSeller && order.status == 'awaiting_delivery'">هل انت متاكد من انك تريد إعادة فتح الطلب؟</h3>
+
                               <XMarkIcon class="w-6 h-6 cursor-pointer" @click="emit('close')"/>
                             </DialogTitle>
-                            <div class="mt-2">
+                            <div class="mt-2" v-if="isBuyer">
                                 <p class="text-sm text-gray-500"  v-html="settings?.policy_settings?.order_terms" />
                             </div>
 
-                            <div class="mt-4 flex flex-col gap-2">
-                                <PrimaryButton :loading="loading"
+                            <div class="mt-4 flex flex-col gap-2" >
+                                <PrimaryButton :loading="loading" v-if="isBuyer"
                                     class="w-full"
                                     @click="completeOrder()">
                                     إستلام الطلب وتقييمه
                                 </PrimaryButton>
-                                <PrimaryButton :loading="loadingWithoutReview"
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isBuyer"
                                     class="w-full text-black"
                                     @click="completeOrder(true)">
                                     تلقي الطلب والتقييم لاحقا
                                 </PrimaryButton>
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isSeller && order.status == 'in_progress'"
+                                    class="w-full text-black"
+                                    @click="completeOrder(true)">
+                                    تسليم الطلب الان
+                                </PrimaryButton>
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isSeller && order.status == 'awaiting_delivery'"
+                                    class="w-full text-black"
+                                    @click="completeOrder(true)">
+                                    اعادة فتح الطلب الان
+                                </PrimaryButton>
                             </div>
+
                         </DialogPanel>
                     </TransitionChild>
                 </div>
@@ -87,7 +102,7 @@ const emit = defineEmits(['rating', 'close'])
 const loading = ref(false);
 let loadingWithoutReview = ref(false)
 const { updateOrderStatus } = useOrdersStore();
-
+let delivery_order = ref(false);
 async function completeOrder(noReview?: boolean) {
   if(noReview)
     loadingWithoutReview.value = true;
@@ -106,6 +121,7 @@ async function completeOrder(noReview?: boolean) {
     }
   };
 
+  delivery_order.value = true
   await updateOrderStatus(props.order?.id, statusMessage().status);
   useNotification({ content: statusMessage().message, type: "success" });
   if(!noReview){
@@ -115,5 +131,6 @@ async function completeOrder(noReview?: boolean) {
     loadingWithoutReview.value = false;
     emit('close');
   }
+  
 }
 </script>
