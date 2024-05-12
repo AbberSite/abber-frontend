@@ -19,7 +19,7 @@
         </svg>
       </div>
       <template v-if="!order">
-        <SkeletonsOrderDetailsDesktop />
+        <SkeletonsOrderDetails />
       </template>
       <template v-else>
         <DetailsHeader :show-navigation="activeTab == 'details'" />

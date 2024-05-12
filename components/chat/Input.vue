@@ -3,7 +3,7 @@
         <textarea @keydown="handleMessageInput" class="form-control block py-4" :class="{'h-[200px]':files.length, 'h-[120px]': !files.length}" :value="message" rows="5"
             placeholder="إبدأ الكتابة هنا..." required></textarea>
         <!-- Toolbar -->
-        <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4 mb-2">
+        <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4 mb-2 mx-[2px]">
             <div class="flex items-center justify-between">
                 <!-- Attach Button -->
                 <!-- <button class="text-gray-600 hover:text-gray-900" type="button" @click="() => open()">

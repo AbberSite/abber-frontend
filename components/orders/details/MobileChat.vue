@@ -3,7 +3,8 @@
         <div class="flex justify-center">
             <Loading v-if="loading" />
         </div>
-        <div ref="chatList" class="max-h-[50vh] overflow-y-scroll w-full" id="chat_scroll">
+        <SkeletonsChatDesktop v-if="loading_chat"/>
+        <div v-else ref="chatList" class="max-h-[50vh] overflow-y-scroll w-full" id="chat_scroll">
             <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
                 <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
                     :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
@@ -54,7 +55,7 @@ const { data } = useAuth();
 const { clear } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support');
 
 const loading = ref(false);
-
+let loading_chat = ref<boolean>(true);
 const contextMenu = ref<null | HTMLElement>(null);
 
 const changeMessage = ref<Message | undefined>(undefined);
@@ -62,18 +63,22 @@ const changeMessage = ref<Message | undefined>(undefined);
 onMounted(async function () {
     if (messages.value.length == 0) {
         await fetchMessages({ room: props.roomName, limit: 9 });
+        loading_chat.value = false;
+        scrollDown(chatList);
     }
 
     if (!chatList.value) return;
-    setTimeout(() => {
-        scrollDown();
-    }, 3000);
-    useInfiniteScroll(chatList.value, async () => await load(), {
-        interval: 500,
-        distance: 5,
-        direction: "top",
-        canLoadMore: () => !!messagesPagination.value?.next,
-    });
+    // setTimeout(async()=> {
+    //     await load()
+    // }, 5000)
+    // useInfiniteScroll(chatList.value, async () => await load(), {
+    //     interval: 500,
+    //     distance: 5,
+    //     direction: "top",
+    //     canLoadMore: () => !!messagesPagination.value?.next,
+    // });
+
+    useInfiniteScroll(chatList, load, {distance: 10, direction: 'top', canLoadMore: ()=> messagesPagination.value?.next})
 
     // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
     document.addEventListener("click", resetChangeMessage);
@@ -91,6 +96,8 @@ function formatTime(_date: string) {
 }
 
 async function load() {
+    console.log("we activited load()")
+    console.log(messagesPagination.value?.next)
     if (!messagesPagination.value?.next) return;
 
     const params = useUrlParams(messagesPagination.value.next);
@@ -100,14 +107,14 @@ async function load() {
     const newMessages = (await useApi(`/api/chat/messages/`, {
         params: { ...params, room: props.roomName }
     })) as PaginationResponse<Message>;
-
+    console.log(newMessages);
     loading.value = false;
 
-    // messages.value.push(...newMessages.results);
+    messages.value.push(...newMessages.results);
     messagesPagination.value = newMessages;
 
     if (!chatList.value) return;
-    chatList.value.scrollTop = 300;
+    // chatList.value.scrollTop = 150;
 }
 
 function showContextMenu(e: any, message: Message) {
@@ -124,15 +131,17 @@ onUnmounted(() => {
     messagesPagination.value = undefined;
 });
 function scrollDown(chatList?) {
-    if (chatList == undefined) {
-        let chat_list = document.getElementById('chat_scroll');
-        chat_list.scrollTop = chat_list?.scrollHeight;
+    setTimeout(function(){
+        if (chatList == undefined) {
+            let chat_list = document.getElementById('chat_scroll');
+            chat_list.scrollTop = chat_list?.scrollHeight;
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    
+            return;
+        }
+        chatList.value.scrollTop = chatList.value.scrollHeight;
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-
-        return;
-    }
-    chatList.value.scrollTop = chatList.value.scrollHeight;
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 1000)
 
 }
 </script>

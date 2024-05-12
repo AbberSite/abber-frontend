@@ -66,18 +66,22 @@ onMounted(async () => {
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
     loading_chat.value = false;
-    chatList.value.scrollTop = chatList.value.scrollHeight;
+    // setTimeout(function(){
+       chatList.value.scrollTop = chatList.value.scrollHeight;
+    // }, 1000)
   }
 
   if (!chatList.value) return;
   
   window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
-  useInfiniteScroll(chatList.value, async () => await load(), {
-    interval: 500,
-    distance: 5,
-    direction: "top",
-    canLoadMore: () => !!messagesPagination.value?.next,
-  });
+  // useInfiniteScroll(chatList.value, async () => await load(), {
+  //   interval: 500,
+  //   distance: 5,
+  //   direction: "top",
+  //   canLoadMore: () => !!messagesPagination.value?.next,
+  // });
+  useInfiniteScroll(chatList, load, {distance: 10, direction: 'top', canLoadMore: ()=> messagesPagination.value?.next})
+
 
   // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
   document.addEventListener("click", resetChangeMessage);
@@ -107,7 +111,7 @@ async function load() {
 
   loading.value = false;
 
-  // messages.value.push(...newMessages.results);
+  messages.value.push(...newMessages.results);
   messagesPagination.value = newMessages;
 
   if (!chatList.value) return;
