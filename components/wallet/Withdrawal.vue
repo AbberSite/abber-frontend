@@ -43,8 +43,8 @@
                         </button>
                     </div>
 
-                    <div>
-                        <fieldset class="is-scroll space-y-7 overflow-y-auto px-6 py-8 pb-36">
+                    <div class="is-scroll overflow-y-auto flex h-full flex-col gap-7 px-4 py-8 pb-36">
+                        <fieldset class="space-y-7 ">
                             <div
                                 class="w-full overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm"
                                 x-show="alert"
@@ -130,16 +130,15 @@
                                     v-model="selectedOption"
                                     @change="selectedOption = 'all'" />
                             </label>
-                        </fieldset>
-                    </div>
-                    <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
                         <PrimaryButton
                             @click="submit"
                             class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                             :loading="loading">
                             <span class="mt-1.5">متابعة</span>
                         </PrimaryButton>
+                        </fieldset>
                     </div>
+                    
                 </div>
             </TransitionChild>
         </div>
