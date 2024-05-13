@@ -22,16 +22,16 @@
         <transition enter-active-class="transition-all" leave-active-class="transition-all"
           enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
           <DetailsOptionsDropdown @show-review="showReviewModal = true" @inquiry="showInquiryModal = true"
-            @cancel-order="cancelOrder()" v-if="showDropdown" v-on-click-outside="() => (showDropdown = false)"
+            @cancel-order="showConfirmCompleteCancelOrder = true" v-if="showDropdown" v-on-click-outside="() => (showDropdown = false)"
             :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
         </transition>
       </div>
     </div>
   </div>
 
-  <DetailsConfirmComplete :show="showConfirmComplete" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @rating="showConfirmComplete = false; showReviewModal = true;" @close="showConfirmComplete = false" />
+  <DetailsConfirmComplete :show="showConfirmComplete" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @rating="showConfirmComplete = false; showReviewModal = true;" @close="showConfirmComplete = false" :cancel-order="false" />
   <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false"
-    @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="cancelOrder()"
+    @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="showConfirmCompleteCancelOrder = true"
     :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
 
   <DetailsMobileOptions v-if="showNavigation" @open-modal="showMobileModal = true">
@@ -42,6 +42,8 @@
 
   <DetailsInquiryModal :show="showInquiryModal" @close="showInquiryModal = false" />
   <Tree class="block lg:hidden"/>
+  <DetailsConfirmComplete :show="showConfirmCompleteCancelOrder" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" :cancel-order="true" @cancelOrder="showConfirmCompleteCancelOrder = false; cancelOrder();" @close="showConfirmCompleteCancelOrder = false" />
+  
 </template>
 
 <script setup lang="ts">
@@ -61,6 +63,7 @@ const showMobileModal = ref(false);
 const showReviewModal = ref(false);
 const showInquiryModal = ref(false);
 const showConfirmComplete = ref(false);
+const showConfirmCompleteCancelOrder = ref(false);
 const isSeller = ref(false);
 const isBuyer = ref(false);
 
@@ -70,7 +73,6 @@ const isBuyerOrSeller = () => {
 };
 
 await isBuyerOrSeller();
-
 watch(order, (value) => {
   isBuyerOrSeller();
 });

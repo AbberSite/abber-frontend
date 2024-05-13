@@ -78,7 +78,7 @@ onMounted(async function () {
     //     canLoadMore: () => !!messagesPagination.value?.next,
     // });
 
-    useInfiniteScroll(chatList, load, {distance: 10, direction: 'top', canLoadMore: ()=> messagesPagination.value?.next})
+    useInfiniteScroll(chatList, load, {distance: 10, interval: 500, direction: 'top', canLoadMore: ()=> messagesPagination.value?.next})
 
     // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
     document.addEventListener("click", resetChangeMessage);

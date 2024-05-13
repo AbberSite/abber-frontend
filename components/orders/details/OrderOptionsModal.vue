@@ -58,7 +58,7 @@
               <span class="ms-6 mt-1.5 font-semibold">فاتورة الطلب</span>
             </a>
 
-            <button class="group -mx-3 flex w-full items-center rounded-lg p-3 hover:bg-gray-50" type="button">
+            <NuxtLink :to="{name: 'support'}" class="group -mx-3 flex w-full items-center rounded-lg p-3 hover:bg-gray-50" type="button">
               <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                 <!-- Heroicon name: outline/home -->
                 <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -69,7 +69,7 @@
                 </svg>
               </div>
               <span class="ms-6 mt-1.5 font-semibold">الإبلاغ عن مشكلة</span>
-            </button>
+            </NuxtLink>
 
             <button
               v-if="(['in_progress', 'new'].includes(props.order?.status) && props.isBuyer) || (order?.status === 'waiting_for_cancellation' && props.isSeller)"

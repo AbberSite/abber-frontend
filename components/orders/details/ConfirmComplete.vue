@@ -40,37 +40,50 @@
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
                             <DialogTitle as="div" class="flex justify-between items-center" >
                               
-                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-if="isBuyer">شروط استلام الطلب</h3>
-                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-if="isSeller && order.status == 'in_progress'">هل انت متاكد من انك تريد تسليم الطلب؟</h3>
-                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-if="isSeller && order.status == 'awaiting_delivery'">هل انت متاكد من انك تريد إعادة فتح الطلب؟</h3>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-if="cancelOrder && isBuyer">هل انت متاكد من رغبتك بإلغاء الطلب؟</h3>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-else-if="cancelOrder && isSeller">هل انت متاكد من انك تريد الموافقة على إلغاء الطلب؟</h3>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-else-if="isBuyer">شروط استلام الطلب</h3>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-else-if="isSeller && order.status == 'in_progress'">هل انت متاكد من انك تريد تسليم الطلب؟</h3>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900" v-else-if="isSeller && order.status == 'awaiting_delivery'">هل انت متاكد من انك تريد إعادة فتح الطلب؟</h3>
 
                               <XMarkIcon class="w-6 h-6 cursor-pointer" @click="emit('close')"/>
                             </DialogTitle>
-                            <div class="mt-2" v-if="isBuyer">
+                            <div class="mt-2" v-if="isBuyer && !cancelOrder">
                                 <p class="text-sm text-gray-500"  v-html="settings?.policy_settings?.order_terms" />
                             </div>
 
                             <div class="mt-4 flex flex-col gap-2" >
-                                <PrimaryButton :loading="loading" v-if="isBuyer"
+                                <PrimaryButton :loading="loading" v-if="isBuyer && !cancelOrder"
                                     class="w-full"
                                     @click="completeOrder()">
                                     إستلام الطلب وتقييمه
                                 </PrimaryButton>
-                                <PrimaryButton :loading="loadingWithoutReview" v-if="isBuyer"
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isBuyer && !cancelOrder"
                                     class="w-full text-black"
                                     @click="completeOrder(true)">
                                     تلقي الطلب والتقييم لاحقا
                                 </PrimaryButton>
-                                <PrimaryButton :loading="loadingWithoutReview" v-if="isSeller && order.status == 'in_progress'"
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isSeller && order.status == 'in_progress' && !cancelOrder"
                                     class="w-full text-black"
                                     @click="completeOrder(true)">
                                     تسليم الطلب الان
                                 </PrimaryButton>
-                                <PrimaryButton :loading="loadingWithoutReview" v-if="isSeller && order.status == 'awaiting_delivery'"
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isSeller && order.status == 'awaiting_delivery' && !cancelOrder"
                                     class="w-full text-black"
                                     @click="completeOrder(true)">
                                     اعادة فتح الطلب الان
                                 </PrimaryButton>
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isBuyer && cancelOrder"
+                                    class="w-full text-black"
+                                    @click="emit('cancelOrder')">
+                                    إلغاء الطلب الان
+                                </PrimaryButton>
+                                <PrimaryButton :loading="loadingWithoutReview" v-if="isSeller && cancelOrder"
+                                    class="w-full text-black"
+                                    @click="emit('cancelOrder')">
+                                    الموافقة على إلغاء الطلب الان
+                                </PrimaryButton>
+                                
                             </div>
 
                         </DialogPanel>
@@ -97,8 +110,9 @@ const props = defineProps<{
   order: Order;
   isSeller: boolean;
   isBuyer: boolean;
+  cancelOrder?: boolean;
 }>();
-const emit = defineEmits(['rating', 'close'])
+const emit = defineEmits(['rating', 'close', 'cancelOrder'])
 const loading = ref(false);
 let loadingWithoutReview = ref(false)
 const { updateOrderStatus } = useOrdersStore();
