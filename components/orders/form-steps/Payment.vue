@@ -121,10 +121,7 @@ await useScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.
 await useScript('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js');
 
 watch(paymentMethod, async (value) => {
-  if (value == 'BALANCE') {
-
-    return;
-  }
+  if (value == 'BALANCE') return;
   loading.value = true;
   hyper.unload();
   document.querySelectorAll('script').forEach((script: HTMLScriptElement) => {
@@ -367,6 +364,14 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 };
 
 async function checkCoupon() {
+  console.log(!coupon.value.length)
+  if(!coupon.value.length){
+    couponResponse.value = {
+      error: true,
+      message: 'خانة الكوبون فارغة، يرجى تعبئتها!'
+    };
+    return;
+  }
   loadingCoupon.value = true;
   let thereIsCoupon: boolean = false;
   if (state.value.data?.selectedServices) {
@@ -411,6 +416,11 @@ async function checkCoupon() {
       message: 'لقد تم تفعيل الكوبون بنجاح'
     }
     await loadHyper();
+  } else {
+    couponResponse.value = {
+      error: true,
+      message: 'الرمز غير صالح أو منتهي الصلاحية'
+    }
   }
   loadingCoupon.value = false;
 }
