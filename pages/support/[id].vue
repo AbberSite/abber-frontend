@@ -9,7 +9,7 @@
         <section
             class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="order-details-heading">
-            <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm sm:hidden">
+            <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm lg:hidden">
                 <!-- Heroicon name: outline/swatch -->
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -30,11 +30,11 @@
             <DetailsTabs v-model="activeTab" />
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <!-- <DetailsMobileChat v-if="activeTab == 'chat'" /> -->
-            <Chat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" /> 
+            <DetailsMobileChat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" /> 
 
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
-                <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
+                <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
                     <div class="px-6 font-semibold xs:text-lg">تفاصيل التذكرة</div>
                     <DetailsCard  />
                 </div>

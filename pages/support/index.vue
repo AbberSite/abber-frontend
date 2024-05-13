@@ -106,7 +106,7 @@
                         </button>
                     </div>
 
-                    <AddTicket :show="showAddModal" @close="showAddModal = false" />
+                    <AddTicket :show="showAddModal" @close="showAddModal = false" @refresh-tickets="fetchAll()" />
                 </div>
             </template>
 
