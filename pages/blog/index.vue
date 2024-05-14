@@ -62,11 +62,7 @@
           </p>
         </div>
         <div class="flex w-full items-center justify-between sm:justify-end">
-          <button @click="async () => {
-            previousLoading = true;
-            await fetchPosts(getParams(posts?.previous)), (previousLoading = false);
-          }
-            " :disabled="!posts?.previous?.length"
+          <button @click="previousButton()" :disabled="!posts?.previous?.length"
             class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             type="button">
             <Loading v-if="previousLoading" />
@@ -82,7 +78,7 @@
               {{ posts.count }}
             </span>
           </p>
-          <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="nextPagenation()"
+          <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="nextButton()"
             class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             href="#">
             <Loading v-if="nextLoading" />
@@ -189,16 +185,21 @@ function getParams(url?: string) {
   }
 
   return queryParams;
-}
-function scrollTop() {
-  document.body.scrollTop = 100;
-}
-async function nextPagenation() {
+};
+
+async function nextButton() {
   nextLoading.value = true;
   await fetchPosts(getParams(posts?.value.next));
+  window.scrollTo({behavior: 'smooth', top: 0});
   nextLoading.value = false;
-  scrollTop();
-}
+};
+
+async function previousButton(){
+  previousLoading.value = true;
+  await fetchPosts(getParams(posts?.value.previous)); 
+  window.scrollTo({behavior: 'smooth', top: 0})
+  previousLoading.value = false;
+};
 </script>
 
 <style scoped></style>
