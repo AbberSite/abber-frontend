@@ -82,7 +82,7 @@
               {{ posts.count }}
             </span>
           </p>
-          <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="async () => {
+          <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="async function() {
               nextLoading = true;
               await fetchPosts(getParams(posts?.next));
               nextLoading = false;
