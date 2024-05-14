@@ -1,10 +1,12 @@
 <template>
-  <div class="flex flex-col justify-between rounded-lg border border-gray-300 px-6 py-6 lg:col-span-2 w-full">
+  <div class="flex flex-col space-y-6 w-full"
+    :class="(device == 'mobile') ? 'items-center pb-6 lg:hidden' : 'justify-between rounded-lg border px-6 py-6 lg:col-span-2'">
     <div class="flex justify-center">
       <Loading v-if="loading" />
     </div>
-    <SkeletonsChatDesktop v-if="loading_chat"/>
-    <div v-else ref="chatList" class="max-h-[50vh] overflow-y-scroll mt-0" id="chat_scroll">
+    <SkeletonsChatDesktop v-if="loading_chat" />
+    <div  v-else ref="chatList" class="max-h-[50vh] overflow-y-scroll"
+      :class="(device == 'mobile') ? 'w-full' : 'mt-0'" id="chat_scroll">
       <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
         <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
           :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
@@ -44,7 +46,7 @@ useHead({
   ]
 })
 
-const props = defineProps({ allowInput: Boolean, roomName: String });
+const props = defineProps({ allowInput: Boolean, roomName: String, device: String });
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
@@ -66,21 +68,20 @@ onMounted(async () => {
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
     loading_chat.value = false;
-    // setTimeout(function(){
-       chatList.value.scrollTop = chatList.value.scrollHeight;
-    // }, 1000)
   }
 
   if (!chatList.value) return;
-  
-  window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+
+
+
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   // useInfiniteScroll(chatList.value, async () => await load(), {
   //   interval: 500,
   //   distance: 5,
   //   direction: "top",
   //   canLoadMore: () => !!messagesPagination.value?.next,
   // });
-  useInfiniteScroll(chatList, load, {distance: 10, direction: 'top', interval: 500, canLoadMore: ()=> messagesPagination.value?.next})
+  useInfiniteScroll(chatList, load, { distance: 10, direction: 'top', interval: 500, canLoadMore: () => messagesPagination.value?.next })
 
 
   // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
