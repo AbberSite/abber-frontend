@@ -9,8 +9,8 @@
                     <TicketsTableHeaderCol content="الحالة" />
                     <TicketsTableHeaderCol content="التاريخ" />
                     <TicketsTableHeaderCol content="تم التحويل" />
-                    <TicketsTableHeaderCol content="سبب الإسترجاع" />
-                    <TicketsTableHeaderCol />
+                    <TicketsTableHeaderCol content="سبب الرفض" />
+                    <!-- <TicketsTableHeaderCol /> -->
                 </tr>
             </thead>
             <tbody class="divide-y">
@@ -22,7 +22,7 @@
                 <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{ useFormattedDate(request.date)}}</div></td>
                 <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.paid ? 'نعم': 'لا'}}</div></td>
                 <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.refuse_reason == null ? '-': request.refuse_reason}}</div></td>
-                <td class="flex items-center justify-center px-4 pb-4 pt-5"><div><svg class="flex-shrink-0"
+                <!-- <td class="flex items-center justify-center px-4 pb-4 pt-5"><div><svg class="flex-shrink-0"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" height="20" width="20">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -30,7 +30,7 @@
                         </path>
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z">
                         </path>
-                    </svg></div></td>
+                    </svg></div></td> -->
                 </tr>
             </tbody>
         </table>
