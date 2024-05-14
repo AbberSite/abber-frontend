@@ -85,6 +85,7 @@
           <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="async () => {
               nextLoading = true;
               await fetchPosts(getParams(posts?.next));
+              window.document.body.scrollTop = 100;
               nextLoading = false;
             }
               "
@@ -131,7 +132,6 @@ const previousLoading = ref(false);
 const filteredPosts = computed(() => {
   return posts.value?.results;
 });
-
 const debouncedSearch = useDebounceFn(async (value) => {
   await fetchPosts({ search: value, post_category: selectedCategory.value });
 }, 500);
