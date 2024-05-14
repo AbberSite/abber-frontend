@@ -63,10 +63,10 @@
         </div>
         <div class="flex w-full items-center justify-between sm:justify-end">
           <button @click="async () => {
-              previousLoading = true;
-              await fetchPosts(getParams(posts?.previous)), (previousLoading = false);
-            }
-              " :disabled="!posts?.previous?.length"
+            previousLoading = true;
+            await fetchPosts(getParams(posts?.previous)), (previousLoading = false);
+          }
+            " :disabled="!posts?.previous?.length"
             class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             type="button">
             <Loading v-if="previousLoading" />
@@ -82,13 +82,7 @@
               {{ posts.count }}
             </span>
           </p>
-          <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="async function() {
-              nextLoading = true;
-              await fetchPosts(getParams(posts?.next));
-              nextLoading = false;
-              scrollTop();
-            }
-              "
+          <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="nextPagenation()"
             class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             href="#">
             <Loading v-if="nextLoading" />
@@ -97,7 +91,7 @@
         </div>
       </nav>
     </section>
-    <MakeDreamButtonFixed/>
+    <MakeDreamButtonFixed />
   </main>
 </template>
 
@@ -196,8 +190,14 @@ function getParams(url?: string) {
 
   return queryParams;
 }
-function scrollTop(){
+function scrollTop() {
   document.body.scrollTop = 100;
+}
+async function nextPagenation() {
+  nextLoading.value = true;
+  await fetchPosts(getParams(posts?.value.next));
+  nextLoading.value = false;
+  scrollTop();
 }
 </script>
 
