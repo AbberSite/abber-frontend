@@ -85,8 +85,8 @@
           <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="async () => {
               nextLoading = true;
               await fetchPosts(getParams(posts?.next));
-              window.document.body.scrollTop = 100;
               nextLoading = false;
+              scrollTop();
             }
               "
             class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
@@ -195,6 +195,9 @@ function getParams(url?: string) {
   }
 
   return queryParams;
+}
+function scrollTop(){
+  document.body.scrollTop = 100;
 }
 </script>
 
