@@ -17,7 +17,7 @@
       </div>
 
       <div class="mx-auto max-w-prose lg:col-span-2 lg:max-w-full w-full">
-        <SkeletonsBlogPost v-if="loading" />
+        <SkeletonsBlogPost v-show="loading" />
         <div class="w-full" v-show="!loading">
           <div class="flex items-center justify-between text-gray-700">
             <a class="rounded-full bg-gray-900 px-4 pb-1 pt-2.5 text-[13px] font-semibold text-white hover:bg-gray-800"
@@ -235,11 +235,10 @@ onMounted(async () => {
     clearStyles(contentEl.value);
   }
 
-  loading.value = false;
-
+  
   tocbot.init({
     tocSelector: ".js-toc",
-
+    
     contentSelector: ".js-toc-content",
 
     headingSelector: "h2",
@@ -255,6 +254,8 @@ onMounted(async () => {
   });
 
   tocbot.refresh();
+  console.log('you finished tocbot library!');
+  loading.value = false;
 });
 
 function clearStyles(node: HTMLElement) {
