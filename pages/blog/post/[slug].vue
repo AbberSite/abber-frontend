@@ -9,7 +9,7 @@
     class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
     aria-labelledby="blog-heading">
     <div class="grid w-full gap-x-8 lg:grid-cols-3">
-      <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block">
+      <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block" v-if="false" >
         <SkeletonsSidebarPost v-if="loading"/>
         
         <div class="px-6 text-lg font-semibold" v-if="!loading" >جدول المحتويات</div>
