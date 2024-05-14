@@ -285,4 +285,13 @@ export type Offer = {
   service: number;
   start_date: string;
   end_date: string;
-}
+};
+export type withdrawalRequest = {
+  id: number;
+  amount: number;
+  status: string;
+  type: string; 
+  date: string;
+  paid: boolean;
+  refuse_reason: string;
+} 
