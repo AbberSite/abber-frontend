@@ -13,7 +13,7 @@
         <SkeletonsSidebarPost v-if="loading"/>
         
         <div class="px-6 text-lg font-semibold" v-if="!loading" >جدول المحتويات</div>
-        <div class="js-toc leading-[1.75]" v-if="!loading"></div>
+        <div class="js-toc leading-[1.75]" ></div>
       </div>
 
       <div class="mx-auto max-w-prose lg:col-span-2 lg:max-w-full w-full">
