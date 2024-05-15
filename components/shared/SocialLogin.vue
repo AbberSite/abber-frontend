@@ -21,7 +21,7 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة جوجل</span>
     </button>
   </div>
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp')" >
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && route.name != 'accounts-whatsapp-login'" >
     <NuxtLink
       class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       :to="{ name: 'accounts-whatsapp-login' }">

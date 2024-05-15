@@ -12,10 +12,12 @@
                     {{ errors.phone }}
                 </div>
             </div>
-            <div>
+            <div class="space-y-2">
                 <PrimaryButton class="w-full" :loading="loading"> متابعة </PrimaryButton>
             </div>
         </fieldset>
+        <FormStepsSocialLogin/>
+
     </form>
 </template>
 

@@ -21,10 +21,10 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة جوجل</span>
     </button>
   </div>
-  <div class="pt-4">
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && state.data?.authenticationMethod != 'guest'">
     <button
       class="flex w-full h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-      v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp')" @click="() => (state.data as any).authenticationMethod = 'guest'">
+       @click="() => (state.data as any).authenticationMethod = 'guest'">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
         viewBox="0 0 48 48">
         <path fill="#40c351"
