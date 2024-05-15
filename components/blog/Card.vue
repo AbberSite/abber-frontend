@@ -1,8 +1,8 @@
 <template>
-  <article class="cursor-pointer" >
-    <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
+  <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }" class="cursor-pointer" >
+    <div >
       <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="image" :alt="imageAlt"  />
-    </NuxtLink>
+    </div>
 
     <div class="flex w-full flex-col space-y-4 pt-8 text-right">
 
@@ -17,9 +17,9 @@
       </div>
 
       <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
-        <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
+        <div >
           {{ title }}
-        </NuxtLink>
+        </div>
       </h3>
 
       <p class="text-justify text-sm text-gray-800 xs:text-base">
@@ -27,11 +27,11 @@
       </p>
 
       <div class="text-sm font-semibold xs:text-base">
-        <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: slug } }">إقرأ المزيد <span aria-hidden="true">←</span></NuxtLink>
+        <div >إقرأ المزيد <span aria-hidden="true">←</span></div>
       </div>
 
     </div>
-  </article>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
