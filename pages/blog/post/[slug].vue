@@ -3,17 +3,17 @@
   <Head>
     <title>عبر - المدونة - {{ post?.title }}</title>
   </Head>
-  <HeroBackground/>
+  <HeroBackground />
   <!-- Post section -->
   <section
     class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
     aria-labelledby="blog-heading">
     <div class="grid w-full gap-x-8 lg:grid-cols-3">
-      <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block" >
-        <SkeletonsSidebarPost v-if="loading"/>
-        
-        <div class="px-6 text-lg font-semibold" v-if="!loading" >جدول المحتويات</div>
-        <div class="js-toc leading-[1.75]" ></div>
+      <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block">
+        <SkeletonsSidebarPost v-if="loading" />
+
+        <div class="px-6 text-lg font-semibold" v-if="!loading">جدول المحتويات</div>
+        <div class="js-toc leading-[1.75]"></div>
       </div>
 
       <div class="mx-auto max-w-prose lg:col-span-2 lg:max-w-full w-full">
@@ -151,7 +151,7 @@
     </div>
   </section>
 
-  <MakeDreamButtonFixed/>
+  <MakeDreamButtonFixed />
   <Articles :similar-posts="similarPosts" :similar="true" :current-post-slug="post?.slug" title="مقالات"
     description="إقرأ المزيد من المقالات" />
 </template>
@@ -235,10 +235,10 @@ onMounted(async () => {
     clearStyles(contentEl.value);
   }
 
-  
+
   tocbot.init({
     tocSelector: ".js-toc",
-    
+
     contentSelector: ".js-toc-content",
 
     headingSelector: "h2",
@@ -254,6 +254,7 @@ onMounted(async () => {
   });
 
   tocbot.refresh();
+
   loading.value = false;
 });
 
