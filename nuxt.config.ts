@@ -112,12 +112,12 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
 
       script: [
-      // {
-      //   src: '/lazysizes.min.js',
-      //   type: 'text/javascript',
-      //   async: true,
-      //   body: true
-      // }
+      {
+        src: '/lazysizes.min.js',
+        type: 'text/javascript',
+        async: true,
+        body: true
+      }
       ],
     },
   },
