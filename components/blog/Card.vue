@@ -1,6 +1,6 @@
 <template>
-  <article class="cursor-pointer" @click="navigateTo({ name: 'blog-post-slug', params: { slug: props?.slug  } })">
-    <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
+  <article class="cursor-pointer" @click="navigateTo(`/blog/post/${props.slug}/`)">
+    <NuxtLink v-if="slug" :to="`/blog/post/${props.slug}/`">
       <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="image" :alt="imageAlt"  />
     </NuxtLink>
 
@@ -17,7 +17,7 @@
       </div>
 
       <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
-        <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
+        <NuxtLink v-if="slug" :to="`/blog/post/${props.slug}/`">
           {{ title }}
         </NuxtLink>
       </h3>
@@ -27,7 +27,7 @@
       </p>
 
       <div class="text-sm font-semibold xs:text-base">
-        <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: slug } }">إقرأ المزيد <span aria-hidden="true">←</span></NuxtLink>
+        <NuxtLink v-if="slug" :to="`/blog/post/${props.slug}/`">إقرأ المزيد <span aria-hidden="true">←</span></NuxtLink>
       </div>
 
     </div>
