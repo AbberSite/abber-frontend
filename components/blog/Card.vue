@@ -1,5 +1,5 @@
 <template>
-  <article class="cursor-pointer" v-if="slug" @click="navigateTo({ name: 'blog-post-slug', params: { slug: props?.slug  } })">
+  <article class="cursor-pointer" >
     <NuxtLink v-if="slug" :to="{ name: 'blog-post-slug', params: { slug: props?.slug  } }">
       <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="image" :alt="imageAlt"  />
     </NuxtLink>
