@@ -8,7 +8,7 @@
         <div>
 
             <fieldset class="space-y-7" >
-                <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1">
+                <div class="is-scroll max-h-[400px] overflow-y-auto p-1">
                     <template v-if="loading">
                         <SkeletonsServiceRadioButton />
                         <SkeletonsServiceRadioButton />
@@ -26,8 +26,8 @@
                         </div>
 
                         <FormStepsServiceSelectServiceCheckboxButton 
-                            v-show="yes" v-for="service in textCommunicationServices" v-model="selectedsService"
-                            :service="service" :selected-id="selected" />
+                            v-show="yes" v-for="(service, id) in textCommunicationServices" v-model="selectedsService"
+                            :service="service" :selected-id="selected" :class="{'mt-4': id != 0}" />
                     </template>
 
                 </div>

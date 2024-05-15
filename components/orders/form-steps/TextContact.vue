@@ -144,7 +144,7 @@ const { defineField, errors, validate } = useForm({
                 .number()
                 .when('client', {
                     is: true,
-                    then: (schema) => schema.required("هذا الحقل مطلوب"),
+                    then: (schema) => schema.required("هذا الحقل مطلوب").min(5).max(120),
                     otherwise: (schema) => schema.notRequired()
                 })
                 .default(state.value.data?.age),

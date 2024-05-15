@@ -1,6 +1,6 @@
 <template>
   <label v-if="selectedId != service.id" @click="toggleSelection(service.id)"
-    class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm  focus:outline-none"
+    class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm mt-0  focus:outline-none"
     :class="[wasSelected && 'border-gray-900 ring-1 ring-gray-900']">
     <div class="flex pt-1.5">
       <div class="flex-shrink-0">
