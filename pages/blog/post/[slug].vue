@@ -254,7 +254,6 @@ onMounted(async () => {
   });
 
   tocbot.refresh();
-  console.log('you finished tocbot library!');
   loading.value = false;
 });
 
