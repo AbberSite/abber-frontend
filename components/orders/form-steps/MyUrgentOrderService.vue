@@ -8,7 +8,7 @@
         <div>
 
             <fieldset class="space-y-7" >
-                <div class="is-scroll max-h-[400px] overflow-y-auto p-1">
+                <div class="is-scroll max-h-[400px] overflow-y-auto p-1" id="ServiceMulti">
                     <template v-if="loading">
                         <SkeletonsServiceRadioButton />
                         <SkeletonsServiceRadioButton />
@@ -24,10 +24,10 @@
                                 class="relative ms-3 inline-flex items-center rounded-md border bg-white px-6 py-2 text-sm font-semibold shadow-sm hover:bg-gray-50"
                                 @click="sendResponse(false)"><span class="mt-1.5">لا</span></button>
                         </div>
-
+                        <!-- first element of from FormStepsServiceSelectServiceCheckboxButton -->
                         <FormStepsServiceSelectServiceCheckboxButton 
-                            v-show="yes" v-for="(service, id) in textCommunicationServices" v-model="selectedsService"
-                            :service="service" :selected-id="selected" :class="{'mt-4': id != 0}" />
+                            v-show="yes" v-for="service in textCommunicationServices" v-model="selectedsService"
+                            :service="service" :selected-id="selected"  class="mt-5" />
                     </template>
 
                 </div>
@@ -78,3 +78,10 @@ function submit() {
 
 
 </script>
+
+<style scoped>
+
+#ServiceMulti > label:first-child {
+    margin-top: 0px;
+}
+</style>
