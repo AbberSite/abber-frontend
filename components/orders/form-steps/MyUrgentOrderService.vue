@@ -81,7 +81,7 @@ function submit() {
 
 <style scoped>
 
-#ServiceMulti > label:first-child {
+#ServiceMulti label:first-of-type {
     margin-top: 0px;
 }
 </style>
