@@ -3,13 +3,13 @@
         <table class="w-full text-sm ltr:text-left rtl:text-right">
             <thead class="border-b border-t">
                 <tr>
-                    <TicketsTableHeaderCol content="الرقم" />
-                    <TicketsTableHeaderCol content="المبلغ" />
-                    <TicketsTableHeaderCol content="النوع" />
-                    <TicketsTableHeaderCol content="الحالة" />
-                    <TicketsTableHeaderCol content="التاريخ" />
-                    <TicketsTableHeaderCol content="تم التحويل" />
-                    <TicketsTableHeaderCol content="سبب الرفض" />
+                    <RequestsTableHeaderCol content="الرقم" />
+                    <RequestsTableHeaderCol content="المبلغ" />
+                    <RequestsTableHeaderCol content="النوع" />
+                    <RequestsTableHeaderCol content="الحالة" />
+                    <RequestsTableHeaderCol content="التاريخ" order="date" />
+                    <RequestsTableHeaderCol content="تم التحويل" />
+                    <RequestsTableHeaderCol content="سبب الرفض" />
                     <!-- <TicketsTableHeaderCol /> -->
                 </tr>
             </thead>
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { useDateFormat } from '@vueuse/core';
 import type { withdrawalRequest } from '~/types';
+import RequestsTableHeaderCol from './RequestsTableHeaderCol.vue';
 
 defineProps<{
     requests: withdrawalRequest[]

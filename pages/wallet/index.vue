@@ -34,7 +34,7 @@
             <WalletTransactions v-if="activeTab == 'operations'" />
             <WalletStatements v-if="activeTab == 'statement'" />
             <WalletCards v-if="activeTab == 'cards'" />
-            
+            <WalletRequests v-if="activeTab == 'withdrawalRequests'"/>
         </section>
     </main>
 </template>
@@ -51,7 +51,7 @@ const route = useRoute();
 // await getSession()
 
 
-const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards'>(route.query.activeRoute ?? 'summary');
+const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards' | 'withdrawalRequests'>(route.query.activeRoute ?? 'summary');
 
 if(!process.client){
     // await fetchAll();

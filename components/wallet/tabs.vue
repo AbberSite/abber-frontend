@@ -71,6 +71,19 @@
             {{cardsCount}}
         </span>
     </button>
+    <button
+        class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
+        id="tab-4"
+        type="button"
+        @click="activeTab = 'withdrawalRequests'"
+        role="tab"
+        aria-labelledby="tabpanel-preview-4"
+        aria-controls="tabpanel-preview-4"
+        :class="
+            activeTab === 'withdrawalRequests' ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900'
+        ">
+        <span>طلبات السحب</span>
+    </button>
 </div>
 </template>
 
@@ -78,7 +91,7 @@
 import { useVModel } from '@vueuse/core';
 
 const props = defineProps<{
-    modelValue?: 'summary' | 'operations' | 'statement' | 'cards';
+    modelValue?: 'summary' | 'operations' | 'statement' | 'cards' | 'withdrawalRequests';
 }>();
 const { pagination, loading } = storeToRefs(useTransactionsStore())
 const emits = defineEmits(['update:modelValue']);
