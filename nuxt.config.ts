@@ -72,35 +72,10 @@ export default defineNuxtConfig({
         sameSiteAttribute: "lax",
         maxAgeInSeconds: 60 * 60
       },
-
-      // refreshOnlyToken : true,
-
-      // sessionDataType: {
-      //     'username': 'string',
-      //     'email': 'string',
-      //     first_name: 'Isabelle Walter',
-      //     phone: '++19214023523',
-      //     user_type: 'string',
-      //     role_id: 'number',
-      //     "id?": "string",
-      //     image_url: 'string',
-      //     'profile?': {
-      //         'bank_account?': 'string',
-      //         'gender?': 'string',
-      //         'birthday?': 'string',
-      //         'marital_status?': 'string',
-      //         'profession?': 'string'
-      //     },
-      //     phone_verified: 'boolean',
-      //     email_verified: 'boolean',
-      //     'notifications?': {
-      //         'count': 'number',
-      //         next: 'string',
-      //         previous: 'string',
-      //         results: 'any'
-      //     }
-      // }
     },
+    session: {
+      enableRefreshPeriodically: 60000 * 58
+    }
   },
 
   build: {
