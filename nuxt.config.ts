@@ -57,7 +57,7 @@ export default defineNuxtConfig({
       },
       endpoints: {
         refresh: { path: "/refresh", method: "post" },
-        getSession: { path: "/session", method: "get" },
+        getSession: { path: "/session" },
         signIn: { path: "/login", method: "post" }
       },
 
@@ -69,8 +69,8 @@ export default defineNuxtConfig({
       token: {
 
         // signInResponseTokenPointer : "/access",
-        sameSiteAttribute: "strict",
-        maxAgeInSeconds: 60 * 50
+        sameSiteAttribute: "lax",
+        maxAgeInSeconds: 60 * 60
       },
 
       // refreshOnlyToken : true,
