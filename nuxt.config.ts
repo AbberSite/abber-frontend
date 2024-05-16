@@ -50,7 +50,8 @@ export default defineNuxtConfig({
     globalAppMiddleware: true,
     baseURL : import.meta.env.VITE_AUTH_URL,
     provider: {
-      type: "local",
+      type: "refresh",
+      refreshOnlyToken: true,
       pages: {
         login: "/accounts/login",
       },
@@ -69,7 +70,7 @@ export default defineNuxtConfig({
 
         // signInResponseTokenPointer : "/access",
         sameSiteAttribute: "strict",
-
+        maxAgeInSeconds: 60 * 50
       },
 
       // refreshOnlyToken : true,
