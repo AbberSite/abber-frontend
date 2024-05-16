@@ -136,7 +136,7 @@ onMounted(async () => {
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
 
     
-    await getSession();
+    // await getSession();
     await getStatus();
     if(balance && transaction_id){
         localStorage.removeItem('abber:current-transaction-id');

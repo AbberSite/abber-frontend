@@ -81,7 +81,7 @@ async function initChannel() {
   });
 }
 
-await getSession();
+// await getSession();
 
 onMounted(async () => {
   // await getSession();

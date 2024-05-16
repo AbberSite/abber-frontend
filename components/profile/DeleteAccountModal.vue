@@ -80,7 +80,7 @@ async function deleteAccount() {
 
     // clearToken();
 
-    await getSession()
+    // await getSession()
 
     loading.value = false;
 

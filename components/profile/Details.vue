@@ -52,12 +52,12 @@
 </template>
 
 <script setup lang="ts">
-const { data, getSession } = useAuth();
+const { data} = useAuth();
 
 
 
 onMounted(async () => {
-    await getSession()
+    // await getSession()
 })
 
 

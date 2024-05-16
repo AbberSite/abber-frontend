@@ -145,7 +145,7 @@ onMounted(async () => {
         (data as any).clear();
         return;
     }
-    await getSession();
+    // await getSession();
     await getStatus();
 });
 

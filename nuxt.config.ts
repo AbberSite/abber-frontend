@@ -74,7 +74,9 @@ export default defineNuxtConfig({
       },
     },
     session: {
-      enableRefreshPeriodically: 60000 * 58
+      // enableRefreshPeriodically: 3540000
+      enableRefreshPeriodically: false,
+      enableRefreshOnWindowFocus: false
     }
   },
 

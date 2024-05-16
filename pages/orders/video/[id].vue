@@ -121,7 +121,7 @@ async function initChannel() {
     });
 }
 
-await getSession();
+// await getSession();
 
 await getOrder(id as string);
 
@@ -147,7 +147,7 @@ watch(orderStatus.data, async (value) => {
 });
 
 onMounted(async () => {
-    await getSession();
+    // await getSession();
 
     if (!order.value) {
         await getOrder(id as string);
