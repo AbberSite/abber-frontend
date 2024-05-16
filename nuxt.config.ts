@@ -50,7 +50,7 @@ export default defineNuxtConfig({
     globalAppMiddleware: true,
     baseURL : import.meta.env.VITE_AUTH_URL,
     provider: {
-      type: "refresh",
+      type: "local",
       pages: {
         login: "/accounts/login",
       },

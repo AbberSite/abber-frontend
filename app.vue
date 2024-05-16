@@ -69,9 +69,9 @@ onMounted(async () => {
             if (value == 'loading') return
             if (value == "authenticated") {
                 console.log("going online...");
-                goOffline = await goOnline()
-                return
-            }
+                goOffline = await goOnline();
+                return;
+            };
             console.log("going offline...");
             goOffline()
         }
