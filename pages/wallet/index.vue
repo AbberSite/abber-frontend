@@ -30,7 +30,7 @@
 
             <WalletTabs v-model="activeTab" />
 
-            <WalletFinancialSummary v-show="activeTab === 'summary'" />
+            <WalletFinancialSummary v-show="activeTab === 'summary'"  />
             <WalletTransactions v-if="activeTab == 'operations'" />
             <WalletStatements v-if="activeTab == 'statement'" />
             <WalletCards v-if="activeTab == 'cards'" />
@@ -50,8 +50,7 @@ const route = useRoute();
 
 // await getSession()
 
-
-const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards' | 'withdrawalRequests'>(route.query.activeRoute ?? 'summary');
+const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards' | 'withdrawalRequests'>(['summary' , 'operations' , 'statement' , 'cards' , 'withdrawalRequests'].includes(route.query?.activeRoute) ? route.query.activeRoute : 'summary');
 
 if(!process.client){
     // await fetchAll();

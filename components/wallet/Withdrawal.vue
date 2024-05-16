@@ -173,7 +173,6 @@ async function submit() {
         });
         loading.value = false;
         emit('close');
-        console.log(response)
         useNotification({type: 'success', content: response.message})
     } catch(e){
         loading.value = false;
