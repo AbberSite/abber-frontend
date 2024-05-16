@@ -28,12 +28,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     // console.log(`auth:token : ${useCookie('auth:token').value}`)
     // console.log(`auth:refreshToken : ${useCookie('auth:refresh-token').value}`)
     
-    const { refresh, getSession, data } = await useAuth();
+    // const { refresh, getSession, data } = await useAuth();
     // console.log(`my status is : ${status.value} - ${new Date()}`)
-    if (useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined) {
-        await refresh();
+    // if (useCookie('auth:token').value == undefined && useCookie('auth:refresh-token').value != undefined) {
+        // await refresh();
         // await getSession();
-    } 
+    // } 
     // console.log(data.value);
 
     // console.log("Shiekh global middleware");
