@@ -49,6 +49,7 @@ useHead({
 })
 
 const props = defineProps({ allowInput: Boolean, roomName: String, device: String });
+const {$viewport}= useNuxtApp();
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
@@ -67,29 +68,31 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
+  if($viewport.isLessThan('desktop'))
+    return;
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
     loading_chat.value = false;
     scrollDown(chatList);
-}
+  }
 
   if (!chatList.value) return;
 
 
 
-window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-scrollDown(chatList);
-// useInfiniteScroll(chatList.value, async () => await load(), {
-//   interval: 500,
-//   distance: 5,
-//   direction: "top",
-//   canLoadMore: () => !!messagesPagination.value?.next,
-// });
-useInfiniteScroll(chatList, load, { distance: 20, direction: 'top', interval: 500, canLoadMore: () => messagesPagination.value?.next })
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  scrollDown(chatList);
+  // useInfiniteScroll(chatList.value, async () => await load(), {
+  //   interval: 500,
+  //   distance: 5,
+  //   direction: "top",
+  //   canLoadMore: () => !!messagesPagination.value?.next,
+  // });
+  useInfiniteScroll(chatList, load, { distance: 20, direction: 'top', interval: 500, canLoadMore: () => messagesPagination.value?.next })
 
 
-// document.body.appendChild(contextMenu.value.$el); // Move changeList to body
-document.addEventListener("click", resetChangeMessage);
+  // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
+  document.addEventListener("click", resetChangeMessage);
 });
 
 function formatTime(_date: string) {
@@ -138,10 +141,10 @@ onUnmounted(() => {
 });
 function scrollDown(chat_scroll: HTMLElement) {
   if (chat_scroll.value != null)
-    chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight});
+    chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
   else {
     const my_interval = setInterval(function () {
-      chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight});
+      chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
       console.log(chat_scroll.value.scrollTop);
       if (chat_scroll.value != null) {
         console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);

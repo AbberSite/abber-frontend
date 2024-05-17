@@ -43,7 +43,7 @@ export default defineNuxtConfig({
       // paymentWidgetURL: `https://eu-test.oppwa.com/v1/paymentWidgets.js`,
     },
   },
-  modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth", '@nuxtjs/device'],
+  modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth", '@nuxtjs/device', 'nuxt-viewport'],
 
   auth: {
 

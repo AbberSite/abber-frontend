@@ -44,7 +44,7 @@ useHead({
 })
 
 const props = defineProps({ allowInput: Boolean, roomName: String });
-
+const {$viewport}= useNuxtApp();
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
 
@@ -61,6 +61,9 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async function () {
+    if(!$viewport.isLessThan('desktop'))
+        return;
+    console.log('this is from mobileChat.vue')
     if (messages.value.length == 0) {
         await fetchMessages({ room: props.roomName, limit: 9 });
         loading_chat.value = false;
