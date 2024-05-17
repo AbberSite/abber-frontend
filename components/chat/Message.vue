@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full" :dir="user.username == message.user.username ? 'rtl' : 'ltr'">
+  <div class="flex w-full" :dir="user?.username == message?.user?.username ? 'rtl' : 'ltr'">
     <img  class="lazyload h-11 w-11 rounded-full bg-gray-100"
       v-if="lastMessage?.user?.username != message.user.username" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="message.user.image" height="44" width="44"
       alt="" />
@@ -7,7 +7,7 @@
       :class="[lastMessage?.user?.username != message.user.username ? 'space-y-3' : 'space-y-2']">
       <div class="w-fit min-w-[4rem] max-w-full space-y-2">
         <div class="rounded-lg rounded-tr-none px-4 py-4 text-right text-sm leading-loose min-w-[5rem]"
-          :class="[user.username == message.user.username ? 'bg-sky-100 ' : 'bg-gray-100 ', lastMessage?.user?.username == message.user.username && '-mt-4', user.username == message.user.username && lastMessage?.user?.username == message.user.username && 'mr-11', user.username != message.user.username && lastMessage?.user?.username == message.user.username && 'ml-11']">
+          :class="[user?.username == message?.user?.username ? 'bg-sky-100 ' : 'bg-gray-100 ', lastMessage?.user?.username == message?.user.username && '-mt-4', user.username == message.user.username && lastMessage?.user?.username == message.user.username && 'mr-11', user.username != message.user.username && lastMessage?.user?.username == message.user.username && 'ml-11']">
 
           <ChatFile :files="message.files"></ChatFile>
           <div v-html="message.message"></div>

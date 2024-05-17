@@ -5,9 +5,11 @@
       <Loading v-if="loading" />
     </div>
     <SkeletonsChatDesktop v-if="loading_chat" />
-    <div  v-else ref="chatList" class="max-h-[50vh] overflow-y-scroll"
-      :class="(device == 'mobile') ? 'w-full' : 'mt-0'" id="chat_scroll">
-      <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
+    <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll " :class="(device == 'mobile') ? 'w-full' : 'mt-0'"
+      id="chat_scroll">
+      <div v-if="!messages.length" class="h-full flex items-center justify-center"><span
+          class="px-4 py-2 rounded-sm bg-green-100">لا توجد رسائل سابقة</span></div>
+      <div class="flex flex-col-reverse gap-6" v-else v-for="{ messages, index } in segmentedMessages" id="chat">
         <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
           :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
           :id="'message-' + message.id"> </ChatMessage>
@@ -68,24 +70,26 @@ onMounted(async () => {
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
     loading_chat.value = false;
-  }
+    scrollDown(chatList);
+}
 
   if (!chatList.value) return;
 
 
 
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  // useInfiniteScroll(chatList.value, async () => await load(), {
-  //   interval: 500,
-  //   distance: 5,
-  //   direction: "top",
-  //   canLoadMore: () => !!messagesPagination.value?.next,
-  // });
-  useInfiniteScroll(chatList, load, { distance: 10, direction: 'top', interval: 500, canLoadMore: () => messagesPagination.value?.next })
+window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+scrollDown(chatList);
+// useInfiniteScroll(chatList.value, async () => await load(), {
+//   interval: 500,
+//   distance: 5,
+//   direction: "top",
+//   canLoadMore: () => !!messagesPagination.value?.next,
+// });
+useInfiniteScroll(chatList, load, { distance: 20, direction: 'top', interval: 500, canLoadMore: () => messagesPagination.value?.next })
 
 
-  // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
-  document.addEventListener("click", resetChangeMessage);
+// document.body.appendChild(contextMenu.value.$el); // Move changeList to body
+document.addEventListener("click", resetChangeMessage);
 });
 
 function formatTime(_date: string) {
@@ -116,7 +120,7 @@ async function load() {
   messagesPagination.value = newMessages;
 
   if (!chatList.value) return;
-  chatList.value.scrollTop = 300;
+  // chatList.value.scrollTop = 300;
 }
 
 function showContextMenu(e: any, message: Message) {
@@ -132,6 +136,20 @@ onUnmounted(() => {
   messages.value = [];
   messagesPagination.value = undefined;
 });
+function scrollDown(chat_scroll: HTMLElement) {
+  if (chat_scroll.value != null)
+    chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight});
+  else {
+    const my_interval = setInterval(function () {
+      chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight});
+      console.log(chat_scroll.value.scrollTop);
+      if (chat_scroll.value != null) {
+        console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
+        clearInterval(my_interval);
+      }
+    }, 1000)
+  }
+}
 </script>
 
 <style scoped></style>
