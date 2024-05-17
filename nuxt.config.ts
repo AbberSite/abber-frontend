@@ -70,7 +70,7 @@ export default defineNuxtConfig({
 
         // signInResponseTokenPointer : "/access",
         sameSiteAttribute: "lax",
-        maxAgeInSeconds: 60 * 60
+        maxAgeInSeconds: ((60 * 60) * 24) * 12
       },
     },
     session: {
