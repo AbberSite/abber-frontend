@@ -142,7 +142,9 @@ async function sendMessage() {
     );
 
     message.value = '';
-    emit('sendMessage');
+    setTimeout(()=> {
+        emit('sendMessage');
+    }, 1000);
 }
 
 function handleMessageInput(event: KeyboardEvent) {
