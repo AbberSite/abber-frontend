@@ -4,8 +4,10 @@
             <Loading v-if="loading" />
         </div>
         <SkeletonsChatDesktop v-if="loading_chat"/>
-        <div v-else ref="chatList" class="max-h-[50vh] overflow-y-scroll w-full" id="chat_scroll">
-            <div class="flex flex-col-reverse gap-6" v-for="{ messages, index } in segmentedMessages" id="chat">
+        <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll w-full" id="chat_scroll">
+            <div v-if="!messages.length" class="h-full flex items-center justify-center"><span
+          class="px-4 py-2 rounded-sm bg-green-100">لا توجد رسائل سابقة</span></div>
+            <div class="flex flex-col-reverse gap-6" v-else v-for="{ messages, index } in segmentedMessages" id="chat">
                 <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
                     :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
                     :id="'message-' + message.id"> </ChatMessage>
@@ -24,7 +26,7 @@
                 :user="data" :class="{ hidden: !changeMessage }"> </changeList>
         </div>
 
-        <ChatInput v-if="allowInput" @send-message="scrollDown" />
+        <ChatInput v-if="allowInput" @send-message="scrollDown(chatList)" />
     </div>
 </template>
 <script setup lang="ts">
@@ -63,13 +65,13 @@ const changeMessage = ref<Message | undefined>(undefined);
 onMounted(async function () {
     if(!$viewport.isLessThan('desktop'))
         return;
-    console.log('this is from mobileChat.vue')
     if (messages.value.length == 0) {
         await fetchMessages({ room: props.roomName, limit: 9 });
         loading_chat.value = false;
         scrollDown(chatList);
     }
 
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     if (!chatList.value) return;
     // setTimeout(async()=> {
     //     await load()
@@ -81,7 +83,7 @@ onMounted(async function () {
     //     canLoadMore: () => !!messagesPagination.value?.next,
     // });
 
-    useInfiniteScroll(chatList, load, {distance: 10, interval: 500, direction: 'top', canLoadMore: ()=> messagesPagination.value?.next})
+    // useInfiniteScroll(chatList, load, {distance: 10, interval: 500, direction: 'top', canLoadMore: ()=> messagesPagination.value?.next})
 
     // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
     document.addEventListener("click", resetChangeMessage);
@@ -99,8 +101,6 @@ function formatTime(_date: string) {
 }
 
 async function load() {
-    console.log("we activited load()")
-    console.log(messagesPagination.value?.next)
     if (!messagesPagination.value?.next) return;
 
     const params = useUrlParams(messagesPagination.value.next);
@@ -133,19 +133,19 @@ onUnmounted(() => {
     messages.value = [];
     messagesPagination.value = undefined;
 });
-function scrollDown(chatList?) {
-    setTimeout(function(){
-        if (chatList == undefined) {
-            let chat_list = document.getElementById('chat_scroll');
-            chat_list.scrollTop = chat_list?.scrollHeight;
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    
-            return;
-        }
-        chatList.value.scrollTop = chatList.value.scrollHeight;
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+function scrollDown(chat_scroll: HTMLElement) {
+  if (chat_scroll.value != null)
+    chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
+  else {
+    const my_interval = setInterval(function () {
+      chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
+      if (chat_scroll.value != null) {
+        // console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
+        useInfiniteScroll(chatList, load, { distance:  10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
+        clearInterval(my_interval);
+      }
     }, 1000)
-
+  }
 }
 </script>
 

@@ -49,7 +49,7 @@ useHead({
 })
 
 const props = defineProps({ allowInput: Boolean, roomName: String, device: String });
-const {$viewport}= useNuxtApp();
+const { $viewport } = useNuxtApp();
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
@@ -68,14 +68,15 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
-  if($viewport.isLessThan('desktop'))
+  if ($viewport.isLessThan('desktop'))
     return;
+  // console.log('desktop chat')
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
     loading_chat.value = false;
     scrollDown(chatList);
   }
-
+  console.log(chatList.value)
   if (!chatList.value) return;
 
 
@@ -88,8 +89,7 @@ onMounted(async () => {
   //   direction: "top",
   //   canLoadMore: () => !!messagesPagination.value?.next,
   // });
-  useInfiniteScroll(chatList, load, { distance: 20, direction: 'top', interval: 500, canLoadMore: () => messagesPagination.value?.next })
-
+  console.log('after useinfinite')
 
   // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
   document.addEventListener("click", resetChangeMessage);
@@ -107,6 +107,7 @@ function formatTime(_date: string) {
 }
 
 async function load() {
+  console.log('load function')
   if (!messagesPagination.value?.next) return;
 
   const params = useUrlParams(messagesPagination.value.next);
@@ -145,9 +146,9 @@ function scrollDown(chat_scroll: HTMLElement) {
   else {
     const my_interval = setInterval(function () {
       chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
-      console.log(chat_scroll.value.scrollTop);
       if (chat_scroll.value != null) {
-        console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
+        // console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
+        useInfiniteScroll(chatList, load, { distance:  10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
         clearInterval(my_interval);
       }
     }, 1000)
