@@ -28,7 +28,7 @@
         :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
-    <ChatInput v-if="allowInput" class="flex-1" @send-message="scrollDown(chatList)" />
+    <ChatInput v-if="allowInput" class="flex-1" @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" />
   </div>
 </template>
 
@@ -89,7 +89,6 @@ onMounted(async () => {
   //   direction: "top",
   //   canLoadMore: () => !!messagesPagination.value?.next,
   // });
-  console.log('after useinfinite')
 
   // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
   document.addEventListener("click", resetChangeMessage);
@@ -141,9 +140,10 @@ onUnmounted(() => {
   messagesPagination.value = undefined;
 });
 function scrollDown(chat_scroll: HTMLElement) {
-  if (chat_scroll.value != null)
+  if (chat_scroll.value != null){
     chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
-  else {
+    console.log(chat_scroll.value.scrollHeight)
+  } else {
     const my_interval = setInterval(function () {
       chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
       if (chat_scroll.value != null) {

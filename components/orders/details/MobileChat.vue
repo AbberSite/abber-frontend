@@ -26,7 +26,7 @@
                 :user="data" :class="{ hidden: !changeMessage }"> </changeList>
         </div>
 
-        <ChatInput v-if="allowInput" @send-message="scrollDown(chatList)" />
+        <ChatInput v-if="allowInput" @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" />
     </div>
 </template>
 <script setup lang="ts">
@@ -134,9 +134,10 @@ onUnmounted(() => {
     messagesPagination.value = undefined;
 });
 function scrollDown(chat_scroll: HTMLElement) {
-  if (chat_scroll.value != null)
+  if (chat_scroll.value != null){
     chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
-  else {
+    console.log(chat_scroll.value.scrollHeight)
+  } else {
     const my_interval = setInterval(function () {
       chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
       if (chat_scroll.value != null) {
