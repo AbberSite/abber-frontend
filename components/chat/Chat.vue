@@ -28,7 +28,7 @@
         :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
-    <ChatInput v-if="allowInput" class="flex-1" />
+    <ChatInput v-if="allowInput" class="flex-1" @send-message="scrollDown(chatList)" />
   </div>
 </template>
 
