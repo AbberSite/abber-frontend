@@ -86,14 +86,12 @@
                                         <template v-if="selectedOption === 'part'">
                                             <div class="w-full space-y-3" >
                                                 <input
-                                                    v-model="amount"
-                                                    class="form-control h-[50px] appearance-none"
-                                                    type="number"
-                                                    name="text"
-                                                    id="amount"
-                                                    placeholder="إدخل المبلغ المراد سحبه"
-                                                    dir="rtl"
-                                                    value=""
+                                                class="form-control h-[50px] appearance-none"
+                                                :type="'number'" pattern="\D*"
+                                                id="amount"
+                                                placeholder="إدخل المبلغ المراد سحبه"
+                                                dir="rtl"
+                                                v-model.number="amount"
                                                     required />
                                             </div>
                                             <InputError :message="errors.amount" class="mt-2" />
@@ -149,9 +147,10 @@
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 const selectedOption = ref<'part' | 'all'>('part');
-const amount = ref(0);
+const amount = ref<number>(0);
 let loading = ref(false);
 const emit = defineEmits(['close']);
+const {isApple} = useDevice()
 const errors = ref<{ amount?: string }>({});
 
 async function submit() {
