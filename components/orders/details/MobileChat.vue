@@ -71,7 +71,6 @@ onMounted(async function () {
         scrollDown(chatList);
     }
 
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     if (!chatList.value) return;
     // setTimeout(async()=> {
     //     await load()
@@ -136,7 +135,7 @@ onUnmounted(() => {
 function scrollDown(chat_scroll: HTMLElement) {
   if (chat_scroll.value != null){
     chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
-    console.log(chat_scroll.value.scrollHeight)
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   } else {
     const my_interval = setInterval(function () {
       chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
@@ -145,6 +144,7 @@ function scrollDown(chat_scroll: HTMLElement) {
         setTimeout(function(){
             useInfiniteScroll(chatList, load, { distance:  10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
         }, 3000);
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         clearInterval(my_interval);
       }
     }, 1000)
