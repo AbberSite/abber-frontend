@@ -148,7 +148,9 @@ function scrollDown(chat_scroll: HTMLElement) {
       chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
       if (chat_scroll.value != null) {
         // console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
-        useInfiniteScroll(chatList, load, { distance:  10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
+        setTimeout(function(){
+            useInfiniteScroll(chatList, load, { distance:  10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
+        }, 3000);
         clearInterval(my_interval);
       }
     }, 1000)
