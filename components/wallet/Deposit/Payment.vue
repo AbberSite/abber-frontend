@@ -1,30 +1,30 @@
 <template>
     <div class="flex h-full flex-col gap-7 px-4 py-8 pb-36">
         <div class="min-h-[20rem]">
+
             <div class="hidden">
-                <span
-                    class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
+                <span class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
                     :class="cardImage.class">
-                    <img class="lazyload w-8" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="cardImage.src" />
+                    <img class="lazyload w-8"
+                        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        :data-src="cardImage.src" />
                 </span>
             </div>
 
-            <div class="w-full space-y-3" x-id="['input']" v-if="!loading">
-                <label class="block text-sm font-semibold xs:text-base" for="payment-method">نوع البطاقة</label>
-                <select
-                    v-model="paymentMethod"
-                    class="form-control form-select h-[50px] appearance-none"
-                    type="select"
-                    name="select"
-                    id="payment-method"
-                    required>
-                    <option value="VISA MASTER MADA">فيزا كارد, ماستر كارد, مدى كارد</option>
-                    <option value="APPLEPAY">ابل باي</option>
-                    <option value="STC_PAY">اس تي سي باي</option>
-                    <option value="WALLET" v-bind="{ disabled: !hasSufficientBallance }">
-                        المحفظة {{ !hasSufficientBallance ? '( ليس لديك الرصيد الكافي )' : '' }}
-                    </option>
-                </select>
+            <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse max-w-[320px]"
+                id="payment-scrolling" aria-orientation="horizontal">
+                <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg"
+                    id-of-card="MASTER" v-model="paymentMethod" width="26" height="26" />
+                <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg" id-of-card="VISA"
+                    v-model="paymentMethod" width="26" height="26" />
+                <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA"
+                    v-model="paymentMethod" width="40" height="40" />
+                <!-- <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp"
+                            id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
+                        <FormStepsCardComponent title="أبل باي" logo="/images/payments/section/apple-pay.svg"
+                            id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
+                        <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg"
+                            id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" /> -->
             </div>
 
             <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
@@ -33,8 +33,9 @@
 
             <InputError :message="error" />
 
-            <div dir="ltr" class="payment-form px-3 sm:px-0" ref="paymentForm">
-                <form dir="ltr" target="/orders/something" class="paymentWidgets" :data-brands="paymentMethod"></form>
+            <div dir="ltr" class="payment-form" ref="paymentForm">
+                <form dir="ltr" action="/complete-charge" class="paymentWidgets" :data-brands="paymentMethod">
+                </form>
             </div>
         </div>
     </div>
@@ -71,7 +72,7 @@ const { fetchBalance } = useWalletStore();
 
 const { balance } = storeToRefs(useWalletStore());
 
-const paymentMethod = ref('VISA MASTER MADA');
+const paymentMethod = ref('MASTER');
 
 const hasSufficientBallance = computed(() => {
     if (!hyper) return false;
@@ -80,23 +81,21 @@ const hasSufficientBallance = computed(() => {
 });
 
 watch(paymentMethod, async (value) => {
-    if (value == 'WALLET') return;
-
     hyper.unload();
-
+    console.log(value)
     const form = document.createElement('form');
 
     form.dir = 'ltr';
-    form.action = '/wallet';
+    form.action = '/complete-charge';
     form.classList.add('paymentWidgets');
 
     form.dataset.brands = value;
 
     paymentForm.value?.append(form);
 
+    await loadHyper();
     loading.value = false;
 
-    await loadHyper();
 });
 
 onUnmounted(async () => {
@@ -167,13 +166,13 @@ const countryCode = ref('');
 
 async function loadHyper() {
     const payment = await createCheckout();
-
+    console.log(payment);
     if (!payment.id) {
         error.value = 'حدث خطأ ما';
         return;
     }
 
-  await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
+    await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
 
     // @ts-ignore
     hyper = wpwl as any;
@@ -191,7 +190,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
                 // type: 'VISA',
                 amount: state.value.data.amount,
                 // TODO: unncomment the above line when finishing from testing
-              brand: 'VISA'
+                brand: paymentMethod.value
                 // brand: cardType.valuee
             }
         });
@@ -215,7 +214,8 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         cvv: '000',
         expiryDate: 'تاريخ الإنتهاء',
         submit: 'متابعة',
-        mobilePhoneNumber: 'رقم الهاتف'
+        mobilePhoneNumber: 'رقم الهاتف',
+        showOtherPaymentMethods: 'الدفع ببطاقة أخرى'
     },
     errorMessages: {
         cvvError: 'رمز التحقق غير صالح',
@@ -289,12 +289,10 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
         cardHolderInput.value = data.value.username;
 
-        expiryGroup?.remove?.();
-        cvvGroup?.remove?.();
 
-        cardBrand.remove();
 
-        cardGroup?.append(cardBrand);
+        if (cardBrand)
+            cardGroup?.append(cardBrand);
 
         const div = document.createElement('div');
         div.classList.add('cvv-expiry-wrapper');
@@ -310,13 +308,14 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .wpwl-group-cardNumber {
     @apply relative;
 }
+
 .wpwl-control-cardNumber,
 .wpwl-control-mobilePhone {
     @apply form-control h-[50px] pl-12 w-full;
 }
 
 .wpwl-control-mobilePhone {
-    @apply form-control h-[50px]  block text-sm xs:text-base w-full;
+    @apply form-control h-[50px] block text-sm xs:text-base w-full;
     direction: rtl;
 }
 
@@ -331,9 +330,11 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .cvv-expiry-wrapper {
     @apply flex items-start justify-between gap-5 mb-2 w-full;
 }
+
 .wpwl-group {
     @apply w-full space-y-3;
 }
+
 .wpwl-wrapper {
     @apply w-full;
 }
@@ -357,7 +358,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
 .wpwl-button-pay {
     /* @apply flex */
-    @apply hidden  h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+    @apply hidden h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-button-error {

@@ -87,7 +87,7 @@
                                             <div class="w-full space-y-3" >
                                                 <input
                                                 class="form-control h-[50px] appearance-none"
-                                                :type="'number'" pattern="\D*"
+                                                :type="'number'" pattern="\d*"
                                                 id="amount"
                                                 placeholder="إدخل المبلغ المراد سحبه"
                                                 dir="rtl"

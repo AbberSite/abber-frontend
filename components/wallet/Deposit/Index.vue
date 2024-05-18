@@ -17,7 +17,7 @@
                             </svg>
                         </span>
                         <div class="w-0 flex-1 text-sm font-medium leading-loose">
-                            رسوم شحن الرصيد 200 ر.س. يمكنك الدفع من الرصيد المتبقي أو من المبلغ المراد شحنه
+                            لا توجد رسوم شحن حاليا
                         </div>
                     </div>
                 </div>
@@ -52,6 +52,7 @@ const { activeStep, activeStepIndex, emitNext, state } = useFormWizard<any>("dep
     { id: 'amount-input', component: PriceInput },
     { id: 'payment', component: Payment },
 ]);
+
 state.value.data = {}
 
 const emit = defineEmits(['close']);
