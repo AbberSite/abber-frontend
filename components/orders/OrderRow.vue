@@ -1,5 +1,5 @@
 <template>
-    <tr class="cursor-pointer" @click="navigateTo(`/orders/${order.type == 'text_communication' ? order.id : `video/${order.id}`}/`)">
+    <tr class="cursor-pointer" @click="order.content?.urgent && (order.service_details == null) && (order.buyer.username != data.username) ? showDialog = true : navigateTo(`/orders/${order.type == 'text_communication' ? order.id : `video/${order.id}`}/`)">
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <NuxtLink :to="{ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } }" title="عرض الطلب" class="text-blue-600">#{{ order.id }}</NuxtLink>
         </td>
@@ -50,6 +50,7 @@
             </NuxtLink>
         </td>
     </tr>
+    <ConfirmDialog v-if="showDialog" title="هل انت متأكد من انك تريد قبول هذا الطلب المستعجل؟" descritpion="اذا وافقت على تسلم الحلم، فإنه لن يستطيع اي معبر اخر تفسيره." @close="showDialog = false;" @continue="acceptOrder(order)"/>
 </template>
 
 <script setup lang="ts">
@@ -60,6 +61,13 @@ const { data } = useAuth();
 defineProps<{
     order: Order;
 }>();
+
+let showDialog = ref<boolean>(false);
+async function acceptOrder(order){
+    await useProxy(`/orders/my-orders/${order.id}/accept_order/`, {method: 'POST'});
+    showDialog.value = false; 
+    navigateTo(`/orders/${order.type == 'text_communication' ? order.id : `video/${order.id}`}/`)
+}
 </script>
 
 <style scoped></style>
