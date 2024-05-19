@@ -1,8 +1,8 @@
 <template>
-  <div class="pt-4">
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('google')">
     <button
       class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-      v-if="settings.api_settings?.active_login_methods?.website.includes('google')" @click="googleLogin">
+       @click="googleLogin">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
         viewBox="0 0 48 48">
         <path fill="#FFC107"
@@ -37,8 +37,8 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة واتساب</span>
     </button>
   </div>
-  <div class="pt-4">
-    <button v-if="settings.api_settings?.active_login_methods?.website.includes('apple')" @click="appleLogin"
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('apple')">
+    <button  @click="appleLogin"
       class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50">
       <svg class="flekx-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22"
         viewBox="0 0 48 48">
@@ -49,9 +49,8 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة ابل ايدي</span>
     </button>
   </div>
-
-  <div class="pt-4">
-    <button v-if="settings.api_settings?.active_login_methods?.website.includes('phone')" 
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('phone')" >
+    <button 
       class="flex w-full h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50" 
       @click="() => state.data?.authenticationMethod == 'login' ? state.data.authenticationMethod = 'login-sms' : (state.data as any).authenticationMethod = 'login'">
       <svg v-if="state.data?.authenticationMethod != 'login'" class="text-blue-600" xmlns="http://www.w3.org/2000/svg"
