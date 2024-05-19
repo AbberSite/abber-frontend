@@ -29,7 +29,7 @@
             <!-- <DetailsHeader :show-navigation="activeTab == 'details'" /> -->
             <DetailsTabs v-model="activeTab" />
             <DetailsMobileCard v-if="activeTab == 'details'" />
-            <Chat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" device='mobile' /> 
+            <MobileChat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" device='mobile' /> 
 
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
@@ -51,6 +51,7 @@
 import DetailsTabs from '~/components/tickets/details/Tabs.vue';
 import DetailsMobileCard from '~/components/tickets/details/MobileCard.vue';
 import DetailsCard from '~/components/tickets/details/Card.vue';
+import MobileChat from '~/components/orders/details/MobileChat.vue';
 definePageMeta({
     middleware: 'auth',
     layout: false

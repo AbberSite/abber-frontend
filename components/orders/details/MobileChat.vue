@@ -109,7 +109,7 @@ async function load() {
     const newMessages = (await useApi(`/api/chat/messages/`, {
         params: { ...params, room: props.roomName }
     })) as PaginationResponse<Message>;
-    console.log(newMessages);
+    // console.log(newMessages);
     loading.value = false;
 
     messages.value.push(...newMessages.results);
