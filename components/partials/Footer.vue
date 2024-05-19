@@ -123,7 +123,7 @@
                     <li class="w-full sm:w-auto">
                         <a
                             class="flex items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
-                            href="#">
+                            href="https://apps.apple.com/sa/app/%D8%B9%D8%A8%D8%B1-%D9%84%D8%AA%D9%81%D8%B3%D9%8A%D8%B1-%D8%A7%D9%84%D8%A3%D8%AD%D9%84%D8%A7%D9%85/id6461119454">
                             <span class="mt-1.5 whitespace-nowrap text-lg font-semibold">App Store</span>
                             <svg class="ms-3 flex-shrink-0" viewBox="0 0 384 512" width="20">
                                 <path
@@ -134,7 +134,7 @@
                     <li class="w-full sm:w-auto">
                         <a
                             class="flex items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
-                            href="#">
+                            href="https://play.google.com/store/apps/details?id=co.abber_dev.abber_app">
                             <span class="mt-1.5 whitespace-nowrap text-lg font-semibold">Google Play</span>
                             <svg class="ms-3 flex-shrink-0" viewBox="30 336.7 120.9 129.2" width="20">
                                 <path
