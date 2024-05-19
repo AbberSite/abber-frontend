@@ -81,18 +81,19 @@ const hasSufficientBallance = computed(() => {
 });
 
 watch(paymentMethod, async (value) => {
+    loading.value = true;
     hyper.unload();
-    console.log(value)
     const form = document.createElement('form');
-
+    
     form.dir = 'ltr';
     form.action = '/complete-charge';
     form.classList.add('paymentWidgets');
-
+    
     form.dataset.brands = value;
-
+    
     paymentForm.value?.append(form);
-
+    
+    document.querySelector('.wpwl-form.wpwl-form-registrations.wpwl-clearfix')?.remove();
     await loadHyper();
     loading.value = false;
 
