@@ -16,7 +16,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path>
             </svg>
           </span>
-          <div class="w-0 flex-1 text-sm font-medium leading-loose" v-text="result"></div>
+          <div class="w-0 flex-1 text-sm font-medium leading-loose" v-html="result"></div>
         </div>
       </div>
       <PrimaryButton v-show="result" class="w-full mt-1.5" @click="submit" :loading="loading" type="submit">
@@ -83,14 +83,15 @@ onMounted(async () => {
 async function submit() {
   loading.value = true;
   try {
-    await useProxy(`/support/tickets/`, {
+    const res = await useProxy(`/support/tickets/`, {
       method: "POST",
       body: { nesting_levels: requestBody.value },
     });
-
+    
     emit("close");
     emit('refreshTickets');
     useNotification({ type: "success", content: "لقد تم انشاء تذكرتك بنجاح!" });
+    navigateTo(`/support/${res.id}/`);
   } catch (error) {
     emit("close");
     useNotification({ type: "danger", content: "حدث خطأ." });

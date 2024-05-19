@@ -17,7 +17,6 @@
                     <div class="text-sm font-semibold">
                         {{ notification.sender.first_name }}
                     </div>
-                    <div class="pt-1 text-xs font-medium text-gray-600">مدير</div>
                 </div>
             </div>
             <time class="text-xs text-gray-600" :datetime="notification.date">
