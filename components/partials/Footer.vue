@@ -1,7 +1,7 @@
 <template>
     <footer class="mx-auto w-full max-w-7xl divide-y-2 divide-gray-50 px-4 xs:px-6 lg:px-8">
         <div
-            class="grid grid-cols-2 gap-y-14 pb-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:pb-16 xl:grid-cols-6 xl:gap-x-10">
+            class="grid grid-cols-2 gap-y-14 pb-14 sm:grid-cols-3 md:grid-cols-4 lg:pb-16 xl:gap-x-10">
             <div v-if="false" class="col-span-full border-b border-gray-100 pb-14 md:border-b-0 md:pb-0 xl:col-span-2">
                 <div>
                     <h3 class="font-semibold xs:text-lg">اشترك في نشرتنا الإخبارية</h3>

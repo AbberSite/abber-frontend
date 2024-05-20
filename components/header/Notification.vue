@@ -69,9 +69,11 @@ function getTimeDifference(_start: string) {
         } else if(daysDifference >= 1 && daysDifference < 7){
             return rtf.format(-daysDifference, 'day')
         }
-        else if (daysDifference >= 7) {
+        else if (daysDifference >= 7 && daysDifference < 30) {
             const weeks = Math.floor(daysDifference / 7);
             return rtf.format(-weeks, 'week');
+        } else {
+            return rtf.format(-(Math.floor(daysDifference / 30)), 'month')
         }
     }
 
