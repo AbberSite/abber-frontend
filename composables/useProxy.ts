@@ -13,6 +13,7 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
     return $fetch<T, R>("/api-proxy" + request as R, {
         ...options,
         headers: {
+          API_KEY: import.meta.env.VITE_API_KEY,
             Authorization: status.value != 'unauthenticated' && rawToken.value ? `Bearer ${rawToken.value}` : '' ,
             ...options?.headers
         }
