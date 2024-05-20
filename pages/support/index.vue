@@ -29,8 +29,7 @@
             <SkeletonsOrdersTable v-if="loading" class="mt-16" />
 
             <!-- support center -->
-            <template v-if=" tickets?.length != 0 || filters.search.length != 0 ||
-                !filters.status
+            <template v-if=" tickets?.length != 0 || !filters.search.length || !filters.status.length
                 ">
                 <div v-if="!loading" class="w-full pt-16">
                     <div class="flex items-center justify-between">
