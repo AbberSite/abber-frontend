@@ -66,9 +66,10 @@
         :class="
             activeTab === 'cards' ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900'
         ">
-        <span>البطاقات الإئتمانية</span
-        ><span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
-            {{cardsCount}}
+        <span>البطاقات الإئتمانية</span>
+        <Loading class="w-3 h-3" v-if="loading" /> 
+        <span v-else class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
+            {{cards?.count}}
         </span>
     </button>
     <button
@@ -83,6 +84,10 @@
             activeTab === 'withdrawalRequests' ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900'
         ">
         <span>طلبات السحب</span>
+        <Loading class="w-3 h-3" v-if="loading" /> 
+        <span v-else class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold">
+            {{requests.length}}
+        </span>
     </button>
 </div>
 </template>
@@ -93,10 +98,18 @@ import { useVModel } from '@vueuse/core';
 const props = defineProps<{
     modelValue?: 'summary' | 'operations' | 'statement' | 'cards' | 'withdrawalRequests';
 }>();
-const { pagination, loading } = storeToRefs(useTransactionsStore())
+let loading = ref(true);
+const { pagination } = storeToRefs(useTransactionsStore())
 const emits = defineEmits(['update:modelValue']);
 const activeTab = useVModel(props, 'modelValue', emits);
-const {count:cardsCount} = await useProxy('/wallets/cards/');
+let cards;
+const {requests} = storeToRefs(useWithdrawalRequestsStore());
+const {fetchAll} = useWithdrawalRequestsStore();
+onMounted(async()=> {
+    cards = await useProxy('/wallets/cards/');
+    await fetchAll();
+    loading.value = false;
+})
 
 </script>
 
