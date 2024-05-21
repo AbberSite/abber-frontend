@@ -1,5 +1,5 @@
 <template>
-  <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="articles-heading">
+  <section class="mx-auto max-w-7xl px-4 pb-10 xs:px-6 lg:px-8 xl:pb-14" aria-labelledby="articles-heading">
     <div class="flex items-end justify-between">
       <template v-if="!noHeader">
         <div>
