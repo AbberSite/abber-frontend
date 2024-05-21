@@ -17,6 +17,12 @@
                 <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                     :to="{ name : 'orders-make'}"> <span class="mt-1.5">فسر حلمك الان</span></NuxtLink>
             </div>
+            <div class="w-full pt-8 sm:w-auto"
+            v-if="data?.user_type == 'معبر'"
+            >
+                <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                    :to="{ name : 'orders'}"> <span class="mt-1.5">اطلع على الطلبات</span></NuxtLink>
+            </div>
         </div>
         <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
             aria-hidden="true">
