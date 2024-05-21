@@ -143,7 +143,7 @@ watch(paymentMethod, async (value) => {
     form.dir = 'ltr'
     form.action = callbackURL;
     form.classList.add('paymentWidgets');
-    form.dataset.brands = 'MASTER';
+    form.dataset.brands = 'VISA MASTER MADA';
     paymentForm.value?.append(form);
     await loadHyper();
     loading.value = false;
