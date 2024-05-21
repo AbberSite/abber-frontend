@@ -48,9 +48,9 @@
             </div>
         </NuxtLink>
         <div class="py-2">
-            <NuxtLink class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50" href="#" role="menuitem"
-                tabindex="-1" v-if="data.user_type == 'إدارة'" to="/dashboard" @click="$emit('close')">لوحة التحكم
-            </NuxtLink>
+            <a class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50" role="menuitem"
+                tabindex="-1" v-if="data.user_type == 'إدارة'" href="/dashboard" target="_self" @click="$emit('close')">لوحة التحكم
+        </a>
 
             <NuxtLink class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50" href="#" role="menuitem"
                 tabindex="-1" v-if="data?.user_type == 'معبر'" :to="{ name: 'profile-service' }"
