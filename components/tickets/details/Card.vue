@@ -16,7 +16,6 @@
 </template>
 <script setup lang="ts">
 import TicketStatus from '../TicketStatus.vue';
-
 const { ticket } = storeToRefs(useTicketsStore());
 
 </script>
