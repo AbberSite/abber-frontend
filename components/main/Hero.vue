@@ -17,6 +17,12 @@
                 <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                     :to="{ name : 'orders-make'}"> <span class="mt-1.5">فسر حلمك الان</span></NuxtLink>
             </div>
+            <div class="w-full pt-8 sm:w-auto"
+            v-if="data?.user_type == 'معبر'"
+            >
+                <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                    :to="{ name : 'orders'}"> <span class="mt-1.5">اطلع على الطلبات</span></NuxtLink>
+            </div>
         </div>
         <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
             aria-hidden="true">
@@ -27,7 +33,7 @@
     </section>
     <!-- Features section -->
     <section
-        class="mx-auto grid max-w-7xl gap-x-8 gap-y-14 px-4 pb-36 xs:px-6 sm:grid-cols-2 lg:grid-cols-3 lg:px-8 xl:pb-44"
+        class="mx-auto grid max-w-7xl gap-x-8 gap-y-14 px-4 pb-10 xs:px-6 sm:grid-cols-2 lg:grid-cols-3 lg:px-8 xl:pb-14"
         aria-labelledby="features-heading">
         <h2 class="sr-only" id="features-heading">مميزات عبر</h2>
         <div class="flex">

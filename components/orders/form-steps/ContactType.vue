@@ -44,7 +44,11 @@
             name="type" value="video_communication" />
         </label>
       </template>
-
+      <div class="flex justify-center ">
+        <button class="font-medium text-blue-600" @click="navigateTo('/')">
+        <span aria-hidden="true">→</span> الرجوع للصفحة الرئيسية
+      </button>
+      </div>
       <!-- <PrimaryButton :disabled="!selectedOption" class="w-full">
                 <span class="mt-1.5">متابعة</span>
             </PrimaryButton> -->

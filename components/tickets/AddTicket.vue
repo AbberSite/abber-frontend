@@ -8,7 +8,7 @@
           <option v-for="problem of problems" :key="problem.id" :value="problem.id" v-text="problem.name"></option>
         </select>
       </div>
-      <div v-show="result" class="w-full overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm" x-show="alert" role="alert">
+      <div v-show="result " class="w-full overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm" x-show="alert" role="alert">
         <div class="mt-1.5 flex">
           <span class="me-3 flex-shrink-0">
             <!-- Heroicon name: outline/information-circle -->
@@ -19,7 +19,7 @@
           <div class="w-0 flex-1 text-sm font-medium leading-loose" v-html="result"></div>
         </div>
       </div>
-      <PrimaryButton v-show="result" class="w-full mt-1.5" @click="submit" :loading="loading" type="submit">
+      <PrimaryButton v-show="result || currentLevel >=2" class="w-full mt-1.5" @click="submit" :loading="loading" type="submit">
         <span class="mt-1.5">محادثة الدعم</span>
       </PrimaryButton>
     </fieldset>
