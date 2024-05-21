@@ -18,11 +18,17 @@
         hyper.checkout.amount }}
           ر.س</span></h1>
 
+          <div v-if="paymentMethod == 'APPLEPAY' && isApple && !isSafari && !loading" class="bg-yellow-200 p-3 my-2 rounded-md flex flex-col items-center">
+      <ExclamationTriangleIcon class="w-6 h-6" />
+      <div class="flex gap-1 flex-wrap justify-center">
+      <span>حتى تتمكن من الدفع</span> <span class="flex gap-1">بإستخدام أبل باي <img src="/images/payments/applepay.svg" alt="applepay" width="24" height="24"></span> <span class="flex gap-1">تحتاج استخدام متصفح سفاري <img src="/images/safari.svg" alt="safari browser" width="16" height="16"></span>.
+      </div>
+    </div>
 
       <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
         id="payment-scrolling" aria-orientation="horizontal">
 
-        <FormStepsCardComponent v-if="isApple && isSafari" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
+        <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
           id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
         <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
           height="26" :multi="true" />
@@ -40,6 +46,7 @@
     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
       <Loading class="w-14 h-14" />
     </div>
+    
 
     <InputError :message="error" />
 
@@ -80,6 +87,7 @@
 </template>
 
 <script setup lang="ts">
+import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 const { isApple, isSafari } = useDevice()
@@ -111,7 +119,7 @@ const { fetchBalance } = useWalletStore();
 const { balance } = storeToRefs(useWalletStore());
 
 // const paymentMethod = ref('CARD');
-const paymentMethod = ref(isApple && isSafari ? 'APPLEPAY' : 'CARD');
+const paymentMethod = ref(isApple ? 'APPLEPAY' : 'CARD');
 const cardType = ref('general');
 const hasSufficientBallance = computed(() => {
   return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
