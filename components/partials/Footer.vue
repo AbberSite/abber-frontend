@@ -1,7 +1,7 @@
 <template>
     <footer class="mx-auto w-full max-w-7xl divide-y-2 divide-gray-50 px-4 xs:px-6 lg:px-8">
         <div
-            class="grid grid-cols-2 gap-y-14 pb-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:pb-16 xl:grid-cols-6 xl:gap-x-10">
+            class="grid grid-cols-2 gap-y-14 pb-14 sm:grid-cols-3 md:grid-cols-4 lg:pb-16 xl:gap-x-10">
             <div v-if="false" class="col-span-full border-b border-gray-100 pb-14 md:border-b-0 md:pb-0 xl:col-span-2">
                 <div>
                     <h3 class="font-semibold xs:text-lg">اشترك في نشرتنا الإخبارية</h3>
@@ -123,7 +123,7 @@
                     <li class="w-full sm:w-auto">
                         <a
                             class="flex items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
-                            href="#">
+                            href="https://apps.apple.com/sa/app/%D8%B9%D8%A8%D8%B1-%D9%84%D8%AA%D9%81%D8%B3%D9%8A%D8%B1-%D8%A7%D9%84%D8%A3%D8%AD%D9%84%D8%A7%D9%85/id6461119454" target="_blank">
                             <span class="mt-1.5 whitespace-nowrap text-lg font-semibold">App Store</span>
                             <svg class="ms-3 flex-shrink-0" viewBox="0 0 384 512" width="20">
                                 <path
@@ -134,7 +134,7 @@
                     <li class="w-full sm:w-auto">
                         <a
                             class="flex items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
-                            href="#">
+                            href="https://play.google.com/store/apps/details?id=co.abber_dev.abber_app" target="_blank">
                             <span class="mt-1.5 whitespace-nowrap text-lg font-semibold">Google Play</span>
                             <svg class="ms-3 flex-shrink-0" viewBox="30 336.7 120.9 129.2" width="20">
                                 <path

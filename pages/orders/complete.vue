@@ -137,8 +137,13 @@ const error = ref('');
 const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
+    transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
-    if (balance && data?.dream != undefined) {
+    if(!transaction_id){
+        navigateTo('/');
+        return;
+    }
+    else if (balance && data?.dream != undefined) {
         await updateOrderInfo(data);
         localStorage.removeItem('abber:current-transaction-id');
         loading.value = false;
@@ -154,7 +159,7 @@ async function getStatus() {
     const service_id = data.service_id;
     let another_service = data.selectedServices.map(service => service).join(',')
 
-    transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
+    
 
     if (!transaction_id) {
         router.push('/orders/make');

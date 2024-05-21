@@ -66,11 +66,12 @@
                     </div>
 
                     <template v-if="tab == 'workTime'" >
-                        <MakeDreamButtonFixed/>
+                        
                     </template>
                     <template v-else class="w-full space-y-7 divide-y divide-gray-100 pt-8">
                         <RateCard v-for="rate of rates"  :my_rate="rate" />
                     </template>
+                    <MakeDreamButtonFixed/>
                 </div>
             </template>
         </section>

@@ -17,7 +17,6 @@
                     <div class="text-sm font-semibold">
                         {{ notification.sender.first_name }}
                     </div>
-                    <div class="pt-1 text-xs font-medium text-gray-600">مدير</div>
                 </div>
             </div>
             <time class="text-xs text-gray-600" :datetime="notification.date">
@@ -60,16 +59,21 @@ function getTimeDifference(_start: string) {
         const timeDifference = end.getTime() - start.getTime();
 
         const daysDifference = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
+        const minutesDifference = Math.floor(timeDifference / (60 * 1000));
 
         const rtf = new Intl.RelativeTimeFormat('ar', { numeric: 'auto', style: 'narrow' });
-
-        if (daysDifference >= 7) {
+        if(minutesDifference <= 59){
+            return rtf.format(-minutesDifference, 'minute')
+        } else if(minutesDifference > 59 && minutesDifference < 1440){
+            return rtf.format(-Math.floor(minutesDifference / 60), 'hour')
+        } else if(daysDifference >= 1 && daysDifference < 7){
+            return rtf.format(-daysDifference, 'day')
+        }
+        else if (daysDifference >= 7 && daysDifference < 30) {
             const weeks = Math.floor(daysDifference / 7);
             return rtf.format(-weeks, 'week');
-        } else if (daysDifference >= 1) {
-            return rtf.format(-daysDifference, 'day');
         } else {
-            return rtf.format(0, 'day');
+            return rtf.format(-(Math.floor(daysDifference / 30)), 'month')
         }
     }
 

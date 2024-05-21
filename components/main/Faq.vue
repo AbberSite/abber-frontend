@@ -1,5 +1,5 @@
 <template>
-    <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="faq-heading">
+    <section class="mx-auto max-w-7xl px-4 pb-10 xs:px-6 lg:px-8 xl:pb-14" aria-labelledby="faq-heading">
         <div class="grid gap-x-8 lg:grid-cols-3">
             <div class="pb-3">
                 <h2
@@ -50,7 +50,7 @@
                                     {{ faq.answer }}
                                 </p>
                             </div>
-                            <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0">
+                            <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0" v-if="false">
                                 <!-- Heroicon name: outline/minus -->
                                 <svg
                                     class="mt-[5px]"

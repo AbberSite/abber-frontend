@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-const { status, data } = await useAuth();
+const { data } = await useAuth();
 </script>
 
 <style scoped></style>
