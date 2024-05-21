@@ -50,7 +50,7 @@
                                     {{ faq.answer }}
                                 </p>
                             </div>
-                            <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0">
+                            <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0" v-if="false">
                                 <!-- Heroicon name: outline/minus -->
                                 <svg
                                     class="mt-[5px]"
