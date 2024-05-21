@@ -7,7 +7,7 @@
     <main class="min-h-screen outline-none">
         <Hero />
         <!-- <HowItWorks /> -->
-        <Expressors /> 
+        <Expressors v-if="data?.user_type != 'معبر'" /> 
         <Articles />
         <Testimonials />
         <Faq id="faqs"/>
@@ -22,7 +22,8 @@
 definePageMeta({
   middleware : ['verified'], 
   auth : false,
-})
+});
+const {data} = useAuth()
 </script>
 
 <style scoped></style>
