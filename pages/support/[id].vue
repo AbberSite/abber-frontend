@@ -32,9 +32,11 @@
             <MobileChat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" device='mobile' /> 
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
-                <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
+                
+                <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6" >
                     <div class="px-6 font-semibold xs:text-lg">تفاصيل التذكرة</div>
-                    <DetailsCard  />
+                    <TicketCard v-if="loading"/>
+                    <DetailsCard v-else />
                 </div>
                 <ClientOnly>
                     <Chat :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" /> 
@@ -51,6 +53,7 @@ import DetailsTabs from '~/components/tickets/details/Tabs.vue';
 import DetailsMobileCard from '~/components/tickets/details/MobileCard.vue';
 import DetailsCard from '~/components/tickets/details/Card.vue';
 import MobileChat from '~/components/orders/details/MobileChat.vue';
+import TicketCard from '~/components/shared/skeletons/TicketCard.vue';
 definePageMeta({
     middleware: 'auth',
     layout: false
@@ -59,7 +62,7 @@ definePageMeta({
 const id = useRoute().params.id;
 const roomName = id.toString();
 const activeTab = ref<'details' | 'chat'>('chat');
-
+let loading = ref<boolean>(true);
 const { ticket } = storeToRefs(useTicketsStore());
 
 const { getTicket } = useTicketsStore();
@@ -72,6 +75,9 @@ if (!process.client) {
 onMounted(async () => {
     if (!ticket.value) {
         await getTicket(id as number);
+        loading.value = false;
+    } else {
+        loading.value = false;
     }
 });
 
