@@ -47,7 +47,7 @@ onMounted(() => {
     container: audio.value ?? `audio-${props.file.id}`,
     waveColor: '#111827',
     progressColor: '#111827',
-    url: (props.file.file.includes('blob') ? props.file.file : '/file/' + getPathFromUrl(props.file.file)),
+    url:props.file.file,
     height: 50,
     width: 200,
     barWidth: 5,
