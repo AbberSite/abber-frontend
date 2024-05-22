@@ -30,7 +30,7 @@
           <span class="ms-6 mt-1.5 font-semibold">المدونة</span>
         </NuxtLink>
 
-        <NuxtLink class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer" @click="$emit('navigate', { name: 'support' })">
+        <NuxtLink v-if="false" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer" @click="$emit('navigate', { name: 'support' })">
           <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
             <!-- Heroicon name: outline/Lifebuoy -->
             <LifebuoyIcon class="h-6 w-6 flex-shrink-0" />

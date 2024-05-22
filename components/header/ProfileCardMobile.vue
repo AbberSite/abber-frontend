@@ -41,6 +41,9 @@
             <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" href="#"
                 v-if="data.user_type != 'إدارة'" @click="$emit('navigate', { name: 'wallet' })">المحفظة
             </NuxtLink>
+            <NuxtLink v-if="data?.user_type != 'إدارة'" class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" href="#"
+                 @click="$emit('navigate', { name: 'support' })">مركز الدعم
+            </NuxtLink>
             <button class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
                 @click="showConfirmDailog = true">
                 تسجيل الخروج
