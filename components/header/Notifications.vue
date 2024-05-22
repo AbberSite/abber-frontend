@@ -71,30 +71,18 @@
 
 <script setup lang="ts">
 import { useWebSocket } from '@vueuse/core';
+import type { NotificationHeader } from '~/types';
+const {readNotifications} = storeToRefs(useUtilsStore())
 
-const { data } = useAuth() as { data: Ref<{ notifications: { results: Notification[] }, read : boolean }> };
-
-type User = {
-    username: string;
-    first_name: string;
-    last_name: string;
-    image: string;
-    is_online: boolean;
-};
-
-type Notification = {
-    user: User;
-    sender: User;
-    message: string;
-    read: boolean;
-    date: string;
-    url: string;
-};
-
+// const { getSession } = useAuth();
+// if(readNotifications.value){
+//     await getSession();
+// }
+const { data } = useAuth() as { data: Ref<{ notifications: { results: NotificationHeader[] }, read : boolean }> };
+// console.log(data.value);
 const { status } = useAuth()
 
 const loading = computed(() => status.value == "loading")
-const {readNotifications} = storeToRefs(useUtilsStore())
 
 onMounted(async () => {
 

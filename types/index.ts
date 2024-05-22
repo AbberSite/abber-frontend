@@ -294,4 +294,20 @@ export type withdrawalRequest = {
   date: string;
   paid: boolean;
   refuse_reason: string;
-} 
+};
+
+export type UserNotification = {
+  username: string;
+  first_name: string;
+  last_name: string;
+  image: string;
+  is_online: boolean;
+};
+export type NotificationHeader = {
+  user: UserNotification;
+  sender: UserNotification;
+  message: string;
+  read?: boolean;
+  date: string;
+  url: string;
+};

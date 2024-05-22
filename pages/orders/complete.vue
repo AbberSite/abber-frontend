@@ -133,7 +133,7 @@ let data;
 const paid = ref(true);
 const loading = ref(true);
 const error = ref('');
-
+const { readNotifications } = storeToRefs(useUtilsStore());
 const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
@@ -147,6 +147,7 @@ onMounted(async () => {
         await updateOrderInfo(data);
         localStorage.removeItem('abber:current-transaction-id');
         loading.value = false;
+        // readNotifications.value = true;
         (data as any).clear();
         return;
     }
@@ -210,7 +211,7 @@ async function getStatus() {
     }
 
     await updateOrderInfo(data);
-
+    // readNotifications.value = true;
     localStorage.removeItem('abber:current-transaction-id');
 
     (data as any).clear();

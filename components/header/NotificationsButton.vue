@@ -19,34 +19,34 @@
 
 <script setup lang="ts">
 import { BellIcon } from '@heroicons/vue/24/outline';
-
+import type { NotificationHeader, UserNotification } from '~/types';
 const { status, data } = useAuthState();
 
-type User = {
-    username: string;
-    first_name: string;
-    last_name: string;
-    image: string;
-    is_online: boolean;
-};
 
-type Notification = {
-    user: User;
-    sender: User;
-    message: string;
-    read?: boolean;
-    date: string;
-    url: string;
-};
-const { readNotifications} =storeToRefs(useUtilsStore());
 
-onMounted(() => {
-    data.value?.notifications?.results.forEach((notification: Notification) => {
+
+const { readNotifications } =storeToRefs(useUtilsStore());
+onMounted(async() => {
+    data.value?.notifications?.results.forEach((notification: NotificationHeader) => {
         if (notification.read == false) {
             readNotifications.value = true;
         }
     });
+    // if(readNotifications.value){
+    //     var audio = new Audio('/sounds/notification.wav');
+    //     await audio.play();
+    // }
 });
+watch(readNotifications, async(value)=> {
+    if(value){
+        var audio = new Audio('/sounds/notification.wav');
+        await audio.play();
+    }
+})
+// onUpdated(async()=> {
+//     var audio = new Audio('/sounds/notification.wav');
+//     await audio.play();
+// })
 </script>
 
 <style scoped></style>

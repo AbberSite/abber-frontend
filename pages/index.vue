@@ -23,7 +23,8 @@ definePageMeta({
   middleware : ['verified'], 
   auth : false,
 });
-const {data} = useAuth()
+const {data} = useAuth();
+
 </script>
 
 <style scoped></style>

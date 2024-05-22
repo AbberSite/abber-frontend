@@ -44,7 +44,7 @@
               </span>
             </button>
 
-            <a :href="billUrl" target="_blank"
+            <a v-if="false" :href="billUrl" target="_blank"
               class="group -mx-3 flex w-full items-center rounded-lg p-3 hover:bg-gray-50" type="button">
               <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                 <!-- Heroicon name: outline/home -->

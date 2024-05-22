@@ -34,7 +34,6 @@
                 </div>
             </template>
 
-            <div class="pt-4 text-sm text-gray-800 xs:text-base" v-else>تصفح جمبع طلباتك الصادرة</div>
 
             <template v-if="orders?.length != 0 ||
                 filters.search.length != 0 ||
@@ -42,7 +41,7 @@
                 filters.type.text ||
                 filters.type.voice
                 ">
-                <div class="w-full pt-16">
+                <div class="w-full pt-6">
                     <div class="flex items-center justify-between">
                         <form class="w-full sm:max-w-sm" method="GET">
                             <div class="w-full space-y-3">

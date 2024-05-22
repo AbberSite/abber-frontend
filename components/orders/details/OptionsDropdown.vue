@@ -8,7 +8,7 @@
 
     <a :href="billUrl" target="_blank"
       class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
-      role="menuitem" tabindex="-1">
+      role="menuitem" tabindex="-1" v-if="false">
       فاتورة الطلب
     </a>
 
