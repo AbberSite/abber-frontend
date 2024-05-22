@@ -26,7 +26,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 mt-1.5 font-semibold">تقييم العميل</span>
+              <span class="ms-6 mt-1.5 font-semibold">تقييم المعبر</span>
             </button>
 
             <button v-if="isBuyer && order?.status === 'awaiting_delivery' && !order?.content?.inquiry"
