@@ -4,7 +4,7 @@
     <NuxtLink class="font-semibold" :to="{ name: 'blog' }"> المدونة </NuxtLink>
     <NuxtLink class="font-semibold" v-if="['عميل','معبر'].includes(data?.user_type)" :to="{ name: 'orders' }"> الطلبات
     </NuxtLink>
-    <NuxtLink class="font-semibold" :to="{ name: 'support' }" v-if="data?.user_type != 'إدارة'"> مركز الدعم </NuxtLink>
+    <NuxtLink class="font-semibold" :to="{ name: 'orders-make' }" v-if="!['معبر', 'إدارة'].includes(data?.user_type)"> فسر حلمك الان </NuxtLink>
   </div>
 </template>
 

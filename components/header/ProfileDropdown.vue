@@ -66,6 +66,9 @@
             <NuxtLink class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50" :to="{ name: 'wallet' }"
                 @click="$emit('close')" href="#" v-if="data.user_type != 'إدارة'" role="menuitem" tabindex="-1">المحفظة
             </NuxtLink>
+            <NuxtLink class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50" :to="{ name: 'support' }"
+                @click="$emit('close')" href="#" v-if="data.user_type != 'إدارة'" role="menuitem" tabindex="-1">مركز الدعم
+            </NuxtLink>
         </div>
         <div class="py-2">
             <a @click.prevent="showConfirmDailog = true" class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
