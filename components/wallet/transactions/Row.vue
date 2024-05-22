@@ -30,7 +30,7 @@ defineProps<{
 
 const cardImages: { [key: string]: { src: string; class: string } } = {
   general: { src: '/images/payments/general.svg', class: 'w-6' },
-  VISA: { src: '/images/payments/visa.webp', class: 'w-8' },
+  VISA: { src: '/images/payments/visa.svg', class: 'w-8' },
   MASTER: { src: '/images/payments/mastercard.webp', class: 'w-8' },
   MADA: { src: '/images/payments/mada.png', class: 'w-8' },
   STC_PAY: { src: '/images/payments/stc_pay.webp', class: 'w-8' }
