@@ -14,7 +14,7 @@
           v-cloak>
           <button class="mx-auto block h-1 w-8 rounded-lg bg-gray-300" type="button" @click="$emit('close')"></button>
           <nav class="pt-6">
-            <button v-if="order?.add_review"
+            <button v-if="order?.add_review && isBuyer"
               class="group -mx-3 flex w-full items-center rounded-lg p-3 hover:bg-gray-50" type="button"
               @click="$emit('show-review')">
               <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
