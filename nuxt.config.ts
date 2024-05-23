@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     baseURL : import.meta.env.VITE_AUTH_URL,
     provider: {
       type: "refresh",
-      refreshOnlyToken: true,
+      // refreshOnlyToken: true,
       pages: {
         login: "/accounts/login",
       },
@@ -108,4 +108,5 @@ export default defineNuxtConfig({
     },
     asyncContext: true
   },
+  ssr: true
 });

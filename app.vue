@@ -165,7 +165,7 @@ onMounted(async () => {
     data.value.notifications.results.unshift(notification);
     readNotifications.value = true;
     var audio = new Audio('/sounds/notification.wav');
-    audio.play();
+    audio.play().then(()=> console.log('the sound runs'));
   });
 });
 // onUpdated(async()=> {

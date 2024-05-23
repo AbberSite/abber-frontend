@@ -19,13 +19,14 @@
 
 <script setup lang="ts">
 import { BellIcon } from '@heroicons/vue/24/outline';
-import type { NotificationHeader, UserNotification } from '~/types';
-const { status, data } = useAuthState();
+import type { NotificationHeader } from '~/types';
+const { data, getSession } = await useAuth();
 
 
 
 
 const { readNotifications } =storeToRefs(useUtilsStore());
+
 onMounted(async() => {
     data.value?.notifications?.results.forEach((notification: NotificationHeader) => {
         if (notification.read == false) {
@@ -40,8 +41,12 @@ onMounted(async() => {
 watch(readNotifications, async(value)=> {
     if(value){
         var audio = new Audio('/sounds/notification.wav');
-        await audio.play();
+        await audio.play().then(()=> console.log('sound is running...'));
     }
+});
+
+onUpdated(()=> {
+    console.log('updated from notificationsButton.vue')
 })
 // onUpdated(async()=> {
 //     var audio = new Audio('/sounds/notification.wav');

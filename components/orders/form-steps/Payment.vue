@@ -18,12 +18,16 @@
         hyper.checkout.amount }}
           ر.س</span></h1>
 
-          <div v-if="paymentMethod == 'APPLEPAY' && isApple && !isSafari && !loading" class="bg-yellow-200 p-3 my-2 rounded-md flex flex-col items-center">
-      <ExclamationTriangleIcon class="w-6 h-6" />
-      <div class="flex gap-1 flex-wrap justify-center">
-      <span>حتى تتمكن من الدفع</span> <span class="flex gap-1">بإستخدام أبل باي <img src="/images/payments/applepay.svg" alt="applepay" width="24" height="24"></span> <span class="flex gap-1">تحتاج استخدام متصفح سفاري <img src="/images/safari.svg" alt="safari browser" width="16" height="16"></span>.
+      <div v-if="paymentMethod == 'APPLEPAY' && isApple && !isSafari && !loading"
+        class="bg-yellow-200 p-3 my-2 rounded-md flex flex-col items-center">
+        <ExclamationTriangleIcon class="w-6 h-6" />
+        <div class="flex gap-1 flex-wrap justify-center">
+          <span>حتى تتمكن من الدفع</span> <span class="flex gap-1">بإستخدام أبل باي <img
+              src="/images/payments/applepay.svg" alt="applepay" width="24" height="24"></span> <span
+            class="flex gap-1">تحتاج استخدام متصفح سفاري <img src="/images/safari.svg" alt="safari browser" width="16"
+              height="16"></span>.
+        </div>
       </div>
-    </div>
 
       <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
         id="payment-scrolling" aria-orientation="horizontal">
@@ -40,13 +44,13 @@
       </div>
 
 
-      
+
     </div>
 
     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
       <Loading class="w-14 h-14" />
     </div>
-    
+
 
     <InputError :message="error" />
 
@@ -83,11 +87,11 @@
   </div>
   <ConfirmDialog v-if="showConfirmDailog" :title="`تأكيد خصم ${hyper.checkout.amount} ر.س من محفظتك`"
     :descritpion="`هل انت متأكد من رغبتك في خصم ${hyper.checkout.amount} ريال سعودي من محفظتك`"
-    @close="showConfirmDailog = false" @continue="useBalance(); showConfirmDailog = false;" :payment="true"/>
+    @close="showConfirmDailog = false" @continue="useBalance(); showConfirmDailog = false;" :payment="true" />
 </template>
 
 <script setup lang="ts">
-import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline';
+import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 const { isApple, isSafari } = useDevice()
@@ -373,7 +377,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
 async function checkCoupon() {
   console.log(!coupon.value.length)
-  if(!coupon.value.length){
+  if (!coupon.value.length) {
     couponResponse.value = {
       error: true,
       message: 'خانة الكوبون فارغة، يرجى تعبئتها!'
@@ -446,9 +450,14 @@ async function scrollPayments() {
 }
 async function useBalance() {
   waitingByBalance.value = true;
-  const payment = await createCheckout();
-  if (payment.paid)
-    navigateTo(callbackURL + '?balance=true', { external: true });
+  try {
+    const payment = await createCheckout();
+    if (payment.paid){
+      navigateTo(callbackURL + '?balance=true', { external: true });}
+  }catch(e){
+    useNotification({type: 'danger', content: 'حدث خطأ ما، اعد المحاولة'}); 
+    waitingByBalance.value = false;
+  }
 }
 </script>
 
