@@ -107,6 +107,5 @@ export default defineNuxtConfig({
       },
     },
     asyncContext: true
-  },
-  ssr: true
+  }
 });
