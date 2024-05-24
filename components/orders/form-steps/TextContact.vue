@@ -48,7 +48,7 @@
             </div>
 
             <div class="space-y-7" v-if="client">
-                <div class="w-full space-y-3" id="geneder">
+                <div class="w-full space-y-3" >
                     <label class="block text-sm font-semibold xs:text-base" for="sex">الجنس</label>
                     <select
                         v-model="gender"
@@ -56,7 +56,7 @@
                         type="select"
                         :class="[errors.gender && 'form-invalid']"
                         name="select"
-                        id="sex">
+                        id="gender">
                         <option value="male" selected>ذكر</option>
                         <option value="female">أنثى</option>
                     </select>
@@ -82,7 +82,7 @@
                         :class="[errors.marital_status && 'form-invalid']"
                         type="select"
                         name="select"
-                        id="martial_status">
+                        id="marital_status">
                         <option value="أعزب" selected>أعزب</option>
                         <option value="متزوج">متزوج/ه</option>
                         <option value="مطلق">مطلق/ه</option>
