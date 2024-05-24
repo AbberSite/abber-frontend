@@ -21,7 +21,7 @@
 import { BellIcon } from '@heroicons/vue/24/outline';
 import { useWebSocket } from '@vueuse/core';
 import type { NotificationHeader } from '~/types';
-const { data, getSession } = await useAuth();
+const { data, rawToken } = await useAuthState();
 
 
 
@@ -29,7 +29,7 @@ const { data, getSession } = await useAuth();
 const { readNotifications } =storeToRefs(useUtilsStore());
 
 onMounted(async() => {
-    const {status, open, close, data:response} = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/`);
+    const {status, data:response} = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/`);
     console.log(response.value)
     watch(status, (value)=> {
         console.log(`notification status: ${value}`);
