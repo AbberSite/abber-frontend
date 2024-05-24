@@ -14,7 +14,7 @@
                     :error="errors.dream_title"
                     placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />
             </div>
-            <div class="w-full space-y-3">
+            <div class="w-full space-y-3" id="dream_time">
                 <label class="text-sm font-semibold xs:text-base" for="date" @click="datePicker?.openMenu()">
                     تاريخ الحلم
                 </label>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="space-y-7" v-if="client">
-                <div class="w-full space-y-3">
+                <div class="w-full space-y-3" id="geneder">
                     <label class="block text-sm font-semibold xs:text-base" for="sex">الجنس</label>
                     <select
                         v-model="gender"
@@ -107,7 +107,7 @@
                 <textarea
                     class="form-control block max-h-[300px] min-h-[200px] py-4"
                     name="textarea"
-                    id="textarea"
+                    id="dream"
                     rows="5"
                     :class="[errors.dream && 'form-invalid']"
                     placeholder="أوصف الحلم بالتفصيل"
@@ -135,9 +135,9 @@ import type { DatePickerInstance } from '@vuepic/vue-datepicker';
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            dream_title: yup.string().required("هذا الحقل مطلوب").default(state.value.data?.dream_title),
+            dream_title: yup.string().required("هذا الحقل مطلوب").min(5, 'هذا الحقل مطلوب').default(state.value.data?.dream_title),
             dream_time: yup.string().required("هذا الحقل مطلوب").default( state.value.data?.dream_time ?? getCurrentDate()),
-            dream: yup.string().required("هذا الحقل مطلوب").default(state.value.data?.dream),
+            dream: yup.string().required("هذا الحقل مطلوب").min(5, 'هذا الحقل مطلوب').default(state.value.data?.dream),
             client: yup.boolean().default(state.value.data?.client),
 
             age: yup
@@ -184,17 +184,23 @@ const { defineField, errors, validate } = useForm({
 
 const [dream_title] = defineField('dream_title');
 const [dream_time] = defineField('dream_time');
-const [dream] = defineField('dream');
 const [client] = defineField('client');
-const [age] = defineField('age');
 const [gender] = defineField('gender', {});
+const [age] = defineField('age');
 const [marital_status] = defineField('marital_status');
 const [profession] = defineField('profession');
+const [dream] = defineField('dream');
 
 const datePicker = ref<DatePickerInstance>(null);
 
 async function submit() {
-    if (!(await validate()).valid) return;
+    if (!(await validate()).valid) {
+        let element = document.getElementById(Object.keys(errors.value)[0].toString())
+        element?.scrollIntoView({behavior: 'smooth', block: 'center'});
+        element?.focus();
+        console.log(errors.value);
+        return;
+    }
 
     next({
         nextStepId: 'service',
