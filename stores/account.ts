@@ -103,15 +103,17 @@ class AccountStore {
 
     goOnline = async () => {
         const { rawToken } = useAuthState();
-
-        const { close } = useWebSocket(
-            useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
+        console.log("connecting to websocket");
+        const { close, status } = useWebSocket(
+            useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/`,
             // import.meta.env.VITE_WS_URL + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
             {
                 autoReconnect: true
             }
         );
-
+        watch(status, (value)=> {
+            console.log(`the status websocket connection: ${value}`);
+        })
         return close;
     };
 

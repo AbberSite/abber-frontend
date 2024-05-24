@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import { BellIcon } from '@heroicons/vue/24/outline';
+import { useWebSocket } from '@vueuse/core';
 import type { NotificationHeader } from '~/types';
 const { data, getSession } = await useAuth();
 
@@ -28,6 +29,11 @@ const { data, getSession } = await useAuth();
 const { readNotifications } =storeToRefs(useUtilsStore());
 
 onMounted(async() => {
+    const {status, open, close, data:response} = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/`);
+    console.log(response.value)
+    watch(status, (value)=> {
+        console.log(`notification status: ${value}`);
+    })
     data.value?.notifications?.results.forEach((notification: NotificationHeader) => {
         if (notification.read == false) {
             readNotifications.value = true;
@@ -44,14 +50,6 @@ watch(readNotifications, async(value)=> {
         await audio.play().then(()=> console.log('sound is running...'));
     }
 });
-
-onUpdated(()=> {
-    console.log('updated from notificationsButton.vue')
-})
-// onUpdated(async()=> {
-//     var audio = new Audio('/sounds/notification.wav');
-//     await audio.play();
-// })
 </script>
 
 <style scoped></style>

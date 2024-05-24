@@ -127,50 +127,52 @@ useSeoMeta({
 //         const { getSession } = useAuth();
 
 // await getSession();
+const { goOnline } = useAccountStore();
 onMounted(async () => {
   
   const { status, rawToken, data } = useAuthState();
   // const { getSession } = useAuth();
   // await getSession();
-  const { goOnline } = useAccountStore();
   let goOffline
   watch(
     status,
     async (value) => {
       if (value == 'loading') return
       if (value == "authenticated") {
-        console.log("going online...");
         goOffline = await goOnline();
+        // console.log(await goOnline());
         return;
       };
       console.log("going offline...");
-      goOffline()
+      goOffline();
     }
   );
   if (status.value === 'unauthenticated') return;
   goOffline = await goOnline();
-  const { readNotifications } = storeToRefs(useUtilsStore());
-  const chat = useWebSocket(
-    useRuntimeConfig().public.WebsocketURL +
-    // import.meta.env.VITE_WS_URL +
-    `/ws/notifications/${data.value.username}/` +
-    `?authorization=JWT ${rawToken.value}`,
-    {
-      autoReconnect: true
-    }
-  );
-  watch(chat.data, (value) => {
-    // console.log(data.value.notifications.results);
-    const notification = JSON.parse(value).notification;
-    data.value.notifications.results.unshift(notification);
-    readNotifications.value = true;
-    var audio = new Audio('/sounds/notification.wav');
-    audio.play();
-  });
+  // const { readNotifications } = storeToRefs(useUtilsStore());
+  // const chat = useWebSocket(
+  //   useRuntimeConfig().public.WebsocketURL +
+  //   // import.meta.env.VITE_WS_URL +
+  //   `/ws/notifications/${data.value.username}/`,
+  //   // `?authorization=JWT ${rawToken.value}`,
+  //   {
+  //     autoReconnect: true
+  //   }
+  // );
+  // watch(chat.data, (value) => {
+  //   console.log(data.value.notifications.results[0]);
+  //   const notification = JSON.parse(value).notification;
+  //   data.value.notifications.results.unshift(notification);
+  //   readNotifications.value = true;
+  //   var audio = new Audio('/sounds/notification.wav');
+  //   audio.play();
+  // });
 });
 // onUpdated(async()=> {
 //     await refresh();
-// })
+// });
+
+
 </script>
 
 <style>
