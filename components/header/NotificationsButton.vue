@@ -42,8 +42,8 @@ onMounted(async() => {
 });
 watch(readNotifications, async(value)=> {
     if(value){
-        var audio = new Audio('/sounds/notification.wav');
-        await audio.play().then(()=> console.log('sound is running...'));
+        let audio = new Audio('/sounds/notification.wav');
+        await audio.play();
     }
 });
 </script>
