@@ -127,15 +127,15 @@ useSeoMeta({
 //         const { getSession } = useAuth();
 
 // await getSession();
-const { goOnline } = useAccountStore();
-  const { readNotifications } = storeToRefs(useUtilsStore());
+const { goOnline, connectWSNotifications } = useAccountStore();
 
 onMounted(async () => {
-  
   const { status, rawToken, data } = useAuthState();
+
   // const { getSession } = useAuth();
   // await getSession();
-  let goOffline
+  let goOffline;
+  let closeNotifications;
   watch(
     status,
     async (value) => {
@@ -143,24 +143,18 @@ onMounted(async () => {
       if (value == "authenticated") {
         goOffline = await goOnline();
         // console.log(await goOnline());
+        closeNotifications = await connectWSNotifications();
         return;
       };
       console.log("going offline...");
+      closeNotifications();
       goOffline();
     }
   );
   if (status.value === 'unauthenticated') return;
   goOffline = await goOnline();
-  const {status:notificationWSStatus, data:response} = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/`, {autoReconnect: true});
-    watch(notificationWSStatus, (value)=> {
-        console.log(`notification status: ${value}`);
-    });
-    watch(response, (value)=> {
-        value = JSON.parse(value);
-        data.value.notifications.results.unshift(value.notification);
-        data.value.notifications.results.pop();
-        readNotifications.value = true;
-    });
+  closeNotifications = await connectWSNotifications();
+  
 
   // const chat = useWebSocket(
   //   useRuntimeConfig().public.WebsocketURL +

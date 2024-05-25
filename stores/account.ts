@@ -111,11 +111,27 @@ class AccountStore {
                 autoReconnect: true
             }
         );
-        watch(status, (value)=> {
+        watch(status, (value) => {
             console.log(`the status websocket connection: ${value}`);
         })
         return close;
     };
+
+    connectWSNotifications = async () => {
+        const { data } = useAuthState();
+        const {readNotifications} = storeToRefs(useUtilsStore());
+        const { close, status, data:response } = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/`, { autoReconnect: true });
+        watch(status, (value) => {
+            console.log(`notification status: ${value}`);
+        });
+        watch(response, (value) => {
+            value = JSON.parse(value);
+            data.value.notifications.results.unshift(value.notification);
+            data.value.notifications.results.pop();
+            readNotifications.value = true;
+        });
+        return close;
+    }
 
     sendEmailVerification = async (email: string) =>
         new Promise(async (resolve, reject) => {
