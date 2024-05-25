@@ -21,7 +21,7 @@
 import { BellIcon } from '@heroicons/vue/24/outline';
 import { useWebSocket } from '@vueuse/core';
 import type { NotificationHeader } from '~/types';
-const { data, rawToken } = await useAuthState() ;
+const { data, rawToken } = await useAuthState();
 
 
 

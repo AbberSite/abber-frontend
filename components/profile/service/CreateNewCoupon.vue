@@ -3,7 +3,7 @@
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-7">
         <div class="w-full space-y-3">
-          <TextInput name="code" type="text" v-model="code" label="رمز الخصم" placeholder="ادخل رمز الخصم" :error="errors.code"/>
+          <TextInput id="code" type="text" v-model="code" label="رمز الخصم" placeholder="ادخل رمز الخصم" :error="errors.code"/>
         </div>
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">نوع الخصم</label>
@@ -13,19 +13,19 @@
           </select>
         </div>
         <div class="w-full space-y-3">
-          <TextInput name="amount" type="number" v-model="amount" label="مبلغ الخصم" placeholder="ادخل مبلغ الخصم بالريال السعودي" :error="errors.amount"/>
+          <TextInput id="amount" type="number" v-model="amount" label="مبلغ الخصم" placeholder="ادخل مبلغ الخصم بالريال السعودي" :error="errors.amount"/>
 
         </div>
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">تأريخ بدأ الكوبون</label>
-          <DatePicker placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
+          <DatePicker id="start_date" placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
           v-model="start_date" model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
           cancel-text="الغاء" />
         <InputError :message="errors.start_date" />
         </div>
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">تأريخ إنتهاء الكوبون</label>
-          <DatePicker placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
+          <DatePicker id="end_date" placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
           v-model="end_date" model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
           cancel-text="الغاء" />
         <InputError :message="errors.end_date" />
@@ -33,7 +33,7 @@
         <div class="w-full space-y-3">
           <label class="block text-sm font-semibold xs:text-base">المنصات المتاحة</label>
           <select class="form-control block max-h-[300px] min-h-[50px] appearance-none space-y-2 py-4 lg:min-h-[200px]" :class="{'border-red-500 placeholder:text-red-300': error?.id == 'active_platforms'}"
-            name="multiple" v-model="coupon.active_platforms" multiple required>
+            id="active_platforms" v-model="coupon.active_platforms" multiple required>
             <option value="website" >الموقع</option>
             <option value="android" >تطبيق الاندرويد</option>
             <option value="ios" >تطبيق الايفون</option>
@@ -91,7 +91,12 @@ const coupon = ref<{
 
 async function submit(){
   const validation = await validate();
-  if(!validation.valid ) return;
+  if(!validation.valid ) {
+    let input_error = document.getElementById(Object.keys(errors.value)[0]);
+    input_error?.scrollIntoView({behavior: 'smooth', block: 'center'});
+    input_error?.focus();
+    return;
+  }
   loading.value = true
   coupon.value.active_platforms = reWriteActivePlatforms(coupon.value.active_platforms);
   coupon.value.code = code.value;

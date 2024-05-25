@@ -1,5 +1,8 @@
 <template>
-    <div class="w-full">
+    <div class="w-full" v-if="loading" >
+        <SkeletonsSettings/>
+    </div>
+    <div class="w-full" v-else>
         <h2 class="pt-16 font-semibold xs:text-lg">إعدادات عامه</h2>
         <div class="grid w-full gap-x-8 space-y-7 pb-14 pt-16 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3">
             <div class="flex items-center">
@@ -18,18 +21,18 @@
         <div class="grid w-full gap-x-8 space-y-7 pb-14 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3"
             v-if="text_checkbox">
             <div class="w-full space-y-3">
-                <TextInput name="text_price" type="number" v-model="text_price" label="السعر"
+                <TextInput name="text_price" type="number" id="text_price" v-model="text_price" label="السعر"
                     placeholder="أدخل السعر" :error="errors.text_price" />
                 <div class="text-[13px] leading-loose text-gray-500">إدخل سعر المحادثة النصية بالريال السعودي</div>
             </div>
             <div class="w-full space-y-3">
-                <TextInput name="maximum_orders" type="number" v-model="maximum_orders" label="عدد الطلبات الكلي"
+                <TextInput name="maximum_orders" type="number" id="maximum_orders" v-model="maximum_orders" label="عدد الطلبات الكلي"
                     placeholder="ادخل عدد الطلبات الكلي" :error="errors.maximum_orders" />
                 <div class="text-[13px] leading-loose text-gray-500">إدخل الحد الأقصى لاستقبال الطلبات</div>
             </div>
             <div class="w-full space-y-3">
                 <TextInput name="stock" type="number" v-model="stock" label="عدد الطلبات المتاحه"
-                    placeholder="ادخل عدد الطلبات المتاحه" :error="errors.stock" />
+                    placeholder="ادخل عدد الطلبات المتاحه" id="stock" :error="errors.stock" />
                 <div class="text-[13px] leading-loose text-gray-500">إدخل عدد الطلبات المتاح استقبالها</div>
             </div>
         </div>
@@ -42,14 +45,14 @@
         </div>
         <div class="grid w-full gap-x-8 space-y-7 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3" v-if="video_checkbox" >
             <div class="w-full space-y-3">
-                <TextInput name="video_price" type="number" v-model="video_price" label="السعر"
+                <TextInput name="video_price" type="number" v-model="video_price" id="video_price" label="السعر"
                     placeholder="أدخل السعر" :error="errors.video_price" />
                 <div class="text-[13px] leading-loose text-gray-500">إدخل سعر المحادثة الصوتية بالريال السعودي</div>
                 <span v-if="error?.type == 'video_price'" class="text-red-500">{{ error.message }}</span>
             </div>
         </div>
         <div class="pt-8 sm:pt-14">
-            <PrimaryButton @click="submit" type="submit" :loading="loading">
+            <PrimaryButton @click="submit" type="submit" :loading="loadingButton">
                 <span class="mt-1.5">حفظ</span>
             </PrimaryButton>
         </div>
@@ -77,7 +80,7 @@ const { defineField, errors, validate } = useForm({
             }),
             video_price: yup.number().when('video_checkbox', {
                 is: true,
-                then: (schema)=> schema.min(1, 'هذا الحقل مطلوب').max(100, 'هذا لحقل لايمكن ان يتجاوز 100').required('هذا الحقل مطلوب'),
+                then: (schema)=> schema.min(1, 'هذا الحقل مطلوب').max(100, 'هذا لحقل لايمكن ان يتجاوز 100').required('هذا الحقل مطلوب').default(1),
                 otherwise: (schema)=> schema.notRequired()
             })
         })
@@ -93,13 +96,12 @@ const [text_checkbox] = defineField('text_checkbox');
 const [active] = defineField('active');
 let error = ref<{ type: 'text_price' | 'video_price' | 'maximum_orders'; message: string; } | undefined>(undefined)
 const { data: user } = useAuth()
-const loading = ref(false);
-
+const loadingButton = ref(false);
+let loading = ref<boolean>(true);
 async function getServiceDetails() {
     return new Promise(async (resolve, reject) => {
         try {
             const data = await useProxy(`/services/services/${user.value.username}/`);
-
             resolve(data);
         } catch (error) {
             reject({});
@@ -108,6 +110,7 @@ async function getServiceDetails() {
 }
 
 const response = await getServiceDetails();
+loading.value = false; 
 text_price.value = response.service_prices.text_price;
 video_price.value = response.service_prices.video_price;
 maximum_orders.value = response.text_service_capacity.maximum_orders;
@@ -118,8 +121,14 @@ active.value = response.active;
 
 async function submit() {
     const validation = await validate();
-    if(!validation.valid) return;
-    loading.value = true;
+    if(!validation.valid) {
+        console.log(Object.keys(errors.value));
+        let first_input = document.getElementById(Object.keys(errors.value)[0]);
+        first_input?.scrollIntoView({behavior: 'smooth', block: 'center'});
+        first_input?.focus();
+        return;
+    }
+    loadingButton.value = true;
     const body = {
         active: active.value,
         service_prices: {
@@ -147,7 +156,7 @@ async function submit() {
         useNotification({ content: 'حدث خطأ ما', type: 'danger' });
         console.log(error);
     } finally {
-        loading.value = false;
+        loadingButton.value = false;
     }
 
 }

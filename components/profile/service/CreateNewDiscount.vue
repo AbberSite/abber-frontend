@@ -13,7 +13,7 @@
                 <label class="block text-sm font-semibold xs:text-base" for="start-date"
                     @click="datePicker?.openMemu()">تاريخ
                     بدأ الخصم</label>
-                <DatePicker placeholder="yyyy-mm-dd" prevent-min-max-navigation v-model="start_date"
+                <DatePicker id="start_date" placeholder="yyyy-mm-dd" prevent-min-max-navigation v-model="start_date"
                     model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
                     cancel-text="الغاء" />
                 <InputError :message="errors.start_date" />
@@ -25,7 +25,7 @@
                 <label class="block text-sm font-semibold xs:text-base" for="end-date"
                     @click="datePicker?.openMenu()">تاريخ
                     إنتهاء الخصم</label>
-                <DatePicker placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
+                <DatePicker id="end_date" placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
                     v-model="end_date" model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
                     cancel-text="الغاء" />
                 <InputError :message="errors.end_date" />
@@ -38,7 +38,7 @@
                     <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="text">خصم المحادثة النصية</label>
                 </div>
                 <template v-if="offer.text">
-                    <TextInput name="text_amount" type="number" v-model="text_amount" label="مبلغ الخصم"
+                    <TextInput id="text_amount" type="number" v-model="text_amount" label="مبلغ الخصم"
                         placeholder="ادخل مبلغ الخصم بالريال السعودي" :error="errors.text_amount" />
                     <div class="text-[13px] leading-loose text-gray-500">السعر بعد الخصم: {{ offer.type ==
         'fixed_amount' ?
@@ -54,7 +54,7 @@
                 </div>
                 <template v-if="offer.video">
                     <div class="w-full space-y-3">
-                        <TextInput name="video_amount" type="number" v-model="video_amount" label="مبلغ الخصم"
+                        <TextInput id="video_amount" type="number" v-model="video_amount" label="مبلغ الخصم"
                             placeholder="ادخل مبلغ الخصم بالريال السعودي" :error="errors.video_amount" />
                         <div class="text-[13px] leading-loose text-gray-500">السعر بعد الخصم: {{ offer.type ==
         'fixed_amount' ?
@@ -123,7 +123,12 @@ const afterDiscountComputed = ((after_discount: number, amount: number) => {
 })
 async function submit() {
     const validation = await validate();
-    if (!validation.valid) return;
+    if (!validation.valid) {
+        let element = document.getElementById(Object.keys(errors.value)[0]);
+        element?.scrollIntoView({behavior: 'smooth', block: 'center'});
+        element?.focus();
+        return;
+    }
     loading.value = true;
     const body: {
         type: 'percentage' | 'fixed_amount';
