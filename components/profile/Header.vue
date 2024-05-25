@@ -241,7 +241,13 @@ async function submitUpdate() {
 
     loading.value = false;
 
-    if (!result) return;
+    if (!result) {
+        console.log(errors.value);
+        let my_element = document.getElementById(Object.keys(errors.value)[0]);
+        my_element?.scrollIntoView({behavior: 'smooth', block: 'center'});
+        my_element?.focus();
+        return;
+    };
 
     edit.value = false;
     useNotification({ type: 'success', content: 'تم تحديث الحساب بنجاح' });

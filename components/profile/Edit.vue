@@ -7,7 +7,7 @@
                 v-model="tempAccount.username"
                 type="text"
                 name="text"
-                id="username"
+                id="first_name"
                 placeholder="ادخل إسمك الكامل"
                 dir="rtl"
                 required />
@@ -31,7 +31,7 @@
         <div class="w-full space-y-3">
             <!-- <label class="block text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label> -->
 
-            <PhoneInput v-model="tempAccount.phone" />
+            <PhoneInput v-model="tempAccount.phone" id="phone" />
 
             <InputError v-for="message in errors.phone" :message="message" />
         </div>
@@ -42,7 +42,7 @@
                 v-model="tempAccount.profile.bank_account"
                 type="text"
                 name="text"
-                id="iban"
+                id="bank_account"
                 placeholder="ادخل رقم IBAN"
                 dir="rtl"
                 required />

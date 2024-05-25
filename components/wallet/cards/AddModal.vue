@@ -58,12 +58,6 @@
                         <form dir="ltr" action="/complete-card" class="paymentWidgets" :data-brands="paymentMethod">
                         </form>
                     </div>
-                    <div class="flex items-center" x-id="['checkbox']">
-                        <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
-                            name="checkbox" id="use-wallet" x-model="checkedBox" />
-                        <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="use-wallet">إستخدام رصيد
-                            المحفظة للدفع</label>
-                    </div>
                 </div>
             </fieldset>
         </div>
