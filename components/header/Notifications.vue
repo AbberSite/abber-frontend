@@ -93,7 +93,10 @@ onMounted(async () => {
             Authorization: `JWT ${rawToken.value}`
         }
     });
-
+    data.value.notifications?.results.forEach((notification: NotificationHeader)=> {
+        if(!notification.read)
+            notification.read = true;
+    })
     readNotifications.value = false
 
 });

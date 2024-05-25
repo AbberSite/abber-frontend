@@ -128,6 +128,8 @@ useSeoMeta({
 
 // await getSession();
 const { goOnline } = useAccountStore();
+  const { readNotifications } = storeToRefs(useUtilsStore());
+
 onMounted(async () => {
   
   const { status, rawToken, data } = useAuthState();
@@ -149,7 +151,17 @@ onMounted(async () => {
   );
   if (status.value === 'unauthenticated') return;
   goOffline = await goOnline();
-  // const { readNotifications } = storeToRefs(useUtilsStore());
+  const {status:notificationWSStatus, data:response} = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/`, {autoReconnect: true});
+    watch(notificationWSStatus, (value)=> {
+        console.log(`notification status: ${value}`);
+    });
+    watch(response, (value)=> {
+        value = JSON.parse(value);
+        data.value.notifications.results.unshift(value.notification);
+        data.value.notifications.results.pop();
+        readNotifications.value = true;
+    });
+
   // const chat = useWebSocket(
   //   useRuntimeConfig().public.WebsocketURL +
   //   // import.meta.env.VITE_WS_URL +
