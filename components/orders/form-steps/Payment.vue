@@ -376,7 +376,6 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 };
 
 async function checkCoupon() {
-  console.log(!coupon.value.length)
   if (!coupon.value.length) {
     couponResponse.value = {
       error: true,
@@ -397,7 +396,7 @@ async function checkCoupon() {
           }
         });
         thereIsCoupon = true;
-      } catch (e) { }
+      } catch (e) {}
     }
   }
   try {
@@ -430,6 +429,7 @@ async function checkCoupon() {
     };
     if (paymentMethod.value != 'APPLEPAY') {
       await loadHyper();
+      loadingCoupon.value = false;
       return;
     }
     loading.value = true;
