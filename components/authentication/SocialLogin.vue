@@ -1,6 +1,42 @@
 <template>
-  <div class="pt-4">
-    <button v-if="settings.api_settings?.active_login_methods?.website.includes('google')"
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && route.name != 'accounts-whatsapp-login'" >
+    <NuxtLink
+      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      :to="{ name: 'accounts-whatsapp-login' }">
+      <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
+        viewBox="0 0 48 48">
+        <path fill="#40c351"
+          d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z">
+        </path>
+        <path fill="#fff" fill-rule="evenodd"
+          d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z"
+          clip-rule="evenodd"></path>
+      </svg>
+      <span class="ms-3 mt-1.5">سجل دخولك بواسطة واتساب</span>
+    </NuxtLink>
+  </div>
+
+
+
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('phone') && route.name != 'accounts-sms'" >
+    <NuxtLink
+      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      :to="{ name: 'accounts-sms'}">
+      <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+        height="22" with="22">
+        <path fill-rule="evenodd"
+          d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97ZM6.75 8.25a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H7.5Z"
+          clip-rule="evenodd"></path>
+      </svg>
+
+      <span class="ms-3 mt-1.5">سجل دخولك بواسطة {{ "SMS" }}</span>
+    </NuxtLink>
+  </div>
+
+
+
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('google')">
+    <button 
       class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       @click="googleLogin">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
@@ -21,22 +57,22 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة جوجل</span>
     </button>
   </div>
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && route.name != 'accounts-whatsapp-login'" >
+
+
+  <div class="pt-4" v-if="route.name != 'accounts-login'">
     <NuxtLink
       class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-      :to="{ name: 'accounts-whatsapp-login' }">
-      <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
-        viewBox="0 0 48 48">
-        <path fill="#40c351"
-          d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z">
+      :to="{ name: 'accounts-login'}">
+      <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24" fill="currentColor" height="22" with="22">
+        <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"></path>
+        <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z">
         </path>
-        <path fill="#fff" fill-rule="evenodd"
-          d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z"
-          clip-rule="evenodd"></path>
       </svg>
-      <span class="ms-3 mt-1.5">سجل دخولك بواسطة واتساب</span>
+      <span class="ms-3 mt-1.5">سجل دخولك بواسطة {{ "البريد" }}</span>
     </NuxtLink>
   </div>
+  
   <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('apple')" >
     <button @click="appleLogin"
       class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50">
@@ -50,26 +86,8 @@
     </button>
   </div>
 
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('phone')" >
-    <NuxtLink
-      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-      :to="{ name: route.name == 'accounts-login' ? 'accounts-sms' : 'accounts-login' }">
-      <svg v-if="route.name != 'accounts-login'" class="text-blue-600" xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24" fill="currentColor" height="22" with="22">
-        <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"></path>
-        <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z">
-        </path>
-      </svg>
 
-      <svg v-else class="text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-        height="22" with="22">
-        <path fill-rule="evenodd"
-          d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97ZM6.75 8.25a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H7.5Z"
-          clip-rule="evenodd"></path>
-      </svg>
-      <span class="ms-3 mt-1.5">سجل دخولك بواسطة {{ route.name == "accounts-login" ? "SMS" : "البريد" }}</span>
-    </NuxtLink>
-  </div>
+
 </template>
 
 <script setup lang="ts">

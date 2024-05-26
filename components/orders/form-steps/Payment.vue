@@ -96,7 +96,7 @@ import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 const { isApple, isSafari } = useDevice()
 const { state, persist } = useFormWizard<OrderForm>('order');
-const { data, getSession } = useAuth();
+const { data } = useAuth();
 
 const callbackURL = window.location.origin + (state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete');
 
