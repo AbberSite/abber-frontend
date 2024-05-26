@@ -426,8 +426,24 @@ async function checkCoupon() {
     couponResponse.value = {
       error: false,
       message: 'لقد تم تفعيل الكوبون بنجاح'
+    };
+    if(paymentMethod.value != 'APPLEPAY'){
+      await loadHyper();
+      return;
     }
-    await loadHyper();
+    loading.value = true;
+    hyper.unload();
+    const form = document.createElement('form');
+
+  form.dir = 'ltr';
+  form.action = callbackURL;
+  form.classList.add('paymentWidgets');
+  form.dataset.brands = paymentMethod.value == 'CARD' ? 'VISA MASTER MADA' : paymentMethod.value;
+  // console.log(form);
+  paymentForm.value?.append(form);
+
+  await loadHyper();
+  loading.value = false;
   } else {
     couponResponse.value = {
       error: true,
