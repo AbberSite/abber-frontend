@@ -443,7 +443,7 @@ async function checkCoupon() {
     // paymentForm.value?.append(form);
 
     await loadHyper();
-    loading.value = false;
+    // loading.value = false;
   } else {
     couponResponse.value = {
       error: true,
