@@ -401,7 +401,7 @@ async function checkCoupon() {
     }
   }
   try {
-    await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
+    const res = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
       method: 'POST',
       body: {
         type: 'text_communication',
