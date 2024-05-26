@@ -401,7 +401,7 @@ async function checkCoupon() {
     }
   }
   try {
-    const data = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
+    await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
       method: 'POST',
       body: {
         type: 'text_communication',
@@ -427,23 +427,23 @@ async function checkCoupon() {
       error: false,
       message: 'لقد تم تفعيل الكوبون بنجاح'
     };
-    if(paymentMethod.value != 'APPLEPAY'){
-      await loadHyper();
-      return;
-    }
-    loading.value = true;
-    hyper.unload();
-    const form = document.createElement('form');
+    // if (paymentMethod.value != 'APPLEPAY') {
+    //   await loadHyper();
+    //   return;
+    // }
+    // loading.value = true;
+    // hyper.unload();
+    // const form = document.createElement('form');
 
-  form.dir = 'ltr';
-  form.action = callbackURL;
-  form.classList.add('paymentWidgets');
-  form.dataset.brands = paymentMethod.value == 'CARD' ? 'VISA MASTER MADA' : paymentMethod.value;
-  // console.log(form);
-  paymentForm.value?.append(form);
+    // form.dir = 'ltr';
+    // form.action = callbackURL;
+    // form.classList.add('paymentWidgets');
+    // form.dataset.brands = paymentMethod.value == 'CARD' ? 'VISA MASTER MADA' : paymentMethod.value;
+    // // console.log(form);
+    // paymentForm.value?.append(form);
 
-  await loadHyper();
-  loading.value = false;
+    await loadHyper();
+    loading.value = false;
   } else {
     couponResponse.value = {
       error: true,
@@ -468,10 +468,11 @@ async function useBalance() {
   waitingByBalance.value = true;
   try {
     const payment = await createCheckout();
-    if (payment.paid){
-      navigateTo(callbackURL + '?balance=true', { external: true });}
-  }catch(e){
-    useNotification({type: 'danger', content: 'حدث خطأ ما، اعد المحاولة'}); 
+    if (payment.paid) {
+      navigateTo(callbackURL + '?balance=true', { external: true });
+    }
+  } catch (e) {
+    useNotification({ type: 'danger', content: 'حدث خطأ ما، اعد المحاولة' });
     waitingByBalance.value = false;
   }
 }
