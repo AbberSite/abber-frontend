@@ -74,7 +74,7 @@ async function send() {
             options: {
                 ignore: true, 
                 previous: () => {
-                    state.value.data ? (state.value.data.authenticationMethod = 'guest') : undefined;
+                    state.value.data ? (state.value.data.authenticationMethod = 'whatsapp') : undefined;
                 }
             },
             data: {

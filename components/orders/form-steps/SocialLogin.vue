@@ -97,6 +97,7 @@ const { getSettings } = useSettingsStore();
 if (settings.value == undefined) {
   await getSettings();
 }
+
 const { next, state } = useFormWizard<OrderForm>("order")
 
 

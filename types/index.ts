@@ -107,7 +107,7 @@ export type OrderForm = {
   service_id?: number;
   selectedService?: number;
   selectedServices?: number[];
-  authenticationMethod?: 'login' | 'register' | 'guest' | 'otp';
+  authenticationMethod?: 'login' | 'register' | 'whatsapp' | 'login-sms' | 'otp';
   order_id?: string;
   orders?: string[]
 };

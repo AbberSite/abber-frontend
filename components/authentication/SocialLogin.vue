@@ -1,8 +1,13 @@
 <template>
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && route.name != 'accounts-whatsapp-login'" >
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && props.isFormSteps ? state.data?.authenticationMethod != 'whatsapp' : route.name != 'accounts-whatsapp-login'" >
     <NuxtLink
-      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-      :to="{ name: 'accounts-whatsapp-login' }">
+      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50 cursor-pointer"
+      @click="() => {
+        if(props.isFormSteps){
+          (state.data as any).authenticationMethod = 'whatsapp'
+        }
+      }"
+      :to="!props.isFormSteps ? '/accounts/whatsapp/login/' : null ">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
         viewBox="0 0 48 48">
         <path fill="#40c351"
@@ -18,10 +23,15 @@
 
 
 
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('phone') && route.name != 'accounts-sms'" >
+  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('phone') && props.isFormSteps ? state.data?.authenticationMethod != 'login-sms' : route.name != 'accounts-sms'" >
     <NuxtLink
-      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-      :to="{ name: 'accounts-sms'}">
+      class="flex h-[50px]  cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      @click="() => {
+        if(props.isFormSteps){
+          (state.data as any).authenticationMethod = 'login-sms'
+        }
+      }"
+      :to="!props.isFormSteps ? '/accounts/sms/' : null ">
       <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
         height="22" with="22">
         <path fill-rule="evenodd"
@@ -35,9 +45,9 @@
 
 
 
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('google')">
+  <div class="pt-4 " v-if="settings.api_settings?.active_login_methods?.website.includes('google')">
     <button 
-      class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       @click="googleLogin">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
         viewBox="0 0 48 48">
@@ -59,10 +69,15 @@
   </div>
 
 
-  <div class="pt-4" v-if="route.name != 'accounts-login'">
+  <div class="pt-4 " v-if="props.isFormSteps ? state.data?.authenticationMethod != 'login' : route.name != 'accounts-login'">
     <NuxtLink
-      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-      :to="{ name: 'accounts-login'}">
+      class="flex h-[50px] cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      @click="() => {
+        if(props.isFormSteps){
+          (state.data as any).authenticationMethod = 'login'
+        }
+      }"
+      :to="!props.isFormSteps ? '/accounts/login/' : null ">
       <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24" fill="currentColor" height="22" with="22">
         <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"></path>
@@ -73,9 +88,9 @@
     </NuxtLink>
   </div>
   
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('apple')" >
+  <div class="pt-4 " v-if="settings.api_settings?.active_login_methods?.website.includes('apple')" >
     <button @click="appleLogin"
-      class="flex h-[50px] w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50">
+      class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50">
       <svg class="flekx-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22"
         viewBox="0 0 48 48">
         <path
@@ -100,13 +115,21 @@ useHead({
     ]
 })
 import { useSettingsStore } from '~/stores/settings';
-
+const props = defineProps<{isFormSteps?: boolean}>();
 let googleLogin = () => console.log("google not initialized yet");
 const {settings} = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
 if(settings.value == undefined){
   await getSettings();
 }
+
+let next, state ;
+if(props.isFormSteps){
+  next = useFormWizard<OrderForm>('order').next;
+  state = useFormWizard<OrderForm>('order').state;
+}
+
+
 const route = useRoute();
 onMounted(async () => {
   const googleProvider: any = await useGoogleProvider();

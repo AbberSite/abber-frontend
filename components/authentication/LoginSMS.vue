@@ -1,8 +1,14 @@
 <template>
+
+    <Head>
+
+        <title v-if="props.isFormSteps">عبر - طلب تعبير حلم - تسجيل الدخول برقم الهاتف</title>
+
+    </Head>
     <section
-        class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
+        :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !props.isFormSteps }"
         aria-labelledby="forget-password-heading">
-        <AuthenticationHeading/>
+        <AuthenticationHeading v-if="!props.isFormSteps" />
         <div class="mx-auto w-full max-w-sm pt-10">
             <form method="POST" @submit.prevent="send">
                 <fieldset class="space-y-7">
@@ -29,7 +35,7 @@
                     </div>
                 </fieldset>
             </form>
-            <AuthenticationSocialLogin />
+            <AuthenticationSocialLogin :isFormSteps="props.isFormSteps ? true : false" />
 
             <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base">
                 <span>ليس لديك حساب؟</span>
@@ -41,6 +47,7 @@
 
 <script setup lang="ts">
 const router = useRouter();
+const props = defineProps<{ isFormSteps?: boolean }>();
 
 const phone = ref('');
 const loading = ref(false);
@@ -71,8 +78,12 @@ async function send() {
         };
 
         if (!data.value.registered) {
-            useNotification({ type: 'info', content: 'الرقم غير مسجل، يمكنك انشاء حساب به.' })
-            navigateTo('/accounts/signup/')
+            if (props.isFormSteps)
+                errors.value.phone = 'هذا الرقم غير مسجل ';
+            else {
+                useNotification({ type: 'info', content: 'الرقم غير مسجل، يمكنك انشاء حساب به.' })
+                navigateTo('/accounts/signup/')
+            }
             loading.value = false;
             return;
         }
@@ -82,8 +93,23 @@ async function send() {
         currentPhone.value = phone.value;
 
         sessionStorage.setItem('abber:whatsapp-number', phone.value);
-
-        router.push({ name: 'accounts-whatsapp-otp' });
+        if (!props.isFormSteps)
+            router.push({ name: 'accounts-whatsapp-otp' });
+        else {
+            const { next, state } = useFormWizard<OrderForm>("order");
+            next({
+                nextStepId: 'authentication',
+                options: {
+                    ignore: true,
+                    previous: () => {
+                        state.value.data ? (state.value.data.authenticationMethod = 'login-sms') : undefined;
+                    }
+                },
+                data: {
+                    authenticationMethod: 'otp'
+                }
+            });
+        }
     } catch (error: any) {
         alert('error');
 

@@ -90,7 +90,7 @@
 <script setup lang="ts">
 import type { OrderForm } from '~/types';
 
-const authenticationMethod = ref<'register' | 'login' | 'guest' | 'otp'>();
+const authenticationMethod = ref<'register' | 'login' | 'whatsapp' | 'otp'>();
 const { status } = useAuthState();
 
 const { next, previous } = useFormWizard<OrderForm>('order');
@@ -99,7 +99,7 @@ onMounted(async () => {
     if (status.value == 'authenticated') previous();
 });
 
-function submit(authenticationMethod: 'register' | 'login' | 'guest' | 'otp') {
+function submit(authenticationMethod: 'register' | 'login' | 'whatsapp' | 'otp') {
     next({
         nextStepId: 'authentication',
         data: {

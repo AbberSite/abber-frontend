@@ -1,7 +1,10 @@
 <template>
-    <section class="relative flex min-h-screen w-full flex-col items-center justify-center px-4 pb-14 pt-28 md:pt-32 xs:px-6"
+    <Head>
+        <title v-if="props.isFormSteps">عبر - طلب تعبير حلم - الدخول بواتساب</title>
+    </Head>
+    <section :class="{'relative flex min-h-screen w-full flex-col items-center justify-center px-4 pb-14 pt-28 md:pt-32 xs:px-6': !props.isFormSteps}" 
             aria-labelledby="forget-password-heading">
-            <AuthenticationHeading whatsapp/>
+            <AuthenticationHeading whatsapp v-if="!props.isFormSteps"/>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="send">
                     <fieldset class="space-y-7">
@@ -20,8 +23,9 @@
 
                         </div>
                     </fieldset>
-                </form>
-                <AuthenticationSocialLogin/>
+                </form>        
+                <AuthenticationSocialLogin :isFormSteps="props.isFormSteps? true : false"/>
+
                 <!-- <div class="pt-8 text-center text-sm xs:text-base"><a class="font-medium text-blue-600"
                         href="/accounts/login">العودة للصفحة السابقة <span aria-hidden="true">←</span></a></div> -->
             </div>
@@ -31,6 +35,7 @@
 <script setup lang="ts">
 const router = useRouter()
 
+const props = defineProps<{isFormSteps?: boolean}>();
 
 const phone = ref("")
 const loading = ref(false)
@@ -66,9 +71,14 @@ async function send() {
         }
 
         if (!data.value.registered) {
-            errors.value.phone = 'هذا الرقم غير مسجل ';
+            if (props.isFormSteps)
+                errors.value.phone = 'هذا الرقم غير مسجل ';
+            else {
+                useNotification({ type: 'info', content: 'الرقم غير مسجل، يمكنك انشاء حساب به.' })
+                navigateTo('/accounts/signup/')
+            }
             loading.value = false;
-            return
+            return;
         }
 
         const { currentPhone } = storeToRefs(useAuthStore())
@@ -77,8 +87,23 @@ async function send() {
 
         sessionStorage.setItem("abber:whatsapp-number", phone.value)
 
-        router.push({ name: "accounts-whatsapp-otp", query: { sender : "whatsapp"} })
-
+        if (!props.isFormSteps)
+            router.push({ name: 'accounts-whatsapp-otp' });
+        else {
+            const { next, state } = useFormWizard<OrderForm>("order");
+            next({
+                nextStepId: 'authentication',
+                options: {
+                    ignore: true,
+                    previous: () => {
+                        state.value.data ? (state.value.data.authenticationMethod = 'whatsapp') : undefined;
+                    }
+                },
+                data: {
+                    authenticationMethod: 'otp'
+                }
+            });
+        }
     } catch (error: any) {
 
         alert("error")

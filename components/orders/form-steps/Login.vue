@@ -95,6 +95,7 @@ import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import type { OrderForm } from '~/types';
 
+const { next } = useFormWizard<OrderForm>("order");
 
 const { signIn } = useAuth();
 
@@ -113,7 +114,6 @@ const show = ref(false);
 const error = ref('');
 const loading = ref(false);
 
-const { next } = useFormWizard<OrderForm>("order")
 
 
 async function submit() {

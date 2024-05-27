@@ -1,8 +1,11 @@
 <template>
+  <Head>
+    <title v-if="props.isFormSteps">عبر - طلب تعبير حلم - تسجيل الدخول</title>
+  </Head>
     <section
-      class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
+      :class="{'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !props.isFormSteps}"
       aria-labelledby="login-heading">
-      <AuthenticationHeading/>
+      <AuthenticationHeading v-if="!props.isFormSteps"/>
       <div class="mx-auto w-full max-w-sm pt-10">
         <form @submit.prevent="submit">
           <fieldset class="space-y-7">
@@ -52,7 +55,7 @@
           </fieldset>
         </form>
 
-        <AuthenticationSocialLogin />
+        <AuthenticationSocialLogin :isFormSteps="props.isFormSteps? true : false"/>
 
         <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base">
           <span>ليس لديك حساب؟</span>
@@ -67,7 +70,7 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 
-
+const props = defineProps<{isFormSteps?: boolean}>();
 
 const { signIn } = useAuth();
 
@@ -97,11 +100,15 @@ async function submit() {
     { email: email.value, password: password.value },
     {
       callbackUrl: '/profile?status=new',
-      redirect: true
+      redirect: props.isFormSteps ? false : true
     }
   )
     .then(() => {
       useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
+      if(props.isFormSteps){
+        const { next } = useFormWizard<OrderForm>("order");
+        next({options: {ignore: true}, nextStepId: 'payment'});
+      }
     })
     .catch((_error) => {
 
