@@ -73,7 +73,6 @@ const props = defineProps<{ isHome?: boolean }>();
 const { rawRefreshToken, rawToken } = useAuthState();
 
 const { refresh } = useAuth();
-const { getSession } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
 const my_opt = ref([])
