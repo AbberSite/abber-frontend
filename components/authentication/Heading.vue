@@ -1,4 +1,10 @@
 <template>
+    <template>
+        <h1 class="sr-only" id="login-heading">التسجيل</h1>
+            <img class="aspect-square lazyload" src="/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
+            <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بك في عبر</div>
+            <div class="pt-4 text-sm text-gray-800 xs:text-base">أدخل التفاصيل أدناه لإنشاء حساب جديد</div>
+    </template>
     <template v-if="whatsapp">
         <h1 class="sr-only" id="forget-password-heading">تسجيل الدخول</h1>
         <div class="rounded-md border border-gray-300 px-2 py-2 shadow-sm">
@@ -23,5 +29,5 @@
     </template>
 </template>
 <script setup lang="ts">
-defineProps< { whatsapp?: boolean; } >();
+defineProps< { whatsapp?: boolean; register?: boolean; } >();
 </script>

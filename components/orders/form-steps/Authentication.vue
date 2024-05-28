@@ -13,7 +13,7 @@
                 <AuthenticationLoginSMS v-else-if="state.data?.authenticationMethod == 'login-sms'" isFormSteps />
                 <AuthenticationLoginWhatsapp v-else-if="state.data?.authenticationMethod == 'whatsapp'" isFormSteps/>
                 <AuthenticationOTP v-else-if="state.data?.authenticationMethod == 'otp'" />
-                <FormStepsRegister v-else-if="state.data?.authenticationMethod == 'register'" />
+                <AuthenticationRegister v-else-if="state.data?.authenticationMethod == 'register'" isFormSteps/>
             </div>
         </transition>
     </div>
