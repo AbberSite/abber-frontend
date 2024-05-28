@@ -124,7 +124,7 @@ async function login() {
                 await refresh();
                 if (props.isHome) {
                     useNotificationForLogin(true)
-                    useRouter().push({ name: 'index' });
+                    // useRouter().push({ name: 'index' });
                 } else {
                     const { next, state } = useFormWizard<OrderForm>('order');
                     useNotificationForLogin();
