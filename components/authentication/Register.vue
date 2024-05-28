@@ -158,7 +158,7 @@ async function submit() {
                     }
                 })
             }
-            await useNotificationForLogin();
+            await useNotificationForLogin(false, true);
         });
     } catch (error: any) {
         setErrors(error.response._data);
