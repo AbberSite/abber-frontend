@@ -182,10 +182,15 @@ async function appleLogin() {
     });
 
     await useAuthenticateUser(loginData);
-
-    await useRouter().push({ name: "index" });
-
-    useNotification({ type: "success", content: "تم تسجيل دخولك بنجاح" });
+    if(!props.isFormSteps){
+      await useRouter().push({ name: "index" });
+      useNotificationForLogin(true);
+    } else {
+      next({
+          options: {ignore: true}, nextStepId: 'payment'
+        });
+        useNotificationForLogin();
+    }
 
     // Handle successful response.
   } catch (error) {
