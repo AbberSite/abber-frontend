@@ -99,15 +99,17 @@ async function submit() {
   signIn(
     { email: email.value, password: password.value },
     {
-      callbackUrl: '/profile?status=new',
-      redirect: props.isFormSteps ? false : true
+      callbackUrl: '/',
+      redirect: false
     }
   )
-    .then(() => {
-      useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
+    .then(async() => {
       if(props.isFormSteps){
         const { next } = useFormWizard<OrderForm>("order");
+        await useNotificationForLogin();
         next({options: {ignore: true}, nextStepId: 'payment'});
+      }else {
+        await useNotificationForLogin(true);
       }
     })
     .catch((_error) => {

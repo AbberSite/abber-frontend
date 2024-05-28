@@ -145,10 +145,14 @@ onMounted(async () => {
       });
 
       await useAuthenticateUser(data.value);
-
-      await useRouter().push({ name: "index" });
-
-      useNotification({ type: "success", content: "تم تسجيل دخولك بنجاح" });
+      if(!props.isFormSteps)
+        await useNotificationForLogin(true);
+      else {
+        next({
+          options: {ignore: true}, nextStepId: 'payment'
+        });
+        useNotificationForLogin();
+      }
     },
   });
   const time = new Date();

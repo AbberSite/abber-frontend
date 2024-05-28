@@ -123,10 +123,11 @@ async function login() {
 
                 await refresh();
                 if (props.isHome) {
+                    useNotificationForLogin(true)
                     useRouter().push({ name: 'index' });
                 } else {
                     const { next, state } = useFormWizard<OrderForm>('order');
-
+                    useNotificationForLogin();
                     next({
                         nextStepId: 'payment',
                         options: {
@@ -134,7 +135,6 @@ async function login() {
                         }
                     });
                 }
-                useNotification({ type: 'success', content: 'تم تسجيل دخولك بنجاح' });
 
             },
             async onResponseError({ response }) {

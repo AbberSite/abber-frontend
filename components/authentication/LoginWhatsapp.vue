@@ -88,7 +88,7 @@ async function send() {
         sessionStorage.setItem("abber:whatsapp-number", phone.value)
 
         if (!props.isFormSteps)
-            router.push({ name: 'accounts-whatsapp-otp' });
+            router.push({ name: 'accounts-whatsapp-otp', query: {sender: 'whatsapp'} });
         else {
             const { next, state } = useFormWizard<OrderForm>("order");
             next({
