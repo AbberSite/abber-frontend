@@ -3,11 +3,11 @@
         <table class="w-full text-sm ltr:text-left rtl:text-right" >
             <thead class="border-b border-t" >
                 <tr>
-                    <TicketsTableHeaderCol content="التذكرة" ticket="id"/>
+                    <TicketsTableHeaderCol content="التذكرة"/>
                     <TicketsTableHeaderCol content="المشكلة" />
                     <TicketsTableHeaderCol content="تاريخ فتح التذكرة" />
                     <TicketsTableHeaderCol content="الحالة" />
-                    <TicketsTableHeaderCol content="اخر تحديث" ticket="date" order="date" />
+                    <TicketsTableHeaderCol content="اخر تحديث" order="date" />
                     <TicketsTableHeaderCol />
                 </tr>
             </thead>
