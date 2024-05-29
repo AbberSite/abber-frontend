@@ -6,7 +6,7 @@
         <div class="mx-auto w-full max-w-sm pt-10">
             <form method="POST" @submit.prevent="submit">
                 <fieldset class="space-y-7">
-                    <TextInput name="name" type="text" v-model="name" :error="errors.name" label="الاسم الكامل"
+                    <TextInput id="name" type="text" v-model="name" :error="errors.name" label="الاسم الكامل"
                         placeholder="أدخل اسمك الكامل">
                         <template #append>
                             <div class="text-[13px] leading-loose text-gray-500 mt-3">
@@ -15,10 +15,10 @@
                         </template>
                     </TextInput>
 
-                    <TextInput name="email" type="email" v-model="email" :error="errors.email" label="البريد الألكتروني"
+                    <TextInput id="email" type="email" v-model="email" :error="errors.email" label="البريد الألكتروني"
                         placeholder="ادخل عنوان بريدك الألكتروني" />
 
-                    <TextInput v-model="password" :type="show ? 'text' : 'password'" name="password"
+                    <TextInput v-model="password" :type="show ? 'text' : 'password'" id="password"
                         :error="errors.password" placeholder="ادخل كلمة مرور سهلة التذكر و قوية" label="كلمة المرور">
                         <template #append>
                             <button
@@ -84,8 +84,8 @@ const props = defineProps<{ isFormSteps?: boolean }>();
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
-            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').matches(/[^a-zA-z0-9._%+-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/, 'يجب ادخال ايميل صحيح').required('هذا الحقل مطلوب'),
             name: yup.string().required("هذا الحقل مطلوب"),
+            email: yup.string().email('هذا الحقل يجب أن يكون ايميل').matches(/[^a-zA-z0-9._%+-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/, 'يجب ادخال ايميل صحيح').required('هذا الحقل مطلوب'),
             password: yup
                 .string()
                 .min(8, 'طول كلمة المرور يجب أن يكون 8 حروف أو أكثر')
@@ -102,8 +102,8 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
 
 const { signUp } = useAuth();
 const loading = ref(false);
-const [email] = defineField('email');
 const [name] = defineField('name');
+const [email] = defineField('email');
 const [password] = defineField('password');
 const [phone] = defineField('phone');
 const [terms] = defineField('terms');
@@ -137,7 +137,12 @@ async function submit() {
 
     const validation = await validate();
 
-    if (!validation.valid || !phoneValid.value) return;
+    if (!validation.valid || !phoneValid.value) {
+        let first_element = document.getElementById(Object.keys(errors.value)[0]);
+        first_element?.scrollIntoView({behavior: 'smooth', block: 'center'});
+        first_element?.focus();
+        return;
+    }
 
     try {
         loading.value = true;

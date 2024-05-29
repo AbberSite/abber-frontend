@@ -30,7 +30,6 @@
 </template>
 
 <script setup>
-import { useWebSocket } from '@vueuse/core';
 useHead({
   bodyAttrs: {
     class: 'antialiased'
