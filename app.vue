@@ -120,8 +120,8 @@ useSeoMeta({
   'appleid-signin-use-popup': 'true'
 });
 
-// const { getSession } = useAuth();
-// await getSession();
+const { getSession } = useAuth();
+await getSession();
 const { goOnline, connectWSNotifications } = useAccountStore();
 
 onMounted(async () => {
