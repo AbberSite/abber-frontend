@@ -125,7 +125,7 @@ useSeoMeta({
 const { goOnline, connectWSNotifications } = useAccountStore();
 
 onMounted(async () => {
-  const { status, rawToken, data } = useAuthState();
+  const { status } = useAuthState();
   
   let goOffline;
   let closeNotifications;
