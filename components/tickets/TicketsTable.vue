@@ -7,7 +7,7 @@
                     <TicketsTableHeaderCol content="المشكلة" />
                     <TicketsTableHeaderCol content="تاريخ فتح التذكرة" />
                     <TicketsTableHeaderCol content="الحالة" />
-                    <TicketsTableHeaderCol content="اخر تحديث" order="date" />
+                    <TicketsTableHeaderCol content="اخر تحديث" ticket="date" order="date" />
                     <TicketsTableHeaderCol />
                 </tr>
             </thead>
