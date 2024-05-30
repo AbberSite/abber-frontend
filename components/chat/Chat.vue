@@ -72,31 +72,9 @@ onMounted(async () => {
     // if(newBreakpoint == 'desktop' && oldBreakpoint == 'tablet')
     //   reloadNuxtApp();
     console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
-  })
-  if ($viewport.isLessThan('desktop'))
-    return;
-  // console.log('desktop chat')
-  if (messages.value.length == 0) {
-    await fetchMessages({ room: props.roomName, limit: 9 });
-    loading_chat.value = false;
-    scrollDown(chatList);
-  }
-  console.log(chatList.value)
-  if (!chatList.value) return;
+  });
 
-
-
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  scrollDown(chatList);
-  // useInfiniteScroll(chatList.value, async () => await load(), {
-  //   interval: 500,
-  //   distance: 5,
-  //   direction: "top",
-  //   canLoadMore: () => !!messagesPagination.value?.next,
-  // });
-
-  // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
-  document.addEventListener("click", resetChangeMessage);
+  await runFunction();
 });
 
 function formatTime(_date: string) {
@@ -160,6 +138,25 @@ function scrollDown(chat_scroll: HTMLElement) {
       }
     }, 1000)
   }
+};
+
+async function runFunction(){
+
+  if ($viewport.isLessThan('desktop'))
+    return;
+  // console.log('desktop chat')
+  if (messages.value.length == 0) {
+    await fetchMessages({ room: props.roomName, limit: 9 });
+    loading_chat.value = false;
+    scrollDown(chatList);
+  }
+  if (!chatList.value) return;
+
+
+
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  scrollDown(chatList);
+  document.addEventListener("click", resetChangeMessage);
 }
 </script>
 

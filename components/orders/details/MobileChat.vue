@@ -63,29 +63,7 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async function () {
-    if(!$viewport.isLessThan('desktop'))
-        return;
-    if (messages.value.length == 0) {
-        await fetchMessages({ room: props.roomName, limit: 9 });
-        loading_chat.value = false;
-        scrollDown(chatList);
-    }
-
-    if (!chatList.value) return;
-    // setTimeout(async()=> {
-    //     await load()
-    // }, 5000)
-    // useInfiniteScroll(chatList.value, async () => await load(), {
-    //     interval: 500,
-    //     distance: 5,
-    //     direction: "top",
-    //     canLoadMore: () => !!messagesPagination.value?.next,
-    // });
-
-    // useInfiniteScroll(chatList, load, {distance: 10, interval: 500, direction: 'top', canLoadMore: ()=> messagesPagination.value?.next})
-
-    // document.body.appendChild(contextMenu.value.$el); // Move changeList to body
-    document.addEventListener("click", resetChangeMessage);
+    await mainFunction();
 });
 
 function formatTime(_date: string) {
@@ -149,6 +127,19 @@ function scrollDown(chat_scroll: HTMLElement) {
       }
     }, 1000)
   }
+};
+
+async function mainFunction(){
+    if(!$viewport.isLessThan('desktop'))
+        return;
+    if (messages.value.length == 0) {
+        await fetchMessages({ room: props.roomName, limit: 9 });
+        loading_chat.value = false;
+        scrollDown(chatList);
+    }
+
+    if (!chatList.value) return;
+    document.addEventListener("click", resetChangeMessage);
 }
 </script>
 
