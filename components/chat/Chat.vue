@@ -68,15 +68,19 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
-  watch($viewport.breakpoint, async(newBreakpoint, oldBreakpoint)=> {
-    if(newBreakpoint == 'desktop' && oldBreakpoint == 'tablet'){
-      await runFunction();
-      // console.log('desktop is running')
-    }
-    // console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
-  });
+  if ($viewport.isLessThan('desktop'))
+    return;
+  // console.log('desktop chat')
+  if (messages.value.length == 0) {
+    await fetchMessages({ room: props.roomName, limit: 9 });
+    loading_chat.value = false;
+    scrollDown(chatList);
+  }
+  if (!chatList.value) return;
 
-  await runFunction();
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  scrollDown(chatList);
+  document.addEventListener("click", resetChangeMessage);
 });
 
 function formatTime(_date: string) {
@@ -142,24 +146,6 @@ function scrollDown(chat_scroll: HTMLElement) {
   }
 };
 
-async function runFunction(){
-
-  if ($viewport.isLessThan('desktop'))
-    return;
-  // console.log('desktop chat')
-  if (messages.value.length == 0) {
-    await fetchMessages({ room: props.roomName, limit: 9 });
-    loading_chat.value = false;
-    scrollDown(chatList);
-  }
-  if (!chatList.value) return;
-
-
-
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  scrollDown(chatList);
-  document.addEventListener("click", resetChangeMessage);
-}
 </script>
 
 <style scoped></style>

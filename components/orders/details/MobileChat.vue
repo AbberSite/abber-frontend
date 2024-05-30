@@ -63,13 +63,16 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async function () {
-    await runFunction();
-    watch($viewport.breakpoint, async(newBreakpoint, oldBreakpoint)=> {
-    if(newBreakpoint == 'tablet' && oldBreakpoint == 'desktop'){
-      await runFunction();
+    if(!$viewport.isLessThan('desktop'))
+        return;
+    if (messages.value.length == 0) {
+        await fetchMessages({ room: props.roomName, limit: 9 });
+        loading_chat.value = false;
+        scrollDown(chatList);
     }
-    // console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
-  });
+
+    if (!chatList.value) return;
+    document.addEventListener("click", resetChangeMessage);
 });
 
 function formatTime(_date: string) {
@@ -136,16 +139,6 @@ function scrollDown(chat_scroll: HTMLElement) {
 };
 
 async function runFunction(){
-    if(!$viewport.isLessThan('desktop'))
-        return;
-    if (messages.value.length == 0) {
-        await fetchMessages({ room: props.roomName, limit: 9 });
-        loading_chat.value = false;
-        scrollDown(chatList);
-    }
-
-    if (!chatList.value) return;
-    document.addEventListener("click", resetChangeMessage);
 }
 </script>
 
