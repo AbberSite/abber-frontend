@@ -81,5 +81,5 @@ jobs:
             tar -xzvf nuxt_archive.tar.gz
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            pm2 kill
-            ABBER_ENV=production pm2 start ecosystem.config.cjs
+            pm2 restart all
+
