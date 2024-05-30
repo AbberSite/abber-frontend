@@ -47,7 +47,7 @@ const { textCommunicationServices } = storeToRefs(useServicesStore());
 const { status } = useAuth();
 const loading = ref(false);
 const selected: number = ref(state.value.data?.service_id);
-const selectedsService = ref([]);
+const selectedsService = ref(state.value.data?.selectedServices ?? []);
 let yes = ref(false);
 function sendResponse(res: boolean) {
     if (res) {
