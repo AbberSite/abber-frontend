@@ -126,6 +126,7 @@ function scrollDown(chat_scroll: HTMLElement) {
   } else {
     const my_interval = setInterval(function () {
       chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       if (chat_scroll.value != null) {
         // console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
         setTimeout(function(){

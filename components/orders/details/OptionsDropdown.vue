@@ -2,7 +2,7 @@
   <div
     class="absolute top-[calc(100%+15px)] z-20 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 ltr:right-0 rtl:left-0">
     <button class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50" type="button"
-      @click="$emit('show-review')" role="menuitem" v-if="order?.add_review" tabindex="-1">
+      @click="$emit('show-review')" role="menuitem" v-if="order?.add_review && isBuyer" tabindex="-1">
       تقييم المعبر
     </button>
 

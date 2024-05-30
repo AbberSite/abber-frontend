@@ -385,6 +385,7 @@ async function checkCoupon() {
   }
   loadingCoupon.value = true;
   let thereIsCoupon: boolean = false;
+  let res; 
   if (state.value.data?.selectedServices) {
     for (const service of state.value.data.selectedServices) {
       try {
@@ -400,7 +401,7 @@ async function checkCoupon() {
     }
   }
   try {
-    const res = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
+    res = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
       method: 'POST',
       body: {
         type: 'text_communication',
@@ -429,9 +430,11 @@ async function checkCoupon() {
     };
     if (paymentMethod.value != 'APPLEPAY') {
       await loadHyper();
+      if(paymentMethod.value == 'BALANCE')
+        hyper.checkout.amount = res.amount;
       loadingCoupon.value = false;
       return;
-    }
+    } 
     loading.value = true;
     hyper.unload();
     const form = document.createElement('form');
