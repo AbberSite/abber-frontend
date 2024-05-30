@@ -69,6 +69,8 @@ const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
   watch($viewport.breakpoint, (newBreakpoint, oldBreakpoint)=> {
+    if(newBreakpoint == 'desktop' && oldBreakpoint == 'tablet')
+      reloadNuxtApp();
     console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
   })
   if ($viewport.isLessThan('desktop'))
