@@ -68,6 +68,9 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
+  watch($viewport.breakpoint, (newBreakpoint, oldBreakpoint)=> {
+    console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
+  })
   if ($viewport.isLessThan('desktop'))
     return;
   // console.log('desktop chat')
