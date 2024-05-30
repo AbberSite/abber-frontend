@@ -7,7 +7,7 @@
     <div>
         <div>
 
-            <fieldset class="space-y-7" >
+            <fieldset class="space-y-7">
                 <div class="is-scroll max-h-[400px] overflow-y-auto p-1" id="ServiceMulti">
                     <template v-if="loading">
                         <SkeletonsServiceRadioButton />
@@ -25,9 +25,9 @@
                                 @click="sendResponse(false)"><span class="mt-1.5">لا</span></button>
                         </div>
                         <!-- first element of from FormStepsServiceSelectServiceCheckboxButton -->
-                        <FormStepsServiceSelectServiceCheckboxButton 
-                            v-show="yes" v-for="service in textCommunicationServices" v-model="selectedsService"
-                            :service="service" :selected-id="selected"  class="mt-5" />
+                        <FormStepsServiceSelectServiceCheckboxButton v-show="yes"
+                            v-for="service in textCommunicationServices" v-model="selectedsService" :service="service"
+                            :selected-id="selected" class="mt-5" />
                     </template>
 
                 </div>
@@ -52,9 +52,18 @@ let yes = ref(false);
 function sendResponse(res: boolean) {
     if (res) {
         yes.value = true;
+        // next({nextStepId: 'payment', data: { orders: undefined, selectedServices: undefined }});
         // next({ nextStepId: '', data: { selectedService: 0 } });
     } else {
-        submit();
+        if (status.value == 'authenticated')
+            next({ nextStepId: 'payment', data: { orders: undefined, selectedServices: undefined } });
+        else {
+            next({
+                nextStepId: 'authentication-method',
+                data: { orders: undefined, selectedServices: undefined }
+            })
+        }
+        // submit();
     }
 }
 
@@ -70,7 +79,7 @@ function submit() {
     } else {
         next({
             nextStepId: 'authentication-method',
-            data: { selectedServices: selectedsService.value, selectedService: selected}
+            data: { selectedServices: selectedsService.value, selectedService: selected }
         })
     }
 
@@ -80,7 +89,6 @@ function submit() {
 </script>
 
 <style scoped>
-
 #ServiceMulti label:first-of-type {
     margin-top: 0px;
 }

@@ -422,19 +422,24 @@ async function checkCoupon() {
     //     message: "رمز غير صالح أو منتهي الصلاحية"
     //   }
   }
-  console.log(`thisIsCoupon : ${thereIsCoupon}`);
   if (thereIsCoupon) {
     couponResponse.value = {
       error: false,
       message: 'لقد تم تفعيل الكوبون بنجاح'
     };
-    if (paymentMethod.value != 'APPLEPAY') {
+    // if (paymentMethod.value != 'APPLEPAY') {
+    //   await loadHyper();
+    //   if(paymentMethod.value == 'BALANCE')
+    //     hyper.checkout.amount = res.amount;
+    //   loadingCoupon.value = false;
+    //   return;
+    // } 
+    if(paymentMethod.value == 'BALANCE'){
       await loadHyper();
-      if(paymentMethod.value == 'BALANCE')
-        hyper.checkout.amount = res.amount;
+      hyper.checkout.amount = res.amount;
       loadingCoupon.value = false;
       return;
-    } 
+    }
     loading.value = true;
     hyper.unload();
     const form = document.createElement('form');
@@ -442,7 +447,7 @@ async function checkCoupon() {
     form.dir = 'ltr';
     form.action = callbackURL;
     form.classList.add('paymentWidgets');
-    form.dataset.brands = 'APPLEPAY';
+    form.dataset.brands = paymentMethod.value == 'CARD' ? 'VISA MASTER MADA' : paymentMethod.value;
     paymentForm.value?.append(form);
 
     await loadHyper();
