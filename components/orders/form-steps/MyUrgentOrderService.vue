@@ -32,7 +32,7 @@
 
                 </div>
             </fieldset>
-            <div v-show="selectedsService.length != 0">
+            <div v-show="selectedsService.length != 0 && yes">
                 <PrimaryButton @click="submit()" class="w-full">متابعة</PrimaryButton>
             </div>
         </div>
