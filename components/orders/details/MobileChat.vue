@@ -63,7 +63,13 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async function () {
-    await mainFunction();
+    await runFunction();
+    watch($viewport.breakpoint, async(newBreakpoint, oldBreakpoint)=> {
+    if(newBreakpoint == 'tablet' && oldBreakpoint == 'desktop'){
+      await runFunction();
+    }
+    // console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
+  });
 });
 
 function formatTime(_date: string) {
@@ -129,7 +135,7 @@ function scrollDown(chat_scroll: HTMLElement) {
   }
 };
 
-async function mainFunction(){
+async function runFunction(){
     if(!$viewport.isLessThan('desktop'))
         return;
     if (messages.value.length == 0) {

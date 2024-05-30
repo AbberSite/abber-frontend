@@ -68,10 +68,12 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
-  watch($viewport.breakpoint, (newBreakpoint, oldBreakpoint)=> {
-    // if(newBreakpoint == 'desktop' && oldBreakpoint == 'tablet')
-    //   reloadNuxtApp();
-    console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
+  watch($viewport.breakpoint, async(newBreakpoint, oldBreakpoint)=> {
+    if(newBreakpoint == 'desktop' && oldBreakpoint == 'tablet'){
+      await runFunction();
+      // console.log('desktop is running')
+    }
+    // console.log('Breakpoint updated:', oldBreakpoint, '->', newBreakpoint);
   });
 
   await runFunction();
