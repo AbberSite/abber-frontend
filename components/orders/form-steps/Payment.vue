@@ -305,6 +305,11 @@ async function loadHyper() {
         cardGroup?.insertAdjacentElement('afterend', div);
         div.append(cvvGroup);
         div.append(expiryGroup);
+        let the_cvv_expiry_group = document.querySelectorAll('.cvv-expiry-wrapper > div');
+        if(the_cvv_expiry_group[0].innerText != "رمز التحقق (CVV)") {
+          const my_cvv_date_group = document.querySelector('.cvv-expiry-wrapper');
+          my_cvv_date_group.classList.add('flex-row-reverse');
+        };
       } else if (paymentMethod.value == 'APPLEPAY') {
         let applepayButton = document.querySelector(".wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line");
         let my_text = document.createElement('p');
@@ -547,9 +552,9 @@ async function useBalance() {
   @apply flex flex-col;
 }
 
-.wpwl-form .wpwl-label-cardNumber {
+/* .wpwl-form .wpwl-label-cardNumber {
   @apply text-right w-full block text-sm font-semibold xs:text-base;
-}
+} */
 
 .wpwl-form .wpwl-group-cardNumber iframe {
   @apply form-control h-[50px] pl-12 w-full mt-2;
@@ -564,7 +569,7 @@ async function useBalance() {
 }
 
 .cvv-expiry-wrapper {
-  @apply flex items-center justify-between gap-3;
+  @apply flex items-center justify-between gap-3 mt-4;
 }
 
 .cvv-expiry-wrapper .wpwl-label-cvv {
@@ -596,10 +601,11 @@ async function useBalance() {
 
 .wpwl-label-cardNumber,.wpwl-label-cvv,.wpwl-label-expiry,.wpwl-label-mobilePhone {
     display: block;
-    font-size: .75rem;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
     line-height: 1rem;
-    margin-left: 0px;
+    margin: 0px;
+    direction: rtl;
     width: 100%
 }
 
