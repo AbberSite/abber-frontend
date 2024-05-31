@@ -592,6 +592,15 @@ async function useBalance() {
 
 .wpwl-group-mobilePhone {
   @apply flex flex-col items-center text-center
+};
+
+.wpwl-label-cardNumber,.wpwl-label-cvv,.wpwl-label-expiry,.wpwl-label-mobilePhone {
+    display: block;
+    font-size: .75rem;
+    font-weight: 600;
+    line-height: 1rem;
+    margin-left: 0px;
+    width: 100%
 }
 
 /* .wpwl-group-cardNumber {
