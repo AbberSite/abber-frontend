@@ -68,6 +68,12 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
+  watch($viewport.breakpoint, async (newScreen, oldScreen)=> {
+    if(oldScreen == 'tablet' && newScreen == 'desktop'){
+      if(loading_chat.value)
+        loading_chat.value = false;
+    }
+  })
   if ($viewport.isLessThan('desktop'))
     return;
   // console.log('desktop chat')
