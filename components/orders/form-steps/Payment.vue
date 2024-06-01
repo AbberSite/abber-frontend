@@ -273,7 +273,6 @@ async function loadHyper() {
       const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
       const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
       const cardBrand = document.querySelector('.card-brand') as Element;
-      console.log(cardBrand);
       // labels
       const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
       const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
@@ -302,13 +301,15 @@ async function loadHyper() {
 
         const div = document.createElement('div');
         div.classList.add('cvv-expiry-wrapper');
+        div.classList.add('flex-row-reverse');
         cardGroup?.insertAdjacentElement('afterend', div);
         div.append(cvvGroup);
         div.append(expiryGroup);
         let the_cvv_expiry_group = document.querySelectorAll('.cvv-expiry-wrapper > div');
-        if(the_cvv_expiry_group[0].innerText != "رمز التحقق (CVV)") {
+        console.log(the_cvv_expiry_group[0].innerText)
+        if(the_cvv_expiry_group[0].innerText == "رمز التحقق (CVV)") {
           const my_cvv_date_group = document.querySelector('.cvv-expiry-wrapper');
-          my_cvv_date_group.classList.add('flex-row-reverse');
+          my_cvv_date_group.classList.remove('flex-row-reverse');
         };
       } else if (paymentMethod.value == 'APPLEPAY') {
         let applepayButton = document.querySelector(".wpwl-apple-pay-button.wpwl-apple-pay-button-white-with-line");
