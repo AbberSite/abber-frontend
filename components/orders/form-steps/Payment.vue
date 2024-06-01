@@ -306,8 +306,7 @@ async function loadHyper() {
         div.append(cvvGroup);
         div.append(expiryGroup);
         let the_cvv_expiry_group = document.querySelectorAll('.cvv-expiry-wrapper > div');
-        console.log(the_cvv_expiry_group[0].innerText)
-        if(the_cvv_expiry_group[0].innerText == "رمز التحقق (CVV)") {
+        if((the_cvv_expiry_group[0].innerText as string).includes('CVV')) {
           const my_cvv_date_group = document.querySelector('.cvv-expiry-wrapper');
           my_cvv_date_group.classList.remove('flex-row-reverse');
         };
