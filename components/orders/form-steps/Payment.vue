@@ -177,7 +177,7 @@ const cardImage = computed(
 
 const cardImages: { [key: string]: { src: string; class: string } } = {
   general: { src: '/images/payments/general.svg', class: 'w-6 h-6 lg:top-11 md:top-11 top-9 ltr:right-3 rtl:left-3' },
-  VISA: { src: '/images/payments/visa.svg', class: 'w-8 h-8 lg:top-12 md:top-12 top-10  ltr:right-3 rtl:left-3' },
+  VISA: { src: '/images/payments/section/visa-icon.png', class: 'w-8 h-8 lg:top-12 md:top-12 top-10  ltr:right-3 rtl:left-3' },
   MASTER: {
     src: '/images/payments/mastercard.webp',
     class: 'w-8 h-8 lg:top-[2.9rem] md:top-[2.9rem] top-[2.3rem] ltr:right-3 rtl:left-3'
@@ -269,11 +269,11 @@ async function loadHyper() {
       }
 
       // Groups
-      const cardGroup = document.querySelector('.wpwl-group-cardNumber');
+      const cardGroup = document.querySelector('.wpwl-wrapper-cardNumber');
       const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
       const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
       const cardBrand = document.querySelector('.card-brand') as Element;
-
+      console.log(cardBrand);
       // labels
       const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
       const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
@@ -298,7 +298,7 @@ async function loadHyper() {
         cardHolderInput.value = data.value.username;
 
         if (cardBrand)
-          cardGroup?.append(cardBrand);
+          cardGroup?.appendChild(cardBrand.cloneNode(true));
 
         const div = document.createElement('div');
         div.classList.add('cvv-expiry-wrapper');
@@ -565,7 +565,7 @@ async function useBalance() {
 }
 
 .wpwl-form .wpwl-group-cardNumber .card-brand {
-  @apply top-[54px];
+  @apply top-[23px];
 }
 
 .cvv-expiry-wrapper {
