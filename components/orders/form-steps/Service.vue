@@ -80,12 +80,12 @@ function submit(service_id: number) {
   if (!service_id) {
     if (status.value == 'authenticated') {
       next({
-        nextStepId: 'payment', data: { service_id: 0 }
+        nextStepId: 'payment', data: { service_id: 0, orders: [], selectedServices: [] }
       });
       return;
     } else {
       next({
-        nextStepId: 'authentication-method'
+        nextStepId: 'authentication-method', data: { service_id: 0, orders: [], selectedServices: [] }
       })
     }
     return;
