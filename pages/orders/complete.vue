@@ -123,7 +123,7 @@ import type { OrderForm } from '~/types';
 
 const route = useRoute();
 const router = useRouter();
-const { getSession } = useAuth();
+// const { getSession } = useAuth();
 const id = route.query.id;
 const balance = route.query.balance;
 let transaction_id: string;

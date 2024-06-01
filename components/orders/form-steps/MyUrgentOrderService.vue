@@ -56,11 +56,11 @@ function sendResponse(res: boolean) {
         // next({ nextStepId: '', data: { selectedService: 0 } });
     } else {
         if (status.value == 'authenticated')
-            next({ nextStepId: 'payment', data: { orders: undefined, selectedServices: undefined } });
+            next({ nextStepId: 'payment', data: { orders: [], selectedServices: [] } });
         else {
             next({
                 nextStepId: 'authentication-method',
-                data: { orders: undefined, selectedServices: undefined }
+                data: { orders: [], selectedServices: [] }
             })
         }
         // submit();
