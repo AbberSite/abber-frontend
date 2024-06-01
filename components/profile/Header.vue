@@ -254,8 +254,7 @@ async function submitUpdate() {
 }
 
 async function logout() {
-    await signOut({ callbackUrl: '/accounts/login', redirect: true });
-    useNotification({ type: 'success', content: 'تم تسجيل الخروج بنجاح' });
+    await useLogout()
 };
 function cancel(){
     edit.value = false;

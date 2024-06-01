@@ -109,14 +109,10 @@
 
 <script setup lang="ts">
 
-const { signOut } = useAuth();
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 async function logout() {
-
-    await signOut({ callbackUrl: '/accounts/login', redirect: true });
-    useNotification({ type: 'success', content: 'تم تسجيل الخروج بنجاح' });
-
+    await useLogout();
 }
 
 </script>

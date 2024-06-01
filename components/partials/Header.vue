@@ -106,6 +106,7 @@
     import { Bars3Icon } from '@heroicons/vue/24/outline';
 
     import { vOnClickOutside } from '@vueuse/components';
+import useLogout from '~/composables/useLogout';
 
     const openDropdown = ref(false);
     const profileDropdown = ref(false);
@@ -122,12 +123,7 @@
 
     async function logout() {
 
-        await router.push("/accounts/sms")
-        loading.value = true;
-        await signOut({ callbackUrl: '/accounts/sms', redirect: true });
-        loading.value = false;
-
-        useNotification({ type: 'success', content: 'تم تسجيل الخروج بنجاح' });
+        await useLogout()
     }
 
     const notifictionsOnClickOutside = [
