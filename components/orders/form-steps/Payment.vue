@@ -586,7 +586,7 @@ async function useBalance() {
 }
 
 .wpwl-control-mobilePhone {
-  @apply form-control h-[50px] block text-sm xs:text-base w-full;
+  @apply form-control h-[40px] block text-sm xs:text-base w-full mt-4;
   direction: rtl;
 }
 
