@@ -31,7 +31,7 @@
         <div class="w-full space-y-3">
             <!-- <label class="block text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label> -->
 
-            <PhoneInput v-model="tempAccount.phone" id="phone" />
+            <PhoneInput v-model="tempAccount.phone" id="phone" mobile />
 
             <InputError v-for="message in errors.phone" :message="message" />
         </div>

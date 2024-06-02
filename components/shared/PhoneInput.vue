@@ -1,6 +1,6 @@
 <template>
   <div class="w-full space-y-3">
-    <label class="block text-sm font-semibold xs:text-base" for="tel">{{ sms ? 'رقم الجوال' : 'رقم الواتساب' }}</label>
+    <label class="block text-sm font-semibold xs:text-base" for="tel">{{ sms ? 'رقم الجوال' : mobile ? 'رقم الهاتف' : 'رقم الواتساب' }}</label>
 
     <input ref="phoneInput" class="form-control h-[50px] appearance-none" :type="isApple ? 'text' : 'number'" pattern="\d*" name="phone" id="tel"
       :placeholder="placeholder ?? '12345XXXX'" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model.number="phone"
@@ -22,6 +22,7 @@ const props = defineProps<{
   error?: string;
   sms?: boolean;
   placeholder?: string;
+  mobile?: boolean;
 }>();
 
 const phone = ref('');
