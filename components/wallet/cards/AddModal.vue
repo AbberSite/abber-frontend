@@ -2,7 +2,7 @@
 
     <Modal title="إضافة بطاقة إئتمانية" @close="emit('close')">
 
-        <div class="is-scroll overflow-y-auto flex h-full flex-col gap-7 px-4 py-8 pb-36">
+        <div class="is-scroll overflow-y-auto flex h-full flex-col gap-7 px-4 py-8 pb-36" id="addMyCard">
             <fieldset class="space-y-7">
                 <div class="max-w-[320px] overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm"
                     x-show="alert" role="alert">
@@ -36,7 +36,7 @@
                         id="payment-scrolling" aria-orientation="horizontal">
                         <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg"
                             id-of-card="MASTER" v-model="paymentMethod" width="26" height="26" />
-                        <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg"
+                        <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa-icon.png"
                             id-of-card="VISA" v-model="paymentMethod" width="26" height="26" />
                         <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png"
                             id-of-card="MADA" v-model="paymentMethod" width="40" height="40" />
@@ -325,96 +325,96 @@ async function scrollPayments() {
 </script>
 
 <style>
-.wpwl-container {
+#addMyCard .wpwl-container {
     @apply pt-[20px] px-2;
 }
 
-.wpwl-form-has-inputs {
+#addMyCard .wpwl-form-has-inputs {
     @apply shadow-none form-control;
 }
 
-.wpwl-group-registration {
+#addMyCard .wpwl-group-registration {
     @apply w-full flex;
 }
 
-.wpwl-container .wpwl-registration {
+#addMyCard .wpwl-container .wpwl-registration {
     @apply flex items-center justify-around w-full flex-row-reverse;
 }
 
-.wpwl-container .wpwl-registration div {
+#addMyCard .wpwl-container .wpwl-registration div {
     @apply pl-0;
 }
 
-.wpwl-container .wpwl-wrapper-registration-registrationId {
+#addMyCard .wpwl-container .wpwl-wrapper-registration-registrationId {
     @apply flex justify-center
 }
 
-.wpwl-container .wpwl-wrapper-registration-cvv {
+#addMyCard .wpwl-container .wpwl-wrapper-registration-cvv {
     @apply hidden;
 }
 
-.wpwl-container .wpwl-wrapper-registration-details {
+#addMyCard .wpwl-container .wpwl-wrapper-registration-details {
     @apply flex justify-around flex-row-reverse;
 }
 
-.wpwl-container .wpwl-button-pay {
+#addMyCard .wpwl-container .wpwl-button-pay {
     @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
-.wpwl-form {
+#addMyCard .wpwl-form {
     @apply flex flex-col items-center;
 }
 
-.wpwl-form .wpwl-wrapper-submit {
+#addMyCard .wpwl-form .wpwl-wrapper-submit {
     @apply w-full;
 }
 
-.wpwl-form .wpwl-wrapper-submit button {
+#addMyCard .wpwl-form .wpwl-wrapper-submit button {
     @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
-.wpwl-container-card {
+#addMyCard .wpwl-container-card {
     @apply pt-4
 }
 
-.wpwl-form .wpwl-group-brand, .wpwl-form .wpwl-group-cardHolder {
+#addMyCard .wpwl-form .wpwl-group-brand, .wpwl-form .wpwl-group-cardHolder {
     @apply hidden;
 }
 
-.wpwl-form .wpwl-group-cardNumber {
+#addMyCard .wpwl-form .wpwl-group-cardNumber {
     @apply flex flex-col;
 }
 
-.wpwl-form .wpwl-label-cardNumber {
+#addMyCard .wpwl-form .wpwl-label-cardNumber {
     @apply text-right w-full block text-sm font-semibold xs:text-base;
 }
 
-.wpwl-form .wpwl-group-cardNumber iframe {
+#addMyCard .wpwl-form .wpwl-group-cardNumber iframe {
     @apply form-control h-[50px] pl-12 w-full mt-2;
 }
 
-.wpwl-form .wpwl-wrapper-cardNumber {
+#addMyCard .wpwl-form .wpwl-wrapper-cardNumber {
     @apply w-full;
 }
 
-.wpwl-form .wpwl-group-cardNumber .card-brand {
+#addMyCard .wpwl-form .wpwl-group-cardNumber .card-brand {
     @apply top-[54px];
 }
 
-.cvv-expiry-wrapper {
+#addMyCard .cvv-expiry-wrapper {
     @apply flex items-center justify-between gap-3 flex-row-reverse;
 }
 
-.cvv-expiry-wrapper .wpwl-label-cvv {
+#addMyCard .cvv-expiry-wrapper .wpwl-label-cvv {
     direction: rtl;
 }
 
-.cvv-expiry-wrapper div {
+#addMyCard .cvv-expiry-wrapper div {
     @apply flex flex-col text-right w-full;
 }
 
-.cvv-expiry-wrapper div input,
-.cvv-expiry-wrapper div iframe {
+#addMyCard .cvv-expiry-wrapper div input,
+#addMyCard .cvv-expiry-wrapper div iframe {
     @apply form-control h-[50px] pl-12 w-full mt-2 text-end;
 }
 </style>

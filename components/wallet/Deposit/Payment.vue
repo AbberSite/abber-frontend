@@ -1,311 +1,51 @@
 <template>
-    <div class="flex h-full flex-col gap-7 px-4 py-8 pb-36">
-        <div class="min-h-[20rem]">
-
-            <div class="hidden">
-                <span class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
-                    :class="cardImage.class">
-                    <img class="lazyload w-8"
-                        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-                        :data-src="cardImage.src" />
-                </span>
-            </div>
-
-            <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse max-w-[320px]"
-                id="payment-scrolling" aria-orientation="horizontal">
-                <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg"
-                    id-of-card="MASTER" v-model="paymentMethod" width="26" height="26" />
-                <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa.svg" id-of-card="VISA"
-                    v-model="paymentMethod" width="26" height="26" />
-                <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA"
-                    v-model="paymentMethod" width="40" height="40" />
-                <!-- <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp"
-                            id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
-                        <FormStepsCardComponent title="أبل باي" logo="/images/payments/section/apple-pay.svg"
-                            id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
-                        <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/bocket.svg"
-                            id-of-card="WALLET" v-model="paymentMethod" width="24" height="24" /> -->
-            </div>
-
-            <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
-                <Loading class="w-14 h-14" />
-            </div>
-
-            <InputError :message="error" />
-
-            <div dir="ltr" class="payment-form" ref="paymentForm">
-                <form dir="ltr" action="/complete-charge" class="paymentWidgets" :data-brands="paymentMethod">
-                </form>
-            </div>
-        </div>
-    </div>
+    <FormStepsPayment deposit />
 </template>
 <script setup lang="ts">
-import 'intl-tel-input/build/css/intlTelInput.css';
-import useScript from '~/composables/useScript';
-import intlTelInput from 'intl-tel-input';
-import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
-const { state, bus } = useFormWizard<any>('deposit');
 
-const emit = defineEmits(['close']);
-const { data, getSession } = useAuth();
+// onMounted(async () => {
+//     // await getSession()
 
-const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
-
-let hyper: any = undefined;
-let executePayment: (() => void) | undefined;
-
-bus?.on((event: string) => {
-    console.log(executePayment);
-    if (executePayment) executePayment();
-    // hyper.executePayment();
-    // console.log(event);
-});
-
-const cardType = ref('general');
-const loading = ref(true);
-const paymentForm = ref<HTMLDivElement | null>(null);
-const error = ref('');
-
-const { fetchBalance } = useWalletStore();
-
-const { balance } = storeToRefs(useWalletStore());
-
-const paymentMethod = ref('MASTER');
-
-const hasSufficientBallance = computed(() => {
-    if (!hyper) return false;
-
-    return balance.value.available_balance >= hyper?.checkout?.amount;
-});
-
-watch(paymentMethod, async (value) => {
-    loading.value = true;
-    hyper.unload();
-    const form = document.createElement('form');
-    
-    form.dir = 'ltr';
-    form.action = '/complete-charge';
-    form.classList.add('paymentWidgets');
-    
-    form.dataset.brands = value;
-    
-    paymentForm.value?.append(form);
-    
-    document.querySelector('.wpwl-form.wpwl-form-registrations.wpwl-clearfix')?.remove();
-    await loadHyper();
-    loading.value = false;
-
-});
-
-onUnmounted(async () => {
-    hyper.unload();
-
-    const form = document.createElement('form');
-
-    form.dir = 'ltr';
-    form.action = '/wallet';
-    form.classList.add('paymentWidgets');
-
-    form.dataset.brands = paymentMethod.value;
-
-    paymentForm.value?.append(form);
-
-    loading.value = false;
-
-    await loadHyper();
-});
-
-const cardImage = computed(
-    () =>
-        cardImages[cardType.value] ?? {
-            src: '/images/payments/general.svg',
-            class: 'w-6 h-6 lg:top-11 md:top-11 top-9 ltr:right-3 rtl:left-3'
-        }
-);
-
-const cardImages: { [key: string]: { src: string; class: string } } = {
-    general: { src: '/images/payments/general.svg', class: 'w-6 h-6 lg:top-11 md:top-11 top-9 ltr:right-3 rtl:left-3' },
-    VISA: { src: '/images/payments/visa.svg', class: 'w-8 h-8 lg:top-12 md:top-12 top-10  ltr:right-3 rtl:left-3' },
-    MASTER: {
-        src: '/images/payments/mastercard.webp',
-        class: 'w-8 h-8 lg:top-[2.9rem] md:top-[2.9rem] top-[2.3rem] ltr:right-3 rtl:left-3'
-    },
-    MADA: { src: '/images/payments/mada.png', class: 'w-8 h-8 top-[1.2rem] md:[1.2rem] ltr:right-3 rtl:left-3' },
-    stc_pay: { src: '/images/payments/stc_pay.webp', class: '' }
-};
-
-onMounted(async () => {
-    // await getSession()
-
-    error.value = '';
-    try {
-        Promise.all([getCountry(), loadHyper(), fetchBalance()]);
-        // await loadHyper();
-        // await fetchBalance();
-    } catch (error) {
-        console.log(error);
-    }
-});
-async function getCountry() {
-    try {
-        const url = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
-        const response = await fetch(url);
-        const data = await response.json();
-
-        countryCode.value = data.countryCode;
-    } catch (error) {
-        console.error(error);
-        return 'sa';
-    }
-}
-
-getCountry();
+//     error.value = '';
+//     try {
+//         Promise.all([getCountry(), loadHyper(), fetchBalance()]);
+//         // await loadHyper();
+//         // await fetchBalance();
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
 
 const countryCode = ref('');
 
-async function loadHyper() {
-    const payment = await createCheckout();
-    console.log(payment);
-    if (!payment.id) {
-        error.value = 'حدث خطأ ما';
-        return;
-    }
+// async function loadHyper() {
+//     const payment = await createCheckout();
+//     console.log(payment);
+//     if (!payment.id) {
+//         error.value = 'حدث خطأ ما';
+//         return;
+//     }
 
-    await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
+//     await useScript(`${paymentWidgetURL}?checkoutId=${payment.id}/registration`);
 
-    // @ts-ignore
-    hyper = wpwl as any;
-}
+//     // @ts-ignore
+//     hyper = wpwl as any;
+// }
 
-async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
-    return new Promise(async (resolve, reject) => {
-        // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
-
-        //
-
-        const checkout = await useProxy(`/wallets/charge/`, {
-            method: 'POST',
-            body: {
-                // type: 'VISA',
-                amount: state.value.data.amount,
-                // TODO: unncomment the above line when finishing from testing
-                brand: paymentMethod.value
-                // brand: cardType.valuee
-            }
-        });
-
-        localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
-
-        // persist();
-
-        resolve(checkout);
-    });
-}
-
-(window as any).wpwlOptions = {
-    style: 'plain',
-    locale: 'en',
-    brandDetection: true,
-    brandDetectionPriority: ['VISA', 'MAESTRO', 'MASTER'],
-    // inlineFlow: ['KLARNA_PAYMENTS_PAYNOW'],
-    labels: {
-        cardNumber: '0000 0000 0000 0000',
-        cvv: '000',
-        expiryDate: 'تاريخ الإنتهاء',
-        submit: 'متابعة',
-        mobilePhoneNumber: 'رقم الهاتف',
-        showOtherPaymentMethods: 'الدفع ببطاقة أخرى'
-    },
-    errorMessages: {
-        cvvError: 'رمز التحقق غير صالح',
-        cardNumberError: 'رقم البطاقة غير صالح',
-        expiryMonthError: 'تاريخ الإنتهاء غير صالج',
-        expiryYearError: 'تاريخ الإنتهاء غير صالج'
-    },
-    onFocusIframeCommunication: async function () {
-        const form = this.$iframe[0] as HTMLIFrameElement;
-
-        form.classList.add('activeIframe');
-    },
-    onBlurIframeCommunication: function () {
-        const form = this.$iframe[0] as HTMLElement;
-
-        form.classList.remove('activeIframe');
-    },
-    onChangeBrand: (data: string) => {
-        if (!data) {
-            cardType.value = 'general';
-            return;
-        }
-        cardType.value = data;
-    },
-    onReady: function (array: Array<any>) {
-        const containerKey = array[0]?.containerKey as string;
-
-        if (containerKey) {
-            executePayment = () => {
-                //@ts-ignore
-                (wpwl as any).executePayment(containerKey);
-            };
-        }
-
-        console.log(containerKey);
-
-        loading.value = false;
-
-        // Groups
-        const cardGroup = document.querySelector('.wpwl-group-cardNumber');
-        const expiryGroup = document.querySelector('.wpwl-group-expiry') as Element;
-        const cvvGroup = document.querySelector('.wpwl-group-cvv') as Element;
-        const cardBrand = document.querySelector('.card-brand') as Element;
-
-        // labels
-        const cardLabel = document.querySelector('.wpwl-label-cardNumber') as Element;
-        const cvvLabel = document.querySelector('.wpwl-label-cvv') as Element;
-        const phoneNumberLabel = document.querySelector('.wpwl-label-mobilePhone') as Element;
-
-        // input
-        const phoneNumber = document.querySelector('.wpwl-control-mobilePhone') as Element;
-
-        if (phoneNumber) {
-            const iti = intlTelInput(phoneNumber as Element, {
-                initialCountry: countryCode.value,
-                separateDialCode: true,
-                nationalMode: true,
-                utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
-            });
-            phoneNumberLabel.innerHTML = 'رقم الهاتف';
-
-            (phoneNumber as HTMLInputElement).placeholder = '7835196169';
-
-            phoneNumber;
-        }
-
-        cardLabel.innerHTML = 'رقم البطاقة';
-        cvvLabel.innerHTML = 'رمز التحقق (CVV)';
-
-        const cardHolderInput = document.querySelector('.wpwl-control-cardHolder') as HTMLInputElement;
-
-        cardHolderInput.value = data.value.username;
-
-
-
-        if (cardBrand)
-            cardGroup?.append(cardBrand);
-
-        const div = document.createElement('div');
-        div.classList.add('cvv-expiry-wrapper');
-        cardGroup?.insertAdjacentElement('afterend', div);
-
-        div.append(expiryGroup);
-        div.append(cvvGroup);
-    }
-};
 </script>
 
 <style>
+.my_deposit {
+    @apply max-w-[300px];
+}
+.my_deposit .wpwl-group-registration {
+    overflow: hidden;
+}
+.my_deposit .wpwl-wrapper-registration-holder{
+    display: none;
+}
+/*
 .wpwl-group-cardNumber {
     @apply relative;
 }
@@ -358,7 +98,6 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 }
 
 .wpwl-button-pay {
-    /* @apply flex */
     @apply hidden h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
@@ -369,4 +108,5 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 .activeIframe {
     @apply border-gray-900 text-base outline-none ring-1 ring-gray-900 placeholder:opacity-0;
 }
+*/
 </style>

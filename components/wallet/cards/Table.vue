@@ -38,7 +38,7 @@
             <span class="flex items-center space-x-1 rtl:space-x-reverse">
               <img class="lazyload max-w-none" v-if="card.brand == 'VISA'"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-                data-src="/images/payments/section/visa.svg" height="20" width="20"/>
+                data-src="/images/payments/section/visa-icon.png" height="20" width="20"/>
               <img class="lazyload max-w-none" v-if="card.brand == 'MASTER'"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                 data-src="/images/payments/section/mastercard.svg" height="20" width="20"/>

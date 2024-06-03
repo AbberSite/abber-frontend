@@ -2,7 +2,7 @@
     <Modal title="شحن الرصيد" @close="emit('close')">
 
         <div class="is-scroll overflow-y-auto flex h-full flex-col gap-7 px-4 py-8 pb-36">
-            <fieldset class="space-y-7">
+            <fieldset class="space-y-7 w-full">
                 <div class="w-full overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out sm:max-w-sm"
                     x-show="alert" role="alert">
                     <div class="mt-1.5 flex">

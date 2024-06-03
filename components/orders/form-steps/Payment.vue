@@ -1,9 +1,9 @@
 <template>
 
-  <Head>
+  <Head v-if="!deposit">
     <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
   </Head>
-  <div class="min-h-[20rem]">
+  <div class="min-h-[20rem]" :class="{'my_deposit': deposit}">
     <div class="hidden">
       <span class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
         :class="cardImage.class">
@@ -13,38 +13,45 @@
       </span>
     </div>
 
-    <div class="w-full space-y-3">
-      <h1 class="text-center font-semibold" v-if="!loading">السعر الإجمالي : <span class="text-blue-600">{{
-        hyper.checkout.amount }}
-          ر.س</span></h1>
+    <div class="space-y-3">
+      <template v-if="!deposit">
+        <h1 class="text-center font-semibold" v-if="!loading">السعر الإجمالي : <span class="text-blue-600">{{
+          hyper.checkout.amount }}
+            ر.س</span></h1>
 
-      <div v-if="paymentMethod == 'APPLEPAY' && isApple && !isSafari && !loading"
-        class="bg-yellow-200 p-3 my-2 rounded-md flex flex-col items-center">
-        <ExclamationTriangleIcon class="w-6 h-6" />
-        <div class="flex gap-1 flex-wrap justify-center">
-          <span>حتى تتمكن من الدفع</span> <span class="flex gap-1">بإستخدام أبل باي <img
-              src="/images/payments/applepay.svg" alt="applepay" width="24" height="24"></span> <span
-            class="flex gap-1">تحتاج استخدام متصفح سفاري <img src="/images/safari.svg" alt="safari browser" width="16"
-              height="16"></span>.
+        <div v-if="paymentMethod == 'APPLEPAY' && isApple && !isSafari && !loading"
+          class="bg-yellow-200 p-3 my-2 rounded-md flex flex-col items-center">
+          <ExclamationTriangleIcon class="w-6 h-6" />
+          <div class="flex gap-1 flex-wrap justify-center">
+            <span>حتى تتمكن من الدفع</span> <span class="flex gap-1">بإستخدام أبل باي <img
+                src="/images/payments/applepay.svg" alt="applepay" width="24" height="24"></span> <span
+              class="flex gap-1">تحتاج استخدام متصفح سفاري <img src="/images/safari.svg" alt="safari browser" width="16"
+                height="16"></span>.
+          </div>
         </div>
-      </div>
+      </template>
 
       <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
         id="payment-scrolling" aria-orientation="horizontal">
-
-        <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
-          id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
-        <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
-          height="26" :multi="true" />
-        <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY"
-          v-model="paymentMethod" width="40" height="40" />
-        <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE"
-          v-model="paymentMethod" width="24" height="24" />
-
+        <template v-if="!deposit">
+          <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
+            id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
+          <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
+            height="26" :multi="true" />
+          <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY"
+            v-model="paymentMethod" width="40" height="40" />
+          <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE"
+            v-model="paymentMethod" width="24" height="24" />
+        </template>
+        <template v-else>
+          <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg" id-of-card="MASTER"
+            v-model="paymentMethod" width="26" height="26" />
+          <FormStepsCardComponent title="فيزا كارد" logo="/images/payments/section/visa-icon.png" id-of-card="VISA"
+            v-model="paymentMethod" width="26" height="26" />
+          <FormStepsCardComponent title="مدى كارد" logo="/images/payments/section/mada.png" id-of-card="MADA"
+            v-model="paymentMethod" width="40" height="40" />
+        </template>
       </div>
-
-
-
     </div>
 
     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
@@ -59,31 +66,33 @@
         :data-brands="paymentMethod === 'CARD' ? 'VISA MASTER MADA' : paymentMethod"></form>
     </div>
 
-    <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
-      <div class="flex justify-between items-center py-2">
-        <p class="font-semibold">الرصيد الحالي:</p>
-        <p class="font-semibold px-2">{{ balance?.withdrawal_balance + balance?.available_balance }} ر.س</p>
-      </div>
-      <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="showConfirmDailog = true"
-        class="w-full"><span class="mt-1.5">الدفع
-          بالمحفظة</span></PrimaryButton>
+    <template v-if="!deposit">
+      <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
+        <div class="flex justify-between items-center py-2">
+          <p class="font-semibold">الرصيد الحالي:</p>
+          <p class="font-semibold px-2">{{ balance?.withdrawal_balance + balance?.available_balance }} ر.س</p>
+        </div>
+        <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="showConfirmDailog = true"
+          class="w-full"><span class="mt-1.5">الدفع
+            بالمحفظة</span></PrimaryButton>
 
-      <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
-    </div>
-    <div class="space-y-7" v-if="!loading">
-      <div class="flex items-center">
-        <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
-          name="checkbox" id="have-coupon" />
-        <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="have-coupon">لدي كوبون خصم</label>
+        <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
       </div>
-      <div class="w-full space-y-3" v-if="hasCoupon">
-        <input class="form-control h-[50px] appearance-none" type="text" name="text" id="coupon" v-model="coupon"
-          placeholder="إدخل كوبون الخصم" dir="rtl" required />
-        <p v-if="couponResponse?.error" class="text-red-500">{{ couponResponse?.message }}</p>
-        <p v-if="!couponResponse?.error" class="text-green-500">{{ couponResponse?.message }}</p>
-        <PrimaryButton @click="checkCoupon()" :loading="loadingCoupon">تحقق</PrimaryButton>
+      <div class="space-y-7" v-if="!loading">
+        <div class="flex items-center">
+          <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
+            name="checkbox" id="have-coupon" />
+          <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="have-coupon">لدي كوبون خصم</label>
+        </div>
+        <div class="w-full space-y-3" v-if="hasCoupon">
+          <input class="form-control h-[50px] appearance-none" type="text" name="text" id="coupon" v-model="coupon"
+            placeholder="إدخل كوبون الخصم" dir="rtl" required />
+          <p v-if="couponResponse?.error" class="text-red-500">{{ couponResponse?.message }}</p>
+          <p v-if="!couponResponse?.error" class="text-green-500">{{ couponResponse?.message }}</p>
+          <PrimaryButton @click="checkCoupon()" :loading="loadingCoupon">تحقق</PrimaryButton>
+        </div>
       </div>
-    </div>
+    </template>
   </div>
   <ConfirmDialog v-if="showConfirmDailog" :title="`تأكيد خصم ${hyper.checkout.amount} ر.س من محفظتك`"
     :descritpion="`هل انت متأكد من رغبتك في خصم ${hyper.checkout.amount} ريال سعودي من محفظتك`"
@@ -91,14 +100,28 @@
 </template>
 
 <script setup lang="ts">
+const props = defineProps<{ deposit?: boolean; }>();
 import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 const { isApple, isSafari } = useDevice()
-const { state, persist } = useFormWizard<OrderForm>('order');
+let state;
+let persist;
+if(!props.deposit){
+  state = useFormWizard<OrderForm>('order').state;
+  persist = useFormWizard<OrderForm>('order').persist;
+} else {
+  state = useFormWizard<any>('deposit').state;
+}
+function getWidth(){
+    return document.querySelector('.is-scroll.overflow-y-auto.flex.h-full.flex-col.gap-7.px-4.py-8.pb-36').offsetWidth;
+}
 const { data } = useAuth();
-
-const callbackURL = window.location.origin + (state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete');
+var callbackURL: string;
+if (!props.deposit)
+  callbackURL = window.location.origin + (state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete');
+else
+  callbackURL = '/complete-charge';
 
 const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
 let showConfirmDailog = ref(false);
@@ -123,7 +146,7 @@ const { fetchBalance } = useWalletStore();
 const { balance } = storeToRefs(useWalletStore());
 
 // const paymentMethod = ref('CARD');
-const paymentMethod = ref(isApple ? 'APPLEPAY' : 'CARD');
+const paymentMethod = ref(props?.deposit ? 'MASTER' : isApple ? 'APPLEPAY' : 'CARD');
 const cardType = ref('general');
 const hasSufficientBallance = computed(() => {
   return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
@@ -134,6 +157,10 @@ await useScript('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js');
 
 watch(paymentMethod, async (value) => {
   if (value == 'BALANCE') return;
+  if(props.deposit){
+    let buttonsIDontNeed = document.querySelectorAll(".wpwl-wrapper.wpwl-wrapper-submit");
+    buttonsIDontNeed.forEach((b)=> b.remove());
+  }
   loading.value = true;
   hyper.unload();
   document.querySelectorAll('script').forEach((script: HTMLScriptElement) => {
@@ -197,8 +224,12 @@ onMounted(async () => {
     }
   })
   error.value = '';
+
   try {
-    Promise.all([loadHyper(), fetchBalance()]);
+    if (!props?.deposit) {
+      Promise.all([loadHyper(), fetchBalance()]);
+    } else
+      await loadHyper();
     // await loadHyper();
     // await fetchBalance();
   } catch (error) {
@@ -303,10 +334,10 @@ async function loadHyper() {
         div.classList.add('cvv-expiry-wrapper');
         div.classList.add('flex-row-reverse');
         cardGroup?.insertAdjacentElement('afterend', div);
-        div.append(cvvGroup);
         div.append(expiryGroup);
+        div.append(cvvGroup);
         let the_cvv_expiry_group = document.querySelectorAll('.cvv-expiry-wrapper > div');
-        if((the_cvv_expiry_group[0].innerText as string).includes('CVV')) {
+        if ((the_cvv_expiry_group[0].innerText as string).includes('CVV')) {
           const my_cvv_date_group = document.querySelector('.cvv-expiry-wrapper');
           my_cvv_date_group.classList.remove('flex-row-reverse');
         };
@@ -354,30 +385,54 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     //   (state.value.data as OrderFrom).orders = checkout.cart;
     return checkout;
   }
-  return new Promise(async (resolve, reject) => {
+  if (!props.deposit) {
+    return new Promise(async (resolve, reject) => {
 
-    const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
-      method: 'POST',
-      body: {
-        type: state.value.data?.type,
-        another_service: another_service,
+      const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
+        method: 'POST',
+        body: {
+          type: state.value.data?.type,
+          another_service: another_service,
 
 
-        // TODO: unncomment the above line when finishing from testing
-        brand: paymentMethod.value
-        // brand: cardType.valuee
-      }
+          // TODO: unncomment the above line when finishing from testing
+          brand: paymentMethod.value
+          // brand: cardType.valuee
+        }
+      });
+
+      localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
+
+      (state.value.data as OrderForm).order_id = checkout.order_id;
+      if (checkout.cart.length > 1)
+        (state.value.data as OrderForm).orders = checkout.cart;
+      persist();
+
+      resolve(checkout);
     });
+  } else {
+    return new Promise(async (resolve, reject) => {
+        // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
 
-    localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
+        //
+        const checkout = await useProxy(`/wallets/charge/`, {
+            method: 'POST',
+            body: {
+                // type: 'VISA',
+                amount: state.value.data.amount,
+                // TODO: unncomment the above line when finishing from testing
+                brand: paymentMethod.value
+                // brand: cardType.valuee
+            }
+        });
 
-    (state.value.data as OrderForm).order_id = checkout.order_id;
-    if (checkout.cart.length > 1)
-      (state.value.data as OrderFrom).orders = checkout.cart;
-    persist();
+        localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
-    resolve(checkout);
-  });
+        // persist();
+
+        resolve(checkout);
+    });
+  }
 };
 
 async function checkCoupon() {
@@ -390,7 +445,7 @@ async function checkCoupon() {
   }
   loadingCoupon.value = true;
   let thereIsCoupon: boolean = false;
-  let res; 
+  let res;
   if (state.value.data?.selectedServices) {
     for (const service of state.value.data.selectedServices) {
       try {
@@ -402,7 +457,7 @@ async function checkCoupon() {
           }
         });
         thereIsCoupon = true;
-      } catch (e) {}
+      } catch (e) { }
     }
   }
   try {
@@ -439,7 +494,7 @@ async function checkCoupon() {
     //   loadingCoupon.value = false;
     //   return;
     // } 
-    if(paymentMethod.value == 'BALANCE'){
+    if (paymentMethod.value == 'BALANCE') {
       await loadHyper();
       hyper.checkout.amount = res.amount;
       loadingCoupon.value = false;
@@ -597,16 +652,21 @@ async function useBalance() {
 
 .wpwl-group-mobilePhone {
   @apply flex flex-col items-center text-center
-};
+}
 
-.wpwl-label-cardNumber,.wpwl-label-cvv,.wpwl-label-expiry,.wpwl-label-mobilePhone {
-    display: block;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1rem;
-    margin: 0px;
-    direction: rtl;
-    width: 100%
+;
+
+.wpwl-label-cardNumber,
+.wpwl-label-cvv,
+.wpwl-label-expiry,
+.wpwl-label-mobilePhone {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1rem;
+  margin: 0px;
+  direction: rtl;
+  width: 100%
 }
 
 /* .wpwl-group-cardNumber {
