@@ -11,21 +11,23 @@
             aria-labelledby="contact-types-heading">
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                 <Loading v-if="loading"/>
-                <CheckCircleIcon class="w-6 h-6" v-else />
+                <CheckCircleIcon class="w-6 h-6" v-else-if="!loading && successfull" />
+                <XCircleIcon class="w-6 h-6" v-else/>
             </div>
             <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" v-if="!loading">
-                تم حفظ البطاقة بنجاح!
+               {{successfull ? ' تم حفظ البطاقة بنجاح!': 'لقد فشلت عملية اضافة البطاقة'}}
             </h1>
         </section>
     </main>
 </template>
 
 <script setup lang="ts">
-import { CheckCircleIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline';
 const route = useRoute();
 const id = route.query.id;
 let transaction_id: string;
 let loading = ref(true);
+let successfull = ref<number>(2);
 async function isPaid() {
     return new Promise(async (resolve, reject) => {
         const response = await useApi(`/api/payments/${transaction_id}`, {
@@ -53,6 +55,10 @@ onMounted(async () => {
             }
           });
           loading.value = false;
+          successfull.value = 1;
+        } else {
+            successfull.value = 0;
+            loading.value = false;
         }
         localStorage.removeItem('abber:current-transaction-id');
     } else {

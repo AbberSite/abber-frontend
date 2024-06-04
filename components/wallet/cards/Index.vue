@@ -20,6 +20,8 @@
             </div>
         </form>
         <WalletCardsTable :cards="cards" @refresh-cards="refreshCards()" />
+        <div class="pt-4 font-semibold text-gray-500 text-center" v-if="!cards.length && !loading">لاتوجد بطاقات مضافة</div>
+
         <div
             class="fixed bottom-4 flex flex-col space-y-3 ltr:right-4 rtl:left-4 xs:bottom-6 ltr:xs:right-6 rtl:xs:left-6 lg:bottom-8 ltr:lg:right-8 rtl:lg:left-8">
             <button class="rounded-full bg-gray-900 px-4 py-4 text-white hover:bg-gray-800 focus:outline-none"
@@ -47,6 +49,7 @@ onMounted(async () => {
 async function refreshCards(){
     loading.value = true;
     const my_cards = await useProxy('/wallets/cards/');
+    cards.value = [];
     for(let card of my_cards.results){
         if(!cards.value.filter((c) => c.last4Digits === card.last4Digits).length){
             cards.value.push(card);
