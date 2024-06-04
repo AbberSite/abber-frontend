@@ -30,7 +30,7 @@
             <DetailsTabs v-model="activeTab" isVideoCall />
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
-                <ClientOnly v-if="canJoin">
+                <ClientOnly v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
                     <Meeting :order-id="order.id" />
                 </ClientOnly>
                 <ClientOnly v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
@@ -44,6 +44,10 @@
                     </div>
                 </div>
                 </ClientOnly>
+                <div v-else  class="flex flex-col justify-center items-center">
+                    <span class="pt-4 text-center font-semibold">هذا الطلب ملغي</span>
+                    <CheckCircleIcon class="h-8 w-8" />
+                </div>
             </div>
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
