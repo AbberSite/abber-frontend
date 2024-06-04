@@ -27,11 +27,22 @@
             </div>
 
             <DetailsHeader :show-navigation="activeTab == 'details'" />
-            <DetailsTabs v-model="activeTab" />
+            <DetailsTabs v-model="activeTab" isVideoCall />
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
                 <ClientOnly v-if="canJoin">
                     <Meeting :order-id="order.id" />
+                </ClientOnly>
+                <ClientOnly v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
+                    <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2" >
+                    <h2 class="text-xl font-semibold">يرجى الإنتظار حتى يحين دورك</h2>
+                    <div class="flex items-center justify-center space-x-3 pt-16 rtl:space-x-reverse">
+                      <div class="flex flex-col items-center justify-center px-4 py-2">
+                        <p class="text-2xl font-bold">{{ meeting.sessions_count }}</p>
+                        <p class="text-sm font-semibold text-gray-500 xs:text-base">أشخاص</p>
+                      </div>
+                    </div>
+                </div>
                 </ClientOnly>
             </div>
 

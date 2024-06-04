@@ -17,7 +17,7 @@
                 'border-gray-900': activeTab === 'chat',
                 'border-transparent text-gray-500 hover:text-gray-900': activeTab === 'details'
             }">
-            المحادثة
+            {{isVideoCall ? 'المكالمة' : 'المحادثة'}}
         </button>
         <button
             class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
@@ -41,6 +41,7 @@ import { useVModel } from '@vueuse/core';
 
 const props = defineProps<{
     modelValue?: 'details' | 'chat';
+    isVideoCall?: boolean;
 }>();
 
 const emits = defineEmits(['update:modelValue']);
