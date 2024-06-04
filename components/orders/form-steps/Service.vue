@@ -75,7 +75,6 @@ onMounted(async () => {
 function submit(service_id: number) {
   selectedService.value = service_id;
 
-
   if (status.value == 'loading') return
   if (!service_id) {
     if (status.value == 'authenticated') {

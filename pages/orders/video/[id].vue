@@ -87,9 +87,7 @@ definePageMeta({
 const isMobile = useMediaQuery('(max-width: 1023px)');
 const id = useRoute().params.id;
 
-const activeTab = ref<'details' | 'chat'>('details');
-
-const { getSession } = useAuth();
+const activeTab = ref<'details' | 'chat'>('chat');
 
 const { order } = storeToRefs(useOrdersStore());
 

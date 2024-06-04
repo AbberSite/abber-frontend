@@ -77,7 +77,7 @@
                                 <div class="pt-4">
                                     <NuxtLink
                                         class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                                        :to="{ name: 'index' }">
+                                        :to="{ name: 'support' }">
                                         <span class="ms-3 mt-1.5"> مركز الدعم</span>
                                     </NuxtLink>
                                 </div>
