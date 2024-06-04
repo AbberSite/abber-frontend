@@ -10,9 +10,10 @@
             class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="contact-types-heading">
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
-                <CheckCircleIcon class="w-6 h-6" />
+                <Loading v-if="loading"/>
+                <CheckCircleIcon class="w-6 h-6" v-else />
             </div>
-            <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">
+            <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" v-if="!loading">
                 تم حفظ البطاقة بنجاح!
             </h1>
         </section>
@@ -24,7 +25,7 @@ import { CheckCircleIcon } from '@heroicons/vue/24/outline';
 const route = useRoute();
 const id = route.query.id;
 let transaction_id: string;
-
+let loading = ref(true);
 async function isPaid() {
     return new Promise(async (resolve, reject) => {
         const response = await useApi(`/api/payments/${transaction_id}`, {
@@ -40,16 +41,18 @@ async function isPaid() {
 onMounted(async () => {
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
     if (transaction_id && id) {
-        const paid = await isPaid();
-        console.log(paid);
-        if (paid){
+        const checkout = await isPaid();
+        console.log(checkout);
+        if (checkout.paid){
 
           await useApi(`/api/wallet/cards/`, {
             method: 'POST',
             body: {
-              brand: 'CARD'
+                type:checkout.paymentBrand,
+              brand: checkout.paymentBrand.toLowerCase()
             }
           });
+          loading.value = false;
         }
         localStorage.removeItem('abber:current-transaction-id');
     } else {

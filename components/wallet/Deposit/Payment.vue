@@ -36,15 +36,7 @@ const countryCode = ref('');
 </script>
 
 <style>
-.my_deposit {
-    @apply max-w-[300px];
-}
-.my_deposit .wpwl-group-registration {
-    overflow: hidden;
-}
-.my_deposit .wpwl-wrapper-registration-holder{
-    display: none;
-}
+
 /*
 .wpwl-group-cardNumber {
     @apply relative;

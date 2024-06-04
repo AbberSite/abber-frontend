@@ -3,7 +3,7 @@
   <Head v-if="!deposit">
     <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
   </Head>
-  <div class="min-h-[20rem]" :class="{'my_deposit': deposit}">
+  <div class="min-h-[20rem]" :class="{'my_deposit': deposit || addCard}">
     <div class="hidden">
       <span class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
         :class="cardImage.class">
@@ -14,7 +14,7 @@
     </div>
 
     <div class="space-y-3">
-      <template v-if="!deposit">
+      <template v-if="!deposit && !addCard">
         <h1 class="text-center font-semibold" v-if="!loading">السعر الإجمالي : <span class="text-blue-600">{{
           hyper.checkout.amount }}
             ر.س</span></h1>
@@ -33,7 +33,7 @@
 
       <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm"
         id="payment-scrolling" aria-orientation="horizontal">
-        <template v-if="!deposit">
+        <template v-if="!deposit && !addCard">
           <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg"
             id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
           <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26"
@@ -66,7 +66,7 @@
         :data-brands="paymentMethod === 'CARD' ? 'VISA MASTER MADA' : paymentMethod"></form>
     </div>
 
-    <template v-if="!deposit">
+    <template v-if="!deposit && !addCard">
       <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
         <div class="flex justify-between items-center py-2">
           <p class="font-semibold">الرصيد الحالي:</p>
@@ -100,29 +100,27 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ deposit?: boolean; }>();
+const props = defineProps<{ deposit?: boolean; addCard?: boolean;}>();
 import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
 import useScript from '~/composables/useScript';
 const { isApple, isSafari } = useDevice()
 let state;
 let persist;
-if(!props.deposit){
+if(!props.deposit && !props.addCard){
   state = useFormWizard<OrderForm>('order').state;
   persist = useFormWizard<OrderForm>('order').persist;
 } else {
   state = useFormWizard<any>('deposit').state;
 }
-function getWidth(){
-    return document.querySelector('.is-scroll.overflow-y-auto.flex.h-full.flex-col.gap-7.px-4.py-8.pb-36').offsetWidth;
-}
 const { data } = useAuth();
 var callbackURL: string;
-if (!props.deposit)
+if (!props.deposit && !props.addCard)
   callbackURL = window.location.origin + (state.value?.data?.type === 'text_communication' ? '/orders/complete' : '/orders/video-complete');
-else
+else if(props.deposit)
   callbackURL = '/complete-charge';
-
+else if(props.addCard)
+  callbackURL = '/complete-card';
 const paymentWidgetURL = useRuntimeConfig().public.paymentWidgetURL;
 let showConfirmDailog = ref(false);
 const hasCoupon = ref(false)
@@ -146,7 +144,7 @@ const { fetchBalance } = useWalletStore();
 const { balance } = storeToRefs(useWalletStore());
 
 // const paymentMethod = ref('CARD');
-const paymentMethod = ref(props?.deposit ? 'MASTER' : isApple ? 'APPLEPAY' : 'CARD');
+const paymentMethod = ref(props?.deposit || props.addCard ? 'MASTER' : isApple ? 'APPLEPAY' : 'CARD');
 const cardType = ref('general');
 const hasSufficientBallance = computed(() => {
   return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
@@ -226,7 +224,7 @@ onMounted(async () => {
   error.value = '';
 
   try {
-    if (!props?.deposit) {
+    if (!props?.deposit && !props?.addCard) {
       Promise.all([loadHyper(), fetchBalance()]);
     } else
       await loadHyper();
@@ -385,7 +383,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
     //   (state.value.data as OrderFrom).orders = checkout.cart;
     return checkout;
   }
-  if (!props.deposit) {
+  if (!props.deposit && !props.addCard) {
     return new Promise(async (resolve, reject) => {
 
       const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
@@ -410,7 +408,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
       resolve(checkout);
     });
-  } else {
+  } else if(props.deposit) {
     return new Promise(async (resolve, reject) => {
         // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
 
@@ -422,6 +420,29 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
                 amount: state.value.data.amount,
                 // TODO: unncomment the above line when finishing from testing
                 brand: paymentMethod.value
+                // brand: cardType.valuee
+            }
+        });
+
+        localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
+
+        // persist();
+
+        resolve(checkout);
+    });
+  } else if(props.addCard){
+    return new Promise(async (resolve, reject) => {
+        // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
+
+        //
+
+        const checkout = await useApi(`/api/wallet/cards/`, {
+            method: 'POST',
+            body: {
+                type: paymentMethod.value,
+
+                // TODO: unncomment the above line when finishing from testing
+                brand: paymentMethod.value.toLowerCase()
                 // brand: cardType.valuee
             }
         });

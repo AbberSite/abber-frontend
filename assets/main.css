@@ -40,19 +40,19 @@
   }
 
 
-   /* Chrome, Safari, Edge, Opera */
- input::-webkit-outer-spin-button,
- input::-webkit-inner-spin-button {
-   -webkit-appearance: none;
-   margin: 0;
- }
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
- /* Firefox */
- input[type=number] {
-   -moz-appearance: textfield;
- }
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 
- 
+
 }
 
 @layer components {
@@ -116,5 +116,17 @@
 
   .prose :where(ul > li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
     @apply ltr:pl-1.5 rtl:pr-1.5;
+  }
+
+  .my_deposit {
+    @apply max-w-[300px];
+  }
+
+  .my_deposit .wpwl-group-registration {
+    overflow: hidden;
+  }
+
+  .my_deposit .wpwl-wrapper-registration-holder {
+    display: none;
   }
 }
