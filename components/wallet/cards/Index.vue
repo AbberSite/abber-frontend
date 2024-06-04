@@ -51,7 +51,7 @@ async function refreshCards(){
     const my_cards = await useProxy('/wallets/cards/');
     cards.value = [];
     for(let card of my_cards.results){
-        if(!cards.value.filter((c) => c.last4Digits === card.last4Digits).length){
+        if(!cards.value.filter((c) => c.last4Digits === card.last4Digits && c.brand == card.last4Digits).length){
             cards.value.push(card);
         }
     }
