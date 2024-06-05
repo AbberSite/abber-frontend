@@ -5,7 +5,7 @@
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">{{ notification.sender?.first_name }}</td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" >{{ useFormattedDate(notification?.date) }}</td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">
-            <NuxtLink :to="`${notification.url?.replace('orders/order', 'orders').replace('orders/orders', 'orders')}`" title="عرض الإشعار"><svg
+            <NuxtLink :to="notificationURL" title="عرض الإشعار"><svg
                     class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" height="20" width="20">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -21,4 +21,11 @@
 import type { Notification } from '~/types'
 const props = defineProps<{ notification: Notification }>();
 const {notification} = toRefs(props);
+let notificationURL = notification.value.url?.replace('orders/order', 'orders').replace('orders/orders', 'orders')
+
+if (notification.value.extra_data?.order_type == 'video_communication') {
+  // redirect video orders to specific video page 
+  // convert url from "/orders/123/" to "/order/video/123/"
+  notificationURL = notificationURL?.replace(/\/orders\/(\d+)\//, (match, p1) => `/orders/video/${p1}`); 
+}
 </script>
