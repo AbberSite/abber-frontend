@@ -36,6 +36,10 @@ export type Notification = {
   message?: string;
   date?: string;
   url?: string;
+  extra_data:{
+    type?:string,
+    order_type?:string,
+  }
 
 };
 
