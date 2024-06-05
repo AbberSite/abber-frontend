@@ -30,7 +30,7 @@
             <DetailsTabs v-model="activeTab" isVideoCall />
             <DetailsMobileCard v-if="activeTab == 'details'" />
             <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
-                <ClientOnly v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
+                <ClientOnly v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'">
                     <Meeting :order-id="order.id" />
                 </ClientOnly>
                 <ClientOnly v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
@@ -44,6 +44,10 @@
                     </div>
                 </div>
                 </ClientOnly>
+                <div v-else-if="(order?.status == 'in_progress' || order?.status == 'new') && data.user_type == 'معبر'" class="flex flex-col gap-6 text-center">
+                    <h1 class="pt-5 font-semibold">لقد خرجت من الاجتماع</h1>
+                    <PrimaryButton :loading="cancelButtonLoading" @click="cancelButtonLoading = true; updateOrderStatus(order.id, 'cancelled');">إلغاء الطلب</PrimaryButton>
+                </div>
                 <div v-else  class="flex flex-col justify-center items-center">
                     <span class="pt-4 text-center font-semibold">هذا الطلب ملغي</span>
                     <CheckCircleIcon class="h-8 w-8" />
@@ -51,26 +55,24 @@
             </div>
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
-                <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
+                <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
                     <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
                     <DetailsCard />
                 </div>
-                <div
-                    class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2"
+                <div class="rounded-lg border border-gray-300 flex flex-col items-center justify-center px-6 py-6 lg:col-span-2">
+                    <div
                     v-if="order?.status == 'complete' || order?.status == 'awaiting_delivery'">
                     <h2 class="text-xl font-semibold">هذا الطلب مكتمل</h2>
                     
                     <CheckCircleIcon class="h-8 w-8" />
                 </div>
 
-                <div
-                class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2"
-                v-if="order?.status == 'cancelled' || order?.status == 'waiting_for_cancellation'">
+                <div v-if="order?.status == 'cancelled' || order?.status == 'waiting_for_cancellation'">
                 <h2 class="text-xl font-semibold">هذا الطلب ملغى</h2>
                 
                 <CheckCircleIcon class="h-8 w-8" />
             </div>
-                <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2" v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
+                <div v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
                     <h2 class="text-xl font-semibold">يرجى الإنتظار حتى يحين دورك</h2>
                     <div class="flex items-center justify-center space-x-3 pt-16 rtl:space-x-reverse">
                       <div class="flex flex-col items-center justify-center px-4 py-2">
@@ -79,11 +81,17 @@
                       </div>
                     </div>
                 </div>
-                <ClientOnly  v-if="!isMobile && canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
-                    <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100  lg:col-span-2 relative">
+                <div v-else-if="(order?.status == 'in_progress' || order?.status == 'new') && data.user_type == 'معبر'" class="flex flex-col gap-6">
+                    <h1 class="pt-5 font-semibold">لقد خرجت من الاجتماع</h1>
+                    <PrimaryButton :loading="cancelButtonLoading" @click="cancelButtonLoading = true; updateOrderStatus(order.id, 'cancelled');">إلغاء الطلب</PrimaryButton>
+                </div>
+                <ClientOnly  v-if="!isMobile && canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'">
+                    <div class="flex flex-col items-center justify-center lg:col-span-2 relative">
                         <Meeting :order-id="order.id" />
                     </div>
                 </ClientOnly>
+                </div>
+                
             </div>
         </section>
     </main>
@@ -101,12 +109,12 @@ definePageMeta({
 
 const isMobile = useMediaQuery('(max-width: 1023px)');
 const id = useRoute().params.id;
-
+let cancelButtonLoading = ref(false);
 const activeTab = ref<'details' | 'chat'>('chat');
-
+const { data } = await useAuth();
 const { order } = storeToRefs(useOrdersStore());
 
-const { getOrder, subscribeToOrderStatus } = useOrdersStore();
+const { getOrder, subscribeToOrderStatus, updateOrderStatus } = useOrdersStore();
 
 const { getMeetingStatus, bus } = useMeetingStore();
 
@@ -141,7 +149,8 @@ await getOrder(id as string);
 const orderStatus = await subscribeToOrderStatus(order.value?.id as string);
 
 if (order.value?.status == 'new' || order.value?.status == 'in_progress') {
-    await getMeetingStatus(order.value?.id as string);
+    if(data.value.user_type != "معبر")
+        await getMeetingStatus(order.value?.id as string);
 }
 
 watch(orderStatus.data, async (value) => {
@@ -167,7 +176,7 @@ onMounted(async () => {
     }
 
     if (order.value?.status == 'new' || order.value?.status == 'in_progress') {
-        await initChannel();
+            await initChannel();
     }
     // await getMeetingStatus(order.value?.id as string);
     // await getMeetingSignature(0);
