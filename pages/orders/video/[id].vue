@@ -61,18 +61,18 @@
                 </div>
                 <div class="rounded-lg border border-gray-300 flex flex-col items-center justify-center px-6 py-6 lg:col-span-2">
                     <div
-                    v-if="order?.status == 'complete' || order?.status == 'awaiting_delivery'">
+                    v-if="order?.status == 'complete' || order?.status == 'awaiting_delivery'" class="flex flex-col items-center justify-center">
                     <h2 class="text-xl font-semibold">هذا الطلب مكتمل</h2>
                     
                     <CheckCircleIcon class="h-8 w-8" />
                 </div>
 
-                <div v-if="order?.status == 'cancelled' || order?.status == 'waiting_for_cancellation'">
+                <div v-if="order?.status == 'cancelled' || order?.status == 'waiting_for_cancellation'" class="flex flex-col items-center justify-center">
                 <h2 class="text-xl font-semibold">هذا الطلب ملغى</h2>
                 
                 <CheckCircleIcon class="h-8 w-8" />
             </div>
-                <div v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
+                <div v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')" class="flex flex-col items-center justify-center">
                     <h2 class="text-xl font-semibold">يرجى الإنتظار حتى يحين دورك</h2>
                     <div class="flex items-center justify-center space-x-3 pt-16 rtl:space-x-reverse">
                       <div class="flex flex-col items-center justify-center px-4 py-2">
@@ -81,7 +81,7 @@
                       </div>
                     </div>
                 </div>
-                <div v-else-if="(order?.status == 'in_progress' || order?.status == 'new') && data.user_type == 'معبر'" class="flex flex-col gap-6">
+                <div v-else-if="(order?.status == 'in_progress' || order?.status == 'new') && data.user_type == 'معبر'" class="flex flex-col items-center justify-center gap-6">
                     <h1 class="pt-5 font-semibold">لقد خرجت من الاجتماع</h1>
                     <PrimaryButton :loading="cancelButtonLoading" @click="cancelButtonLoading = true; updateOrderStatus(order.id, 'cancelled');">إلغاء الطلب</PrimaryButton>
                 </div>
