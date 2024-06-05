@@ -53,7 +53,7 @@ definePageMeta({
 
 const isMobile = useMediaQuery("(max-width: 1023px)");
 
-const activeTab = ref<"details" | "chat">("details");
+const activeTab = ref<"details" | "chat">("chat");
 
 const { getSession, data } = useAuth();
 
