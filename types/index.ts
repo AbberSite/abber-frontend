@@ -222,9 +222,7 @@ export type Transaction = {
 export type Ticket = {
   id: number;
   title: string;
-  user: {
-    username: string;
-  };
+  user: _User;
   status: string;
   date: string;
   end_date: string;
