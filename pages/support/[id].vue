@@ -48,12 +48,11 @@
 </template>
 
 <script setup lang="ts">
-
 import DetailsTabs from '~/components/tickets/details/Tabs.vue';
-import DetailsMobileCard from '~/components/tickets/details/MobileCard.vue';
 import DetailsCard from '~/components/tickets/details/Card.vue';
 import MobileChat from '~/components/orders/details/MobileChat.vue';
 import TicketCard from '~/components/shared/skeletons/TicketCard.vue';
+
 definePageMeta({
     middleware: 'auth',
     layout: false
