@@ -3,10 +3,10 @@
         <div class="flex justify-center">
             <Loading v-if="loading" />
         </div>
-        <SkeletonsChatDesktop v-if="loading_chat"/>
+        <SkeletonsChatDesktop v-if="loading_chat" />
         <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll w-full" id="chat_scroll">
             <div v-if="!messages.length" class="h-full flex items-center justify-center"><span
-          class="px-4 py-2 rounded-sm bg-green-100">لا توجد رسائل سابقة</span></div>
+                    class="px-4 py-2 rounded-sm bg-green-100">لا توجد رسائل سابقة</span></div>
             <div class="flex flex-col-reverse gap-6" v-else v-for="{ messages, index } in segmentedMessages" id="chat">
                 <ChatMessage @contextmenu.prevent="showContextMenu($event, message)" v-for="(message, i) in messages"
                     :user="data" :message="message" :last-message="messages[i + 1]" :next-message="messages[i - 1]"
@@ -26,7 +26,8 @@
                 :user="data" :class="{ hidden: !changeMessage }"> </changeList>
         </div>
 
-        <ChatInput v-if="allowInput" @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" />
+        <ChatInput v-if="allowInput"
+            @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" />
     </div>
 </template>
 <script setup lang="ts">
@@ -46,7 +47,7 @@ useHead({
 })
 
 const props = defineProps({ allowInput: Boolean, roomName: String });
-const {$viewport}= useNuxtApp();
+const { $viewport } = useNuxtApp();
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
 
@@ -63,13 +64,11 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async function () {
-    watch($viewport.breakpoint, (newScreen, oldScreen)=> {
-        if(oldScreen == 'desktop' && newScreen == 'tablet'){
-            if(loading_chat.value)
-                loading_chat.value = false;
-        }
+    watch($viewport.breakpoint, (newScreen, oldScreen) => {
+        if (loading_chat.value)
+            loading_chat.value = false;
     })
-    if(!$viewport.isLessThan('desktop'))
+    if (!$viewport.isLessThan('desktop'))
         return;
     if (messages.value.length == 0) {
         await fetchMessages({ room: props.roomName, limit: 9 });
@@ -126,26 +125,26 @@ onUnmounted(() => {
     messagesPagination.value = undefined;
 });
 function scrollDown(chat_scroll: HTMLElement) {
-  if (chat_scroll.value != null){
-    chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  } else {
-    const my_interval = setInterval(function () {
-      chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      if (chat_scroll.value != null) {
-        // console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
-        setTimeout(function(){
-            useInfiniteScroll(chatList, load, { distance:  10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
-        }, 3000);
+    if (chat_scroll.value != null) {
+        chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        clearInterval(my_interval);
-      }
-    }, 1000)
-  }
+    } else {
+        const my_interval = setInterval(function () {
+            chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            if (chat_scroll.value != null) {
+                // console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
+                setTimeout(function () {
+                    useInfiniteScroll(chatList, load, { distance: 10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
+                }, 3000);
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                clearInterval(my_interval);
+            }
+        }, 1000)
+    }
 };
 
-async function runFunction(){
+async function runFunction() {
 }
 </script>
 

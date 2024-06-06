@@ -28,7 +28,8 @@
         :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
-    <ChatInput v-if="allowInput" class="flex-1" @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" />
+    <ChatInput v-if="allowInput" class="flex-1"
+      @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" />
   </div>
 </template>
 
@@ -68,11 +69,9 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
-  watch($viewport.breakpoint, async (newScreen, oldScreen)=> {
-    if(oldScreen == 'tablet' && newScreen == 'desktop'){
-      if(loading_chat.value)
-        loading_chat.value = false;
-    }
+  watch($viewport.breakpoint, async (newScreen, oldScreen) => {
+    if (loading_chat.value)
+      loading_chat.value = false;
   })
   if ($viewport.isLessThan('desktop'))
     return;
@@ -135,7 +134,7 @@ onUnmounted(() => {
   messagesPagination.value = undefined;
 });
 function scrollDown(chat_scroll: HTMLElement) {
-  if (chat_scroll.value != null){
+  if (chat_scroll.value != null) {
     chat_scroll.value?.scrollTo({ behavior: 'smooth', top: chat_scroll.value?.scrollHeight });
   } else {
     const my_interval = setInterval(function () {
@@ -143,8 +142,8 @@ function scrollDown(chat_scroll: HTMLElement) {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       if (chat_scroll.value != null) {
         // console.log(`scroll height: ${chat_scroll.value.scrollHeight}\nsrcroll top: ${chat_scroll.value.scrollTop}`);
-        setTimeout(function(){
-            useInfiniteScroll(chatList, load, { distance:  10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
+        setTimeout(function () {
+          useInfiniteScroll(chatList, load, { distance: 10, interval: 500, direction: 'top', canLoadMore: () => messagesPagination.value?.next })
         }, 3000);
         clearInterval(my_interval);
       }
