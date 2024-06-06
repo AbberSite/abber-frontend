@@ -2,7 +2,7 @@
   <div :class="boxStyle">
     <div :class="rowStyle">
       <div :class="rowTitleStyle">المستخدم</div>
-      <TicketStatus :status="ticket.user?.first_name" />
+      <div class="font-semibold" v-text="ticket.user.first_name"></div>
     </div>
     <div :class="rowStyle">
       <div :class="rowTitleStyle">حالة التذكرة</div>
@@ -43,7 +43,7 @@ const closeTicket = computed(async () => {
   }).then((res) => {
     ticket.value = res;
     useNotification({ type: "success", content: "لقد تم إغلاق التذكرة" });
-  })
+  });
 });
 </script>
 
