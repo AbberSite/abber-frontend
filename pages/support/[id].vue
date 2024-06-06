@@ -28,7 +28,7 @@
             <Tree class="block lg:hidden"/>
             <!-- <DetailsHeader :show-navigation="activeTab == 'details'" /> -->
             <DetailsTabs v-model="activeTab" />
-            <DetailsMobileCard v-if="activeTab == 'details'" />
+            <DetailsCard v-if="activeTab == 'details'" device="mobile" />
             <MobileChat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" device='mobile' /> 
 
             <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
