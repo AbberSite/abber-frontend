@@ -48,6 +48,10 @@
                     <h1 class="pt-5 font-semibold">لقد خرجت من الاجتماع</h1>
                     <PrimaryButton :loading="cancelButtonLoading" @click="cancelButtonLoading = true; updateOrderStatus(order.id, 'cancelled');">إلغاء الطلب</PrimaryButton>
                 </div>
+                <div v-else-if="order?.status == 'complete' || order?.status == 'awaiting_delivery'" class="flex flex-col justify-center items-center">
+                    <h2 class="text-xl font-semibold">هذا الطلب مكتمل</h2>
+                    <CheckCircleIcon class="h-8 w-8" />
+                </div>
                 <div v-else  class="flex flex-col justify-center items-center">
                     <span class="pt-4 text-center font-semibold">هذا الطلب ملغي</span>
                     <CheckCircleIcon class="h-8 w-8" />

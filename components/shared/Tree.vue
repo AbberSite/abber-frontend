@@ -16,8 +16,10 @@ const words: { [key: string]: string } = { orders: 'الطلبات', home: 'ال
 const treeComputed = computed(() => {
     const url = route.fullPath.split('/');
     var my_tree = [];
+    const skipWrods = ['video'];
     for (let i = 0; i < url.length; i++) {
-        if (i == 0 && url[i] == '') {
+        if(skipWrods.includes(url[i])) continue;
+        else if (i == 0 && url[i] == '') {
             my_tree.push({title: words['home'], path: '/'});
         } else if (i == (url.length - 1) && url[i] == '') {
             break;
