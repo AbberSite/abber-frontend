@@ -22,17 +22,17 @@
       <DetailsTabs v-model="activeTab" />
       <DetailsMobileCard v-if="activeTab == 'details'" />
       <div v-if="meeting.meeting_number" class="w-full pt-16 lg:grid lg:grid-cols-3">
-  <div v-if="!isMobile" class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6 lg:col-span-1">
-    <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
-    <MeetingClientCard />
-  </div>
+        <div v-if="!isMobile" class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6 lg:col-span-1">
+          <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
+          <MeetingClientCard />
+        </div>
 
-  <ClientOnly>
-    <div :class="{'flex justify-center items-center relative': isMobile, 'flex flex-col items-center justify-center rounded-lg border border-gray-100 lg:col-span-2 relative': !isMobile}">
-      <Meeting :role="1" />
-    </div>
-  </ClientOnly>
-</div>
+        <ClientOnly>
+          <div :class="{ 'flex justify-center items-center relative': isMobile, 'flex flex-col items-center justify-center rounded-lg border border-gray-100 lg:col-span-2 relative': !isMobile }">
+            <Meeting :role="1" />
+          </div>
+        </ClientOnly>
+      </div>
 
       <!-- <ClientOnly >
           <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 lg:col-span-2 relative">
@@ -69,7 +69,7 @@ async function initChannel() {
   const { rawToken } = useAuthState();
 
   const { data: meetingData } = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
-  // const { data: meetingData } = useWebSocket(import.meta.env.VITE_WS_URL + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
+    // const { data: meetingData } = useWebSocket(import.meta.env.VITE_WS_URL + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
     autoReconnect: true,
   });
 
@@ -105,9 +105,6 @@ onUnmounted(() => {
   filters.value.status = [];
   filters.value.type.voice = false;
 });
-
-
-
 </script>
 
 <style scoped></style>
