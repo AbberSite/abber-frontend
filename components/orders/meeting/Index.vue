@@ -21,7 +21,7 @@ const props = withDefaults(
   }
 );
 
-const client = ZoomMtgEmbedded.createClient();
+let client = null;
 
 const { getMeetingSignature, bus } = useMeetingStore();
 
@@ -34,12 +34,21 @@ bus.on((event) => {
 });
 
 onMounted(async () => {
+  client = ZoomMtgEmbedded.createClient();
   await joinMeeting();
 });
-
+watch(isMobile, async () => {
+  client.updateVideoOptions({
+    viewSizes: {
+      default: {
+        width: isMobile.value ? 250 : 800,
+        height: isMobile.value ? 150 : 300,
+      },
+    },
+  });
+});
 async function joinMeeting() {
   await getMeetingSignature(props.role);
-
   let meetingSDKElement = document.getElementById("meetingSDKElement");
 
   client.init({
@@ -47,7 +56,7 @@ async function joinMeeting() {
     language: "en-US",
     customize: {
       video: {
-        isResizable: false,
+        isResizable: true,
         viewSizes: {
           default: {
             width: isMobile.value ? 250 : 800,
@@ -86,6 +95,7 @@ onUnmounted(() => {
   } else {
     client.leaveMeeting();
   }
+  ZoomMtgEmbedded.destroyClient();
 });
 </script>
 

@@ -21,23 +21,24 @@
       </DetailsHeader>
       <DetailsTabs v-model="activeTab" />
       <DetailsMobileCard v-if="activeTab == 'details'" />
-      <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
-        <ClientOnly>
-          <Meeting :role="1" v-if="meeting.meeting_number" />
-        </ClientOnly>
-      </div>
+      <div v-if="meeting.meeting_number" class="w-full pt-16 lg:grid lg:grid-cols-3">
+  <div v-if="!isMobile" class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6 lg:col-span-1">
+    <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
+    <MeetingClientCard />
+  </div>
 
-      <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
-        <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
-          <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
-          <MeetingClientCard />
-        </div>
-        <ClientOnly v-if="!isMobile">
+  <ClientOnly>
+    <div :class="{'flex justify-center items-center relative': isMobile, 'flex flex-col items-center justify-center rounded-lg border border-gray-100 lg:col-span-2 relative': !isMobile}">
+      <Meeting :role="1" />
+    </div>
+  </ClientOnly>
+</div>
+
+      <!-- <ClientOnly >
           <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 lg:col-span-2 relative">
             <Meeting :role="1" v-if="meeting.meeting_number" />
           </div>
-        </ClientOnly>
-      </div>
+        </ClientOnly> -->
     </section>
   </main>
 </template>
@@ -104,6 +105,9 @@ onUnmounted(() => {
   filters.value.status = [];
   filters.value.type.voice = false;
 });
+
+
+
 </script>
 
 <style scoped></style>
