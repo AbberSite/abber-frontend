@@ -18,7 +18,7 @@
       <DetailsTabs v-model="activeTab" isVideoCall />
       <DetailsMobileCard v-if="activeTab == 'details'" />
       <div class="flex justify-center items-center relative" v-else-if="activeTab == 'chat' && isMobile">
-        <div ref="sm-meeting" v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'"></div>
+        <div ref="smMeeting" v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'"></div>
         <ClientOnly v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
           <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2">
             <h2 class="text-xl font-semibold">يرجى الإنتظار حتى يحين دورك</h2>
@@ -88,12 +88,14 @@
               >إلغاء الطلب</PrimaryButton
             >
           </div>
-          <div ref="lg-meeting" v-if="!isMobile && canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'"></div>
+          <div ref="lgMeeting" class="w-full h-full"></div>
         </div>
       </div>
-      <ClientOnly v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'" class="absolute">
-        <div :class="{ 'flex flex-col items-center justify-center lg:col-span-2 relative': !isMobile }">
+      <ClientOnly>
+        <div ref="meetingBox" class="absolute" >
+        <div v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'" :class="{ 'flex flex-col items-center justify-center lg:col-span-2 relative': !isMobile }">
           <Meeting :order-id="order.id" />
+        </div>
         </div>
       </ClientOnly>
     </section>
@@ -114,6 +116,10 @@ const isMobile = useMediaQuery("(max-width: 1023px)");
 const id = useRoute().params.id;
 let cancelButtonLoading = ref(false);
 const activeTab = ref<"details" | "chat">("chat");
+const meetingBox = ref(null);
+const smMeeting = ref(null);
+const lgMeeting = ref(null);
+
 const { data } = await useAuth();
 const { order } = storeToRefs(useOrdersStore());
 
@@ -169,6 +175,8 @@ watch(orderStatus.data, async (value) => {
   bus.emit("leave");
 });
 
+
+
 onMounted(async () => {
   // await getSession();
 
@@ -181,11 +189,33 @@ onMounted(async () => {
   }
   // await getMeetingStatus(order.value?.id as string);
   // await getMeetingSignature(0);
+
+  setMeetingBoxPosition()
 });
+
+watch(isMobile, () => {
+  setMeetingBoxPosition();
+});
+
+const setMeetingBoxPosition=() => {
+  let relativeTo =  null; 
+   
+  if (isMobile.value) {
+  relativeTo = smMeeting
+  } else {
+  relativeTo = lgMeeting
+  }
+
+  meetingBox.value.style.left = `${relativeTo._value.offsetLeft}px`;
+  meetingBox.value.style.top = `${relativeTo._value.offsetTop}px`;
+};
 
 onUnmounted(() => {
   order.value = undefined;
+
 });
+
+
+
 </script>
 
-<style scoped></style>
