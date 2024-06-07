@@ -10,7 +10,7 @@ class PostsStore {
     bookmarkedTotal = ref<number | undefined>(0);
 
     selectedCategory = ref('');
-    categories = ref<{ results?: Array<{ name: string; id: string; posts_count: number }> }>({ results: [] });
+    categories = ref<{count: number; results?: Array<{ name: string; id: string; posts_count: number }> }>({ results: [] });
 
     fetchAll = async () => {
         const { data } = (await useFetch(`/api/blog/posts`, {

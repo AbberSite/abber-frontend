@@ -105,7 +105,7 @@ async function submit() {
 
     if(response.data.value.sent){
 
-      useRouter().push({name : "accounts-reset-password-sent"})
+      useRouter().push({name : "accounts-reset-password-sent", query: {email: email.value?.split("@")[1]}})
 
     }
 

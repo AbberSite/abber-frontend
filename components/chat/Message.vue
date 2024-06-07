@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full" :dir="user?.username == message?.user?.username ? 'rtl' : 'ltr'">
+  <div class="flex w-full " :dir="user?.username == message?.user?.username ? 'rtl' : 'ltr'">
     <img  class="lazyload h-11 w-11 rounded-full bg-gray-100"
       v-if="lastMessage?.user?.username != message.user.username" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="message.user.image" height="44" width="44"
       alt="" />
@@ -10,7 +10,7 @@
           :class="[user?.username == message?.user?.username ? 'bg-sky-100 ' : 'bg-gray-100 ', lastMessage?.user?.username == message?.user.username && '-mt-4', user.username == message.user.username && lastMessage?.user?.username == message.user.username && 'mr-11', user.username != message.user.username && lastMessage?.user?.username == message.user.username && 'ml-11']">
 
           <ChatFile :files="message.files"></ChatFile>
-          <div v-html="message.message"></div>
+          <div v-html="message.message" class="overflow-hidden"></div>
           <div class="flex justify-end" v-if="message.user.username === user.username">
             <svg v-if="message.sent !== false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               stroke-width="1.5" stroke="currentColor" height="10" width="10">
