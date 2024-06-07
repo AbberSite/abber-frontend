@@ -1,6 +1,6 @@
 <template>
     <div class="relative w-full border-t border-gray-100 bg-white py-2 my-2">
-        <textarea @keyup.enter="handleMessageInput" class="form-control block py-4" :class="{'h-[200px]':files.length, 'h-[120px]': !files.length}" v-model="message" rows="5"
+        <textarea @keyup.enter="handleMessageInput" class="form-control block py-4" :class="{'h-[200px]':files.length, 'h-[120px]': !files.length}" v-model="message" rows="2"
             placeholder="إبدأ الكتابة هنا..." required></textarea>
         <!-- Toolbar -->
         <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4 mb-2 mx-[2px]">
