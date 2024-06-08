@@ -54,6 +54,7 @@ const emits = defineEmits(['update:modelValue']);
 const props = defineProps<{
   modelValue?: number;
   service: Service;
+  type: 1 | 0;
 }>();
 
 const selected = ref(props.modelValue);
@@ -61,10 +62,11 @@ const selected = ref(props.modelValue);
 watch(selected, value => emits("update:modelValue", value))
 
 const minPrice = computed(() => {
-  try {
-    return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, props.service.service_methods[0].price);
-  } catch(e){
-    return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, 0);
-  }
+  return props.type ? props.service.service_methods[0].price : props.service.service_methods[1].price;
+  // try {
+  //   return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, props.type ? props.service.service_methods[1].price : props.service.service_methods[1].price);
+  // } catch(e){
+  //   return props.service.service_methods.reduce((min, p) => p.price < min ? p.price : min, 0);
+  // }
 });
 </script>

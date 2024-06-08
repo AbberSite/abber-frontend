@@ -4,8 +4,8 @@
 
     <input ref="phoneInput" class="form-control h-[50px] appearance-none" :type="isApple ? 'text' : 'number'" pattern="\d*" name="phone" id="tel"
       :placeholder="placeholder ?? '12345XXXX'" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model.number="phone"
-      :class="[(validationError !== '' || error) && 'form-invalid']" autocomplete="tel" dir="ltr" required />
-    <InputError :message="error" />
+      :class="[(validationError !== '' || error) && 'form-invalid']" autocomplete="tel" dir="ltr" />
+    <InputError :message="error" v-if="!validationError && hideErrorEmpty" />
     <InputError :message="validationError" />
 
   </div>
@@ -24,7 +24,7 @@ const props = defineProps<{
   placeholder?: string;
   mobile?: boolean;
 }>();
-
+let hideErrorEmpty = ref(true);
 const phone = ref('');
 const countryPhoneLength = ref(9)
 async function getCountry() {
@@ -83,6 +83,7 @@ onMounted(() => {
   });
 
   watch(phone, (value) => {
+    hideErrorEmpty.value = false;
     phone.value = phone.value.toString().replace(/\D/g, '');
 
     validationError.value = '';

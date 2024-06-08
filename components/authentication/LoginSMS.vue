@@ -17,10 +17,7 @@
                             <input class="form-control h-[50px] appearance-none" type="tel" name="phone" id="tel"
                                 placeholder="7835196169" autocomplete="tel" required /> -->
 
-                        <PhoneInput v-model="phone" v-model:valid="valid" :sms="true" placeholder="5XXXXXXXX" />
-                        <div class="text-red-500 text-sm">
-                            {{ errors.phone }}
-                        </div>
+                        <PhoneInput v-model="phone" v-model:valid="valid" :sms="true" placeholder="5XXXXXXXX" :error="errors.phone"/>
                     </div>
                     <div>
                         <!-- <button
@@ -58,8 +55,11 @@ const errors = ref<{
 const valid = ref(false);
 
 async function send() {
-    if (!valid.value) return;
-
+    if(!valid.value) {
+        if(!errors.value.length)
+            errors.value.phone = 'هذا الحقل مطلوب'
+        return
+    }
     try {
         loading.value = true;
         const { data } = (await useFetch('/api/auth/whatsapp/send?sender=sms', {
