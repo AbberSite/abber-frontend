@@ -10,10 +10,10 @@
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
 
-                            <PhoneInput v-model="phone" v-model:valid="valid" />
-                            <div class="text-red-500 text-sm ">
+                            <PhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" />
+                            <!-- <div class="text-red-500 text-sm ">
                                 {{ errors.phone }}
-                            </div>
+                            </div> -->
                         </div>
                         <div>
 
@@ -47,7 +47,11 @@ const valid = ref(false)
 
 async function send() {
 
-    if(!valid.value) return    
+    if(!valid.value) {
+        if(!errors.value.length)
+            errors.value.phone = 'هذا الحقل مطلوب'
+        return
+    }
 
     try {
         loading.value = true
