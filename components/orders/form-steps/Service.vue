@@ -20,12 +20,12 @@
               <FormStepsServiceSelectUrgentOrderService @click.once="submit(0)" v-model="selectedService" />
               <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices" 
                 v-model="selectedService" @click.once="submit(service.id, service.service_prices.text_price)"
-                :service="service" />
+                :service="service" :type="1" />
             </template>
 
             <template v-else>
               <FormStepsServiceSelectServiceRadioButton v-for="service in videoServices" v-model="selectedService"
-                @click.once="submitVideo(service.id)" :service="service" />
+                @click.once="submitVideo(service.id)" :service="service" :type="0" />
             </template>
 
 
