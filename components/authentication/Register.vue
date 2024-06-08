@@ -48,9 +48,9 @@
                         <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
                             v-model="terms" name="remember" disabled checked id="id_agreement" />
                         <label class="mt-1.5 space-x-1 ps-3 font-medium rtl:space-x-reverse" for="id_agreement">
-                            <span>أوافق على</span>&nbsp;<a class="text-blue-600" href="#">الشروط و
-                                الأحكام</a>&nbsp;<span>و</span>&nbsp;<a class="text-blue-600" href="#">إتفاقية
-                                المستخدم</a>
+                            <span>أوافق على</span>&nbsp;<NuxtLink class="text-blue-600" to="/terms">الشروط و
+                                الأحكام</NuxtLink>&nbsp;<span>و</span>&nbsp;<NuxtLink class="text-blue-600" to="/user-agreement">إتفاقية
+                                المستخدم</NuxtLink>
                         </label>
                     </div>
 
