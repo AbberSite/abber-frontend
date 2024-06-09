@@ -6,7 +6,7 @@
     aria-orientation="horizontal">
     <button
         class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-1"
+        id="summary"
         type="button"
         @click="activeTab = 'summary'"
         role="tab"
@@ -19,7 +19,7 @@
     </button>
     <button
         class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-2"
+        id="operations"
         type="button"
         @click="activeTab = 'operations'"
         role="tab"
@@ -38,7 +38,7 @@
     </button>
     <button
         class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-3"
+        id="statement"
         type="button"
         @click="activeTab = 'statement'"
         role="tab"
@@ -57,7 +57,7 @@
     </button>
     <button
         class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-4"
+        id="cards"
         type="button"
         @click="activeTab = 'cards'"
         role="tab"
@@ -74,7 +74,7 @@
     </button>
     <button
         class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
-        id="tab-4"
+        id="withdrawalRequests"
         type="button"
         @click="activeTab = 'withdrawalRequests'"
         role="tab"
