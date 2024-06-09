@@ -27,7 +27,7 @@
         </div>
 
         <ChatInput v-if="allowInput"
-            @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" />
+            @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :isSupport="isSupport" />
     </div>
 </template>
 <script setup lang="ts">
@@ -46,7 +46,7 @@ useHead({
     ]
 })
 
-const props = defineProps({ allowInput: Boolean, roomName: String });
+const props = defineProps<{ allowInput: Boolean, roomName: String, isSupport?: boolean }>();
 const { $viewport } = useNuxtApp();
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
