@@ -112,7 +112,7 @@ async function submit() {
 const handleResult = computed(() => {
   if (result.value) {
     return result.value.replace('/wallets/', '/wallet/')
-      .replace('/transactions', '')
+      .replace('/transactions/', '/?activeRoute=operations')
       .replace('orders/orders', 'orders');
   }
 });
