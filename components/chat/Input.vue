@@ -3,7 +3,7 @@
         <textarea @keyup.enter="sendMessage()" class="form-control block py-4" :class="{'h-[200px]':files.length, 'h-[120px]': !files.length}" v-model="message" rows="2"
             placeholder="إبدأ الكتابة هنا..." required></textarea>
         <!-- Toolbar -->
-        <div class="absolute inset-x-px bottom-px rounded-b-md bg-white px-4 py-4 mb-2 mx-[2px]">
+        <div class="rounded-b-md bg-white px-1 mb-2 my-[10px]">
             <div class="flex items-center " :class="!isSupport ? 'justify-end': 'justify-between'">
                 <!-- Attach Button -->
                 <!-- <button class="text-gray-600 hover:text-gray-900" type="button" @click="() => open()">
