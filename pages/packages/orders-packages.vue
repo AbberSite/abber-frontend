@@ -43,7 +43,7 @@ const packages = ref<OrdersPackage[]>([]);
 const data =  (await useApi(`/api/packages/orders-packages/`, {method: "GET",})) as PaginationResponse<OrdersPackage>;
 packages.value = data.results;
 
-const membership =  (await useApi(`/api/packages/orders-membership/`, {method: "GET",})) as PaginationResponse<any>;
+const membership = (await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" })) as PaginationResponse<any>;
 
 </script>
 
