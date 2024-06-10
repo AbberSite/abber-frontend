@@ -118,7 +118,7 @@ type Post = {
   slug: string;
   active: boolean;
   bookmark: [];
-    reading_time?:number|null;
+  reading_time?: number | null;
 
 };
 
@@ -231,3 +231,14 @@ type Problem = {
   result: string;
   role: string;
 };
+
+type OrdersPackage = {
+  id: Number;
+  name: String;
+  description: String;
+  price: Number;
+  num_orders: Number;
+  active: Boolean;
+  index: Number;
+  expressors: Object[];
+}

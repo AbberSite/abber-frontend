@@ -313,3 +313,15 @@ export type NotificationHeader = {
   date: string;
   url: string;
 };
+
+
+export type OrdersPackage = {
+  id: Number;
+  name: String;
+  description: String;
+  price: Number;
+  num_orders: Number;
+  active: Boolean;
+  index: Number;
+  expressors: Object[];
+};
