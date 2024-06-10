@@ -21,13 +21,15 @@
           <a class="font-medium text-blue-600" href="/settings"> عرض تفاصيل الإشتراك<span aria-hidden="true">←</span></a>
         </div>
       </div>
-      <button v-else class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="button">إشترك الان</button>
+      <button v-else @click="$emit('buy', package.id)" class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="button">إشترك الان</button>
     </div>
   </article>
 </template>
 
 <script lang="ts" setup>
 import type { OrdersPackage } from "~/types";
+
+defineEmits(["buy"]);
 
 const props = defineProps<{
   package: OrdersPackage;
