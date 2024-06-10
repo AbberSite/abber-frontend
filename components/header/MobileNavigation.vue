@@ -22,12 +22,12 @@
           <span class="ms-6 mt-1.5 font-semibold">الرئيسية</span>
         </NuxtLink>
 
-        <NuxtLink class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer" @click="$emit('navigate', { name: 'blog' })">
+        <NuxtLink v-if="'عميل' == data?.user_type" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer" @click="$emit('navigate', { name: 'packages-orders-packages' })">
           <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-            <!-- Heroicon name: outline/RssIcon -->
-            <RssIcon class="h-6 w-6 flex-shrink-0" />
+            <!-- Heroicon name: outline/RocketLaunchIcon -->
+            <RocketLaunchIcon class="h-6 w-6 flex-shrink-0" />
           </div>
-          <span class="ms-6 mt-1.5 font-semibold">المدونة</span>
+          <span class="ms-6 mt-1.5 font-semibold">الباقات</span>
         </NuxtLink>
 
         <NuxtLink v-if="false" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer" @click="$emit('navigate', { name: 'support' })">
@@ -43,7 +43,9 @@
 </template>
 
 <script setup>
-import {XMarkIcon, HomeIcon, RssIcon, LifebuoyIcon} from "@heroicons/vue/24/outline";
+import {XMarkIcon, HomeIcon, RssIcon, LifebuoyIcon,RocketLaunchIcon} from "@heroicons/vue/24/outline";
+const { data } = await useAuth();
+
 </script>
 
 <style lang="scss" scoped></style>
