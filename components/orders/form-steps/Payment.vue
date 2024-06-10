@@ -473,7 +473,7 @@ async function checkCoupon() {
         const res = await useProxy(`/orders/check-coupon/${service}/`, {
           method: 'POST',
           body: {
-            type: 'text_communication',
+            type: state.value.data.type,
             coupon: coupon.value
           }
         });
@@ -485,7 +485,7 @@ async function checkCoupon() {
     res = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
       method: 'POST',
       body: {
-        type: 'text_communication',
+        type: state.value.data.type,
         coupon: coupon.value
       }
     });
