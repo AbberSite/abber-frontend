@@ -9,14 +9,12 @@ export default defineEventHandler(async (event) => {
 
   try {
 
-    const response = await axios.get(config.apiBasePath + `/packages/orders-packages/`, {
+    const response = await axios.get(config.apiBasePath + `/packages/orders-packages/?ordering=index`, {
       headers: {
         'api-key': config.apiSecret,
         Authorization
       },
-      params: {
-        ordering: 'index'
-      }
+
     })
 
     return response.data
