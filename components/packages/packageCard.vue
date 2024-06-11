@@ -18,7 +18,7 @@
       <div v-if="subscribed">
         <button class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-100 px-8 py-3 text-sm font-semibold disabled:cursor-not-allowed" type="button" disabled="">تم الإشتراك</button>
         <div class="pt-8 text-center text-sm xs:text-[15px]">
-          <a class="font-medium text-blue-600" href="/settings"> عرض تفاصيل الإشتراك<span aria-hidden="true">←</span></a>
+          <a class="font-medium text-blue-600" href="/profile?tab=subscriptions"> عرض تفاصيل الإشتراك<span aria-hidden="true">←</span></a>
         </div>
       </div>
       <button v-else @click="$emit('buy', package.id)" class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="button">إشترك الان</button>

@@ -60,7 +60,7 @@ onMounted(async () => {
         }
         localStorage.removeItem('abber:current-transaction-id');
     } else {
-        // navigateTo({name: 'wallet'})
+        navigateTo('/profile?tab=subscriptions')
     }
 })
 </script>

@@ -15,12 +15,8 @@ packages.value = data.results;
 const membership = (await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" })) as PaginationResponse<any>;
 
 const handleBuy = (packageId: Number) => {
-  console.log(packageId);
   state.value.data.packageId = packageId;
-  next({
-        nextStepId: 'payment'
-    })  
-
+  next({nextStepId: 'payment'})  
 };
 
 
