@@ -46,7 +46,7 @@ jobs:
       - run: |
           echo "ABBER_ENV='production'
           VITE_WS_URL='wss://abber.co'
-          VITE_AUTH_URL='https://theme.abber.co/api/auth'
+          VITE_AUTH_URL='https://abber.co/api/auth'
           VITE_API_SECRET='a011ff6611fa1cfa9be83e5e22533976b2ede3df'
           VITE_GOOGLE_CLIENT_ID='916666485232-27mv7pmigoe6is7728af1fdenmqc1e6n.apps.googleusercontent.com'" > .env
       - run: ls
