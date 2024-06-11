@@ -14,6 +14,9 @@ export default defineEventHandler(async (event) => {
         'api-key': config.apiSecret,
         Authorization
       },
+      params: {
+        ordering: 'index'
+      }
     })
 
     return response.data
