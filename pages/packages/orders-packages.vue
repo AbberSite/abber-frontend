@@ -36,7 +36,7 @@ state.value.data = {}
 
 useHead({
     title: 'عبر - الباقات',
-  
+    auth: true
 })
 
 </script>

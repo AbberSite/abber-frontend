@@ -1,7 +1,9 @@
 <template>
-     <div  class="grid w-full gap-8 pt-16 sm:grid-cols-2 lg:grid-cols-3">
-      <PackagesPackageCard v-for="(pkg, index) in packages" :package="pkg" :key="index" :primary="index === 1" :subscribed="membership.results.length > 0" @buy="handleBuy"></PackagesPackageCard>
-    </div>
+  <div class="grid w-full gap-8 pt-16 sm:grid-cols-2 lg:grid-cols-3">
+    <PackagesPackageCard v-for="(pkg, index) in packages" :package="pkg" :key="index" :primary="index === 1"
+      :subscriptions="membership.results.length > 0 ? getSubscriptions() : [0]" @buy="handleBuy">
+    </PackagesPackageCard>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -16,14 +18,15 @@ const membership = (await useApi(`/api/packages/orders-packages/membership/`, { 
 
 const handleBuy = (packageId: Number) => {
   state.value.data.packageId = packageId;
-  next({nextStepId: 'payment'})  
+  next({ nextStepId: 'payment' })
 };
-
-
-
-
+const getSubscriptions = () => {
+    let packages = [];
+    membership.results.forEach((p) => packages.push(p.package.id));
+    return packages;
+  }
+onMounted(() => {
+})
 </script>
 
-<style>
-
-</style>
+<style></style>
