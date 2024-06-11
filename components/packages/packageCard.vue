@@ -15,7 +15,7 @@
     </ul>
 
     <div class="pt-10">
-      <div v-if="subscriptions.includes(package.id)">
+      <div v-if="subscribed">
         <button class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-100 px-8 py-3 text-sm font-semibold disabled:cursor-not-allowed" type="button" disabled="">تم الإشتراك</button>
         <div class="pt-8 text-center text-sm xs:text-[15px]">
           <a class="font-medium text-blue-600" href="/profile?tab=subscriptions"> عرض تفاصيل الإشتراك<span aria-hidden="true">←</span></a>
@@ -33,7 +33,7 @@ defineEmits(["buy"]);
 
 const props = defineProps<{
   package: OrdersPackage;
-  subscriptions: [];
+  subscribed: Boolean;
   primary: Boolean;
 }>();
 
