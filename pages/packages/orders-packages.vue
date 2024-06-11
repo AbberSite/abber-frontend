@@ -34,10 +34,10 @@ const { activeStep, activeStepIndex, emitNext, state } = useFormWizard<any>("pac
 
 state.value.data = {}
 
-useHead({
+definePageMeta({
     title: 'عبر - الباقات',
     auth: true
-})
+});
 
 </script>
 
