@@ -379,8 +379,14 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
       localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
       (state.value.data as OrderForm).order_id = checkout.order_id;
+      
+      if (checkout.paid == true){
+        navigateTo(callbackURL + '?freeOrder=true',{external:true})
+        return 
+      }
       if (checkout.cart.length > 1)
         (state.value.data as OrderForm).orders = checkout.cart;
+      
       persist();
 
       resolve(checkout);

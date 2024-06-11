@@ -18,7 +18,7 @@
             </template>
 
             <template v-else>
-                <template v-if="paid || balance">
+                <template v-if="paid || balance || freeOrder">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <CheckCircleIcon class="w-6 h-6" />
                     </div>
@@ -57,7 +57,7 @@
                     </div>
                 </template>
 
-                <template v-else-if="!paid && !isActive && !balance">
+                <template v-else-if="!paid && !isActive && !balance && !freeOrder">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <XCircleIcon class="w-6 h-6" />
                     </div>
@@ -126,6 +126,7 @@ const router = useRouter();
 // const { getSession } = useAuth();
 const id = route.query.id;
 const balance = route.query.balance;
+const freeOrder = route.query.freeOrder;
 let transaction_id: string;
 
 let data;
@@ -143,7 +144,7 @@ onMounted(async () => {
         navigateTo('/');
         return;
     }
-    else if (balance && data?.dream != undefined) {
+    else if ((balance || freeOrder) && data?.dream != undefined) {
         await updateOrderInfo(data);
         localStorage.removeItem('abber:current-transaction-id');
         loading.value = false;
