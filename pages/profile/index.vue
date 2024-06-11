@@ -45,6 +45,9 @@
                 <template v-if="activeTab == 'informationsService'">
                     <ProfileServiceInformation />
                 </template>
+                <template v-if="activeTab == 'subscriptions'">
+                    <PackagesSubscriptions/>
+                </template>
 
             </template>
         </section>
