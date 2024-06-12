@@ -7,20 +7,25 @@
 </template>
 
 <script lang="ts" setup>
+
 const packages = ref<OrdersPackage[]>([]);
 const { emitNext, bus, state, next } = useFormWizard<any>("packages");
-let loading = ref(true);
+const loading = ref(true);
+const membership = ref<PaginationResponse<any> | null>(null);
 
-let data;
-
-let membership;
 onMounted(async () => {
-  data = (await useApi(`/api/packages/orders-packages/`, { method: "GET" })) as PaginationResponse<OrdersPackage>;
-  packages.value = data.results;
-  membership = (await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" })) as PaginationResponse<any>;
-  loading.value = false;
-
+  try {
+    const data = await useApi(`/api/packages/orders-packages/`, { method: "GET" }) as PaginationResponse<OrdersPackage>;
+    packages.value = data.results;
+    const membershipData = await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" }) as PaginationResponse<any>;
+    membership.value = membershipData;
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+  } finally {
+    loading.value = false;
+  }
 });
+
 const handleBuy = (packageId: Number) => {
   state.value.data.packageId = packageId;
   next({ nextStepId: 'payment' });
