@@ -31,7 +31,10 @@
             أدخل رمز التحقق الذي تم إرساله الى رقمك على SMS
         </div>
 
-        <div class="flex justify-center items-center mt-[12px] w-full"><div class="w-[120px] h-[2px] rounded-full border border-gray-400"></div></div>
+        <div class="flex justify-center items-center mt-[12px] w-full">
+            <span class="font-semibold" dir="ltr">{{ currentPhone }}</span>
+            <!-- <div class="w-[120px] h-[2px] rounded-full border border-gray-400"></div> -->
+        </div>
 
         <div class="mx-auto w-full max-w-sm pt-6">
             <form method="POST" @submit.prevent="login">
