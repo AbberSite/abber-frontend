@@ -16,7 +16,11 @@ const membership = (await useApi(`/api/packages/orders-packages/membership/`, { 
 
 const handleBuy = (packageId: Number) => {
   state.value.data.packageId = packageId;
-  next({nextStepId: 'payment'})  
+  next({nextStepId: 'payment'});
+  setTimeout(()=> {
+    let paymentSection = document.getElementById('payment') as Element;
+    paymentSection.scrollIntoView({behavior: 'smooth', block:'center'});
+  }, 1000)
 };
 
 

@@ -27,7 +27,7 @@ import Payment from '~/components/packages/Payment.vue';
 
 
 
-const { activeStep, activeStepIndex, emitNext, state } = useFormWizard<any>("packages", [
+const { activeStep, activeStepIndex, emitNext, state, reset } = useFormWizard<any>("packages", [
     { id: 'packages', component: Packages },
     { id: 'payment', component: Payment },
 ]);
@@ -38,6 +38,8 @@ definePageMeta({
     title: 'عبر - الباقات',
     auth: true
 });
+
+onUnmounted(async()=> reset());
 
 </script>
 
