@@ -30,7 +30,13 @@
         <div class="pt-4 text-sm text-gray-800 xs:text-base" v-else>
             أدخل رمز التحقق الذي تم إرساله الى رقمك على SMS
         </div>
-        <div class="mx-auto w-full max-w-sm pt-10">
+
+        <div class="flex justify-center items-center mt-[12px] w-full">
+            <span class="font-semibold" dir="ltr">{{ currentPhone }}</span>
+            <!-- <div class="w-[120px] h-[2px] rounded-full border border-gray-400"></div> -->
+        </div>
+
+        <div class="mx-auto w-full max-w-sm pt-6">
             <form method="POST" @submit.prevent="login">
                 <fieldset class="space-y-7">
                     <h1 class="font-bold">رمز التأكد (OTP)</h1>

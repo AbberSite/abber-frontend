@@ -13,6 +13,14 @@
                         leave-to="opacity-0 scale-95" >
                         <DialogPanel
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
+                            <template v-if="isLoading">
+                                <div class="flex flex-col justify-center items-center gap-3">
+                                    <Loading class="w-auto"/>
+                                    <h1 class="font-semibold">جاري تسجيل الدخول ...</h1>
+                                </div>
+                            </template>
+                            <template v-else>
+
                             <DialogTitle as="div" class="flex flex-col-reverse items-center" >
                               <h3 class="text-[16px] font-semibold leading-6 text-gray-900 py-1">{{title}}</h3>
                               <ExclamationTriangleIcon class="w-8 h-8" v-if="!payment" />
@@ -32,6 +40,7 @@
                                     إلغاء
                                 </button>
                             </div>
+                            </template>
                         </DialogPanel>
                     </TransitionChild>
                 </div>
@@ -52,9 +61,10 @@ import {
 
 } from '@headlessui/vue';
 const props = defineProps<{
-  title: string; 
-  descritpion: string;
-  payment?:boolean
+  title?: string; 
+  descritpion?: string;
+  payment?:boolean;
+  isLoading?: boolean
 }>();
 const emit = defineEmits(['continue', 'close'])
 

@@ -102,7 +102,7 @@
   </div>
 
 
-
+<ConfirmDialog isLoading v-if="showLoadingDailog"/>
 </template>
 
 <script setup lang="ts">
@@ -129,7 +129,7 @@ if(props.isFormSteps){
   state = useFormWizard<OrderForm>('order').state;
 }
 
-
+let showLoadingDailog = ref(false);
 const route = useRoute();
 onMounted(async () => {
   const googleProvider: any = await useGoogleProvider();
@@ -137,6 +137,7 @@ onMounted(async () => {
   googleLogin = googleProvider.useGoogleLogin({
     flow: "implicit",
     onSuccess: async (response: { access_token: string }) => {
+      showLoadingDailog.value = true;
       const { data } = await useFetch("/api/auth/google", {
         method: "POST",
         body: {
@@ -153,6 +154,7 @@ onMounted(async () => {
         });
         useNotificationForLogin();
       }
+      showLoadingDailog.value = false;
     },
   });
   const time = new Date();
@@ -171,7 +173,7 @@ async function appleLogin() {
   try {
     //@ts-ignore
     const data = await AppleID.auth.signIn();
-
+    showLoadingDailog.value = true; 
     const loginData = await useProxy("/authentication/apple/connect/", {
       method: "POST",
       body: {
@@ -191,6 +193,7 @@ async function appleLogin() {
         });
         useNotificationForLogin();
     }
+    showLoadingDailog.value = false;
 
     // Handle successful response.
   } catch (error) {
