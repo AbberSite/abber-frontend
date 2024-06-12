@@ -1,6 +1,6 @@
 <template>
      <div  class="grid w-full gap-8 pt-16 sm:grid-cols-2 lg:grid-cols-3">
-      <PackagesPackageCard v-for="(pkg, index) in packages" :package="pkg" :key="index" :primary="index === 1" :subscribed="membership.results.length > 0" @buy="handleBuy"></PackagesPackageCard>
+      <PackagesOrdersPackageCard v-for="(pkg, index) in packages" :package="pkg" :key="index" :primary="index === 1" :subscribed="membership.results.length > 0" @buy="handleBuy"></PackagesOrdersPackageCard>
     </div>
 </template>
 

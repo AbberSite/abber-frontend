@@ -319,9 +319,11 @@ export type OrdersPackage = {
   id: Number;
   name: String;
   description: String;
+  price_before_discount: Number;
   price: Number;
   num_orders: Number;
   active: Boolean;
   index: Number;
   expressors: Object[];
+  duration: Number;
 };
