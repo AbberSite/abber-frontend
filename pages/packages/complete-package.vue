@@ -21,6 +21,7 @@
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline';
 const route = useRoute();
 const id = route.query.id;
+const balance = route.query.balance;
 let transaction_id: string;
 let loading = ref(true);
 let successfull = ref<number>(2);
@@ -58,6 +59,10 @@ onMounted(async () => {
             successfull.value = 0;
             loading.value = false;
         }
+        localStorage.removeItem('abber:current-transaction-id');
+    } else if(transaction_id && !id && balance) {
+        successfull.value = 1;
+        loading.value = false;        
         localStorage.removeItem('abber:current-transaction-id');
     } else {
         navigateTo('/profile?tab=subscriptions')

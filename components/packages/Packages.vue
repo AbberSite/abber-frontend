@@ -3,6 +3,9 @@
     <SkeletonsPackages v-if="loading" />
     <PackagesPackageCard v-else-if="!loading" v-for="(pkg, index) in packages" :package="pkg" :key="index" :primary="index === 1"
       :subscribed="membership.results.length > 0" @buy="handleBuy"></PackagesPackageCard>
+    <DevOnly v-if="!loading">
+      <PrimaryButton class="bg-red-700" v-if="membership.results.length > 0" @click="deleteSub()">حذف الاشتراك</PrimaryButton>
+    </DevOnly>
   </div>
 </template>
 
@@ -36,7 +39,10 @@ const handleBuy = (packageId: Number) => {
 };
 
 
-
+async function deleteSub(){
+  const { data } = useProxy(`/packages/orders-membership/${membership.value?.results[0].id}/`, {method:'DELETE'});
+  useNotification({type:'success', content:'تم حذف الاشتراك، اعد التحميل'});
+}
 
 </script>
 

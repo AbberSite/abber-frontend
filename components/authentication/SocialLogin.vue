@@ -173,7 +173,7 @@ async function appleLogin() {
   try {
     //@ts-ignore
     const data = await AppleID.auth.signIn();
-
+    showLoadingDailog.value = true; 
     const loginData = await useProxy("/authentication/apple/connect/", {
       method: "POST",
       body: {
@@ -193,6 +193,7 @@ async function appleLogin() {
         });
         useNotificationForLogin();
     }
+    showLoadingDailog.value = false;
 
     // Handle successful response.
   } catch (error) {

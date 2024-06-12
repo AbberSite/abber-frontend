@@ -362,13 +362,16 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
   if (paymentMethod.value == 'BALANCE') {
     let checkout;
     if (props.ordersPackage) {
-      checkout = await useProxy(`/orders/buy-now/${localStorage.getItem('abber:current-transaction-id') as string}/`, {
+      await useProxy(`/packages/orders-membership/`, {
         method: 'POST',
         body: {
           'package_id': state.value.data.packageId,
           'brand': paymentMethod.value
         }
       });
+      checkout = {
+        paid:true
+      };
     } else {
       checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
         method: 'POST',
