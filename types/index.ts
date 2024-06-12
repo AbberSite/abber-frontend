@@ -324,4 +324,5 @@ export type OrdersPackage = {
   active: Boolean;
   index: Number;
   expressors: Object[];
+  duration: Number;
 };
