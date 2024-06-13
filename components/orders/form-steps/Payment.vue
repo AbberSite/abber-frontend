@@ -71,7 +71,7 @@
           <p class="font-semibold">الرصيد الحالي:</p>
           <p class="font-semibold px-2">{{ balance?.withdrawal_balance + balance?.available_balance }} ر.س</p>
         </div>
-        <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="showConfirmDailog = true"
+        <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="ordersPackage ? useBalance() : showConfirmDailog = true"
           class="w-full"><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
 
         <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
