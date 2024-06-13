@@ -39,7 +39,7 @@ state.value.data = {}
 
 definePageMeta({
     title: 'عبر - الباقات',
-    auth: true
+    auth: false
 });
 
 onUnmounted(async()=> reset());

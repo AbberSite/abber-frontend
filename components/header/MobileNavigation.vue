@@ -22,7 +22,7 @@
           <span class="ms-6 mt-1.5 font-semibold">الرئيسية</span>
         </NuxtLink>
 
-        <NuxtLink v-if="'عميل' == data?.user_type" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer gap-1" @click="$emit('navigate', { name: 'packages-orders-packages' })">
+        <NuxtLink v-if="'عميل' == data?.user_type || status == 'unauthenticated'" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer gap-1" @click="$emit('navigate', { name: 'packages-orders-packages' })">
           <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
             <!-- Heroicon name: outline/RocketLaunchIcon -->
             <RocketLaunchIcon class="h-6 w-6 flex-shrink-0" />
@@ -46,7 +46,7 @@
 
 <script setup>
 import {XMarkIcon, HomeIcon, RssIcon, LifebuoyIcon,RocketLaunchIcon} from "@heroicons/vue/24/outline";
-const { data } = await useAuth();
+const { data, status } = await useAuth();
 
 </script>
 
