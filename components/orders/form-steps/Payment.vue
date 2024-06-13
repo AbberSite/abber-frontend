@@ -76,7 +76,7 @@
 
         <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
       </div>
-      <div class="space-y-7" v-if="!loading">
+      <div class="space-y-7" v-if="!loading && !ordersPackage">
         <div class="flex items-center">
           <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
             name="checkbox" id="have-coupon" />
