@@ -127,6 +127,7 @@ const router = useRouter();
 const id = route.query.id;
 const balance = route.query.balance;
 const freeOrder = route.query.freeOrder;
+const order_id = route.query.order_id;
 let transaction_id: string;
 
 let data;
@@ -140,7 +141,10 @@ const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 onMounted(async () => {
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
     data = useFormWizard<OrderForm>('order', [], true) as OrderForm;
-    if(!transaction_id){
+    if (freeOrder) {
+        data.order_id = order_id as string;
+    }
+    if (!transaction_id) {
         navigateTo('/');
         return;
     }
@@ -148,6 +152,7 @@ onMounted(async () => {
         await updateOrderInfo(data);
         localStorage.removeItem('abber:current-transaction-id');
         loading.value = false;
+        console.log(order_id);
         // readNotifications.value = true;
         (data as any).clear();
         return;
@@ -161,7 +166,7 @@ async function getStatus() {
     const service_id = data.service_id;
     let another_service = data.selectedServices.map(service => service).join(',')
 
-    
+
 
     if (!transaction_id) {
         router.push('/orders/make');
@@ -245,7 +250,8 @@ async function updateOrderInfo(data: OrderForm) {
                     body: data
                 });
             } catch (error) {
-                alert('something went wrong');
+                // alert('something went wrong');
+
             }
         }
     } else {
@@ -255,7 +261,7 @@ async function updateOrderInfo(data: OrderForm) {
                 body: data
             });
         } catch (error) {
-            alert('something went wrong');
+            // alert('something went wrong');
         }
     }
 }

@@ -14,7 +14,7 @@
                {{successfull ? ' تم الاشتراك بنجاح!': 'لقد فشلت عملية الاشتراك'}}
             </h1>
             <div class="pt-8 text-center text-sm xs:text-[15px]">
-          <PrimaryButton v-if="successfull"  @click="navigateTo({name:'profile', query:{tab: 'subscriptions'}})"> عرض تفاصيل الإشتراك</PrimaryButton>
+          <PrimaryButton v-if="successfull && !loading"  @click="navigateTo({name:'profile', query:{tab: 'subscriptions'}})"> عرض تفاصيل الإشتراك</PrimaryButton>
         </div>
         </section>
     </main>

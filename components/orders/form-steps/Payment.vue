@@ -13,7 +13,7 @@
       </span>
     </div>
 
-    <div class="space-y-3">
+    <div class="space-y-3" v-if="!membership?.count">
       <template v-if="!deposit && !addCard">
         <h1 class="text-center font-semibold" v-if="!loading">
           السعر الإجمالي : <span class="text-blue-600">{{ hyper.checkout.amount }} ر.س</span>
@@ -54,6 +54,45 @@
       </div>
     </div>
 
+    <div v-if="!loading && (!deposit && !addCard && !ordersPackage) && membership?.count"
+      class="w-full h-full flex flex-col justify-center items-center gap-2">
+      <h1 class="font-semibold">تفاصيل اشتراكك:</h1>
+      <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
+        <div>
+          <p class="font-semibold text-gray-500">الطلبات المتبقية</p>
+          <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse">
+            <span>{{ membership.results[0].num_orders }}</span><small>طلب</small>
+          </p>
+        </div>
+        <div class="flex h-10 w-10 items-center justify-center rounded-md">
+          <!-- Heroicon name: solid/ -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="24" width="24">
+            <path
+              d="M10.719 21.75h9.156c1.036 0 1.875-.84 1.875-1.875v-5.25c0-1.036-.84-1.875-1.875-1.875h-.14l-8.742 8.743c-.09.089-.18.175-.274.257ZM12.738 17.625l6.474-6.474a1.875 1.875 0 0 0 0-2.651L15.5 4.787a1.875 1.875 0 0 0-2.651 0l-.1.099V17.25c0 .126-.003.251-.01.375Z">
+            </path>
+            <path fill-rule="evenodd"
+              d="M2.25 4.125c0-1.036.84-1.875 1.875-1.875h5.25c1.036 0 1.875.84 1.875 1.875V17.25a4.5 4.5 0 1 1-9 0V4.125Zm4.5 14.25a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="absolute bottom-0 left-0 overflow-hidden rounded-md text-gray-200">
+          <!-- Heroicon name: solid/ -->
+          <svg class="-translate-x-1/4 translate-y-1/4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            fill="currentColor" height="64" width="64">
+            <path
+              d="M10.719 21.75h9.156c1.036 0 1.875-.84 1.875-1.875v-5.25c0-1.036-.84-1.875-1.875-1.875h-.14l-8.742 8.743c-.09.089-.18.175-.274.257ZM12.738 17.625l6.474-6.474a1.875 1.875 0 0 0 0-2.651L15.5 4.787a1.875 1.875 0 0 0-2.651 0l-.1.099V17.25c0 .126-.003.251-.01.375Z">
+            </path>
+            <path fill-rule="evenodd"
+              d="M2.25 4.125c0-1.036.84-1.875 1.875-1.875h5.25c1.036 0 1.875.84 1.875 1.875V17.25a4.5 4.5 0 1 1-9 0V4.125Zm4.5 14.25a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </div>
+      </div>
+      <PrimaryButton v-if="membership.results[0].num_orders" :loading="payforsubscrib" @click="payUsingSubscrition()"
+        class="w-full mt-3"><span class="mt-1.5">اكمال طلبك</span></PrimaryButton>
+
+
+    </div>
     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
       <Loading class="w-14 h-14" />
     </div>
@@ -71,12 +110,13 @@
           <p class="font-semibold">الرصيد الحالي:</p>
           <p class="font-semibold px-2">{{ balance?.withdrawal_balance + balance?.available_balance }} ر.س</p>
         </div>
-        <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance" @click="ordersPackage ? useBalance() : showConfirmDailog = true"
-          class="w-full"><span class="mt-1.5">الدفع بالمحفظة</span></PrimaryButton>
+        <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance"
+          @click="ordersPackage ? useBalance() : showConfirmDailog = true" class="w-full"><span class="mt-1.5">الدفع
+            بالمحفظة</span></PrimaryButton>
 
         <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
       </div>
-      <div class="space-y-7" v-if="!loading && !ordersPackage">
+      <div class="space-y-7" v-if="!loading && !ordersPackage && !membership.count">
         <div class="flex items-center">
           <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
             name="checkbox" id="have-coupon" />
@@ -117,6 +157,7 @@ if (!props.deposit && !props.addCard && !props.ordersPackage) {
   state = useFormWizard<any>("deposit").state;
 }
 const { data } = useAuth();
+let payforsubscrib = ref(false);
 var callbackURL: string;
 if (!props.deposit && !props.addCard && !props.ordersPackage) callbackURL = window.location.origin + (state.value?.data?.type === "text_communication" ? "/orders/complete" : "/orders/video-complete");
 else if (props.deposit) callbackURL = "/complete-charge";
@@ -149,6 +190,9 @@ const cardType = ref("general");
 const hasSufficientBallance = computed(() => {
   return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
 });
+
+const membership = await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" }) as PaginationResponse<any>;
+
 
 await useScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js");
 await useScript("https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js");
@@ -223,16 +267,25 @@ onMounted(async () => {
   error.value = "";
 
   try {
-    if (!props?.deposit && !props?.addCard) {
+    if (!props?.deposit && !props?.addCard && !membership.count) {
       Promise.all([loadHyper(), fetchBalance()]);
-    } else await loadHyper();
+    } else {
+      if (!membership.count)
+        await loadHyper();
+      else {
+        loading.value = false;
+      }
+    }
     // await loadHyper();
     // await fetchBalance();
   } catch (error) {
     console.log(error);
   }
 });
-
+async function payUsingSubscrition() {
+  payforsubscrib.value = true;
+  createCheckout()
+}
 async function loadHyper() {
   if (paymentMethod.value == "BALANCE") return;
   const payment = await createCheckout();
@@ -370,7 +423,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         }
       });
       checkout = {
-        paid:true
+        paid: true
       };
     } else {
       checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
@@ -409,8 +462,8 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
       (state.value.data as OrderForm).order_id = checkout.order_id;
 
-      if (checkout.paid == true) {
-        navigateTo(callbackURL + '?freeOrder=true', { external: true })
+      if (checkout.paid) {
+        navigateTo(callbackURL + `?freeOrder=true&order_id=${checkout.order_id}`, { external: true })
         return
       }
       if (checkout.cart.length > 1)
@@ -595,7 +648,7 @@ async function useBalance() {
     useNotification({ type: "danger", content: "حدث خطأ ما، اعد المحاولة" });
     waitingByBalance.value = false;
   }
-}
+};
 </script>
 
 <style>
