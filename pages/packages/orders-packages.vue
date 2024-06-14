@@ -27,11 +27,12 @@
 <script lang="ts" setup>
 import Packages from '~/components/packages/Packages.vue';
 import Payment from '~/components/packages/Payment.vue';
-
+import Authentication from '~/components/orders/form-steps/Authentication.vue';
 
 
 const { activeStep, activeStepIndex, emitNext, state, reset } = useFormWizard<any>("packages", [
     { id: 'packages', component: Packages },
+    { id: 'authentication', component: Authentication},
     { id: 'payment', component: Payment },
 ]);
 

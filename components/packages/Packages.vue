@@ -2,16 +2,18 @@
 
   <div class="grid w-full gap-8 pt-16 sm:grid-cols-2 lg:grid-cols-3">
     <SkeletonsPackages v-if="loading" />
-    <PackagesPackageCard v-else-if="!loading" v-for="(pkg, index) in packages" :package="pkg" :key="index" :primary="index === 1"
-      :subscribed="membership?.results?.length > 0" @buy="handleBuy" :pkgid="membership?.count ? membership.results[0]?.package.id : undefined"></PackagesPackageCard>
+    <PackagesPackageCard v-else-if="!loading" v-for="(pkg, index) in packages" :package="pkg" :key="index"
+      :primary="index === 1" :subscribed="membership?.results?.length > 0" @buy="handleBuy"
+      :pkgid="membership?.count ? membership.results[0]?.package.id : undefined"></PackagesPackageCard>
     <DevOnly v-if="!loading">
-      <PrimaryButton class="bg-red-700" v-if="membership?.results?.length > 0" @click="deleteSub()">حذف الاشتراك</PrimaryButton>
+      <PrimaryButton class="bg-red-700" v-if="membership?.results?.length > 0" @click="deleteSub()">حذف الاشتراك
+      </PrimaryButton>
     </DevOnly>
   </div>
 </template>
 
 <script lang="ts" setup>
-
+const { status } = useAuth();
 const packages = ref<OrdersPackage[]>([]);
 const { emitNext, bus, state, next } = useFormWizard<any>("packages");
 const loading = ref(true);
@@ -32,17 +34,21 @@ onMounted(async () => {
 
 const handleBuy = (packageId: Number) => {
   state.value.data.packageId = packageId;
-  next({ nextStepId: 'payment' });
-  setTimeout(() => {
-    let paymentSection = document.getElementById('payment') as Element;
-    paymentSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 1000)
+  if (status.value == 'authenticated') {
+    next({ nextStepId: 'payment' });
+    setTimeout(() => {
+      let paymentSection = document.getElementById('payment') as Element;
+      paymentSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 1000);
+  } else {
+    next({nextStepId:'authentication'});
+  }
 };
 
 
-async function deleteSub(){
-  const { data } = useProxy(`/packages/orders-membership/${membership.value?.results[0].id}/`, {method:'DELETE'});
-  useNotification({type:'success', content:'تم حذف الاشتراك، اعد التحميل'});
+async function deleteSub() {
+  const { data } = useProxy(`/packages/orders-membership/${membership.value?.results[0].id}/`, { method: 'DELETE' });
+  useNotification({ type: 'success', content: 'تم حذف الاشتراك، اعد التحميل' });
 }
 
 </script>
