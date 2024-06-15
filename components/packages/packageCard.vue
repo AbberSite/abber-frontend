@@ -79,7 +79,7 @@
       </div>
       <button v-else @click="$emit('buy', package.id)"
         class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-        type="button">{{subscribed && pkgid > package?.id ? "ترقية" : "إشترك الان"}}</button>
+        type="button">{{subscribed && pkgid < package?.id ? "ترقية" : "إشترك الان"}}</button>
     </div>
   </article>
 </template>

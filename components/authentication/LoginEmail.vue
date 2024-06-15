@@ -55,7 +55,7 @@
           </fieldset>
         </form>
 
-        <AuthenticationSocialLogin :isFormSteps="props.isFormSteps? true : false"/>
+        <AuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage"/>
 
         <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base" v-if="!isFormSteps">
           <span>ليس لديك حساب؟</span>
@@ -69,8 +69,9 @@
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
+import type { packagesFormSteps } from '~/types';
 
-const props = defineProps<{isFormSteps?: boolean}>();
+const props = defineProps<{isFormSteps?: boolean; isFormPackage?: boolean;}>();
 
 const { signIn } = useAuth();
 
@@ -104,11 +105,16 @@ async function submit() {
     }
   )
     .then(async() => {
-      if(props.isFormSteps){
+      if(props.isFormSteps && !props.isFormPackage){
         const { next } = useFormWizard<OrderForm>("order");
         await useNotificationForLogin();
         next({options: {ignore: true}, nextStepId: 'payment'});
-      }else {
+      } else if(props.isFormSteps && props.isFormPackage){
+        const { next } = useFormWizard<packagesFormSteps>("packages");
+        await useNotificationForLogin();
+        next({options: {ignore: true}, nextStepId: 'payment'});
+      }
+      else {
         await useNotificationForLogin(true);
       }
     })

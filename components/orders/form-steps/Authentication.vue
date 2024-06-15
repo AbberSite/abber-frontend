@@ -21,7 +21,10 @@
 </template>
 
 <script setup lang="ts">
+import type { packagesFormSteps } from '~/types';
+
 const { state } = useFormWizard<OrderForm>('order');
+// const { state } = useFormWizard<packagesFormSteps>('packages');
 </script>
 
 <style scoped></style>

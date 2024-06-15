@@ -115,7 +115,8 @@ useHead({
     ]
 })
 import { useSettingsStore } from '~/stores/settings';
-const props = defineProps<{isFormSteps?: boolean}>();
+import type { packagesFormSteps } from '~/types';
+const props = defineProps<{isFormSteps?: boolean; isFormPackage?: boolean;}>();
 let googleLogin = () => console.log("google not initialized yet");
 const {settings} = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
@@ -124,9 +125,12 @@ if(settings.value == undefined){
 }
 
 let next, state ;
-if(props.isFormSteps){
+if(props.isFormSteps && !props.isFormPackage){
   next = useFormWizard<OrderForm>('order').next;
   state = useFormWizard<OrderForm>('order').state;
+} else if(props.isFormSteps && props.isFormPackage){
+  next = useFormWizard<packagesFormSteps>('packages').next;
+  state = useFormWizard<packagesFormSteps>('packages').state;
 }
 
 let showLoadingDailog = ref(false);

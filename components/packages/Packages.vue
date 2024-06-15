@@ -13,9 +13,10 @@
 </template>
 
 <script lang="ts" setup>
+import type { packagesFormSteps } from '~/types';
 const { status } = useAuth();
 const packages = ref<OrdersPackage[]>([]);
-const { emitNext, bus, state, next } = useFormWizard<any>("packages");
+const { emitNext, bus, state, next } = useFormWizard<packagesFormSteps>("packages");
 const loading = ref(true);
 const membership = ref<PaginationResponse<any> | null>(null);
 
@@ -33,15 +34,15 @@ onMounted(async () => {
 });
 
 const handleBuy = (packageId: Number) => {
-  state.value.data.packageId = packageId;
   if (status.value == 'authenticated') {
-    next({ nextStepId: 'payment' });
+    next({ nextStepId: 'payment', data: {packageId: packageId.toString()}});
     setTimeout(() => {
       let paymentSection = document.getElementById('payment') as Element;
       paymentSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 1000);
   } else {
-    next({nextStepId:'authentication'});
+    next({nextStepId:'authentication-method', data: {packageId: packageId.toString()}});
+    window.scrollTo({behavior: 'smooth', top: 0});
   }
 };
 
