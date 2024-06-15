@@ -14,8 +14,8 @@
     <div class="flex items-center space-x-3 pt-10 rtl:space-x-reverse">
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
-          <p class="font-semibold text-gray-500">الطلبات</p>
-          <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse"><span>{{package.num_orders}}</span><small>طلب</small></p>
+          <p class="font-semibold text-gray-500 text-sm">الطلبات</p>
+          <p class="space-x-1 pt-10 text-3xl font-bold rtl:space-x-reverse"><span>{{package.num_orders}}</span></p>
         </div>
         <div class="flex h-10 w-10 items-center justify-center rounded-md">
           <!-- Heroicon name: solid/ -->
@@ -43,8 +43,8 @@
       </div>
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
-          <p class="font-semibold text-gray-500">المدة</p>
-          <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse"><span>{{package.duration}}</span><small>يوم</small></p>
+          <p class="font-semibold text-gray-500 text-sm">الأيام</p>
+          <p class="space-x-1 pt-10 text-3xl font-bold rtl:space-x-reverse"><span>{{package.duration}}</span></p>
         </div>
         <div class="flex h-10 w-10 items-center justify-center rounded-md">
           <!-- Heroicon name: solid/ -->
