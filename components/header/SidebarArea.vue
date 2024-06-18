@@ -44,7 +44,7 @@ const menuGroups = ref([
                 </svg>`,
         label: 'لوحة التحكم',
         route: '#',
-        children: [{ label: 'eCommerce', route: '/' }]
+        children: [{ label: 'الطلبات', route: '/dashboardv2/orders' }]
       },
       {
         icon: `<svg
