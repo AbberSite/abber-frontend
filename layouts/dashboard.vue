@@ -25,5 +25,6 @@
 
 <script setup lang="ts">
 import SidebarArea from '~/components/dashboard/header/SidebarArea.vue';
+import HeaderArea from '~/components/dashboard/header/HeaderArea.vue';
 
 </script>
