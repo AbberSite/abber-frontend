@@ -33,8 +33,11 @@ export default defineNuxtConfig({
     provider: {
       type: "refresh",
       // refreshOnlyToken: true,
+      pages: {
+        login: "/accounts/login",
+      },
       endpoints: {
-        getSession: { path: "/session" }
+        getSession: { path: "/session", method: 'get' }
       }
     }
   },

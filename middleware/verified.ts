@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware(async(to, from) => {
 
     const { data, status } = useAuthState();
 
-    if(status.value !== "authenticated"){ 
+    if(status.value !== "authenticated"){
         return true
 
     }

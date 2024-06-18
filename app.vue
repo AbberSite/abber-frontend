@@ -4,11 +4,11 @@
   </NuxtLayout>
 </template>
 <script setup lang="ts">
-const { getSession } = useAuth();
+const { getSession } = useAuth(); 
 await getSession();
 onMounted(async()=> {
   const { status } = useAuthState();
-  console.log(status.value)
+  console.log(status.value);
   // await getSession();
 })
 </script>

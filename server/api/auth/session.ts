@@ -7,7 +7,6 @@ export default defineEventHandler(async (event) => {
     // console.log(Authorization);
     // console.log("sheikh - session - " + new Date())
     try {
-        // console.log("sheikh - getUser - " + new Date());
         const getUser = await axios.get(config.apiBasePath + '/accounts/account/', {
             headers: {
                 Authorization,
