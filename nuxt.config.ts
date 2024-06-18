@@ -11,6 +11,32 @@ export default defineNuxtConfig({
     },
   },
   css: ['~/assets/main.css', '~/assets/font.css'],
-  modules: ['@pinia/nuxt'],
-  pages: true
+  modules: ['@pinia/nuxt', '@sidebase/nuxt-auth'],
+  pages: true,
+  routeRules: {
+    "/api-proxy/**": { proxy: apiBasePath + "/**", headers: { "api-key": apiSecret }, ssr: true, swr: true },
+    "/file/**": { proxy: "https://d336rd5betdm19.cloudfront.net/**", headers: { "api-key": apiSecret } },
+    // '/orders/video/**' : {ssr : false}
+  },
+  runtimeConfig: {
+    apiSecret: apiSecret,
+    apiBasePath: apiBasePath,
+    public: {
+      WebsocketURL: import.meta.env.VITE_WS_URL,  // 'wss://abber.co'
+      zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
+      websiteBasePath: websiteBasePath
+    }
+  },
+  auth: {
+    globalAppMiddleware: true,
+    baseURL : import.meta.env.VITE_AUTH_URL,
+    provider: {
+      type: "refresh",
+      // refreshOnlyToken: true,
+      endpoints: {
+        getSession: { path: "/session" }
+      }
+    }
+  },
+
 })
