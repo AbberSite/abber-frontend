@@ -15,6 +15,8 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Tajawal', ...defaultTheme.fontFamily.sans],
+                      satoshi: ['Satoshi', 'sans-serif'],
+
             },
             scale: {
                 flip: '-1',
@@ -23,6 +25,14 @@ export default {
                 xs: '414px', // iphone 6/7/8 plus
                 '2xl': '1440px',
             },
+            colors: {
+        primary: '#030712',
+        secondary: '#FFF2C1',
+        light: '#111827',
+        light2: '#1f2937',
+        light3: '#374151',
+      },
+             
         },
     },
     plugins: [require('@tailwindcss/typography')],
