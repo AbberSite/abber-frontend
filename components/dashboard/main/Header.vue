@@ -11,9 +11,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="18" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path>
         </svg>
-        {% if request.user.notifications.unread_count > 0 %}
-          <span class="-top-2.5 absolute bg-red-600 flex font-bold items-center justify-center left-6 min-h-[20px] min-w-[20px] p-1 rounded-full text-gray-100 text-xs">{{ request.user.notifications.unread_count }}</span>
-        {% endif %}
+          <span class="-top-2.5 absolute bg-red-600 flex font-bold items-center justify-center left-6 min-h-[20px] min-w-[20px] p-1 rounded-full text-gray-100 text-xs">{{ data?.notifications?.count }}</span>
       </div>
     </button>
     <button class="bg-white border dark:bg-light dark:border-light dark:hover:bg-primary dark:text-gray-200 focus:outline-none hover:bg-primary hover:text-gray-100 px-3 py-3 rounded-full shadow-sm text-primary toggle-theme" title="الوضع الداكن/الفاتح">
@@ -23,21 +21,21 @@
     </button>
     <div class="flex group items-center relative">
       <button class="relative" aria-label="Account">
-        <img src="{{ request.user.image.url }}" class="aspect-square bg-gray-100 border dark:border-light object-cover rounded-full shadow-sm" height="46" width="46" alt="Avatar" />
+        <img :src="data?.image_url" class="aspect-square bg-gray-100 border dark:border-light object-cover rounded-full shadow-sm" height="46" width="46" alt="Avatar" />
       </button>
       <div class="absolute bg-primary dark:border dark:border-light divide-light divide-y duration-300 group-hover:opacity-100 group-hover:visible invisible left-0 opacity-0 rounded-lg shadow-2xl text-gray-100 top-[calc(100%+20px)] transition-all w-60 z-10">
         <div class="px-5 py-4">
-          <p class="font-medium text-secondary truncate">مرحبا بك, {% firstof request.user.get_short_name request.user.get_username %}</p>
-          <p class="text-sm">{% if request.user.is_superuser %}المدير{% else %}موظف{% endif %}</p>
+          <p class="font-medium text-secondary truncate">مرحبا بك, {{ data.first_name }}</p>
+          <p class="text-sm">{{ data?.username == 'admin' ? 'المدير' : 'موظف' }}</p>
         </div>
         <ul class="py-2">
           <li>
-            <a href="{% url 'home' %}" class="flex hover:bg-light hover:text-secondary items-center px-5 py-4" title="عرض الموقع">
+            <NuxtLink :to="{name: 'index'}" class="flex hover:bg-light hover:text-secondary items-center px-5 py-4" title="عرض الموقع">
               <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="20" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
               </svg>
               <span class="pr-3">عرض الموقع</span>
-            </a>
+            </NuxtLink>
           </li>
           <li>
             <a href="{% url 'accounts:profile' %}" class="flex hover:bg-light hover:text-secondary items-center px-5 py-4" title="الملف الشخصي">
@@ -82,7 +80,7 @@
 </template>
 
 <script lang="ts" setup>
-
+const {data} = useAuthState();
 </script>
 
 <style>

@@ -70,12 +70,12 @@
     
     
       <li class="py-1.5 w-full">
-        <a href="?status=in_progress" class="hover:bg-light hover:text-secondary flex items-center mx-4 px-5 py-5 rounded-lg whitespace-nowrap" title="الطلبات">
+        <NuxtLink :to="{name: 'dashboardv2-orders'}" class="hover:bg-light hover:text-secondary flex items-center mx-4 px-5 py-5 rounded-lg whitespace-nowrap" title="الطلبات" :class="{'bg-light text-secondary': route.name.includes('dashboardv2-orders')}">
           <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" height="23" width="23" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z"></path>
           </svg>
           <span class="brand lg:group-hover:visible lg:invisible pr-3">الطلبات</span>
-        </a>
+        </NuxtLink>
       </li>
     
     
@@ -277,7 +277,7 @@
 </template>
 
 <script lang="ts" setup>
-
+const route = useRoute();
 </script>
 
 <style>

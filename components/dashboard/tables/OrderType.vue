@@ -4,7 +4,7 @@
     class="inline-flex items-center space-x-1 rounded-full bg-yellow-100 px-3 pb-1 pt-1 text-xs font-medium text-yellow-800 rtl:space-x-reverse"
   >
     <svg
-      class="w-6 h-6 text-gray-800"
+      class="w-6 h-6 "
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -27,7 +27,7 @@
     class="inline-flex items-center space-x-1 rounded-full bg-teal-100 px-3 pb-1 pt-1 text-xs font-medium text-teal-800 rtl:space-x-reverse"
   >
     <svg
-      class="w-6 h-6 text-gray-800 dark:text-white"
+      class="w-6 h-6 dark:text-white"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
