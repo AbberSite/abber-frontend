@@ -9,7 +9,7 @@
                   </svg>
                 </span>
                 <div class="w-full items-center justify-between sm:flex">
-                  <div class="text-sm font-medium leading-loose" v-if="membership.results.length > 0">أنت الان مشترك بباقة {{membership.results[0].package.name}}</div>
+                  <div class="text-sm font-medium leading-loose" v-if="membership.results.length > 0">أنت الان مشترك بـ {{membership.results[0].package.name}}</div>
                   <div class="text-sm font-medium leading-loose" v-else >أنت غير مشترك الان بأي باقة</div>
                   <div class="mt-3 flex-shrink-0 text-sm font-medium sm:mt-0">
                     <NuxtLink class="text-blue-600" :to="{name:'packages-orders-packages'}"> عرض الباقات<span aria-hidden="true">←</span></NuxtLink>

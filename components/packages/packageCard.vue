@@ -1,5 +1,6 @@
 <template>
-  <article class="grid w-full overflow-hidden rounded-xl bg-gray-50 p-6"
+  <!-- (subscribed && pkgid <= package?.id) ||  -->
+  <article class="grid w-full overflow-hidden rounded-xl bg-gray-50 p-6" v-if="(subscribed && pkgid <= package?.id) || !subscribed"
     :class="{ 'border-[3px] border-gray-900': primary }">
     <div class="flex items-center justify-between">
       <h3 class="text-xl font-semibold 2xl:text-2xl" aria-describedby="planDescription" v-text="package.name"></h3>
@@ -7,14 +8,14 @@
     </div>
     <p class="mt-2 text-sm font-medium text-gray-800" id="planDescription" v-text="package.description"></p>
     <div class="mt-8 flex items-center space-x-2 rtl:space-x-reverse"><span
-        class="font-medium line-through">{{ package.price }}</span><span class="text-3xl font-bold">{{ package.price
+        class="font-medium line-through">{{ package.price_before_discount }}</span><span class="text-3xl font-bold">{{ package.price
         }}</span><span class="font-medium">ر.س</span></div>
 
     <div class="flex items-center space-x-3 pt-10 rtl:space-x-reverse">
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
-          <p class="font-semibold text-gray-500">الطلبات</p>
-          <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse"><span>{{package.num_orders}}</span><small>طلب</small></p>
+          <p class="font-semibold text-gray-500 text-sm">الطلبات</p>
+          <p class="space-x-1 pt-10 text-3xl font-bold rtl:space-x-reverse"><span>{{package.num_orders}}</span></p>
         </div>
         <div class="flex h-10 w-10 items-center justify-center rounded-md">
           <!-- Heroicon name: solid/ -->
@@ -42,8 +43,8 @@
       </div>
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
-          <p class="font-semibold text-gray-500">المدة</p>
-          <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse"><span>{{package.duration}}</span><small>يوم</small></p>
+          <p class="font-semibold text-gray-500 text-sm">الأيام</p>
+          <p class="space-x-1 pt-10 text-3xl font-bold rtl:space-x-reverse"><span>{{package.duration}}</span></p>
         </div>
         <div class="flex h-10 w-10 items-center justify-center rounded-md">
           <!-- Heroicon name: solid/ -->
@@ -67,10 +68,10 @@
       </div>
     </div>
     <div class="pt-10">
-      <div v-if="subscribed">
+      <div v-if="subscribed && pkgid == package?.id">
         <button
           class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-100 px-8 py-3 text-sm font-semibold disabled:cursor-not-allowed"
-          type="button" disabled="">تم الإشتراك</button>
+          type="button" disabled>تم الإشتراك</button>
         <div class="pt-8 text-center text-sm xs:text-[15px]">
           <a class="font-medium text-blue-600" href="/profile?tab=subscriptions"> عرض تفاصيل الإشتراك<span
               aria-hidden="true">←</span></a>
@@ -78,7 +79,7 @@
       </div>
       <button v-else @click="$emit('buy', package.id)"
         class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-        type="button">إشترك الان</button>
+        type="button">{{subscribed && pkgid < package?.id ? "ترقية" : "إشترك الان"}}</button>
     </div>
   </article>
 </template>
@@ -92,6 +93,7 @@ const props = defineProps<{
   package: OrdersPackage;
   subscribed: Boolean;
   primary: Boolean;
+  pkgid?: number | undefined;
 }>();
 
 const descriptionList = computed(() => {

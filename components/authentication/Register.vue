@@ -49,7 +49,8 @@
                             v-model="terms" name="remember" disabled checked id="id_agreement" />
                         <label class="mt-1.5 space-x-1 ps-3 font-medium rtl:space-x-reverse" for="id_agreement">
                             <span>أوافق على</span>&nbsp;<NuxtLink class="text-blue-600" to="/terms">الشروط و
-                                الأحكام</NuxtLink>&nbsp;<span>و</span>&nbsp;<NuxtLink class="text-blue-600" to="/user-agreement">إتفاقية
+                                الأحكام</NuxtLink>&nbsp;<span>و</span>&nbsp;<NuxtLink class="text-blue-600"
+                                to="/user-agreement">إتفاقية
                                 المستخدم</NuxtLink>
                         </label>
                     </div>
@@ -62,7 +63,7 @@
                 </fieldset>
             </form>
 
-            <AuthenticationSocialLogin v-if="isFormSteps" isFormSteps/>
+            <AuthenticationSocialLogin v-if="isFormSteps" :isFormSteps="isFormSteps" :isFormPackage="isFormPackage" />
             <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base" v-if="!isFormSteps">
                 <span>لديك حساب سابقا؟</span>
 
@@ -80,7 +81,7 @@ import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { useDebounceFn } from '@vueuse/core';
 
-const props = defineProps<{ isFormSteps?: boolean }>();
+const props = defineProps<{ isFormSteps?: boolean; isFormPackage?: boolean }>();
 
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
@@ -140,7 +141,7 @@ async function submit() {
 
     if (!validation.valid || !phoneValid.value) {
         let first_element = document.getElementById(Object.keys(errors.value)[0]);
-        first_element?.scrollIntoView({behavior: 'smooth', block: 'center'});
+        first_element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         first_element?.focus();
         return;
     }
@@ -156,7 +157,12 @@ async function submit() {
             }
         ).then(async () => {
             if (props.isFormSteps) {
-                const { next } = useFormWizard<OrderForm>("order");
+                let next;
+                if (props.isFormSteps && !props.isFormPackage) {
+                    next = useFormWizard<OrderForm>("order").next;
+                } else {
+                    next = useFormWizard<packagesFormSteps>("packages").next;
+                }
                 next({
                     nextStepId: 'payment',
                     options: {

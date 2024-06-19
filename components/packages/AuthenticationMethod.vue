@@ -4,9 +4,9 @@
         <title>عبر - طلب تعبير حلم - التسجيل</title>
     </Head>
 
-    <div>
-        <form>
-            <fieldset class="space-y-7">
+    <div >
+        <form class="flex justify-center">
+            <fieldset class="space-y-7 mt-3 max-w-sm">
 
                 <div @click="submit('login')"
                     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none">
@@ -62,12 +62,12 @@
 </template>
 
 <script setup lang="ts">
-import type { OrderForm } from '~/types';
+import type { OrderForm, packagesFormSteps } from '~/types';
 // const props = defineProps<{ isOrderPackages?: boolean }>();
 const authenticationMethod = ref<'register' | 'login' | 'whatsapp' | 'otp'>();
 const { status } = useAuthState();
 
-const { next, previous } = useFormWizard<OrderForm>('order');
+const { next, previous } = useFormWizard<packagesFormSteps>('packages');
 
 onMounted(async () => {
     // if (!props.isOrderPackages) {

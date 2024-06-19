@@ -32,7 +32,7 @@
         </div>
     </section>
     <!-- Features section -->
-    <section v-if="data?.user_type != 'معبر'"
+    <section v-if="data?.user_type != 'معبر' && !isMarkting"
         class="mx-auto grid max-w-7xl gap-x-8 gap-y-14 px-4 pb-10 xs:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8 xl:pb-14"
         aria-labelledby="features-heading">
         <h2 class="sr-only" id="features-heading">مميزات عبر</h2>
@@ -92,7 +92,7 @@
 <script setup lang="ts">
 
 import { ArrowLeftEndOnRectangleIcon, UserGroupIcon, CreditCardIcon, ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
-
+defineProps<{isMarkting?: boolean}>()
 
 const { data, status } = useAuth()
 

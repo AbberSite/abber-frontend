@@ -11,8 +11,8 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig();
 
     try {
-        const response = await axios.put(
-            config.apiBasePath + `/orders/dream-info/${id}/`,
+        const response = await axios.post(
+            config.apiBasePath + `/orders/dream-info/`,
             {
                 dream: body.dream,
                 dream_title: body.dream_title,
@@ -21,7 +21,8 @@ export default defineEventHandler(async (event) => {
                 gender: body.gender,
                 age: body.age,
                 marital_status: body.marital_status,
-                profession: body.profession
+                profession: body.profession,
+                order_item: id,
             },
             {
                 headers: {
@@ -44,7 +45,8 @@ export default defineEventHandler(async (event) => {
                 gender: body.gender,
                 age: body.age,
                 marital_status: body.marital_status,
-                profession: body.profession
+                profession: body.profession,
+                order_item: id,
             }
         };
     }

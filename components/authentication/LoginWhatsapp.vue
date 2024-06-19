@@ -24,7 +24,7 @@
                         </div>
                     </fieldset>
                 </form>        
-                <AuthenticationSocialLogin :isFormSteps="props.isFormSteps? true : false"/>
+                <AuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage"/>
 
                 <!-- <div class="pt-8 text-center text-sm xs:text-base"><a class="font-medium text-blue-600"
                         href="/accounts/login">العودة للصفحة السابقة <span aria-hidden="true">←</span></a></div> -->
@@ -35,7 +35,7 @@
 <script setup lang="ts">
 const router = useRouter()
 
-const props = defineProps<{isFormSteps?: boolean}>();
+const props = defineProps<{isFormSteps?: boolean; isFormPackage?: boolean}>();
 
 const phone = ref("")
 const loading = ref(false)
@@ -94,7 +94,14 @@ async function send() {
         if (!props.isFormSteps)
             router.push({ name: 'accounts-whatsapp-otp', query: {sender: 'whatsapp'} });
         else {
-            const { next, state } = useFormWizard<OrderForm>("order");
+            let next, state; 
+            if(props.isFormSteps && !props.isFormPackage){
+                next = useFormWizard<OrderForm>("order").next;
+                state = useFormWizard<OrderForm>("order").state;
+            } else {
+                next = useFormWizard<packagesFormSteps>("packages").next;
+                state = useFormWizard<packagesFormSteps>("packages").state;
+            }
             next({
                 nextStepId: 'authentication',
                 options: {

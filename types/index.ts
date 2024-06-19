@@ -327,3 +327,7 @@ export type OrdersPackage = {
   expressors: Object[];
   duration: Number;
 };
+export type packagesFormSteps = {
+  packageId: string; 
+  authenticationMethod?: 'login' | 'register' | 'whatsapp' | 'login-sms' | 'otp';
+}

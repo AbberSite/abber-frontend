@@ -4,7 +4,6 @@ export default defineEventHandler(async (event) => {
 
   const headers = getRequestHeaders(event);
   const body = await readBody(event);
-  console.log(body)
 
   const Authorization = headers.authorization;
 

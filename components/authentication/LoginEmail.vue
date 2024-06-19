@@ -40,7 +40,7 @@
             <div class="flex items-center justify-between text-sm xs:text-base">
               <div class="flex items-center">
                 <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="remember"
-                  id="id_remember" />
+                  id="id_remember" checked disabled />
                 <label class="mt-1.5 ps-3 font-semibold" for="id_remember">تذكرني</label>
               </div>
               <NuxtLink class="mt-1.5 font-semibold" :to="{ name: 'accounts-reset-password' }">
@@ -55,7 +55,7 @@
           </fieldset>
         </form>
 
-        <AuthenticationSocialLogin :isFormSteps="props.isFormSteps? true : false"/>
+        <AuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage"/>
 
         <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base" v-if="!isFormSteps">
           <span>ليس لديك حساب؟</span>
@@ -69,8 +69,9 @@
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
+import type { packagesFormSteps } from '~/types';
 
-const props = defineProps<{isFormSteps?: boolean}>();
+const props = defineProps<{isFormSteps?: boolean; isFormPackage?: boolean;}>();
 
 const { signIn } = useAuth();
 
@@ -104,11 +105,16 @@ async function submit() {
     }
   )
     .then(async() => {
-      if(props.isFormSteps){
+      if(props.isFormSteps && !props.isFormPackage){
         const { next } = useFormWizard<OrderForm>("order");
         await useNotificationForLogin();
         next({options: {ignore: true}, nextStepId: 'payment'});
-      }else {
+      } else if(props.isFormSteps && props.isFormPackage){
+        const { next } = useFormWizard<packagesFormSteps>("packages");
+        await useNotificationForLogin();
+        next({options: {ignore: true}, nextStepId: 'payment'});
+      }
+      else {
         await useNotificationForLogin(true);
       }
     })

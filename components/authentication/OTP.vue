@@ -62,8 +62,13 @@
     </section>
 
     <!-- Form steps OTP -->
-    <form v-else method="POST" @submit.prevent="login">
+    <form v-else method="POST" @submit.prevent="login" class="max-w-sm">
+
         <fieldset class="space-y-7">
+            <div class="flex justify-center items-center mt-[12px] w-full">
+                <span class="font-semibold" dir="ltr">{{ currentPhone }}</span>
+                <!-- <div class="w-[120px] h-[2px] rounded-full border border-gray-400"></div> -->
+            </div>
             <h1 class="font-bold">رمز التأكد (OTP)</h1>
             <OtpInput v-model="my_opt" @done="waitForLogin()" />
             <div class="text-red-700 font-semibold" v-if="error">{{ error }}</div>
@@ -75,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ isHome?: boolean }>();
+const props = defineProps<{ isHome?: boolean; isFormPackage?: boolean }>();
 const { rawRefreshToken, rawToken } = useAuthState();
 
 const { refresh } = useAuth();
@@ -131,7 +136,14 @@ async function login() {
                     useNotificationForLogin(true)
                     // useRouter().push({ name: 'index' });
                 } else {
-                    const { next, state } = useFormWizard<OrderForm>('order');
+                    let next, state;
+                    if (props.isFormSteps && !props.isFormPackage) {
+                        next = useFormWizard<OrderForm>("order").next;
+                        state = useFormWizard<OrderForm>("order").state;
+                    } else {
+                        next = useFormWizard<packagesFormSteps>("packages").next;
+                        state = useFormWizard<packagesFormSteps>("packages").state;
+                    }
                     useNotificationForLogin();
                     next({
                         nextStepId: 'payment',
