@@ -2,6 +2,7 @@ import type { PaginationResponse } from "~/types";
 
 class dashOrders {
     orders = ref<[]>([]);
+    loading = ref<boolean>(true);
     pagination = ref<PaginationResponse<any>>();
     fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<any>> =>
         new Promise(async (resolve, reject) => {
@@ -13,9 +14,9 @@ class dashOrders {
                         'X-Requested-With': process.client ? 'XMLHttpRequest' : ''
                     }
                 })) as PaginationResponse<any>;
-                console.log(params);
                 this.orders.value = data.results ?? [];
                 this.pagination.value = data;
+                this.loading.value = false;
                 update?.()
                 resolve(data);
             } catch (error: any) {

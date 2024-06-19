@@ -1,7 +1,8 @@
 <template>
   <h1 class="font-semibold py-3">الطلبات</h1>
   <div>
-    <DashboardTablesOrders :orders="orders ?? []" />
+    <SkeletonsOrdersTable v-if="loading"/>
+    <DashboardTablesOrders v-else :orders="orders ?? []" />
     <Pagination
       class="pt-4"
       :results="(pagination as PaginationResponse<any>)"
@@ -12,7 +13,7 @@
 </template>
 <script setup lang="ts">
 import {useDashOrdersStore} from '~/stores/dashboard/dashOrders.ts';
-const {orders, pagination} = storeToRefs(useDashOrdersStore());
+const {orders, pagination, loading} = storeToRefs(useDashOrdersStore());
 const { fetchAll } = useDashOrdersStore();
 // const pagination = ref<PaginationResponse<any>>();
 onMounted(async () => {
