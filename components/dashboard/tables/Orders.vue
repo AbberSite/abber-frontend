@@ -2,12 +2,8 @@
 import { ref } from 'vue'
 import OrderStatus from './OrderStatus.vue';
 import OrderType from './OrderType.vue';
+defineProps<{orders: []}>();
 
-let orders = ref([]);
-onMounted(async()=> {
-  const data = await useProxy('/orders/dashboard-orders/');
-  orders.value = data.results;
-})
 </script>
 
 <template>
@@ -17,20 +13,20 @@ onMounted(async()=> {
     <div class="max-w-full overflow-x-auto">
       <table class="w-full table-auto">
         <thead>
-          <tr class="bg-gray-2 text-right dark:bg-meta-4">
-            <th class="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+          <tr class=" bg-gray-2 text-right dark:bg-meta-4">
+            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
               رقم الطلب
             </th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
               المعبر
             </th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
             العميل
             </th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white">
+            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
               تاريخ الطلب
             </th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white">حالة الطلب</th>
+            <th class="py-4 px-4 font-medium text-black dark:text-white w-max">حالة الطلب</th>
             <th class="py-4 px-4 font-medium text-black dark:text-white">نوع الطلب</th>
             <th class="py-4 px-4 font-medium text-black dark:text-white">الوظائف</th>
           </tr>
@@ -41,10 +37,10 @@ onMounted(async()=> {
               <h5 class="font-medium text-black dark:text-white">{{ item.id }}</h5>
             </td>
             <td class="py-5 px-4">
-              <p class="text-black dark:text-white">{{ item.seller.first_name }}</p>
+              <p class="text-black dark:text-white">{{ item?.seller?.first_name }}</p>
             </td>
             <td class="py-5 px-4">
-              <p class="text-black dark:text-white">{{ item.buyer.first_name }}</p>
+              <p class="text-black dark:text-white">{{ item?.buyer?.first_name }}</p>
             </td>
             <td class="py-5 px-4">
               <p class="text-black dark:text-white">{{ useArabicFormattedDate(item.order_item_time_data.ordered_date) }}</p>
