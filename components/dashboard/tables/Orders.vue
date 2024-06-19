@@ -14,7 +14,7 @@ defineProps<{orders: []}>();
       <table class="w-full table-auto">
         <thead>
           <tr class=" bg-gray-2 text-right dark:bg-meta-4">
-            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+            <th class="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
               رقم الطلب
             </th>
             <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
@@ -26,7 +26,7 @@ defineProps<{orders: []}>();
             <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
               تاريخ الطلب
             </th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white w-max">حالة الطلب</th>
+            <th class="py-4 px-4 font-medium text-black dark:text-white min-w-[140px]">حالة الطلب</th>
             <th class="py-4 px-4 font-medium text-black dark:text-white">نوع الطلب</th>
             <th class="py-4 px-4 font-medium text-black dark:text-white">الوظائف</th>
           </tr>

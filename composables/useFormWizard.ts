@@ -71,8 +71,6 @@ class FormWizard<T> {
             if(!persistedData) return {}
             return Object.assign(JSON.parse(persistedData), { clear : () => FormWizard.clearData(id)} )
         }
-
-        console.log(steps);
         if (!steps || steps.length == 0) {
             throw Error('No steps provided');
         }
