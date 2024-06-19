@@ -1,4 +1,4 @@
-<template s>
+<template>
   <NuxtLoadingIndicator color="#000" />
   <NuxtLayout>
     <NuxtPage />
@@ -30,6 +30,8 @@
 </template>
 
 <script setup>
+
+
 useHead({
   bodyAttrs: {
     class: 'antialiased'

@@ -27,6 +27,9 @@ export default defineNuxtConfig({
     "/file/**": { proxy: "https://d336rd5betdm19.cloudfront.net/**", headers: { "api-key": apiSecret } },
     // '/orders/video/**' : {ssr : false}
   },
+  router: {
+    middleware: ['dashboard-layout']
+  },
   runtimeConfig: {
     // HTTP_API_KEY=d378b42b1f3f18f231edb2f253e43025dc01406f
     // prod
