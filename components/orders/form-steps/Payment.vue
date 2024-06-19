@@ -269,7 +269,7 @@ onMounted(async () => {
   try {
 
     if(!props.deposit && !props.addCard && !props.ordersPackage){
-      await useProxy('/orders/dream-info/', {method: 'POST', body: state.value.data});
+      await useApi('/api/orders/saveData', {method: 'POST', body: state.value.data});
     }
     if (!props?.deposit && !props?.addCard && !membership.count) {
       Promise.all([loadHyper(), fetchBalance()]);
