@@ -267,10 +267,6 @@ onMounted(async () => {
   error.value = "";
 
   try {
-
-    if(!props.deposit && !props.addCard && !props.ordersPackage){
-      await useApi('/api/orders/saveData', {method: 'POST', body: state.value.data});
-    }
     if (!props?.deposit && !props?.addCard && !membership.count) {
       Promise.all([loadHyper(), fetchBalance()]);
     } else {

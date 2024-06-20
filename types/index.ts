@@ -114,6 +114,7 @@ export type OrderForm = {
   authenticationMethod?: 'login' | 'register' | 'whatsapp' | 'login-sms' | 'otp';
   order_id?: string;
   orders?: string[]
+  order_item?: string|number;
 };
 
 export type Post = {
