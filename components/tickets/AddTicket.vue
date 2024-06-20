@@ -91,7 +91,11 @@ onMounted(async () => {
 async function submit() {
   loading.value = true;
   try {
-    const res = await useProxy(`/support/tickets/`, {
+    // const res = await useProxy(`/support/tickets/`, {
+    //   method: "POST",
+    //   body: { nesting_levels: requestBody.value },
+    // });
+    const res = await useApi(`/api/tickets/create/`, {
       method: "POST",
       body: { nesting_levels: requestBody.value },
     });

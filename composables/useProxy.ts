@@ -15,7 +15,7 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
     ...options,
     headers: {
       'api-key': config.apiSecret,
-      Authorization: status.value != 'unauthenticated' && rawToken.value ? `Bearer ${rawToken.value}` : '',
+      Authorization: status.value != 'unauthenticated' && rawToken.value ? `JWT ${rawToken.value}` : '',
       ...options?.headers
     }
   });
