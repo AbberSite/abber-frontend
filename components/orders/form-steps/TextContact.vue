@@ -192,6 +192,33 @@ const [profession] = defineField('profession');
 const [dream] = defineField('dream');
 
 const datePicker = ref<DatePickerInstance>(null);
+// const savedDetails = ref({})
+
+
+async function saveDreamDetails(){
+  const data =  {
+            dream_title: dream_title.value,
+            dream_time: dream_time.value,
+            dream: dream.value,
+            client: client.value,
+            age: age.value,
+            gender: gender.value,
+            marital_status: marital_status.value,
+            profession: profession.value
+        }
+        const savedDetails = await useApi('/api/orders/dream-info/');
+        console.log(savedDetails)
+        if (savedDetails.results.length > 0) {
+           await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}/`, {method: 'patch', body: data});
+        }else {
+        await useApi('/api/orders/dream-info/', {method: 'POST', body: data});
+        }
+
+
+
+
+
+}
 
 async function submit() {
     if (!(await validate()).valid) {
@@ -201,6 +228,9 @@ async function submit() {
         console.log(errors.value);
         return;
     }
+    await saveDreamDetails();
+
+
 
     next({
         nextStepId: 'service',
