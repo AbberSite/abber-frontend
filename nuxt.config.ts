@@ -110,5 +110,8 @@ export default defineNuxtConfig({
       },
     },
     asyncContext: true
-  }
+  },
+  plugins: [
+    '~/plugins/gtm.ts'
+  ],
 });
