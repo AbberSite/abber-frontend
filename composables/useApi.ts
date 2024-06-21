@@ -6,10 +6,6 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
 ): ReturnType<typeof $fetch> => {
     const { status, rawToken } = useAuthState();
 
-    // const { getSession } = useAuth();
-
-    // await getSession();
-
     return $fetch<T, R>(request, {
         ...options,
         headers: {
