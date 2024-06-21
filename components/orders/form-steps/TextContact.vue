@@ -131,7 +131,7 @@ import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 const { next, state } = useFormWizard<OrderForm>('order');
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';
-
+const { status } = useAuthState();
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
@@ -228,7 +228,8 @@ async function submit() {
         console.log(errors.value);
         return;
     }
-    await saveDreamDetails();
+    if(state.value == 'authenticated')
+        await saveDreamDetails();
 
 
 
