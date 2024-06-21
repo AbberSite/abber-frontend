@@ -1,5 +1,5 @@
 <template>
-  <label v-if="selectedId != service.id" @click="toggleSelection(service.id)"
+  <label v-if="selectedId != service.id && service.service_prices.text" @click="toggleSelection(service.id)"
     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm mt-0  focus:outline-none"
     :class="[selected.includes(service.id) && 'border-gray-900 ring-1 ring-gray-900']">
     <div class="flex pt-1.5">
