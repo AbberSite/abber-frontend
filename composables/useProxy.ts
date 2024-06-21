@@ -10,7 +10,6 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
 
   // await getSession();
   const config = useRuntimeConfig()
-  console.log(options);
   return $fetch<T, R>("/api-proxy" + request as R, {
     ...options,
     headers: {
