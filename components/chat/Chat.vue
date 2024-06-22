@@ -40,14 +40,14 @@ import type { Message, PaginationResponse } from "~/types";
 import { useInfiniteScroll } from "@vueuse/core";
 import changeList from "~/components/chat/changeList.vue";
 
-useHead({
-  script: [
-    {
-      src: "/audio-recorder/WebAudioRecorder.min.js",
-      type: "text/javascript",
-    }
-  ]
-})
+// useHead({
+//   script: [
+//     {
+//       src: "/audio-recorder/WebAudioRecorder.min.js",
+//       type: "text/javascript",
+//     }
+//   ]
+// })
 
 const props = defineProps<{ allowInput: Boolean, roomName: String, device: String, isSupport?: boolean}>();
 const { $viewport } = useNuxtApp();

@@ -107,9 +107,7 @@ export default defineNuxtConfig({
       }, 
       {
         src: '/audio-recorder/WebAudioRecorder.min.js',
-        type: 'text/javascript',
-        async: true,
-        body: true
+        type: 'text/javascript'
       }
       ],
     },
