@@ -63,11 +63,11 @@ class AudioRecorder {
     this.streamBeingCaptured = stream;
 
     const recorder = new WebAudioRecorder(input, {
-      workerDir: "https://cdn.jsdelivr.net/npm/web-audio-recorder-js@0.0.2/lib-minified/",   // must end with slash
+      workerDir: "/audio-recorder/",   // must end with slash
       encoding: 'mp3',
 
     });
-
+    
 
     recorder.onComplete = this.finish
 
