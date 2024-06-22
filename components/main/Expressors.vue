@@ -49,13 +49,13 @@ const loading = ref(false);
 
 
 if(!process.client){
-    await fetchExpressors();
+     fetchExpressors();
 }
 
 onMounted(async () => {
 
     if(expressors.value.length == 0){
-        await fetchExpressors();
+         fetchExpressors();
     }
 
 }) 
