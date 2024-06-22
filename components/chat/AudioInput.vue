@@ -51,6 +51,7 @@ const { status, timer, audioBlobs } = audioRecorder.init({
 
 
 watch(status, (value) => {
+  console.log(value);
   emit('update:recording', value);
   // When finish record send to server
   if (value === 'finished') { // Use strict equality comparison
@@ -104,6 +105,7 @@ async function toggleRecording() {
   try {
     await audioRecorder.play();
   } catch (e){
+    console.log(e);
     useNotification({type: 'danger', content: ' يرجى اعطى صلاحية الوصول إلى المايكرفون'})
   }
 
