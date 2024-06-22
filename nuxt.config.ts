@@ -3,11 +3,11 @@ const apiSecret = production ? "a011ff6611fa1cfa9be83e5e22533976b2ede3df" : "d37
 const websiteBasePath = production ? "https://abber.co" : "https://test.abber.co";
 const apiBasePath = websiteBasePath + "/api";
 export default defineNuxtConfig({
-  nitro: {
+  nitro: (process.env.VITE_ENABLE_BROTLI != "false") ? {
     compressPublicAssets: {
       brotli: true
     }
-  },
+  }: {},
   devtools: {
     enabled: true,
 
@@ -52,7 +52,7 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth", '@nuxtjs/device', 'nuxt-viewport'],
-  buildModules: ['@averjs/nuxt-compression'],
+  buildModules: (process.env.VITE_ENABLE_BROTLI != "false")?['@averjs/nuxt-compression']:[],
 
   auth: {
 
