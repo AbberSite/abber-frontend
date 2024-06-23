@@ -8,11 +8,11 @@ export default defineEventHandler(async (event) => {
     const Authorization = headers.authorization;
     const config = useRuntimeConfig()
 
-    const response = await axios.get(config.apiBasePath + "/orders/dream-info/?order_item__isnull=true", {
+    const response = await axios.get(config.apiBasePath + "/orders/dream-info/", {
       headers: {
         'api-key': config.apiSecret, Authorization
       },
-      params
+      params:params
     })
 
     return response.data
