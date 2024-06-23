@@ -7,51 +7,41 @@ defineProps<{orders: []}>();
 </script>
 
 <template>
-  <div
-    class="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1"
-  >
-    <div class="max-w-full overflow-x-auto">
-      <table class="w-full table-auto">
-        <thead>
+      <div class="is-scroll w-full overflow-x-auto pt-6">
+        <table class="w-full text-sm ltr:text-left rtl:text-right">
+        <thead class="border-b border-t">
           <tr class=" bg-gray-2 text-right dark:bg-meta-4">
-            <th class="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-              رقم الطلب
-            </th>
-            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-              المعبر
-            </th>
-            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-            العميل
-            </th>
-            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
-              تاريخ الطلب
-            </th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white min-w-[140px]">حالة الطلب</th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white">نوع الطلب</th>
-            <th class="py-4 px-4 font-medium text-black dark:text-white">الوظائف</th>
-          </tr>
+            <OrdersTableHeaderCol content="رقم الطلب" />
+            <OrdersTableHeaderCol content="المعبر" />
+            <OrdersTableHeaderCol content="العميل" />
+            <OrdersTableHeaderCol content="تاريخ الطلب" />
+            <OrdersTableHeaderCol content="حالة الطلب" />
+            <OrdersTableHeaderCol content="نوع الطلب" />
+            <OrdersTableHeaderCol content="الوظائف" />
+            </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in orders" :key="index">
-            <td class="py-5 px-4 pl-9 xl:pl-11">
+           
+            <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <h5 class="font-medium text-black dark:text-white">{{ item.id }}</h5>
             </td>
-            <td class="py-5 px-4">
+            <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <p class="text-black dark:text-white">{{ item?.seller?.first_name }}</p>
             </td>
-            <td class="py-5 px-4">
+            <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <p class="text-black dark:text-white">{{ item?.buyer?.first_name }}</p>
             </td>
-            <td class="py-5 px-4">
+            <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <p class="text-black dark:text-white">{{ useArabicFormattedDate(item.order_item_time_data.ordered_date) }}</p>
             </td>
-            <td class="py-5 px-4">
+            <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <OrderStatus :status="item.status" style="width: max-content;" />
             </td>
-            <td class="py-5 px-4">
+            <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <OrderType :type="item.type" style="width: max-content;" />
             </td>
-            <td class="py-5 px-4">
+            <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <div class="flex items-center space-x-3.5 justify-center">
                 <button class="hover:text-gray-400">
                   <svg
@@ -77,6 +67,5 @@ defineProps<{orders: []}>();
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+      </div>
 </template>
