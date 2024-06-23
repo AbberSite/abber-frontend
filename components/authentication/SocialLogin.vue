@@ -149,7 +149,7 @@ onMounted(async () => {
           access_token: response.access_token,
         },
       });
-      if(!data.value?.username){
+      if(!data.value?.user?.username){
         showLoadingDailog.value = false;
         useNotification({type:'danger', content: 'لقد حدث خطأ ما اثناء تسجيل الدخول'})
         return;
