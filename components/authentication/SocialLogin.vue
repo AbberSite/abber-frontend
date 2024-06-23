@@ -141,15 +141,17 @@ onMounted(async () => {
   googleLogin = googleProvider.useGoogleLogin({
     flow: "implicit",
     onSuccess: async (response: { access_token: string }) => {
+      if(!response?.access_token) return;
       showLoadingDailog.value = true;
-      const { data } = await useFetch("/api/auth/google", {
+      const { data, error } = await useFetch("/api/auth/google", {
         method: "POST",
         body: {
           access_token: response.access_token,
         },
       });
-
       await useAuthenticateUser(data.value);
+      showLoadingDailog.value = false;
+
       if(!props.isFormSteps)
         await useNotificationForLogin(true);
       else {
