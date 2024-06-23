@@ -72,7 +72,7 @@ class TransactionsStore {
     new Promise(async (resolve, reject) => {
         
         try {
-            const data = (await useProxy('/wallets/transactions/', {
+            const data = (await useDirectApi('/wallets/transactions/', {
                 params: {
                     limit: 9,
                     ...this.pipeFilters(),

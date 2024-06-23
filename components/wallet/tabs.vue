@@ -106,7 +106,7 @@ let cards;
 const {requests} = storeToRefs(useWithdrawalRequestsStore());
 const {fetchAll} = useWithdrawalRequestsStore();
 onMounted(async()=> {
-    cards = await useProxy('/wallets/cards/');
+    cards = await useDirectApi('/wallets/cards/');
     await fetchAll();
     loading.value = false;
 })

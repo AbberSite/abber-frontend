@@ -8,7 +8,7 @@ class dashOrders {
         new Promise(async (resolve, reject) => {
             try {
                 // console.log({"store": params.value.status})
-                const data = (await useProxy('/orders/dashboard-orders/', {
+                const data = (await useDirectApi('/orders/dashboard-orders/', {
                     params: params,
                     headers: {
                         'X-Requested-With': process.client ? 'XMLHttpRequest' : ''

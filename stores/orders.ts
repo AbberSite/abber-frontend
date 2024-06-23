@@ -184,7 +184,7 @@ class OrdersStore {
   }
   
   updateOrderStatus = async (orderId?: string, status: Order['status']) => {
-    const response = await useProxy(`/orders/my-orders/${orderId}/`, {
+    const response = await useDirectApi(`/orders/my-orders/${orderId}/`, {
       method: "PATCH",
       body: {
         change_status: status

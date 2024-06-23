@@ -22,7 +22,7 @@ class Notifications {
 
 	fetchAll = async (params?:any, update?: any): Promise<PaginationResponse<Notification>> => new Promise(async (resolve, reject)=> {
 		try{
-			const data = (await useProxy('/alerts/notifications', {params: {
+			const data = (await useDirectApi('/alerts/notifications', {params: {
 				limit: 9,
 				...params
 			}, headers: {

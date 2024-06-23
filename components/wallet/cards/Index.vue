@@ -48,7 +48,7 @@ onMounted(async () => {
 })
 async function refreshCards(){
     loading.value = true;
-    const my_cards = await useProxy('/wallets/cards/');
+    const my_cards = await useDirectApi('/wallets/cards/');
     cards.value = [];
     for(let card of my_cards.results){
         if(!cards.value.filter((c) => c.last4Digits === card.last4Digits && c.brand == card.brand).length){

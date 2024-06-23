@@ -54,7 +54,7 @@ async function isPaid() {
     });
 }
 async function verifyPayment(){
-    return await useProxy(`/wallets/charge/`, {
+    return await useDirectApi(`/wallets/charge/`, {
             method: 'POST',
             body: {
                 // type: 'VISA',

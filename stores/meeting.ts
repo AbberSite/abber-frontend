@@ -18,20 +18,20 @@ class MeetingStore {
     
     getMeetingStatus  = async (orderId : string) => {
 
-        const meeting = await useProxy(`/orders/my-orders/${orderId}/meeting/`) as Meeting;
+        const meeting = await useDirectApi(`/orders/my-orders/${orderId}/meeting/`) as Meeting;
         this.meeting.value = meeting
 
     }
 
     openSession = async () => {
         
-        const meeting = await useProxy(`/zoom/meetings/new/`) as Meeting;
+        const meeting = await useDirectApi(`/zoom/meetings/new/`) as Meeting;
         this.meeting.value = meeting
 
     }
 
     getMeetingSignature = async (role : 0|1) => {
-        const response = await useProxy("/zoom/auth/", {
+        const response = await useDirectApi("/zoom/auth/", {
 
             method : "POST", 
             body : {

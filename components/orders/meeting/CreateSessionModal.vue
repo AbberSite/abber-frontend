@@ -166,13 +166,13 @@ async function submit() {
 }
 
 async function fetchSessions() {
-    const response = await useProxy(`/meetings/video-session/`);
+    const response = await useDirectApi(`/meetings/video-session/`);
     currentSession.value = response ?? { capacity: 0 };
 }
 
 async function createSession() {
     const url = `/meetings/video-session/`;
-    const response = await useProxy(url, {
+    const response = await useDirectApi(url, {
         method: 'PATCH',
         body: currentSession.value
     });

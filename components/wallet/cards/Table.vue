@@ -78,7 +78,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['refreshCards'])
 async function deleteCard(id: string){
-  await useProxy('/wallets/cards/' + id, {method: 'DELETE'});
+  await useDirectApi('/wallets/cards/' + id, {method: 'DELETE'});
   await useNotification({type: 'success', content: 'لقد تم حذف البطاقة.'});
   emit('refreshCards');
 }

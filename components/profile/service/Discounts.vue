@@ -80,14 +80,14 @@ onMounted(async () => {
 
 async function loadOffers(){
   loading.value = true;
-  const data = await useProxy(`/services/services/${user.value.username}/offers/`);
+  const data = await useDirectApi(`/services/services/${user.value.username}/offers/`);
   offers.value = data.results;
   loading.value = false; 
 };
 
 async function deleteDiscount(id: number){
   try{
-    await useProxy(`/services/services/${user.value.username}/offers/${id}/`, {method: 'DELETE'});
+    await useDirectApi(`/services/services/${user.value.username}/offers/${id}/`, {method: 'DELETE'});
     useNotification({type: 'success', content: 'لقد تم حذف الخصم.'});
     await loadOffers();
   } catch(e){

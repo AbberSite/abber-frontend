@@ -103,7 +103,7 @@ async function submit(){
   coupon.value.amount = amount.value;
   coupon.value.start_date = start_date.value;
   coupon.value.end_date = end_date.value;
-  const res = await useProxy('/coupons/coupons/', {
+  const res = await useDirectApi('/coupons/coupons/', {
     method: 'POST',
     body: coupon.value
   })

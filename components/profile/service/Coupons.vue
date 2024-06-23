@@ -68,7 +68,7 @@ async function refreshCoupons() {
 }
 async function deleteCoupon(id: number) {
     loading.value = true;
-    await useProxy('/coupons/coupons/' + id, {
+    await useDirectApi('/coupons/coupons/' + id, {
         method: 'DELETE'
     }).then(() => {
         loading.value = false;

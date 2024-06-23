@@ -101,7 +101,7 @@ let loading = ref<boolean>(true);
 async function getServiceDetails() {
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await useProxy(`/services/services/${user.value.username}/`);
+            const data = await useDirectApi(`/services/services/${user.value.username}/`);
             resolve(data);
         } catch (error) {
             reject({});
@@ -146,7 +146,7 @@ async function submit() {
     }
     try {
 
-        await useProxy(`/services/services/${user.value.username}/`, {
+        await useDirectApi(`/services/services/${user.value.username}/`, {
             method: 'PUT',
             body: body
         });

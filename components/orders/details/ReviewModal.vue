@@ -109,7 +109,7 @@ const rating = ref({
 async function submit() {
     loading.value = true;
     try {
-        await useProxy(`/services/services/${order.value?.service}/ratings/`, {
+        await useDirectApi(`/services/services/${order.value?.service}/ratings/`, {
             method: 'POST',
             body: rating.value
         });

@@ -163,7 +163,7 @@ async function submit() {
     
     loading.value = true;
     try{
-        const response = await useProxy("/wallets/balance-withdrawal/", {
+        const response = await useDirectApi("/wallets/balance-withdrawal/", {
             method: 'POST',
             body: {
                 part_or_all: selectedOption.value,

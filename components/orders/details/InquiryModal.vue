@@ -67,7 +67,7 @@ async function submit() {
   if(!(await validate()).valid) return;
   loading.value = true;
   try {
-    const data = await useProxy(`/orders/my-orders/${id}/inquiry/`, {
+    const data = await useDirectApi(`/orders/my-orders/${id}/inquiry/`, {
       method: 'POST',
       body: inquiry.value
     });

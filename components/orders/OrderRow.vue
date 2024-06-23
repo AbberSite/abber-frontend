@@ -64,7 +64,7 @@ defineProps<{
 
 let showDialog = ref<boolean>(false);
 async function acceptOrder(order){
-    await useProxy(`/orders/my-orders/${order.id}/accept_order/`, {method: 'POST'});
+    await useDirectApi(`/orders/my-orders/${order.id}/accept_order/`, {method: 'POST'});
     showDialog.value = false; 
     navigateTo(`/orders/${order.type == 'text_communication' ? order.id : `video/${order.id}`}/`)
 }

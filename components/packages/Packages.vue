@@ -48,7 +48,7 @@ const handleBuy = (packageId: Number) => {
 
 
 async function deleteSub() {
-  const { data } = useProxy(`/packages/orders-membership/${membership.value?.results[0].id}/`, { method: 'DELETE' });
+  const { data } = useDirectApi(`/packages/orders-membership/${membership.value?.results[0].id}/`, { method: 'DELETE' });
   useNotification({ type: 'success', content: 'تم حذف الاشتراك، اعد التحميل' });
 }
 

@@ -136,7 +136,7 @@ class AccountStore {
     sendEmailVerification = async (email: string) =>
         new Promise(async (resolve, reject) => {
             try {
-                await useProxy(`/authentication/register/resend-email/`, {
+                await useDirectApi(`/authentication/register/resend-email/`, {
                     method: 'POST',
                     body: {
                         email
@@ -152,7 +152,7 @@ class AccountStore {
     verifyEmail = async (key: string) =>
         new Promise(async (resolve, reject) => {
             try {
-                const response = await useProxy(`/authentication/register/verify-email/`, {
+                const response = await useDirectApi(`/authentication/register/verify-email/`, {
                     method: 'POST',
                     body: {
                         key
@@ -172,7 +172,7 @@ class AccountStore {
     getZoomAccounts = async (): Promise<ZoomAccount | undefined> =>
         new Promise(async (resolve, reject) => {
             try {
-                const accounts = (await useProxy(`/zoom/accounts/`)) as PaginationResponse<ZoomAccount>;
+                const accounts = (await useDirectApi(`/zoom/accounts/`)) as PaginationResponse<ZoomAccount>;
 
                 this.zoomAccount.value = accounts?.results?.[0] ?? undefined;
                 resolve(accounts?.results?.[0] ?? undefined);
@@ -185,7 +185,7 @@ class AccountStore {
         new Promise(async (resolve, reject) => {
             try {
 
-                const accounts = (await useProxy(`/zoom/accounts/`, {
+                const accounts = (await useDirectApi(`/zoom/accounts/`, {
                     method: 'POST'
                 })) as PaginationResponse<ZoomAccount>;
 

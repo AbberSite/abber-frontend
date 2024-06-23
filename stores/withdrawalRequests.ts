@@ -24,7 +24,7 @@ class withdrawalRequestsStore {
     fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<withdrawalRequest>> =>
         new Promise(async (resolve, reject) => {
             try {
-                const data = (await useProxy('/wallets/balance-withdrawal/', {
+                const data = (await useDirectApi('/wallets/balance-withdrawal/', {
                     params: {
                         limit: 9,
                         ...this.filters.value,

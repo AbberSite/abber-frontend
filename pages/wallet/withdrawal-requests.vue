@@ -27,7 +27,7 @@ import type { withdrawalRequest } from '~/types';
 let loading = ref<boolean>(true);
 let requests = ref<withdrawalRequest[] | null>(null)
 onMounted(async()=> {
-    const response = await useProxy('/wallets/balance-withdrawal/');
+    const response = await useDirectApi('/wallets/balance-withdrawal/');
     requests.value = response.results;
     loading.value= false;
 })

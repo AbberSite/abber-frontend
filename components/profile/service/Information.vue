@@ -178,7 +178,7 @@ onMounted(async () => {
 async function getExpressorDetails() {
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await useProxy(`/expressors/expressor/account/`);
+            const data = await useDirectApi(`/expressors/expressor/account/`);
 
             resolve(data);
         } catch (error) {
@@ -191,7 +191,7 @@ async function submit(data: any, LoadingKey : 'record'|'primary') {
     loading.value[LoadingKey] = true;
 
     try {
-        await useProxy(`/expressors/expressor/account/`, {
+        await useDirectApi(`/expressors/expressor/account/`, {
             method: 'PUT',
             body: data
         });
@@ -223,7 +223,7 @@ async function submitRecord() {
     data.append("tax_record", record.value.tax_record)
 
     try {
-        await useProxy(`/expressors/expressor/account/`, {
+        await useDirectApi(`/expressors/expressor/account/`, {
             method: 'PUT',
             body: data
         });

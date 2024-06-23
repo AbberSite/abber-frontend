@@ -77,7 +77,6 @@
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';
-import useProxy from '~/composables/useProxy';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { toTypedSchema } from '@vee-validate/yup';
@@ -107,7 +106,7 @@ let offer = ref<{
 });
 let loading = ref(false);
 const { data: user } = await useAuth();
-const data = await useProxy(`/services/services/${user.value.username}/`);
+const data = await useDirectApi(`/services/services/${user.value.username}/`);
 const [text_amount] = defineField('text_amount');
 const [video_amount] = defineField('video_amount');
 const [start_date] = defineField('start_date');
@@ -142,7 +141,7 @@ async function submit() {
         id?: number;
     } = { text_amount: text_amount.value, video_amount: video_amount.value, start_date: start_date.value, end_date: end_date.value, ...offer.value };
     try {
-        await useProxy(`/services/services/${data.seller.username}/offers/`, {
+        await useDirectApi(`/services/services/${data.seller.username}/offers/`, {
             method: 'POST',
             body: body
         })

@@ -92,9 +92,9 @@ definePageMeta({
     auth: false
 })
 onMounted(async () => {
-    const data = await useProxy(`/services/services/${route.params.id}`);
-    const dataExpressor = await useProxy(`/expressors/expressors/${route.params.id}`);
-    const ratesData = await useProxy(`/services/services/${route.params.id}/ratings/?ordering=-date`);
+    const data = await useDirectApi(`/services/services/${route.params.id}`);
+    const dataExpressor = await useDirectApi(`/expressors/expressors/${route.params.id}`);
+    const ratesData = await useDirectApi(`/services/services/${route.params.id}/ratings/?ordering=-date`);
     expressor.value = data;
     expressor.value.work_hours = dataExpressor.work_hours;
     loading.value = false;

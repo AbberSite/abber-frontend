@@ -178,7 +178,7 @@ async function appleLogin() {
     //@ts-ignore
     const data = await AppleID.auth.signIn();
     showLoadingDailog.value = true; 
-    const loginData = await useProxy("/authentication/apple/connect/", {
+    const loginData = await useDirectApi("/authentication/apple/connect/", {
       method: "POST",
       body: {
         id_token: data.authorization.id_token,

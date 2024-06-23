@@ -456,7 +456,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
   if (paymentMethod.value == 'BALANCE') {
     let checkout;
     if (props.ordersPackage) {
-      await useProxy(`/packages/orders-membership/`, {
+      await useDirectApi(`/packages/orders-membership/`, {
         method: 'POST',
         body: {
           'package_id': state.value.data.packageId,
@@ -479,7 +479,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         }
       });
     };
-    if(checkout.cart.length > 1)
+    if(checkout?.cart?.length > 1)
       (state.value.data as OrderFrom).orders = checkout.cart;
     (state.value.data as OrderForm).order_id = checkout.order_id;
     updateOrderInfo(state.value.data);
@@ -505,7 +505,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
       localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
      
-      if (checkout.cart.length > 1)
+      if (checkout?.cart?.length > 1)
         (state.value.data as OrderForm).orders = checkout.cart;
       (state.value.data as OrderForm).order_id = checkout.order_id;
 
@@ -524,7 +524,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
       // TODO: update this when finishing from testing and put dynamic service id instead of hardcoded 85
 
       //
-      const checkout = await useProxy(`/wallets/charge/`, {
+      const checkout = await useDirectApi(`/wallets/charge/`, {
         method: 'POST',
         body: {
           // type: 'VISA',
@@ -600,7 +600,7 @@ async function checkCoupon() {
   if (state.value.data?.selectedServices) {
     for (const service of state.value.data.selectedServices) {
       try {
-        const res = await useProxy(`/orders/check-coupon/${service}/`, {
+        const res = await useDirectApi(`/orders/check-coupon/${service}/`, {
           method: "POST",
           body: {
 
@@ -613,7 +613,7 @@ async function checkCoupon() {
     }
   }
   try {
-    res = await useProxy(`/orders/check-coupon/${state.value.data?.service_id}/`, {
+    res = await useDirectApi(`/orders/check-coupon/${state.value.data?.service_id}/`, {
       method: "POST",
       body: {
 
@@ -691,6 +691,7 @@ async function useBalance() {
       navigateTo(callbackURL + "?balance=true", { external: true });
     }
   } catch (e) {
+    console.log(e);
     useNotification({ type: "danger", content: "حدث خطأ ما، اعد المحاولة" });
     waitingByBalance.value = false;
   }
