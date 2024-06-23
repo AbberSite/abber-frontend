@@ -32,11 +32,11 @@ class ServicesStore {
     });
     this.servicesPagination.value = data;
     this.services.value = data.results;
-    return data.value;
+    return data;
   };
 
   fetchVideoServices: () => Promise<PaginationResponse<Service>> = async () => {
-    const data = await useProxy('/services/services/', {
+    const data = await useDirectApi('/services/services/', {
       params: {
         active_video_communication: true,
         active: true,
