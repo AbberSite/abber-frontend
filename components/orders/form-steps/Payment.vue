@@ -407,6 +407,47 @@ async function loadHyper() {
   hyper = wpwl as any;
   if (paymentMethod.value == "APPLEPAY") loading.value = false;
 }
+
+const saveNewDetails = async (data: OrderForm, order) => {
+  data.order_item = order;
+  
+
+  try {
+    const response = await useApi(`/api/orders/dream-info/`, {
+      method: "POST",
+      body: data,
+    });
+  } catch (error) {
+    // alert('something went wrong');
+  }
+};
+async function updateOrderInfo(data: OrderForm) {
+  console.log(data)
+const  dreamDetails =await useApi(`/api/orders/dream-info/?order_item=${data.order_id}`)
+
+if (dreamDetails.results.length === 0) {
+  if (data.orders && data.orders.length > 1) {
+    for (const order of data.orders) {
+      saveNewDetails(data, order);
+    }
+  } else {
+    try {
+      const savedDetails = await useApi("/api/orders/dream-info/?order_item__isnull=true");
+      if (savedDetails.results.length > 0) {
+        const response = await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}`, {
+          method: "patch",
+          body: { order_item: data.order_id },
+        });
+      } else {
+        saveNewDetails(data, data.order_id);
+      }
+    } catch (error) {
+      // alert('something went wrong');
+    }
+  }
+}
+}
+
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
   var another_service;
   try {
@@ -438,11 +479,14 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         }
       });
     };
-    // if(checkout.cart.length > 1)
-    //   (state.value.data as OrderFrom).orders = checkout.cart;
+    if(checkout.cart.length > 1)
+      (state.value.data as OrderFrom).orders = checkout.cart;
+    (state.value.data as OrderForm).order_id = checkout.order_id;
+    updateOrderInfo(state.value.data);
     return checkout;
   }
   if (!props.deposit && !props.addCard && !props.ordersPackage) {
+
     return new Promise(async (resolve, reject) => {
 
       const checkout = await useApi(`/api/orders/${state.value.data?.service_id}/buy`, {
@@ -460,15 +504,17 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
       localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
+     
+      if (checkout.cart.length > 1)
+        (state.value.data as OrderForm).orders = checkout.cart;
       (state.value.data as OrderForm).order_id = checkout.order_id;
+
+      updateOrderInfo(state.value.data);
 
       if (checkout.paid) {
         navigateTo(callbackURL + `?freeOrder=true&order_id=${checkout.order_id}`, { external: true })
         return
       }
-      if (checkout.cart.length > 1)
-        (state.value.data as OrderForm).orders = checkout.cart;
-
       persist();
 
       resolve(checkout);

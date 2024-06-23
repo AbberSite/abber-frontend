@@ -206,7 +206,7 @@ async function saveDreamDetails(){
             marital_status: marital_status.value,
             profession: profession.value
         }
-        const savedDetails = await useApi('/api/orders/dream-info/');
+        const savedDetails = await useApi('/api/orders/dream-info/?order_item__isnull=true');
         console.log(savedDetails)
         if (savedDetails.results.length > 0) {
            await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}/`, {method: 'patch', body: data});

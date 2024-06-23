@@ -137,7 +137,6 @@ onMounted(async () => {
     // navigateTo("/");
     return;
   } else if ((balance || freeOrder) && data?.dream != undefined) {
-    await updateOrderInfo(data);
     localStorage.removeItem("abber:current-transaction-id");
     loading.value = false;
     console.log(order_id);
@@ -202,7 +201,7 @@ async function getStatus() {
     return;
   }
 
-  await updateOrderInfo(data);
+  // await updateOrderInfo(data);
   // readNotifications.value = true;
   localStorage.removeItem("abber:current-transaction-id");
 
@@ -226,39 +225,7 @@ async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
     resolve({ hasPaid: true, message: "" });
   });
 }
-const saveNewDetails = async (data: OrderForm, order) => {
-  data.order_item = order;
 
-  try {
-    const response = await useApi(`/api/orders/dream-info/`, {
-      method: "POST",
-      body: data,
-    });
-  } catch (error) {
-    // alert('something went wrong');
-  }
-};
-async function updateOrderInfo(data: OrderForm) {
-  if (data.orders?.length > 1) {
-    for (const order of data.orders) {
-      saveNewDetails(data, order);
-    }
-  } else {
-    try {
-      const savedDetails = await useApi("/api/orders/dream-info/");
-      if (savedDetails.results.length > 0) {
-        const response = await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}`, {
-          method: "patch",
-          body: { order_item: data.order_id },
-        });
-      } else {
-        saveNewDetails(data, data.order_id);
-      }
-    } catch (error) {
-      // alert('something went wrong');
-    }
-  }
-}
 
 definePageMeta({
   layout: false,
