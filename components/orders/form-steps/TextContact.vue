@@ -228,8 +228,8 @@ async function submit() {
         console.log(errors.value);
         return;
     }
-    if(state.value == 'authenticated')
-        await saveDreamDetails();
+    if(status.value == 'authenticated')
+    await saveDreamDetails();
 
 
 
