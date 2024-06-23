@@ -1,3 +1,4 @@
+import useDirectApi from '~/composables/useDirectApi';
 import type { PaginationResponse, Service } from '~/types';
 
 class ServicesStore {
@@ -22,7 +23,7 @@ class ServicesStore {
     );
 
   fetchAll: () => Promise<PaginationResponse<Service>> = async () => {
-    const data = await useProxy('/services/services/', {
+    const data = await useDirectApi('/services/services/', {
       params: {
         active_text_communication: true,
         active: true,
