@@ -143,14 +143,18 @@ onMounted(async () => {
     onSuccess: async (response: { access_token: string }) => {
       if(!response?.access_token) return;
       showLoadingDailog.value = true;
-      const { data, error } = await useFetch("/api/auth/google", {
+      const { data } = await useFetch("/api/auth/google", {
         method: "POST",
         body: {
           access_token: response.access_token,
         },
       });
+      if(!data.value?.username){
+        showLoadingDailog.value = false;
+        useNotification({type:'danger', content: 'لقد حدث خطأ ما اثناء تسجيل الدخول'})
+        return;
+      }
       await useAuthenticateUser(data.value);
-      showLoadingDailog.value = false;
 
       if(!props.isFormSteps)
         await useNotificationForLogin(true);
