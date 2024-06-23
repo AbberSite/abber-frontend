@@ -12,16 +12,7 @@ export default defineEventHandler(async (event) => {
   try {
     const response = await axios.post(
       config.apiBasePath + `/orders/dream-info/`,
-      {
-        dream: body.dream,
-        dream_title: body.dream_title,
-        dream_time: body.dream_time,
-        client: body.client,
-        gender: body.gender,
-        age: body.age,
-        marital_status: body.marital_status,
-        profession: body.profession,
-      },
+      body,
       {
         headers: {
           'api-key': config.apiSecret,
