@@ -236,8 +236,6 @@ onMounted(() => {
     }
 });
 
-('?uid=e2&token=bzexzc-7b1b191a2eccd9d10bf371d7f82fddf9');
-
 async function submit() {
     const validation = await validate();
 

@@ -14,6 +14,8 @@ export default defineEventHandler(async (event) => {
             {
                 headers: {
                     'api-key': config.apiSecret,
+                    'Platform': 'web',
+
                 },
             },
         );
