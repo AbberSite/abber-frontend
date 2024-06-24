@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import OrderStatus from './OrderStatus.vue';
-import OrderType from './OrderType.vue';
+import OrderStatus from '../tables/OrderStatus.vue';
+import OrderType from '../tables/OrderType.vue';
 defineProps<{orders: []}>();
 
 </script>
@@ -20,8 +20,8 @@ defineProps<{orders: []}>();
             <OrdersTableHeaderCol content="الوظائف" />
             </tr>
         </thead>
-        <tbody>
-          <tr v-for="(item, index) in orders" :key="index">
+        <tbody class="divide-y">
+          <tr v-for="(item, index) in orders" :key="index" class="">
            
             <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
               <h5 class="font-medium text-black dark:text-white">{{ item.id }}</h5>

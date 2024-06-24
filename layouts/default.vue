@@ -1,13 +1,11 @@
 <template>
-    <Header /> 
-    <slot/>
-    
-    <Footer/> 
+    <Header />
+    <slot />
+
+    <Footer />
 </template>
 
 <script setup lang="ts">
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -138,6 +138,8 @@
       useBalance();
     showConfirmDailog = false;
     " :payment="true" />
+  
+  <InformationDialog v-if="dailogInformation" @close="closeInfoDailog"/>
 </template>
 
 <script setup lang="ts">
@@ -146,6 +148,7 @@ import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 import type { OrderForm } from "~/types";
 import useScript from "~/composables/useScript";
 const { isApple, isSafari } = useDevice();
+let dailogInformation = ref(false)
 let state;
 let persist;
 if (!props.deposit && !props.addCard && !props.ordersPackage) {
@@ -688,7 +691,10 @@ async function useBalance() {
   try {
     const payment = await createCheckout();
     if (payment.paid) {
-      navigateTo(callbackURL + "?balance=true", { external: true });
+      if(!data.value.profile.gender || !data.value.profile.birthday || !data.value.profile.marital_status || !data.value.profile.profession){
+        dailogInformation.value = true;
+      }else 
+        navigateTo(callbackURL + "?balance=true", { external: true });
     }
   } catch (e) {
     console.log(e);
@@ -696,6 +702,11 @@ async function useBalance() {
     waitingByBalance.value = false;
   }
 };
+
+async function closeInfoDailog(){
+  dailogInformation.value = false;
+  navigateTo(callbackURL + "?balance=true", { external: true });
+}
 </script>
 
 <style>
