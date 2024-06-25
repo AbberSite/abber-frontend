@@ -1,6 +1,6 @@
 <template>
     <div
-        class="fixed inset-0 divide-y-2 divide-gray-50 bg-white shadow-lg ring-1 ring-black ring-opacity-5 md:absolute md:inset-auto md:top-[84px] md:w-[340px] md:rounded-md ltr:md:right-20 rtl:md:left-20"
+        class="z-50 fixed inset-0 divide-y-2 divide-gray-50 bg-white shadow-lg ring-1 ring-black ring-opacity-5 md:absolute md:inset-auto md:top-[84px] md:w-[340px] md:rounded-md ltr:md:right-20 rtl:md:left-20"
         >
         <div class="flex h-full flex-col">
 
