@@ -2,6 +2,10 @@
     <div
         class="grid w-full gap-x-8 gap-y-14 pb-36 pt-16 sm:grid-cols-2 lg:hidden lg:grid-cols-3 px-1"
         >
+        <div class="w-full space-y-4" v-if="data.user_type == 'إدارة'">
+            <div class="text-sm font-semibold text-gray-500 xs:text-base">العميل</div>
+            <NuxtLink class="font-semibold text-blue-500" :to="`/accounts/dashboard/user-update/${order?.buyer.username}/#tab0`" v-text="order.buyer.first_name"/>
+        </div>
         <div class="w-full space-y-4">
             <div class="text-sm font-semibold text-gray-500 xs:text-base">حالة الطلب</div>
             <OrderStatus :status="order?.status" />
@@ -66,6 +70,7 @@
 
 <script setup lang="ts">
 const { order } = storeToRefs(useOrdersStore());
+const { data } = useAuth();
 onMounted(function(){
     window.scrollTo({top: document.body.scrollHeight / 4, behavior: 'smooth'});
 })
