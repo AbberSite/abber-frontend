@@ -1,9 +1,12 @@
 <template>
     <main class="min-h-screen outline-none">
+        <DashboardHeaderHeroBackground />
 
-        <section
-            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-44 lg:px-8 xl:pb-44">
-            <h1 class="font-semibold py-3 text-left">الطلبات</h1>
+        <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44">
+            <div class="relative -mt-2 pb-12">
+                <p class="text-sm font-medium text-gray-800">الطلبات</p>
+                <p class="text-lg font-semibold">جميع الطلبات</p>
+            </div>
             <div class="w-full pt-6">
                 <div class="flex items-center justify-between">
                     <form class="w-full sm:max-w-sm" method="GET">
