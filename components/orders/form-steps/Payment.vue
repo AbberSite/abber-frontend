@@ -138,9 +138,9 @@
       useBalance();
     showConfirmDailog = false;
     " :payment="true" />
-  
+
   <!-- <InformationDialog v-if="true" @close="closeInfoDailog"/> -->
-  <InformationDialog v-if="dailogInformation" @close="closeInfoDailog"/>
+  <InformationDialog v-if="dailogInformation" @close="closeInfoDailog" />
 </template>
 
 <script setup lang="ts">
@@ -414,7 +414,7 @@ async function loadHyper() {
 
 const saveNewDetails = async (data: OrderForm, order) => {
   data.order_item = order;
-  
+
 
   try {
     const response = await useApi(`/api/orders/dream-info/`, {
@@ -425,38 +425,38 @@ const saveNewDetails = async (data: OrderForm, order) => {
     // alert('something went wrong');
   }
 };
-async function updateOrderInfo(data: OrderForm, needInfo?:boolean) {
-const  dreamDetails =await useApi(`/api/orders/dream-info/?order_item=${data.order_id}`)
-if(needInfo){
-  if(data.orders && data.orders.length > 1){
-    for(const order of data.orders){
-      saveNewDetails(data, order);
-    }
-  } else {
-    saveNewDetails(data, data.order_id)
-  }
-}
-if (dreamDetails.results.length === 0) {
-  if (data.orders && data.orders.length > 1) {
-    for (const order of data.orders) {
-      saveNewDetails(data, order);
-    }
-  } else {
-    try {
-      const savedDetails = await useApi("/api/orders/dream-info/?order_item__isnull=true");
-      if (savedDetails.results.length > 0) {
-        const response = await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}`, {
-          method: "patch",
-          body: { order_item: data.order_id },
-        });
-      } else {
-        saveNewDetails(data, data.order_id);
+async function updateOrderInfo(data: OrderForm, needInfo?: boolean) {
+  const dreamDetails = await useApi(`/api/orders/dream-info/?order_item=${data.order_id}`)
+  if (needInfo) {
+    if (data.orders && data.orders.length > 1) {
+      for (const order of data.orders) {
+        saveNewDetails(data, order);
       }
-    } catch (error) {
-      // alert('something went wrong');
+    } else {
+      saveNewDetails(data, data.order_id)
     }
   }
-}
+  if (dreamDetails.results.length === 0) {
+    if (data.orders && data.orders.length > 1) {
+      for (const order of data.orders) {
+        saveNewDetails(data, order);
+      }
+    } else {
+      try {
+        const savedDetails = await useApi("/api/orders/dream-info/?order_item__isnull=true");
+        if (savedDetails.results.length > 0) {
+          const response = await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}`, {
+            method: "patch",
+            body: { order_item: data.order_id },
+          });
+        } else {
+          saveNewDetails(data, data.order_id);
+        }
+      } catch (error) {
+        // alert('something went wrong');
+      }
+    }
+  }
 }
 
 async function createCheckout(): Promise<{ transaction_id: string; id: string }> {
@@ -490,10 +490,10 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         }
       });
     };
-    if(checkout?.cart?.length > 1)
+    if (checkout?.cart?.length > 1)
       (state.value.data as OrderFrom).orders = checkout.cart;
     (state.value.data as OrderForm).order_id = checkout.order_id;
-    if(state.value.data.client)
+    if (state.value.data.client)
       updateOrderInfo(state.value.data);
     else {
       (state.value.data as OrderForm).age = data.value.profile?.birthday;
@@ -523,16 +523,19 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
       localStorage.setItem('abber:current-transaction-id', checkout.transaction_id);
 
-     
+
       if (checkout?.cart?.length > 1)
         (state.value.data as OrderForm).orders = checkout.cart;
       (state.value.data as OrderForm).order_id = checkout.order_id;
 
       updateOrderInfo(state.value.data);
-
       if (checkout.paid) {
-        navigateTo(callbackURL + `?freeOrder=true&order_id=${checkout.order_id}`, { external: true })
-        return
+        if (!data.value.profile.gender || !data.value.profile.birthday || !data.value.profile.marital_status || !data.value.profile.profession) {
+          dailogInformation.value = true;
+        } else {
+          navigateTo(callbackURL + `?freeOrder=true&order_id=${checkout.order_id}`, { external: true })
+          return
+        }
       }
       persist();
 
@@ -707,9 +710,9 @@ async function useBalance() {
   try {
     const payment = await createCheckout();
     if (payment.paid) {
-      if(!data.value.profile.gender || !data.value.profile.birthday || !data.value.profile.marital_status || !data.value.profile.profession){
+      if (!data.value.profile.gender || !data.value.profile.birthday || !data.value.profile.marital_status || !data.value.profile.profession) {
         dailogInformation.value = true;
-      }else 
+      } else
         navigateTo(callbackURL + "?balance=true", { external: true });
     }
   } catch (e) {
@@ -719,12 +722,12 @@ async function useBalance() {
   }
 };
 
-async function closeInfoDailog(){
+async function closeInfoDailog() {
   dailogInformation.value = false;
   await getSession();
-  if(paymentMethod.value == 'BALANCE'){
+  if (paymentMethod.value == 'BALANCE') {
     console.log(state.value.data);
-    if(state.value.data.client)
+    if (state.value.data.client)
       await updateOrderInfo(state.value.data, true);
     else {
       (state.value.data as OrderForm).age = data.value.profile?.birthday;
@@ -734,9 +737,8 @@ async function closeInfoDailog(){
       await updateOrderInfo(state.value.data, true);
     }
     await navigateTo(callbackURL + "?balance=true", { external: true });
-  } else if (paymentMethod.value == 'CARD'){
-    console.log(state.value.data);
-    if(state.value.data.client)
+  } else if (membership.results[0].num_orders) {
+    if (state.value.data.client)
       await updateOrderInfo(state.value.data, true);
     else {
       (state.value.data as OrderForm).age = data.value.profile?.birthday;
@@ -745,6 +747,7 @@ async function closeInfoDailog(){
       (state.value.data as OrderForm).marital_status = data.value.profile?.marital_status;
       await updateOrderInfo(state.value.data, true);
     }
+    await navigateTo(callbackURL + `?freeOrder=true&order_id=${state.value.data.order_id}`, { external: true })
   }
 }
 </script>
