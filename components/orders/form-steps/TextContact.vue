@@ -87,22 +87,17 @@ import '@vuepic/vue-datepicker/dist/main.css';
 const { next, state } = useFormWizard<OrderForm>('order');
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';
 const { status, data } = useAuthState();
-if (status.value == 'authenticated') {
-    state.value.data.age = data.value.profile?.birthday;
-    state.value.data.gender = data.value.profile?.gender;
-    state.value.data.profession = data.value.profile?.profession;
-    state.value.data.marital_status = data.value.profile?.marital_status;
-}
+
 const { defineField, errors, validate } = useForm({
     validationSchema: toTypedSchema(
         yup.object({
             dream_title: yup.string().required("هذا الحقل مطلوب").min(5, 'هذا الحقل مطلوب').default(state.value.data?.dream_title),
             dream_time: yup.string().required("هذا الحقل مطلوب").default(state.value.data?.dream_time ?? getCurrentDate()),
             dream: yup.string().required("هذا الحقل مطلوب").min(5, 'هذا الحقل مطلوب').default(state.value.data?.dream),
-            client: yup.boolean().default(state.value.data?.client),
+            client: yup.boolean().default(state.value.data?.client ?? false),
 
             age: yup
-                .string()
+                .number()
                 .when('client', {
                     is: true,
                     then: (schema) => schema.required("هذا الحقل مطلوب").min(5).max(120),
@@ -151,28 +146,33 @@ const [age] = defineField('age');
 const [marital_status] = defineField('marital_status');
 const [profession] = defineField('profession');
 const [dream] = defineField('dream');
-
+if (status.value == 'authenticated') {
+    if (!client.value)
+        state.value.data.age = data.value.profile?.birthday;
+    state.value.data.gender = data.value.profile?.gender;
+    state.value.data.profession = data.value.profile?.profession;
+    state.value.data.marital_status = data.value.profile?.marital_status;
+}
 const datePicker = ref<DatePickerInstance>(null);
 // const savedDetails = ref({})
 
 
 async function saveDreamDetails() {
-    const data = {
+    const dataRequest = {
         dream_title: dream_title.value,
         dream_time: dream_time.value,
         dream: dream.value,
         client: client.value,
-        age: age.value,
-        gender: gender.value,
-        marital_status: marital_status.value,
-        profession: profession.value
+        age: client.value ? age.value : data.value?.profile?.birthday,
+        gender: client.value ? gender.value : data.value?.profile?.gender,
+        marital_status: client.value ? marital_status.value : data.value?.profile?.marital_status,
+        profession: client.value ? profession.value : data.value?.profile?.profession
     }
     const savedDetails = await useApi('/api/orders/dream-info/?order_item__isnull=true');
-    console.log(savedDetails)
     if (savedDetails.results.length > 0) {
-        await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}/`, { method: 'patch', body: data });
+        await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}/`, { method: 'patch', body: dataRequest });
     } else {
-        await useApi('/api/orders/dream-info/', { method: 'POST', body: data });
+        await useApi('/api/orders/dream-info/', { method: 'POST', body: dataRequest });
     }
 
 
@@ -202,10 +202,10 @@ async function submit() {
             dream_time: dream_time.value,
             dream: dream.value,
             client: client.value,
-            age: age.value,
-            gender: gender.value,
-            marital_status: marital_status.value,
-            profession: profession.value
+            age: client.value ? age.value : data.value?.profile?.birthday,
+            gender: client.value ? gender.value : data.value?.profile?.gender,
+            marital_status: client.value ? marital_status.value : data.value?.profile?.marital_status,
+            profession: client.value ? profession.value : data.value?.profile?.profession
         }
     });
 }
