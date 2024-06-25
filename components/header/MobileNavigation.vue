@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <a class="-m-1.5 p-1.5" href="/">
         <span class="sr-only">عبر</span>
-        <img class="lazyload h-14 w-auto" src="/images/logo.webp" height="56" width="56" alt="" />
+        <NuxtImg loading="lazy" class="w-auto" src="/images/logo.webp" height="56" width="56" alt="" />
       </a>
       <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" aria-labelledby="menu close button" @click="$emit('close')">
         <span class="sr-only">إغلاق القائمة</span>

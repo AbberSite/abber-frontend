@@ -1,7 +1,7 @@
 <template>
     <template>
         <h1 class="sr-only" id="login-heading">التسجيل</h1>
-            <img class="aspect-square lazyload" src="/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
+            <NuxtImg loading="lazy" class="aspect-square" src="/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
             <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بك في عبر</div>
             <div class="pt-4 text-sm text-gray-800 xs:text-base">أدخل التفاصيل أدناه لإنشاء حساب جديد</div>
     </template>
@@ -23,7 +23,7 @@
     </template>
     <template v-else>
         <h1 class="sr-only" id="login-heading">تسجيل الدخول</h1>
-        <img class="aspect-square lazyload" src="/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
+        <NuxtImg loading="lazy" class="aspect-square" src="/images/logo.webp" height="70" width="70" alt="شعار منصة عبر" />
         <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">مرحبا بعودتك مجددا</div>
         <div class="pt-4 text-sm text-gray-800 xs:text-base">الرجاء تسجيل الدخول الى حسابك</div>
     </template>
