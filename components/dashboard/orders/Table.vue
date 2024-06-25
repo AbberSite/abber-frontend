@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import OrderStatus from '../tables/OrderStatus.vue';
-import OrderType from '../tables/OrderType.vue';
 defineProps<{ orders: [] }>();
 
 </script>
@@ -70,9 +68,8 @@ defineProps<{ orders: [] }>();
             </p>
           </td>
 
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <div class="flex items-center space-x-3.5 justify-center">
-              <button class="hover:text-gray-400">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+            <button class="hover:text-gray-400 cursor-pointer">
                 <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -83,7 +80,6 @@ defineProps<{ orders: [] }>();
                     fill="" />
                 </svg>
               </button>
-            </div>
           </td>
         </tr>
       </tbody>

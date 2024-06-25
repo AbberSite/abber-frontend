@@ -56,7 +56,7 @@
                         <ClientOnly>
                             <transition enter-active-class="transition-all" leave-active-class="transition-all"
                                 enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                                <FiltersDropdown v-if="openFiltersDropdown"
+                                <DashboardOrdersFiltersDropdown v-if="openFiltersDropdown"
                                     v-on-click-outside="() => (openFiltersDropdown = false)" />
                             </transition>
                         </ClientOnly>
@@ -70,6 +70,10 @@
 
         </section>
     </main>
+
+    <ClientOnly>
+        <DashboardOrdersFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
+    </ClientOnly>
 
 </template>
 <script setup lang="ts">

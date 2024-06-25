@@ -5,6 +5,7 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
   options?: Partial<Parameters<typeof $fetch<T, R>>[1]>
 ): ReturnType<typeof $fetch> => {
   const { status, rawToken } = useAuthState();
+  console.log(request.toString());
   return $fetch<T, R>("/api/custom-api-endpoint/fetch-api/" as R, {
     ...options,
     headers: {
