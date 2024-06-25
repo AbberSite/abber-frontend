@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full " :dir="user?.username == message?.user?.username ? 'rtl' : 'ltr'">
-    <NuxtImg loading="lazy" class="h-11 w-11 rounded-full bg-gray-100"
-      v-if="lastMessage?.user?.username != message.user.username" :src="message.user.image" height="44" width="44"
+    <img  class="lazyload h-11 w-11 rounded-full bg-gray-100"
+      v-if="lastMessage?.user?.username != message.user.username" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="message.user.image" height="44" width="44"
       alt="" />
     <div class="ms-3 w-full space-y-3"
       :class="[lastMessage?.user?.username != message.user.username ? 'space-y-3' : 'space-y-2']">

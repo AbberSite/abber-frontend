@@ -1,7 +1,7 @@
 <template>
   <div v-if="slug" @click.once="navigateTo({ name: 'blog-post-slug', params: { slug: props?.slug  } })" class="cursor-pointer" >
     <div >
-      <NuxtImg loading="lazy" class="aspect-[3/2] w-full rounded-xl bg-gray-50" :src="image" :alt="imageAlt"  />
+      <img class="lazyload aspect-[3/2] w-full rounded-xl bg-gray-50" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="image" :alt="imageAlt"  />
     </div>
 
     <div class="flex w-full flex-col space-y-4 pt-8 text-right">
