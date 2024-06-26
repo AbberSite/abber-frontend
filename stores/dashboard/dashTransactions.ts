@@ -6,21 +6,13 @@ class dashTransactions {
   pagination = ref<PaginationResponse<any>>();
   filters = ref({
     success: null,
-    type: {
-      voice: false,
-      text: false,
-    },
-    status: [],
+    type: null,
     search: "",
     ordering: "order_item_time_data__start_date",
     ignore: undefined,
   });
   filtersCount = computed(() => {
-    return (
-      this.filters.value.status.length +
-      Number(this.filters.value.type.voice) +
-      +Number(this.filters.value.type.text)
-    );
+    return 0;
   });
 
   filtersPipline: Array<any>;
@@ -30,7 +22,6 @@ class dashTransactions {
     this.filtersPipline = [
       this.success,
       this.getTypeFilterQuery,
-      this.getStatusFilterQuery,
       this.search,
       this.ordering
     ];
@@ -93,31 +84,7 @@ class dashTransactions {
       }
     });
 
-  getStatusFilterQuery = () => {
-    if (!this || this.filters.value.status.length === 0) return {};
-
-    if (this.filters.value.status.length === 1) {
-      return {
-        status: this.filters.value.status[0],
-      };
-    }
-
-    let status = "";
-
-    this.filters.value.status.map((_status: string, index: number) => {
-      if (index == 0) {
-        status += _status;
-        return;
-      }
-
-      status += "," + _status;
-    });
-
-    return {
-      status__in: status,
-    };
-  };
-
+  
   search = () => {
     if (this.filters.value.search === "") return {};
 
@@ -141,23 +108,10 @@ class dashTransactions {
   };
 
   getTypeFilterQuery = () => {
-    if (!this) return {};
+    if (this.filters.value.type == null) return {};
 
-    if (
-      (this.filters.value.type.text && this.filters.value.type.voice) ||
-      (!this.filters.value.type.text && !this.filters.value.type.voice)
-    ) {
-      return {};
-    }
-
-    if (this.filters.value.type.text) {
-      return {
-        type: "text_communication",
-      };
-    }
-
-    return {
-      type: "video_communication",
+    return{
+      type: this.filters.value.type
     };
   };
 }

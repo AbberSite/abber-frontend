@@ -8,12 +8,11 @@
         v-cloak
         >
         <div>
-            <h3 class="text-sm font-semibold">حالة الطلب</h3>
-                <DashboardOrdersFiltersOrderStatus /> 
+            <DashboardTransactionsFiltersTransactionSuccess/>
         </div>
         <div>
-            <h3 class="text-sm font-semibold">نوع الطلب</h3>
-            <DashboardOrdersFiltersOrderType /> 
+            <h3 class="text-sm font-semibold">نوع العملية</h3>
+            <DashboardTransactionsFiltersTransactionType /> 
             <!-- <div class="space-y-3 pt-4">
                 <div class="flex items-center">
                     <input
