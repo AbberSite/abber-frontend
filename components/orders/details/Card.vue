@@ -3,7 +3,7 @@
         
         <div class="flex items-center justify-between py-4" v-if="data.user_type == 'إدارة'">
             <div class="font-semibold text-gray-500">العميل</div>
-            <NuxtLink class="font-semibold text-blue-500" :to="`/accounts/dashboard/user-update/${order?.buyer.username}/#tab0`">
+            <NuxtLink class="font-semibold text-blue-500" :to="`/accounts/dashboard/user-update/${order?.buyer.id}/#tab0`">
                 {{ order?.buyer.first_name }}
             </NuxtLink>
         </div>

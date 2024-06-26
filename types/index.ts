@@ -36,9 +36,9 @@ export type Notification = {
   message?: string;
   date?: string;
   url?: string;
-  extra_data:{
-    type?:string,
-    order_type?:string,
+  extra_data: {
+    type?: string,
+    order_type?: string,
   }
 
 };
@@ -114,7 +114,7 @@ export type OrderForm = {
   authenticationMethod?: 'login' | 'register' | 'whatsapp' | 'login-sms' | 'otp';
   order_id?: string;
   orders?: string[]
-  order_item?: string|number;
+  order_item?: string | number;
 };
 
 export type Post = {
@@ -140,6 +140,7 @@ export type Category = {
 export type Order = {
   id: string;
   buyer: {
+    id: Number;
     username: string;
     first_name: string;
     last_name: string;
@@ -293,7 +294,7 @@ export type withdrawalRequest = {
   id: number;
   amount: number;
   status: string;
-  type: string; 
+  type: string;
   date: string;
   paid: boolean;
   refuse_reason: string;
@@ -329,6 +330,6 @@ export type OrdersPackage = {
   duration: Number;
 };
 export type packagesFormSteps = {
-  packageId: string; 
+  packageId: string;
   authenticationMethod?: 'login' | 'register' | 'whatsapp' | 'login-sms' | 'otp';
 }
