@@ -155,6 +155,10 @@ onMounted(async () => {
         useNotification({type:'danger', content: 'لقد حدث خطأ ما اثناء تسجيل الدخول'})
         return;
       }
+      // if(!data.value?.user?.phone){
+      //   navigateTo({name: 'accounts-signup', query: { email: data.value.user.email }});
+      //   return;
+      // }
       await useAuthenticateUser(data.value);
 
       if(!props.isFormSteps)
