@@ -23,12 +23,7 @@ definePageMeta({
         layout : false,
         auth : false
     })
-onMounted(async()=> {
-  if(!data.value.profile.gender || !data.value.profile.birthday || !data.value.profile.marital_status || !data.value.profile.profession){
-    console.log("we need more information form you ")
-  }
-  console.log(data.value)
-})
+
 </script>
 
 <style scoped>
