@@ -78,6 +78,7 @@ import ContactType from './ContactType.vue';
 import Service from './Service.vue';
 import AuthenticationMethod from './AuthenticationMethod.vue';
 import Authentication from './Authentication.vue';
+import ContinueLogin from './ContinueLogin.vue';
 import Payment from './Payment.vue';
 import TextContact from './TextContact.vue';
 import OrderComplete from './OrderComplete.vue';
@@ -91,6 +92,7 @@ const steps = [
     { id: 'my-urgent-order-service', component: MyUrgentOrderService},
     { id: 'authentication-method', component: AuthenticationMethod },
     { id: 'authentication', component: Authentication, noDotStep: true },
+    { id: 'continueLogin', component: ContinueLogin, noDotStep: true },
     { id: 'payment', component: Payment },
     { id: 'complete', component: OrderComplete, noDotStep: true }
 ];
@@ -129,6 +131,11 @@ const activeHeader = computed<{ title: string; description: string; icon: Functi
         'authentication-method': {
             title: 'التسجيل',
             description: 'سجل دخولك أو أنشئ حسابا جديدا في عبر',
+            icon: LockClosedIcon
+        },
+        continueLogin: {
+            title: 'إكمال تسجيل الدخول',
+            description: 'يتطلب منك ادخال كل البيانات المطلوبة',
             icon: LockClosedIcon
         },
         payment: {

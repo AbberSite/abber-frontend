@@ -42,11 +42,13 @@ import Packages from '~/components/packages/Packages.vue';
 import Payment from '~/components/packages/Payment.vue';
 import AuthenticationMethod from '~/components/packages/AuthenticationMethod.vue';
 import Authentication from '~/components/packages/Authentication.vue';
+import ContinueLogin from '~/components/packages/ContinueLogin.vue';
 import type { packagesFormSteps } from '~/types'; 
 const steps = [
   { id: 'packages', component: Packages },
   { id: 'authentication-method', component: AuthenticationMethod },
   { id: 'authentication', component: Authentication },
+  { id: 'continueLogin', component: ContinueLogin },
   { id: 'payment', component: Payment }
 ]
 const { activeStep, activeStepIndex, emitNext, state, reset, previous, first, last } = useFormWizard<packagesFormSteps>("packages", steps);

@@ -1,8 +1,8 @@
 <template>
     <section
-        :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !isFormSteps }"
+        :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !isFormSteps && !isFormPackage }"
         aria-labelledby="login-heading">
-        <h1 class="font-semibold pt-5">إكمال تسجيل الدخول</h1>
+        <h1 class="font-semibold pt-5" v-show="!isFormPackage && !isFormSteps">إكمال تسجيل الدخول</h1>
         <!-- <AuthenticationHeading register v-if="!isFormSteps" /> -->
         <div class="mx-auto w-full max-w-sm pt-5">
             <form method="POST" @submit.prevent="submit()">
@@ -87,7 +87,7 @@ onBeforeMount(async () => {
     if (!props.isFormSteps && !props.isFormPackage)
         email.value = route.query?.email;
     else {
-
+        email.value = state.value.data.email;
     }
 })
 
@@ -108,6 +108,11 @@ async function submit() {
             phone: phone.value,
             password: password.value
         }
+    }).catch((e)=> {
+        console.log(e);
+        loading.value = false; 
+        useNotification({type: 'danger', content: 'لقد حدث خطأ ما'});
+        return;
     });
     loading.value = false;
     useNotificationForLogin(!props.isFormSteps && !props.isFormPackage);
