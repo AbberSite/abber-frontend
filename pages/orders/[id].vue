@@ -32,9 +32,12 @@
             <Chat :room-name="roomName" :allow-input="order?.status === 'in_progress' || order?.content?.allow_chat" />
           </ClientOnly>
         </div>
-      </template>
+      </template>      
+
     </section>
+
   </main>
+  <InformationDialog v-if="!data.profile.birthday" />
 </template>
 
 <script setup lang="ts">
@@ -43,14 +46,12 @@ definePageMeta({
   layout: false,
 });
 useHead({ script: [{ src: "/audio-recorder/WebAudioRecorder.min.js" }] });
-
+const { data } = useAuthState();
 const id = useRoute().params.id;
 const roomName = `order_${id}`;
-// let loading = ref<boolean>(true)
 const activeTab = ref<"details" | "chat">("chat");
 
 const { order } = storeToRefs(useOrdersStore());
-
 const { getOrder, subscribeToOrderStatus, loading } = useOrdersStore();
 
 subscribeToOrderStatus(id as string);
