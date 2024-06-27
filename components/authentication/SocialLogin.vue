@@ -155,7 +155,7 @@ onMounted(async () => {
         useNotification({type:'danger', content: 'لقد حدث خطأ ما اثناء تسجيل الدخول'})
         return;
       }
-      if(!data.value?.user?.phone){
+      if(!data.value?.user?.phone && !props.isFormSteps && !props.isFormPackage){
         await useAuthenticateUser(data.value);
         navigateTo({name: 'accounts-google-auth-register', query: { email: data.value.user.email }});
         return;
