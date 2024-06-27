@@ -20,7 +20,7 @@ class AccountStore {
         profile: {
             bank_account: '',
             gender: '',
-            birthdate: '',
+          birthday: '',
             maritalStatus: '',
             profession: ''
         }
@@ -67,7 +67,7 @@ class AccountStore {
             // }
             data.append('profile.bank_account', this.tempAccount.value.profile.bank_account);
             data.append('profile.gender', this.tempAccount.value.profile.gender);
-            data.append('profile.birthday', this.tempAccount.value.profile.birthdate);
+          data.append('profile.birthday', this.tempAccount.value.profile.birthday);
             data.append('profile.marital_status', this.tempAccount.value.profile.maritalStatus);
             data.append('profile.profession', this.tempAccount.value.profile.profession);
 
