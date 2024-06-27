@@ -64,7 +64,6 @@
 </template>
 
 <script setup lang="ts">
-// import { TransitionRoot, TransitionChild } from "@headlessui/vue";
 import { ExclamationTriangleIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from "@headlessui/vue";
 
