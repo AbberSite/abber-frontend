@@ -1,13 +1,13 @@
 <template>
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && props.isFormSteps ? state.data?.authenticationMethod != 'whatsapp' : route.name != 'accounts-whatsapp-login'" >
+  <div class="pt-4"
+    v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && props.isFormSteps ? state.data?.authenticationMethod != 'whatsapp' : route.name != 'accounts-whatsapp-login'">
     <NuxtLink
       class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50 cursor-pointer"
       @click="() => {
-        if(props.isFormSteps){
+        if (props.isFormSteps) {
           (state.data as any).authenticationMethod = 'whatsapp'
         }
-      }"
-      :to="!props.isFormSteps ? '/accounts/whatsapp/login/' : null ">
+      }" :to="!props.isFormSteps ? '/accounts/whatsapp/login/' : null">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
         viewBox="0 0 48 48">
         <path fill="#40c351"
@@ -23,17 +23,17 @@
 
 
 
-  <div class="pt-4" v-if="settings.api_settings?.active_login_methods?.website.includes('phone') && props.isFormSteps ? state.data?.authenticationMethod != 'login-sms' : route.name != 'accounts-sms'" >
+  <div class="pt-4"
+    v-if="settings.api_settings?.active_login_methods?.website.includes('phone') && props.isFormSteps ? state.data?.authenticationMethod != 'login-sms' : route.name != 'accounts-sms'">
     <NuxtLink
       class="flex h-[50px]  cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       @click="() => {
-        if(props.isFormSteps){
+        if (props.isFormSteps) {
           (state.data as any).authenticationMethod = 'login-sms'
         }
-      }"
-      :to="!props.isFormSteps ? '/accounts/sms/' : null ">
-      <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-        height="22" with="22">
+      }" :to="!props.isFormSteps ? '/accounts/sms/' : null">
+      <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="22"
+        with="22">
         <path fill-rule="evenodd"
           d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97ZM6.75 8.25a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H7.5Z"
           clip-rule="evenodd"></path>
@@ -46,7 +46,7 @@
 
 
   <div class="pt-4 " v-if="settings.api_settings?.active_login_methods?.website.includes('google')">
-    <button 
+    <button
       class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       @click="googleLogin">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
@@ -69,17 +69,17 @@
   </div>
 
 
-  <div class="pt-4 " v-if="props.isFormSteps ? state.data?.authenticationMethod != 'login' : route.name != 'accounts-login'">
+  <div class="pt-4 "
+    v-if="props.isFormSteps ? state.data?.authenticationMethod != 'login' : route.name != 'accounts-login'">
     <NuxtLink
       class="flex h-[50px] cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
       @click="() => {
-        if(props.isFormSteps){
+        if (props.isFormSteps) {
           (state.data as any).authenticationMethod = 'login'
         }
-      }"
-      :to="!props.isFormSteps ? '/accounts/login/' : null ">
-      <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24" fill="currentColor" height="22" with="22">
+      }" :to="!props.isFormSteps ? '/accounts/login/' : null">
+      <svg class="text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="22"
+        with="22">
         <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"></path>
         <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z">
         </path>
@@ -87,8 +87,8 @@
       <span class="ms-3 mt-1.5">سجل دخولك بواسطة {{ "البريد" }}</span>
     </NuxtLink>
   </div>
-  
-  <div class="pt-4 " v-if="settings.api_settings?.active_login_methods?.website.includes('apple')" >
+
+  <div class="pt-4 " v-if="settings.api_settings?.active_login_methods?.website.includes('apple')">
     <button @click="appleLogin"
       class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50">
       <svg class="flekx-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22"
@@ -102,33 +102,33 @@
   </div>
 
 
-<ConfirmDialog isLoading v-if="showLoadingDailog"/>
+  <ConfirmDialog isLoading v-if="showLoadingDailog" />
 </template>
 
 <script setup lang="ts">
 useHead({
-    script: [
-        {
-            src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
-            type: "text/javascript",
-        }
-    ]
+  script: [
+    {
+      src: "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js",
+      type: "text/javascript",
+    }
+  ]
 })
 import { useSettingsStore } from '~/stores/settings';
 import type { packagesFormSteps } from '~/types';
-const props = defineProps<{isFormSteps?: boolean; isFormPackage?: boolean;}>();
+const props = defineProps<{ isFormSteps?: boolean; isFormPackage?: boolean; }>();
 let googleLogin = () => console.log("google not initialized yet");
-const {settings} = storeToRefs(useSettingsStore());
+const { settings } = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
-if(settings.value == undefined){
+if (settings.value == undefined) {
   await getSettings();
 }
 
-let next, state ;
-if(props.isFormSteps && !props.isFormPackage){
+let next, state;
+if (props.isFormSteps && !props.isFormPackage) {
   next = useFormWizard<OrderForm>('order').next;
   state = useFormWizard<OrderForm>('order').state;
-} else if(props.isFormSteps && props.isFormPackage){
+} else if (props.isFormSteps && props.isFormPackage) {
   next = useFormWizard<packagesFormSteps>('packages').next;
   state = useFormWizard<packagesFormSteps>('packages').state;
 }
@@ -141,7 +141,7 @@ onMounted(async () => {
   googleLogin = googleProvider.useGoogleLogin({
     flow: "implicit",
     onSuccess: async (response: { access_token: string }) => {
-      if(!response?.access_token) return;
+      if (!response?.access_token) return;
       showLoadingDailog.value = true;
       const { data } = await useFetch("/api/auth/google", {
         method: "POST",
@@ -149,23 +149,35 @@ onMounted(async () => {
           access_token: response.access_token,
         },
       });
-      
-      if(!data.value?.user?.username){
+
+      if (!data.value?.user?.username) {
         showLoadingDailog.value = false;
-        useNotification({type:'danger', content: 'لقد حدث خطأ ما اثناء تسجيل الدخول'})
+        useNotification({ type: 'danger', content: 'لقد حدث خطأ ما اثناء تسجيل الدخول' })
         return;
       }
-      // if(!data.value?.user?.phone){
-      //   navigateTo({name: 'accounts-signup', query: { email: data.value.user.email }});
-      //   return;
-      // }
-      await useAuthenticateUser(data.value);
+      if (!data.value?.user?.phone) {
+        await useAuthenticateUser(data.value);
+        if (props.isFormSteps || props.isFormPackage){
+          next({
+            nextStepId: 'continueLogin',
+            options: {
+              ignore: true,
+            },
+            data: {email: data.value.user.email}
 
-      if(!props.isFormSteps)
+          })
+        }
+        else
+          navigateTo({ name: 'accounts-google-auth-register', query: { email: data.value.user.email } });
+        return;
+      }
+
+      await useAuthenticateUser(data.value);
+      if (!props.isFormSteps)
         await useNotificationForLogin(true);
       else {
         next({
-          options: {ignore: true}, nextStepId: 'payment'
+          options: { ignore: true }, nextStepId: 'payment'
         });
         useNotificationForLogin();
       }
@@ -188,7 +200,7 @@ async function appleLogin() {
   try {
     //@ts-ignore
     const data = await AppleID.auth.signIn();
-    showLoadingDailog.value = true; 
+    showLoadingDailog.value = true;
     const loginData = await useDirectApi("/authentication/apple/connect/", {
       method: "POST",
       body: {
@@ -199,14 +211,14 @@ async function appleLogin() {
     });
 
     await useAuthenticateUser(loginData);
-    if(!props.isFormSteps){
+    if (!props.isFormSteps) {
       await useRouter().push({ name: "index" });
       useNotificationForLogin(true);
     } else {
       next({
-          options: {ignore: true}, nextStepId: 'payment'
-        });
-        useNotificationForLogin();
+        options: { ignore: true }, nextStepId: 'payment'
+      });
+      useNotificationForLogin();
     }
     showLoadingDailog.value = false;
 

@@ -15,7 +15,7 @@
                 :name="name"
                 :id="id"
                 :placeholder="placeholder"
-                autocomplete="email"
+                :disabled="disabled"
                  />
             <slot name="append"></slot>
         </div>
@@ -37,6 +37,7 @@ const props = defineProps<{
     name? : string
     placeholder? : string,
     id? : string,
+    disabled?: boolean
 
 }>()
 

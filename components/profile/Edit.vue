@@ -115,9 +115,6 @@
 </template>
 
 <script setup lang="ts">
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/yup';
-import * as yup from 'yup';
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';

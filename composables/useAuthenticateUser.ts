@@ -1,9 +1,4 @@
 export default async (data: { refresh_token: string; token: string }) => {
-
-
-
-    
-    
     const { refresh } = useAuth();
     const { rawRefreshToken, rawToken } = useAuthState();
 
