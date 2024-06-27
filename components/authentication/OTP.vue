@@ -80,6 +80,7 @@
 </template>
 
 <script setup lang="ts">
+import type { packagesFormSteps } from '~/types';
 const props = defineProps<{ isHome?: boolean; isFormPackage?: boolean }>();
 const { rawRefreshToken, rawToken } = useAuthState();
 
@@ -137,7 +138,7 @@ async function login() {
                     // useRouter().push({ name: 'index' });
                 } else {
                     let next, state;
-                    if (props.isFormSteps && !props.isFormPackage) {
+                    if (!props.isHome && !props.isFormPackage) {
                         next = useFormWizard<OrderForm>("order").next;
                         state = useFormWizard<OrderForm>("order").state;
                     } else {
