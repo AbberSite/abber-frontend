@@ -1,5 +1,5 @@
 <template>
-  <TransitionRoot appear :show="show" as="template" >
+  <TransitionRoot appear :show="show" as="template">
     <Dialog as="div" class="relative z-50">
       <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
         <div class="fixed inset-0 bg-black/25" />
@@ -21,15 +21,16 @@
                 <div class="w-full space-y-3">
                   <label class="block text-sm font-semibold xs:text-base" for="gender">الجنس</label>
                   <select v-model="gender" class="form-control form-select h-[50px] appearance-none" type="select" name="select" id="gender" required>
-                    <option value="Male" selected>ذكر</option>
+                    <option value="" selected hidden disabled>اختر</option>
+                    <option value="Male">ذكر</option>
                     <option value="Female">أنثى</option>
                   </select>
                   <InputError :message="errors.birthday" />
                 </div>
                 <div class="w-full space-y-3 dream_time">
-                  <label class="text-sm font-semibold xs:text-base" @click="datePicker?.openMenu()"> تأريخ الميلاد</label>
+                  <label class="text-sm font-semibold xs:text-base" @click="datePicker?.openMenu()"> تاريخ الميلاد</label>
 
-                  <DatePicker placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation v-model="birthday" model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" auto-apply  required />
+                  <DatePicker placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation v-model="birthday" model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" auto-apply required />
 
                   <!-- <InputError :message="errors.dream_time" /> -->
                   <InputError :message="errors.birthday" />
@@ -37,10 +38,11 @@
                 <div class="w-full space-y-3">
                   <label class="block text-sm font-semibold xs:text-base" for="select">الحالة الإجتماعة</label>
                   <select class="form-control form-select h-[50px] appearance-none" type="select" v-model="marital_status" name="select" id="select" required>
+                    <option value="" selected hidden disabled>اختر</option>
                     <option value="single">أعزب</option>
-                    <option value="married">متزوج/ه</option>
-                    <option value="divorced">مطلق/ه</option>
-                    <option value="widowed">ارمل/ه</option>
+                    <option value="married">متزوج/ة</option>
+                    <option value="divorced">منفصل/ة</option>
+                    <option value="widowed">ارمل/ة</option>
                   </select>
                   <InputError :message="errors.marital_status" />
                 </div>
@@ -79,13 +81,13 @@ let loading = ref(false);
 const { defineField, errors, validate } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
-      birthday: yup.string().default(data.value.profile.birthday).required("هذا الحقل مطلوب"),
+      birthday: yup.date().required("هذا الحقل مطلوب"),
 
-      gender: yup.string().default("male").default(data.value.profile.gender).required("هذا الحقل مطلوب"),
+      gender: yup.string().default("").required("هذا الحقل مطلوب"),
 
-      marital_status: yup.string().default(data.value.profile.marital_status).required("هذا الحقل مطلوب"),
+      marital_status: yup.string().default("").required("هذا الحقل مطلوب"),
 
-      profession: yup.string().default(data.value.profile.profession).required("هذا الحقل مطلوب"),
+      profession: yup.string().required("هذا الحقل مطلوب"),
     })
   ),
 });
@@ -118,8 +120,8 @@ async function submitUpdate() {
         },
       },
     });
-    show.value=false;
-    useNotification({ type: "success", content: "تم تحديث الحساب بنجاح" });   
+    show.value = false;
+    useNotification({ type: "success", content: "تم تحديث الحساب بنجاح" });
   } catch (e) {
     useNotification({ type: "error", content: "حدث خطأ" });
   }
@@ -127,6 +129,4 @@ async function submitUpdate() {
 }
 </script>
 
-<style lang="css">
-
-</style>
+<style lang="css"></style>
