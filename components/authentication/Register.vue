@@ -43,6 +43,13 @@
                     </TextInput>
 
                     <PhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
+                    <span class="text-gray-500" @click="showReferral = !showReferral">
+                      رمز الإحالة
+                      <ChevronDownIcon class="w-4 inline"/>
+                    </span>
+
+                     <TextInput v-if="showReferral" id="referral_code" v-model="referral_code" :error="errors.referral_code" 
+                        placeholder="أدخل رمز الاحالة الخاص بك (اختياري)" />
 
                     <div class="flex items-center text-sm xs:text-base">
                         <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
@@ -76,12 +83,16 @@
 </template>
 
 <script setup lang="ts">
+import { ChevronDownIcon } from '@heroicons/vue/24/outline';
+
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { useDebounceFn } from '@vueuse/core';
 
 const props = defineProps<{ isFormSteps?: boolean; isFormPackage?: boolean }>();
+
+const showReferral = ref(false)
 
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
@@ -97,7 +108,9 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
                 .boolean()
                 .isTrue('يجب الموافقة على الشروط و الأحكام')
                 .required('يجب الموافقة على الشروط و الأحكام')
-                .default(true)
+                .default(true),
+            referral_code: yup.string(),
+
         })
     )
 });
@@ -109,6 +122,7 @@ const [email] = defineField('email');
 const [password] = defineField('password');
 const [phone] = defineField('phone');
 const [terms] = defineField('terms');
+const [referral_code] = defineField('referral_code');
 const phoneValid = ref(false);
 
 const checkEmailExistence = useDebounceFn(async (value) => {
@@ -150,7 +164,7 @@ async function submit() {
         loading.value = true;
 
         await signUp(
-            { name: name.value, email: email.value, password: password.value, phone: phone.value },
+            { name: name.value, email: email.value, password: password.value, phone: phone.value,referral_code:referral_code.value },
             {
                 callbackUrl: '/profile',
                 redirect: props.isFormSteps ? false : true

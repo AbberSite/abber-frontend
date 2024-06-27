@@ -3,6 +3,7 @@ import axios from 'axios';
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig()
+    console.log(body)
 
     try {
         const response = await axios.post(
@@ -12,7 +13,8 @@ export default defineEventHandler(async (event) => {
                 email: body.email,
                 password: body.password,
                 phone : body.phone,
-                first_name : body.name
+                first_name : body.name,
+                referral_code: body.referral_code
             },
             {
                 headers: {
