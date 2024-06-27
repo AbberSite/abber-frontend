@@ -29,7 +29,7 @@
                 <div class="w-full space-y-3 dream_time">
                   <label class="text-sm font-semibold xs:text-base" @click="datePicker?.openMenu()"> تأريخ الميلاد</label>
 
-                  <DatePicker placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation v-model="birthday" model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" select-text="اختيار" cancel-text="الغاء" required />
+                  <DatePicker placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation v-model="birthday" model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" auto-apply  required />
 
                   <!-- <InputError :message="errors.dream_time" /> -->
                   <InputError :message="errors.birthday" />
