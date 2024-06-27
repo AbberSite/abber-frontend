@@ -12,7 +12,7 @@
                         enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100"
                         leave-to="opacity-0 scale-95">
                         <DialogPanel
-                            class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all " id="mytemp">
+                            class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
 
 
                             <DialogTitle as="div" class="flex flex-col-reverse items-center">
@@ -37,8 +37,8 @@
                                     </select>
                                     <InputError  :message="errors.age" />
                                 </div>
-                                <div class="w-full space-y-3 dream_time">
-                                    <label class="text-sm font-semibold xs:text-base"
+                                <div class="w-full space-y-3">
+                                    <label class="text-sm font-semibold xs:text-base" for="date"
                                         @click="datePicker?.openMenu()">
                                         تأريخ الميلاد</label>
 
@@ -102,6 +102,7 @@ import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';
 const {data} = useAuth();
+const { state } = useFormWizard<OrderForm>('order');
 const datePicker = ref<DatePickerInstance>(null);
 let loading = ref(false);
 const { defineField, errors, validate } = useForm({
@@ -154,15 +155,13 @@ async function submitUpdate() {
     tempAccount.value.profile.profession = profession.value;
     await update(data?.value.id);
 
+    state.value.data.age = data.value.profile?.birthday;
+    state.value.data.gender = data.value.profile?.gender;
+    state.value.data.profession = data.value.profile?.profession;
+    state.value.data.marital_status = data.value.profile?.marital_status;
     loading.value = false;
     useNotification({ type: 'success', content: 'تم تحديث الحساب بنجاح' });
     emit('close');
 }
 
 </script>
-
-<style lang="css">
-#mytemp .dp__outer_menu_wrap {
-    position: static;
-}
-</style>

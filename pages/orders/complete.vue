@@ -1,5 +1,4 @@
 <template>
-
   <Head>
     <title>عبر - طلب تعبير حلم</title>
   </Head>
@@ -8,9 +7,7 @@
     <!-- Hero section -->
     <HeroBackground />
 
-    <section
-      class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
-      aria-labelledby="contact-types-heading">
+    <section class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="contact-types-heading">
       <template v-if="loading">
         <div class="w-full flex justify-center items-center h-full">
           <Loading />
@@ -33,22 +30,16 @@
           <div class="mx-auto w-full max-w-sm">
             <div>
               <div class="mx-auto w-full max-w-sm pt-10">
-                <NuxtLink
-                  class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                  :to="`/orders/${data?.order_id}/`">
+                <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" :to="`/orders/${data?.order_id}/`">
                   <span class="mt-1.5">متابعة الطلب</span>
                 </NuxtLink>
                 <div class="pt-4">
-                  <NuxtLink
-                    class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-                    :to="{ name: 'index' }">
+                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50" :to="{ name: 'index' }">
                     <span class="ms-3 mt-1.5">الصفحة الرئيسية</span>
                   </NuxtLink>
                 </div>
                 <div class="pt-4">
-                  <NuxtLink
-                    class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
-                    :to="{ name: 'blog' }">
+                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50" :to="{ name: 'blog' }">
                     <span class="ms-3 mt-1.5">المدونة</span>
                   </NuxtLink>
                 </div>
@@ -75,9 +66,7 @@
             <div>
               <div class="mx-auto w-full max-w-sm pt-10">
                 <div class="pt-4">
-                  <NuxtLink
-                    class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-                    :to="{ name: 'support' }">
+                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" :to="{ name: 'support' }">
                     <span class="ms-3 mt-1.5"> مركز الدعم</span>
                   </NuxtLink>
                 </div>
@@ -112,8 +101,6 @@
                     </div> -->
         </template>
       </template>
-      <InformationDialog v-if="dailogInformation" @close="closeInfoDailog" />
-
     </section>
   </main>
 </template>
@@ -133,13 +120,13 @@ const order_id = route.query.order_id;
 let transaction_id: string;
 
 let data;
-const { data: userData, getSession } = useAuth();
+
 const paid = ref(true);
 const loading = ref(true);
 const error = ref("");
 const { readNotifications } = storeToRefs(useUtilsStore());
 const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
-let dailogInformation = ref(false);
+
 onMounted(async () => {
   transaction_id = localStorage.getItem("abber:current-transaction-id") as string;
   data = useFormWizard<OrderForm>("order", [], true) as OrderForm;
@@ -213,11 +200,7 @@ async function getStatus() {
 
     return;
   }
-  if (!userData.value.profile.gender || !userData.value.profile.birthday || !userData.value.profile.marital_status || !userData.value.profile.profession) {
-    console.log('we need information');
-    dailogInformation.value = true;
-    return;
-  }
+
   // await updateOrderInfo(data);
   // readNotifications.value = true;
   localStorage.removeItem("abber:current-transaction-id");
@@ -243,77 +226,6 @@ async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
   });
 }
 
-async function closeInfoDailog() {
-  // const {state} = useFormWizard<OrderForm>("order");
-  let state = useFormWizard<OrderForm>("order", [], true) as OrderForm;
-  dailogInformation.value = false;
-  await getSession().then(async () => {
-    const {data:userData} = useAuth();
-    if (state.client)
-      await updateOrderInfo(state, true);
-    else {
-      (state as OrderForm).age = userData.value.profile?.birthday;
-      (state as OrderForm).profession = userData.value.profile?.profession;
-      (state as OrderForm).gender = userData.value.profile?.gender;
-      (state as OrderForm).marital_status = userData.value.profile?.marital_status;
-      await updateOrderInfo(state, true);
-    };
-  });
-  localStorage.removeItem("abber:current-transaction-id");
-
-  await (state as any).clear();
-
-  loading.value = false;
-}
-
-async function updateOrderInfo(data: OrderForm, needInfo?: boolean) {
-  const dreamDetails = await useApi(`/api/orders/dream-info/?order_item=${data.order_id}`)
-  if (needInfo) {
-    if (data.orders && data.orders.length > 1) {
-      for (const order of data.orders) {
-        saveNewDetails(data, order);
-      }
-    } else {
-      saveNewDetails(data, data.order_id)
-    }
-  }
-  if (dreamDetails.results.length === 0) {
-    if (data.orders && data.orders.length > 1) {
-      for (const order of data.orders) {
-        saveNewDetails(data, order);
-      }
-    } else {
-      try {
-        const savedDetails = await useApi("/api/orders/dream-info/?order_item__isnull=true");
-        if (savedDetails.results.length > 0) {
-          const response = await useApi(`/api/orders/dream-info/${savedDetails.results[0].id}`, {
-            method: "patch",
-            body: { order_item: data.order_id },
-          });
-        } else {
-          saveNewDetails(data, data.order_id);
-        }
-      } catch (error) {
-        // alert('something went wrong');
-      }
-    }
-  }
-}
-
-
-const saveNewDetails = async (data: OrderForm, order) => {
-  data.order_item = order;
-
-
-  try {
-    const response = await useApi(`/api/orders/dream-info/`, {
-      method: "POST",
-      body: data,
-    });
-  } catch (error) {
-    // alert('something went wrong');
-  }
-};
 
 definePageMeta({
   layout: false,
