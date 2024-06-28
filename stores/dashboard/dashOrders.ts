@@ -10,7 +10,7 @@ class dashOrders {
       voice: false,
       text: false,
     },
-    status: [],
+    status: ['in_progress'],
     search: "",
     ordering: "order_item_time_data__start_date",
     ignore: undefined,
