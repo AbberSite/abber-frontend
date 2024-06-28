@@ -2,6 +2,7 @@ import type { PaginationResponse } from "~/types";
 
 class dashOrders {
   orders = ref<[]>([]);
+  order = ref({})
   loading = ref<boolean>(true);
   pagination = ref<PaginationResponse<any>>();
   filters = ref({
@@ -151,6 +152,13 @@ class dashOrders {
     return {
       type: "video_communication",
     };
+  };
+
+  getOrder = async (id: string) => {
+    this.loading.value = true;
+    this.order.value = await useDirectApi(`/orders/dashboard-orders/${id}/`);
+    this.loading.value = false;
+    return this.order.value;
   };
 }
 export const useDashOrdersStore = defineStore(

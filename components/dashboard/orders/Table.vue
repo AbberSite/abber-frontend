@@ -68,7 +68,7 @@ defineProps<{ orders: [] }>();
             </p>
           </td>
 
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6" @click.once="navigateTo(`${item.id}/`)">
             <button class="hover:text-gray-400 cursor-pointer">
                 <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
