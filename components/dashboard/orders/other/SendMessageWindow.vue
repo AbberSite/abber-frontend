@@ -1,5 +1,5 @@
 <template>
-  <Modal @close="$emit('close')" title="نقل الطلب">
+  <Modal @close="$emit('close')" title="إرسال رسالة">
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-7">
         <div class="w-full space-y-3">
@@ -28,6 +28,7 @@
 
 <script setup lang="ts">
 import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
+const showConfirmDialog = ref(false); 
 const emit = defineEmits(['close']);
 const props = defineProps<{ order: {} }>();
 const sender = ref('buyer');

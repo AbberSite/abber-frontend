@@ -13,19 +13,37 @@
               </div>
             </fieldset>
           </div>
-    </Modal>
+          <ConfirmDialog v-if="showConfirmDialog" :show="showConfirmDialog"  :title="`هل انت متاكد من تغييرك حالة الطلب إلى ${getStatus(status)}؟` " descritpion="هل انت متاكد من قرارك؟" @close="cancel()" @continue="submit(); "  />
+        </Modal>
 </template>
 
 
 <script setup lang="ts">
+import ConfirmDialog from '~/components/shared/ConfirmDialog.vue';
 import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
-
 const props = defineProps<{order: {}}>();
-const status = ref(props.order.status ?? '');
-const {getOrder} = useDashOrdersStore()
+let showConfirmDialog = ref(false);
+let status = ref(props.order.status ?? '');
+const { getOrder, loading } = useDashOrdersStore()
 watch(status, async(value)=> {
-  await useDirectApi(`/orders/dashboard-orders/${props.order?.id}/change_status/`, {method: 'POST', body: {status: value}});
+  if(props.order?.status != value)
+    showConfirmDialog.value = true;
+});
+
+async function submit(){
+  showConfirmDialog.value = false;
+  await useDirectApi(`/orders/dashboard-orders/${props.order?.id}/change_status/`, {method: 'POST', body: {status: status.value}});
   await getOrder(props.order?.id);
   useNotification({type: 'success', content: 'لقد تم تحديث حالة الطلب!'});
-})
+};
+
+async function cancel(){
+  showConfirmDialog.value = false;
+  status.value = props.order?.status;
+};
+function getStatus(s: string){
+  if(s == 'complete') return 'مكتمل';
+  else if(s == 'in_progress') return 'قيد التقدم';
+  else return 'في إنتظار الاستلام';
+}
 </script>
