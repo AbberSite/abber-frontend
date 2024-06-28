@@ -85,7 +85,7 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/dashboard/orders">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{name: 'dashboardv2-orders'}">
               <!-- Heroicon name: outline/home -->
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -125,7 +125,7 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{name: 'dashboardv2-withdrawal-requests'}">
               <!-- Heroicon name: outline/home -->
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -133,7 +133,7 @@
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">طلبات السحب</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{name: 'dashboardv2-transactions'}">
               <!-- Heroicon name: outline/home -->
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

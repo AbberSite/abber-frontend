@@ -20,7 +20,7 @@ defineProps<{ orders: [] }>();
         </tr>
       </thead>
       <tbody class="divide-y">
-        <tr v-for="(item, index) in orders" :key="index" class="">
+        <tr v-for="(item, index) in orders" :key="index" class="cursor-pointer" @click.once="navigateTo(`${item.id}/`)">
 
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <h5 class="text-blue-600 ">#{{ item.id }}</h5>
