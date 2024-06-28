@@ -12,7 +12,7 @@ defineProps<{ orders: [] }>();
           <OrdersTableHeaderCol content="رقم الطلب" />
           <OrdersTableHeaderCol content="المعبر" />
           <OrdersTableHeaderCol content="العميل" />
-          <OrdersTableHeaderCol content="نوعية الطلب"/>
+          <OrdersTableHeaderCol content="نوعية الطلب" />
           <OrdersTableHeaderCol content="النوع" />
           <OrdersTableHeaderCol content="الحالة" />
           <OrdersTableHeaderCol content="وسيلة الدفع" />
@@ -22,7 +22,7 @@ defineProps<{ orders: [] }>();
         </tr>
       </thead>
       <tbody class="divide-y">
-        <tr v-for="(item, index) in orders" :key="index" class="cursor-pointer" @click.once="navigateTo(`${item.id}/`)">
+        <tr v-for="(item, index) in orders" :key="index" class="cursor-pointer" @click.once="navigateTo(`${item.id}`)">
 
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <h5 class="text-blue-600 ">#{{ item.id }}</h5>
@@ -36,7 +36,21 @@ defineProps<{ orders: [] }>();
           </td>
 
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <p>{{ item?.content?.urgent && !item?.content?.multiple_order ? 'طلب مستعجل' : !item?.content?.urgent && item?.content?.multiple_order ? 'طلب متعدد' : "طلب عادي"}}</p>
+            <svg v-if="item?.content?.urgent && !item?.content?.multiple_order" title="طلب مستعجل"
+              class="w-6 h-6 text-red-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M8.597 3.2A1 1 0 0 0 7.04 4.289a3.49 3.49 0 0 1 .057 1.795 3.448 3.448 0 0 1-.84 1.575.999.999 0 0 0-.077.094c-.596.817-3.96 5.6-.941 10.762l.03.049a7.73 7.73 0 0 0 2.917 2.602 7.617 7.617 0 0 0 3.772.829 8.06 8.06 0 0 0 3.986-.975 8.185 8.185 0 0 0 3.04-2.864c1.301-2.2 1.184-4.556.588-6.441-.583-1.848-1.68-3.414-2.607-4.102a1 1 0 0 0-1.594.757c-.067 1.431-.363 2.551-.794 3.431-.222-2.407-1.127-4.196-2.224-5.524-1.147-1.39-2.564-2.3-3.323-2.788a8.487 8.487 0 0 1-.432-.287Z" />
+            </svg>
+
+            <img v-else-if="!item?.content?.urgent && item?.content?.multiple_order" src="/images/multiple.svg" title="طلب متعدد"
+              class="w-6" alt="">
+            <svg v-else class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" title="طلب عادي"
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M5 9a7 7 0 1 1 8 6.93V21a1 1 0 1 1-2 0v-5.07A7.001 7.001 0 0 1 5 9Zm5.94-1.06A1.5 1.5 0 0 1 12 7.5a1 1 0 1 0 0-2A3.5 3.5 0 0 0 8.5 9a1 1 0 0 0 2 0c0-.398.158-.78.44-1.06Z"
+                clip-rule="evenodd" />
+            </svg>
           </td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <p>{{ item?.type == 'text_communication' ? 'محادثة نصية' : 'محادثة صوتية' }}</p>
@@ -69,7 +83,8 @@ defineProps<{ orders: [] }>();
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 10h18M6 14h2m3 0h5M3 7v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1Z" />
             </svg>
-            <img v-else-if="item?.order_item_financial_data.payment_method == 'STC_PAY'" src="/images/payments/section/stc_pay.webp" class="w-7" alt="" />
+            <img v-else-if="item?.order_item_financial_data.payment_method == 'STC_PAY'"
+              src="/images/payments/section/stc_pay.webp" class="w-7" alt="" />
             <svg v-else class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -95,7 +110,7 @@ defineProps<{ orders: [] }>();
               </svg>
             </button>
           </td>
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6" @click.once="navigateTo(`${item.id}/`)">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6" @click.once="navigateTo(`${item.id}`)">
             <button class="hover:text-gray-400 cursor-pointer">
               <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                 xmlns="http://www.w3.org/2000/svg">

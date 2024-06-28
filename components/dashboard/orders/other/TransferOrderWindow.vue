@@ -22,7 +22,8 @@ import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
 const props = defineProps<{order: {}}>();
 const id_service = ref(props.order.service);
 let showConfirmDialog = ref(false);
-const {getOrder} = useDashOrdersStore()
+const {getOrder} = useDashOrdersStore();
+const emit= defineEmits(['close'])
 let expressors = ref([]);
 onBeforeMount(async()=> {
   const dataExpress = await useDirectApi(`/services/services/?active=true&admin_active=true&ordering=rate`);
@@ -39,7 +40,7 @@ async function submit(){
   await useDirectApi(`/orders/dashboard-orders/${props.order?.id}/transfer_order/`, {method: 'POST', body: {service: id_service.value}});
   await getOrder(props.order?.id);
   useNotification({type: 'success', content: 'لقد تم نقل الطلب إلى معبر جديد بنجاح!'});
-
+  emit('close');
 }
 
 async function cancel(){

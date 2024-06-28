@@ -85,7 +85,7 @@
                                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                                 :data-src="order?.buyer?.image" height="44" width="44" alt="" /></div>
                         <div class="flex mr-2 items-center">
-                            <h1 class="font-semibold text-sm">{{ order.buyer?.first_name }}</h1>
+                            <NuxtLink class="font-semibold text-sm hover:text-blue-600" :to="`/accounts/dashboard/user-update/${order?.buyer?.id}/#tab0`">{{ order.buyer?.first_name }}</NuxtLink>
                         </div>
                     </div>
                 </div>

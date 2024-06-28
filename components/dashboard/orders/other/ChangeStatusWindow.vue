@@ -24,6 +24,7 @@ import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
 const props = defineProps<{order: {}}>();
 let showConfirmDialog = ref(false);
 let status = ref(props.order.status ?? '');
+const emit= defineEmits(['close'])
 const { getOrder, loading } = useDashOrdersStore()
 watch(status, async(value)=> {
   if(props.order?.status != value)
@@ -35,6 +36,7 @@ async function submit(){
   await useDirectApi(`/orders/dashboard-orders/${props.order?.id}/change_status/`, {method: 'POST', body: {status: status.value}});
   await getOrder(props.order?.id);
   useNotification({type: 'success', content: 'لقد تم تحديث حالة الطلب!'});
+  emit('close');
 };
 
 async function cancel(){
