@@ -45,6 +45,9 @@
         <template v-if="activeTab == 'subscriptions'">
           <PackagesSubscriptions />
         </template>
+            <template v-if="activeTab == 'referralCode'">
+          <ProfileReferralCode/>
+        </template>
       </template>
     </section>
   </main>
