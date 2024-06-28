@@ -37,7 +37,7 @@
     </section>
 
   </main>
-  <InformationDialog v-if="order.buyer.id === data.id && !data.profile.birthday" />
+  <InformationDialog v-if="order?.buyer?.id === data?.id && !data?.profile?.birthday" />
 </template>
 
 <script setup lang="ts">
