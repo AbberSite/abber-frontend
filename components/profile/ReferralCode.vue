@@ -48,7 +48,7 @@
         <mask id="cc" style="mask-type: alpha;" maskUnits="userSpaceOnUse" x="-333" y="-242" width="956" height="927"><path fill="url(#b)" d="M-333-242h956v927h-956z"></path></mask>
       </defs>
     </svg>
-    <div disabled class="form-control h-[50px] appearance-none w-25 font-bold text-lg text-center tracking-widest tracking-[1em] text-gray-700 select-none" v-text="referralCode" @click="copyReferralCode"></div>
+    <div disabled class="form-control h-[50px] appearance-none w-25 font-bold text-lg text-center tracking-[.8em] text-gray-700 select-none" v-text="referralCode" @click="copyReferralCode"></div>
   </div>
 </template>
 
