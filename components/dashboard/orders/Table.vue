@@ -12,6 +12,7 @@ defineProps<{ orders: [] }>();
           <OrdersTableHeaderCol content="رقم الطلب" />
           <OrdersTableHeaderCol content="المعبر" />
           <OrdersTableHeaderCol content="العميل" />
+          <OrdersTableHeaderCol content="نوعية الطلب"/>
           <OrdersTableHeaderCol content="النوع" />
           <OrdersTableHeaderCol content="الحالة" />
           <OrdersTableHeaderCol content="وسيلة الدفع" />
@@ -32,6 +33,10 @@ defineProps<{ orders: [] }>();
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <NuxtLink class="text-blue-500 font-semibold cursor-pointer"
               :to="`/accounts/dashboard/user-update/${item?.buyer?.id}/#tab0`">{{ item?.buyer?.first_name }}</NuxtLink>
+          </td>
+
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+            <p>{{ item?.content?.urgent && !item?.content?.multiple_order ? 'طلب مستعجل' : !item?.content?.urgent && item?.content?.multiple_order ? 'طلب متعدد' : "طلب عادي"}}</p>
           </td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <p>{{ item?.type == 'text_communication' ? 'محادثة نصية' : 'محادثة صوتية' }}</p>

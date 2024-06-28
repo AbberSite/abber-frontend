@@ -1,6 +1,6 @@
 <template>
     <TransitionRoot as="template">
-        <div class="fixed inset-0 sm:hidden">
+        <div class="fixed inset-0 z-50 sm:hidden">
             <TransitionChild
                 as="template"
                 enter="duration-300 ease-out"

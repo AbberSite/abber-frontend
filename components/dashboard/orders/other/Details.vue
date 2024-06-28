@@ -60,7 +60,7 @@
                     </div>
                     <div class="flex items-center justify-between py-4">
                         <div class="font-semibold text-gray-500">المنصة</div>
-                        <div class="font-semibold">{{ 'الموقع' }}</div>
+                        <div class="font-semibold">{{ order?.content?.platform }}</div>
                     </div>
                     <div class="flex items-center justify-between py-4">
                         <div class="font-semibold text-gray-500">تأريخ الشراء</div>
