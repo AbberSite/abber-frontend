@@ -6,7 +6,7 @@ defineProps<{ orders: [] }>();
 
 <template>
   <div class="is-scroll w-full overflow-x-auto pt-6">
-    <table class="w-full text-sm ltr:text-left rtl:text-right relative z-50">
+    <table class="w-full text-sm ltr:text-left rtl:text-right relative z-[28]">
       <thead class="border-b border-t">
         <tr class=" bg-gray-2 text-right dark:bg-meta-4">
           <OrdersTableHeaderCol content="رقم الطلب" />

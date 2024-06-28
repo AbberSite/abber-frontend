@@ -175,7 +175,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الإحصائيات</span>
+            </svg><span class="ms-3 mt-1.5">المعبرون</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
             tabindex="-1">
@@ -184,7 +184,61 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">التقييمات</span>
+            </svg><span class="ms-3 mt-1.5">العملاء</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">متابعة العملاء</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">المجموعات</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">مدراء العلاقة</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">إدارة العلاقات</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">المقالات</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">نطاق المعبرين</span>
           </NuxtLink>
         </div>
       </div>
@@ -215,7 +269,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الإحصائيات</span>
+            </svg><span class="ms-3 mt-1.5">إعدادات عامة</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
             tabindex="-1">
@@ -224,7 +278,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">التقييمات</span>
+            </svg><span class="ms-3 mt-1.5">إعدادات الموقع</span>
           </NuxtLink>
         </div>
       </div>
@@ -255,7 +309,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الإحصائيات</span>
+            </svg><span class="ms-3 mt-1.5">إعدادات مركز المساعدة</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
             tabindex="-1">
@@ -264,7 +318,25 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">التقييمات</span>
+            </svg><span class="ms-3 mt-1.5">تذاكر المساعدة </span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">المحادثات</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">الأسئلة الشائعة</span>
           </NuxtLink>
         </div>
       </div>

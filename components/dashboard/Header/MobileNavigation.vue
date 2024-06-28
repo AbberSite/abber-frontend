@@ -187,7 +187,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الإحصائيات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المعبرون</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
               <!-- Heroicon name: outline/home -->
@@ -195,7 +195,55 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">التقييمات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">العملاء</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">متابعة العملاء</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المجموعات</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">مدراء العلاقة</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إدارة العلاقات</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المقالات</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">نطاق المعبرين</span>
             </NuxtLink>
           </div>
         </div>
@@ -227,7 +275,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الإحصائيات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إعدادات عامة</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
               <!-- Heroicon name: outline/home -->
@@ -235,7 +283,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">التقييمات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إعدادات الموقع</span>
             </NuxtLink>
           </div>
         </div>
@@ -267,7 +315,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الإحصائيات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إعدادات مركز المساعدة</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
               <!-- Heroicon name: outline/home -->
@@ -275,7 +323,25 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">التقييمات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">تذاكر المساعدة</span>
+            </NuxtLink>
+
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المحادثات</span>
+            </NuxtLink>
+
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الأسئلة الشائعة</span>
             </NuxtLink>
           </div>
         </div>
