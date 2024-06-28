@@ -352,7 +352,6 @@
 
 <script setup>
 import { XMarkIcon, HomeIcon, RssIcon, LifebuoyIcon, RocketLaunchIcon } from "@heroicons/vue/24/outline";
-const { data, status } = await useAuth();
 
 </script>
 

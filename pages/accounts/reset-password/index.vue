@@ -56,6 +56,7 @@
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
+const route = useRoute();
 
 definePageMeta({
   layout: false,
@@ -74,7 +75,7 @@ const { defineField, errors, validate, setErrors } = useForm({
 
 const [email] = defineField("email")
 const loading = ref(false)
-
+email.value = route?.query?.email ?? '';
 
 async function submit() {
 
