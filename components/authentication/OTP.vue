@@ -82,9 +82,9 @@
 <script setup lang="ts">
 import type { packagesFormSteps } from '~/types';
 const props = defineProps<{ isHome?: boolean; isFormPackage?: boolean }>();
-const { rawRefreshToken, rawToken } = useAuthState();
+const { rawToken } = useAuthState();
 
-const { refresh } = useAuth();
+const { getSession } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
 const my_opt = ref([])
@@ -128,11 +128,9 @@ async function login() {
 
             async onResponse({ response }) {
                 if (response.status !== 200) return;
-
-                rawRefreshToken.value = response._data.refreshToken;
                 rawToken.value = response._data.token;
 
-                await refresh();
+                await getSession();
                 if (props.isHome) {
                     useNotificationForLogin(true)
                     // useRouter().push({ name: 'index' });
