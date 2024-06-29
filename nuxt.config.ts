@@ -59,13 +59,13 @@ export default defineNuxtConfig({
     globalAppMiddleware: true,
     baseURL : import.meta.env.VITE_AUTH_URL,
     provider: {
-      type: "local",
+      type: "refresh",
       // refreshOnlyToken: true,
       pages: {
         login: "/accounts/login",
       },
       endpoints: {
-        // refresh: { path: "/refresh", method: "post" },
+        refresh: { path: "/refresh", method: "post" },
         getSession: { path: "/session" },
         signIn: { path: "/login", method: "post" }
       },
