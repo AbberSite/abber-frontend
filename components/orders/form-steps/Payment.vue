@@ -108,7 +108,7 @@
       <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
         <div class="flex justify-between items-center py-2">
           <p class="font-semibold">الرصيد الحالي:</p>
-          <p class="font-semibold px-2">{{ balance?.withdrawal_balance + balance?.available_balance }} ر.س</p>
+          <p class="font-semibold px-2">{{ balance?.withdrawal_balance }} ر.س</p>
         </div>
         <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance"
           @click="ordersPackage ? useBalance() : showConfirmDailog = true" class="w-full"><span class="mt-1.5">الدفع
@@ -191,7 +191,7 @@ const { balance } = storeToRefs(useWalletStore());
 const paymentMethod = ref(props?.deposit || props.addCard ? "MASTER" : isApple ? "APPLEPAY" : "CARD");
 const cardType = ref("general");
 const hasSufficientBallance = computed(() => {
-  return balance.value.available_balance >= hyper?.checkout?.amount || balance.value.withdrawal_balance >= hyper?.checkout.amount;
+  return  balance.value.withdrawal_balance >= hyper?.checkout.amount;
 });
 
 const membership = await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" }) as PaginationResponse<any>;
