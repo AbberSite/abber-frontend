@@ -17,7 +17,7 @@
                             <h3 class="mt-1.5 text-lg font-semibold">فلترة</h3>
                             <a @click.prevent="apply"
                                 class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800"
-                                href="/order/">تطبيق</a>
+                                href="/dashbaordv2/transactions/">تطبيق</a>
                         </div>
                         <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
                             <div>
@@ -25,67 +25,67 @@
                                 <div class="grid grid-rows-6 grid-flow-col gap-1">
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" id="paid" :value="true" checked />
+                                            name="paymentStatus" v-model="type" id="paid" :value="null" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="paid">الكل</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'1'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">سحب</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'2'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">إرجاع</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'3'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">رسوم الخدمة</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'4'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">دفع الفاتورة</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'5'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">شحن الرصيد</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'6'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">باقة المعبر</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'7'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">تسجيل/تجديد النطاق</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'8'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">إضافة بطاقة</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'9'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">عملية على الرصيد</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'10'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">إلغاء الطلب</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'11'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">Cart checkout</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus"  id="text" :value="false" />
+                                            name="paymentStatus" v-model="type"  id="text" :value="'12'" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">Orders Package</label>
                                     </div>
                                 </div>
@@ -95,18 +95,18 @@
                                 <div class="space-y-3 pt-4">
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" v-model="success" id="all" :value="null" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="paid">الكل</label>
+                                            name="success" v-model="success" id="all" :value="null" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" >الكل</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" v-model="success" id="paid" :value="true" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="paid">تم الدفع</label>
+                                            name="success" v-model="success" id="paid" :value="true" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" >تم الدفع</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" v-model="success" id="text" :value="false" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="text">فشل الدفع</label>
+                                            name="success" v-model="success" id="text" :value="false" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" >فشل الدفع</label>
                                     </div>
                                 </div>
                             </div>
@@ -124,19 +124,16 @@ import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
 
 
-const success = ref(null);
-
-
 const { filters } = storeToRefs(useDashTransactionsStore())
-const emit = defineEmits(["close"])
+const success = ref(filters.value.success);
+const type = ref(filters.value.type);
 
-onMounted(() => {
-    success.value = filters.value.success;
-})
+const emit = defineEmits(["close"])
 
 
 function apply() {
     filters.value.success = success.value;
+    filters.value.type = type.value;
     emit("close");
 }
 </script>

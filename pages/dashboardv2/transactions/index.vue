@@ -2,13 +2,12 @@
 
 
   <main class="min-h-screen outline-none">
-    <DashboardHeaderHeroBackground/>
-    <section
-      class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44">
+    <DashboardHeaderHeroBackground />
+    <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44">
       <div class="relative -mt-2 pb-12">
-                <p class="text-sm font-medium text-gray-800">المالية</p>
-                <p class="text-lg font-semibold">جميع المعاملات المالية</p>
-            </div>
+        <p class="text-sm font-medium text-gray-800">المالية</p>
+        <p class="text-lg font-semibold">جميع المعاملات المالية</p>
+      </div>
       <div class="w-full pt-6">
         <div class="flex items-center justify-between">
           <form class="w-full sm:max-w-sm" method="GET">
@@ -53,10 +52,12 @@
               <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount
                 }}</span>
             </button>
+
             <ClientOnly>
               <transition enter-active-class="transition-all" leave-active-class="transition-all"
                 enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                <DashboardTransactionsFiltersDropdown v-if="openFiltersDropdown" v-on-click-outside="() => (openFiltersDropdown = false)" />
+                <DashboardTransactionsFiltersDropdown v-if="openFiltersDropdown"
+                  v-on-click-outside="() => (openFiltersDropdown = false)" />
               </transition>
             </ClientOnly>
           </div>
@@ -77,6 +78,7 @@
 </template>
 <script setup lang="ts">
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
+import { vOnClickOutside } from '@vueuse/components';
 
 const { transactions, pagination, loading, filters, filtersCount } = storeToRefs(useDashTransactionsStore());
 const { fetchAll } = useDashTransactionsStore();
