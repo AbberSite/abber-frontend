@@ -86,7 +86,7 @@
                 ? 'border-gray-900'
                 : 'border-transparent text-gray-500 hover:text-gray-900'
         ]">
-        <span>رمز الإحالة</span
+        <span>رمز الدعوة</span
         >
     </button>
     

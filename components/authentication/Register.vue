@@ -44,12 +44,12 @@
 
                     <PhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
                     <span class="text-gray-500" @click="showReferral = !showReferral">
-                      رمز الإحالة
+                      رمز الدعوة
                       <ChevronDownIcon class="w-4 inline"/>
                     </span>
 
                      <TextInput v-if="showReferral" id="referral_code" v-model="referral_code" :error="errors.referral_code" 
-                        placeholder="أدخل رمز الاحالة الخاص بك (اختياري)" />
+                        placeholder="أدخل رمز الدعوة الخاص بك (اختياري)" />
 
                     <div class="flex items-center text-sm xs:text-base">
                         <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
