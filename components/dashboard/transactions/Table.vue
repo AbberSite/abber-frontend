@@ -19,14 +19,14 @@ defineProps<{ list: [] }>();
         </tr>
       </thead>
       <tbody class="divide-y">
-        <tr v-for="(item, index) in list" :key="index" class="cursor-pointer"
-          @click="navigateTo(`/dashboardv2/transactions/${item?.process_id}/`)">
+        <tr v-for="(item, index) in list" :key="index" >
 
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <h5 class="font-medium text-black">{{ item.id }}</h5>
           </td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <p class="text-black">#{{ item?.process_id }}</p>
+            <NuxtLink v-if="item?.process_id && item?.type == 'رسوم الخدمة'" class="text-blue-500 cursor-pointer" :to="`/dashboardv2/orders/${item?.process_id}`">#{{ item?.process_id }}</NuxtLink>
+            <p v-else>#{{ item?.process_id }}</p>
           </td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <p class="text-black">{{ item?.amount }}</p>
