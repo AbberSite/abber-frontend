@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.patch(
-          config.apiBasePath + `/orders/dream-info/${id}`,
+          config.apiBasePath + `/orders/dream-info/${id}/`,
             body,
             {
                 headers: {
