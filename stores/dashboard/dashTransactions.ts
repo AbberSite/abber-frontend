@@ -63,6 +63,7 @@ class dashTransactions {
   ): Promise<PaginationResponse<any>> =>
     new Promise(async (resolve, reject) => {
       try {
+        console.log(params);
         // console.log({"store": params.value.status})
         const data = (await useDirectApi("/wallets/dashboard-transactions/", {
           params: {
