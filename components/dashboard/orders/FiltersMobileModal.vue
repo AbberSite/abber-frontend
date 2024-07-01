@@ -1,109 +1,89 @@
 <template>
     <TransitionRoot as="template">
         <div class="fixed inset-0 z-50 sm:hidden">
-            <TransitionChild
-                as="template"
-                enter="duration-300 ease-out"
-                enter-from="opacity-0"
-                enter-to="opacity-100"
-                leave="duration-200 ease-in"
-                leave-from="opacity-100"
-                leave-to="opacity-0">
+            <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
+                leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" @click="$emit('close')"></div>
             </TransitionChild>
 
-            <TransitionChild
-                enter="transition ease-in-out duration-300 transform"
-                enter-from="translate-y-full "
-                enter-to="translate-y-0"
-                leave="transition ease-in-out duration-300 transform"
-                leave-from="translate-y-0"
-                leave-to="translate-y-full"
-                as="template">
+            <TransitionChild enter="transition ease-in-out duration-300 transform" enter-from="translate-y-full "
+                enter-to="translate-y-0" leave="transition ease-in-out duration-300 transform"
+                leave-from="translate-y-0" leave-to="translate-y-full" as="template">
                 <div class="fixed bottom-0 z-40 w-full rounded-t-2xl border-t border-gray-100 bg-white px-6 py-6">
-                    <button
-                        class="mx-auto block h-1 w-8 rounded-lg bg-gray-300"
-                        type="button"
+                    <button class="mx-auto block h-1 w-8 rounded-lg bg-gray-300" type="button"
                         @click="$emit('close')"></button>
                     <div class="pb-4 pt-8">
                         <div class="flex items-center justify-between space-x-3 rtl:space-x-reverse">
                             <h3 class="mt-1.5 text-lg font-semibold">فلترة</h3>
-                            <a
-                            @click.prevent="apply"
+                            <a @click.prevent="apply"
                                 class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800"
-                                href="/order/"
-                                >تطبيق</a
-                            >
+                                href="/order/">تطبيق</a>
+                        </div>
+
+                        <div class="pt-7">
+                            <h3 class="text-sm font-semibold">بين تاريخين</h3>
+                            <div class="flex flex-col items-center pt-2 gap-2 w-full">
+                                <div class="w-full">
+                                    <DatePicker placeholder="من" :max-date="new Date()" prevent-min-max-navigation
+                                        v-model="date_start" model-type="yyyy-MM-dd" ref="datePicker" id="date"
+                                        format="yyyy-MM-dd" select-text="اختيار" cancel-text="الغاء" />
+                                    <InputError :message="errors.date_start" />
+                                </div>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" title="إلى" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4" />
+                                </svg>
+                                <div class="w-full">
+                                    <DatePicker placeholder="إلى" :max-date="new Date()" prevent-min-max-navigation
+                                        v-model="date_end" model-type="yyyy-MM-dd" ref="datePicker" id="date"
+                                        format="yyyy-MM-dd" select-text="اختيار" cancel-text="الغاء" />
+                                    <InputError :message="errors.date_end" />
+                                </div>
+                            </div>
                         </div>
                         <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
                             <div>
                                 <h3 class="text-sm font-semibold">حالة الطلب</h3>
                                 <div class="space-y-3 pt-4">
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            type="checkbox"
-                                            value="new"
-                                            v-model="status"
-                                            name="checkbox"
-                                            id="new" />
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            type="checkbox" value="new" v-model="status" name="checkbox" id="new" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="new">جديد</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            type="checkbox"
-                                            value="in_progress"
-                                            v-model="status"
-                                            name="checkbox"
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            type="checkbox" value="in_progress" v-model="status" name="checkbox"
                                             id="in_progress" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress"
-                                            >قيد التنفيذ</label
-                                        >
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress">قيد
+                                            التنفيذ</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            type="checkbox"
-                                            v-model="status"
-                                            value="cancelled"
-                                            name="checkbox"
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            type="checkbox" v-model="status" value="cancelled" name="checkbox"
                                             id="cancelled" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="cancelled">ملغاة</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            v-model="status"
-                                            type="checkbox"
-                                            value="awaiting_delivery"
-                                            name="checkbox"
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            v-model="status" type="checkbox" value="awaiting_delivery" name="checkbox"
                                             id="awaiting_delivery" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="awaiting_delivery"
-                                            >بإنتظار الإستلام</label
-                                        >
+                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="awaiting_delivery">بإنتظار
+                                            الإستلام</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            type="checkbox"
-                                            v-model="status"
-                                            value="complete"
-                                            name="checkbox"
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            type="checkbox" v-model="status" value="complete" name="checkbox"
                                             id="complete" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="complete">مكتمل</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            type="checkbox"
-                                            v-model="status"
-                                            value="waiting_for_cancellation"
-                                            name="checkbox"
-                                            id="waiting_for_cancellation" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="waiting_for_cancellation"
-                                            >بإنتظار الإلغاء</label
-                                        >
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            type="checkbox" v-model="status" value="waiting_for_cancellation"
+                                            name="checkbox" id="waiting_for_cancellation" />
+                                        <label class="mt-1.5 ps-3 text-sm font-medium"
+                                            for="waiting_for_cancellation">بإنتظار الإلغاء</label>
                                     </div>
                                 </div>
                             </div>
@@ -111,21 +91,13 @@
                                 <h3 class="text-sm font-semibold">نوع الطلب</h3>
                                 <div class="space-y-3 pt-4">
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            type="checkbox"
-                                            v-model="video"
-                                            name="checkbox"
-                                            id="video" />
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            type="checkbox" v-model="video" name="checkbox" id="video" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="video">محادثة صوتية</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input
-                                            class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
-                                            type="checkbox"
-                                            name="checkbox"
-                                            v-model="text"
-                                            id="text" />
+                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border"
+                                            type="checkbox" name="checkbox" v-model="text" id="text" />
                                         <label class="mt-1.5 ps-3 text-sm font-medium" for="text">محادثة نصية</label>
                                     </div>
                                 </div>
@@ -141,24 +113,59 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
+import DatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+import type { DatePickerInstance } from '@vuepic/vue-datepicker';
+import * as yup from 'yup';
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/yup';
+const { defineField, errors, validate } = useForm({
+    validationSchema: toTypedSchema(
+        yup.object({
+            date_start: yup.string().required('هذا الحقل مطلوب'),
+            date_end: yup.string().required('هذا الحقل مطلوب')
+        })
+    )
+});
+
+const datePicker = ref<DatePickerInstance>(null);
+const [date_start] = defineField('date_start');
+const [date_end] = defineField('date_end');
+
+const watchDate = (field)=> {
+    watch(field, async (value)=> {
+        
+        if(!(await validate()).valid) {
+            if(errors.value.date_start && errors.value.date_end){
+                filters.value.date__gte = '';
+                filters.value.date__lte = '';
+            }
+        };
+        console.log(value);
+        filters.value.date__gte = date_start.value;
+        filters.value.date__lte = date_end.value;
+    });
+};
+watchDate(date_start);
+watchDate(date_end);
 
 
 const video = ref(false)
 const text = ref(false)
 
-const status =ref<string[]>([])
+const status = ref<string[]>([])
 
 const { filters } = storeToRefs(useDashOrdersStore())
 const emit = defineEmits(["close"])
 
 onMounted(() => {
-         video.value = filters.value.type.voice
-         text.value = filters.value.type.text
-         status.value = filters.value.status
+    video.value = filters.value.type.voice
+    text.value = filters.value.type.text
+    status.value = filters.value.status
 })
 
 
-function apply(){
+function apply() {
     filters.value.type.text = text.value
     filters.value.type.voice = video.value
     filters.value.status = status.value

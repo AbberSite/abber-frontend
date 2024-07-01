@@ -10,6 +10,8 @@ class dashOrders {
       voice: false,
       text: false,
     },
+    date__gte: '',
+    date__lte: '',
     status: ['in_progress'],
     search: "",
     ordering: "order_item_time_data__start_date",
@@ -30,6 +32,7 @@ class dashOrders {
     this.filtersPipline = [
       this.getTypeFilterQuery,
       this.getStatusFilterQuery,
+      this.getDateFilter,
       this.search,
       this.ordering
     ];
@@ -153,6 +156,14 @@ class dashOrders {
       type: "video_communication",
     };
   };
+
+  getDateFilter = () => {
+    if(!this.filters.value.date__gte || !this.filters.value.date__lte) return {};
+    return {
+      date__gte: this.filters.value.date__gte,
+      date__lte: this.filters.value.date__lte
+    }
+  }
 
   getOrder = async (id: string) => {
     this.loading.value = true;

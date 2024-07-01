@@ -129,4 +129,7 @@
   .my_deposit .wpwl-wrapper-registration-holder {
     display: none;
   }
+  .datepicker_mobile .dp__outer_menu_wrap {
+    position: static;
+}
 }

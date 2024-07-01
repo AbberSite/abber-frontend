@@ -7,6 +7,8 @@ class dashTransactions {
   filters = ref({
     success: null,
     type: null,
+    date__gte: '',
+    date__lte: '',
     search: "",
     ordering: "order_item_time_data__start_date",
     ignore: undefined,
@@ -22,6 +24,7 @@ class dashTransactions {
     this.filtersPipline = [
       this.success,
       this.getTypeFilterQuery,
+      this.getDateFilter,
       this.search,
       this.ordering
     ];
@@ -42,7 +45,7 @@ class dashTransactions {
         // this.loading.value = true;
 
         await this.fetchAll();
-
+        
         // this.loading.value = false;
 
         if (process.client) {
@@ -63,8 +66,7 @@ class dashTransactions {
   ): Promise<PaginationResponse<any>> =>
     new Promise(async (resolve, reject) => {
       try {
-        console.log(params);
-        // console.log({"store": params.value.status})
+        this.loading.value = true;
         const data = (await useDirectApi("/wallets/dashboard-transactions/", {
           params: {
             limit: 20,
@@ -115,6 +117,14 @@ class dashTransactions {
       type: this.filters.value.type
     };
   };
+  
+  getDateFilter = ()=> {
+    if(!this.filters.value.date__gte || !this.filters.value.date__lte) return {};
+    return {
+      date__gte: this.filters.value.date__gte,
+      date__lte: this.filters.value.date__lte
+    }
+  }
 }
 export const useDashTransactionsStore = defineStore(
   "dashTransactions",

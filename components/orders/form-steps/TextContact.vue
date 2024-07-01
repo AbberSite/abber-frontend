@@ -17,10 +17,7 @@
                 <DatePicker placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation
                     v-model="dream_time" model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd"
                     select-text="اختيار" cancel-text="الغاء" />
-
                 <InputError :message="errors.dream_time" />
-
-                <!-- <DatePicker date-picker />  -->
             </div>
             <div class="flex items-center">
                 <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" v-model="client" type="checkbox"
