@@ -48,7 +48,7 @@
                       <ChevronDownIcon class="w-4 inline"/>
                     </span>
 
-                     <TextInput v-if="showReferral" id="referral_code" v-model="referral_code" :error="errors.referral_code" 
+                     <TextInput :disabled="referralCode" v-if="showReferral" id="referral_code" v-model="referral_code" :error="errors.referral_code" 
                         placeholder="أدخل رمز الدعوة الخاص بك (اختياري)" />
 
                     <div class="flex items-center text-sm xs:text-base">
@@ -92,7 +92,9 @@ import { useDebounceFn } from '@vueuse/core';
 
 const props = defineProps<{ isFormSteps?: boolean; isFormPackage?: boolean }>();
 
-const showReferral = ref(false)
+
+const referralCode = useRoute().query.referral || null
+const showReferral = ref(referralCode)
 
 const { defineField, errors, validate, errorBag, setErrors } = useForm({
     validationSchema: toTypedSchema(
@@ -109,7 +111,7 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
                 .isTrue('يجب الموافقة على الشروط و الأحكام')
                 .required('يجب الموافقة على الشروط و الأحكام')
                 .default(true),
-            referral_code: yup.string(),
+            referral_code: yup.string().default(referralCode),
 
         })
     )
