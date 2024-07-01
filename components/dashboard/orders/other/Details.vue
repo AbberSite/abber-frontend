@@ -63,6 +63,10 @@
                         <div class="font-semibold">{{ order?.content?.platform }}</div>
                     </div>
                     <div class="flex items-center justify-between py-4">
+                        <div class="font-semibold text-gray-500">وسيلة الشراء</div>
+                        <div class="font-semibold">{{ order?.order_item_financial_data?.payment_method }}</div>
+                    </div>
+                    <div class="flex items-center justify-between py-4">
                         <div class="font-semibold text-gray-500">تأريخ الشراء</div>
                         <div class="font-semibold">{{ useArabicFormattedDate(order.order_item_time_data?.ordered_date) }}</div>
                     </div>

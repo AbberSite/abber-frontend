@@ -28,11 +28,11 @@ defineProps<{ orders: [] }>();
             <h5 class="text-blue-600 ">#{{ item.id }}</h5>
           </td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
-            <p class="text-black dark:text-white">{{ item?.seller?.first_name }}</p>
+            <p class="text-black dark:text-white">{{ item?.seller?.first_name?.split(' ')[0] }}</p>
           </td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
             <NuxtLink class="text-blue-500 font-semibold cursor-pointer"
-              :to="`/accounts/dashboard/user-update/${item?.buyer?.id}/#tab0`">{{ item?.buyer?.first_name }}</NuxtLink>
+              :to="`/accounts/dashboard/user-update/${item?.buyer?.id}/#tab0`">{{ item?.buyer?.first_name?.split(' ')[0] }}</NuxtLink>
           </td>
 
           <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
