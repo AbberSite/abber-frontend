@@ -49,6 +49,9 @@
       </defs>
     </svg>
     <div disabled class="form-control h-[50px] appearance-none w-25 font-bold text-lg text-center tracking-[.8em] text-gray-700 select-none" v-text="referralCode" @click="copyReferralCode"></div>
+    <PrimaryButton class="w-full" @click="copyReferralLink()">
+      نسخ رابط الدعوة
+    </PrimaryButton>
   </div>
 </template>
 
@@ -70,6 +73,11 @@ const copyReferralCode = computed(() => {
   navigator.clipboard.writeText(referralCode.value);
   useNotification({ type: "success", content: "تم نسخ الكود بنجاح" });
 });
+
+const copyReferralLink = () => {
+  navigator.clipboard.writeText("https://app.abber.co/referrals/referral-signup/?referral=" + referralCode.value);
+  useNotification({ type: "success", content: "تم نسخ رابط الدعوة بنجاح" });
+};
 </script>
 
 <style></style>
