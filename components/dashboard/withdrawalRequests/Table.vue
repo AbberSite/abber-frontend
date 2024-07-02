@@ -77,5 +77,7 @@ defineProps<{ list: [] }>();
         </tr>
       </tbody>
     </table>
+
+   
   </div>
 </template>
