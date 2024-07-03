@@ -40,8 +40,7 @@
         </div>
       </div> -->
 
-      <SkeletonsOrdersTable v-if="loading" />
-      <DashboardTablesTable :headItems="headItems" :bodyItems="data.results"></DashboardTablesTable>
+      <DashboardTablesTable :headItems="headItems" :bodyItems="data.results" :loading="loading"></DashboardTablesTable>
 
       <!-- <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" /> -->
     </section>

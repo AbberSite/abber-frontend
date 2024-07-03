@@ -1,5 +1,6 @@
 <template>
-  <div class="is-scroll w-full overflow-x-auto pt-6">
+  <SkeletonsTable v-if="loading" />
+  <div v-else class="is-scroll w-full overflow-x-auto pt-6">
     <table class="w-full text-sm ltr:text-left rtl:text-right">
       <slot>
         <DashboardTablesThead :headItems="headItems"></DashboardTablesThead>
@@ -14,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{ headItems: {}; bodyItems: [] }>();
+defineProps<{ headItems: {}; bodyItems: [];loading:Boolean }>();
 </script>
 
 <style></style>

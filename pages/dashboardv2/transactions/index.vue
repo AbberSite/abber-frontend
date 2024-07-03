@@ -37,8 +37,7 @@
           </div>
         </div>
       </div>
-      <SkeletonsOrdersTable v-if="loading" />
-      <DashboardTablesTable :headItems="headItems" :bodyItems="transactions ?? []"/>
+      <DashboardTablesTable :headItems="headItems" :bodyItems="transactions ?? []" :loading="loading"/>
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
 
