@@ -38,7 +38,7 @@
         </div>
       </div>
       <SkeletonsOrdersTable v-if="loading" />
-      <DashboardTransactionsTable v-else :list="transactions ?? []" />
+      <DashboardTablesTable :headItems="headItems" :bodyItems="transactions ?? []"/>
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
 
@@ -53,6 +53,17 @@
 <script setup lang="ts">
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
 import { vOnClickOutside } from '@vueuse/components';
+const headItems = {
+  id : "رقم العملية",
+  process_id:"رقم الطلب/الفاتورة",
+  amount :"المبلغ",
+  success:"عملية ناجحة",
+  type :"نوع العملية",
+  method : "طريقة الدفع",
+  date: "التاريخ",
+  user: "المستخدم",
+
+}
 
 const { transactions, pagination, loading, filters, filtersCount } = storeToRefs(useDashTransactionsStore());
 const { fetchAll } = useDashTransactionsStore();
