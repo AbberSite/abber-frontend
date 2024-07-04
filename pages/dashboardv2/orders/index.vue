@@ -28,8 +28,7 @@
           </div>
         </div>
       </div>
-      <SkeletonsTable v-if="loading" />
-      <DashboardOrdersTable v-else :orders="orders ?? []" />
+      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" />
 
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
     </section>
@@ -48,7 +47,15 @@ const openFiltersDropdown = ref(false);
 const { orders, pagination, loading, filters, filtersCount } = storeToRefs(useDashOrdersStore());
 const { fetchAll } = useDashOrdersStore();
 // const pagination = ref<PaginationResponse<any>>();
-
+const headItems = {
+  id: "رقم الطلب",
+  seller: "المعبر",
+  buyer: "المشتري",
+  ordering_type: "نوع الطلب",
+  status: "الحالة",
+  "order_item_financial_data.price": "السعر",
+  "order_item_time_data.ordered_date": "تاريخ الطلب",
+};
 onMounted(async () => {
   fetchAll();
 });
