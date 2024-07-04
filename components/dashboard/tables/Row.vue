@@ -6,6 +6,7 @@
         <span v-else-if="typeof content === 'boolean'"><DashboardTablesCellsCheck :check="content"/></span>
         <span v-else-if="name.includes('method')"><DashboardTablesCellsPaymentMethod :method="content" /></span>
         <span v-else-if="name === 'status'"><OrderStatus :status="content" /></span>
+        <span v-else-if="name === 'ordering_type'"><DashboardTablesCellsOrderingType :type="content" /></span>
         <span v-else>{{ content }}</span>
     </slot>
   </td>
