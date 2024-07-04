@@ -21,27 +21,7 @@
                         </div>
 
                         <div class="pt-7">
-                            <h3 class="text-sm font-semibold">بين تاريخين</h3>
-                            <div class="flex flex-col items-center pt-2 gap-2 w-full">
-                                <div class="w-full">
-                                    <DatePicker placeholder="من" :max-date="new Date()" prevent-min-max-navigation
-                                        v-model="date_start" model-type="yyyy-MM-dd" ref="datePicker" id="date"
-                                        format="yyyy-MM-dd" select-text="اختيار" cancel-text="الغاء" />
-                                    <InputError :message="errors.date_start" />
-                                </div>
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" title="إلى" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4" />
-                                </svg>
-                                <div class="w-full">
-                                    <DatePicker placeholder="إلى" :max-date="new Date()" prevent-min-max-navigation
-                                        v-model="date_end" model-type="yyyy-MM-dd" ref="datePicker" id="date"
-                                        format="yyyy-MM-dd" select-text="اختيار" cancel-text="الغاء" />
-                                    <InputError :message="errors.date_end" />
-                                </div>
-                            </div>
+                            <DashboardOrdersDateFilters/>
                         </div>
                         <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
                             <div>
