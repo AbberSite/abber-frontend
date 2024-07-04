@@ -22,7 +22,7 @@
                         <div class="max-h-[50vh] overflow-auto datepicker_mobile">
 
                             <div class="pt-7">
-                                <DashboardTransactionsDateFilters/>
+                                <DashboardDateFilters transactions/>
                             </div>
                             <div class="flex  pt-10 rtl:space-x-reverse flex-wrap">
                                 <div>

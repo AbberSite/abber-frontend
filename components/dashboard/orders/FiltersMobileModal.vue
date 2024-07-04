@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="pt-7">
-                            <DashboardOrdersDateFilters/>
+                            <DashboardDateFilters orders/>
                         </div>
                         <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
                             <div>

@@ -8,11 +8,19 @@
         </div>
 </template>
 <script setup lang="ts">
-const { filters } = storeToRefs(useDashOrdersStore());
+let filters = ref(null);
+// const { filters } = storeToRefs(useDashOrdersStore());
+import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
+import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
+const props = defineProps<{transactions?: boolean; orders?: boolean; }>();
+if(props.transactions){
+    filters.value = useDashTransactionsStore().filters;
+} else if (props.orders){
+    filters.value = useDashOrdersStore().filters;
+};
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';
-import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
 const datePicker = ref<DatePickerInstance>(null);
 let range_date = ref([]);
 
@@ -20,7 +28,6 @@ onMounted(()=> {
     if(filters.value.date__gte && filters.value.date__lte){
         range_date.value[0] = filters.value.date__gte;
         range_date.value[1] = filters.value.date__lte;
-        console.log(range_date.value);
     }
 })
 watch(range_date, (value)=> {
