@@ -6,7 +6,7 @@
         <DashboardTablesThead :headItems="headItems"></DashboardTablesThead>
         <tbody class="divide-y">
           <tr v-for="(row, rowIndex) in bodyItems" :key="rowIndex">
-            <DashboardTablesRow v-for="(value,key, colIndex) in headItems" :key="colIndex" :content="row[key]" :name="key"/>
+            <DashboardTablesRow v-for="(value, key, colIndex) in headItems" :key="colIndex" :content="getNestedValue(row, key)" :name="key" />
           </tr>
         </tbody>
       </slot>
@@ -15,7 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{ headItems: {}; bodyItems: [];loading:Boolean }>();
+defineProps<{ headItems: {}; bodyItems: []; loading: Boolean }>();
+function getNestedValue(obj: Record<string, any>, key: string): any {
+  return key.split('.').reduce((o, k) => (o || {})[k], obj);
+}
 </script>
 
 <style></style>
