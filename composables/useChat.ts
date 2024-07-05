@@ -2,11 +2,9 @@ import { useWebSocket, type UseWebSocketReturn } from '@vueuse/core';
 import type { Message } from '~/types';
 
 let currentChat: UseWebSocketReturn<any> | undefined = undefined
-export default (type: string = "order") => {
+export default (type: string = "order", id: string = useRoute().params.id) => {
   const { rawToken } = useAuthState();
   const { data } = useAuth();
-
-  const id = useRoute().params.id
 
   if (currentChat) return { ...currentChat, clear: () => currentChat = undefined }
 
