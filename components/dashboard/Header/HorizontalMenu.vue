@@ -345,29 +345,22 @@
 </template>
 
 <script setup lang="ts">
+const { data, status } = await useAuth();
+
 onMounted(async function () {
   const menuButton = document.querySelectorAll('.group button');
   const submenu = document.querySelectorAll('.submenu');
   const menuWrapper = document.querySelector('.all_menu_group');
+  console.log(menuWrapper)
   menuWrapper.addEventListener('scroll', () => {
-    updatePosition();
-  });
-  
-  const updatePosition = function(topPosition=0){
+    console.log('you are scrolling');
     menuButton.forEach((item, index) => {
       const menuRect = item.getBoundingClientRect();
       submenu[index].getBoundingClientRect();
       submenu[index].style.left = `${menuRect.left}px`;
-      if(topPosition)
-        submenu[index].style.top = `${135 - topPosition}px`;
-      else 
-        submenu[index].style.top = `${135}px`;
     })
-  };
+  });
 
-  window.addEventListener('scroll', ()=> {
-    updatePosition(window.pageYOffset);
-  })
 });
 </script>
 

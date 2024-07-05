@@ -111,7 +111,7 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
                 .isTrue('يجب الموافقة على الشروط و الأحكام')
                 .required('يجب الموافقة على الشروط و الأحكام')
                 .default(true),
-            referral_code: yup.string().notRequired().default(referralCode ?? null),
+            referral_code: yup.string().notRequired().default(referralCode),
 
         })
     )
