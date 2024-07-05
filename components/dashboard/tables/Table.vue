@@ -1,7 +1,7 @@
 <template>
   <SkeletonsTable v-if="loading" />
   <div v-else class="is-scroll w-full overflow-x-auto pt-6">
-    <table class="w-full text-sm ltr:text-left rtl:text-right">
+    <table class="w-full text-sm ltr:text-left rtl:text-right ">
       <slot>
         <DashboardTablesThead :headItems="headItems"></DashboardTablesThead>
         <tbody class="divide-y">
@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 defineProps<{ headItems: {}; bodyItems: []; loading: Boolean }>();
 function getNestedValue(obj: Record<string, any>, key: string): any {
-  return key.split('.').reduce((o, k) => (o || {})[k], obj);
+  return key.split('.').reduce((o, k) => (o || {})[k], obj) ?? obj.id ;
 }
 </script>
 

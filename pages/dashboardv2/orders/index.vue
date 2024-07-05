@@ -55,6 +55,8 @@ const headItems = {
   status: "الحالة",
   "order_item_financial_data.price": "السعر",
   "order_item_time_data.ordered_date": "تاريخ الطلب",
+  showOrder: "إستعراض",
+  showDetails: "التفاصيل",
 };
 onMounted(async () => {
   fetchAll();
