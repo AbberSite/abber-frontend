@@ -55,11 +55,11 @@ const { $viewport } = useNuxtApp();
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
 
-// const id = useRoute().params.id;
+const id = useRoute().params.id;
 
 const { data } = useAuth();
-console.log(props.roomName);
-const { clear } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support', props.roomName?.startsWith('order_') ? props.roomName?.replace('order_', '') : props.roomName);
+
+const { clear } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support');
 
 const loading = ref(false);
 let loading_chat = ref<boolean>(true);
@@ -100,6 +100,7 @@ function formatTime(_date: string) {
 }
 
 async function load() {
+  console.log('load function')
   if (!messagesPagination.value?.next) return;
 
   const params = useUrlParams(messagesPagination.value.next);

@@ -44,12 +44,12 @@
 
                     <PhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
                     <span class="text-gray-500" @click="showReferral = !showReferral">
-                        رمز الدعوة
-                        <ChevronDownIcon class="w-4 inline" />
+                      رمز الدعوة
+                      <ChevronDownIcon class="w-4 inline"/>
                     </span>
 
-                    <TextInput :disabled="referralCode" v-if="showReferral" id="referral_code" v-model="referral_code"
-                        :error="errors.referral_code" placeholder="أدخل رمز الدعوة الخاص بك (اختياري)" />
+                     <TextInput :disabled="referralCode" v-if="showReferral" id="referral_code" v-model="referral_code" :error="errors.referral_code" 
+                        placeholder="أدخل رمز الدعوة الخاص بك (اختياري)" />
 
                     <div class="flex items-center text-sm xs:text-base">
                         <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
@@ -65,7 +65,7 @@
                     <InputError :message="errors.terms" />
 
                     <div>
-                        <PrimaryButton class="w-full" :loading="loading" @click="submit()">التسجيل</PrimaryButton>
+                        <PrimaryButton class="w-full" :loading="loading">التسجيل</PrimaryButton>
                     </div>
                 </fieldset>
             </form>
@@ -111,7 +111,7 @@ const { defineField, errors, validate, errorBag, setErrors } = useForm({
                 .isTrue('يجب الموافقة على الشروط و الأحكام')
                 .required('يجب الموافقة على الشروط و الأحكام')
                 .default(true),
-            referral_code: yup.string().notRequired().default(referralCode ?? null),
+            referral_code: yup.string().default(referralCode),
 
         })
     )
@@ -135,7 +135,8 @@ const checkEmailExistence = useDebounceFn(async (value) => {
             email: value
         }
     });
-    if (!response.registered) {
+
+    if (!response.data.value.registered) {
         errorBag.value = {};
         return true;
     }
@@ -163,14 +164,9 @@ async function submit() {
 
     try {
         loading.value = true;
-        let dataSignUp = {
-            name: name.value, email: email.value, password: password.value, phone: phone.value
-        }
-        if (referral_code.value) {
-            dataSignUp.referral_code = referral_code.value;
-        }
+
         await signUp(
-            dataSignUp,
+            { name: name.value, email: email.value, password: password.value, phone: phone.value,referral_code:referral_code.value },
             {
                 callbackUrl: '/profile',
                 redirect: props.isFormSteps ? false : true
