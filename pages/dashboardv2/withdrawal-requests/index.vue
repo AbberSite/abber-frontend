@@ -1,6 +1,4 @@
 <template>
-  <main class="min-h-screen outline-none">
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-44 lg:px-8 xl:pb-44">
       <h1 class="font-semibold py-3 text-left">طلبات السحب</h1>
       <!-- <div class="w-full pt-6">
         <div class="flex items-center justify-between">
@@ -43,8 +41,6 @@
       <DashboardTablesTable :headItems="headItems" :bodyItems="data.results" :loading="loading"></DashboardTablesTable>
 
       <!-- <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" /> -->
-    </section>
-  </main>
 </template>
 <script setup lang="ts">
 const data = ref<PaginationResponse<any>>({ results: [] });

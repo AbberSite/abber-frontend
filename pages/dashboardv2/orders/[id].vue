@@ -1,7 +1,4 @@
 <template>
-    <main class="min-h-screen outline-none">
-        <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44"
-            x-data="{ openProfileDropdown: false, alert: true }">
             <div v-if="!loading" class="flex items-center justify-between">
                 <div class="relative -mt-2 pb-12">
                     <p class="text-sm font-medium text-gray-800">الطلبات</p>
@@ -36,10 +33,8 @@
                     </div>
                 </div>
             </div>
-
             <!-- details order -->
             <DashboardOrdersOtherDetails /> 
-        </section>
         <!-- buttons for mobile -->
         <div class="fixed bottom-0 z-20 flex w-full items-center space-x-3 border-t border-gray-100 bg-white px-4 py-6 rtl:space-x-reverse xs:px-6 sm:hidden">
         <button class="flex h-[50px] w-full items-center justify-center space-x-2 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse" type="button" @click="showChangeStatusWindow = true">
@@ -55,7 +50,6 @@
           </svg>
         </button>
       </div>
-    </main>
     <ClientOnly v-if="order?.status">
         <DashboardOrdersOtherChangeStatusWindow :show="showChangeStatusWindow" @close="showChangeStatusWindow = false"
             :order="order" />
