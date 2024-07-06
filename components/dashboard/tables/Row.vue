@@ -7,6 +7,7 @@
         <span v-else-if="name.includes('method')"><DashboardTablesCellsPaymentMethod :method="content" /></span>
         <span v-else-if="name === 'status'">{{ content == '1' ? 'قيد المراجعة' : content == '2' ? 'تم'  : content == '3' ? 'مرفوض' : '' }} <OrderStatus :status="content" /></span>
         <span v-else-if="name === 'ordering_type'"><DashboardTablesCellsOrderingType :type="content" /></span>
+<<<<<<< HEAD
         <span v-else-if="name === 'type'">{{ content == 'withdrawal' ? 'المبلغ المسحوب' : 'المبلغ المتاح' }}</span>
         <span v-else-if="name === 'showOrder'"> <NuxtLink class="hover:text-gray-400 cursor-pointer" :to="`/orders/${content}/`">
               <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -32,6 +33,8 @@
               </svg>
             </NuxtLink>
         </span>
+=======
+>>>>>>> 193415715506840ce0c14ddf5891d1758dd00d4d
         <span v-else>{{ content }}</span>
     </slot>
   </td>

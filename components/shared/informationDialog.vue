@@ -108,7 +108,7 @@ async function submitUpdate() {
 
   try {
     loading.value = true;
-    await useDirectApi(`/accounts/account/${data.value.username}`, {
+    await useDirectApi(`/accounts/account/${data.value.username}/`, {
       method: "PATCH",
       body: {
         profile: {
