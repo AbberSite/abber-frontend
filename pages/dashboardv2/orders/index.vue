@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" />
+      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" :actions="{details:true}"/>
 
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
     </section>
