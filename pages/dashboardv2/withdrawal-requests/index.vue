@@ -62,6 +62,8 @@ const headItems = {
   type: "نوع الرصيد",
   status: "حالة الطلب",
   date: "تاريخ الطلب",
+  acceptWithdrawal: "الموافقة", 
+  rejectWithdrawal: "الرفض"
 };
 
 const openFiltersMobileModal = ref(false);
