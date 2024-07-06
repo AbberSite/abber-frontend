@@ -5,8 +5,9 @@
         <span v-else-if="content?.first_name">{{ content.first_name }}</span>
         <span v-else-if="typeof content === 'boolean'"><DashboardTablesCellsCheck :check="content"/></span>
         <span v-else-if="name.includes('method')"><DashboardTablesCellsPaymentMethod :method="content" /></span>
-        <span v-else-if="name === 'status'"><OrderStatus :status="content" /></span>
+        <span v-else-if="name === 'status'">{{ content == '1' ? 'قيد المراجعة' : content == '2' ? 'تم'  : content == '3' ? 'مرفوض' : '' }} <OrderStatus :status="content" /></span>
         <span v-else-if="name === 'ordering_type'"><DashboardTablesCellsOrderingType :type="content" /></span>
+        <span v-else-if="name === 'type'">{{ content == 'withdrawal' ? 'المبلغ المسحوب' : 'المبلغ المتاح' }}</span>
         <span v-else-if="name === 'showOrder'"> <NuxtLink class="hover:text-gray-400 cursor-pointer" :to="`/orders/${content}/`">
               <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                 xmlns="http://www.w3.org/2000/svg">

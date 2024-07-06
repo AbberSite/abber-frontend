@@ -12,12 +12,15 @@ let filters = ref(null);
 // const { filters } = storeToRefs(useDashOrdersStore());
 import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
-const props = defineProps<{transactions?: boolean; orders?: boolean; }>();
+import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawalRequests';
+const props = defineProps<{transactions?: boolean; orders?: boolean; withdrawalRequests?: boolean; }>();
 if(props.transactions){
     filters.value = useDashTransactionsStore().filters;
 } else if (props.orders){
     filters.value = useDashOrdersStore().filters;
-};
+} else if (props.withdrawalRequests){
+    filters.value = useDashWithdrawalRequestsStore().filters;
+}
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';
