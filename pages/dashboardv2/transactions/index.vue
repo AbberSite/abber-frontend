@@ -2,7 +2,6 @@
 
 
   <main class="min-h-screen outline-none">
-    <DashboardHeaderHeroBackground />
     <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44">
       <div class="relative -mt-2 pb-12">
         <p class="text-sm font-medium text-gray-800">المالية</p>

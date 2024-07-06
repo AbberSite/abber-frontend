@@ -1,5 +1,6 @@
 <template>
     <DashboardHeader/>
+    <DashboardHeaderHeroBackground />
     <slot />
     <!-- <DashboardMainFooter/> -->
 </template>
