@@ -9,7 +9,7 @@
             <DashboardTablesRow v-for="(value, key, colIndex) in headItems" :key="colIndex" :content="getNestedValue(row, key)" :name="key" />
             <DashboardTablesRow v-if="actions">
               <DashboardTablesCellsActions :actions="actions" :data="row" />
-            </DashboardTablesRow>
+</DashboardTablesRow>
           </tr>
         </tbody>
       </slot>

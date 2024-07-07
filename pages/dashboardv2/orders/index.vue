@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" :actions="{details:true}"/>
+      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
 
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
@@ -42,6 +42,8 @@ const openFiltersDropdown = ref(false);
 // const { orders, pagination, loading, filtersCount, filters } = storeToRefs(useOrdersStore());
 const { orders, pagination, loading, filters, filtersCount } = storeToRefs(useDashOrdersStore());
 const { fetchAll } = useDashOrdersStore();
+const { $event } = useNuxtApp()
+
 // const pagination = ref<PaginationResponse<any>>();
 const headItems = {
   id: "رقم الطلب",
@@ -55,7 +57,15 @@ const headItems = {
 onMounted(async () => {
   fetchAll();
 });
+const { $listen } = useNuxtApp()
 
+$listen('table-add', () => {
+  console.log('A user was registered!')
+  // do something here...
+  // An interesting example for this use case could be to 
+  // just register an event or a conversion in your 
+  // favourite analytics tool like Google Analytics, Fathom...
+})
 // async function fetchAll() {
 //   const data = await useProxy("/orders/dashboard-orders/");
 //   orders.value = data.results ?? [];
