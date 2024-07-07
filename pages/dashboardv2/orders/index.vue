@@ -1,8 +1,5 @@
 <template>
-  <main class="min-h-screen outline-none">
-    <DashboardHeaderHeroBackground />
 
-    <section class="mx-auto max-w-7xl px-4 pb-36 xs:px-6 lg:px-8 xl:pb-44">
       <div class="relative -mt-2 pb-12">
         <p class="text-sm font-medium text-gray-800">الطلبات</p>
         <p class="text-lg font-semibold">جميع الطلبات</p>
@@ -28,11 +25,10 @@
           </div>
         </div>
       </div>
-      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" />
+      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
 
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
-    </section>
-  </main>
+
 
   <ClientOnly>
     <DashboardOrdersFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
@@ -43,7 +39,6 @@ import { useDashOrdersStore } from "~/stores/dashboard/dashOrders.ts";
 import { vOnClickOutside } from "@vueuse/components";
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
-// const { orders, pagination, loading, filtersCount, filters } = storeToRefs(useOrdersStore());
 const { orders, pagination, loading, filters, filtersCount } = storeToRefs(useDashOrdersStore());
 const { fetchAll } = useDashOrdersStore();
 // const pagination = ref<PaginationResponse<any>>();
@@ -55,16 +50,9 @@ const headItems = {
   status: "الحالة",
   "order_item_financial_data.price": "السعر",
   "order_item_time_data.ordered_date": "تاريخ الطلب",
-  showOrder: "إستعراض",
-  showDetails: "التفاصيل",
 };
 onMounted(async () => {
   fetchAll();
 });
 
-// async function fetchAll() {
-//   const data = await useProxy("/orders/dashboard-orders/");
-//   orders.value = data.results ?? [];
-//   pagination.value = data;
-// }
 </script>
