@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading"></DashboardTablesTable>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{modify:true}"></DashboardTablesTable>
 
   <!-- <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" /> -->
   <ClientOnly>
@@ -36,7 +36,7 @@ import { vOnClickOutside } from "@vueuse/components";
 import { useDashWithdrawalRequestsStore } from "~/stores/dashboard/dashWithdrawalRequests";
 const { filters, list, loading, filtersCount } = storeToRefs(useDashWithdrawalRequestsStore());
 const { fetchAll } = useDashWithdrawalRequestsStore();
-
+const {$listen} = useNuxtApp();
 const headItems = {
   id: "رقم الطلب",
   user: "العميل",
@@ -52,7 +52,9 @@ const headItems = {
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 // const pagination = ref<PaginationResponse<any>>();
-
+$listen('table-modify-object', (id) => {
+  console.log(id); // show modal for  accept or reject 
+})
 onMounted(async () => {
   await fetchAll();
 });
