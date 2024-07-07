@@ -1,5 +1,5 @@
 <template>
-  <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium font-medium text-black dark:text-white">
+  <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-black dark:text-white">
     <slot>
         <span v-if="name.includes('date')">{{ useArabicFormattedDate(content) }}</span>
         <span v-else-if="content?.first_name">{{ content.first_name }}</span>
