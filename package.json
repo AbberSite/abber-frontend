@@ -45,6 +45,7 @@
     "h3-formidable": "^1.0.0",
     "intl-tel-input": "^17.0.19",
     "lamejs": "^1.2.1",
+    "mitt": "^3.0.1",
     "nuxt-viewport": "^2.1.5",
     "pinia": "^2.1.7",
     "sharp": "^0.33.3",
