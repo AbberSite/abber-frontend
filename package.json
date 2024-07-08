@@ -13,6 +13,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/device": "^3.1.1",
+    "@nuxtjs/i18n": "^8.3.1",
     "@tailwindcss/typography": "^0.5.10",
     "@types/ffmpeg.js": "^3.1.6",
     "@types/intl-tel-input": "^18.1.4",
