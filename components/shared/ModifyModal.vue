@@ -14,6 +14,10 @@
                         <DialogPanel
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
                             <div class="py-3">
+                                <div class="flex justify-between items-center pb-2">
+                                    <h2 class="text-lg font-semibold">الإجراءات</h2>
+                                    <XMarkIcon class="w-6 h-6 cursor-pointer" @click="emit('close')"/>
+                                </div>
                                 <slot/>
                             </div>
                         </DialogPanel>
@@ -26,13 +30,12 @@
 
 <script setup lang="ts">
 // import { TransitionRoot, TransitionChild } from "@headlessui/vue";
-import { ExclamationTriangleIcon, CheckCircleIcon } from '@heroicons/vue/24/outline';
+import { XMarkIcon } from '@heroicons/vue/24/outline';
 import {
     TransitionRoot,
     TransitionChild,
     Dialog,
-    DialogPanel,
-    DialogTitle,
+    DialogPanel
 
 } from '@headlessui/vue';
 

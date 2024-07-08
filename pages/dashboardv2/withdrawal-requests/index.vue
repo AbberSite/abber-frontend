@@ -32,8 +32,8 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading"
-    :actions="{ modify: true }"></DashboardTablesTable>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }">
+  </DashboardTablesTable>
 
   <!-- <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" /> -->
   <ClientOnly>
@@ -46,22 +46,23 @@
       <div :class="$style.style_every_dev">
         <h1 class="font-semibold mb-2"> تغيير حالة الطلب :</h1>
         <select name="action" id="actions" class="form-control form-select h-[50px] appearance-none"
-          v-model="dataSelection.selected">
+          v-model="dataSelection.status">
           <option :value="null">إختر</option>
-          <option value="paid">تم إرسال المستحقات</option>
-          <option value="rejected">رفض الطلب</option>
+          <option value="2">تم إرسال المستحقات</option>
+          <option value="3">رفض الطلب</option>
         </select>
       </div>
-      <div :class="$style.style_every_dev" v-if="dataSelection.selected == 'rejected'">
+      <div :class="$style.style_every_dev" v-if="dataSelection.status == '3'">
         <h1 class="font-semibold">سبب الرفض: </h1>
         <textarea class="form-control block max-h-[300px] min-h-[50px] py-4" name="textarea"
-          v-model="dataSelection.reason"></textarea>
+          v-model="dataSelection.refuse_reason"></textarea>
       </div>
-      <div :class="$style.style_every_dev" v-if="dataSelection.selected == 'paid'">
+      <div :class="$style.style_every_dev" v-if="dataSelection.status == '2'">
         <h1 class="font-semibold">الإيصال: </h1>
-        <input class="form-control block max-h-[300px] min-h-[50px] py-4" required type="file" />
+        <input class="form-control block max-h-[300px] min-h-[50px] py-4"
+          @input="dataSelection.invoice = ($event as any).target.files[0]" type="file" />
       </div>
-      <div :class="$style.style_every_dev" v-if="dataSelection.selected">
+      <div :class="$style.style_every_dev" v-if="dataSelection.status">
         <PrimaryButton @click="submit" :loading="loadingButton">تأكيد</PrimaryButton>
       </div>
     </ModifyModal>
@@ -81,11 +82,11 @@ const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const loadingButton = ref(false);
 
-const dataSelection = reactive({
+let dataSelection = reactive({
   id: null,
-  selected: null,
-  reason: '',
-  transactionFile: null,
+  status: null,
+  refuse_reason: null,
+  invoice: null
 });
 
 const headItems = {
@@ -106,23 +107,36 @@ $listen('table-modify-object', (data) => {
 });
 
 const submit = async () => {
-  const body = {
-    status: dataSelection.selected === 'paid' ? '2' : '3',
-    refuse_reason: dataSelection.reason,
-  };
+
   loadingButton.value = true;
-  await useDirectApi(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, { method: 'PUT', body });
-  showModal.value = false;
-  clearModal();
+  const formdata = new FormData();
+  formdata.append('status', dataSelection.status);
+  formdata.append('paid', dataSelection.status === '2');
+  formdata.append('refuse_reason', dataSelection.refuse_reason);
+  if (dataSelection.invoice) {
+    formdata.append('invoice', dataSelection.invoice as File);
+  }
+  try {
+    await useDirectApi(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, {
+      method: 'PUT',
+      body: formdata,
+    });
+    useNotification({ type: 'success', content: 'تم تحديث الطلب بنجاح.' });
+  } catch (error) {
+    useNotification({ type: 'danger', content: 'حدث خطأ ما' });
+    console.error('Error updating request:', error);
+  } finally {
+    showModal.value = false;
+    clearModal();
+    await fetchAll();
+  }
   loadingButton.value = false;
-  await fetchAll();
-  useNotification({ type: 'success', content: 'تم تحديث الطلب بنجاح.' });
 };
 
 const clearModal = () => {
-  dataSelection.selected = null;
-  dataSelection.reason = '';
-  dataSelection.transactionFile = null;
+  dataSelection.status = null;
+  dataSelection.refuse_reason = null;
+  dataSelection.invoice = null;
 };
 
 onMounted(async () => {
