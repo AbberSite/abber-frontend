@@ -455,6 +455,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
 
           // TODO: unncomment the above line when finishing from testing
           brand: paymentMethod.value,
+          transfer_order:state.value.data?.transferOrder,
           // brand: cardType.valuee
         },
       });
@@ -476,6 +477,8 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
           brand: paymentMethod.value,
           // brand: cardType.valuee
           supplement: supplement.value,
+                    transfer_order:state.value.data?.transferOrder,
+
         },
       });
       amount.value = checkout.amount;
