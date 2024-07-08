@@ -71,7 +71,8 @@ import {
     LockClosedIcon,
     CreditCardIcon,
     CheckCircleIcon,
-UserGroupIcon
+UserGroupIcon,
+ClockIcon
 } from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
 import ContactType from './ContactType.vue';
@@ -83,6 +84,7 @@ import Payment from './Payment.vue';
 import TextContact from './TextContact.vue';
 import OrderComplete from './OrderComplete.vue';
 import MyUrgentOrderService from './MyUrgentOrderService.vue';
+import TransferOrder from './TransferOrder.vue';
 import type { FunctionalComponent } from 'vue';
 
 const steps = [
@@ -94,7 +96,8 @@ const steps = [
     { id: 'authentication', component: Authentication, noDotStep: true },
     { id: 'continueLogin', component: ContinueLogin, noDotStep: true },
     { id: 'payment', component: Payment },
-    { id: 'complete', component: OrderComplete, noDotStep: true }
+    { id: 'complete', component: OrderComplete, noDotStep: true },
+    { id: 'transfer-order', component: TransferOrder, }
 ];
 
 const { state, activeStepId, previous, activeStep, first, activeStepIndex, last, reset } = useFormWizard<OrderForm>(
@@ -142,6 +145,11 @@ const activeHeader = computed<{ title: string; description: string; icon: Functi
             title: 'وسيلة الدفع',
             description: 'إدخل بيانات الدفع لإتمام عملية الطلب',
             icon: CreditCardIcon
+        },
+        'transfer-order': {
+            title: 'نقل لمعبر آخر',
+            description: 'نقل الطلب لمعبر اخر في حال تأخر المعبر الحالي',
+            icon: ClockIcon
         },
         complete: {
             title: 'تم إرسال الطلب بنجاح',

@@ -17,7 +17,7 @@ class ChatStore{
 
     this.messages.value?.map?.((message) => {
 
-      const date = useArabicFormattedDate(message.date);
+      const date = new Date(message.date).toLocaleDateString().split('T')[0];
 
       const existingSegment = segments.find((segment) => segment.index === date);
 

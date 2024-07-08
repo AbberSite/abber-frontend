@@ -115,6 +115,7 @@ export type OrderForm = {
   order_id?: string;
   orders?: string[]
   order_item?: string | number;
+  transferOrder?: boolean;
 };
 
 export type Post = {
