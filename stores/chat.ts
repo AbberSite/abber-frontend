@@ -17,8 +17,8 @@ class ChatStore{
 
     this.messages.value?.map?.((message) => {
 
-      const date = new Date(message.date).toISOString().split('T')[0];
-      
+      const date = new Date(message.date).toLocaleDateString().split('T')[0];
+
       const existingSegment = segments.find((segment) => segment.index === date);
 
       if (existingSegment) {
