@@ -119,7 +119,7 @@ const submit = async () => {
   try {
     await useDirectApi(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, {
       method: 'PUT',
-      body: formdata,
+      body: formdata
     });
     useNotification({ type: 'success', content: 'تم تحديث الطلب بنجاح.' });
   } catch (error) {
