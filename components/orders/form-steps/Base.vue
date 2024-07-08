@@ -148,7 +148,7 @@ const activeHeader = computed<{ title: string; description: string; icon: Functi
         },
         'transfer-order': {
             title: 'نقل لمعبر آخر',
-            description: 'نقل الطلب لمعبر اخر في حال تأخر المعبر الحالي',
+            description: 'هل تود نقل الطلب إلى معبر آخر في حال عدم توفر المعبر الذي تم اختياره؟',
             icon: ClockIcon
         },
         complete: {
