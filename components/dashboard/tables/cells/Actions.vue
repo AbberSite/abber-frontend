@@ -4,11 +4,13 @@
     <NuxtLink class="text-gray-900" v-if="actions?.details" :to="$route.path + data?.id"><Cog6ToothIcon class="w-5 h-5" /></NuxtLink>
     <button class="text-green-600 hover:text-green-700" v-if="actions?.modify" @click="modify(data?.id)"><PencilSquareIcon class="w-5 h-5" /></button>
     <button class="text-red-600 hover:text-red-700" v-if="actions?.remove" @click="remove(data?.id)"><TrashIcon class="w-5 h-5" /></button>
+    <button class="text-green-600 hover:text-green-700" v-if="actions?.accept" @click="accept(data?.id)"><CheckCircleIcon class="w-5 h-5" /></button>
+    <button class="text-red-600 hover:text-red-700" v-if="actions?.reject" @click="reject(data?.id)"><XCircleIcon class="w-5 h-5" /></button>
   </span>
 </template>
 
 <script lang="ts" setup>
-import { EyeIcon, PlusIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
+import { EyeIcon, XCircleIcon, CheckCircleIcon,  PlusIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
 defineProps({
   data: Object,
   actions: Object,
@@ -25,6 +27,12 @@ const modify = (id: Number) => {
 const remove = (id: Number) => {
   $event("table-remove-object", { id: id });
 }; // delete item
+const reject = (id: Number)=> {
+  $event('table-reject-object', { id: id});
+};
+const accept = (id: Number) => {
+  $event("table-accept-object", { id: id})
+}
 </script>
 
 <style></style>
