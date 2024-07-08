@@ -119,6 +119,7 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/gtm.ts',
-    '~/plugins/event-bus.ts'
+    '~/plugins/event-bus.ts',
+    '~/plugins/drag-scroll.ts',
   ],
 });

@@ -27,7 +27,7 @@
         </div>
       </template>
 
-      <div class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm" id="payment-scrolling" aria-orientation="horizontal">
+      <div v-dragscroll class="is-scroll flex items-center space-x-3 overflow-x-auto p-1 rtl:space-x-reverse sm:max-w-sm" id="payment-scrolling" aria-orientation="horizontal">
         <template v-if="!deposit && !addCard">
           <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
           <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26" height="26" :multi="true" />
