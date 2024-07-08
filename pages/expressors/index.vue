@@ -35,6 +35,9 @@
 
 <script setup lang="ts">
 import type { PaginationResponse, Service } from "~/types";
+definePageMeta({
+  auth: false,
+});
 
 const expressors = ref<Service[]>([]);
 const loading = ref(false);
