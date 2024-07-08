@@ -69,6 +69,7 @@
 
 </template>
 <script setup lang="ts">
+import { vOnClickOutside } from '@vueuse/components';
 import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawalRequests';
 
 const { filters, list, loading, filtersCount } = storeToRefs(useDashWithdrawalRequestsStore());
