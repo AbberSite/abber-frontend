@@ -51,7 +51,14 @@ export default defineNuxtConfig({
       // paymentWidgetURL: `https://eu-test.oppwa.com/v1/paymentWidgets.js`,
     },
   },
-  modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth", '@nuxtjs/device', 'nuxt-viewport'],
+  modules: [
+    "@nuxt/image",
+    "@pinia/nuxt",
+    "@sidebase/nuxt-auth",
+    '@nuxtjs/device',
+    'nuxt-viewport',
+    "@nuxtjs/i18n"
+  ],
   buildModules: (process.env.VITE_ENABLE_BROTLI != "false")?['@averjs/nuxt-compression']:[],
 
   auth: {
@@ -122,4 +129,7 @@ export default defineNuxtConfig({
     '~/plugins/event-bus.ts',
     '~/plugins/drag-scroll.ts',
   ],
+  i18n: {
+    vueI18n: './i18n.config.ts'
+  }
 });

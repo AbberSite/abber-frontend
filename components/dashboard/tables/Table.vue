@@ -3,13 +3,15 @@
     <SkeletonsTable v-if="loading" />
     <table v-else class="w-full text-sm ltr:text-left rtl:text-right">
       <slot>
-        <DashboardTablesThead :headItems="actions ? { ...headItems, actions: 'إجراءات' } : headItems"></DashboardTablesThead>
+        <DashboardTablesThead :headItems="actions ? { ...headItems, actions: 'إجراءات' } : headItems">
+        </DashboardTablesThead>
         <tbody class="divide-y">
           <tr v-for="(row, rowIndex) in bodyItems" :key="rowIndex">
-            <DashboardTablesRow v-for="(value, key, colIndex) in headItems" :key="colIndex" :content="getNestedValue(row, key)" :name="key" />
+            <DashboardTablesRow v-for="(value, key, colIndex) in headItems" :key="colIndex"
+              :content="getNestedValue(row, key)" :name="key" />
             <DashboardTablesRow v-if="actions">
               <DashboardTablesCellsActions :actions="actions" :data="row" />
-</DashboardTablesRow>
+            </DashboardTablesRow>
           </tr>
         </tbody>
       </slot>
