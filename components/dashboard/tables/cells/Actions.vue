@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { EyeIcon, XCircleIcon, CheckCircleIcon,  DocumentArrowDownIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
+import { EyeIcon, XCircleIcon, CheckCircleIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
 defineProps({
   data: Object,
   actions: Object,

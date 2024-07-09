@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true, viewInvoice: true }">
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }" previewFiles>
   </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
@@ -108,6 +108,7 @@ const headItems = {
   type: 'نوع الرصيد',
   status: 'حالة الطلب',
   date: 'تاريخ الطلب',
+  invoice: 'الإيصال',
 };
 
 $listen('table-modify-object', (data) => {
@@ -115,8 +116,8 @@ $listen('table-modify-object', (data) => {
   showModal.value = true;
 });
 
-$listen('table-showinvoice-object', (data) => {
-  const { invoice } = data;
+$listen('table-preview-files', (url) => {
+  const { invoice } = url;
   if (invoice) {
     showImageModal.value = true;
     img_url.value = invoice;
