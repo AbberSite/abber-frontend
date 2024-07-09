@@ -8,7 +8,7 @@
         <span v-else-if="name === 'status'"><template v-if="(content as string).length == 1">{{ $t(`${content}`) }}</template><OrderStatus :status="content" /></span>
         <span v-else-if="name === 'ordering_type'"><DashboardTablesCellsOrderingType :type="content" /></span>
         <span v-else-if="content.toString().includes('://') "><DashboardTablesCellsFileUrl :url="content" :previewFiles="previewFiles"/></span>
-        <span v-else>{{ content }}</span>
+        <span v-else>{{ $t(`${content}`) }}</span>
     </slot>
   </td>
 </template>
