@@ -2,17 +2,14 @@ import axios from "axios";
 export default defineEventHandler(async (event) => {
   const headers = getHeaders(event);
   const body = await readBody(event);
-  const Authorization = headers.authorization;
   const config = useRuntimeConfig();
   try {
     const response = await axios.patch(
       config.apiBasePath + headers.nuxtapiurl,
       body,
       {
-        headers: {
-          "api-key": config.apiSecret,
-          Authorization
-        },
+        headers: useUseCustomHeaders(headers)
+
       }
     );
     return response.data;

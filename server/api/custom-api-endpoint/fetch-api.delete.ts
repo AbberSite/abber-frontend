@@ -1,16 +1,13 @@
 import axios from "axios";
 export default defineEventHandler(async (event) => {
   const headers = getHeaders(event);
-  const Authorization = headers.authorization;
   const config = useRuntimeConfig();
   try {
     const response = await axios.delete(
       config.apiBasePath + headers.nuxtapiurl,
       {
-        headers: {
-          "api-key": config.apiSecret,
-          Authorization
-        },
+        headers: useUseCustomHeaders(headers)
+
       }
     );
     return response.data;
