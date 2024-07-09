@@ -1,4 +1,4 @@
-export const useUseCustomHeaders = (headers: any) => {
+export const useCustomHeaders = (headers: any) => {
   const config = useRuntimeConfig();
   headers['sec-ch-ua-platform'] = (headers['sec-ch-ua-platform'] || 'website').toString().replace('ios', 'Website IOS');
 

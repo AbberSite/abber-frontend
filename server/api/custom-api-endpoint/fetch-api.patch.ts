@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useCustomHeaders } from "~/composables/useCustomHeaders";
+
 export default defineEventHandler(async (event) => {
   const headers = getHeaders(event);
   const body = await readBody(event);
@@ -8,7 +10,7 @@ export default defineEventHandler(async (event) => {
       config.apiBasePath + headers.nuxtapiurl,
       body,
       {
-        headers: useUseCustomHeaders(headers)
+        headers: useCustomHeaders(headers)
 
       }
     );

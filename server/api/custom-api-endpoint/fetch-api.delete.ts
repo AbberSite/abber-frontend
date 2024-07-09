@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useCustomHeaders } from "~/composables/useCustomHeaders";
+
 export default defineEventHandler(async (event) => {
   const headers = getHeaders(event);
   const config = useRuntimeConfig();
@@ -6,7 +8,7 @@ export default defineEventHandler(async (event) => {
     const response = await axios.delete(
       config.apiBasePath + headers.nuxtapiurl,
       {
-        headers: useUseCustomHeaders(headers)
+        headers: useCustomHeaders(headers)
 
       }
     );
