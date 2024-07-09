@@ -10,7 +10,7 @@
                     <RequestsTableHeaderCol content="التاريخ" order="date" />
                     <RequestsTableHeaderCol content="تم التحويل" />
                     <RequestsTableHeaderCol content="سبب الرفض" />
-                    <RequestsTableHeaderCol content="الإيصال" />
+                    <!-- <RequestsTableHeaderCol content="الإيصال" /> -->
                     <!-- <TicketsTableHeaderCol /> -->
                 </tr>
             </thead>
@@ -23,15 +23,15 @@
                 <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{ useArabicFormattedDate(request.date)}}</div></td>
                 <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.paid ? 'نعم': 'لا'}}</div></td>
                 <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.refuse_reason == null || request.refuse_reason === 'null' ? '-': request.refuse_reason}}</div></td>
-                <td class="flex items-center justify-center px-4 pb-4 pt-5"><NuxtLink :to="request?.invoice" external target="_blank"><DocumentArrowDownIcon class="w-5 h-5" /></NuxtLink></td>
-                </tr>
+                <!-- <td class="flex items-center justify-center px-4 pb-4 pt-5"><NuxtLink :to="request?.invoice" external target="_blank"><DocumentArrowDownIcon class="w-5 h-5" /></NuxtLink></td>-->
+                </tr> 
             </tbody>
         </table>
     </div>
 </template>
 
 <script setup lang="ts">
-import { DocumentArrowDownIcon } from '@heroicons/vue/24/outline';
+// import { DocumentArrowDownIcon } from '@heroicons/vue/24/outline';
 import type { withdrawalRequest } from '~/types';
 import RequestsTableHeaderCol from './RequestsTableHeaderCol.vue';
 

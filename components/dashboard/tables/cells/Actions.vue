@@ -33,10 +33,7 @@ const reject = (id: Number)=> {
 };
 const accept = (id: Number) => {
   $event("table-accept-object", { id: id})
-}
-const showInvoice = (imageUrl: string)=>{
-  $event('table-showinvoice-object', { imageUrl: imageUrl})
-}
+};
 </script>
 
 <style></style>
