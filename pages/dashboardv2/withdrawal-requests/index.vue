@@ -35,7 +35,7 @@
   <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }">
   </DashboardTablesTable>
 
-  <!-- <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" /> -->
+  <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
     <DashboardWithdrawalRequestsFiltersMobileModal :show="openFiltersMobileModal"
       @close="openFiltersMobileModal = false" />
@@ -73,7 +73,7 @@
 import { vOnClickOutside } from '@vueuse/components';
 import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawalRequests';
 
-const { filters, list, loading, filtersCount } = storeToRefs(useDashWithdrawalRequestsStore());
+const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashWithdrawalRequestsStore());
 const { fetchAll } = useDashWithdrawalRequestsStore();
 const { $listen } = useNuxtApp();
 

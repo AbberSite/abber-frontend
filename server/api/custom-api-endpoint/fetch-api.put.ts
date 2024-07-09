@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const Authorization = headers.authorization;
   const config = useRuntimeConfig();
+  headers['sec-ch-ua-platform'] = (headers['sec-ch-ua-platform'] || 'website').toString().replace('ios', 'Website IOS');
   try {
     const response = await axios.put(
       config.apiBasePath + headers.nuxtapiurl,
@@ -11,7 +12,9 @@ export default defineEventHandler(async (event) => {
       {
         headers: {
           "api-key": config.apiSecret,
-          Authorization
+          Authorization,
+          'sec-ch-ua-platform': headers['sec-ch-ua-platform'],
+          'content-type': headers['content-type'],
         },
       }
     );
