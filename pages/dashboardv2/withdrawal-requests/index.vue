@@ -116,12 +116,11 @@ $listen('table-modify-object', (data) => {
   showModal.value = true;
 });
 
-$listen('table-preview-files', (url) => {
-  const { invoice } = url;
-  if (invoice) {
+$listen('table-preview-files', (data) => {
+  const { url } = data;
+  if (url) {
     showImageModal.value = true;
-    img_url.value = invoice;
-    // imageLoading.value = true;
+    img_url.value = url;
   };
 });
 
