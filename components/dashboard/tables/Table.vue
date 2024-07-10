@@ -8,7 +8,7 @@
         <tbody class="divide-y">
           <tr v-for="(row, rowIndex) in bodyItems" :key="rowIndex">
             <DashboardTablesRow v-for="(value, key, colIndex) in headItems" :key="colIndex"
-              :content="getNestedValue(row, key)" :name="key" />
+              :content="getNestedValue(row, key)" :name="key" :previewFiles="previewFiles"/>
             <DashboardTablesRow v-if="actions">
               <DashboardTablesCellsActions :actions="actions" :data="row" />
             </DashboardTablesRow>
@@ -20,10 +20,10 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{ headItems: {}; bodyItems: []; loading: Boolean; actions: Object }>();
+defineProps<{ headItems: {}; bodyItems: []; loading: Boolean; actions: Object;previewFiles:boolean }>();
 
 function getNestedValue(obj: Record<string, any>, key: string): any {
-  return key.split(".").reduce((o, k) => (o || {})[k], obj) ?? obj.id;
+  return key.split(".").reduce((o, k) => (o || {})[k], obj) ?? '-';
 }
 </script>
 

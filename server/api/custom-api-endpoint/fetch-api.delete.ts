@@ -1,16 +1,15 @@
 import axios from "axios";
+import { useCustomHeaders } from "~/composables/useCustomHeaders";
+
 export default defineEventHandler(async (event) => {
   const headers = getHeaders(event);
-  const Authorization = headers.authorization;
   const config = useRuntimeConfig();
   try {
     const response = await axios.delete(
       config.apiBasePath + headers.nuxtapiurl,
       {
-        headers: {
-          "api-key": config.apiSecret,
-          Authorization
-        },
+        headers: useCustomHeaders(headers)
+
       }
     );
     return response.data;

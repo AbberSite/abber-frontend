@@ -6,15 +6,15 @@
         <span v-else-if="typeof content === 'boolean'"><DashboardTablesCellsCheck :check="content"/></span>
         <span v-else-if="name.includes('method')"><DashboardTablesCellsPaymentMethod :method="content" /></span>
         <span v-else-if="name === 'status'"><template v-if="(content as string).length == 1">{{ $t(`${content}`) }}</template><OrderStatus :status="content" /></span>
-        <span v-else-if="name === 'type'">{{ $t(`${content}`) }}</span>
         <span v-else-if="name === 'ordering_type'"><DashboardTablesCellsOrderingType :type="content" /></span>
-        <span v-else>{{ content }}</span>
+        <span v-else-if="content.toString().includes('://') "><DashboardTablesCellsFileUrl :url="content" :previewFiles="previewFiles"/></span>
+        <span v-else>{{ $t(`${content}`) }}</span>
     </slot>
   </td>
 </template>
 
 <script lang="ts" setup>
-defineProps<{ content: any; name: string }>();
+defineProps<{ content: any; name: string;previewFiles:boolean }>();
 </script>
 
 <style></style>

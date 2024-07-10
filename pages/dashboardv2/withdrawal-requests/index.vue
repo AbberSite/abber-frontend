@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true, viewInvoice: true }">
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }" previewFiles>
   </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
@@ -42,7 +42,7 @@
   </ClientOnly>
 
   <ClientOnly>
-    <ModifyModal v-if="showModal" @close="showModal = false;">
+    <ModifyModal v-if="showModal" @close="showModal = false;" title="الإجراءات">
       <div :class="$style.style_every_dev">
         <h1 class="font-semibold mb-2"> تغيير حالة الطلب :</h1>
         <select name="action" id="actions" class="form-control form-select h-[50px] appearance-none"
@@ -68,6 +68,13 @@
     </ModifyModal>
   </ClientOnly>
 
+  <ClientOnly>
+    <ModifyModal v-if="showImageModal" @close="showImageModal = false;" :title="'عرض الإيصال'">
+      <!-- <Loading v-if="imageLoading"/> -->
+      <NuxtImg :src="img_url" alt="invoice"/>
+    </ModifyModal>
+  </ClientOnly>
+
 </template>
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
@@ -78,10 +85,12 @@ const { fetchAll } = useDashWithdrawalRequestsStore();
 const { $listen } = useNuxtApp();
 
 const showModal = ref(false);
+let showImageModal = ref(false);
+// let imageLoading = ref(true);
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const loadingButton = ref(false);
-
+let img_url = ref(null);
 let dataSelection = reactive({
   id: null,
   status: null,
@@ -99,12 +108,22 @@ const headItems = {
   type: 'نوع الرصيد',
   status: 'حالة الطلب',
   date: 'تاريخ الطلب',
+  invoice: 'الإيصال',
 };
 
 $listen('table-modify-object', (data) => {
   dataSelection.id = data.id;
   showModal.value = true;
 });
+
+$listen('table-preview-files', (data) => {
+  const { url } = data;
+  if (url) {
+    showImageModal.value = true;
+    img_url.value = url;
+  };
+});
+
 
 const submit = async () => {
 

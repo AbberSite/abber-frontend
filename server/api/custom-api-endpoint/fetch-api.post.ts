@@ -1,8 +1,8 @@
 import axios from "axios";
+import { useCustomHeaders } from "~/composables/useCustomHeaders";
 export default defineEventHandler(async (event) => {
   const headers = getHeaders(event);
   const body = await readBody(event);
-  const Authorization = headers.authorization;
   const config = useRuntimeConfig();
   try {
     console.log(config.apiBasePath + headers.nuxtapiurl)
@@ -10,10 +10,8 @@ export default defineEventHandler(async (event) => {
       config.apiBasePath + headers.nuxtapiurl,
       body,
       {
-        headers: {
-          "api-key": config.apiSecret,
-          Authorization
-        },
+        headers: useCustomHeaders(headers)
+
       }
     );
     return response.data;
