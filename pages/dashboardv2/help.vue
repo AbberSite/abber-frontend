@@ -14,7 +14,7 @@
           <!-- Skeleton -->
           <SkeletonsHelpChat v-if="loading" />
           <template v-else>
-            <div class="w-full divide-y divide-gray-100 pt-6 overflow-auto max-h-[560px]">
+            <div class="w-full divide-y divide-gray-100 pt-6 overflow-auto max-h-[500px]">
               <button v-for="({ user, title, id, status }, index) of conversations" :key="index"
                 class="flex w-full items-center justify-between px-6 py-4 hover:bg-gray-50"
                 :class="{ 'bg-gray-100': chat_details.id == id }" type="button" @click="updateChatDetails(id, status)">
@@ -28,12 +28,12 @@
                   class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">2</span>
               </button>
             </div>
-            <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="getAllConversations" per-page="20" />
+            <Pagination class="pt-10 md:hidden" :results="(pagination as PaginationResponse<any>)" @change="getAllConversations" per-page="20" />
           </template>
         </div>
         <!-- Chat content on Mobile devices -->
         <Modal :show="showChatInbox && $viewport.isLessThan('tablet')" @close="showChatInbox = false" title="المحادثة">
-          <div class="px-4 flex-1">
+          <div class="px-4 py-5">
             <DetailsMobileChat v-if="showChatInbox && $viewport.isLessThan('tablet')" :room-name="`${chat_details?.id}`"
             :allow-input="chat_details?.status == 'مفتوحة'" device='mobile' isSupport isDashSupport :key="chatKey" />
           </div>

@@ -4,7 +4,7 @@
             <Loading v-if="loading" />
         </div>
         <SkeletonsChatDesktop v-if="loading_chat" />
-        <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll w-full" id="chat_scroll">
+        <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll w-full" :class="{'max-h-[40vh]': isDashSupport}" id="chat_scroll">
             <div v-if="!messages.length" class="h-full flex items-center justify-center"><span
                     class="px-4 py-2 rounded-sm bg-green-100">لا توجد رسائل سابقة</span></div>
             <div class="flex flex-col-reverse gap-6" v-else v-for="{ messages, index } in segmentedMessages" id="chat">
@@ -63,7 +63,6 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async function () {
-    console.log(`we are in mobilechat!!`)
     watch($viewport.breakpoint, (newScreen, oldScreen) => {
         if (loading_chat.value)
             loading_chat.value = false;
