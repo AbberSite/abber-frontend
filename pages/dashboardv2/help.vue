@@ -28,7 +28,7 @@
                   class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">2</span>
               </button>
             </div>
-            <Pagination class="pt-10 md:hidden" :results="(pagination as PaginationResponse<any>)" @change="getAllConversations" per-page="20" />
+            <Pagination class="pt-5" :results="(pagination as PaginationResponse<any>)" @change="getAllConversations" per-page="20" isDashSupport />
           </template>
         </div>
         <!-- Chat content on Mobile devices -->

@@ -1,6 +1,6 @@
 <template>
     <nav class="flex w-full items-center justify-between " v-if="results && (results.next || results.previous)" aria-label="Pagination">
-        <div class="hidden sm:block">
+        <div class="hidden sm:block" :class="{'sm:hidden': isDashSupport}">
             <p class="space-x-2 rtl:space-x-reverse">
                 <span>عرض</span>
                 <span class="font-semibold">{{ from }}</span>
@@ -11,7 +11,7 @@
                 <span>نتيجة</span>
             </p>
         </div>
-        <div class="flex w-full items-center justify-between sm:justify-end">
+        <div class="flex w-full items-center justify-between sm:justify-end" :class="{'sm:justify-center': isDashSupport}">
             <button
                 @click="change(true)"
                 :disabled="!results?.previous?.length"
@@ -21,7 +21,7 @@
 
                 <span v-else class="mt-1.5">السابق</span>
             </button>
-            <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
+            <p class="space-x-2 pt-2 rtl:space-x-reverse sm:block" :class="{'sm:hidden': !isDashSupport}">
                 <span class="font-semibold">
                     {{ to }}
                 </span>
@@ -51,6 +51,7 @@ const props = withDefaults(
     defineProps<{
         results: PaginationResponse<any>;
         perPage?: number | string;
+        isDashSupport?: boolean;
     }>(),
     {
         perPage: 20
