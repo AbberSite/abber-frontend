@@ -25,11 +25,12 @@
         </div>
       </div>
       <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data"
-        :class="{ hidden: !changeMessage }"> </changeList>
+        :class="{ hidden: !changeMessage }" :isDashSupport="isDashSupport" :dataChat="{...props}"> </changeList>
     </div>
 
     <ChatInput v-if="allowInput" class="flex-1"
-      @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :isSupport="isSupport"/>
+      @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :isSupport="isSupport" :isDashSupport="isDashSupport" :dataChat="{...props}"/>
+    
   </div>
 </template>
 
@@ -40,26 +41,24 @@ import type { Message, PaginationResponse } from "~/types";
 import { useInfiniteScroll } from "@vueuse/core";
 import changeList from "~/components/chat/changeList.vue";
 
-// useHead({
-//   script: [
-//     {
-//       src: "/audio-recorder/WebAudioRecorder.min.js",
-//       type: "text/javascript",
-//     }
-//   ]
-// })
+useHead({
+    script: [
+        {
+            src: "https://cdn.jsdelivr.net/npm/web-audio-recorder-js@0.0.2/lib-minified/WebAudioRecorder.min.js",
+            type: "text/javascript",
+        }
+    ]
+})
 
-const props = defineProps<{ allowInput: Boolean, roomName: String, device: String, isSupport?: boolean}>();
+const props = defineProps<{ allowInput: Boolean, roomName: String, device: String, isSupport?: boolean, isDashSupport?: boolean}>();
 const { $viewport } = useNuxtApp();
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
 
-const id = useRoute().params.id;
-
 const { data } = useAuth();
-
-const { clear } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support');
+console.log(props.roomName);
+const { clear, close, status } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support', props.isDashSupport, props.roomName);
 
 const loading = ref(false);
 let loading_chat = ref<boolean>(true);
@@ -100,7 +99,6 @@ function formatTime(_date: string) {
 }
 
 async function load() {
-  console.log('load function')
   if (!messagesPagination.value?.next) return;
 
   const params = useUrlParams(messagesPagination.value.next);
@@ -128,6 +126,7 @@ function showContextMenu(e: any, message: Message) {
 const resetChangeMessage = () => (changeMessage.value = undefined);
 
 onUnmounted(() => {
+  close();
   clear();
   resetChangeMessage();
   messages.value = [];
@@ -150,7 +149,6 @@ function scrollDown(chat_scroll: HTMLElement) {
     }, 1000)
   }
 };
-
 </script>
 
 <style scoped></style>

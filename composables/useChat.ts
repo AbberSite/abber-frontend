@@ -2,21 +2,20 @@ import { useWebSocket, type UseWebSocketReturn } from '@vueuse/core';
 import type { Message } from '~/types';
 
 let currentChat: UseWebSocketReturn<any> | undefined = undefined
-export default (type: string = "order") => {
+export default (type: string = "order", isDashSupport: boolean=false, id_support: string='') => {
   const { rawToken } = useAuthState();
   const { data } = useAuth();
 
-  const id = useRoute().params.id
-
+  const id = isDashSupport ? id_support : useRoute().params.id ;
+// console.log({type, isDashSupport, id_support, id, date: new Date()});
   if (currentChat) return { ...currentChat, clear: () => currentChat = undefined }
 
   const { messages, chatList } = storeToRefs(useChatStore());
 
   const chat = useWebSocket(
     useRuntimeConfig().public.WebsocketURL + `/ws/${type}/${id}/` + `?authorization=JWT ${rawToken.value}`,
-    // import.meta.env.VITE_WS_URL + `/ws/${type}/${id}/` + `?authorization=JWT ${rawToken.value}`,
     {
-      autoReconnect: true
+      // autoReconnect: true, autoClose: true
     }
   );
 

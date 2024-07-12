@@ -26,12 +26,6 @@ const modify = (id: Number) => {
 }; // modify item
 const remove = (id: Number) => {
   $event("table-remove-object", { id: id });
-}; // delete item
-const reject = (id: Number)=> {
-  $event('table-reject-object', { id: id});
-};
-const accept = (id: Number) => {
-  $event("table-accept-object", { id: id})
 };
 </script>
 

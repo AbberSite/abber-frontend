@@ -32,18 +32,23 @@
 <script lang="ts" setup>
 import type { User, Message } from '~/types';
 
+const props = defineProps<{
+  message: Message;
+  user: User;
+  isDashSupport?: boolean, dataChat?: Object
+
+}>();
 const emit = defineEmits(['update:change']);
 
-const { send } = useChat();
+let send; 
+if(props.isDashSupport)
+    send = useChat('support', props.dataChat.isDashSupport, props.dataChat.roomName).send;
+else 
+    send = useChat().send;
 
 const contextMenu = ref<HTMLElement | null>(null)
 
 
-const props = defineProps<{
-  message: Message;
-  user: User;
-
-}>();
 
 defineExpose({
   contextMenu
