@@ -52,7 +52,7 @@
                 <p class="pt-6 text-justify text-sm text-gray-800 xs:text-base" v-text="expressor.seller.about && expressor.seller.about.length > 140 ? expressor.seller.about.substring(0, 140) + '...' : expressor.seller.about"></p>
             </blockquote>
             <div class="w-full">
-                  <NuxtLink class="flex items-center justify-center rounded-full bg-gray-100 px-4 pb-3 pt-4 text-center text-sm font-semibold hover:bg-gray-200" :to="`/expressor/${expressor.seller.username}`">
+                  <NuxtLink class="flex items-center justify-center rounded-full bg-gray-100 px-4 pb-3 pt-4 text-center text-sm font-semibold hover:bg-gray-200" :to="`/expressors/${expressor.seller.username}`">
                     <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"></path>
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><span class="ms-2 mt-1">زيارة الملف الشخصي</span></NuxtLink>
