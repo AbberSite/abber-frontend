@@ -15,7 +15,7 @@
           <SkeletonsHelpChat v-if="loading" />
           <template v-else>
             <div class="w-full divide-y divide-gray-100 pt-6 overflow-auto max-h-[560px]">
-              <button v-for="({ user, title, id, status }, index) of tickets" :key="index"
+              <button v-for="({ user, title, id, status }, index) of conversations" :key="index"
                 class="flex w-full items-center justify-between px-6 py-4 hover:bg-gray-50"
                 :class="{ 'bg-gray-100': chat_details.id == id }" type="button" @click="updateChatDetails(id, status)">
                 <span class="flex items-center"><span class="flex-shrink-0">
@@ -27,8 +27,8 @@
                   </span></span><span v-if="index == 5 && chat_details.id != id"
                   class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">2</span>
               </button>
-
             </div>
+            <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="getAllConversations" per-page="20" />
           </template>
         </div>
         <!-- Chat content on Mobile devices -->
@@ -49,10 +49,11 @@
 </template>
 
 <script setup lang="ts">
-// import { useDashHelpStore } from '~/stores/dashboard/dashHelp';
-// const {conversations, loading, pagination} = storeToRefs(useDashHelpStore());
+import { useDashHelpStore } from '~/stores/dashboard/dashHelp';
+const {conversations, loading, pagination} = storeToRefs(useDashHelpStore());
+const {getAllConversations} = useDashHelpStore();
 let tickets = ref<[]>([]);
-let loading = ref<boolean>(true);
+// let loading = ref<boolean>(true);
 const { $viewport } = useNuxtApp();
 let showChatInbox = ref(false);
 let chat_details = ref<{ id: string, status: string | undefined }>(undefined);
@@ -65,11 +66,14 @@ const updateChatDetails = (id, status) => {
   loading.value = false;
 
 };
+onBeforeMount(async()=> {
+  await getAllConversations();
+})
 onMounted(async () => {
-  const data = await useDirectApi("/support/tickets/");
-  tickets.value = data.results;
-  chat_details.value = { id: data.results[0]?.id, status: data.results[0]?.status };
-  console.log(chat_details.value);
-  loading.value = false;
+  // const data = await useDirectApi("/support/tickets/");
+  // tickets.value = data.results;
+  chat_details.value = { id: conversations.value[0]?.id, status: conversations.value[0]?.status };
+  // console.log(chat_details.value);
+  // loading.value = false;
 });
 </script>
