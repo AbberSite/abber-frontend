@@ -23,11 +23,11 @@
                 </div>
             </div>
             <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage"
-                :user="data" :class="{ hidden: !changeMessage }"> </changeList>
+                :user="data" :class="{ hidden: !changeMessage }" :isDashSupport="isDashSupport" :dataChat="{...props}"> </changeList>
         </div>
 
         <ChatInput v-if="allowInput"
-            @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :isSupport="isSupport" />
+            @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :isSupport="isSupport" :isDashSupport="isDashSupport" :dataChat="{...props}" />
     </div>
 </template>
 <script setup lang="ts">
@@ -46,7 +46,7 @@ useHead({
     ]
 })
 
-const props = defineProps<{ allowInput: Boolean, roomName: String, isSupport?: boolean }>();
+const props = defineProps<{ allowInput: Boolean, roomName: String, isSupport?: boolean, isDashSupport?: boolean }>();
 const { $viewport } = useNuxtApp();
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
 const { fetchMessages } = useChatStore();
@@ -54,8 +54,7 @@ const { fetchMessages } = useChatStore();
 const id = useRoute().params.id;
 
 const { data } = useAuth();
-
-const { clear } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support');
+const { clear, close, status } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support', props.isDashSupport, props.roomName);
 
 const loading = ref(false);
 let loading_chat = ref<boolean>(true);
@@ -64,6 +63,7 @@ const contextMenu = ref<null | HTMLElement>(null);
 const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async function () {
+    console.log(`we are in mobilechat!!`)
     watch($viewport.breakpoint, (newScreen, oldScreen) => {
         if (loading_chat.value)
             loading_chat.value = false;
@@ -119,6 +119,8 @@ function showContextMenu(e: any, message: Message) {
 const resetChangeMessage = () => (changeMessage.value = undefined);
 
 onUnmounted(() => {
+    close();
+    console.log(`websocket status is : ${status.value}`);
     clear();
     resetChangeMessage();
     messages.value = [];
