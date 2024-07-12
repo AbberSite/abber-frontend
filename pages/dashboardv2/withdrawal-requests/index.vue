@@ -136,7 +136,7 @@ const submit = async () => {
     formdata.append('invoice', dataSelection.invoice as File);
   }
   try {
-    await useDirectApi(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, {
+    await useProxy(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, {
       method: 'PUT',
       body: formdata
     });
