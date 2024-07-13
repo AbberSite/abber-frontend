@@ -120,6 +120,7 @@ async function sendMessage() {
         files.value = [];
         return;
     };
+    if (!message.value.trim() === ''){
     send(
         JSON.stringify({
             message: message.value
@@ -130,6 +131,9 @@ async function sendMessage() {
     setTimeout(() => {
         emit('sendMessage');
     }, 1000);
+    };
+
+    
 };
 
 
