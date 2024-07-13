@@ -72,9 +72,6 @@ onMounted(async () => {
     if (loading_chat.value)
       loading_chat.value = false;
   })
-  if ($viewport.isLessThan('desktop'))
-    return;
-  // console.log('desktop chat')
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
     loading_chat.value = false;
