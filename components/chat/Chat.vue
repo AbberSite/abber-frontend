@@ -1,10 +1,7 @@
 <template>
   <div class="flex flex-col space-y-6 w-full"
     :class="(device == 'mobile') ? 'items-center pb-6 lg:hidden' : 'justify-between rounded-lg border px-6 py-6 lg:col-span-2'">
-    <div class="flex justify-center">
-      <Loading v-if="loading" />
-    </div>
-    <SkeletonsChatDesktop v-if="loading_chat" />
+    <SkeletonsChatDesktop v-if="loading" />
     <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll " :class="(device == 'mobile') ? 'w-full' : 'mt-0'"
       id="chat_scroll">
       <div v-if="!messages.length" class="h-full flex items-center justify-center"><span
@@ -60,8 +57,7 @@ const { data } = useAuth();
 console.log(props.roomName);
 const { clear, close, status } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support', props.isDashSupport, props.roomName);
 
-const loading = ref(false);
-let loading_chat = ref<boolean>(true);
+const loading = ref(true);
 
 const contextMenu = ref<null | HTMLElement>(null);
 
@@ -69,12 +65,12 @@ const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
   watch($viewport.breakpoint, async (newScreen, oldScreen) => {
-    if (loading_chat.value)
-      loading_chat.value = false;
+    if (loading.value)
+      loading.value = false;
   })
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
-    loading_chat.value = false;
+    loading.value = false;
     scrollDown(chatList);
   }
   if (!chatList.value) return;
