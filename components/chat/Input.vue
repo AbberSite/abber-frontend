@@ -120,7 +120,6 @@ async function sendMessage() {
         files.value = [];
         return;
     };
-    if (message.value.trim() === '') return;
     send(
         JSON.stringify({
             message: message.value
