@@ -80,17 +80,6 @@ onMounted(async () => {
   document.addEventListener("click", resetChangeMessage);
 });
 
-function formatTime(_date: string) {
-  const date = new Date(_date);
-
-  return new Intl.DateTimeFormat("ar-AR", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-    numberingSystem: "latn",
-  }).format(date);
-}
-
 async function load() {
   if (!messagesPagination.value?.next) return;
 
