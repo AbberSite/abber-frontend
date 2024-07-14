@@ -20,7 +20,7 @@
         <DetailsHeader :show-navigation="activeTab == 'details'" />
         <DetailsTabs v-model="activeTab" />
         <DetailsMobileCard v-if="activeTab == 'details'" />
-        <DetailsMobileChat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="order?.status === 'in_progress' || order?.content?.allow_chat" />
+        <Chat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="order?.status === 'in_progress' || order?.content?.allow_chat" device="mobile" />
         <div class="hidden w-full gap-x-8 pt-4 lg:grid lg:grid-cols-3">
           <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
             <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
@@ -30,10 +30,8 @@
             <Chat :room-name="roomName" :allow-input="order?.status === 'in_progress' || order?.content?.allow_chat" />
           </ClientOnly>
         </div>
-      </template>      
-
+      </template>
     </section>
-
   </main>
   <InformationDialog v-if="order?.buyer?.id === data?.id && !data?.profile?.birthday" />
 </template>
@@ -46,6 +44,7 @@ definePageMeta({
 useHead({ script: [{ src: "/audio-recorder/WebAudioRecorder.min.js" }] });
 const { data } = useAuthState();
 const id = useRoute().params.id;
+const { roomId, type } = storeToRefs(useChatStore());
 const roomName = `order_${id}`;
 const activeTab = ref<"details" | "chat">("chat");
 
@@ -62,6 +61,8 @@ onMounted(async () => {
   if (!order.value) {
     await getOrder(id as string);
   }
+  roomId.value = id;
+  type.value = "order";
 });
 
 onUnmounted(() => {

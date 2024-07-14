@@ -2,12 +2,11 @@ import { useWebSocket, type UseWebSocketReturn } from '@vueuse/core';
 import type { Message } from '~/types';
 
 let currentChat: UseWebSocketReturn<any> | undefined = undefined
-export default (type: string = "order", isDashSupport: boolean=false, id_support: string='') => {
+export default (type: string = "order", roomId: string | number|null = null) => {
   const { rawToken } = useAuthState();
   const { data } = useAuth();
 
-  const id = isDashSupport ? id_support : useRoute().params.id ;
-// console.log({type, isDashSupport, id_support, id, date: new Date()});
+  const id = roomId ? roomId : useRoute().params.id;
   if (currentChat) return { ...currentChat, clear: () => currentChat = undefined }
 
   const { messages, chatList } = storeToRefs(useChatStore());
@@ -45,7 +44,7 @@ export default (type: string = "order", isDashSupport: boolean=false, id_support
           chatList.value.scrollTop = chatList?.value?.scrollHeight as number; // Scroll to new messages
         }
 
-        if (!isMessageFromCurrentUser){
+        if (!isMessageFromCurrentUser) {
           chat.send(JSON.stringify({ type: 'read_message', message: receivedMesssage.message.id })); // read message
         }
       }

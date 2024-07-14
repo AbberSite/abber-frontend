@@ -4,6 +4,9 @@ import type { Message, PaginationResponse } from '~/types';
 
 class ChatStore{
   pagination = ref<PaginationResponse<any>>();
+  roomId = ref<string|number>(useRoute().params.id);
+  type = ref<string>('order');
+
 
 
 
@@ -43,6 +46,8 @@ fetchMessages = async ( params: any = {}) => {
     constructor() {
 
   }
+  chatSocket = () => useChat(this.type.value, this.roomId.value) ;
 
 }
+
 export const useChatStore = defineStore('chat', () => new ChatStore())

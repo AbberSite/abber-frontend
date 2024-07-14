@@ -23,7 +23,7 @@
                 </div>
             </div>
             <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage"
-                :user="data" :class="{ hidden: !changeMessage }" :isDashSupport="isDashSupport" :dataChat="{...props}"> </changeList>
+                :user="data" :class="{ hidden: !changeMessage }"> </changeList>
         </div>
 
         <ChatInput v-if="allowInput"

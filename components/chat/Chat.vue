@@ -22,7 +22,7 @@
         </div>
       </div>
       <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data"
-        :class="{ hidden: !changeMessage }" :isDashSupport="isDashSupport" :dataChat="{...props}"> </changeList>
+        :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
     <ChatInput v-if="allowInput" class="flex-1"
@@ -51,11 +51,11 @@ const props = defineProps<{ allowInput: Boolean, roomName: String, device: Strin
 const { $viewport } = useNuxtApp();
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
-const { fetchMessages } = useChatStore();
+const { fetchMessages,chatSocket } = useChatStore();
 
 const { data } = useAuth();
 console.log(props.roomName);
-const { clear, close, status } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support', props.isDashSupport, props.roomName);
+const { clear, close, status } = chatSocket();
 
 const loading = ref(true);
 

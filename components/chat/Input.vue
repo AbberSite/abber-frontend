@@ -28,8 +28,7 @@
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
                     <!-- Mic Button -->
                     <ClientOnly>
-                        <ChatAudioInput v-model:recording="recorderStatus" :isDashSupport="isDashSupport"
-                            :dataChat="{ ...props.dataChat }" />
+                        <ChatAudioInput v-model:recording="recorderStatus" />
                     </ClientOnly>
                     <!-- Send Button -->
 
@@ -71,57 +70,15 @@ onChange((_files) => {
     files.value.push(_files?.item(0) as File);
 });
 
-const id = useRoute().params.id;
-const { messages } = storeToRefs(useChatStore());
-const { data } = useAuth();
-let send, status;
+const { chatSocket } = useChatStore();
 
 const recorderStatus = ref("intialized");
 
 const message = ref<string>('');
 async function sendMessage() {
-    console.log(status?.value);
-    if (files.value.length) {
-        files.value.forEach(async (file, index) => {
-            const fileName = getRandomFileName() + '.png';
-            messages.value.unshift({
-                user: {
-                    username: data.value.username,
-                    image: data.value.image_url,
-                    first_name: data.value.first_name,
-                    last_name: data.value.last_name,
-                    is_online: data.value.is_online
-                },
-                message: message.value,
-                files: [
-                    {
-                        id: index,
-                        file: file.preview,
-                        name: fileName,
-                        mimetype: file.type
-                    }
-                ],
-                date: new Date().toISOString(),
-                sent: true
-            });
-            const body = new FormData();
-            body.append("file", file, fileName);
-            await useApi("/api/audio", {
-                method: 'post',
-                body: body
-            }).then(my_file => {
-                send(JSON.stringify({
-                    message: message.value,
-                    files: [my_file.id]
-                }));
-                message.value = '';
-            });
-        });
-        files.value = [];
-        return;
-    };
-    if (!message.value.trim() === ''){
-    send(
+    
+    if (!(message.value.trim() === '')){    
+        chatSocket().send(
         JSON.stringify({
             message: message.value
         })
@@ -143,15 +100,7 @@ function getRandomFileName() {
     var random_number = timestamp + random;
     return random_number;
 };
-watch(status, (value) => console.log(`websocket status changed to ${value}`));
-onMounted(async () => {
-    if (props.isDashSupport) {
-        send = useChat('support', props.dataChat.isDashSupport, props.dataChat.roomName).send;
-        status = useChat('support', props.dataChat.isDashSupport, props.dataChat.roomName).status;
-    } else {
-        send = useChat().send;
-    };
-})
+
 </script>
 
 <style scoped></style>

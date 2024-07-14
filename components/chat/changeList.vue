@@ -35,16 +35,11 @@ import type { User, Message } from '~/types';
 const props = defineProps<{
   message: Message;
   user: User;
-  isDashSupport?: boolean, dataChat?: Object
-
 }>();
 const emit = defineEmits(['update:change']);
 
-let send; 
-if(props.isDashSupport)
-    send = useChat('support', props.dataChat.isDashSupport, props.dataChat.roomName).send;
-else 
-    send = useChat().send;
+const { chatSocket } = useChatStore();
+
 
 const contextMenu = ref<HTMLElement | null>(null)
 
@@ -74,7 +69,7 @@ async function copyMessage() {
 }
 
 async function deleteMessage() {
-  send(
+  chatSocket().send(
     JSON.stringify({
       type: 'delete_message',
       message: props.message.id,
