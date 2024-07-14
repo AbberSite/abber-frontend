@@ -49,7 +49,6 @@
 import { useDashHelpStore } from "~/stores/dashboard/dashHelp";
 const { tickets, loading, pagination } = storeToRefs(useDashHelpStore());
 const { getAllTickets } = useDashHelpStore();
-// let loading = ref<boolean>(true);
 const { $viewport } = useNuxtApp();
 const { roomId, type } = storeToRefs(useChatStore());
 const ticketId = ref(0);
@@ -57,19 +56,18 @@ const ticketStatus = ref("");
 
 let showChatInbox = ref(false);
 let chatKey = ref(0);
-const setCurrentTicket = (ticket: any) => {
+const setCurrentTicket = (ticket: any,ChatInbox:boolean = true) => {
   chatKey.value += 1; // Increment the key to force re-render
-  showChatInbox.value = true;
+  showChatInbox.value = ChatInbox;
   loading.value = false;
   roomId.value = ticket.id;
   ticketId.value = ticket.id;
   ticketStatus.value = ticket.status;
 };
-onBeforeMount(async () => {
-  await getAllTickets();
-});
+
 onMounted(async () => {
-  setCurrentTicket(tickets.value[0]);
+  await getAllTickets();
+  setCurrentTicket(tickets.value[0],$viewport.isGreaterOrEquals('tablet'));
   type.value = "support";
 });
 </script>
