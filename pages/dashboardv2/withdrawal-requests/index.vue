@@ -32,7 +32,8 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }" previewFiles>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }"
+    previewFiles>
   </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
@@ -43,7 +44,7 @@
 
   <ClientOnly>
     <ModifyModal v-if="showModal" @close="showModal = false;" title="الإجراءات">
-      <div :class="$style.style_every_dev">
+      <div :class="$style.style_every_dev" v-if="!dataSelection.updated">
         <h1 class="font-semibold mb-2"> تغيير حالة الطلب :</h1>
         <select name="action" id="actions" class="form-control form-select h-[50px] appearance-none"
           v-model="dataSelection.status">
@@ -52,7 +53,7 @@
           <option value="3">رفض الطلب</option>
         </select>
       </div>
-      <div :class="$style.style_every_dev" v-if="dataSelection.status == '3'">
+      <div :class="$style.style_every_dev" v-if="dataSelection.status == '3' && !dataSelection.updated">
         <h1 class="font-semibold">سبب الرفض: </h1>
         <textarea class="form-control block max-h-[300px] min-h-[50px] py-4" name="textarea"
           v-model="dataSelection.refuse_reason"></textarea>
@@ -70,8 +71,14 @@
 
   <ClientOnly>
     <ModifyModal v-if="showImageModal" @close="showImageModal = false;" :title="'عرض الإيصال'">
-      <!-- <Loading v-if="imageLoading"/> -->
-      <NuxtImg :src="img_url" alt="invoice"/>
+      <div class="flex justify-center items-center">
+        <template v-if="isPdf">
+          <embed :src="img_url" height="300px" width="100%" />
+        </template>
+        <template v-else>
+          <NuxtImg :src="img_url" alt="invoice" width="100%" />
+        </template>
+      </div>
     </ModifyModal>
   </ClientOnly>
 
@@ -90,12 +97,14 @@ let showImageModal = ref(false);
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const loadingButton = ref(false);
+let isPdf = ref(false);
 let img_url = ref(null);
 let dataSelection = reactive({
   id: null,
   status: null,
   refuse_reason: null,
-  invoice: null
+  invoice: null,
+  updated: false
 });
 
 const headItems = {
@@ -111,17 +120,30 @@ const headItems = {
   invoice: 'الإيصال',
 };
 
-$listen('table-modify-object', (data) => {
+$listen('table-modify-object', (data: Object) => {
   dataSelection.id = data.id;
+
+  const isUpdated = data.status === '2' || data.status === '3';
+  dataSelection.updated = isUpdated;
+
+  if (isUpdated) {
+    dataSelection.status = data.status;
+    dataSelection.refuse_reason = data.refuse_reason || null;
+  } else {
+    dataSelection.status = null;
+    dataSelection.refuse_reason = null;
+  }
+
   showModal.value = true;
 });
 
-$listen('table-preview-files', (data) => {
+$listen('table-preview-files', (data: { url: string }) => {
   const { url } = data;
+  isPdf.value = url.endsWith('.pdf');
   if (url) {
-    showImageModal.value = true;
     img_url.value = url;
-  };
+    showImageModal.value = true;
+  }
 });
 
 
@@ -129,15 +151,17 @@ const submit = async () => {
 
   loadingButton.value = true;
   const formdata = new FormData();
-  formdata.append('status', dataSelection.status);
-  formdata.append('paid', dataSelection.status === '2');
-  formdata.append('refuse_reason', dataSelection.refuse_reason);
+  if (!dataSelection.updated) {
+    formdata.append('status', dataSelection.status);
+    formdata.append('paid', dataSelection.status === '2');
+    formdata.append('refuse_reason', dataSelection.refuse_reason);
+  };
   if (dataSelection.invoice) {
     formdata.append('invoice', dataSelection.invoice as File);
   }
   try {
     await useProxy(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, {
-      method: 'PUT',
+      method: dataSelection.updated ? "PATCH" : 'PUT',
       body: formdata
     });
     useNotification({ type: 'success', content: 'تم تحديث الطلب بنجاح.' });
