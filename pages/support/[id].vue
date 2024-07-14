@@ -17,7 +17,7 @@
       <!-- <DetailsHeader :show-navigation="activeTab == 'details'" /> -->
       <DetailsTabs v-model="activeTab" />
       <DetailsCard v-if="activeTab == 'details'" device="mobile" />
-      <MobileChat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" device="mobile" isSupport />
+      <Chat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" device="mobile" filesInput />
 
       <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
         <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
@@ -26,7 +26,7 @@
           <DetailsCard v-else />
         </div>
         <ClientOnly>
-          <Chat :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" :isSupport="true" />
+          <Chat :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" filesInput />
         </ClientOnly>
       </div>
     </section>

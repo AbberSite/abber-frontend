@@ -33,12 +33,12 @@
         <!-- Chat content on Mobile devices -->
         <Modal :show="showChatInbox && $viewport.isLessThan('tablet')" @close="showChatInbox = false" title="المحادثة">
           <div class="px-4 py-5">
-            <Chat v-if="showChatInbox && $viewport.isLessThan('tablet')" :room-name="`${ticketId}`" :allow-input="(ticketStatus == 'مفتوحة')" device="mobile" isSupport isDashSupport :key="chatKey" />
+            <Chat v-if="showChatInbox && $viewport.isLessThan('tablet')" :room-name="`${ticketId}`" :allow-input="(ticketStatus == 'مفتوحة')" device="mobile" filesInput :key="chatKey" />
           </div>
         </Modal>
         <!-- Chat content on desktop devices -->
         <ClientOnly v-if="!loading && $viewport.isGreaterOrEquals('tablet')">
-          <Chat :room-name="`${ticketId}`" :allow-input="(ticketStatus == 'مفتوحة')" isSupport isDashSupport :key="chatKey" />
+          <Chat :room-name="`${ticketId}`" :allow-input="(ticketStatus == 'مفتوحة')" filesInput :key="chatKey" />
         </ClientOnly>
       </div>
     </section>

@@ -5,7 +5,7 @@
             placeholder="إبدأ الكتابة هنا..." required></textarea>
         <!-- Toolbar -->
         <div class="rounded-b-md bg-white px-1 mb-2 my-[10px]">
-            <div class="flex items-center " :class="!isSupport ? 'justify-end' : 'justify-between'">
+            <div class="flex items-center justify-between">
                 <!-- Attach Button -->
                 <!-- <button class="text-gray-600 hover:text-gray-900" type="button" @click="() => open()">
                     <svg
@@ -23,7 +23,7 @@
                             d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
                     </svg>
                 </button> -->
-                <ChatMultipleFilesInput v-model="files" :class="{ 'hidden': !isSupport }" />
+                <ChatMultipleFilesInput v-model="files" v-if="filesInput" />
                 <!-- Button Group -->
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
                     <!-- Mic Button -->
@@ -55,7 +55,7 @@ import { useFileDialog } from '@vueuse/core';
 const { open, reset, onChange } = useFileDialog({
     accept: 'image/png', // Set to accept only image files
 });
-const props = defineProps<{ isSupport?: boolean, isDashSupport?: boolean, dataChat?: Object }>()
+const props = defineProps<{ filesInput?: boolean }>()
 const files = ref<File[]>([])
 const emit = defineEmits(['sendMessage']);
 const previews = computed(() => {
