@@ -14,24 +14,31 @@
           <SkeletonsHelpChat v-if="loading" />
           <template v-else>
             <div class="w-full divide-y divide-gray-100 pt-6 overflow-auto max-h-[500px]">
-              <button v-for="({ user, title, id, status }, index) of conversations" :key="index" class="flex w-full items-center justify-between px-6 py-4 hover:bg-gray-50" :class="{ 'bg-gray-100': chat_details.id == id }" type="button" @click="updateChatDetails(id, status)">
-                <span class="flex items-center"
-                  ><span class="flex-shrink-0"> <img class="lazyload h-11 w-11 rounded-full bg-gray-100 md:h-10 md:w-10" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="`${user?.image}`" height="" width="" alt="صورة المستخدم" /></span><span class="ms-3 flex flex-col pt-1 text-right"><span class="text-sm font-semibold" v-text="user?.first_name" /><span class="pt-1 text-xs font-medium text-gray-600" v-text="title" /> </span></span
-                ><span v-if="index == 5 && chat_details.id != id" class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">2</span>
+              <button v-for="(ticket, index) of tickets" :key="index" class="flex w-full items-center justify-between px-6 py-4 hover:bg-gray-50" :class="{ 'bg-gray-100': ticketId == ticket.id }" type="button" @click="setCurrentTicket(ticket)">
+                <span class="flex items-center">
+                  <span class="flex-shrink-0">
+                    <img class="lazyload h-11 w-11 rounded-full bg-gray-100 md:h-10 md:w-10" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="`${ticket.user?.image}`" height="" width="" alt="صورة المستخدم" />
+                  </span>
+                  <span class="ms-3 flex flex-col pt-1 text-right">
+                    <span class="text-sm font-semibold" v-text="ticket.user?.first_name" />
+                    <span class="pt-1 text-xs font-medium text-gray-600" v-text="ticket.title" />
+                  </span>
+                </span>
+                <span v-if="index == 5 && ticketId != ticket.id" class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">2</span>
               </button>
             </div>
-            <Pagination class="pt-5" :results="(pagination as PaginationResponse<any>)" @change="getAllConversations" per-page="20" isDashSupport />
+            <Pagination class="pt-5" :results="(pagination as PaginationResponse<any>)" @change="getAllTickets" per-page="20" isDashSupport />
           </template>
         </div>
         <!-- Chat content on Mobile devices -->
         <Modal :show="showChatInbox && $viewport.isLessThan('tablet')" @close="showChatInbox = false" title="المحادثة">
           <div class="px-4 py-5">
-            <Chat v-if="showChatInbox && $viewport.isLessThan('tablet')" :room-name="`${chat_details?.id}`" :allow-input="chat_details?.status == 'مفتوحة'" device="mobile" isSupport isDashSupport :key="chatKey" />
+            <Chat v-if="showChatInbox && $viewport.isLessThan('tablet')" :room-name="`${ticketId}`" :allow-input="(ticketStatus == 'مفتوحة')" device="mobile" isSupport isDashSupport :key="chatKey" />
           </div>
         </Modal>
         <!-- Chat content on desktop devices -->
         <ClientOnly v-if="!loading && $viewport.isGreaterOrEquals('tablet')">
-          <Chat :room-name="`${chat_details?.id}`" :allow-input="`${chat_details?.status}`" isSupport isDashSupport :key="chatKey" />
+          <Chat :room-name="`${ticketId}`" :allow-input="(ticketStatus == 'مفتوحة')" isSupport isDashSupport :key="chatKey" />
         </ClientOnly>
       </div>
     </section>
@@ -40,33 +47,29 @@
 
 <script setup lang="ts">
 import { useDashHelpStore } from "~/stores/dashboard/dashHelp";
-const { conversations, loading, pagination } = storeToRefs(useDashHelpStore());
-const { getAllConversations } = useDashHelpStore();
-let tickets = ref<[]>([]);
+const { tickets, loading, pagination } = storeToRefs(useDashHelpStore());
+const { getAllTickets } = useDashHelpStore();
 // let loading = ref<boolean>(true);
 const { $viewport } = useNuxtApp();
 const { roomId, type } = storeToRefs(useChatStore());
+const ticketId = ref(0);
+const ticketStatus = ref("");
 
 let showChatInbox = ref(false);
-let chat_details = ref<{ id: string; status: string | undefined }>(undefined);
 let chatKey = ref(0);
-const updateChatDetails = (id, status) => {
-  loading.value = true;
-  chat_details.value = { id, status };
+const setCurrentTicket = (ticket: any) => {
   chatKey.value += 1; // Increment the key to force re-render
   showChatInbox.value = true;
   loading.value = false;
-  roomId.value = id;
+  roomId.value = ticket.id;
+  ticketId.value = ticket.id;
+  ticketStatus.value = ticket.status;
 };
 onBeforeMount(async () => {
-  await getAllConversations();
+  await getAllTickets();
 });
 onMounted(async () => {
-  // const data = await useDirectApi("/support/tickets/");
-  // tickets.value = data.results;
-  chat_details.value = { id: conversations.value[0]?.id, status: conversations.value[0]?.status };
-  // console.log(chat_details.value);
-  // loading.value = false;
+  setCurrentTicket(tickets.value[0]);
   type.value = "support";
 });
 </script>
