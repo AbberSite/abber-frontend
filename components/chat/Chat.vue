@@ -2,7 +2,7 @@
   <div class="flex flex-col space-y-6 w-full"
     :class="(device == 'mobile') ? 'items-center pb-6 lg:hidden' : 'justify-between rounded-lg border px-6 py-6 lg:col-span-2'">
     <SkeletonsChatDesktop v-if="loading" />
-    <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll " :class="(device == 'mobile') ? 'w-full' : 'mt-0'"
+    <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll scrollbar-hide" :class="(device == 'mobile') ? 'w-full' : 'mt-0'"
       id="chat_scroll">
       <div v-if="!messages.length" class="h-full flex items-center justify-center"><span
           class="px-4 py-2 rounded-sm bg-green-100">لا توجد رسائل سابقة</span></div>
