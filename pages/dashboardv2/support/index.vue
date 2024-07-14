@@ -9,11 +9,11 @@
 
       <div class="w-full gap-x-8 lg:grid lg:grid-cols-3">
         <div class="sticky top-8 h-fit rounded-lg border border-gray-100 pb-2 pt-6">
-          <div class="px-6 font-semibold xs:text-lg">التذاكر</div>
+          <div class="px-6 font-semibold xs:text-lg pb-6">التذاكر</div>
           <!-- Skeleton -->
           <SkeletonsHelpChat v-if="loading" />
           <template v-else>
-            <div class="w-full divide-y divide-gray-100 pt-6 overflow-auto max-h-[500px] scrollbar-hide">
+            <div class="w-full divide-y divide-gray-100 overflow-auto max-h-[500px] scrollbar-hide">
               <button v-for="(ticket, index) of tickets" :key="index" class="flex w-full items-center justify-between px-6 py-4 hover:bg-gray-50" :class="{ 'bg-gray-100': ticketId == ticket.id }" type="button" @click="setCurrentTicket(ticket)">
                 <span class="flex items-center">
                   <span class="flex-shrink-0">
@@ -27,7 +27,7 @@
                 <span v-if="index == 5 && ticketId != ticket.id" class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">2</span>
               </button>
             </div>
-            <Pagination class="pt-5" :results="(pagination as PaginationResponse<any>)" @change="getAllTickets" per-page="20" isDashSupport />
+            <Pagination class="py-5" :results="(pagination as PaginationResponse<any>)" @change="getAllTickets" per-page="20" smallResultsCounter />
           </template>
         </div>
         <!-- Chat content on Mobile devices -->
