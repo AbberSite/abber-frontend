@@ -13,7 +13,7 @@
           <!-- Skeleton -->
           <SkeletonsHelpChat v-if="loading" />
           <template v-else>
-            <div class="w-full divide-y divide-gray-100 pt-6 overflow-auto max-h-[500px]">
+            <div class="w-full divide-y divide-gray-100 pt-6 overflow-auto max-h-[500px] scrollbar-hide">
               <button v-for="(ticket, index) of tickets" :key="index" class="flex w-full items-center justify-between px-6 py-4 hover:bg-gray-50" :class="{ 'bg-gray-100': ticketId == ticket.id }" type="button" @click="setCurrentTicket(ticket)">
                 <span class="flex items-center">
                   <span class="flex-shrink-0">
