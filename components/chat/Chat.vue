@@ -1,11 +1,8 @@
 <template>
   <div class="flex flex-col space-y-6 w-full"
     :class="(device == 'mobile') ? 'items-center pb-6 lg:hidden' : 'justify-between rounded-lg border px-6 py-6 lg:col-span-2'">
-    <div class="flex justify-center">
-      <Loading v-if="loading" />
-    </div>
-    <SkeletonsChatDesktop v-if="loading_chat" />
-    <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll " :class="(device == 'mobile') ? 'w-full' : 'mt-0'"
+    <SkeletonsChatDesktop v-if="loading" />
+    <div v-else ref="chatList" class="h-[50vh] overflow-y-scroll scrollbar-hide" :class="(device == 'mobile') ? 'w-full' : 'mt-0'"
       id="chat_scroll">
       <div v-if="!messages.length" class="h-full flex items-center justify-center"><span
           class="px-4 py-2 rounded-sm bg-green-100">لا توجد رسائل سابقة</span></div>
@@ -25,11 +22,11 @@
         </div>
       </div>
       <changeList ref="contextMenu" @update:change="changeMessage = undefined" :message="changeMessage" :user="data"
-        :class="{ hidden: !changeMessage }" :isDashSupport="isDashSupport" :dataChat="{...props}"> </changeList>
+        :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
     <ChatInput v-if="allowInput" class="flex-1"
-      @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :isSupport="isSupport" :isDashSupport="isDashSupport" :dataChat="{...props}"/>
+      @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :filesInput="filesInput"/>
     
   </div>
 </template>
@@ -50,18 +47,17 @@ useHead({
     ]
 })
 
-const props = defineProps<{ allowInput: Boolean, roomName: String, device: String, isSupport?: boolean, isDashSupport?: boolean}>();
+const props = defineProps<{ allowInput: Boolean, roomName: String, device: String, filesInput?: boolean}>();
 const { $viewport } = useNuxtApp();
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
-const { fetchMessages } = useChatStore();
+const { fetchMessages,chatSocket } = useChatStore();
 
 const { data } = useAuth();
 console.log(props.roomName);
-const { clear, close, status } = useChat(props.roomName?.startsWith('order_') ? 'order' : 'support', props.isDashSupport, props.roomName);
+const { clear, close, status } = chatSocket();
 
-const loading = ref(false);
-let loading_chat = ref<boolean>(true);
+const loading = ref(true);
 
 const contextMenu = ref<null | HTMLElement>(null);
 
@@ -69,15 +65,12 @@ const changeMessage = ref<Message | undefined>(undefined);
 
 onMounted(async () => {
   watch($viewport.breakpoint, async (newScreen, oldScreen) => {
-    if (loading_chat.value)
-      loading_chat.value = false;
+    if (loading.value)
+      loading.value = false;
   })
-  if ($viewport.isLessThan('desktop'))
-    return;
-  // console.log('desktop chat')
   if (messages.value.length == 0) {
     await fetchMessages({ room: props.roomName, limit: 9 });
-    loading_chat.value = false;
+    loading.value = false;
     scrollDown(chatList);
   }
   if (!chatList.value) return;
@@ -86,17 +79,6 @@ onMounted(async () => {
   scrollDown(chatList);
   document.addEventListener("click", resetChangeMessage);
 });
-
-function formatTime(_date: string) {
-  const date = new Date(_date);
-
-  return new Intl.DateTimeFormat("ar-AR", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-    numberingSystem: "latn",
-  }).format(date);
-}
 
 async function load() {
   if (!messagesPagination.value?.next) return;

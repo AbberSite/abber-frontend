@@ -5,7 +5,7 @@
             placeholder="إبدأ الكتابة هنا..." required></textarea>
         <!-- Toolbar -->
         <div class="rounded-b-md bg-white px-1 mb-2 my-[10px]">
-            <div class="flex items-center " :class="!isSupport ? 'justify-end' : 'justify-between'">
+            <div class="flex items-center justify-between">
                 <!-- Attach Button -->
                 <!-- <button class="text-gray-600 hover:text-gray-900" type="button" @click="() => open()">
                     <svg
@@ -23,13 +23,12 @@
                             d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
                     </svg>
                 </button> -->
-                <ChatMultipleFilesInput v-model="files" :class="{ 'hidden': !isSupport }" />
+                <ChatMultipleFilesInput v-model="files" v-if="filesInput" />
                 <!-- Button Group -->
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
                     <!-- Mic Button -->
                     <ClientOnly>
-                        <ChatAudioInput v-model:recording="recorderStatus" :isDashSupport="isDashSupport"
-                            :dataChat="{ ...props.dataChat }" />
+                        <ChatAudioInput v-model:recording="recorderStatus" />
                     </ClientOnly>
                     <!-- Send Button -->
 
@@ -56,7 +55,7 @@ import { useFileDialog } from '@vueuse/core';
 const { open, reset, onChange } = useFileDialog({
     accept: 'image/png', // Set to accept only image files
 });
-const props = defineProps<{ isSupport?: boolean, isDashSupport?: boolean, dataChat?: Object }>()
+const props = defineProps<{ filesInput?: boolean }>()
 const files = ref<File[]>([])
 const emit = defineEmits(['sendMessage']);
 const previews = computed(() => {
@@ -71,57 +70,15 @@ onChange((_files) => {
     files.value.push(_files?.item(0) as File);
 });
 
-const id = useRoute().params.id;
-const { messages } = storeToRefs(useChatStore());
-const { data } = useAuth();
-let send, status;
+const { chatSocket } = useChatStore();
 
 const recorderStatus = ref("intialized");
 
 const message = ref<string>('');
 async function sendMessage() {
-    console.log(status?.value);
-    if (files.value.length) {
-        files.value.forEach(async (file, index) => {
-            const fileName = getRandomFileName() + '.png';
-            messages.value.unshift({
-                user: {
-                    username: data.value.username,
-                    image: data.value.image_url,
-                    first_name: data.value.first_name,
-                    last_name: data.value.last_name,
-                    is_online: data.value.is_online
-                },
-                message: message.value,
-                files: [
-                    {
-                        id: index,
-                        file: file.preview,
-                        name: fileName,
-                        mimetype: file.type
-                    }
-                ],
-                date: new Date().toISOString(),
-                sent: true
-            });
-            const body = new FormData();
-            body.append("file", file, fileName);
-            await useApi("/api/audio", {
-                method: 'post',
-                body: body
-            }).then(my_file => {
-                send(JSON.stringify({
-                    message: message.value,
-                    files: [my_file.id]
-                }));
-                message.value = '';
-            });
-        });
-        files.value = [];
-        return;
-    };
-    if (message.value.trim() === '') return;
-    send(
+    
+    if (!(message.value.trim() === '')){    
+        chatSocket().send(
         JSON.stringify({
             message: message.value
         })
@@ -131,6 +88,9 @@ async function sendMessage() {
     setTimeout(() => {
         emit('sendMessage');
     }, 1000);
+    };
+
+    
 };
 
 
@@ -140,15 +100,7 @@ function getRandomFileName() {
     var random_number = timestamp + random;
     return random_number;
 };
-watch(status, (value) => console.log(`websocket status changed to ${value}`));
-onMounted(async () => {
-    if (props.isDashSupport) {
-        send = useChat('support', props.dataChat.isDashSupport, props.dataChat.roomName).send;
-        status = useChat('support', props.dataChat.isDashSupport, props.dataChat.roomName).status;
-    } else {
-        send = useChat().send;
-    };
-})
+
 </script>
 
 <style scoped></style>

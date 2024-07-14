@@ -29,8 +29,8 @@
   }
 
   /* Checkbox & Radiobox inputs */
-  input[type='checkbox']:checked,
-  input[type='radio']:checked {
+  input[type="checkbox"]:checked,
+  input[type="radio"]:checked {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
     background-color: currentColor;
     background-position: 50%;
@@ -38,7 +38,6 @@
     background-size: 100% 100%;
     border-color: transparent;
   }
-
 
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
@@ -48,15 +47,12 @@
   }
 
   /* Firefox */
-  input[type=number] {
+  input[type="number"] {
     -moz-appearance: textfield;
   }
-
-
 }
 
 @layer components {
-
   /* Inputs */
   .form-control {
     @apply w-full rounded-md border bg-white px-4 py-3 text-sm shadow-sm placeholder:text-gray-600 focus:border-gray-900 focus:text-base focus:outline-none focus:ring-1 focus:ring-gray-900 focus:placeholder:opacity-0;
@@ -101,20 +97,20 @@
     @apply leading-[2.25] xs:leading-loose !important;
   }
 
-  .prose :where(h2):not(:where([class~='not-prose'] *)) {
+  .prose :where(h2):not(:where([class~="not-prose"] *)) {
     @apply mt-0 pt-8;
   }
 
-  .prose :where(h3):not(:where([class~='not-prose'] *)) {
+  .prose :where(h3):not(:where([class~="not-prose"] *)) {
     @apply mt-0 pt-6;
   }
 
-  .prose :where(ul):not(:where([class~='not-prose'] *)),
-  .prose :where(ol):not(:where([class~='not-prose'] *)) {
+  .prose :where(ul):not(:where([class~="not-prose"] *)),
+  .prose :where(ol):not(:where([class~="not-prose"] *)) {
     @apply ltr:pl-[1.125rem] rtl:pr-[1.125rem];
   }
 
-  .prose :where(ul > li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  .prose :where(ul > li):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply ltr:pl-1.5 rtl:pr-1.5;
   }
 
@@ -131,5 +127,15 @@
   }
   .datepicker_mobile .dp__outer_menu_wrap {
     position: static;
-}
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }

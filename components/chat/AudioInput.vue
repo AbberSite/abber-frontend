@@ -31,18 +31,13 @@ import { TrashIcon, MicrophoneIcon } from '@heroicons/vue/24/outline';
 import type { Message } from 'postcss';
 
 // const recordButton = ref(null);
-const props = defineProps<{isDashSupport?: boolean, dataChat?: Object}>()
 const recording = ref(false);
 // const progress = ref<HTMLElement | null>(null);
 // const paused = ref(false);
 
 const emit = defineEmits(['update:recording']);
 
-let send; 
-if(props.isDashSupport)
-    send = useChat('support', props.dataChat.isDashSupport, props.dataChat.roomName).send;
-else 
-    send = useChat().send;
+const {chatSocket} = useChatStore();
 
 const { messages } = storeToRefs(useChatStore())
 
@@ -88,7 +83,7 @@ watch(status, (value) => {
       body: body
     }).then((e) => {
       // After upload file send message with record file id
-      send(JSON.stringify({ files: [e.id] }));
+      chatSocket().send(JSON.stringify({ files: [e.id] }));
     });
   }
 });
