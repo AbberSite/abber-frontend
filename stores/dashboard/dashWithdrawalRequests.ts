@@ -14,7 +14,7 @@ class dashWithdrawalRequests {
     ignore: undefined,
   });
   filtersCount = computed(() => {
-    return this.filters.value.status.length;
+    return 0;
   });
 
   filtersPipline: Array<any>;
@@ -90,27 +90,8 @@ class dashWithdrawalRequests {
     });
 
   getStatusFilterQuery = () => {
-    if (!this || this.filters.value.status.length === 0) return {};
-
-    if (this.filters.value.status.length === 1) {
-      return {
-        status: this.filters.value.status[0],
-      };
-    }
-
-    let status = "";
-
-    this.filters.value.status.map((_status: string, index: number) => {
-      if (index == 0) {
-        status += _status;
-        return;
-      }
-
-      status += "," + _status;
-    });
-
     return {
-      status__in: status,
+      status: this.filters.value.status,
     };
   };
 
