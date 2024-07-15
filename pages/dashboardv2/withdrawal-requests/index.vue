@@ -25,21 +25,25 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <DashboardWithdrawalRequestsFiltersDropdown v-if="openFiltersDropdown"
-              v-on-click-outside="() => (openFiltersDropdown = false)" />
+            <!-- <DashboardWithdrawalRequestsFiltersDropdown v-if="openFiltersDropdown"
+              v-on-click-outside="() => (openFiltersDropdown = false)" /> -->
+            <DashboardFiltersDropdown v-if="openFiltersDropdown"
+              v-on-click-outside="() => (openFiltersDropdown = false)">
+              <DashboardWithdrawalRequestsFilter/>
+            </DashboardFiltersDropdown>
           </transition>
         </ClientOnly>
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }"
-    previewFiles>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }">
   </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
-    <DashboardWithdrawalRequestsFiltersMobileModal :show="openFiltersMobileModal"
-      @close="openFiltersMobileModal = false" />
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardWithdrawalRequestsFilter/>
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 
   <ClientOnly>
@@ -90,7 +94,9 @@ import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawa
 const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashWithdrawalRequestsStore());
 const { fetchAll } = useDashWithdrawalRequestsStore();
 const { $listen } = useNuxtApp();
-
+provide('previewFiles', true);
+provide('dateFilters', 'withdrawalRequests');
+provide('otherCheckStatus', (data) => !data?.invoice && data?.status !== '3', true);
 const showModal = ref(false);
 let showImageModal = ref(false);
 // let imageLoading = ref(true);

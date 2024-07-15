@@ -9,8 +9,9 @@
 
 <script lang="ts" setup>
 import { EyeIcon, XCircleIcon, CheckCircleIcon,  DocumentArrowDownIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
-defineProps<{ url: string;previewFiles:boolean  }>();
+defineProps<{ url: string  }>();
 const {$event} = useNuxtApp();
+const previewFiles = inject('previewFiles') as Boolean | false;
 </script>
 
 <style>
