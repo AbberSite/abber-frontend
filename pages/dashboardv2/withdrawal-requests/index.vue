@@ -36,8 +36,7 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }"
-    previewFiles>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }">
   </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
@@ -95,7 +94,7 @@ import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawa
 const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashWithdrawalRequestsStore());
 const { fetchAll } = useDashWithdrawalRequestsStore();
 const { $listen } = useNuxtApp();
-
+provide('previewFiles', true);
 const showModal = ref(false);
 let showImageModal = ref(false);
 // let imageLoading = ref(true);
