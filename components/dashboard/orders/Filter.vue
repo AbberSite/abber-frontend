@@ -1,6 +1,6 @@
 <template>
 
-    <DashboardDateFilters orders />
+    <DashboardDateFilters />
 
     <div class="pt-4 sm:pt-0 flex space-x-6 sm:space-x-0 sm:justify-between">
         <div>

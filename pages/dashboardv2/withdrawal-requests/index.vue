@@ -95,6 +95,8 @@ const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDash
 const { fetchAll } = useDashWithdrawalRequestsStore();
 const { $listen } = useNuxtApp();
 provide('previewFiles', true);
+provide('dateFilters', 'withdrawalRequests');
+provide('otherCheckStatus', (data) => !data?.invoice && data?.status !== '3', true);
 const showModal = ref(false);
 let showImageModal = ref(false);
 // let imageLoading = ref(true);

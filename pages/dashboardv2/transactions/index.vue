@@ -62,7 +62,7 @@ const headItems = {
   user: "المستخدم",
 
 }
-
+provide('dateFilters', 'transactions');
 const { transactions, pagination, loading, filters, filtersCount } = storeToRefs(useDashTransactionsStore());
 const { fetchAll } = useDashTransactionsStore();
 const openFiltersMobileModal = ref(false);

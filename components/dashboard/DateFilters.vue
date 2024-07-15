@@ -12,12 +12,13 @@ let filters = ref(null);
 import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
 import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawalRequests';
-const props = defineProps<{transactions?: boolean; orders?: boolean; withdrawalRequests?: boolean; }>();
-if(props.transactions){
+const section = inject('dateFilters') as string | 'orders';
+
+if(section == "transactions"){
     filters.value = useDashTransactionsStore().filters;
-} else if (props.orders){
+} else if (section == "orders"){
     filters.value = useDashOrdersStore().filters;
-} else if (props.withdrawalRequests){
+} else if (section == "withdrawalRequests"){
     filters.value = useDashWithdrawalRequestsStore().filters;
 }
 import DatePicker from '@vuepic/vue-datepicker';

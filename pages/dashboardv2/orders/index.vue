@@ -43,6 +43,7 @@ import { useDashOrdersStore } from "~/stores/dashboard/dashOrders.ts";
 import { vOnClickOutside } from "@vueuse/components";
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
+provide('dateFilters', 'orders');
 const { orders, pagination, loading, filters, filtersCount } = storeToRefs(useDashOrdersStore());
 const { fetchAll } = useDashOrdersStore();
 // const pagination = ref<PaginationResponse<any>>();

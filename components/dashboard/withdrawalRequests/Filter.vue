@@ -1,7 +1,7 @@
 <!-- DashboardWithdrawalRequestsFilter.vue -->
 <template>
     <div>
-      <DashboardDateFilters withdrawalRequests />
+      <DashboardDateFilters />
     </div>
       <div class="pt-3">
         <h3 class="text-sm font-semibold">حالة الطلب</h3>

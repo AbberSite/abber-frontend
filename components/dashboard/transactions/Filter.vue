@@ -1,6 +1,6 @@
 <template>
     <div class="space-y-3">
-        <DashboardDateFilters transactions />
+        <DashboardDateFilters />
     </div>
     <div class="flex flex-col gap-2 mt-3">
         <div>
