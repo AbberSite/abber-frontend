@@ -1,3 +1,9 @@
+
+# added by me 
+pages/dashboardv2/operations/
+stores/dashboard/dashOperations.ts
+
+
 # Nuxt dev/build outputs
 .output
 .data

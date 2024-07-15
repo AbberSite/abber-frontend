@@ -9,7 +9,6 @@
 </template>
 <script setup lang="ts">
 let filters = ref(null);
-// const { filters } = storeToRefs(useDashOrdersStore());
 import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
 import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawalRequests';

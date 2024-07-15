@@ -25,8 +25,12 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <DashboardWithdrawalRequestsFiltersDropdown v-if="openFiltersDropdown"
-              v-on-click-outside="() => (openFiltersDropdown = false)" />
+            <!-- <DashboardWithdrawalRequestsFiltersDropdown v-if="openFiltersDropdown"
+              v-on-click-outside="() => (openFiltersDropdown = false)" /> -->
+            <DashboardFiltersDropdown v-if="openFiltersDropdown"
+              v-on-click-outside="() => (openFiltersDropdown = false)">
+              <DashboardWithdrawalRequestsFilter/>
+            </DashboardFiltersDropdown>
           </transition>
         </ClientOnly>
       </div>
@@ -38,8 +42,9 @@
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
-    <DashboardWithdrawalRequestsFiltersMobileModal :show="openFiltersMobileModal"
-      @close="openFiltersMobileModal = false" />
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardWithdrawalRequestsFilter/>
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 
   <ClientOnly>

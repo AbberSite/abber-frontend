@@ -23,7 +23,7 @@
                         <div class="pt-7">
                             <DashboardDateFilters orders/>
                         </div>
-                        <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
+                        <div class="flex space-x-6 pt-5 rtl:space-x-reverse">
                             <div>
                                 <h3 class="text-sm font-semibold">حالة الطلب</h3>
                                 <div class="space-y-3 pt-4">

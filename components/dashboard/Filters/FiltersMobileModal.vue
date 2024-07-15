@@ -19,35 +19,13 @@
                                 class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800"
                                 href="/order/">تطبيق</a>
                         </div>
-
                         <div class="pt-7">
-                            <DashboardDateFilters withdrawal-requests />
+                            <slot name="dateFilter"/>
+                            <slot></slot>
                         </div>
                         <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
                             <div>
-                                <h3 class="text-sm font-semibold">حالة الطلب</h3>
-                                <div class="space-y-3 pt-4">
-                                    <div class="flex items-center">
-                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" v-model="filters.status" id="all" :value="null" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="paid">الكل</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" v-model="filters.status" id="paid" :value="'1'" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="paid">قيد المراجعة</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" v-model="filters.status" id="text" :value="'2'" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="text">تم</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
-                                            name="paymentStatus" v-model="filters.status" id="text" :value="'3'" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="text">مرفوض</label>
-                                    </div>
-                                </div>
+                                <slot name="content"/>
                             </div>
                         </div>
                     </div>
