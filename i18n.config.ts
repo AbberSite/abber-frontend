@@ -6,7 +6,9 @@ export default defineI18nConfig(()=> ({
             withdrawal: 'المبلغ المسحوب',
             1: 'قيد المراجعة', 
             2: 'تم',
-            3: 'مرفوض'
+            3: 'مرفوض',
+            credit: 'دائن',
+            debit: 'مدين'
         }
     }
 }))
