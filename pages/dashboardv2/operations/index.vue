@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{}" addButton>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading"  addButton>
   </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
@@ -51,7 +51,7 @@
           <label class="block text-sm font-semibold xs:text-base">المستخدم</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="username" required>
             <option :value="0" selected>إختر مستخدم</option>
-            <option v-for="({id, first_name}, index) in users" :key="index" :value="id">{{ first_name }}</option>
+            <option v-for="({ id, first_name }, index) in users" :key="index" :value="id">{{ first_name }}</option>
           </select>
           <InputError :message="errors.username" />
         </div>
@@ -121,24 +121,30 @@ const headItems = {
   content: 'تفاصيل العملية',
 };
 
-$listen('open_add_window', () => {
-  showAddModal.value = true;
-});
-const submit = async () => {
-  const validation = await validate();
+$listen('open_add_window', () => showAddModal.value = true);
 
-  if (!validation.valid) return;
+const submit = async () => {
+  const { valid } = await validate();
+  if (!valid) return;
+
   loadingButton.value = true;
-  const data = await submitNewOperation({ amount: amount.value, user: username.value, type: type.value, content: content.value });
+  const data = await submitNewOperation({
+    amount: amount.value,
+    user: username.value,
+    type: type.value,
+    content: content.value,
+  });
+
   loadingButton.value = false;
-  if (data){
+
+  if (data) {
     await fetchAll();
     showAddModal.value = false;
   }
-}
+};
+
 onMounted(async () => {
-  await fetchAll();
-  await getUsers();
+  await Promise.all([fetchAll(), getUsers()]);
 });
 </script>
 
