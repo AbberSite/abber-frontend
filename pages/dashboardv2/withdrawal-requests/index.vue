@@ -25,8 +25,6 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <!-- <DashboardWithdrawalRequestsFiltersDropdown v-if="openFiltersDropdown"
-              v-on-click-outside="() => (openFiltersDropdown = false)" /> -->
             <DashboardFiltersDropdown v-if="openFiltersDropdown"
               v-on-click-outside="() => (openFiltersDropdown = false)">
               <DashboardWithdrawalRequestsFilter/>
