@@ -47,7 +47,8 @@
   <ClientOnly>
     <Modal :show="showAddModal" title="أضف عملية علي الرصيد" @close="showAddModal = false">
       <fieldset class="is-scroll space-y-7 overflow-y-auto px-6 py-8">
-        <SearchSelector ref="searchSelected"/>
+        <SearchSelector :items="users" label="المستخدم" placeholder="إختر مستخدم" display-key="first_name"
+          value-key="id" v-model="selectedUser" />
         <InputError :message="errors.username" />
         <div class="w-full space-y-3 mt-2">
           <label class="block text-sm font-semibold xs:text-base">النوع</label>
@@ -78,7 +79,7 @@
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
-const searchSelected = ref(null);
+const selectedUser = ref(null);
 const { filters, list, loading, filtersCount, pagination, users } = storeToRefs(useDashOperationsStore());
 const { defineField, errors, validate } = useForm({
   validationSchema: toTypedSchema(
@@ -118,7 +119,7 @@ const headItems = {
 $listen('open_add_window', () => showAddModal.value = true);
 
 const submit = async () => {
-  username.value = searchSelected.value.selectedUser?.id as Number || 0;
+  username.value = selectedUser.value?.id as Number || 0;
   const { valid } = await validate();
   if (!valid) return;
 
