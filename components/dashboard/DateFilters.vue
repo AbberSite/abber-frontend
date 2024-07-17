@@ -39,7 +39,12 @@ onMounted(() => {
     }
 })
 watch(range_date, (value) => {
-    filters.value.date__gte = value[0];
-    filters.value.date__lte = value[1];
+    if (value) {
+        filters.value.date__gte = value[0];
+        filters.value.date__lte = value[1];
+    } else {
+        filters.value.date__gte = '';
+        filters.value.date__lte = '';
+    }
 });
 </script>

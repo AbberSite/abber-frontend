@@ -127,7 +127,7 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/gtm.ts',
     '~/plugins/event-bus.ts',
-    '~/plugins/drag-scroll.ts',
+    '~/plugins/drag-scroll.ts'
   ],
   i18n: {
     vueI18n: './i18n.config.ts'
