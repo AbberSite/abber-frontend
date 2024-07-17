@@ -27,8 +27,10 @@
             <ClientOnly>
               <transition enter-active-class="transition-all" leave-active-class="transition-all"
                 enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                <DashboardTransactionsFiltersDropdown v-if="openFiltersDropdown"
-                  v-on-click-outside="() => (openFiltersDropdown = false)" />
+                <DashboardFiltersDropdown v-if="openFiltersDropdown"
+                  v-on-click-outside="() => (openFiltersDropdown = false)" >
+                  <DashboardTransactionsFilter/>
+                </DashboardFiltersDropdown>
               </transition>
             </ClientOnly>
           </div>
@@ -41,7 +43,9 @@
 
 
   <ClientOnly>
-    <DashboardTransactionsFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" />
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardTransactionsFilter/>
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 </template>
 <script setup lang="ts">
@@ -58,7 +62,7 @@ const headItems = {
   user: "المستخدم",
 
 }
-
+provide('dateFilters', 'transactions');
 const { transactions, pagination, loading, filters, filtersCount } = storeToRefs(useDashTransactionsStore());
 const { fetchAll } = useDashTransactionsStore();
 const openFiltersMobileModal = ref(false);

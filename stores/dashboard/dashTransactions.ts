@@ -6,7 +6,7 @@ class dashTransactions {
   pagination = ref<PaginationResponse<any>>();
   filters = ref({
     success: null,
-    type: null,
+    type: '',
     date__gte: '',
     date__lte: '',
     search: "",

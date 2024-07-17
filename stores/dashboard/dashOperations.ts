@@ -1,14 +1,15 @@
 import type { PaginationResponse } from "~/types";
 
-class dashWithdrawalRequests {
+class dashOperations {
   list = ref<[]>([]);
   order = ref({});
   loading = ref<boolean>(true);
   pagination = ref<PaginationResponse<any>>();
+  users = ref([]);
   filters = ref({
     date__gte: "",
     date__lte: "",
-    status: "1",
+    type: "",
     search: "",
     ordering: "-date",
     ignore: undefined,
@@ -22,14 +23,14 @@ class dashWithdrawalRequests {
   static filtersWatch: undefined | any;
   constructor() {
     this.filtersPipline = [
-      this.getStatusFilterQuery,
+      this.getTypeFilterQuery,
       this.getDateFilter,
       this.search,
       this.ordering,
     ];
 
-    if (dashWithdrawalRequests.filtersWatch) return;
-    dashWithdrawalRequests.filtersWatch = watch(
+    if (dashOperations.filtersWatch) return;
+    dashOperations.filtersWatch = watch(
       this.filters,
       async (value) => {
         if (value.ignore === true) {
@@ -67,7 +68,7 @@ class dashWithdrawalRequests {
       try {
         // console.log({"store": params.value.status})
         const data = (await useDirectApi(
-          "/wallets/dashboard-withdrawal-requests/",
+          "/wallets/dashboard-wallet-operations/",
           {
             params: {
               limit: 20,
@@ -89,9 +90,9 @@ class dashWithdrawalRequests {
       }
     });
 
-  getStatusFilterQuery = () => {
+  getTypeFilterQuery = () => {
     return {
-      status: this.filters.value.status,
+      type: this.filters.value.type,
     };
   };
 
@@ -119,8 +120,36 @@ class dashWithdrawalRequests {
       date__lte: this.filters.value.date__lte,
     };
   };
+  submitNewOperation = async (body: Object) => {
+    try {
+      const data = await useDirectApi("/wallets/dashboard-wallet-operations/", {
+        method: "post",
+        body: body,
+        headers: {
+          "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+        },
+      });
+      useNotification({ type: "success", content: "لقد تمت العملية بنجاح" });
+      return data;
+    } catch (e) {
+      useNotification({
+        type: "danger",
+        content: "حدث خطأ ما، الرجاء اعادة المحاولة لاحقا",
+      });
+      console.error(e);
+    };
+  };
+  getUsers = async ()=> {
+    try {
+      const data = await useDirectApi("/accounts/dashboard-users/", {params: {limit: 1000}});
+      this.users.value = data.results;
+    } catch (e) {
+      
+      console.error(e);
+    };
+  }
 }
-export const useDashWithdrawalRequestsStore = defineStore(
-  "dashWithdrawalRequests",
-  () => new dashWithdrawalRequests()
+export const useDashOperationsStore = defineStore(
+  "dashOperations",
+  () => new dashOperations()
 );
