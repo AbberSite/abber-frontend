@@ -138,4 +138,16 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+  /* Filepond */
+.filepond--root {
+  @apply font-sans !important;
+}
+
+.filepond--panel-root {
+  @apply border border-dashed bg-transparent !important;
+}
+
+.filepond--credits {
+  @apply hidden !important;
+}
 }

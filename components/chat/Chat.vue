@@ -25,8 +25,7 @@
         :class="{ hidden: !changeMessage }"> </changeList>
     </div>
 
-    <ChatInput v-if="allowInput" class="flex-1"
-      @send-message="chatList.scrollTo({ behavior: 'smooth', top: chatList?.scrollHeight })" :filesInput="filesInput"/>
+    <ChatInput v-if="allowInput" class="flex-1" :filesInput="filesInput"/>
     
   </div>
 </template>
@@ -51,7 +50,7 @@ const props = defineProps<{ allowInput: Boolean, roomName: String, device: Strin
 const { $viewport } = useNuxtApp();
 
 const { messages, messagesPagination, segmentedMessages, chatList } = storeToRefs(useChatStore());
-const { fetchMessages,chatSocket } = useChatStore();
+const { fetchMessages,chatSocket, } = useChatStore();
 
 const { data } = useAuth();
 console.log(props.roomName);
@@ -69,7 +68,7 @@ onMounted(async () => {
       loading.value = false;
   })
   if (messages.value.length == 0) {
-    await fetchMessages({ room: props.roomName, limit: 9 });
+    await fetchMessages({ room: props.roomName, limit: 30 });
     loading.value = false;
     scrollDown(chatList);
   }
