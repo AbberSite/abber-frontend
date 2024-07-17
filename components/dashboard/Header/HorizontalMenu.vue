@@ -177,7 +177,7 @@
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg><span class="ms-3 mt-1.5">المعبرون</span>
           </NuxtLink>
-          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-users'}" role="menuitem"
             tabindex="-1">
             <!-- Heroicon name: outline/home -->
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

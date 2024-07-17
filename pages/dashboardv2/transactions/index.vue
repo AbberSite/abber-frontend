@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <DashboardTablesTable :headItems="headItems" :bodyItems="transactions ?? []" :loading="loading"/>
+      <DashboardTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading"/>
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
 
@@ -61,7 +61,7 @@ const headItems = {
 
 }
 provide('dateFilters', 'transactions');
-const { transactions, pagination, loading, filters, filtersCount } = storeToRefs(useDashTransactionsStore());
+const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashTransactionsStore());
 const { fetchAll } = useDashTransactionsStore();
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
