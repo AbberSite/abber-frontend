@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading"  addButton>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" addButton>
   </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
@@ -47,14 +47,8 @@
   <ClientOnly>
     <Modal :show="showAddModal" title="أضف عملية علي الرصيد" @close="showAddModal = false">
       <fieldset class="is-scroll space-y-7 overflow-y-auto px-6 py-8">
-        <div class="w-full space-y-3 mt-2">
-          <label class="block text-sm font-semibold xs:text-base">المستخدم</label>
-          <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="username" required>
-            <option :value="0" selected>إختر مستخدم</option>
-            <option v-for="({ id, first_name }, index) in users" :key="index" :value="id">{{ first_name }}</option>
-          </select>
-          <InputError :message="errors.username" />
-        </div>
+        <SearchSelector ref="searchSelected"/>
+        <InputError :message="errors.username" />
         <div class="w-full space-y-3 mt-2">
           <label class="block text-sm font-semibold xs:text-base">النوع</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="type" required>
@@ -84,6 +78,7 @@
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
+const searchSelected = ref(null);
 const { filters, list, loading, filtersCount, pagination, users } = storeToRefs(useDashOperationsStore());
 const { defineField, errors, validate } = useForm({
   validationSchema: toTypedSchema(
@@ -97,7 +92,6 @@ const { defineField, errors, validate } = useForm({
 });
 import { vOnClickOutside } from '@vueuse/components';
 import { useDashOperationsStore } from '~/stores/dashboard/dashOperations';
-
 const { fetchAll, submitNewOperation, getUsers } = useDashOperationsStore();
 const { $listen } = useNuxtApp();
 const [username] = defineField('username');
@@ -124,6 +118,7 @@ const headItems = {
 $listen('open_add_window', () => showAddModal.value = true);
 
 const submit = async () => {
+  username.value = searchSelected.value.selectedUser?.id as Number || 0;
   const { valid } = await validate();
   if (!valid) return;
 
@@ -140,6 +135,10 @@ const submit = async () => {
   if (data) {
     await fetchAll();
     showAddModal.value = false;
+    amount.value = 0;
+    username.value = 0;
+    type.value = '';
+    content.value = '';
   }
 };
 

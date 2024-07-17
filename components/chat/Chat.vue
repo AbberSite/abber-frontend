@@ -68,7 +68,7 @@ onMounted(async () => {
       loading.value = false;
   })
   if (messages.value.length == 0) {
-    await fetchMessages({ room: props.roomName, limit: 9 });
+    await fetchMessages({ room: props.roomName, limit: 30 });
     loading.value = false;
     scrollDown(chatList);
   }
