@@ -26,7 +26,7 @@
         </div>
       </div>
       <div>
-        <ChatMultipleFilesInput v-model="files" v-if="filesInput" :class="{ 'hidden': !showFileInput }" :key="showFileInput" />
+        <ChatMultipleFilesInput v-model="files" v-if="filesInput" :class="{ hidden: !showFileInput }" :key="showFileInput" />
       </div>
     </div>
   </div>
@@ -38,8 +38,6 @@ const showFileInput = ref(false);
 defineProps<{ filesInput?: boolean }>();
 const files = ref<File[]>([]);
 const emit = defineEmits(["sendMessage"]);
-
-
 
 const { chatSocket } = useChatStore();
 
@@ -57,7 +55,6 @@ async function sendMessage() {
 
     message.value = "";
     if (files.value.length) {
-      console.log(4444)
       files.value = [];
       showFileInput.value = false;
     }

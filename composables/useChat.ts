@@ -2,7 +2,7 @@ import { useWebSocket, type UseWebSocketReturn } from '@vueuse/core';
 import type { Message } from '~/types';
 
 let currentChat: UseWebSocketReturn<any> | undefined = undefined
-export default (type: string = "order", roomId: string | number|null = null) => {
+export default (type: string = "order", roomId: string | number | null = null) => {
   const { rawToken } = useAuthState();
   const { data } = useAuth();
 
@@ -18,9 +18,20 @@ export default (type: string = "order", roomId: string | number|null = null) => 
     }
   );
 
+  const insertNewMessage = (receivedMesssage: Message, isMessageFromCurrentUser: Boolean) => {
+    messages.value.unshift(receivedMesssage.message);
+    if (chatList.value) {
+      chatList.value.scrollTop = chatList?.value?.scrollHeight as number; // Scroll to new messages
+    }
+
+    if (!isMessageFromCurrentUser) {
+      chat.send(JSON.stringify({ type: 'read_message', message: receivedMesssage.message.id })); // read message
+    }
+  }
+
   watch(chat.data, (value: string) => {
     const parsedData = JSON.parse(value);
-
+    console.log(parsedData)
     const isMessageFromCurrentUser = data.value.username == parsedData.message.user?.username
     if (parsedData.type === 'chat_message') { // New message added
       const receivedMesssage = parsedData as { message: Message };
@@ -36,17 +47,12 @@ export default (type: string = "order", roomId: string | number|null = null) => 
           messages.value[messageToUpdateIndex] = receivedMesssage.message;
 
 
+        } else {
+          insertNewMessage(receivedMesssage, isMessageFromCurrentUser)
         }
 
       } else {
-        messages.value.unshift(receivedMesssage.message);
-        if (chatList.value) {
-          chatList.value.scrollTop = chatList?.value?.scrollHeight as number; // Scroll to new messages
-        }
-
-        if (!isMessageFromCurrentUser) {
-          chat.send(JSON.stringify({ type: 'read_message', message: receivedMesssage.message.id })); // read message
-        }
+        insertNewMessage(receivedMesssage, isMessageFromCurrentUser)
       }
     }
     else if (parsedData.type === 'read_message') { // Read existing message
