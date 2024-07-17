@@ -36,7 +36,6 @@
 <script setup lang="ts">
 import DetailsTabs from "~/components/tickets/details/Tabs.vue";
 import DetailsCard from "~/components/tickets/details/Card.vue";
-import MobileChat from "~/components/orders/details/MobileChat.vue";
 import TicketCard from "~/components/shared/skeletons/TicketCard.vue";
 
 definePageMeta({
@@ -57,6 +56,11 @@ if (!process.client) {
   await getTicket(id as number);
 }
 
+onBeforeMount(async () => {
+  roomId.value = id;
+  type.value = "support";
+});
+
 onMounted(async () => {
   if (!ticket.value) {
     await getTicket(id as number);
@@ -64,8 +68,6 @@ onMounted(async () => {
   } else {
     loading.value = false;
   }
-  roomId.value = id;
-  type.value = "support";
 });
 
 onUnmounted(() => {
