@@ -1,100 +1,157 @@
 <template>
-    <div>
-        <div>
-         
-            <button class="text-gray-600 hover:text-gray-900" type="button" @click="openChooser">
-                <svg
-                    class="flex-shrink-0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path
-                        d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                </svg>
-            </button>
-            <!-- Button Group -->
-                <input type="file" name="files" @input="sync" ref="input" class="hidden" />
-
-            <!-- <v-file-input accept="image/*" label="ادخل صور الصنف" ></v-file-input> -->
-        </div>
-
-        <div class="flex items-center justify-center ">
-            <div
-                class="flex gap-5 flex-wrap rounded p-3 justify-center"
-                v-if="modelValue?.length != 0 || show"
-                dir="rtl">
-                <slot name="images" />
-
-                <template v-for="(file, i) in modelValue">
-                    <div class="relative">
-                        <span class="cursor-pointer absolute right-0 top-0" @click="removeImage(i)">X</span>
-                        <img class="lazyload w-20 h-20 rounded-md border " src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="file.preview" alt="" />
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div>
+  <div>
+    <FilePond class="filepond target mt-4" ref="pond" @processfile="addFile" name="file" :allow-multiple="true" :maxFiles="3" imagePreviewMaxHeight="60" maxFileSize="3MB" accepted-file-types="image/*, application/pdf, video/mp4" :server="server" />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+// Import Vue FilePond
+import vueFilePond from "vue-filepond";
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
-interface Previewfile extends File {
-    preview?: string;
-}
-
-const props = defineProps({
-    modelValue: Array<Previewfile>,
-    show: Boolean
+// Import FilePond plugins
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+const config = useRuntimeConfig();
+const { rawToken } = await useAuthState();
+// Create FilePond component
+const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateSize);
+const emit = defineEmits(["update:modelValue"]);
+const files = ref<File[]>([]);
+const pond = ref(false);
+defineComponent({
+  components: {
+    FilePond,
+  },
 });
 
-const input = ref<HTMLInputElement|null>(null);
+const ar_AR = {
+  labelIdle: 'اسحب و ادرج ملفاتك أو <span class="filepond--label-action"> تصفح </span>',
+  labelInvalidField: "الحقل يحتوي على ملفات غير صالحة",
+  labelFileWaitingForSize: "بانتظار الحجم",
+  labelFileSizeNotAvailable: "الحجم غير متاح",
+  labelFileLoading: "بالإنتظار",
+  labelFileLoadError: "حدث خطأ أثناء التحميل",
+  labelFileProcessing: "يتم الرفع",
+  labelFileProcessingComplete: "تم الرفع",
+  labelFileProcessingAborted: "تم إلغاء الرفع",
+  labelFileProcessingError: "حدث خطأ أثناء الرفع",
+  labelFileProcessingRevertError: "حدث خطأ أثناء التراجع",
+  labelFileRemoveError: "حدث خطأ أثناء الحذف",
+  labelTapToCancel: "انقر للإلغاء",
+  labelTapToRetry: "انقر لإعادة المحاولة",
+  labelTapToUndo: "انقر للتراجع",
+  labelButtonRemoveItem: "مسح",
+  labelButtonAbortItemLoad: "إلغاء",
+  labelButtonRetryItemLoad: "إعادة",
+  labelButtonAbortItemProcessing: "إلغاء",
+  labelButtonUndoItemProcessing: "تراجع",
+  labelButtonRetryItemProcessing: "إعادة",
+  labelButtonProcessItem: "رفع",
+  labelMaxFileSizeExceeded: "الملف كبير جدا",
+  labelMaxFileSize: "حجم الملف الأقصى: {filesize}",
+  labelMaxTotalFileSizeExceeded: "تم تجاوز الحد الأقصى للحجم الإجمالي",
+  labelMaxTotalFileSize: "الحد الأقصى لحجم الملف: {filesize}",
+  labelFileTypeNotAllowed: "ملف من نوع غير صالح",
+  fileValidateTypeLabelExpectedTypes: "تتوقع {allButLastType} من {lastType}",
+  imageValidateSizeLabelFormatError: "نوع الصورة غير مدعوم",
+  imageValidateSizeLabelImageSizeTooSmall: "الصورة صغير جدا",
+  imageValidateSizeLabelImageSizeTooBig: "الصورة كبيرة جدا",
+  imageValidateSizeLabelExpectedMinSize: "الحد الأدنى للأبعاد هو: {minWidth} × {minHeight}",
+  imageValidateSizeLabelExpectedMaxSize: "الحد الأقصى للأبعاد هو: {maxWidth} × {maxHeight}",
+  imageValidateSizeLabelImageResolutionTooLow: "الدقة ضعيفة جدا",
+  imageValidateSizeLabelImageResolutionTooHigh: "الدقة مرتفعة جدا",
+  imageValidateSizeLabelExpectedMinResolution: "أقل دقة: {minResolution}",
+  imageValidateSizeLabelExpectedMaxResolution: "أقصى دقة: {maxResolution}",
+};
 
-function openChooser() {
-    input.value?.click();
-}
+const server = {
+  url: `/api/chat/files/`,
+  headers: {
+    Authorization: `JWT ${rawToken.value}`,
+  },
 
-const emit = defineEmits(['update:modelValue']);
+  process: {
+    ondata: (formData) => {
+      console.log(formData);
+      return formData;
+    },
+  },
+};
 
-const error = ref('');
+const addFile = (error, file) => {
+  files.value.push(file.serverId);
+  emit("update:modelValue", files.value);
+  console.log(file.serverId);
+};
+onMounted(() => {
+  pond.value._pond.setOptions(ar_AR);
+});
 
-function sync(event: Event) {
-    const target: HTMLInputElement = event.target as HTMLInputElement;
-    const temp = props.modelValue;
-    const file: Previewfile = target?.files?.[0] as Previewfile;
+// import { ref } from 'vue';
 
-    if (!file) return;
+// interface Previewfile extends File {
+//     preview?: string;
+// }
 
-    error.value = '';
+// const props = defineProps({
+//     modelValue: Array<Previewfile>,
+//     show: Boolean
+// });
 
-    if (!isImage(file)) {
-        error.value = 'يحب أن يكون الملف صورة';
+// const input = ref<HTMLInputElement|null>(null);
 
-        return;
-    }
-    file.preview = URL.createObjectURL(file);
-    props?.modelValue?.push?.(file);
+// function openChooser() {
+//     input.value?.click();
+// }
 
-    emit('update:modelValue', props.modelValue);
-}
+// const error = ref('');
 
-function removeImage(index: number) {
+// function sync(event: Event) {
+//     const target: HTMLInputElement = event.target as HTMLInputElement;
+//     const temp = props.modelValue;
+//     const file: Previewfile = target?.files?.[0] as Previewfile;
 
-    props?.modelValue?.splice(index, 1);
-    emit('update:modelValue', props.modelValue);
-}
+//     if (!file) return;
 
-function isImage(file: File) {
-    const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg', 'image/svg'];
+//     error.value = '';
 
-    return acceptedImageTypes.includes(file.type);
-}
+//     if (!isImage(file)) {
+//         error.value = 'يحب أن يكون الملف صورة';
+
+//         return;
+//     }
+//     file.preview = URL.createObjectURL(file);
+//     props?.modelValue?.push?.(file);
+
+//     emit('update:modelValue', props.modelValue);
+// }
+
+// function removeImage(index: number) {
+
+//     props?.modelValue?.splice(index, 1);
+//     emit('update:modelValue', props.modelValue);
+// }
+
+// function isImage(file: File) {
+//     const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg', 'image/svg'];
+
+//     return acceptedImageTypes.includes(file.type);
+// }
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Filepond */
+.filepond--root {
+  @apply font-sans !important;
+}
+
+.filepond--panel-root {
+  @apply border border-dashed bg-transparent !important;
+}
+
+.filepond--credits {
+  @apply hidden !important;
+}
+</style>
