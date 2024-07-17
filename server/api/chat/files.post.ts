@@ -11,17 +11,17 @@ export default defineEventHandler(async (event) => {
 
   body?.forEach((fileData) => {
     const blob = new Blob([fileData.data]); // Convert audio buffer to blob
-    formData.append(fileData.name, blob,'sw');
-})
-console.log(formData)
+    formData.append(fileData.name, blob, fileData.filename);
+  })
+  console.log(formData)
   console.log({
     headers: {
       'api-key': config.apiSecret,
       'Content-Type': 'multipart/form-data', // Set Content-Type explicitly
       Authorization
     }
-})
-  
+  })
+
 
 
   try {
