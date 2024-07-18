@@ -42,6 +42,7 @@ jobs:
 
       - run: npm audit fix
       - run: npm i
+      - run: npm audit fix
       # - run: pm2 kill
       - run: |
           echo "ABBER_ENV='production'
