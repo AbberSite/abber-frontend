@@ -1,5 +1,7 @@
 
 # added by me
+pages/dashboardv2/users/
+stores/dashboard/dashUsers.ts
 
 
 # Nuxt dev/build outputs

@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{ headItems: {}; bodyItems: []; loading: Boolean; actions: Object; addButton?: boolean}>();
+defineProps<{ headItems: {}; bodyItems: []; loading: Boolean; actions?: Object; addButton?: boolean}>();
 const  {$event} = useNuxtApp();
 function getNestedValue(obj: Record<string, any>, key: string): any {
   return key.split(".").reduce((o, k) => (o || {})[k], obj) ?? '-';

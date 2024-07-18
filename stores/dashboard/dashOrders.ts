@@ -1,22 +1,19 @@
-import type { PaginationResponse } from "~/types";
 
-class dashOrders {
-  orders = ref<[]>([]);
-  order = ref({})
-  loading = ref<boolean>(true);
-  pagination = ref<PaginationResponse<any>>();
-  filters = ref({
-    type: {
-      voice: false,
-      text: false,
-    },
-    date__gte: '',
-    date__lte: '',
-    status: ['in_progress'],
-    search: "",
-    ordering: "order_item_time_data__start_date",
-    ignore: undefined,
-  });
+import { BaseStore } from "./baseStore";
+
+class dashOrders extends BaseStore {
+  constructor(){
+    super(
+      {type: {voice: false, text: false}, status: ['in_progress'], ordering: 'order_item_time_data__start_date'},
+      [()=> this.getTypeFilterQuery(),
+      ()=> this.getStatusFilterQuery(),
+      ()=> this.getDateFilter(),
+      ()=> this.search(),
+      ()=> this.ordering()],
+      "/orders/dashboard-orders/"
+    )
+  }
+  order = ref({});
   filtersCount = computed(() => {
     return (
       this.filters.value.status.length +
@@ -25,76 +22,7 @@ class dashOrders {
     );
   });
 
-  filtersPipline: Array<any>;
-
-  static filtersWatch: undefined | any;
-  constructor() {
-    this.filtersPipline = [
-      this.getTypeFilterQuery,
-      this.getStatusFilterQuery,
-      this.getDateFilter,
-      this.search,
-      this.ordering
-    ];
-
-    if (dashOrders.filtersWatch) return;
-    dashOrders.filtersWatch = watch(
-      this.filters,
-      async (value) => {
-        if (value.ignore === true) {
-          this.filters.value.ignore = undefined;
-          return;
-        }
-
-        // if(value.ignore) return
-
-        if (!this) return;
-
-        // this.loading.value = true;
-
-        await this.fetchAll();
-
-        // this.loading.value = false;
-
-        if (process.client) {
-          localStorage.setItem(
-            "abber:filters",
-            JSON.stringify(this.filters.value)
-          );
-        }
-      },
-      {
-        deep: true,
-      }
-    );
-  }
-  fetchAll = async (
-    params?: any,
-    update?: any
-  ): Promise<PaginationResponse<any>> =>
-    new Promise(async (resolve, reject) => {
-      try {
-        // console.log({"store": params.value.status})
-        const data = (await useDirectApi("/orders/dashboard-orders/", {
-          params: {
-            limit: 20,
-            ...this.pipeFilters(),
-            ...params
-          },
-          headers: {
-            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
-          },
-        })) as PaginationResponse<any>;
-        this.orders.value = data.results ?? [];
-        this.pagination.value = data;
-        this.loading.value = false;
-        update?.();
-        resolve(data);
-      } catch (error: any) {
-        reject(error);
-      }
-    });
-
+  
   getStatusFilterQuery = () => {
     if (!this || this.filters.value.status.length === 0) return {};
 
@@ -120,22 +48,7 @@ class dashOrders {
     };
   };
 
-  search = () => {
-    if (this.filters.value.search === "") return {};
-
-    return { search: this.filters.value.search };
-  };
-
-  ordering = () => {
-    return { ordering: this.filters.value.ordering };
-  };
-
-  pipeFilters = () => {
-    return this.filtersPipline.reduce((prev: any, curr: any) => {
-      return Object.assign(prev, curr());
-    }, {});
-  };
-
+  
   getTypeFilterQuery = () => {
     if (!this) return {};
 
@@ -156,14 +69,6 @@ class dashOrders {
       type: "video_communication",
     };
   };
-
-  getDateFilter = () => {
-    if(!this.filters.value.date__gte || !this.filters.value.date__lte) return {};
-    return {
-      date__gte: this.filters.value.date__gte,
-      date__lte: this.filters.value.date__lte
-    }
-  }
 
   getOrder = async (id: string) => {
     this.loading.value = true;

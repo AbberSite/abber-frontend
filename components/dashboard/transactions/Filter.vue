@@ -3,7 +3,7 @@
         <DashboardDateFilters />
     </div>
     <div class="flex flex-col gap-2 mt-3">
-        <div>
+        <div v-if="!hiddenStatus">
             <div class="space-y-3">
                 <h3 class="text-sm font-semibold">حالة الدفع</h3>
                 <select class="form-control form-select h-[50px] appearance-none" name="select"
@@ -37,9 +37,12 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
+defineProps<{ hiddenStatus?: boolean }>();
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
+
+
 
 const { filters } = storeToRefs(useDashTransactionsStore());
 </script>

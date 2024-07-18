@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <DashboardTablesTable :headItems="headItems" :bodyItems="orders ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
+      <DashboardTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
 
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
@@ -44,7 +44,7 @@ import { vOnClickOutside } from "@vueuse/components";
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 provide('dateFilters', 'orders');
-const { orders, pagination, loading, filters, filtersCount } = storeToRefs(useDashOrdersStore());
+const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashOrdersStore());
 const { fetchAll } = useDashOrdersStore();
 // const pagination = ref<PaginationResponse<any>>();
 const headItems = {
