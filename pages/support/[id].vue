@@ -25,7 +25,7 @@
           <TicketCard v-if="loading" />
           <DetailsCard v-else />
         </div>
-        <ClientOnly>
+        <ClientOnly v-if="$viewport.isGreaterOrEquals('tablet')">
           <Chat :room-name="roomName" :allow-input="ticket?.status == 'مفتوحة'" filesInput />
         </ClientOnly>
       </div>
