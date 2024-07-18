@@ -94,7 +94,8 @@ const { fetchAll } = useDashWithdrawalRequestsStore();
 const { $listen } = useNuxtApp();
 provide('previewFiles', true);
 provide('dateFilters', 'withdrawalRequests');
-provide('otherCheckStatus', (data) => !data?.invoice && data?.status !== '3', true);
+provide('otherCheckStatus', (data) => (!data?.invoice && (data?.status === '1' || data?.status === '2')) ||
+  (data?.invoice && data?.status === '1'), true);
 const showModal = ref(false);
 let showImageModal = ref(false);
 // let imageLoading = ref(true);
