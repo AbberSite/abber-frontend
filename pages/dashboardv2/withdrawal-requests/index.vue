@@ -27,7 +27,7 @@
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
             <DashboardFiltersDropdown v-if="openFiltersDropdown"
               v-on-click-outside="() => (openFiltersDropdown = false)">
-              <DashboardWithdrawalRequestsFilter/>
+              <DashboardWithdrawalRequestsFilter />
             </DashboardFiltersDropdown>
           </transition>
         </ClientOnly>
@@ -40,7 +40,7 @@
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
     <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashboardWithdrawalRequestsFilter/>
+      <DashboardWithdrawalRequestsFilter />
     </DashboardFiltersMobileModal>
   </ClientOnly>
 
@@ -152,17 +152,22 @@ $listen('table-preview-files', (data: { url: string }) => {
 
 
 const submit = async () => {
-
   loadingButton.value = true;
   const formdata = new FormData();
+
   if (!dataSelection.updated) {
     formdata.append('status', dataSelection.status);
     formdata.append('paid', dataSelection.status === '2');
     formdata.append('refuse_reason', dataSelection.refuse_reason);
-  };
-  if (dataSelection.invoice) {
-    formdata.append('invoice', dataSelection.invoice as File);
   }
+
+  if (dataSelection.invoice) {
+    const randomFileName = `invoice_${dataSelection.id}_${new Date().toISOString()}.${dataSelection.invoice.name.split('.').pop()}`;
+    const blob = dataSelection.invoice.slice(0, dataSelection.invoice.size, dataSelection.invoice.type);
+    const renamedInvoice = new File([blob], randomFileName, { type: dataSelection.invoice.type });
+    formdata.append('invoice', renamedInvoice);
+  }
+
   try {
     await useProxy(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, {
       method: dataSelection.updated ? "PATCH" : 'PUT',
@@ -170,14 +175,13 @@ const submit = async () => {
     });
     useNotification({ type: 'success', content: 'تم تحديث الطلب بنجاح.' });
   } catch (error) {
-    useNotification({ type: 'danger', content: 'حدث خطأ ما' });
-    console.error('Error updating request:', error);
+    useNotification({ type: 'danger', content: 'لقد حدث خطأ ما، يرجى إعادة المحاولة.' });
   } finally {
     showModal.value = false;
     clearModal();
     await fetchAll();
+    loadingButton.value = false;
   }
-  loadingButton.value = false;
 };
 
 const clearModal = () => {
