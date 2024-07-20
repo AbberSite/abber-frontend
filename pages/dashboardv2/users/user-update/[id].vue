@@ -8,6 +8,10 @@
     <div class="w-full pt-2">
         <DashboardUsersDetails v-if="currentTab == 'tab0'"/>
         <DashboardUsersLogs v-if="currentTab == 'tab1'"/>
+        <DashboardUsersServicesVisited v-if="currentTab == 'tab2'"/>
+        <DashboardUsersServicesPaid v-if="currentTab == 'tab3'"/>
+        <DashboardUsersTickets v-if="currentTab == 'tab6'"/>
+        <DashboardUsersActionsLog v-if="currentTab == 'tab7'"/>
     </div>
 </template>
 
