@@ -11,29 +11,13 @@
           @focus="showDropdown = true"
           @blur="hideDropdown"
         />
-        <div
-          class="absolute inset-y-0 left-2 flex items-center pr-3 pointer-events-none"
-        >
-          <svg
-            class="w-5 h-5 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
+        <div class="absolute inset-y-0 left-2 flex items-center pr-3 pointer-events-none">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </div>
       </div>
-      <div
-        v-if="showDropdown"
-        class="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg"
-      >
+      <div v-if="showDropdown" class="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg">
         <ul class="max-h-60 py-1 overflow-auto text-base leading-6 shadow-xs focus:outline-none sm:text-sm sm:leading-5">
           <li
             v-for="(item, index) in filteredItems"
@@ -41,7 +25,7 @@
             class="cursor-pointer select-none relative py-2 pl-3 pr-9"
             @mousedown.prevent="selectItem(item)"
           >
-            <span class="font-normal block truncate">{{ item[displayKey] }}</span>
+            <span class="font-normal block truncate">{{ getDisplayValue(item, displayKey) }}</span>
           </li>
         </ul>
       </div>
@@ -51,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineExpose, watch } from 'vue';
+import { ref, computed, watch, defineExpose } from 'vue';
 
 const props = defineProps({
   items: Array,
@@ -72,41 +56,29 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-
 const searchQuery = ref('');
 const showDropdown = ref(false);
 const selectedItem = ref(props.modelValue);
 
+const getDisplayValue = (item, key) => key.includes('.') ? key.split('.').reduce((o, p) => o && o[p], item) : item[key];
+
 const filteredItems = computed(() => {
-  if (!searchQuery.value) return props.items;
-  return props.items.filter(item =>
-    item[props.displayKey].toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-    item[props.valueKey].toString().includes(searchQuery.value)
-  );
+  const query = searchQuery.value.toLowerCase();
+  return props.items.filter(item => getDisplayValue(item, props.displayKey)?.toString().toLowerCase().includes(query));
 });
 
 const selectItem = (item) => {
   selectedItem.value = item;
-  searchQuery.value = item[props.displayKey];
+  searchQuery.value = getDisplayValue(item, props.displayKey);
   showDropdown.value = false;
   emit('update:modelValue', item);
 };
 
-const hideDropdown = () => {
-  setTimeout(() => {
-    showDropdown.value = false;
-  }, 200); // Delay to allow click event to register
-};
+const hideDropdown = () => setTimeout(() => (showDropdown.value = false), 200);
 
-watch(() => props.modelValue, (newValue) => {
-  selectedItem.value = newValue;
-});
+watch(() => props.modelValue, (newValue) => (selectedItem.value = newValue));
 
 defineExpose({ selectedItem });
-
-const errors = ref({
-  username: ''
-});
 </script>
 
 <style scoped>

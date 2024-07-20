@@ -37,8 +37,8 @@ class dashOperations extends BaseStore {
   };
   getUsers = async ()=> {
     try {
-      const data = await useDirectApi("/accounts/dashboard-users/", {params: {limit: 9999999}});
-      this.users.value = data.results;
+      const data = await useDirectApi("/accounts/dashboard-users-lite/");
+      this.users.value = data;
     } catch (e) {
       
       console.error(e);

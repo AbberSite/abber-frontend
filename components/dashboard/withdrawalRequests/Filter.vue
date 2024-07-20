@@ -1,4 +1,4 @@
-<!-- DashboardWithdrawalRequestsFilter.vue -->
+
 <template>
     <div>
       <DashboardDateFilters />
