@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 class="text-sm font-semibold">حسب التاريخ</h3>
+        <h3 class="text-sm font-semibold">{{title}}</h3>
         <div class="flex flex-col items-center pt-2 gap-2 w-full">
             <DatePicker auto-apply range placeholder="النطاق الزمني" :max-date="new Date()" v-model="range_date"
                 model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" :SkeletonsTableapply="true"
@@ -14,6 +14,8 @@ import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
 import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
 import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawalRequests';
 import { useDashOperationsStore } from '~/stores/dashboard/dashOperations';
+import { useDashUsersStore } from '~/stores/dashboard/dashUsers'
+defineProps({title: {type: String, default: 'حسب التاريخ'}});
 const section = inject('dateFilters') as string | 'orders';
 
 const sectionState = {
@@ -21,6 +23,7 @@ const sectionState = {
     orders: useDashOrdersStore,
     withdrawalRequests: useDashWithdrawalRequestsStore,
     operations: useDashOperationsStore,
+    users: useDashUsersStore
 };
 
 if (sectionState[section]) {
@@ -29,6 +32,7 @@ if (sectionState[section]) {
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import type { DatePickerInstance } from '@vuepic/vue-datepicker';
+import { useDashUsersStore } from '~/stores/dashboard/dashUsers';
 const datePicker = ref<DatePickerInstance>(null);
 let range_date = ref([]);
 
