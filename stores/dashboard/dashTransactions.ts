@@ -3,7 +3,7 @@ import { BaseStore } from "./baseStore";
 class dashTransactions extends BaseStore{
   constructor(){
     super(
-      {success: null, type: '', ordering: "order_item_time_data__start_date"},
+      {success: '', type: '', ordering: "order_item_time_data__start_date"},
       [()=> this.success(),
        ()=> this.getTypeFilterQuery(),
        ()=> this.getDateFilter(),
