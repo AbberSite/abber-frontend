@@ -7,6 +7,7 @@
     <DashboardTab :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
     <div class="w-full pt-2">
         <DashboardUsersDetails v-if="currentTab == 'tab0'"/>
+        <DashboardUsersLogs v-if="currentTab == 'tab1'"/>
     </div>
 </template>
 
