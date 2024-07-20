@@ -4,38 +4,15 @@
       <DashboardDateFilters title="تاريخ الإنضمام" />
       <DashboardDateFilters title="تاريخ الشراء" />
     </div>
-    <div>
-      <h3 class="text-sm font-semibold">الصلاحية:</h3>
-      <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="filters.user_type">
-        <option :value="''">إختر</option>
-        <option :value="'مستخدم عادي'">مستخدم عادي</option>
-        <option :value="'إدارة'">إدارة</option>
-        <option :value="'معبر'">معبر</option>
-      </select>
-    </div>
+    <Selector label="الصلاحية" :options="[{value: 'مستخدم عادي'}, {value: 'إدارة'}, {value: 'معبر'}]" v-model:model-value="filters.user_type"  />
 
     <SearchSelector :items="countries" label="الدولة:" placeholder="إختر الدولة" display-key="name.common"
       value-key="name" v-model="country_selected" />
     <TextInput label="عدد الطلبات:" placeholder="مثال: 3 او 3+" />
 
 
-    <div>
-      <h3 class="text-sm font-semibold">البريد الإلكتروني مؤكد:</h3>
-      <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="filters.email_verified">
-        <option :value="''">إختر</option>
-        <option :value="true">نعم</option>
-        <option :value="false">لا</option>
-      </select>
-    </div>
-
-    <div>
-      <h3 class="text-sm font-semibold">الجوال مؤكد:</h3>
-      <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="filters.phone_verified">
-        <option :value="''">إختر</option>
-        <option :value="true">نعم</option>
-        <option :value="false">لا</option>
-      </select>
-    </div>
+    <Selector label="البريد الإلكتروني مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.email_verified" />
+    <Selector label="الجوال مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.phone_verified"/>
   </div>
 </template>
 

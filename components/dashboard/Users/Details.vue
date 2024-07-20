@@ -47,6 +47,10 @@
             <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" id="isActive" checked />
             <label class="mt-1.5 ps-3 font-semibold" for="isActive">نشط</label>
         </div>
+        <div class="flex items-center justify-between pt-6">
+            <PrimaryButton >حفظ</PrimaryButton>
+            <PrimaryButton >إضافة طلب</PrimaryButton>
+        </div>
     </div>
 </template>
 <script setup lang="ts">
