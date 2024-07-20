@@ -26,9 +26,9 @@ const remove = (id: Number) => {
   $event("table-remove-object", { id: id });
 };
 // Inject the function
-const otherCheckStatusFunc = inject('otherCheckStatus') as Function;
+const otherCheckStatusFunc = inject('otherCheckStatus') as Function || function(){return true;};
 // const otherCheckStatus = (data)=> true;
-const otherCheckStatus = (data)=> otherCheckStatusFunc(data) as boolean | true;
+const otherCheckStatus = (data)=> otherCheckStatusFunc(data) as boolean ;
 </script>
 
 <style></style>
