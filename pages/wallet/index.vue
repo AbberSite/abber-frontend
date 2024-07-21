@@ -23,11 +23,11 @@
 
             <WalletTabs v-model="activeTab" />
 
-            <WalletFinancialSummary v-show="activeTab === 'summary'" />
-            <WalletTransactions v-if="activeTab == 'operations'" />
-            <WalletStatements v-if="activeTab == 'statement'" />
-            <WalletCards v-if="activeTab == 'cards'" />
-            <WalletRequests v-if="activeTab == 'withdrawalRequests'" />
+            <WalletFinancialSummary v-if="activeTab === 'summary'" />
+            <WalletTransactions v-else-if="activeTab == 'operations'" />
+            <WalletStatements v-else-if="activeTab == 'statement'" />
+            <WalletCards v-else-if="activeTab == 'cards'" />
+            <WalletRequests v-else-if="activeTab == 'withdrawalRequests'" />
         </section>
     </main>
 </template>

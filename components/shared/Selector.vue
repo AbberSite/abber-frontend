@@ -2,7 +2,7 @@
     <div class="w-full flex flex-col space-y-3">
       <h3 class="text-sm font-semibold xs:text-base">{{ label }}:</h3>
       <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="selectedValue">
-        <option :value="''">إختر</option>
+        <option :value="''">{{ defaultOption ?? 'إختر'}}</option>
         <option v-for="option in options" :key="option.value" :value="option.value">
           {{ option.text ?? option.value}}
         </option>
@@ -17,6 +17,7 @@
     label: string;
     modelValue?: any;
     options: Array<{ value: any, text?: string }>;
+    defaultOption?: string
   }>();
   
   const emits = defineEmits(['update:modelValue']);
