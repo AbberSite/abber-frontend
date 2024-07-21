@@ -24,7 +24,7 @@
                     <span class="pt-1 text-xs font-medium text-gray-600" v-text="ticket.title" />
                   </span>
                 </span>
-                <span v-if="index == 5 && ticketId != ticket.id" class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">2</span>
+                <span v-if="ticket.status === 'مفتوحة'" class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-semibold text-white">1</span>
               </button>
             </div>
             <Pagination class="py-5" :results="(pagination as PaginationResponse<any>)" @change="getAllTickets" per-page="20" smallResultsCounter />
