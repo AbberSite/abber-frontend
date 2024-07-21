@@ -6,7 +6,7 @@ class dashHelp {
     pagination = ref<PaginationResponse<any>>();
     getAllTickets = async (params?: any, update?: any): Promise<PaginationResponse<any>> => new Promise(async (resolve, reject)=> {
         try {
-            const data = (await useDirectApi("/support/tickets/", {params: {limit: 20, ...params}, headers: {"X-Requested-With": process.client ? "XMLHttpRequest" : ""}})) as PaginationResponse<any>;
+            const data = (await useDirectApi("/support/tickets/", { params: { limit: 20, status:'مفتوحة', ...params}, headers: {"X-Requested-With": process.client ? "XMLHttpRequest" : ""}})) as PaginationResponse<any>;
             this.tickets.value = data.results ?? [];
             this.pagination.value = data;
             this.loading.value = false; 
