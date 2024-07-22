@@ -24,38 +24,9 @@
     >
       <TextInput label="الرمز" />
       <TextInput label="مبلغ الخصم" />
-      <div>
-        <h3 class="text-sm font-semibold">تاريخ البدء:</h3>
-        <div class="flex flex-col items-center pt-2 gap-2 w-full">
-          <DatePicker
-            auto-apply
-            placeholder="اختر تاريخ "
-            :max-date="new Date()"
-            model-type="yyyy-MM-dd"
-            ref="datePicker"
-            id="date"
-            format="yyyy-MM-dd"
-            :SkeletonsTableapply="true"
-            :enable-time-picker="false"
-          />
-        </div>
-      </div>
-      <div>
-        <h3 class="text-sm font-semibold">تاريخ الإنتهاء:</h3>
-        <div class="flex flex-col items-center pt-2 gap-2 w-full">
-          <DatePicker
-            auto-apply
-            placeholder="اختر تاريخ "
-            :max-date="new Date()"
-            model-type="yyyy-MM-dd"
-            ref="datePicker"
-            id="date"
-            format="yyyy-MM-dd"
-            :SkeletonsTableapply="true"
-            :enable-time-picker="false"
-          />
-        </div>
-      </div>
+      <DashboardDatePickerInput label="تاريخ البدء"/>
+      <DashboardDatePickerInput label="تاريخ الإنتهاء"/>
+      
       <div class="w-full space-y-3">
         <div class="flex items-center pt-1">
           <input
