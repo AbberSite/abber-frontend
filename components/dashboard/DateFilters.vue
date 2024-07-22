@@ -1,12 +1,5 @@
 <template>
-    <div>
-        <h3 class="text-sm font-semibold">{{title}}</h3>
-        <div class="flex flex-col items-center pt-2 gap-2 w-full">
-            <DatePicker auto-apply range placeholder="النطاق الزمني" :max-date="new Date()" v-model="range_date"
-                model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" :SkeletonsTableapply="true"
-                :enable-time-picker="false" />
-        </div>
-    </div>
+    <DashboardDatePickerInput class="my-0" :title="title" v-model:model-date="range_date" range/>
 </template>
 <script setup lang="ts">
 let filters = ref(null);
@@ -29,11 +22,6 @@ const sectionState = {
 if (sectionState[section]) {
     filters.value = sectionState[section]().filters;
 }
-import DatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import type { DatePickerInstance } from '@vuepic/vue-datepicker';
-import { useDashUsersStore } from '~/stores/dashboard/dashUsers';
-const datePicker = ref<DatePickerInstance>(null);
 let range_date = ref([]);
 
 onMounted(() => {

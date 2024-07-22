@@ -32,14 +32,7 @@
             <Selector label="الجنس" :options="[{ value: 'ذكر' }, { value: 'انثى' }]" :modelValue="'ذكر'" />
         </div>
         <div :class="$style.input_elements">
-            <div class="w-full flex flex-col space-y-3 my-2">
-                <h3 class="text-sm font-semibold">تاريخ الميلاد:</h3>
-                <div class="flex flex-col items-center pt-2 gap-2 w-full">
-                    <DatePicker auto-apply placeholder="اختر تاريخ ميلادك" :max-date="new Date()"
-                        model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd"
-                        :SkeletonsTableapply="true" :enable-time-picker="false" />
-                </div>
-            </div>
+            <DashboardDatePickerInput label="تاريخ الميلاد" />
             <TextInput label="الصورة" :type="'file'"/>
         </div>
 
@@ -54,10 +47,6 @@
     </div>
 </template>
 <script setup lang="ts">
-import DatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import type { DatePickerInstance } from '@vuepic/vue-datepicker';
-const datePicker = ref<DatePickerInstance>(null);
 </script>
 <style module>
 .input_elements {
