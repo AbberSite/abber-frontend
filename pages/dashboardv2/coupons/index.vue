@@ -3,6 +3,7 @@
     <p class="text-sm font-medium text-gray-800">الطلبات</p>
     <p class="text-lg font-semibold">الكوبونات</p>
   </div>
+  <DashboardInputsSearch placeholder="ابحث عن كوبون" />
   <DashboardTablesTable
     :head-items="{
       first_name: 'المستخدم',
