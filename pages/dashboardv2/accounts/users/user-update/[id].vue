@@ -1,9 +1,7 @@
 <template>
-    <div class="relative -mt-2 pb-12">
-        <p class="text-sm font-medium text-gray-800">العملاء</p>
-        <p class="text-lg font-semibold">العميل {{ userData.first_name }}</p>
+    <DashboardTitle department="العملاء" :title="`العميل ${userData.first_name}`">
         <p class="text-xs font-medium text-gray-500"> #{{ id }} </p>
-    </div>
+    </DashboardTitle>
     <DashboardTab :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
     <div class="w-full pt-2">
         <DashboardUsersDetails v-if="currentTab == 'tab0'"/>

@@ -1,9 +1,5 @@
 <template>
-
-      <div class="relative -mt-2 pb-12">
-        <p class="text-sm font-medium text-gray-800">الطلبات</p>
-        <p class="text-lg font-semibold">جميع الطلبات</p>
-      </div>
+      <DashboardTitle department="الطلبات" title="جميع الطلبات" />
       <div class="w-full pt-6">
         <div class="flex items-center justify-between">
           <DashboardInputsSearch placeholder="ابحث عن طلب معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal = true" />

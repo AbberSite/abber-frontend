@@ -1,8 +1,5 @@
 <template>
-  <div class="relative -mt-2 pb-12">
-    <p class="text-sm font-medium text-gray-800">الإحصائيات</p>
-    <p class="text-lg font-semibold">التقييمات</p>
-  </div>
+  <DashboardTitle department="الإحصائيات" title="التقييمات"/>
   <DashboardTablesTable :head-items="{first_name: 'المستخدم', registration: 'التسجيل', payment: 'الدفع', support: 'الدعم', findExpressors: 'العثور على معبر', reused: 'إعادة الاستخدام', nominations: 'ترشيح الاخرين', comment: 'التعليق'}" :body-items="reviews"/>
 </template>
 

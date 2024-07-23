@@ -1,8 +1,6 @@
 <template>
-  <div class="relative -mt-2 pb-12">
-    <p class="text-sm font-medium text-gray-800">الطلبات</p>
-    <p class="text-lg font-semibold">الكوبونات</p>
-  </div>
+  <DashboardTitle department="الطلبات" title="الكوبونات"/>
+
   <DashboardInputsSearch placeholder="ابحث عن كوبون" />
   <DashboardTablesTable
     :head-items="{

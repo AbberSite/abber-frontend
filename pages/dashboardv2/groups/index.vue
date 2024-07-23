@@ -1,8 +1,5 @@
 <template>
-    <div class="relative -mt-2 pb-12">
-    <p class="text-sm font-medium text-gray-800">الحسابات</p>
-    <p class="text-lg font-semibold">المجموعات</p>
-  </div>
+  <DashboardTitle department="الحسابات" title="المجموعات" />
   <DashboardTablesTable :headItems="{ group: 'المجموعة', users: 'المستخدمين' }" :bodyItems="groups" :actions="{modify: true, remove: true}"/>
 
   <ClientOnly>
