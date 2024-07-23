@@ -2,7 +2,11 @@
   <div class="flex gap-4 items-center ">
 
     <!-- <audio :src="file.file" controls class="max-w-[10rem] sm:w-full sm:max-w-none" />  -->
-    <div class="min-w-[10rem]" :id="`audio-${file.id}`" ref="audio"></div>
+    <audio controls controlsList="nodownload noplaybackrate" preload="none" class="max-w-[100%] min-w-[10rem]">
+        <source :src="file.file">
+      </audio>
+
+    <!-- <div class="min-w-[10rem]" :id="`audio-${file.id}`" ref="audio"></div>
 
 
     <div class="rounded-md bg-gray-900 flex items-center justify-center h-9 w-9 text-white cursor-pointer"
@@ -10,7 +14,7 @@
       <PlayIcon v-if="paused && !finished" class="w-4" />
       <PauseIcon v-else-if="!paused && !finished" class="w-4" />
       <ArrowPathIcon v-if="finished" class="w-5" />
-    </div>
+    </div> -->
   </div>
 </template>
 
