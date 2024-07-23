@@ -1,8 +1,5 @@
 <template>
-  <div class="relative -mt-2 pb-12">
-    <p class="text-sm font-medium text-gray-800">المالية</p>
-    <p class="text-lg font-semibold">طلبات السحب</p>
-  </div>
+  <DashboardTitle department="المالية" title="طلبات السحب" />
   <div class="w-full pt-6">
     <div class="flex items-center justify-between">
       <DashboardInputsSearch placeholder="ابحث عن طلب سحب" v-model="filters.search"

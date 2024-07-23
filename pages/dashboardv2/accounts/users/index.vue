@@ -1,8 +1,5 @@
 <template>
-  <div class="relative -mt-2 pb-12">
-    <p class="text-sm font-medium text-gray-800">الحسابات</p>
-    <p class="text-lg font-semibold">العملاء</p>
-  </div>
+  <DashboardTitle department="الحسابات" title="العملاء"/>
   <div class="w-full pt-6">
     <div class="flex items-center justify-between">
       <DashboardInputsSearch placeholder="ابحث عن عميل" v-model="filters.search"

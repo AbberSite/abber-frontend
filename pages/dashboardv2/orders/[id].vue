@@ -1,9 +1,6 @@
 <template>
             <div v-if="!loading" class="flex items-center justify-between">
-                <div class="relative -mt-2 pb-12">
-                    <p class="text-sm font-medium text-gray-800">الطلبات</p>
-                    <p class="text-lg font-semibold">الطلب #{{ order.id }}</p>
-                </div>
+                <DashboardTitle department="الطلبات" :title="`الطلب #${order.id}`"/>
                 <div class="hidden items-center space-x-3 pb-12 rtl:space-x-reverse sm:flex">
                     <button
                         class="relative flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse"
