@@ -27,6 +27,9 @@
     <template v-else-if="currentTab == 'tab3'">
       <DashboardShopSettingsAPI />
     </template>
+    <template v-else-if="currentTab == 'tab4'">
+        <DashboardShopSettingsFinance/>
+    </template>
   </div>
 </template>
 
