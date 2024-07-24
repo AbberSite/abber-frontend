@@ -28,16 +28,21 @@
       <DashboardShopSettingsAPI />
     </template>
     <template v-else-if="currentTab == 'tab4'">
-        <DashboardShopSettingsFinance/>
+      <DashboardShopSettingsFinance />
     </template>
     <template v-else-if="currentTab == 'tab5'">
-        <DashboardShopSettingsPaymentFees />
+      <DashboardShopSettingsPaymentFees />
     </template>
     <template v-else-if="currentTab == 'tab6'">
-        <div class="flex justify-center"><PrimaryButton>إستعادة نسخة إحتياطية</PrimaryButton></div>
+      <div class="flex justify-center">
+        <PrimaryButton>إستعادة نسخة إحتياطية</PrimaryButton>
+      </div>
     </template>
     <template v-else-if="currentTab == 'tab7'">
-        <DashboardShopSettingsPackages/>
+      <DashboardShopSettingsPackages />
+    </template>
+    <template v-else>
+      <DashboardShopSettingsOrdersPackages />
     </template>
   </div>
 </template>
