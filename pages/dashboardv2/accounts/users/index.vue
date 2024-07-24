@@ -1,8 +1,8 @@
 <template>
-  <DashboardTitle department="الحسابات" title="العملاء"/>
+  <DashTitle department="الحسابات" title="العملاء"/>
   <div class="w-full pt-6">
     <div class="flex items-center justify-between">
-      <DashboardInputsSearch placeholder="ابحث عن عميل" v-model="filters.search"
+      <DashInputsSearch placeholder="ابحث عن عميل" v-model="filters.search"
         @openFiltersMobileModal="openFiltersMobileModal = true" />
       <div class="relative">
         <button
@@ -22,23 +22,23 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <DashboardFiltersDropdown v-if="openFiltersDropdown"
+            <DashFiltersDropdown v-if="openFiltersDropdown"
               v-on-click-outside="() => (openFiltersDropdown = false)">
-              <DashboardUsersFilter />
-            </DashboardFiltersDropdown>
+              <DashUsersFilter />
+            </DashFiltersDropdown>
           </transition>
         </ClientOnly>
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{view: {path:'user-update/'}}">
-  </DashboardTablesTable>
+  <DashTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{view: {path:'user-update/'}}">
+  </DashTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
-    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashboardUsersFilter class="max-h-[50vh] is-scroll overflow-auto no-scrollbar" />
-    </DashboardFiltersMobileModal>
+    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashUsersFilter class="max-h-[50vh] is-scroll overflow-auto no-scrollbar" />
+    </DashFiltersMobileModal>
   </ClientOnly>
 
 </template>

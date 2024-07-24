@@ -1,6 +1,6 @@
 <template>
-  <DashboardTitle department="الحسابات" title="المعبرون"/>
-  <DashboardTab
+  <DashTitle department="الحسابات" title="المعبرون"/>
+  <DashTab
     v-model:model-value="currentTab"
     :tabs="[
       { name: 'المعبرون', value: 'tab0' },
@@ -9,8 +9,8 @@
   />
   <div class="w-full pt-6">
     <template v-if="currentTab == 'tab0'">
-      <DashboardInputsSearch placeholder="ابحث عن معبر" />
-      <DashboardTablesTable
+      <DashInputsSearch placeholder="ابحث عن معبر" />
+      <DashTablesTable
         :head-items="{
           first_name: 'معبر',
           email: 'البريد الالكتروني',
@@ -23,7 +23,7 @@
       />
     </template>
     <template v-else>
-      <DashboardTablesTable
+      <DashTablesTable
         :head-items="{
           first_name: 'العميل',
           email: 'البريد الالكتروني',

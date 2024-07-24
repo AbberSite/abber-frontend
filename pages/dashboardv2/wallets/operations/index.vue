@@ -1,8 +1,8 @@
 <template>
-  <DashboardTitle department="المالية" title="عمليات على الرصيد (الفروقات)"/>
+  <DashTitle department="المالية" title="عمليات على الرصيد (الفروقات)"/>
   <div class="w-full pt-6">
     <div class="flex items-center justify-between">
-      <DashboardInputsSearch placeholder="ابحث في العمليات علي الرصيد (الفروقات)" v-model="filters.search"
+      <DashInputsSearch placeholder="ابحث في العمليات علي الرصيد (الفروقات)" v-model="filters.search"
         @openFiltersMobileModal="openFiltersMobileModal = true" />
       <div class="relative">
         <button
@@ -22,23 +22,23 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <DashboardFiltersDropdown v-if="openFiltersDropdown"
+            <DashFiltersDropdown v-if="openFiltersDropdown"
               v-on-click-outside="() => (openFiltersDropdown = false)">
-              <DashboardOperationsFilter />
-            </DashboardFiltersDropdown>
+              <DashOperationsFilter />
+            </DashFiltersDropdown>
           </transition>
         </ClientOnly>
       </div>
     </div>
   </div>
-  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" addButton>
-  </DashboardTablesTable>
+  <DashTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" addButton>
+  </DashTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
-    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashboardOperationsFilter />
-    </DashboardFiltersMobileModal>
+    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashOperationsFilter />
+    </DashFiltersMobileModal>
   </ClientOnly>
 
   <ClientOnly>

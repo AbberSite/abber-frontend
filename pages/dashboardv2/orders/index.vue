@@ -1,8 +1,8 @@
 <template>
-      <DashboardTitle department="الطلبات" title="جميع الطلبات" />
+      <DashTitle department="الطلبات" title="جميع الطلبات" />
       <div class="w-full pt-6">
         <div class="flex items-center justify-between">
-          <DashboardInputsSearch placeholder="ابحث عن طلب معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal = true" />
+          <DashInputsSearch placeholder="ابحث عن طلب معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal = true" />
           <div class="relative">
             <button class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex" type="button" @click="openFiltersDropdown = true" aria-expanded="false" aria-haspopup="true">
               <span class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -15,23 +15,23 @@
             </button>
             <ClientOnly>
               <transition enter-active-class="transition-all" leave-active-class="transition-all" enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                <DashboardFiltersDropdown v-if="openFiltersDropdown" v-on-click-outside="() => (openFiltersDropdown = false)">
-                <DashboardOrdersFilter/>
-              </DashboardFiltersDropdown>
+                <DashFiltersDropdown v-if="openFiltersDropdown" v-on-click-outside="() => (openFiltersDropdown = false)">
+                <DashOrdersFilter/>
+              </DashFiltersDropdown>
               </transition>
             </ClientOnly>
           </div>
         </div>
       </div>
-      <DashboardTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
+      <DashTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
 
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
 
   <ClientOnly>
-    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" >
-      <DashboardOrdersFilter/>
-    </DashboardFiltersMobileModal>
+    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" >
+      <DashOrdersFilter/>
+    </DashFiltersMobileModal>
   </ClientOnly>
 </template>
 <script setup lang="ts">

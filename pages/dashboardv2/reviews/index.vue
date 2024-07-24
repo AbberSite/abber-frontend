@@ -1,6 +1,6 @@
 <template>
-  <DashboardTitle department="الإحصائيات" title="التقييمات"/>
-  <DashboardTablesTable :head-items="{first_name: 'المستخدم', registration: 'التسجيل', payment: 'الدفع', support: 'الدعم', findExpressors: 'العثور على معبر', reused: 'إعادة الاستخدام', nominations: 'ترشيح الاخرين', comment: 'التعليق'}" :body-items="reviews"/>
+  <DashTitle department="الإحصائيات" title="التقييمات"/>
+  <DashTablesTable :head-items="{first_name: 'المستخدم', registration: 'التسجيل', payment: 'الدفع', support: 'الدعم', findExpressors: 'العثور على معبر', reused: 'إعادة الاستخدام', nominations: 'ترشيح الاخرين', comment: 'التعليق'}" :body-items="reviews"/>
 </template>
 
 
