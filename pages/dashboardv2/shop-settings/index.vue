@@ -33,6 +33,12 @@
     <template v-else-if="currentTab == 'tab5'">
         <DashboardShopSettingsPaymentFees />
     </template>
+    <template v-else-if="currentTab == 'tab6'">
+        <div class="flex justify-center"><PrimaryButton>إستعادة نسخة إحتياطية</PrimaryButton></div>
+    </template>
+    <template v-else-if="currentTab == 'tab7'">
+        <DashboardShopSettingsPackages/>
+    </template>
   </div>
 </template>
 
