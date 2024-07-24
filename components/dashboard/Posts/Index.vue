@@ -95,7 +95,7 @@ $listen("table-modify-object", (data) => {
   showModify.value = true;
   modifyTitle.value = "تعديل المقال";
 });
-provide("path_property", "username");
+provide("pathProperty", "username");
 $listen("open_add_window", () => {
   showModify.value = true;
   modifyTitle.value = "إنشاء مقال جديد";

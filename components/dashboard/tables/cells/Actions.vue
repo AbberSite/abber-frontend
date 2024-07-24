@@ -14,7 +14,7 @@ defineProps({
   actions: Object,
 });
 const { $event } = useNuxtApp();
-const property = inject('path_property') || 'id';
+const property = inject('pathProperty') || 'id';
 // Add a new public events to the event bus
 const add = () => {
   $event("table-add-object");
