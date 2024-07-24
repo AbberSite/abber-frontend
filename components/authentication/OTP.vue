@@ -41,7 +41,7 @@
                 <fieldset class="space-y-7">
                     <h1 class="font-bold">رمز التأكد (OTP)</h1>
 
-                    <OtpInput v-model="my_opt" @done="waitForLogin()" />
+                    <OtpInput v-model="OTP" @done="waitForLogin()" />
 
 
 
@@ -70,7 +70,7 @@
                 <!-- <div class="w-[120px] h-[2px] rounded-full border border-gray-400"></div> -->
             </div>
             <h1 class="font-bold">رمز التأكد (OTP)</h1>
-            <OtpInput v-model="my_opt" @done="waitForLogin()" />
+            <OtpInput v-model="OTP" @done="waitForLogin()" />
             <div class="text-red-700 font-semibold" v-if="error">{{ error }}</div>
             <div>
                 <PrimaryButton class="w-full" :loading="loading"> تسجيل الدخول </PrimaryButton>
@@ -87,7 +87,7 @@ const { rawRefreshToken, rawToken } = useAuthState();
 const { refresh } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
-const my_opt = ref([])
+const OTP = ref([])
 const loading = ref(false);
 let sender;
 if (props.isHome)
@@ -111,7 +111,7 @@ async function login() {
     error.value = '';
 
     try {
-        if (my_opt.value.length < 4) {
+        if (OTP.value.length < 4) {
             error.value = 'يجب ملء كل الحقول';
             return;
         }
@@ -123,7 +123,7 @@ async function login() {
 
             body: {
                 phone: currentPhone.value,
-                key: `${my_opt.value[0]}${my_opt.value[1]}${my_opt.value[2]}${my_opt.value[3]}`
+                key: `${OTP.value[0]}${OTP.value[1]}${OTP.value[2]}${OTP.value[3]}`
             },
 
             async onResponse({ response }) {
