@@ -30,6 +30,9 @@
     <template v-else-if="currentTab == 'tab4'">
         <DashboardShopSettingsFinance/>
     </template>
+    <template v-else-if="currentTab == 'tab5'">
+        <DashboardShopSettingsPaymentFees />
+    </template>
   </div>
 </template>
 
