@@ -1,8 +1,8 @@
 <template>
-    <DashboardTitle department="المالية" title="الحركات المالية"/>
+    <DashTitle department="المالية" title="الحركات المالية"/>
     <div class="w-full pt-6">
         <div class="flex items-center justify-between">
-            <DashboardInputsSearch placeholder="ابحث عن تحويل معين" v-model="filters.search"
+            <DashInputsSearch placeholder="ابحث عن تحويل معين" v-model="filters.search"
                 @openFiltersMobileModal="openFiltersMobileModal = true" />
             <div class="relative">
                 <button
@@ -23,25 +23,25 @@
                 <ClientOnly>
                     <transition enter-active-class="transition-all" leave-active-class="transition-all"
                         enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                        <DashboardFiltersDropdown v-if="openFiltersDropdown"
+                        <DashFiltersDropdown v-if="openFiltersDropdown"
                             v-on-click-outside="() => (openFiltersDropdown = false)">
-                            <DashboardTransactionsFilter hiddenStatus />
-                        </DashboardFiltersDropdown>
+                            <DashTransactionsFilter hiddenStatus />
+                        </DashFiltersDropdown>
                     </transition>
                 </ClientOnly>
             </div>
         </div>
     </div>
-    <DashboardTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading" />
+    <DashTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading" />
     <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
 
 
 
     <ClientOnly>
-        <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-            <DashboardTransactionsFilter hiddenStatus />
-        </DashboardFiltersMobileModal>
+        <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+            <DashTransactionsFilter hiddenStatus />
+        </DashFiltersMobileModal>
     </ClientOnly>
 </template>
 <script setup lang="ts">

@@ -1,9 +1,9 @@
 <template>
   <main class="min-h-screen outline-none">
-    <DashboardHeaderHeroBackground />
+    <DashHeaderHeroBackground />
     <section class="mx-auto max-w-7xl px-4 xs:px-6 lg:px-8 xl:pb-16">
       
-      <DashboardTitle department="الدعم التقني" title="تذاكر المساعدة"/>
+      <DashTitle department="الدعم التقني" title="تذاكر المساعدة"/>
       <div class="w-full gap-x-8 lg:grid lg:grid-cols-3">
         <div class="sticky top-8 h-fit rounded-lg border border-gray-100 pb-2 pt-6">
           <div class="px-6 font-semibold xs:text-lg pb-6">التذاكر</div>
