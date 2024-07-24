@@ -1,8 +1,9 @@
 <template>
     <div class="w-full flex flex-col space-y-3">
       <h3 class="text-sm font-semibold xs:text-base">{{ label }}:</h3>
-      <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="selectedValue">
-        <option :value="''">{{ defaultOption ?? 'إختر'}}</option>
+      <select class="form-control form-select  appearance-none" :class="{'min-h-[50px]': !multiple}" name="select" v-model="selectedValue" :multiple="multiple">
+        <option v-if="!multiple" :value="''">{{ defaultOption ?? 'إختر'}}</option>
+        <slot></slot>
         <option v-for="option in options" :key="option.value" :value="option.value">
           {{ option.text ?? option.value}}
         </option>
@@ -17,7 +18,8 @@
     label: string;
     modelValue?: any;
     options: Array<{ value: any, text?: string }>;
-    defaultOption?: string
+    defaultOption?: string;
+    multiple?: boolean;
   }>();
   
   const emits = defineEmits(['update:modelValue']);
