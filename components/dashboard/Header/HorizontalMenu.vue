@@ -1,16 +1,54 @@
 <template>
   <div
     class="is-scroll z-20 hidden h-14 space-x-8 overflow-x-auto overflow-y-hidden border-y border-gray-100 rtl:space-x-reverse md:flex md:px-8 all_menu_group">
-    <NuxtLink class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
-      :to="{ name: 'dashboardv2' }">
-      <!-- Heroicon name: outline/home -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+    <div class="group relative flex">
+      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+        type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
         height="20" width="20">
         <path stroke-linecap="round" stroke-linejoin="round"
           d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25">
         </path>
       </svg><span class="mt-1.5">الرئيسية</span>
-    </NuxtLink>
+        <!-- Heroicon name: outline/chevron-down -->
+        <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" height="12" width="12">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+        </svg>
+      </button>
+      <div
+        class="invisible fixed top-[135px] w-[140px] rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 group-hover:visible submenu">
+        <div class="py-2">
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{ name: 'dashboardv2' }" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">الرئيسية</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-reviews'}" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">التنبيهات</span>
+          </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-reviews'}" role="menuitem"
+            tabindex="-1">
+            <!-- Heroicon name: outline/home -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3 mt-1.5">السجل</span>
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
     <div class="group relative flex">
       <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
         type="button">

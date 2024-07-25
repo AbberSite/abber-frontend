@@ -15,14 +15,50 @@
     </div>
     <div class="pt-10">
       <nav class="space-y-3">
-        <NuxtLink class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer"
-          @click="$emit('navigate', { name: 'index' })">
-          <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-            <!-- Heroicon name: outline/home -->
+        
+        <div class="group relative">
+          <button class="-mx-3 flex items-center justify-between rounded-lg p-3 hover:bg-gray-50" type="button"
+            style="width: -webkit-fill-available">
+            <div class="flex items-center">
+              <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+               <!-- Heroicon name: outline/home -->
             <HomeIcon class="h-6 w-6 flex-shrink-0" />
           </div>
           <span class="ms-6 mt-1.5 font-semibold">الرئيسية</span>
-        </NuxtLink>
+            </div>
+            <!-- Heroicon name: outline/chevron-down -->
+            <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" height="14" width="14">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+            </svg>
+          </button>
+          <div class="hidden py-2 group-hover:block">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2'})" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الرئيسية</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-reviews'})" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">التنبيهات والاشعارات</span>
+            </NuxtLink>
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-reviews'})" to="/">
+              <!-- Heroicon name: outline/home -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">سجل الاجراءات</span>
+            </NuxtLink>
+          </div>
+        </div>
         <div class="group relative">
           <button class="-mx-3 flex items-center justify-between rounded-lg p-3 hover:bg-gray-50" type="button"
             style="width: -webkit-fill-available">
