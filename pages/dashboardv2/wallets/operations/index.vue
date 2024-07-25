@@ -89,7 +89,7 @@ const { defineField, errors, validate } = useForm({
   )
 });
 import { vOnClickOutside } from '@vueuse/components';
-import { useDashboardOperationsStore } from '~/stores/dashboard/DashboardOperations';
+import { useDashboardOperationsStore } from '~/stores/dashboard/dashboardOperations';
 const { fetchAll, submitNewOperation, getUsers } = useDashboardOperationsStore();
 const { $listen } = useNuxtApp();
 const [username] = defineField('username');

@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import ConfirmDialog from '~/components/shared/ConfirmDialog.vue';
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 const props = defineProps<{ order: {} }>();
 let showConfirmDialog = ref(false);
 let status = ref(props.order.status ?? '');

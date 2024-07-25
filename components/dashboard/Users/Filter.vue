@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDashboardUsersStore } from '~/stores/dashboard/DashboardUsers';
+import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 const { filters, countries } = storeToRefs(useDashboardUsersStore());
 
 const country_selected = ref(null);

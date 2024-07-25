@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/DashboardWithdrawalRequests';
+import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/dashboardWithdrawalRequests';
 const { filters } = storeToRefs(useDashboardWithdrawalRequestsStore());
 </script>
 

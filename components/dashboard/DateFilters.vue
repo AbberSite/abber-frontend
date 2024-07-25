@@ -3,11 +3,11 @@
 </template>
 <script setup lang="ts">
 let filters = ref(null);
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
-import { useDashboardTransactionsStore } from '~/stores/dashboard/DashboardTransactions';
-import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/DashboardWithdrawalRequests';
-import { useDashboardOperationsStore } from '~/stores/dashboard/DashboardOperations';
-import { useDashboardUsersStore } from '~/stores/dashboard/DashboardUsers'
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
+import { useDashboardTransactionsStore } from '~/stores/dashboard/dashboardTransactions';
+import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/dashboardWithdrawalRequests';
+import { useDashboardOperationsStore } from '~/stores/dashboard/dashboardOperations';
+import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers'
 defineProps({title: {type: String, default: 'حسب التاريخ'}});
 const section = inject('dateFilters') as string | 'orders';
 

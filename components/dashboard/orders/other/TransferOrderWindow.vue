@@ -17,7 +17,7 @@
 
 
 <script setup lang="ts">
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 
 const props = defineProps<{order: {}}>();
 const id_service = ref(props.order.service);
