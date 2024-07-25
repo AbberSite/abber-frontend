@@ -11,6 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { useDashboardOperationsStore } from '~/stores/dashboard/DashboardOperations';
+import { useDashboardOperationsStore } from '~/stores/dashboard/dashboardOperations';
 const { filters } = storeToRefs(useDashboardOperationsStore());
 </script>

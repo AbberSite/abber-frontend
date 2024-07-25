@@ -27,7 +27,7 @@
 
 
 <script setup lang="ts">
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 const showConfirmDialog = ref(false); 
 const emit = defineEmits(['close']);
 const props = defineProps<{ order: {} }>();

@@ -60,7 +60,7 @@
 
 <script setup>
 
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 
 const { filters } = storeToRefs(useDashboardOrdersStore());
 </script>

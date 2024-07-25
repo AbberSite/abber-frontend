@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
-import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/DashboardWithdrawalRequests';
+import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/dashboardWithdrawalRequests';
 
 const { filters } = storeToRefs(useDashboardWithdrawalRequestsStore())
 const emit = defineEmits(["close"])

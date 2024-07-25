@@ -167,7 +167,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 
 const { loading, order } = storeToRefs(useDashboardOrdersStore())
 </script>

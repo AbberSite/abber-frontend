@@ -23,7 +23,7 @@
 
 
 <script setup lang="ts">
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 
 const emit = defineEmits(['close']);
 const props = defineProps<{order: {}}>();

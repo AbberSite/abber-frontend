@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 
 const { getOrder } = useDashboardOrdersStore();
 const { order, loading } = storeToRefs(useDashboardOrdersStore())

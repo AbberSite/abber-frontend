@@ -44,7 +44,7 @@
   </ClientOnly>
 </template>
 <script setup lang="ts">
-import { useDashboardTransactionsStore } from '~/stores/dashboard/DashboardTransactions';
+import { useDashboardTransactionsStore } from '~/stores/dashboard/dashboardTransactions';
 import { vOnClickOutside } from '@vueuse/components';
 const headItems = {
   id : "رقم العملية",

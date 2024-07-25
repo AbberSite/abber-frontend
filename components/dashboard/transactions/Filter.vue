@@ -31,7 +31,7 @@
 <script setup lang="ts">
 
 defineProps<{ hiddenStatus?: boolean }>();
-import { useDashboardTransactionsStore } from '~/stores/dashboard/DashboardTransactions';
+import { useDashboardTransactionsStore } from '~/stores/dashboard/dashboardTransactions';
 
 
 
