@@ -1,8 +1,8 @@
 <template>
-  <DashTitle department="المالية" title="عمليات على الرصيد (الفروقات)"/>
+  <DashboardTitle department="المالية" title="عمليات على الرصيد (الفروقات)"/>
   <div class="w-full pt-6">
     <div class="flex items-center justify-between">
-      <DashInputsSearch placeholder="ابحث في العمليات علي الرصيد (الفروقات)" v-model="filters.search"
+      <DashboardInputsSearch placeholder="ابحث في العمليات علي الرصيد (الفروقات)" v-model="filters.search"
         @openFiltersMobileModal="openFiltersMobileModal = true" />
       <div class="relative">
         <button
@@ -22,23 +22,23 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <DashFiltersDropdown v-if="openFiltersDropdown"
+            <DashboardFiltersDropdown v-if="openFiltersDropdown"
               v-on-click-outside="() => (openFiltersDropdown = false)">
-              <DashOperationsFilter />
-            </DashFiltersDropdown>
+              <DashboardOperationsFilter />
+            </DashboardFiltersDropdown>
           </transition>
         </ClientOnly>
       </div>
     </div>
   </div>
-  <DashTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" addButton>
-  </DashTablesTable>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" addButton>
+  </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
-    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashOperationsFilter />
-    </DashFiltersMobileModal>
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardOperationsFilter />
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 
   <ClientOnly>
@@ -77,7 +77,7 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 const selectedUser = ref(null);
-const { filters, list, loading, filtersCount, pagination, users } = storeToRefs(useDashOperationsStore());
+const { filters, list, loading, filtersCount, pagination, users } = storeToRefs(useDashboardOperationsStore());
 const { defineField, errors, validate } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
@@ -89,8 +89,8 @@ const { defineField, errors, validate } = useForm({
   )
 });
 import { vOnClickOutside } from '@vueuse/components';
-import { useDashOperationsStore } from '~/stores/dashboard/dashOperations';
-const { fetchAll, submitNewOperation, getUsers } = useDashOperationsStore();
+import { useDashboardOperationsStore } from '~/stores/dashboard/DashboardOperations';
+const { fetchAll, submitNewOperation, getUsers } = useDashboardOperationsStore();
 const { $listen } = useNuxtApp();
 const [username] = defineField('username');
 const [type] = defineField('type');

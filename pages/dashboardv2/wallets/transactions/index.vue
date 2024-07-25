@@ -1,8 +1,8 @@
 <template>
-      <DashTitle department="المالية" title="جميع المعاملات المالية"/>
+      <DashboardTitle department="المالية" title="جميع المعاملات المالية"/>
       <div class="w-full pt-6">
         <div class="flex items-center justify-between">
-          <DashInputsSearch placeholder="ابحث عن تحويل معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal=true"/>
+          <DashboardInputsSearch placeholder="ابحث عن تحويل معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal=true"/>
           <div class="relative">
             <button
               class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex"
@@ -22,29 +22,29 @@
             <ClientOnly>
               <transition enter-active-class="transition-all" leave-active-class="transition-all"
                 enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                <DashFiltersDropdown v-if="openFiltersDropdown"
+                <DashboardFiltersDropdown v-if="openFiltersDropdown"
                   v-on-click-outside="() => (openFiltersDropdown = false)" >
-                  <DashTransactionsFilter/>
-                </DashFiltersDropdown>
+                  <DashboardTransactionsFilter/>
+                </DashboardFiltersDropdown>
               </transition>
             </ClientOnly>
           </div>
         </div>
       </div>
-      <DashTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading"/>
+      <DashboardTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading"/>
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
 
 
 
   <ClientOnly>
-    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashTransactionsFilter/>
-    </DashFiltersMobileModal>
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardTransactionsFilter/>
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 </template>
 <script setup lang="ts">
-import { useDashTransactionsStore } from '~/stores/dashboard/dashTransactions';
+import { useDashboardTransactionsStore } from '~/stores/dashboard/DashboardTransactions';
 import { vOnClickOutside } from '@vueuse/components';
 const headItems = {
   id : "رقم العملية",
@@ -58,8 +58,8 @@ const headItems = {
 
 }
 provide('dateFilters', 'transactions');
-const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashTransactionsStore());
-const { fetchAll } = useDashTransactionsStore();
+const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashboardTransactionsStore());
+const { fetchAll } = useDashboardTransactionsStore();
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 // const pagination = ref<PaginationResponse<any>>();

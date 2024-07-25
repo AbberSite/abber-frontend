@@ -1,15 +1,15 @@
 <template>
-    <DashTitle department="العملاء" :title="`العميل ${userData.first_name}`">
+    <DashboardTitle department="العملاء" :title="`العميل ${userData.first_name}`">
         <p class="text-xs font-medium text-gray-500"> #{{ id }} </p>
-    </DashTitle>
-    <DashTab :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
+    </DashboardTitle>
+    <DashboardTab :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
     <div class="w-full pt-2">
-        <DashUsersDetails v-if="currentTab == 'tab0'"/>
-        <DashUsersLogs v-if="currentTab == 'tab1'"/>
-        <DashUsersServicesVisited v-if="currentTab == 'tab2'"/>
-        <DashUsersServicesPaid v-if="currentTab == 'tab3'"/>
-        <DashUsersTickets v-if="currentTab == 'tab6'"/>
-        <DashUsersActionsLog v-if="currentTab == 'tab7'"/>
+        <DashboardUsersDetails v-if="currentTab == 'tab0'"/>
+        <DashboardUsersLogs v-if="currentTab == 'tab1'"/>
+        <DashboardUsersServicesVisited v-if="currentTab == 'tab2'"/>
+        <DashboardUsersServicesPaid v-if="currentTab == 'tab3'"/>
+        <DashboardUsersTickets v-if="currentTab == 'tab6'"/>
+        <DashboardUsersActionsLog v-if="currentTab == 'tab7'"/>
     </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
-    <DashTitle department="الحسابات" title="مدراء العلاقات" />
-    <DashTablesTable :head-items="{manager: 'ادارة', expressors: 'المعبرون'}" :body-items="list" :actions="{remove: true, modify: true}"/>
+    <DashboardTitle department="الحسابات" title="مدراء العلاقات" />
+    <DashboardTablesTable :head-items="{manager: 'ادارة', expressors: 'المعبرون'}" :body-items="list" :actions="{remove: true, modify: true}"/>
 </template>
 
 

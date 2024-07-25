@@ -1,8 +1,8 @@
 <template>
-  <DashTitle department="المالية" title="طلبات السحب" />
+  <DashboardTitle department="المالية" title="طلبات السحب" />
   <div class="w-full pt-6">
     <div class="flex items-center justify-between">
-      <DashInputsSearch placeholder="ابحث عن طلب سحب" v-model="filters.search"
+      <DashboardInputsSearch placeholder="ابحث عن طلب سحب" v-model="filters.search"
         @openFiltersMobileModal="openFiltersMobileModal = true" />
       <div class="relative">
         <button
@@ -22,23 +22,23 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <DashFiltersDropdown v-if="openFiltersDropdown"
+            <DashboardFiltersDropdown v-if="openFiltersDropdown"
               v-on-click-outside="() => (openFiltersDropdown = false)">
-              <DashWithdrawalRequestsFilter />
-            </DashFiltersDropdown>
+              <DashboardWithdrawalRequestsFilter />
+            </DashboardFiltersDropdown>
           </transition>
         </ClientOnly>
       </div>
     </div>
   </div>
-  <DashTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }">
-  </DashTablesTable>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{ modify: true }">
+  </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
-    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashWithdrawalRequestsFilter />
-    </DashFiltersMobileModal>
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardWithdrawalRequestsFilter />
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 
   <ClientOnly>
@@ -84,10 +84,10 @@
 </template>
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
-import { useDashWithdrawalRequestsStore } from '~/stores/dashboard/dashWithdrawalRequests';
+import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/DashboardWithdrawalRequests';
 
-const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashWithdrawalRequestsStore());
-const { fetchAll } = useDashWithdrawalRequestsStore();
+const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashboardWithdrawalRequestsStore());
+const { fetchAll } = useDashboardWithdrawalRequestsStore();
 const { $listen } = useNuxtApp();
 provide('previewFiles', true);
 provide('dateFilters', 'withdrawalRequests');

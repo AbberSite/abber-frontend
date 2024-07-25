@@ -1,6 +1,6 @@
 <template>
-  <DashTitle department="الحسابات" title="المجموعات" />
-  <DashTablesTable :headItems="{ group: 'المجموعة', users: 'المستخدمين' }" :bodyItems="groups" :actions="{modify: true, remove: true}"/>
+  <DashboardTitle department="الحسابات" title="المجموعات" />
+  <DashboardTablesTable :headItems="{ group: 'المجموعة', users: 'المستخدمين' }" :bodyItems="groups" :actions="{modify: true, remove: true}"/>
 
   <ClientOnly>
     <ModifyModal v-if="showModify" @close="showModify = false" title="تعديل المجموعة">

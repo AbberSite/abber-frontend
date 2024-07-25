@@ -1,9 +1,9 @@
 <template>
   <main class="min-h-screen outline-none">
-    <DashHeaderHeroBackground />
+    <DashboardHeaderHeroBackground />
     <section class="mx-auto max-w-7xl px-4 xs:px-6 lg:px-8 xl:pb-16">
       
-      <DashTitle department="الدعم التقني" title="تذاكر المساعدة"/>
+      <DashboardTitle department="الدعم التقني" title="تذاكر المساعدة"/>
       <div class="w-full gap-x-8 lg:grid lg:grid-cols-3">
         <div class="sticky top-8 h-fit rounded-lg border border-gray-100 pb-2 pt-6">
           <div class="px-6 font-semibold xs:text-lg pb-6">التذاكر</div>
@@ -43,9 +43,9 @@
 </template>
 
 <script setup lang="ts">
-import { useDashHelpStore } from "~/stores/dashboard/dashHelp";
-const { tickets, loading, pagination } = storeToRefs(useDashHelpStore());
-const { getAllTickets } = useDashHelpStore();
+import { useDashboardHelpStore } from "~/stores/dashboard/dashboardHelp";
+const { tickets, loading, pagination } = storeToRefs(useDashboardHelpStore());
+const { getAllTickets } = useDashboardHelpStore();
 const { $viewport } = useNuxtApp();
 const { roomId, type } = storeToRefs(useChatStore());
 const ticketId = ref(0);

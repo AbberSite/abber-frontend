@@ -1,8 +1,8 @@
 <template>
-  <DashTitle department="الطلبات" title="الكوبونات"/>
+  <DashboardTitle department="الطلبات" title="الكوبونات"/>
 
-  <DashInputsSearch placeholder="ابحث عن كوبون" />
-  <DashTablesTable
+  <DashboardInputsSearch placeholder="ابحث عن كوبون" />
+  <DashboardTablesTable
     :head-items="{
       first_name: 'المستخدم',
       public: 'عام',
@@ -22,8 +22,8 @@
     >
       <TextInput label="الرمز" />
       <TextInput label="مبلغ الخصم" />
-      <DashDatePickerInput label="تاريخ البدء"/>
-      <DashDatePickerInput label="تاريخ الإنتهاء"/>
+      <DashboardDatePickerInput label="تاريخ البدء"/>
+      <DashboardDatePickerInput label="تاريخ الإنتهاء"/>
       
       <div class="w-full space-y-3">
         <div class="flex items-center pt-1">

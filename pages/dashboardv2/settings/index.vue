@@ -1,15 +1,15 @@
 <template>
-    <DashTitle department="الاعدادات" title="إعدادات عامة"/>
-    <DashTab :tabs="[{value: 'tab0', name: 'القوائم'}, {value: 'tab1', name: 'الشروط والاحكام'}, {value: 'tab2', name: 'الصور الافتراضية'}]" v-model:model-value="currentTab"/>
+    <DashboardTitle department="الاعدادات" title="إعدادات عامة"/>
+    <DashboardTab :tabs="[{value: 'tab0', name: 'القوائم'}, {value: 'tab1', name: 'الشروط والاحكام'}, {value: 'tab2', name: 'الصور الافتراضية'}]" v-model:model-value="currentTab"/>
     <div class="pt-4">
         <template v-if="currentTab == 'tab0'">
-            <DashSettingsPublicSettings />
+            <DashboardSettingsPublicSettings />
         </template>
         <template v-else-if="currentTab == 'tab1'">
             <span class="font-semibold text-gray-800" >انتظر الانتهاء من الeditor </span>
         </template>
         <template v-else>
-            <DashSettingsDefaultImages/>
+            <DashboardSettingsDefaultImages/>
         </template>
     </div> 
 </template>

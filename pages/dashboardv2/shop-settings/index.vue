@@ -1,6 +1,6 @@
 <template>
-  <DashTitle department="الاعدادات" title="إعدادات الموقع" />
-  <DashTab
+  <DashboardTitle department="الاعدادات" title="إعدادات الموقع" />
+  <DashboardTab
     :tabs="[
       { value: 'tab0', name: 'بيانات الموقع' },
       { value: 'tab1', name: 'بيانات التواصل الاجتماعي' },
@@ -16,22 +16,22 @@
   />
   <div class="pt-4">
     <template v-if="currentTab == 'tab0'">
-      <DashShopSettingsSiteData />
+      <DashboardShopSettingsSiteData />
     </template>
     <template v-else-if="currentTab == 'tab1'">
-      <DashShopSettingsSocailData />
+      <DashboardShopSettingsSocailData />
     </template>
     <template v-else-if="currentTab == 'tab2'">
-      <DashShopSettingsPolicies />
+      <DashboardShopSettingsPolicies />
     </template>
     <template v-else-if="currentTab == 'tab3'">
-      <DashShopSettingsAPI />
+      <DashboardShopSettingsAPI />
     </template>
     <template v-else-if="currentTab == 'tab4'">
-      <DashShopSettingsFinance />
+      <DashboardShopSettingsFinance />
     </template>
     <template v-else-if="currentTab == 'tab5'">
-      <DashShopSettingsPaymentFees />
+      <DashboardShopSettingsPaymentFees />
     </template>
     <template v-else-if="currentTab == 'tab6'">
       <div class="flex justify-center">
@@ -39,10 +39,10 @@
       </div>
     </template>
     <template v-else-if="currentTab == 'tab7'">
-      <DashShopSettingsPackages />
+      <DashboardShopSettingsPackages />
     </template>
     <template v-else>
-      <DashShopSettingsOrdersPackages />
+      <DashboardShopSettingsOrdersPackages />
     </template>
   </div>
 </template>

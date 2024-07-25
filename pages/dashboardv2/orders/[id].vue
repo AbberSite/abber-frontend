@@ -1,6 +1,6 @@
 <template>
             <div v-if="!loading" class="flex items-center justify-between">
-                <DashTitle department="الطلبات" :title="`الطلب #${order.id}`"/>
+                <DashboardTitle department="الطلبات" :title="`الطلب #${order.id}`"/>
                 <div class="hidden items-center space-x-3 pb-12 rtl:space-x-reverse sm:flex">
                     <button
                         class="relative flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse"
@@ -26,12 +26,12 @@
                                 </path>
                             </svg>
                         </button>
-                        <DashOrdersOtherDropdown v-if="showDropdown" @close="showDropdown = false;" @TransferOrder="showTransferOrderWindow = true;" @SendMessage="showSendMessageWindow = true;" @sendAlert="showSendAlertWindow = true;" @cancelOrder="showCancelOrderWindow = true;"/>
+                        <DashboardOrdersOtherDropdown v-if="showDropdown" @close="showDropdown = false;" @TransferOrder="showTransferOrderWindow = true;" @SendMessage="showSendMessageWindow = true;" @sendAlert="showSendAlertWindow = true;" @cancelOrder="showCancelOrderWindow = true;"/>
                     </div>
                 </div>
             </div>
             <!-- details order -->
-            <DashOrdersOtherDetails /> 
+            <DashboardOrdersOtherDetails /> 
         <!-- buttons for mobile -->
         <div class="fixed bottom-0 z-20 flex w-full items-center space-x-3 border-t border-gray-100 bg-white px-4 py-6 rtl:space-x-reverse xs:px-6 sm:hidden">
         <button class="flex h-[50px] w-full items-center justify-center space-x-2 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse" type="button" @click="showChangeStatusWindow = true">
@@ -48,21 +48,21 @@
         </button>
       </div>
     <ClientOnly v-if="order?.status">
-        <DashOrdersOtherChangeStatusWindow :show="showChangeStatusWindow" @close="showChangeStatusWindow = false"
+        <DashboardOrdersOtherChangeStatusWindow :show="showChangeStatusWindow" @close="showChangeStatusWindow = false"
             :order="order" />
-        <DashOrdersOtherTransferOrderWindow :show="showTransferOrderWindow" @close="showTransferOrderWindow = false;" :order="order"/>
-        <DashOrdersOtherSendMessageWindow :show="showSendMessageWindow" @close="showSendMessageWindow = false;" :order="order"/>
-        <DashOrdersOtherSendAlertToExpressorWindow :show="showSendAlertWindow" @close="showSendAlertWindow = false;" :order="order"/>
-        <DashOrdersOtherCancelOrderWindow :show="showCancelOrderWindow" @close="showCancelOrderWindow = false;" :order="order"/>
-        <DashOrdersOtherMenuMobile :show="showMenuMobile" @close="showMenuMobile = false;" @TransferOrder="showTransferOrderWindow = true;" @SendMessage="showSendMessageWindow = true;" @sendAlert="showSendAlertWindow = true;" @cancelOrder="showCancelOrderWindow = true;"/>
+        <DashboardOrdersOtherTransferOrderWindow :show="showTransferOrderWindow" @close="showTransferOrderWindow = false;" :order="order"/>
+        <DashboardOrdersOtherSendMessageWindow :show="showSendMessageWindow" @close="showSendMessageWindow = false;" :order="order"/>
+        <DashboardOrdersOtherSendAlertToExpressorWindow :show="showSendAlertWindow" @close="showSendAlertWindow = false;" :order="order"/>
+        <DashboardOrdersOtherCancelOrderWindow :show="showCancelOrderWindow" @close="showCancelOrderWindow = false;" :order="order"/>
+        <DashboardOrdersOtherMenuMobile :show="showMenuMobile" @close="showMenuMobile = false;" @TransferOrder="showTransferOrderWindow = true;" @SendMessage="showSendMessageWindow = true;" @sendAlert="showSendAlertWindow = true;" @cancelOrder="showCancelOrderWindow = true;"/>
     </ClientOnly>
 </template>
 
 <script setup lang="ts">
-import { useDashOrdersStore } from '~/stores/dashboard/dashOrders';
+import { useDashboardOrdersStore } from '~/stores/dashboard/DashboardOrders';
 
-const { getOrder } = useDashOrdersStore();
-const { order, loading } = storeToRefs(useDashOrdersStore())
+const { getOrder } = useDashboardOrdersStore();
+const { order, loading } = storeToRefs(useDashboardOrdersStore())
 const route = useRoute();
 const showChangeStatusWindow = ref(false);
 const showDropdown = ref(false);

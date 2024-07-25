@@ -1,7 +1,7 @@
 <template>
-     <DashTitle department="الحسابات" title="نطاقات المعبرين"/>
+     <DashboardTitle department="الحسابات" title="نطاقات المعبرين"/>
   <div class="flex items-center justify-between">
-    <DashInputsSearch placeholder="بحث عن نطاق معين" @openFiltersMobileModal="openFiltersMobileModal = true" />
+    <DashboardInputsSearch placeholder="بحث عن نطاق معين" @openFiltersMobileModal="openFiltersMobileModal = true" />
     <div class="relative">
                 <button
                     class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex"
@@ -21,20 +21,20 @@
                 <ClientOnly>
                     <transition enter-active-class="transition-all" leave-active-class="transition-all"
                         enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                        <DashFiltersDropdown v-if="openFiltersDropdown"
+                        <DashboardFiltersDropdown v-if="openFiltersDropdown"
                             v-on-click-outside="() => (openFiltersDropdown = false)">
-                            <DashExpressorsDomainsFilter />
-                        </DashFiltersDropdown>
+                            <DashboardExpressorsDomainsFilter />
+                        </DashboardFiltersDropdown>
                     </transition>
                 </ClientOnly>
             </div>
   </div>
-  <DashTablesTable :headItems="{ first_name: 'المستخدم', domain: 'نطاق', amount: 'السعر', tax: 'الرسوم', date: 'التاريخ', expireDate: 'تاريخ الانتهاء' }" :bodyItems="data"/>
+  <DashboardTablesTable :headItems="{ first_name: 'المستخدم', domain: 'نطاق', amount: 'السعر', tax: 'الرسوم', date: 'التاريخ', expireDate: 'تاريخ الانتهاء' }" :bodyItems="data"/>
   
   <ClientOnly>
-    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashExpressorsDomainsFilter />
-    </DashFiltersMobileModal>
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardExpressorsDomainsFilter />
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 </template>
 
