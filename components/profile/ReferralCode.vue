@@ -5,15 +5,15 @@
     <PrimaryButton class="w-full" @click="copyReferralLink()">
       نسخ رابط الدعوة
     </PrimaryButton>
-    <DashTablesTable>
-      <DashTablesThead :headItems="headItems"></DashTablesThead>
+    <DashboardTablesTable>
+      <DashboardTablesThead :headItems="headItems"></DashboardTablesThead>
       <tbody class="divide-y">
         <tr v-for="(referral, rowIndex) in referrals" :key="rowIndex">
-          <DashTablesRow :content="referral?.user" name="user" />
-          <DashTablesRow :content="referral?.order_count > 0" name="ordered" />
+          <DashboardTablesRow :content="referral?.user" name="user" />
+          <DashboardTablesRow :content="referral?.order_count > 0" name="ordered" />
         </tr>
       </tbody>
-    </DashTablesTable>
+    </DashboardTablesTable>
   </div>
 </template>
 

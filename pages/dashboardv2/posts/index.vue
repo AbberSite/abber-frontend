@@ -1,12 +1,12 @@
 <template>
-  <DashTitle department="الحسابات" title="المقالات"/>
-  <DashTab :tabs="[{name: 'المقالات', value: 'posts'}, {name: 'التصنيفات', value: 'categories'}]" v-model:model-value="currentTab"/>
+  <DashboardTitle department="الحسابات" title="المقالات"/>
+  <DashboardTab :tabs="[{name: 'المقالات', value: 'posts'}, {name: 'التصنيفات', value: 'categories'}]" v-model:model-value="currentTab"/>
   <div class="pt-2">
     <template v-if="currentTab == 'posts'">
-      <DashPosts/>
+      <DashboardPosts/>
     </template>
     <template v-else >
-      <DashPostsCategories/>
+      <DashboardPostsCategories/>
     </template>
   </div>
 </template>

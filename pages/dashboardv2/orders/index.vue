@@ -1,8 +1,8 @@
 <template>
-      <DashTitle department="الطلبات" title="جميع الطلبات" />
+      <DashboardTitle department="الطلبات" title="جميع الطلبات" />
       <div class="w-full pt-6">
         <div class="flex items-center justify-between">
-          <DashInputsSearch placeholder="ابحث عن طلب معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal = true" />
+          <DashboardInputsSearch placeholder="ابحث عن طلب معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal = true" />
           <div class="relative">
             <button class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex" type="button" @click="openFiltersDropdown = true" aria-expanded="false" aria-haspopup="true">
               <span class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -15,33 +15,33 @@
             </button>
             <ClientOnly>
               <transition enter-active-class="transition-all" leave-active-class="transition-all" enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-                <DashFiltersDropdown v-if="openFiltersDropdown" v-on-click-outside="() => (openFiltersDropdown = false)">
-                <DashOrdersFilter/>
-              </DashFiltersDropdown>
+                <DashboardFiltersDropdown v-if="openFiltersDropdown" v-on-click-outside="() => (openFiltersDropdown = false)">
+                <DashboardOrdersFilter/>
+              </DashboardFiltersDropdown>
               </transition>
             </ClientOnly>
           </div>
         </div>
       </div>
-      <DashTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
+      <DashboardTablesTable :headItems="headItems" :bodyItems="list ?? []" :loading="loading" :actions="{details:true,view:{path:'/orders/'}}"/>
 
       <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
 
 
   <ClientOnly>
-    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" >
-      <DashOrdersFilter/>
-    </DashFiltersMobileModal>
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false" >
+      <DashboardOrdersFilter/>
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 </template>
 <script setup lang="ts">
-import { useDashOrdersStore } from "~/stores/dashboard/dashOrders.ts";
+import { useDashboardOrdersStore } from "~/stores/dashboard/DashboardOrders.ts";
 import { vOnClickOutside } from "@vueuse/components";
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 provide('dateFilters', 'orders');
-const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashOrdersStore());
-const { fetchAll } = useDashOrdersStore();
+const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashboardOrdersStore());
+const { fetchAll } = useDashboardOrdersStore();
 // const pagination = ref<PaginationResponse<any>>();
 const headItems = {
   id: "رقم الطلب",

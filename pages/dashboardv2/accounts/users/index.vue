@@ -1,8 +1,8 @@
 <template>
-  <DashTitle department="الحسابات" title="العملاء"/>
+  <DashboardTitle department="الحسابات" title="العملاء"/>
   <div class="w-full pt-6">
     <div class="flex items-center justify-between">
-      <DashInputsSearch placeholder="ابحث عن عميل" v-model="filters.search"
+      <DashboardInputsSearch placeholder="ابحث عن عميل" v-model="filters.search"
         @openFiltersMobileModal="openFiltersMobileModal = true" />
       <div class="relative">
         <button
@@ -22,31 +22,31 @@
         <ClientOnly>
           <transition enter-active-class="transition-all" leave-active-class="transition-all"
             enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-            <DashFiltersDropdown v-if="openFiltersDropdown"
+            <DashboardFiltersDropdown v-if="openFiltersDropdown"
               v-on-click-outside="() => (openFiltersDropdown = false)">
-              <DashUsersFilter />
-            </DashFiltersDropdown>
+              <DashboardUsersFilter />
+            </DashboardFiltersDropdown>
           </transition>
         </ClientOnly>
       </div>
     </div>
   </div>
-  <DashTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{view: {path:'user-update/'}}">
-  </DashTablesTable>
+  <DashboardTablesTable :headItems="headItems" :bodyItems="list" :loading="loading" :actions="{view: {path:'user-update/'}}">
+  </DashboardTablesTable>
 
   <Pagination class="pt-4" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="20" />
   <ClientOnly>
-    <DashFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
-      <DashUsersFilter class="max-h-[50vh] is-scroll overflow-auto no-scrollbar" />
-    </DashFiltersMobileModal>
+    <DashboardFiltersMobileModal :show="openFiltersMobileModal" @close="openFiltersMobileModal = false">
+      <DashboardUsersFilter class="max-h-[50vh] is-scroll overflow-auto no-scrollbar" />
+    </DashboardFiltersMobileModal>
   </ClientOnly>
 
 </template>
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
-import { useDashUsersStore } from '~/stores/dashboard/dashUsers';
-const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashUsersStore());
-const { fetchAll, fetchCountries } = useDashUsersStore();
+import { useDashboardUsersStore } from '~/stores/dashboard/DashboardUsers';
+const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashboardUsersStore());
+const { fetchAll, fetchCountries } = useDashboardUsersStore();
 provide('dateFilters', 'users');
 fetchCountries();
 // let imageLoading = ref(true);

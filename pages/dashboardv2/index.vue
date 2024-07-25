@@ -1,4 +1,4 @@
 <template>
-   <DashTitle department="الرئيسية" title="لوحة التحكم"/>
+   <DashboardTitle department="الرئيسية" title="لوحة التحكم"/>
 </template>
 
