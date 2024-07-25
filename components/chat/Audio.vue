@@ -19,65 +19,65 @@
 </template>
 
 <script setup lang="ts">
-// import WaveSurfer from 'wavesurfer.js';
-import type { File } from '~/types';
+// // import WaveSurfer from 'wavesurfer.js';
+// import type { File } from '~/types';
 
-import { PlayIcon, PauseIcon, ArrowPathIcon } from '@heroicons/vue/24/solid';
-import WaveSurfer from 'wavesurfer.js';
+// import { PlayIcon, PauseIcon, ArrowPathIcon } from '@heroicons/vue/24/solid';
+// import WaveSurfer from 'wavesurfer.js';
 
 const props = defineProps<{
   file: File;
 }>();
 
-const audio = ref(null);
+// const audio = ref(null);
 
-const paused = ref(true);
-const finished = ref(false);
+// const paused = ref(true);
+// const finished = ref(false);
 
-let wavesurfer: WaveSurfer;
+// let wavesurfer: WaveSurfer;
 
-function getPathFromUrl(url: string): string | null {
-  const pathRegex = /^(?:\/\/|[^/]+)*\/([^?#]+)/;
-  const match = url.match(pathRegex);
-  if (match) {
-    return match[1];
-  } else {
-    return null;
-  }
-}
+// function getPathFromUrl(url: string): string | null {
+//   const pathRegex = /^(?:\/\/|[^/]+)*\/([^?#]+)/;
+//   const match = url.match(pathRegex);
+//   if (match) {
+//     return match[1];
+//   } else {
+//     return null;
+//   }
+// }
 
-onMounted(() => {
-  wavesurfer = WaveSurfer.create({
-    container: audio.value ?? `audio-${props.file.id}`,
-    waveColor: '#111827',
-    progressColor: '#111827',
-    url:props.file.file,
-    height: 50,
-    width: 200,
-    barWidth: 5,
-    barRadius: 20,
-    barGap: 5,
-    cursorWidth: 3
-  });
+// onMounted(() => {
+//   wavesurfer = WaveSurfer.create({
+//     container: audio.value ?? `audio-${props.file.id}`,
+//     waveColor: '#111827',
+//     progressColor: '#111827',
+//     url:props.file.file,
+//     height: 50,
+//     width: 200,
+//     barWidth: 5,
+//     barRadius: 20,
+//     barGap: 5,
+//     cursorWidth: 3
+//   });
 
-  wavesurfer.on('interaction', () => {
-    wavesurfer.play();
-  });
+//   wavesurfer.on('interaction', () => {
+//     wavesurfer.play();
+//   });
 
-  wavesurfer.on('finish', () => {
-    finished.value = true;
-    paused.value = false;
-  });
+//   wavesurfer.on('finish', () => {
+//     finished.value = true;
+//     paused.value = false;
+//   });
 
-  wavesurfer.on('play', () => {
-    finished.value = false;
-    paused.value = false;
-  });
-});
+//   wavesurfer.on('play', () => {
+//     finished.value = false;
+//     paused.value = false;
+//   });
+// });
 
-function playPause() {
-  wavesurfer.playPause();
+// function playPause() {
+//   wavesurfer.playPause();
 
-  paused.value = !paused.value;
-}
+//   paused.value = !paused.value;
+// }
 </script>
