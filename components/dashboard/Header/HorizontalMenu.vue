@@ -302,7 +302,7 @@
       <div
         class="invisible fixed top-[135px] w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 group-hover:visible submenu">
         <div class="py-2">
-          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{ name: 'dashboardv2-problems' }" role="menuitem"
             tabindex="-1">
             <!-- Heroicon name: outline/home -->
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
