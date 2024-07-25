@@ -35,7 +35,7 @@
   </ClientOnly>
 </template>
 <script setup lang="ts">
-import { useDashboardOrdersStore } from "~/stores/dashboard/DashboardOrders.ts";
+import { useDashboardOrdersStore } from "~/stores/dashboard/dashboardOrders.ts";
 import { vOnClickOutside } from "@vueuse/components";
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
