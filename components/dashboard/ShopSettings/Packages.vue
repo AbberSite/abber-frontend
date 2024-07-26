@@ -1,5 +1,5 @@
 <template>
-    <DashboardTab :tabs="[ {value: 'packages', name: 'الباقات'}, {value: 'features', name: 'الميزات'} ]" v-model:model-value="currentTab" />
+    <Tabs :tabs="[ {value: 'packages', name: 'الباقات'}, {value: 'features', name: 'الميزات'} ]" v-model:model-value="currentTab" />
     <template v-if="currentTab == 'packages'">
         <DashboardShopSettingsNestedPackages />
     </template>

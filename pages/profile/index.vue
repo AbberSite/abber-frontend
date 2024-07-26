@@ -18,7 +18,7 @@
       </template>
 
       <template v-else>
-        <ProfileTabs v-model="activeTab" />
+        <Tabs :tabs="[{name: 'البيانات الشخصية', value: 'details'}, {name: 'الإشتراكات', value: 'subscriptions', isNew: true}, {name: 'بيانات المعبر', value: 'informationsService', dontShowIt: data.user_type != 'معبر'}, {name: 'المفضلة', value: 'posts', count: bookmarkedTotal, showCounter: true}, {name: 'رمز الدعوة', value: 'referralCode'} ]" v-model="activeTab" class="pt-16"/>
         <ProfileDetails v-if="activeTab == 'details'" />
 
         <template v-if="activeTab == 'posts'">
@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-const { fetchBookmarked } = usePostsStore();
+const { fetchBookmarked, bookmarkedTotal } = usePostsStore();
 const edit = ref(false);
 const { data } = useAuth();
 const route = useRoute();

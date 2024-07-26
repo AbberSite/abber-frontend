@@ -59,7 +59,7 @@
                     </div>
                     <p class="max-w-prose pt-8 text-justify text-sm text-gray-800 xs:text-base">{{
             expressor?.seller.about }}</p>
-                    <ExpressorTabs v-model="tab" :count_rates="rate_count" />
+                    <Tabs :tabs="[ { name: 'ساعات العمل', value: 'workTime' }, { name: 'التقييمات', value:'rates', count: rate_count, showCounter: true} ]" v-model="tab"/>
                     <div v-if="tab == 'workTime'" class="w-full max-w-prose pt-10">
                         <p class="text-justify text-sm text-gray-800 xs:text-base">{{expressor?.work_hours}}</p>
                         

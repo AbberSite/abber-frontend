@@ -2,7 +2,7 @@
     <DashboardTitle department="العملاء" :title="`العميل ${userData.first_name}`">
         <p class="text-xs font-medium text-gray-500"> #{{ id }} </p>
     </DashboardTitle>
-    <DashboardTab :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
+    <Tabs :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
     <div class="w-full pt-2">
         <DashboardUsersDetails v-if="currentTab == 'tab0'"/>
         <DashboardUsersLogs v-if="currentTab == 'tab1'"/>

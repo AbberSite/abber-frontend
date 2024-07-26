@@ -18,7 +18,7 @@
       </template>
       <template v-else>
         <DetailsHeader :show-navigation="activeTab == 'details'" />
-        <DetailsTabs v-model="activeTab" />
+        <Tabs :tabs="[ { name: 'المحادثة', value: 'chat' }, { name: 'تفاصيل الطلب', value:'details' } ]" v-model="activeTab" class="pt-8 lg:hidden"/>
         <DetailsMobileCard v-if="activeTab == 'details'" />
         <ClientOnly>
           <Chat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="order?.status === 'in_progress' || order?.content?.allow_chat" device="mobile" />
