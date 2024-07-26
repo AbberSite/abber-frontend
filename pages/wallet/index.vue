@@ -21,39 +21,33 @@
             <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="wallet-heading">المحفظة</h1>
             <div class="pt-4 text-sm text-gray-800 xs:text-base">تصفح جمبع بيانات محفظتك الالكترونية</div>
 
-            <WalletTabs v-model="activeTab" />
-
+            <Tabs :tabs="[ {name: 'المخلص المالي', value: 'summary'}, {name: 'العمليات المالية', value: 'operations', count: counts.operations, showCounter: true }, {name: 'كشف الحساب', value: 'statement', count: counts.operations,  showCounter: true  }, {name: 'البطاقات الإئتمانية', value: 'cards', count: counts.cards,  showCounter: true  }, {name: 'طلبات السحب', value: 'withdrawalRequests', count: counts.requests,  showCounter: true } ]" v-model="activeTab" class="pt-16" />
             <WalletFinancialSummary v-if="activeTab === 'summary'" />
             <WalletTransactions v-else-if="activeTab == 'operations'" />
             <WalletStatements v-else-if="activeTab == 'statement'" />
             <WalletCards v-else-if="activeTab == 'cards'" />
             <WalletRequests v-else-if="activeTab == 'withdrawalRequests'" />
+            
         </section>
     </main>
 </template>
 
 <script setup lang="ts">
 const route = useRoute();
-
-// const { fetchAll } = useTransactionsStore();
-// const { transactions, loading } = storeToRefs(useTransactionsStore());
-
-// const { getSession } = useAuth()
-
-
-// await getSession()
-
+let counts = ref({operations: 0, cards:0, requests: 0});
+const { pagination:transactions } = storeToRefs(useTransactionsStore());
+const { pagination:requests } = storeToRefs(useWithdrawalRequestsStore());
+onBeforeMount(async ()=> Promise.all([useTransactionsStore().fetchAll(), fetchCards(), useWithdrawalRequestsStore().fetchAll()]));
+onMounted(async()=> {
+    counts.value.operations = transactions.value?.count;
+    counts.value.requests = requests.value?.count;
+});
+const fetchCards = async()=> {
+    const c = await useDirectApi("/wallets/cards/");
+    counts.value.cards = c.count;
+};
 const activeTab = ref<'summary' | 'operations' | 'statement' | 'cards' | 'withdrawalRequests'>(['summary', 'operations', 'statement', 'cards', 'withdrawalRequests'].includes(route.query?.activeRoute) ? route.query.activeRoute : 'summary');
 
-
-
-// onMounted(async () => {
-//     if (transactions.value.length === 0) {
-//         loading.value = true
-//         await fetchAll();
-//         loading.value = false
-//     }
-// });
 onMounted(async () => {
     if (['summary', 'operations', 'statement', 'cards', 'withdrawalRequests'].includes(route.query?.activeRoute)) {
         setTimeout(() => {
