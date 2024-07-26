@@ -5,7 +5,7 @@
             <div class="flex flex-col gap-2 mt-2">
                 <TextInput label="الرسالة" type="textarea"/>
                 <!-- i need custom selector here in the future -->
-                <Selector multiple label="المستخدمين الموجه لهم التنبيه" :options="[{value: 'طه غازي'}, {value: 'الشيخ المختار'}, {value: 'طه غازي'}]"/>
+                <Selector multiple label="المستخدمين الموجه لهم التنبيه" :options="[{value: 'طه غازي'}, {value: 'الشيخ المختار'}, {value: 'طه غازي'}]" checkboxes/>
                 <div class="my-1">
                     <h3 class="font-semibold"  >طريقة الإرسال</h3>
                     <div  class="grid grid-cols-2 gap-2" >
