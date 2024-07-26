@@ -174,7 +174,7 @@ const hasSufficientBallance = computed(() => {
 const membership = (await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" })) as PaginationResponse<any>;
 const activeMembership = ref(membership.count > 0 && membership.results[0].num_orders >= state.value.data?.selectedServices.length +1)
   
-console.log(state.value.data?.selectedServices.length)
+
 await useScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js");
 await useScript("https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js");
 

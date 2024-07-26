@@ -1,6 +1,6 @@
 <template>
     <div class="border rounded-md px-2" >
-        <DashboardTablesTable :head-items="headItems" :body-items="bodyItems" class="pt-0"/>
+        <DashboardTablesTable :head-items="headItems" :body-items="bodyItems" style="padding-top: 0px !important;" />
     </div>
 </template>
 

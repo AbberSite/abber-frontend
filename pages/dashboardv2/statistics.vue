@@ -12,7 +12,9 @@
       <DashboardAnalytics/>
     </template>
     <template v-else >
-      
+      <div class="w-full h-full flex justify-center items-center">
+        <span class="text-center font-semibold mt-3 text-gray-700" >لا توجد حاليا</span>
+      </div>
     </template>
   </div>
 </template>
