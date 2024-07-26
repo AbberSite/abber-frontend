@@ -4,7 +4,7 @@
         <span v-if="name.includes('date')">{{ useArabicFormattedDate(content) }}</span>
         <span v-else-if="content?.first_name">{{ (content.first_name as string).split(' ')[0] }}</span>
         <span v-else-if="typeof content === 'boolean'"><DashboardTablesCellsCheck :check="content"/></span>
-        <span v-else-if="name.includes('method')"><DashboardTablesCellsPaymentMethod :method="content" /></span>
+        <span v-else-if="name.toLowerCase().includes('method')"><DashboardTablesCellsPaymentMethod :method="content" /></span>
         <span v-else-if="name === 'status'"><template v-if="(content as string).length == 1">{{ $t(`${content}`) }}</template><OrderStatus :status="content" /></span>
         <span v-else-if="name === 'ordering_type'"><DashboardTablesCellsOrderingType :type="content" /></span>
         <span v-else-if="content.toString().includes('://') "><DashboardTablesCellsFileUrl :url="content"/></span>

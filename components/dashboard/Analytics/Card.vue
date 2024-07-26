@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white border border-gray-100 flex justify-between px-5 py-5 relative rounded-lg min-w-[250px]">
+    <div class="bg-white border border-gray-100 flex justify-between px-5 py-5 relative rounded-lg" :class="{'min-w-[250px]': !nowidth}">
       <div class="text-right">
         <p class="font-medium text-gray-600">
           {{ title }}
@@ -23,6 +23,7 @@
     count: number | string;
     subtitle: string;
     iconBackgroundClass: string;
+    nowidth?: boolean;
   }>();
   </script>
   
