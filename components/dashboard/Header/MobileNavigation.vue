@@ -81,7 +81,7 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-statistics'})" >
               <!-- Heroicon name: outline/home -->
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

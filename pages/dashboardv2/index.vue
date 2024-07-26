@@ -1,6 +1,6 @@
 <template>
   <DashboardTitle department="الرئيسية" title="لوحة التحكم" />
-  <div class="py-4 px-2 flex flex-col sm:flex-row sm:justify-between customize-scrollbar">
+  <div class="py-4 px-2 flex flex-col sm:flex-row sm:justify-between sm:gap-5 customize-scrollbar">
     <DashboardAnalyticsEarings total="150000" recieved="140000000" pending="14200" class="my-2 sm:my-0"/>
     <div class="col-span-12 inline-flex items-center lg:col-span-8 overflow-x-auto py-6 px-6 sm:col-span-6 sm:pt-0 space-x-3 space-x-reverse is-scroll w-full" >
       <DashboardAnalyticsCard v-for="(card, index) in cards" :key="index" :title="card.title" :count="card.count" :subtitle="card.subtitle" :iconBackgroundClass="`${card.iconBackgroundClass} rounded-[14px]`">
