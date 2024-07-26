@@ -9,7 +9,7 @@
       </span>
     </div>
 
-    <div class="space-y-3" v-if="!membership?.count">
+    <div class="space-y-3" v-if="!activeMembership">
       <template v-if="!deposit && !addCard">
         <h1 class="text-center font-semibold" v-if="!loading">
           السعر الإجمالي : <span class="text-blue-600">{{ amount }} ر.س</span>
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div v-if="!loading && !deposit && !addCard && !ordersPackage && membership?.count" class="w-full h-full flex flex-col justify-center items-center gap-2">
+    <div v-if="!loading && !deposit && !addCard && !ordersPackage && activeMembership" class="w-full h-full flex flex-col justify-center items-center gap-2">
       <h1 class="font-semibold">تفاصيل اشتراكك:</h1>
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
@@ -89,7 +89,7 @@
 
         <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>
       </div>
-      <div class="space-y-7" v-if="!loading && !ordersPackage && !membership.count">
+      <div class="space-y-7" v-if="!loading && !ordersPackage && !activeMembership">
         <div class="flex items-center">
           <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox" id="have-coupon" />
           <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="have-coupon">لدي كوبون خصم</label>
@@ -172,7 +172,9 @@ const hasSufficientBallance = computed(() => {
 });
 
 const membership = (await useApi(`/api/packages/orders-packages/membership/`, { method: "GET" })) as PaginationResponse<any>;
-
+const activeMembership = ref(membership.count > 0 && membership.results[0].num_orders >= state.value.data?.selectedServices.length +1)
+  
+console.log(state.value.data?.selectedServices.length)
 await useScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js");
 await useScript("https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js");
 
@@ -249,10 +251,10 @@ onMounted(async () => {
   error.value = "";
 
   try {
-    if (!props?.deposit && !props?.addCard && !membership.count) {
+    if (!props?.deposit && !props?.addCard && !activeMembership.value) {
       Promise.all([loadHyper(), fetchBalance()]);
     } else {
-      if (!membership.count) await loadHyper();
+      if (!activeMembership.value) await loadHyper();
       else {
         loading.value = false;
       }
@@ -494,6 +496,7 @@ async function createCheckout(): Promise<{ transaction_id: string; id: string }>
         navigateTo(callbackURL + `?freeOrder=true&order_id=${checkout.order_id}`, { external: true });
         return;
       }
+      activeMembership.value = false;
       persist();
 
       resolve(checkout);
