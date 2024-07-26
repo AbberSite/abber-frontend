@@ -17,7 +17,10 @@
         :aria-controls="tab.value"
         :class="activeTab === tab.value ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900'"
       >
-        {{ tab.name }}
+        <span>{{ tab.name }}</span>
+        <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold" v-if="tab.count || tab.showCounter" >
+          {{ tab.count ?? 0 }}
+        </span>
       </button>
     </div>
   </template>
@@ -26,7 +29,7 @@
   import { useVModel } from '@vueuse/core';
   
   const props = defineProps<{
-    tabs: Array<{ name: string, value: string }>;
+    tabs: Array<{ name: string, value: string, count?: number, showCounter?:boolean }>;
     modelValue?: string;
   }>();
   

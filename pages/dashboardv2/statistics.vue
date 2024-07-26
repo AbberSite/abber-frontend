@@ -1,7 +1,6 @@
 <template>
   <DashboardTitle department="الإحصائيات" title="كل الإحصائيات" />
-  <DashboardTab
-    :tabs="[
+  <Tabs     :tabs="[
       { name: 'الإحصائيات', value: 'tab0' },
       { name: 'إحصائيات المعبر', value: 'tab1' },
     ]"

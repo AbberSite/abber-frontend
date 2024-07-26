@@ -1,7 +1,6 @@
 <template>
   <DashboardTitle department="الحسابات" title="المعبرون"/>
-  <DashboardTab
-    v-model:model-value="currentTab"
+  <Tabs     v-model:model-value="currentTab"
     :tabs="[
       { name: 'المعبرون', value: 'tab0' },
       { name: 'الطلبات', value: 'tab1' },

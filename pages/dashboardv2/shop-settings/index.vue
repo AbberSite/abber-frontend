@@ -1,7 +1,6 @@
 <template>
   <DashboardTitle department="الاعدادات" title="إعدادات الموقع" />
-  <DashboardTab
-    :tabs="[
+  <Tabs     :tabs="[
       { value: 'tab0', name: 'بيانات الموقع' },
       { value: 'tab1', name: 'بيانات التواصل الاجتماعي' },
       { value: 'tab2', name: 'السياسات' },
