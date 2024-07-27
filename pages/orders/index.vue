@@ -18,10 +18,10 @@
       <!-- {{ filters.search }} -->
 
       <template v-if="orders?.length == 0 && !loading">
-        <div class="pt-4 text-sm text-gray-800 xs:text-base">لا توجد طلبات لعرضها</div>
+        <div class="pt-4 text-sm text-gray-600 xs:text-base">لا توجد طلبات لعرضها</div>
         <div class="w-full pt-8 sm:w-auto" v-if="data.user_type == 'عميل'">
           <NuxtLink v-if="data.user_type != 'معبر'" class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" :to="{ name: 'orders-make' }">
-            <span class="mt-1.5">فسر حلمك الان</span>
+            <span>فسر حلمك الان</span>
           </NuxtLink>
         </div>
       </template>
@@ -52,7 +52,7 @@
                   <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"></path>
                   </svg>
-                  <span class="mt-1.5">تصفية</span>
+                  <span>تصفية</span>
                 </span>
                 <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount }}</span>
               </button>

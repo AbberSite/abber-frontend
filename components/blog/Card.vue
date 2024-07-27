@@ -7,7 +7,7 @@
     <div class="flex w-full flex-col space-y-4 pt-8 text-right">
 
       <div class="flex items-center justify-between text-gray-700">
-        <a class="rounded-full bg-gray-50 px-4 pb-1.5 pt-2 text-[13px] font-semibold hover:bg-gray-100 hover:text-gray-900"
+        <a class="rounded-full bg-gray-50 px-4 py-2 text-[13px] font-semibold hover:bg-gray-100 hover:text-gray-900"
           href="#">
           {{ type }}
         </a>
@@ -22,7 +22,7 @@
         </div>
       </h3>
 
-      <p class="text-justify text-sm text-gray-800 xs:text-base">
+      <p class="text-justify text-sm text-gray-600 xs:text-base">
         {{ resume }}
       </p>
 

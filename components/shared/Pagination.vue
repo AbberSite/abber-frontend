@@ -15,7 +15,7 @@
       <button @click="change(true)" :disabled="!results?.previous?.length" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" type="button">
         <Loading v-if="previousLoading" />
 
-        <span v-else class="mt-1.5">السابق</span>
+        <span v-else>السابق</span>
       </button>
       <p class="space-x-2 pt-2 rtl:space-x-reverse sm:block mx-4" :class="{ 'sm:hidden': !smallResultsCounter }">
         <span class="font-semibold">
@@ -28,7 +28,7 @@
       </p>
       <button type="button" :disabled="!results?.next?.length" :loading="nextLoading" @click="change()" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" :class="{ 'ms-3': !smallResultsCounter }" href="#">
         <Loading v-if="nextLoading" />
-        <span v-else class="mt-1.5">التالي</span>
+        <span v-else>التالي</span>
       </button>
     </div>
   </nav>

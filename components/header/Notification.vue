@@ -23,7 +23,7 @@
                 {{ getTimeDifference(notification.date) }}
             </time>
         </div>
-        <p class="pt-6 text-justify text-sm text-gray-800 md:pt-4">
+        <p class="pt-6 text-justify text-sm text-gray-600 md:pt-4">
             {{ notification.message }}
         </p>
     </NuxtLink>

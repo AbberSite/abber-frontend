@@ -38,7 +38,7 @@
                     <div class="flex items-center justify-between py-4">
                         <div class="font-semibold text-gray-500">حالة المستحقات</div>
                         <div v-if="order.order_item_financial_data?.available_balance"
-                            class="inline-flex items-center space-x-1 rounded-full bg-gray-100 px-3 pb-1 pt-1 text-xs font-medium text-gray-800 rtl:space-x-reverse">
+                            class="inline-flex items-center space-x-1 rounded-full bg-gray-100 px-3 pb-1 pt-1 text-xs font-medium text-gray-600 rtl:space-x-reverse">
                             <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="14" width="14">
                                 <path stroke-linecap="round" stroke-linejoin="round"

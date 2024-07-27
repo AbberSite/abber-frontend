@@ -50,7 +50,7 @@
     <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
       <PrimaryButton
         class="flex h-[50px] w-full items-center justify-center rounded-md " :loading="loading" @click="submit()"
-        type="submit"><span class="mt-1.5">حفظ</span></PrimaryButton>
+        type="submit"><span>حفظ</span></PrimaryButton>
     </div>
   </Modal>
 </template>

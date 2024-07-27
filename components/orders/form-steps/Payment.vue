@@ -127,7 +127,7 @@
         </div>
       </div>
       <PrimaryButton v-if="membership.results[0].num_orders" :loading="payforsubscrib" @click="payUsingSubscrition()"
-        class="w-full mt-3"><span class="mt-1.5">اكمال طلبك</span></PrimaryButton>
+        class="w-full mt-3"><span>اكمال طلبك</span></PrimaryButton>
     </div>
     <div v-if="loading" class="w-full h-full flex justify-center items-center min-h-[20rem] mr-2">
       <Loading class="w-14 h-14" />
@@ -149,7 +149,7 @@
           </p>
         </div>
         <PrimaryButton v-if="hasSufficientBallance" :loading="waitingByBalance"
-          @click="ordersPackage ? useBalance() : (showConfirmDailog = true)" class="w-full"><span class="mt-1.5">الدفع
+          @click="ordersPackage ? useBalance() : (showConfirmDailog = true)" class="w-full"><span>الدفع
             بالمحفظة</span></PrimaryButton>
 
         <span v-if="!hasSufficientBallance">عذرا، لا يوجد لديك رصيد كافي لشراء الخدمة بمحفظتك</span>

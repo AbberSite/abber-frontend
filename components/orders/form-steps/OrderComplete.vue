@@ -4,7 +4,7 @@
             <a
                 class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                 href="/">
-                <span class="mt-1.5">تصفح الطلبات</span></a
+                <span>تصفح الطلبات</span></a
             >
             <div class="pt-4">
                 <NuxtLink

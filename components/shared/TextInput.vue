@@ -21,7 +21,7 @@
       <template v-else>
         <input
           v-model="value"
-          class="form-control h-[50px] appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-800"
+          class="form-control h-[50px] appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-600"
           :class="[error && 'form-invalid']"
           :type="type ?? 'text'"
           :name="name"

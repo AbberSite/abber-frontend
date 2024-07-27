@@ -4,7 +4,7 @@
       <h3 class="text-xl font-semibold 2xl:text-2xl" aria-describedby="planDescription" v-text="package.name"></h3>
       <span v-if="primary" class="rounded-full bg-gray-900 px-2 pb-0.5 pt-1 text-xs font-semibold text-white">الأكثر شيوعا</span>
     </div>
-    <p class="mt-2 text-sm font-medium text-gray-800" id="planDescription" v-text="descriptionList[0]"></p>
+    <p class="mt-2 text-sm font-medium text-gray-600" id="planDescription" v-text="descriptionList[0]"></p>
     <div class="mt-8 flex items-center space-x-2 rtl:space-x-reverse">
       <span class="font-medium line-through" v-text="package.price_before_discount"></span>
       <span class="text-3xl font-bold" v-text="package.price"></span>

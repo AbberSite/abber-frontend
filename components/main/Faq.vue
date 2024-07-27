@@ -3,7 +3,7 @@
         <div class="grid gap-x-8 lg:grid-cols-3">
             <div class="pb-3">
                 <h2
-                    class="inline-flex rounded-full bg-gray-900 px-4 pb-1.5 pt-2 text-xs font-semibold text-white"
+                    class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-semibold text-white"
                     id="faq-heading">
                     الأسئلة الشائعة
                 </h2>
@@ -29,7 +29,7 @@
                                 <span class="ms-6 flex-shrink-0">
                                     <!-- Heroicon name: outline/plus -->
                                     <svg
-                                        class="mt-[5px] text-gray-800 group-hover:text-gray-900"
+                                        class="mt-[5px] text-gray-600 group-hover:text-gray-900"
                                         height="20"
                                         width="20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@
                                 </span>
                             </summary>
                             <div class="pt-6">
-                                <p class="text-justify text-sm text-gray-800 xs:text-base">
+                                <p class="text-justify text-sm text-gray-600 xs:text-base">
                                     {{ faq.answer }}
                                 </p>
                             </div>
@@ -73,7 +73,7 @@
                         class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                         type="button"
                         @click="moreFaqs = true">
-                        <span class="mt-1.5">عرض المزيد...</span>
+                        <span>عرض المزيد...</span>
                     </button>
                 </div>
             </div>

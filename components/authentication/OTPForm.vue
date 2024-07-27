@@ -6,7 +6,7 @@
       <div class="text-red-700 font-semibold" v-if="error">{{ error }}</div>
       <div class="flex justify-between space-x-2">
         <span class="text-center text-sm xs:text-base font-medium" @click="resendOTP" :class="[counter <= 0 && !loading ? 'text-blue-600 cursor-pointer' : 'text-gray-600 cursor-no-drop']">إعادة ارسال</span>
-        <span class="text-sm text-gray-800" v-text="counter" v-if="counter > 0"></span>
+        <span class="text-sm text-gray-600" v-text="counter" v-if="counter > 0"></span>
       </div>
       <div>
         <PrimaryButton class="w-full" :loading="loading"> تسجيل الدخول </PrimaryButton>

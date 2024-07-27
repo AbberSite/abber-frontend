@@ -79,7 +79,7 @@
                                     id="textarea" rows="5" required></textarea>
                             </div>
                             <PrimaryButton @click="submit" :loading="loading" type="submit">
-                                <span class="mt-1.5">حفظ</span>
+                                <span>حفظ</span>
                             </PrimaryButton>
                         </fieldset>
     </Modal>

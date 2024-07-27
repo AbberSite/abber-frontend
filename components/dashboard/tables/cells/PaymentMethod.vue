@@ -4,7 +4,7 @@
     <img v-else-if="method == 'MADA'" src="/images/payments/section/mada.png" class="w-7" alt="">
     <img v-else-if="method == 'APPLEPAY'" src="/images/payments/applepay.svg" class="w-7" alt="">
     <svg v-else-if="method == 'BALANCE'"
-              class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path fill-rule="evenodd"
                 d="M12 14a3 3 0 0 1 3-3h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4a3 3 0 0 1-3-3Zm3-1a1 1 0 1 0 0 2h4v-2h-4Z"
@@ -14,14 +14,14 @@
                 clip-rule="evenodd" />
             </svg>
             <svg v-else-if="method == 'CARD'"
-              class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 10h18M6 14h2m3 0h5M3 7v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1Z" />
             </svg>
             <img v-else-if="method == 'STC_PAY'"
               src="/images/payments/section/stc_pay.webp" class="w-7" alt="" />
-            <svg v-else class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+            <svg v-else class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />

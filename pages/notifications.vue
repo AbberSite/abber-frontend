@@ -12,7 +12,7 @@
         </svg>
       </div>
       <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">الإشعارات</h1>
-      <div class="pt-4 text-sm text-gray-800 xs:text-base">تصفح جميع الإشعارات الواردة إليك</div>
+      <div class="pt-4 text-sm text-gray-600 xs:text-base">تصفح جميع الإشعارات الواردة إليك</div>
 
       <template v-if="loading">
         <SkeletonsTable class="mt-16" />

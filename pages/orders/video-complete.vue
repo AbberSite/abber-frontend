@@ -21,7 +21,7 @@
                     <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
                         تم إرسال الطلب بنجاح
                     </h1>
-                    <div class="pt-4 text-center text-sm text-gray-800 xs:text-base">
+                    <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
                         <p>تم إرسال طلب تعبير الحلم الخاصة بك بنجاح.</p>
                         <div>سيتواصل معك المعبر قريبا.</div>
                     </div>
@@ -32,7 +32,7 @@
                                 <NuxtLink
                                     class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                                     :to="{ name: 'orders' }">
-                                    <span class="mt-1.5">تصفح الطلبات</span>
+                                    <span>تصفح الطلبات</span>
                                 </NuxtLink>
                                 <div class="pt-4">
                                     <NuxtLink
@@ -60,7 +60,7 @@
                     <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
                         عذرا لم يتم إرسال الطلب
                     </h1>
-                    <div class="pt-4 text-center text-sm text-gray-800 xs:text-base">
+                    <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
                         <p>لم يتم إرسال طلب تعبير الحلم الخاص بك يمكنك التواصل معنا</p>
                         <div>
                             {{ error }}
@@ -89,7 +89,7 @@
                     <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
                         جاري تأكيد الطلب
                     </h1>
-                    <div class="pt-4 text-center text-sm text-gray-800 xs:text-base">
+                    <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
                         <p>سيتم تأكيد طلبك بعد لحظات</p>
                     </div>
 

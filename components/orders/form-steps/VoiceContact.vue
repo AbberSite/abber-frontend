@@ -92,7 +92,7 @@
 
             <div>
                 <PrimaryButton class="w-full" :disabled="status !== 'finished'">
-                    <span class="mt-1.5">متابعة</span>
+                    <span>متابعة</span>
                 </PrimaryButton>
             </div>
         </fieldset>

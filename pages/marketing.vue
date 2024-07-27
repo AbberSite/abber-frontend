@@ -53,7 +53,7 @@
             <div v-if="false" class="col-span-full border-b border-gray-100 pb-14 md:border-b-0 md:pb-0 xl:col-span-2">
                 <div>
                     <h3 class="font-semibold xs:text-lg">اشترك في نشرتنا الإخبارية</h3>
-                    <p class="pt-4 text-sm text-gray-800 xs:text-base">
+                    <p class="pt-4 text-sm text-gray-600 xs:text-base">
                         يتم إرسال أحدث الأخبار والمقالات والموارد إلى بريدك الوارد أسبوعيًا.
                     </p>
                 </div>
@@ -67,7 +67,7 @@
                         <button
                             class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                             type="submit">
-                            <span class="mt-1.5">إشتراك</span>
+                            <span>إشتراك</span>
                         </button>
                     </div>
                 </form>
@@ -76,7 +76,7 @@
                 <h3 class="text-sm font-semibold xs:text-base">معلومات عنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <NuxtLink class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
+                        <NuxtLink class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :to="{ name: 'about' }">من نحن</NuxtLink>
                     </li>
                 </ul>
@@ -85,15 +85,15 @@
                 <h3 class="text-sm font-semibold xs:text-base">تواصل معنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
+                        <a class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :href="settings.social_settings?.twitter" target="_blank">تويتر</a>
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
+                        <a class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :href="settings.social_settings?.facebook" target="_blank">فيسبوك</a>
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
+                        <a class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :href="settings.social_settings?.instagram" target="_blank">إنستغرام</a>
                     </li>
                 </ul>
@@ -102,18 +102,18 @@
                 <h3 class="text-sm font-semibold xs:text-base">إتصل بنا</h3>
                 <ul class="space-y-5 pt-5" role="list">
                     <li>
-                        <a href="#" class="text-sm text-gray-800 hover:text-gray-900 xs:text-base">
+                        <a href="#" class="text-sm text-gray-600 hover:text-gray-900 xs:text-base">
                             {{ settings.general_settings?.address }}
                         </a>
                     </li>
                     <li dir="ltr">
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
+                        <a class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :href="'tel:' + settings.general_settings?.phone">
                             {{ settings.general_settings?.phone }}
                         </a>
                     </li>
                     <li>
-                        <a class="text-sm text-gray-800 hover:text-gray-900 xs:text-base"
+                        <a class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :href="'mailto:' + settings.general_settings?.email">
                             {{ settings.general_settings?.email }}
                         </a>
@@ -127,7 +127,7 @@
                         <a class="flex items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
                             href="https://apps.apple.com/sa/app/%D8%B9%D8%A8%D8%B1-%D9%84%D8%AA%D9%81%D8%B3%D9%8A%D8%B1-%D8%A7%D9%84%D8%A3%D8%AD%D9%84%D8%A7%D9%85/id6461119454"
                             target="_blank">
-                            <span class="mt-1.5 whitespace-nowrap text-lg font-semibold">App Store</span>
+                            <span class="whitespace-nowrap text-lg font-semibold">App Store</span>
                             <svg class="ms-3 flex-shrink-0" viewBox="0 0 384 512" width="20">
                                 <path fill="currentColor"
                                     d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z">
@@ -137,7 +137,7 @@
                     <li class="w-full sm:w-auto">
                         <a class="flex items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
                             href="https://play.google.com/store/apps/details?id=co.abber_dev.abber_app" target="_blank">
-                            <span class="mt-1.5 whitespace-nowrap text-lg font-semibold">Google Play</span>
+                            <span class="whitespace-nowrap text-lg font-semibold">Google Play</span>
                             <svg class="ms-3 flex-shrink-0" viewBox="30 336.7 120.9 129.2" width="20">
                                 <path fill="#FFD400"
                                     d="M119.2,421.2c15.3-8.4,27-14.8,28-15.3c3.2-1.7,6.5-6.2,0-9.7  c-2.1-1.1-13.4-7.3-28-15.3l-20.1,20.2L119.2,421.2z">
@@ -157,7 +157,7 @@
             </div>
         </div>
         <div class="py-8 md:flex md:items-center md:justify-between">
-            <p class="text-center text-sm text-gray-800 xs:text-base">جميع الحقوق محفوظة &copy; عبر {{ new
+            <p class="text-center text-sm text-gray-600 xs:text-base">جميع الحقوق محفوظة &copy; عبر {{ new
                 Date().getFullYear() }}.</p>
             <div class="flex justify-center items-center space-x-6 pt-2 rtl:space-x-reverse md:pt-0">
                 <a href="#" target="_blank" class="">

@@ -95,8 +95,8 @@
                                 <div
                                     class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
                                     <PrimaryButton @click="submit" :loading="loading" class="w-full" type="submit">
-                                        <span class="mt-1.5" v-if="canJoin">فتح جلسة</span>
-                                        <span class="mt-1.5" v-else>حفظ</span>
+                                        <span v-if="canJoin">فتح جلسة</span>
+                                        <span v-else>حفظ</span>
                                     </PrimaryButton>
                                 </div>
                             </template>
