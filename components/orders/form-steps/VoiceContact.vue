@@ -11,7 +11,7 @@
 
                         <MicrophoneIcon class="w-9 h-9" />
                     </button>
-                    <p class="pt-6 text-sm font-semibold xs:text-[15px]">إبدأ التسجيل</p>
+                    <p class="pt-6 text-sm font-medium xs:text-[15px]">إبدأ التسجيل</p>
                 </div>
 
                 <div class="w-full pt-2" v-if="status === 'recording' || status === 'paused'">
@@ -53,7 +53,7 @@
                             <StopIcon class="w-9 h-9" />
                         </button>
                     </div>
-                    <p class="pt-6 font-semibold">
+                    <p class="pt-6 font-medium">
                         {{ timer.display.value }}
                     </p>
                 </div>

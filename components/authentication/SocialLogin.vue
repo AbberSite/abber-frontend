@@ -2,7 +2,7 @@
   <div class="pt-4"
     v-if="settings.api_settings?.active_login_methods?.website.includes('whatsapp') && props.isFormSteps ? state.data?.authenticationMethod != 'whatsapp' : route.name != 'accounts-whatsapp-login'">
     <NuxtLink
-      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50 cursor-pointer"
+      class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50 cursor-pointer"
       @click="() => {
         if (props.isFormSteps) {
           (state.data as any).authenticationMethod = 'whatsapp'
@@ -26,7 +26,7 @@
   <div class="pt-4"
     v-if="settings.api_settings?.active_login_methods?.website.includes('phone') && props.isFormSteps ? state.data?.authenticationMethod != 'login-sms' : route.name != 'accounts-sms'">
     <NuxtLink
-      class="flex h-[50px]  cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      class="flex h-[50px]  cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
       @click="() => {
         if (props.isFormSteps) {
           (state.data as any).authenticationMethod = 'login-sms'
@@ -47,7 +47,7 @@
 
   <div class="pt-4 " v-if="settings.api_settings?.active_login_methods?.website.includes('google')">
     <button
-      class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
       @click="googleLogin">
       <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
         viewBox="0 0 48 48">
@@ -72,7 +72,7 @@
   <div class="pt-4 "
     v-if="props.isFormSteps ? state.data?.authenticationMethod != 'login' : route.name != 'accounts-login'">
     <NuxtLink
-      class="flex h-[50px] cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+      class="flex h-[50px] cursor-pointer items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
       @click="() => {
         if (props.isFormSteps) {
           (state.data as any).authenticationMethod = 'login'
@@ -90,7 +90,7 @@
 
   <div class="pt-4 " v-if="settings.api_settings?.active_login_methods?.website.includes('apple')">
     <button @click="appleLogin"
-      class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50">
+      class="flex h-[50px] cursor-pointer w-full items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50">
       <svg class="flekx-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22"
         viewBox="0 0 48 48">
         <path

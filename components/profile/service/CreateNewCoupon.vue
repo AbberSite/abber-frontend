@@ -6,7 +6,7 @@
           <TextInput id="code" type="text" v-model="code" label="رمز الخصم" placeholder="ادخل رمز الخصم" :error="errors.code"/>
         </div>
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base">نوع الخصم</label>
+          <label class="block text-sm font-medium xs:text-base">نوع الخصم</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="coupon.type" required>
             <option value="percentage">نسبة مئوية</option>
             <option value="fixed_amount" >مبلغ ثابت</option>
@@ -17,21 +17,21 @@
 
         </div>
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base">تأريخ بدأ الكوبون</label>
+          <label class="block text-sm font-medium xs:text-base">تأريخ بدأ الكوبون</label>
           <DatePicker id="start_date" placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
           v-model="start_date" model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
           cancel-text="الغاء" />
         <InputError :message="errors.start_date" />
         </div>
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base">تأريخ إنتهاء الكوبون</label>
+          <label class="block text-sm font-medium xs:text-base">تأريخ إنتهاء الكوبون</label>
           <DatePicker id="end_date" placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
           v-model="end_date" model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
           cancel-text="الغاء" />
         <InputError :message="errors.end_date" />
         </div>
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base">المنصات المتاحة</label>
+          <label class="block text-sm font-medium xs:text-base">المنصات المتاحة</label>
           <select class="form-control block max-h-[300px] min-h-[50px] appearance-none space-y-2 py-4 lg:min-h-[200px]" :class="{'border-red-500 placeholder:text-red-300': error?.id == 'active_platforms'}"
             id="active_platforms" v-model="coupon.active_platforms" multiple required>
             <option value="website" >الموقع</option>
@@ -43,7 +43,7 @@
         <div class="flex items-center">
           <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox"
             v-model="coupon.multi_use" >
-          <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base">إستخدام أكثر من مرة</label>
+          <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base">إستخدام أكثر من مرة</label>
         </div>
       </fieldset>
     </div>

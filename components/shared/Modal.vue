@@ -9,7 +9,7 @@
         <div class="fixed inset-0 z-40 bg-white sm:w-[340px]" v-cloak>
           <div class="flex h-full flex-col">
             <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8">
-              <h2 class="text-lg font-semibold xs:text-xl" v-text="title"></h2>
+              <h2 class="text-lg font-medium xs:text-xl" v-text="title"></h2>
               <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
                 <span class="sr-only">إغلاق القائمة</span>
                 <!-- Heroicon name: outline/x-mark -->

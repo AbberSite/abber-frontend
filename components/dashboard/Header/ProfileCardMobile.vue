@@ -8,7 +8,7 @@
                         :data-src="data.image_url" height="44" width="44" alt="" />
                 </div>
                 <div class="ms-3 flex flex-col pt-1">
-                    <div class="font-semibold">{{ data.first_name }}</div>
+                    <div class="font-medium">{{ data.first_name }}</div>
                     <div class="text-sm font-medium text-gray-500">{{ data.user_type }}</div>
                 </div>
             </NuxtLink>
@@ -26,9 +26,9 @@
             </div>
         </div>
         <div class="pt-6">
-            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" :to="{name: 'index'}">العودة للموقع</NuxtLink>
-            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" :to="{name: 'accounts-new-password'}">تغيير كلمة المرور</NuxtLink>          
-            <button class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
+            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50" :to="{name: 'index'}">العودة للموقع</NuxtLink>
+            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50" :to="{name: 'accounts-new-password'}">تغيير كلمة المرور</NuxtLink>          
+            <button class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50"
                 @click="showConfirmDailog = true">
                 تسجيل الخروج
             </button>

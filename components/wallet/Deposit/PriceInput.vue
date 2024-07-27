@@ -2,7 +2,7 @@
     <div class="w-full space-y-3">
         <form @submit.prevent="emitNext()" class="w-full space-y-3">
 
-            <label class="block text-sm font-semibold xs:text-base" for="amount">المبلغ</label>
+            <label class="block text-sm font-medium xs:text-base" for="amount">المبلغ</label>
             <input class="form-control h-[50px] appearance-none" type="number" id="amount"
                 v-model.number="state.data.amount" placeholder="إدخل المبلغ المراد شحنه" dir="rtl" />
             <InputError :message="error" />

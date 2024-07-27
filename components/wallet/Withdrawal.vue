@@ -8,7 +8,7 @@
       <TransitionChild enter="transition ease-in-out duration-300 transform" enter-from="translate-x-full " enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="translate-x-full" as="template">
         <div class="fixed inset-0 z-40 bg-white sm:w-[340px]" v-cloak>
           <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8">
-            <h2 class="text-lg font-semibold xs:text-xl">سحب الرصيد</h2>
+            <h2 class="text-lg font-medium xs:text-xl">سحب الرصيد</h2>
             <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
               <span class="sr-only">إغلاق القائمة</span>
               <!-- Heroicon name: outline/x-mark -->
@@ -32,7 +32,7 @@
                 </div>
               </div>
               <label class="block w-full space-y-3">
-                <label class="block text-sm font-semibold" for="amount">المبلغ</label>
+                <label class="block text-sm font-medium" for="amount">المبلغ</label>
                 <input dir="rtl" class="form-control h-[50px] appearance-none" type="number" pattern="\d*" id="amount" placeholder="إدخل المبلغ المراد سحبه" v-model.number="amount" :min="fee * 2" required />
                 <InputError :message="errors.amount" class="mt-2" />
               </label>
@@ -49,7 +49,7 @@
               </ul>
             </fieldset>
 
-            <PrimaryButton type="submit" class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 text-sm font-semibold text-white hover:bg-gray-800" :loading="loading">
+            <PrimaryButton type="submit" class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 text-sm font-medium text-white hover:bg-gray-800" :loading="loading">
               <span>متابعة</span>
             </PrimaryButton>
           </form>

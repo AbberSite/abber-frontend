@@ -14,7 +14,7 @@
           v-cloak>
           <button class="mx-auto block h-1 w-8 rounded-lg bg-gray-300" type="button" @click="$emit('close')"></button>
           <nav class="pt-6">
-            <h1 class="font-semibold text-lg border-b py-3">شروط استلام الطلب</h1>
+            <h1 class="font-medium text-lg border-b py-3">شروط استلام الطلب</h1>
             <div class="pt-3" v-html="settings?.policy_settings?.order_terms"/>
             <PrimaryButton class="w-full my-2 items-center" >إستلام الطلب وتقييمه</PrimaryButton>
           </nav>

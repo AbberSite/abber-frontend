@@ -8,7 +8,7 @@
         v-cloak
         >
         <div class="w-full">
-            <h3 class="text-sm font-semibold">حالة التذكرة</h3>
+            <h3 class="text-sm font-medium">حالة التذكرة</h3>
             <select class="form-control form-select h-[50px] appearance-none w-full" name="select" v-model="filters.status" required>
                       <option value="">الكل</option>
                       <option value="مفتوحة">مفتوحة</option>

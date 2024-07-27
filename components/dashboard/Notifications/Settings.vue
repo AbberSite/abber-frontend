@@ -108,6 +108,6 @@
 
 <style scoped>
 label {
-    @apply font-semibold text-lg;
+    @apply font-medium text-lg;
 }
 </style>

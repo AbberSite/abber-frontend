@@ -1,13 +1,13 @@
 <template>
-    <section class="mx-auto max-w-7xl px-4 pb-10 xs:px-6 lg:px-8 xl:pb-14" aria-labelledby="faq-heading">
+    <section class="mx-auto max-w-7xl px-4 pb-20 xs:px-6 sm:pb-28 lg:px-8" aria-labelledby="faq-heading">
         <div class="grid gap-x-8 lg:grid-cols-3">
             <div class="pb-3">
                 <h2
-                    class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-semibold text-white"
+                    class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-medium text-white"
                     id="faq-heading">
                     الأسئلة الشائعة
                 </h2>
-                <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">
+                <div class="pt-6 text-lg font-medium leading-[1.75] xs:text-xl 2xl:text-2xl">
                     الإجابة على ابرز الأسئلة المتداولة
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <template v-else>
                     <div class="divide-y-2 divide-gray-50 ">
                         <details v-for="faq in faqs" class="relative mt-8 pt-8 lg:first-of-type:mt-0">
-                            <summary class="group flex cursor-pointer select-none list-none justify-between font-semibold">
+                            <summary class="group flex cursor-pointer select-none list-none justify-between font-medium">
                                 <h3 class="leading-[1.75] xs:text-lg xs:leading-[1.75]">
                                     {{ faq.question }}
                                 </h3>
@@ -70,7 +70,7 @@
                 </template>
                 <div class="flex justify-center pt-16" v-if="!moreFaqs && _faqs.results.length > 5">
                     <button
-                        class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                        class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800"
                         type="button"
                         @click="moreFaqs = true">
                         <span>عرض المزيد...</span>

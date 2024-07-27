@@ -23,7 +23,7 @@
                 </path>
             </svg>
         </div>
-        <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">تسجيل الدخول</div>
+        <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">تسجيل الدخول</div>
         <div class="pt-4 text-sm text-gray-600 xs:text-base" v-if="sender == 'whatsapp'">
             أدخل رمز التحقق الذي تم إرساله الى حسابك في الواتساب
         </div>
@@ -32,7 +32,7 @@
         </div>
 
         <div class="flex justify-center items-center mt-[12px] w-full">
-            <span class="font-semibold" dir="ltr">{{ currentPhone }}</span>
+            <span class="font-medium" dir="ltr">{{ currentPhone }}</span>
             <!-- <div class="w-[120px] h-[2px] rounded-full border border-gray-400"></div> -->
         </div>
 

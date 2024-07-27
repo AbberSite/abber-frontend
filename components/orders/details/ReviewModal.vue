@@ -2,7 +2,7 @@
     <Modal title="تقييم المعبر" @close="emit('close')">
         <fieldset class="is-scroll space-y-7 overflow-y-auto px-6 py-8">
                             <div class="w-full space-y-3">
-                                <label class="block text-sm font-semibold xs:text-base" for="select">جودة الخدمة</label>
+                                <label class="block text-sm font-medium xs:text-base" for="select">جودة الخدمة</label>
                                 <select class="form-control form-select h-[50px] appearance-none"
                                     v-model="rating.quality_rate" name="select" id="select" required>
                                     <option value="5">★★★★★</option>
@@ -13,7 +13,7 @@
                                 </select>
                             </div>
                             <div class="w-full space-y-3">
-                                <label class="block text-sm font-semibold xs:text-base" for="select">التسليم في الوقت
+                                <label class="block text-sm font-medium xs:text-base" for="select">التسليم في الوقت
                                     المحدد</label>
                                 <select class="form-control form-select h-[50px] appearance-none" name="select"
                                     v-model="rating.delivery_rate" id="select" required>
@@ -25,7 +25,7 @@
                                 </select>
                             </div>
                             <div class="w-full space-y-3">
-                                <label class="block text-sm font-semibold xs:text-base" for="select">التواصل
+                                <label class="block text-sm font-medium xs:text-base" for="select">التواصل
                                     والمتابعة</label>
                                 <select class="form-control form-select h-[50px] appearance-none" name="select"
                                     v-model="rating.communication_rate" id="select" required>
@@ -37,7 +37,7 @@
                                 </select>
                             </div>
                             <div class="w-full space-y-3">
-                                <label class="block text-sm font-semibold xs:text-base" for="select">الإحترافية في
+                                <label class="block text-sm font-medium xs:text-base" for="select">الإحترافية في
                                     التعامل</label>
                                 <select class="form-control form-select h-[50px] appearance-none" name="select"
                                     id="select" v-model="rating.professional_rate" required>
@@ -49,7 +49,7 @@
                                 </select>
                             </div>
                             <div class="w-full space-y-3">
-                                <label class="block text-sm font-semibold xs:text-base" for="select">التعامل معه مرة
+                                <label class="block text-sm font-medium xs:text-base" for="select">التعامل معه مرة
                                     أخرى</label>
                                 <select class="form-control form-select h-[50px] appearance-none" name="select"
                                     v-model="rating.again_rate" id="select" required>
@@ -61,7 +61,7 @@
                                 </select>
                             </div>
                             <div class="w-full space-y-3">
-                                <label class="block text-sm font-semibold xs:text-base" for="select">الخبرة</label>
+                                <label class="block text-sm font-medium xs:text-base" for="select">الخبرة</label>
                                 <select class="form-control form-select h-[50px] appearance-none" name="select"
                                     v-model="rating.expertise_rate" id="select" required>
                                     <option value="5">★★★★★</option>
@@ -72,7 +72,7 @@
                                 </select>
                             </div>
                             <div class="w-full space-y-3">
-                                <label class="block text-sm font-semibold xs:text-base" for="textarea">إضافة
+                                <label class="block text-sm font-medium xs:text-base" for="textarea">إضافة
                                     تعليق</label>
                                 <textarea v-model="rating.comment"
                                     class="form-control block max-h-[300px] min-h-[200px] py-4" name="textarea"

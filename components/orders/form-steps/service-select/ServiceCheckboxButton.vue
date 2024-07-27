@@ -9,7 +9,7 @@
           :data-src="service?.seller?.image" height="44" width="44" alt="" />
       </div>
       <div class="space-y-3">
-        <div class="ms-3 pt-1 text-sm font-semibold">
+        <div class="ms-3 pt-1 text-sm font-medium">
           <div>
             {{ service?.seller?.first_name }}
           </div>
@@ -36,7 +36,7 @@
         <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
           {{ service.seller.about == null ? 'لا يوجد وصف' : service?.seller?.about.slice(0, 100) + (service?.seller?.about.length > 100 ? '...' : '') }}
         </div>
-        <div class="ms-3 space-x-2 text-justify text-sm font-semibold leading-loose rtl:space-x-reverse">
+        <div class="ms-3 space-x-2 text-justify text-sm font-medium leading-loose rtl:space-x-reverse">
           <span>سعر الخدمة يبدأ من:</span>
           <span>{{ minPrice }} ر.س. </span>
         </div>

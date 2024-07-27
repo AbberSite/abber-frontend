@@ -7,7 +7,7 @@
     <div class="flex w-full flex-col space-y-4 pt-8 text-right">
 
       <div class="flex items-center justify-between text-gray-700">
-        <a class="rounded-full bg-gray-50 px-4 py-2 text-[13px] font-semibold hover:bg-gray-100 hover:text-gray-900"
+        <a class="rounded-full bg-gray-50 px-4 py-2 text-[13px] font-medium hover:bg-gray-100 hover:text-gray-900"
           href="#">
           {{ type }}
         </a>
@@ -16,7 +16,7 @@
         </span>
       </div>
 
-      <h3 class="pt-2 font-semibold leading-[1.75] xs:text-lg xs:leading-[1.75]">
+      <h3 class="pt-2 font-medium leading-[1.75] xs:text-lg xs:leading-[1.75]">
         <div >
           {{ title }}
         </div>
@@ -26,7 +26,7 @@
         {{ resume }}
       </p>
 
-      <div class="text-sm font-semibold xs:text-base">
+      <div class="text-sm font-medium xs:text-base">
         <div >إقرأ المزيد <span aria-hidden="true">←</span></div>
       </div>
 

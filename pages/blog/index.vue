@@ -10,10 +10,10 @@
     <section
       class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
       aria-labelledby="blog-heading">
-      <h1 class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-semibold text-white">
+      <h1 class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-medium text-white">
         المدونة
       </h1>
-      <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">
+      <div class="pt-6 text-lg font-medium leading-[1.75] xs:text-xl 2xl:text-2xl">
         اخر المقالات المقدمة إسبوعيا
       </div>
       <div class="w-full max-w-sm pt-10" method="GET">
@@ -53,33 +53,33 @@
         <div class="hidden sm:block">
           <p class="space-x-2 rtl:space-x-reverse">
             <span>عرض</span>
-            <span class="font-semibold">{{ from }}</span>
+            <span class="font-medium">{{ from }}</span>
             <span>إلى</span>
-            <span class="font-semibold">{{ to }}</span>
+            <span class="font-medium">{{ to }}</span>
             <span>من</span>
-            <span class="font-semibold">{{ posts.count }}</span>
+            <span class="font-medium">{{ posts.count }}</span>
             <span>نتيجة</span>
           </p>
         </div>
         <div class="flex w-full items-center justify-between sm:justify-end">
           <button @click="previousButton()" :disabled="!posts?.previous?.length"
-            class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
+            class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             type="button">
             <Loading v-if="previousLoading" />
 
             <span v-else>السابق</span>
           </button>
           <p class="space-x-2 pt-2 rtl:space-x-reverse sm:hidden">
-            <span class="font-semibold">
+            <span class="font-medium">
               {{ to }}
             </span>
             <span>\</span>
-            <span class="font-semibold">
+            <span class="font-medium">
               {{ posts.count }}
             </span>
           </p>
           <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="nextButton()"
-            class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
+            class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             href="#">
             <Loading v-if="nextLoading" />
             <span v-else>التالي</span>

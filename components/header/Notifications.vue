@@ -5,7 +5,7 @@
         <div class="flex h-full flex-col">
 
             <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8 md:hidden">
-                <h2 class="text-lg font-semibold xs:text-xl">الإشعارات</h2>
+                <h2 class="text-lg font-medium xs:text-xl">الإشعارات</h2>
                 <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
                     <span class="sr-only">إغلاق القائمة</span>
                     <!-- Heroicon name: outline/x-mark -->
@@ -38,7 +38,7 @@
                     </template>
                 </ul>
                 <div class="fixed bottom-0 z-40 w-full border-t border-gray-100 bg-white px-6 py-6 text-center md:relative" >
-                    <NuxtLink class="px-6 py-3 font-semibold md:text-sm" :to="{name: 'notifications'}" @click="$emit('close')" >عرض جميع الإشعارات <span aria-hidden="true">←</span></NuxtLink>
+                    <NuxtLink class="px-6 py-3 font-medium md:text-sm" :to="{name: 'notifications'}" @click="$emit('close')" >عرض جميع الإشعارات <span aria-hidden="true">←</span></NuxtLink>
                 </div>
             </template>
             <!-- Show when empty notifications list  -->
@@ -61,7 +61,7 @@
                             d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path>
                     </svg>
                 </span>
-                <p class="pt-4 font-semibold text-gray-700 text-sm xs:text-[15px] md:text-sm">
+                <p class="pt-4 font-medium text-gray-700 text-sm xs:text-[15px] md:text-sm">
                     لا توجد إشعارات لعرضها حتى الان.
                 </p>
             </div>

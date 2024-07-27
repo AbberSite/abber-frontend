@@ -10,7 +10,7 @@
                     :error="errors.dream_title" placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />
             </div>
             <div class="w-full space-y-3" id="dream_time">
-                <label class="text-sm font-semibold xs:text-base" for="date" @click="datePicker?.openMenu()">
+                <label class="text-sm font-medium xs:text-base" for="date" @click="datePicker?.openMenu()">
                     تاريخ الحلم
                 </label>
 
@@ -22,12 +22,12 @@
             <div class="flex items-center">
                 <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" v-model="client" type="checkbox"
                     name="checkbox" :error="errors.client" id="checkbox" x-model="checkedBox" />
-                <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="checkbox">هل الحلم لشخص اخر؟</label>
+                <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base" for="checkbox">هل الحلم لشخص اخر؟</label>
             </div>
 
             <div class="space-y-7" v-if="client">
                 <div class="w-full space-y-3">
-                    <label class="block text-sm font-semibold xs:text-base" for="sex">الجنس</label>
+                    <label class="block text-sm font-medium xs:text-base" for="sex">الجنس</label>
                     <select v-model="gender" class="form-control form-select h-[50px] appearance-none" type="select"
                         :class="[errors.gender && 'form-invalid']" name="select" id="gender">
                         <option value="male" selected>ذكر</option>
@@ -40,7 +40,7 @@
                         placeholder="إدخل عمر الشخص الاخر" label="العمر" />
                 </div>
                 <div class="w-full space-y-3">
-                    <label class="block text-sm font-semibold xs:text-base" for="martial_status">الحالة
+                    <label class="block text-sm font-medium xs:text-base" for="martial_status">الحالة
                         الإجتماعية</label>
                     <select v-model="marital_status" class="form-control form-select h-[50px] appearance-none"
                         :class="[errors.marital_status && 'form-invalid']" type="select" name="select"
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="textarea">وصف الحلم</label>
+                <label class="block text-sm font-medium xs:text-base" for="textarea">وصف الحلم</label>
                 <div class="text-sm text-yellow-700">نضمن لكم السرية الخاصة ويمنع إرسال أرقام التواصل للمعبر</div>
                 <textarea class="form-control block max-h-[300px] min-h-[200px] py-4" name="textarea" id="dream"
                     rows="5" :class="[errors.dream && 'form-invalid']" placeholder="أوصف الحلم بالتفصيل"

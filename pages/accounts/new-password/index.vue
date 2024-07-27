@@ -79,7 +79,7 @@
                         d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
                 </svg>
             </div>
-            <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">تعيين كلمة مرور جديدة</div>
+            <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">تعيين كلمة مرور جديدة</div>
             <div class="pt-4 text-sm text-gray-600 xs:text-base">ضع كلمة مرور يمكن تذكرها و قوية في نفس الوقت</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="submit">
@@ -183,7 +183,7 @@
                         </TextInput>
 
                         <div>
-                            <!-- <a class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                            <!-- <a class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
                                 href="/accounts/password/reset/key/done"> <span>تعيين كلمة المرور</span></a> -->
 
                             <PrimaryButton class="w-full" :loading="loading"> تعيين كلمة المرور </PrimaryButton>

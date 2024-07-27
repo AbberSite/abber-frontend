@@ -24,12 +24,12 @@
                     <button class="mx-auto block h-1 w-8 rounded-lg bg-gray-300" type="button" @click="$emit('close')"></button>
                     <div class="pb-4 pt-8">
                       <div class="mb-10 flex items-center justify-between space-x-3 rtl:space-x-reverse">
-                        <h3 class="mt-1.5 text-lg font-semibold">فلترة</h3>
-                        <a class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800" href="#" @click.prevent="apply">تطبيق</a>
+                        <h3 class="mt-1.5 text-lg font-medium">فلترة</h3>
+                        <a class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800" href="#" @click.prevent="apply">تطبيق</a>
                       </div>
                       <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto">
                         <div class="w-full space-y-3">
-                          <label class="block text-sm font-semibold xs:text-base" for="select">عملية ناجحة</label>
+                          <label class="block text-sm font-medium xs:text-base" for="select">عملية ناجحة</label>
                           <select v-model="status" class="form-control form-select h-[50px] appearance-none" name="select" id="select" required>
                             <option value="">الكل</option>
                             <option value="true">نعم</option>
@@ -37,7 +37,7 @@
                           </select>
                         </div>
                         <div class="w-full space-y-3">
-                          <label class="block text-sm font-semibold xs:text-base" for="select">التأريخ</label>
+                          <label class="block text-sm font-medium xs:text-base" for="select">التأريخ</label>
                           <select class="form-control form-select h-[50px] appearance-none" name="select" id="select" required>
                             <option>الكل</option>
                             <option>اخر يوم</option>

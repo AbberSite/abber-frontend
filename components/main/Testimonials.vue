@@ -1,13 +1,13 @@
 <template>
-    <section class="mx-auto max-w-7xl px-4 pb-10 xs:px-6 lg:px-8 xl:pb-14" aria-labelledby="testimonials-heading">
+    <section class="mx-auto max-w-7xl px-4 pb-20 xs:px-6 sm:pb-28 lg:px-8" aria-labelledby="testimonials-heading">
         <div class="flex items-end justify-between">
             <div>
                 <h2
-                    class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-semibold text-white"
+                    class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-medium text-white"
                     id="testimonials-heading">
                     الاراء
                 </h2>
-                <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">
+                <div class="pt-6 text-lg font-medium leading-[1.75] xs:text-xl 2xl:text-2xl">
                     اراء عملاؤنا بالخدمات التي نقدمها
                 </div>
             </div>

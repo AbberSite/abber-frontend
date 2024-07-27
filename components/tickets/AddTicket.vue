@@ -2,7 +2,7 @@
   <Modal title="كيف يمكننا مساعدتك" @close="$emit('close')">
     <fieldset class="is-scroll space-y-7 overflow-y-auto px-6 py-8">
       <div class="w-full space-y-3" v-for="(levelProblems, level) in sortedProblems" :key="level">
-        <label class="block text-sm font-semibold xs:text-base" v-if="level === 0">نوع المشكلة</label>
+        <label class="block text-sm font-medium xs:text-base" v-if="level === 0">نوع المشكلة</label>
         <select v-show="currentLevel >= level && (level == 0 || parent == key || requestBody[level - 1] == key)"
           v-for="(problems, key) in levelProblems" class="form-control form-select h-[50px] appearance-none"
           :name="requestBody[level]" @change="serProblems($event, level)" :key="key" required>

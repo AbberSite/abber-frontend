@@ -80,7 +80,7 @@ const countryCode = ref('');
 .wpwl-label-expiry,
 .wpwl-label-cardNumber,
 .wpwl-label-mobilePhone {
-    @apply block text-xs font-semibold xs:text-base w-full ml-5;
+    @apply block text-xs font-medium xs:text-base w-full ml-5;
     direction: rtl;
 }
 
@@ -90,7 +90,7 @@ const countryCode = ref('');
 }
 
 .wpwl-button-pay {
-    @apply hidden h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+    @apply hidden h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-button-error {

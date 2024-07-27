@@ -14,23 +14,23 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
         </svg>
       </div>
-      <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="settings-heading">إدارة الخدمة</h1>
+      <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="settings-heading">إدارة الخدمة</h1>
       <div class="pt-4 text-sm text-gray-600 xs:text-base">قم بإدراة خدمة تعبير الأحلام الخاصة بك</div>
 
       <TabGroup as="template">
         <TabList class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base" role="tablist" aria-labelledby="tablist-profile" aria-orientation="horizontal" as="div">
           <Tab v-slot="{ selected }" as="template">
-            <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
+            <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
               إعدادات الخدمة
             </button>
           </Tab>
           <Tab v-slot="{ selected }" as="template">
-            <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
+            <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
               الخصومات
             </button>
           </Tab>
           <Tab v-slot="{ selected }" as="template">
-            <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
+            <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
               الكوبونات
             </button>
           </Tab>

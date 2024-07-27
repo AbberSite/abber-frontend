@@ -14,7 +14,7 @@
           <fieldset class="space-y-7">
 
             <div class="space-y-3 flex flex-col items-center">
-              <div v-if="!customRange?.[0] || !customRange?.[1]" class="font-semibold">أختر تاريخ البداية ثم النهاية
+              <div v-if="!customRange?.[0] || !customRange?.[1]" class="font-medium">أختر تاريخ البداية ثم النهاية
               </div>
               <DatePicker range placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation
                 v-model="customRange" model-type="yyyy-MM-dd" ref="datePicker" id="date" :auto-apply="true"
@@ -25,7 +25,7 @@
 
 
             <!-- <div class="w-full space-y-3">
-                            <label class="block text-sm font-semibold xs:text-base" for="date">التأريخ من</label>
+                            <label class="block text-sm font-medium xs:text-base" for="date">التأريخ من</label>
                             <input
                                 class="form-control h-[50px] appearance-none"
                                 type="date"
@@ -36,7 +36,7 @@
                                 />
                         </div>
                         <div class="w-full space-y-3">
-                            <label class="block text-sm font-semibold xs:text-base" for="date">التأريخ إلى</label>
+                            <label class="block text-sm font-medium xs:text-base" for="date">التأريخ إلى</label>
                             <input
                                 class="form-control h-[50px] appearance-none"
                                 type="date"

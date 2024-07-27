@@ -25,7 +25,7 @@
         </ClientOnly>
         <div class="hidden w-full gap-x-8 pt-4 lg:grid lg:grid-cols-3">
           <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
-            <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
+            <div class="px-6 font-medium xs:text-lg">تفاصيل الطلب</div>
             <DetailsCard />
           </div>
           <ClientOnly v-if="$viewport.isGreaterOrEquals('tablet')">

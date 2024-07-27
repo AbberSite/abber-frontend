@@ -19,7 +19,7 @@
           <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
             <CheckCircleIcon class="w-6 h-6" />
           </div>
-          <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
+          <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
             تم إرسال الطلب بنجاح
           </h1>
           <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
@@ -30,16 +30,16 @@
           <div class="mx-auto w-full max-w-sm">
             <div>
               <div class="mx-auto w-full max-w-sm pt-10">
-                <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" :to="`/orders/${data?.order_id}/`">
+                <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800" :to="`/orders/${data?.order_id}/`">
                   <span>متابعة الطلب</span>
                 </NuxtLink>
                 <div class="pt-4">
-                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50" :to="{ name: 'index' }">
+                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50" :to="{ name: 'index' }">
                     <span class="ms-3 mt-1.5">الصفحة الرئيسية</span>
                   </NuxtLink>
                 </div>
                 <div class="pt-4">
-                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50" :to="{ name: 'blog' }">
+                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50" :to="{ name: 'blog' }">
                     <span class="ms-3 mt-1.5">المدونة</span>
                   </NuxtLink>
                 </div>
@@ -52,7 +52,7 @@
           <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
             <XCircleIcon class="w-6 h-6" />
           </div>
-          <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
+          <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
             عذرا لم يتم إرسال الطلب
           </h1>
           <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
@@ -66,7 +66,7 @@
             <div>
               <div class="mx-auto w-full max-w-sm pt-10">
                 <div class="pt-4">
-                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" :to="{ name: 'support' }">
+                  <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800" :to="{ name: 'support' }">
                     <span class="ms-3 mt-1.5"> مركز الدعم</span>
                   </NuxtLink>
                 </div>
@@ -79,7 +79,7 @@
           <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
             <Loading class="w-6 h-6" />
           </div>
-          <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
+          <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
             جاري تأكيد الطلب
           </h1>
           <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
@@ -91,7 +91,7 @@
                             <div class="mx-auto w-full max-w-sm pt-10">
                                 <div class="pt-4">
                                     <NuxtLink
-                                        class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                                        class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
                                         :to="{ name: 'index' }">
                                         <span class="ms-3 mt-1.5"> مركز الدعم</span>
                                     </NuxtLink>

@@ -13,7 +13,7 @@
             <form method="POST" @submit.prevent="send">
                 <fieldset class="space-y-7">
                     <div class="w-full space-y-3">
-                        <!-- <label class="text-sm font-semibold xs:text-base" for="tel">رقم الواتساب</label>
+                        <!-- <label class="text-sm font-medium xs:text-base" for="tel">رقم الواتساب</label>
                             <input class="form-control h-[50px] appearance-none" type="tel" name="phone" id="tel"
                                 placeholder="7835196169" autocomplete="tel" required /> -->
 
@@ -21,7 +21,7 @@
                     </div>
                     <div>
                         <!-- <button
-                                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
                                 href="/accounts/whatsapp/opt"> <span>
                                     <Loading  v-if="loading"/>
                                     <span v-else>متابعة</span>

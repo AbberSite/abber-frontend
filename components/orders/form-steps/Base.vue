@@ -4,7 +4,7 @@
       <component :is="activeHeader.icon" class="w-6 h-6" />
     </div>
 
-    <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="contact-types-heading">
+    <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
       {{ activeHeader?.title }}
     </h1>
 

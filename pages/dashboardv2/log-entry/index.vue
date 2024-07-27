@@ -9,7 +9,7 @@
       />
       <div class="relative">
         <button
-          class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex"
+          class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-medium shadow-sm hover:bg-gray-50 sm:flex"
           type="button"
           @click="openFiltersDropdown = true"
           aria-expanded="false"

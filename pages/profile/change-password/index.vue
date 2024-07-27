@@ -24,13 +24,13 @@
                         d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
                 </svg>
             </div>
-            <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">تغيير كلمة المرور</div>
+            <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">تغيير كلمة المرور</div>
             <div class="pt-4 text-sm text-gray-600 xs:text-base">ضع كلمة مرور يمكن تذكرها و قوية في نفس الوقت</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form @submit.prevent="submit">
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
-                            <label class="block text-sm font-semibold xs:text-base" for="password"
+                            <label class="block text-sm font-medium xs:text-base" for="password"
                                 >كلمة المرور الحالية</label
                             >
                             <div class="relative" x-data="{ show: false }">
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="w-full space-y-3">
-                            <label class="block text-sm font-semibold xs:text-base" for="password"
+                            <label class="block text-sm font-medium xs:text-base" for="password"
                                 >كلمة المرور الجديدة</label
                             >
                             <div class="relative">
@@ -137,7 +137,7 @@
                             <InputError v-for="message in errors.new_password1" :message="message" />
                         </div>
                         <div class="w-full space-y-3">
-                            <label class="block text-sm font-semibold xs:text-base" for="password"
+                            <label class="block text-sm font-medium xs:text-base" for="password"
                                 >كلمة المرور الجديدة (مرة أخرى)</label
                             >
                             <div class="relative" x-data="{ show: false }">
@@ -191,7 +191,7 @@
                             <InputError v-for="message in errors.new_password2" :message="message" />
                         </div>
                         <!-- <div class="text-sm xs:text-base">
-                            <a class="mt-1.5 font-semibold" href="/accounts/reset-password/">نسيت كلمة المرور؟</a>
+                            <a class="mt-1.5 font-medium" href="/accounts/reset-password/">نسيت كلمة المرور؟</a>
                         </div> -->
                         <div>
                             <PrimaryButton :loading="loading" class="w-full">تغيير كلمة المرور</PrimaryButton>

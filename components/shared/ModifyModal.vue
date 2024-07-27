@@ -15,7 +15,7 @@
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
                             <div class="py-3">
                                 <div class="flex justify-between items-center pb-2">
-                                    <h2 class="text-lg font-semibold">{{title}}</h2>
+                                    <h2 class="text-lg font-medium">{{title}}</h2>
                                     <XMarkIcon class="w-6 h-6 cursor-pointer" @click="emit('close')"/>
                                 </div>
                                 <slot/>

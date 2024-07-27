@@ -14,7 +14,7 @@
                         alt="صورة المستخدم" />
                 </div>
                 <div class="ms-3 flex flex-col pt-1">
-                    <div class="text-sm font-semibold">
+                    <div class="text-sm font-medium">
                         {{ notification.sender.first_name }}
                     </div>
                 </div>

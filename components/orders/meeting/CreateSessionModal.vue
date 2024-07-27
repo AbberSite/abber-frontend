@@ -23,7 +23,7 @@
                 <div class="fixed inset-0 z-40 bg-white sm:w-[340px]">
                     <div class="flex h-full flex-col">
                         <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8">
-                            <h2 class="text-lg font-semibold xs:text-xl">فتح جلسة صوتية</h2>
+                            <h2 class="text-lg font-medium xs:text-xl">فتح جلسة صوتية</h2>
                             <button
                                 class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900"
                                 type="button"
@@ -65,13 +65,13 @@
                                                 name="checkbox"
                                                 id="video-available" />
                                             <label
-                                                class="mt-1.5 ps-3 text-sm font-semibold xs:text-base"
+                                                class="mt-1.5 ps-3 text-sm font-medium xs:text-base"
                                                 for="video-available"
                                                 >متاح الان</label
                                             >
                                         </div>
                                         <div class="w-full space-y-3" v-if="currentSession.active_session">
-                                            <label class="block text-sm font-semibold xs:text-base" for="orders-count"
+                                            <label class="block text-sm font-medium xs:text-base" for="orders-count"
                                                 >عدد الطلبات</label
                                             >
                                             <input

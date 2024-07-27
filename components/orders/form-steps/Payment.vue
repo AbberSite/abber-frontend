@@ -15,7 +15,7 @@
 
     <div class="space-y-3" v-if="!activeMembership">
       <template v-if="!deposit && !addCard">
-        <h1 class="text-center font-semibold" v-if="!loading">
+        <h1 class="text-center font-medium" v-if="!loading">
           السعر الإجمالي : <span class="text-blue-600">{{ amount }} ر.س</span>
         </h1>
         <div v-if="
@@ -94,10 +94,10 @@
     <div v-if="
       !loading && !deposit && !addCard && !ordersPackage && activeMembership
     " class="w-full h-full flex flex-col justify-center items-center gap-2">
-      <h1 class="font-semibold">تفاصيل اشتراكك:</h1>
+      <h1 class="font-medium">تفاصيل اشتراكك:</h1>
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
-          <p class="font-semibold text-gray-500">الطلبات المتبقية</p>
+          <p class="font-medium text-gray-500">الطلبات المتبقية</p>
           <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse">
             <span>{{ membership.results[0].num_orders }}</span><small>طلب</small>
           </p>
@@ -143,8 +143,8 @@
     <template v-if="!deposit && !addCard">
       <div v-if="!loading && paymentMethod == 'BALANCE'" class="py-3 text-center">
         <div class="flex justify-between items-center py-2">
-          <p class="font-semibold">الرصيد الحالي:</p>
-          <p class="font-semibold px-2">
+          <p class="font-medium">الرصيد الحالي:</p>
+          <p class="font-medium px-2">
             {{ balance?.withdrawal_balance }} ر.س
           </p>
         </div>
@@ -158,7 +158,7 @@
         <div class="flex items-center">
           <input v-model="hasCoupon" class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
             name="checkbox" id="have-coupon" />
-          <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="have-coupon">لدي كوبون خصم</label>
+          <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base" for="have-coupon">لدي كوبون خصم</label>
         </div>
         <div class="w-full space-y-3" v-if="hasCoupon">
           <input class="form-control h-[50px] appearance-none" type="text" name="text" id="coupon" v-model="coupon"
@@ -886,7 +886,7 @@ watch(supplement, async (data) => {
 }
 
 .wpwl-container .wpwl-button-pay {
-  @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+  @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-form {
@@ -898,7 +898,7 @@ watch(supplement, async (data) => {
 }
 
 .wpwl-form .wpwl-wrapper-submit button {
-  @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+  @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-container-card {
@@ -915,7 +915,7 @@ watch(supplement, async (data) => {
 }
 
 /* .wpwl-form .wpwl-label-cardNumber {
-  @apply text-right w-full block text-sm font-semibold xs:text-base;
+  @apply text-right w-full block text-sm font-medium xs:text-base;
 } */
 
 .wpwl-form .wpwl-group-cardNumber iframe {
@@ -953,7 +953,7 @@ watch(supplement, async (data) => {
 }
 
 .wpwl-label-mobilePhone {
-  @apply block text-sm font-semibold xs:text-base w-full mb-3;
+  @apply block text-sm font-medium xs:text-base w-full mb-3;
   direction: rtl;
 }
 
@@ -1013,7 +1013,7 @@ watch(supplement, async (data) => {
 .wpwl-label-expiry,
 .wpwl-label-cardNumber,
 .wpwl-label-mobilePhone {
-    @apply block text-sm font-semibold xs:text-base w-full;
+    @apply block text-sm font-medium xs:text-base w-full;
     direction: rtl;
 }
 
@@ -1023,7 +1023,7 @@ watch(supplement, async (data) => {
 }
 
 .wpwl-button-pay {
-    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
+    @apply flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 focus:bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black focus:border-gray-900 focus:outline-none focus:ring-offset-2 focus:ring-1 focus:ring-gray-900;
 }
 
 .wpwl-button-error {

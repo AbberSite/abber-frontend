@@ -1,5 +1,5 @@
 <template>
-  <th class="whitespace-nowrap pb-1 pe-4 pt-1 font-semibold" scope="col" >
+  <th class="whitespace-nowrap pb-1 pe-4 pt-1 font-medium" scope="col" >
     <button
       class="flex w-full items-center justify-between space-x-3 rounded-md bg-gray-100 px-4 pb-2 pt-3 rtl:space-x-reverse"
       type="button" v-if="content == 'التاريخ'">

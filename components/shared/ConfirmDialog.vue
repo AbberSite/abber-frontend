@@ -16,13 +16,13 @@
                             <template v-if="isLoading">
                                 <div class="flex flex-col justify-center items-center gap-3">
                                     <Loading class="w-auto"/>
-                                    <h1 class="font-semibold">جاري تسجيل الدخول ...</h1>
+                                    <h1 class="font-medium">جاري تسجيل الدخول ...</h1>
                                 </div>
                             </template>
                             <template v-else>
 
                             <DialogTitle as="div" class="flex flex-col-reverse items-center" >
-                              <h3 class="text-[16px] font-semibold leading-6 text-gray-900 py-1">{{title}}</h3>
+                              <h3 class="text-[16px] font-medium leading-6 text-gray-900 py-1">{{title}}</h3>
                               <ExclamationTriangleIcon class="w-8 h-8" v-if="!payment" />
                               <CheckCircleIcon class="w-8 h-8" v-else/>
                             </DialogTitle>
@@ -36,7 +36,7 @@
                                     المتابعة
                                 </PrimaryButton>
                                 <button @click="emit('close')"
-                                    class="w-full py-2 bg-slate-200 rounded-md font-semibold">
+                                    class="w-full py-2 bg-slate-200 rounded-md font-medium">
                                     إلغاء
                                 </button>
                             </div>

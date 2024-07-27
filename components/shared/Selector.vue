@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col space-y-3">
-    <h3 class="text-sm font-semibold xs:text-base">{{ label }}:</h3>
+    <h3 class="text-sm font-medium xs:text-base">{{ label }}:</h3>
     <div class="border py-2 px-3 rounded max-h-16 overflow-auto" v-if="checkboxes">
       <Checkbox 
         v-for="option in options" 

@@ -41,9 +41,9 @@
               <div class="flex items-center">
                 <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="remember"
                   id="id_remember" checked disabled />
-                <label class="mt-1.5 ps-3 font-semibold" for="id_remember">تذكرني</label>
+                <label class="mt-1.5 ps-3 font-medium" for="id_remember">تذكرني</label>
               </div>
-              <NuxtLink class="mt-1.5 font-semibold" :to="{ name: 'accounts-reset-password', query: {email: email} }">
+              <NuxtLink class="mt-1.5 font-medium" :to="{ name: 'accounts-reset-password', query: {email: email} }">
                 نسيت كلمة المرور؟
               </NuxtLink>
             </div>

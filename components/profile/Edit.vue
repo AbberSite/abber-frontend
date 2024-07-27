@@ -1,7 +1,7 @@
 <template>
     <div class="grid w-full gap-x-8 space-y-7 pt-16 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3">
         <div class="w-full space-y-3">
-            <label class="block text-sm font-semibold xs:text-base" for="username">الإسم الكامل</label>
+            <label class="block text-sm font-medium xs:text-base" for="username">الإسم الكامل</label>
             <input
                 class="form-control h-[50px] appearance-none"
                 v-model="tempAccount.username"
@@ -15,7 +15,7 @@
             <div class="text-[13px] leading-loose text-gray-500">يفضل أن يكون إسمك الكامل باللعة العربية</div>
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-semibold xs:text-base" for="email">البريد الألكتروني</label>
+            <label class="block text-sm font-medium xs:text-base" for="email">البريد الألكتروني</label>
             <input
                 class="form-control h-[50px]"
                 v-model="tempAccount.email"
@@ -29,14 +29,14 @@
             <InputError v-for="message in errors.email" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <!-- <label class="block text-sm font-semibold xs:text-base" for="tel">رقم الهاتف</label> -->
+            <!-- <label class="block text-sm font-medium xs:text-base" for="tel">رقم الهاتف</label> -->
 
             <PhoneInput v-model="tempAccount.phone" id="phone" mobile />
 
             <InputError v-for="message in errors.phone" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-semibold xs:text-base" for="iban">رقم IBAN</label>
+            <label class="block text-sm font-medium xs:text-base" for="iban">رقم IBAN</label>
             <input
                 class="form-control h-[50px] appearance-none"
                 v-model="tempAccount.profile.bank_account"
@@ -49,7 +49,7 @@
             <InputError v-for="message in errors.profile?.bank_account" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-semibold xs:text-base" for="gender">الجنس</label>
+            <label class="block text-sm font-medium xs:text-base" for="gender">الجنس</label>
             <select
                 v-model="tempAccount.profile.gender"
                 class="form-control form-select h-[50px] appearance-none"
@@ -63,7 +63,7 @@
             <InputError v-for="message in errors.profile?.gender" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="text-sm font-semibold xs:text-base" for="date" @click="datePicker?.openMenu()">
+            <label class="text-sm font-medium xs:text-base" for="date" @click="datePicker?.openMenu()">
                 تأريخ الميلاد</label
             >
 
@@ -83,7 +83,7 @@
             <InputError v-for="message in errors.profile?.birthday" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-semibold xs:text-base" for="select">الحالة الإجتماعة</label>
+            <label class="block text-sm font-medium xs:text-base" for="select">الحالة الإجتماعة</label>
             <select
                 class="form-control form-select h-[50px] appearance-none"
                 type="select"
@@ -99,7 +99,7 @@
             <InputError v-for="message in errors.profile?.maritalStatus" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-semibold xs:text-base" for="text">المهنة</label>
+            <label class="block text-sm font-medium xs:text-base" for="text">المهنة</label>
             <input
                 v-model="tempAccount.profile.profession"
                 class="form-control h-[50px] appearance-none"

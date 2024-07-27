@@ -18,7 +18,7 @@
               <ChatBubbleLeftEllipsisIcon class="w-6 h-6" />
             </span>
             <span class="flex flex-col space-y-3">
-              <span class="ms-3 mt-1.5 text-sm font-semibold">محادثة نصية</span>
+              <span class="ms-3 mt-1.5 text-sm font-medium">محادثة نصية</span>
               <span class="ms-3 text-[13px] leading-loose text-gray-700">سيتواصل المعبر معك نصيا عن طريق شات منصة
                 عبر.</span>
             </span>
@@ -35,7 +35,7 @@
               <MicrophoneIcon class="w-6 h-6" />
             </span>
             <span class="flex flex-col space-y-3">
-              <span class="ms-3 mt-1.5 text-sm font-semibold">محادثة صوتية</span>
+              <span class="ms-3 mt-1.5 text-sm font-medium">محادثة صوتية</span>
               <span class="ms-3 text-[13px] leading-loose text-gray-700">سيتواصل المعبر معك صوتيا عن طريق تطبيق
                 Zoom.</span>
             </span>
@@ -45,7 +45,7 @@
         </label>
       </template>
       <div class="flex justify-center ">
-        <button class="font-medium text-blue-600" @click="navigateTo('/')">
+        <button class="font-medium text-blue-600 text-sm xs:text-base" @click="navigateTo('/')">
         <span aria-hidden="true">→</span> الرجوع للصفحة الرئيسية
       </button>
       </div>

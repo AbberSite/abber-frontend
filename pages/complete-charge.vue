@@ -18,7 +18,7 @@
                 <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                     <CheckCircleIcon class="w-6 h-6" />
                 </div>
-                <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">
+                <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">
                     لقد تمت إضافة {{ paid?.amount }} ر.س إلى رصيدك بنجاح!
                 </h1>
             </div>
@@ -26,7 +26,7 @@
                 <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                     <XCircleIcon class="w-6 h-6" />
                 </div>
-                <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">
+                <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">
                     لم تنجح عملية الشحن
                 </h1>
             </div>

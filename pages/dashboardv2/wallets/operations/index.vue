@@ -6,7 +6,7 @@
         @openFiltersMobileModal="openFiltersMobileModal = true" />
       <div class="relative">
         <button
-          class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex"
+          class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-medium shadow-sm hover:bg-gray-50 sm:flex"
           type="button" @click="openFiltersDropdown = true" aria-expanded="false" aria-haspopup="true">
           <span class="flex items-center space-x-1 rtl:space-x-reverse">
             <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
@@ -48,7 +48,7 @@
           value-key="id" v-model="selectedUser" />
         <InputError :message="errors.username" />
         <div class="w-full space-y-3 mt-2">
-          <label class="block text-sm font-semibold xs:text-base">النوع</label>
+          <label class="block text-sm font-medium xs:text-base">النوع</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="type" required>
             <option value="" selected>إختر</option>
             <option value="credit" selected>دائن</option>
@@ -59,7 +59,7 @@
         </div>
         <TextInput :type="'number'" :placeholder="'0'" :label="'المبلغ'" :error="errors.amount" v-model="amount" />
         <div class="w-full space-y-3 mt-2">
-          <label class="block text-sm font-semibold xs:text-base">تفاصيل العملية</label>
+          <label class="block text-sm font-medium xs:text-base">تفاصيل العملية</label>
           <textarea class="form-control block min-h-[150px]" rows="8" v-model="content" required>
           </textarea>
           <InputError :message="errors.content" />
