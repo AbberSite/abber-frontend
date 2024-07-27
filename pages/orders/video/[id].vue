@@ -21,17 +21,17 @@
         <div ref="smMeeting" v-if="canJoin && (order?.status == 'in_progress' || order?.status == 'new') && data.user_type != 'معبر'"></div>
         <ClientOnly v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')">
           <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 px-6 py-6 lg:col-span-2">
-            <h2 class="text-xl font-semibold">يرجى الإنتظار حتى يحين دورك</h2>
+            <h2 class="text-xl font-medium">يرجى الإنتظار حتى يحين دورك</h2>
             <div class="flex items-center justify-center space-x-3 pt-16 rtl:space-x-reverse">
               <div class="flex flex-col items-center justify-center px-4 py-2">
                 <p class="text-2xl font-bold">{{ meeting.sessions_count }}</p>
-                <p class="text-sm font-semibold text-gray-500 xs:text-base">أشخاص</p>
+                <p class="text-sm font-medium text-gray-500 xs:text-base">أشخاص</p>
               </div>
             </div>
           </div>
         </ClientOnly>
         <div v-else-if="(order?.status == 'in_progress' || order?.status == 'new') && data.user_type == 'معبر'" class="flex flex-col gap-6 text-center">
-          <h1 class="pt-5 font-semibold">لقد خرجت من الاجتماع</h1>
+          <h1 class="pt-5 font-medium">لقد خرجت من الاجتماع</h1>
           <PrimaryButton
             :loading="cancelButtonLoading"
             @click="
@@ -42,43 +42,43 @@
           >
         </div>
         <div v-else-if="order?.status == 'complete' || order?.status == 'awaiting_delivery'" class="flex flex-col justify-center items-center">
-          <h2 class="text-xl font-semibold">هذا الطلب مكتمل</h2>
+          <h2 class="text-xl font-medium">هذا الطلب مكتمل</h2>
           <CheckCircleIcon class="h-8 w-8" />
         </div>
         <div v-else class="flex flex-col justify-center items-center">
-          <span class="pt-4 text-center font-semibold">هذا الطلب ملغي</span>
+          <span class="pt-4 text-center font-medium">هذا الطلب ملغي</span>
           <CheckCircleIcon class="h-8 w-8" />
         </div>
       </div>
 
       <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
         <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
-          <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
+          <div class="px-6 font-medium xs:text-lg">تفاصيل الطلب</div>
           <DetailsCard />
         </div>
         <div class="rounded-lg border border-gray-300 flex flex-col items-center justify-center px-6 py-6 lg:col-span-2">
           <div v-if="order?.status == 'complete' || order?.status == 'awaiting_delivery'" class="flex flex-col items-center justify-center">
-            <h2 class="text-xl font-semibold">هذا الطلب مكتمل</h2>
+            <h2 class="text-xl font-medium">هذا الطلب مكتمل</h2>
 
             <CheckCircleIcon class="h-8 w-8" />
           </div>
 
           <div v-if="order?.status == 'cancelled' || order?.status == 'waiting_for_cancellation'" class="flex flex-col items-center justify-center">
-            <h2 class="text-xl font-semibold">هذا الطلب ملغى</h2>
+            <h2 class="text-xl font-medium">هذا الطلب ملغى</h2>
 
             <CheckCircleIcon class="h-8 w-8" />
           </div>
           <div v-else-if="!canJoin && (order?.status == 'in_progress' || order?.status == 'new')" class="flex flex-col items-center justify-center">
-            <h2 class="text-xl font-semibold">يرجى الإنتظار حتى يحين دورك</h2>
+            <h2 class="text-xl font-medium">يرجى الإنتظار حتى يحين دورك</h2>
             <div class="flex items-center justify-center space-x-3 pt-16 rtl:space-x-reverse">
               <div class="flex flex-col items-center justify-center px-4 py-2">
                 <p class="text-2xl font-bold">{{ meeting.sessions_count }}</p>
-                <p class="text-sm font-semibold text-gray-500 xs:text-base">أشخاص</p>
+                <p class="text-sm font-medium text-gray-500 xs:text-base">أشخاص</p>
               </div>
             </div>
           </div>
           <div v-else-if="(order?.status == 'in_progress' || order?.status == 'new') && data.user_type == 'معبر'" class="flex flex-col items-center justify-center gap-6">
-            <h1 class="pt-5 font-semibold">لقد خرجت من الاجتماع</h1>
+            <h1 class="pt-5 font-medium">لقد خرجت من الاجتماع</h1>
             <PrimaryButton
               :loading="cancelButtonLoading"
               @click="

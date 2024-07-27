@@ -3,7 +3,7 @@
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-7">
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base" >المرسل</label>
+          <label class="block text-sm font-medium xs:text-base" >المرسل</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select"
             required v-model="sender">
             <option value="buyer">العميل</option>
@@ -11,7 +11,7 @@
           </select>
         </div>
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base" >الرسالة</label>
+          <label class="block text-sm font-medium xs:text-base" >الرسالة</label>
           <textarea class="form-control block max-h-[300px] min-h-[200px] py-4" name="textarea"
             rows="5" required v-model="message"></textarea>
         </div>
@@ -19,7 +19,7 @@
     </div>
     <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
       <PrimaryButton
-        class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+        class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
         type="submit" @click="submit()" :loading="loading"><span>إرسال</span></PrimaryButton>
     </div>
   </Modal>

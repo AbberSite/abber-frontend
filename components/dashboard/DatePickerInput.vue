@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col space-y-3 my-2">
-    <h3 class="text-sm font-semibold">{{ label ?? 'التاريخ' }}:</h3>
+    <h3 class="text-sm font-medium">{{ label ?? 'التاريخ' }}:</h3>
     <div class="flex flex-col items-center pt-2 gap-2 w-full">
       <DatePicker
         auto-apply 

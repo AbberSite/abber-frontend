@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div class="space-y-3 mt-2">
-      <label class="block text-sm font-semibold xs:text-base">{{ label }}</label>
+      <label class="block text-sm font-medium xs:text-base">{{ label }}</label>
       <div class="relative">
         <input
           type="text"

@@ -7,7 +7,7 @@
                 <!-- i need custom selector here in the future -->
                 <Selector multiple label="المستخدمين الموجه لهم التنبيه" :options="[{value: 'طه غازي'}, {value: 'الشيخ المختار'}, {value: 'طه غازي'}]" checkboxes/>
                 <div class="my-1">
-                    <h3 class="font-semibold"  >طريقة الإرسال</h3>
+                    <h3 class="font-medium"  >طريقة الإرسال</h3>
                     <div  class="grid grid-cols-2 gap-2" >
                         <Checkbox label="ارسال كإيميل" />
                         <Checkbox label="ارسال sms" />
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="my-1">
-                    <h3 class="font-semibold"  >ارسال لكل من </h3>
+                    <h3 class="font-medium"  >ارسال لكل من </h3>
                     <div  class="grid grid-cols-2 gap-2" >
                         <Checkbox label="المستخدمين" />
                         <Checkbox label="المعبرين" />

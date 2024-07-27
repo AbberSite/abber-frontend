@@ -4,7 +4,7 @@
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-7">
         <div class="w-full space-y-3">
-          <label class="block text-sm font-semibold xs:text-base">الحالة</label>
+          <label class="block text-sm font-medium xs:text-base">الحالة</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select" required v-model="status">
             <option value="awaiting_delivery">بإنتظار الإستلام</option>
             <option value="in_progress">قيد التقدم</option>

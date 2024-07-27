@@ -8,7 +8,7 @@
                         :data-src="data.image_url" height="44" width="44" alt="" />
                 </div>
                 <div class="ms-3 flex flex-col pt-1">
-                    <div class="font-semibold">{{ data.first_name }}</div>
+                    <div class="font-medium">{{ data.first_name }}</div>
                     <div class="text-sm font-medium text-gray-500">{{ data.user_type }}</div>
                 </div>
             </NuxtLink>
@@ -27,24 +27,24 @@
             </div>
         </div>
         <div class="pt-6">
-            <a class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"  href="/dashboard" target="_self"
+            <a class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50"  href="/dashboard" target="_self"
                 v-if="data.user_type == 'إدارة'" @click="$emit('close')">لوحة التحكم
         </a>
-            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
+            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50"
                 href="/profile/service" v-if="data?.user_type == 'معبر'"
                 @click="$emit('navigate', { name: 'profile-service' })">إدارة الخدمة</NuxtLink>
-            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" v-if="data.user_type != 'إدارة'" href="/profile"
+            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50" v-if="data.user_type != 'إدارة'" href="/profile"
                 @click="$emit('navigate', { name: 'profile' })">الملف الشخصي</NuxtLink>
-            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" href="#"
+            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50" href="#"
                 v-if="data.user_type != 'إدارة'" @click="$emit('navigate', { name: 'orders' })">الطلبات
             </NuxtLink>
-            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" href="#"
+            <NuxtLink class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50" href="#"
                 v-if="data.user_type != 'إدارة'" @click="$emit('navigate', { name: 'wallet' })">المحفظة
             </NuxtLink>
-            <NuxtLink v-if="data?.user_type != 'إدارة'" class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50" href="#"
+            <NuxtLink v-if="data?.user_type != 'إدارة'" class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50" href="#"
                  @click="$emit('navigate', { name: 'support' })">مركز الدعم
             </NuxtLink>
-            <button class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-semibold hover:bg-gray-50"
+            <button class="-mx-3 block rounded-lg px-3 pb-3 pt-5 font-medium hover:bg-gray-50"
                 @click="showConfirmDailog = true">
                 تسجيل الخروج
             </button>

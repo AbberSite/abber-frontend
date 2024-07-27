@@ -3,7 +3,7 @@
         class="absolute top-[calc(100%+15px)] z-20 min-w-[280px] w-fit rounded-md bg-white px-4 py-6 shadow-lg ring-1 ring-black ring-opacity-5 ltr:right-0 rtl:left-0">
         <fieldset class="space-y-7">
             <div class="space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="select">عملية ناجحة</label>
+                <label class="block text-sm font-medium xs:text-base" for="select">عملية ناجحة</label>
                 <select
                     v-model="filters.success"
                     class="form-control form-select h-[50px] appearance-none"
@@ -16,7 +16,7 @@
                 </select>
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="select">التأريخ</label>
+                <label class="block text-sm font-medium xs:text-base" for="select">التأريخ</label>
                 <select
                     class="form-control form-select h-[50px] appearance-none"
                     v-model="type"
@@ -32,7 +32,7 @@
             </div>
 
             <div v-if="type == 'custom'" class="space-y-3 flex flex-col items-center">
-                <div v-if="!customRange?.[0] || !customRange?.[1]" class="font-semibold">أختر تاريخ البداية ثم النهاية</div>
+                <div v-if="!customRange?.[0] || !customRange?.[1]" class="font-medium">أختر تاريخ البداية ثم النهاية</div>
                 <DatePicker
                     range
                     placeholder="mm/dd/yyyy"

@@ -23,7 +23,7 @@
       <DetailsMobileCard v-if="activeTab == 'details'" />
       <div v-if="meeting.meeting_number" class="w-full pt-16 lg:grid lg:grid-cols-3">
         <div v-if="!isMobile" class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6 lg:col-span-1">
-          <div class="px-6 font-semibold xs:text-lg">تفاصيل الطلب</div>
+          <div class="px-6 font-medium xs:text-lg">تفاصيل الطلب</div>
           <MeetingClientCard />
         </div>
 

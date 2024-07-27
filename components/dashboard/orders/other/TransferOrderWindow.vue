@@ -4,7 +4,7 @@
         <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
             <fieldset class="space-y-7">
               <div class="w-full space-y-3" >
-                <label class="block text-sm font-semibold xs:text-base" >المعبر</label>
+                <label class="block text-sm font-medium xs:text-base" >المعبر</label>
                 <select class="form-control form-select h-[50px] appearance-none" name="select" required v-model="id_service">
                   <option v-for="(expressor, index) of expressors" :key="index" :value="expressor.id">{{ expressor.seller.first_name }}</option>
                 </select>

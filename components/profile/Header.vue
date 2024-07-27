@@ -50,7 +50,7 @@
                     <PrimaryButton @click.prevent="submitUpdate" :loading="loading">حفظ</PrimaryButton>
                     <NuxtLink
                         @click.prevent="edit = false"
-                        class="flex h-[50px] items-center rounded-md border bg-white px-6 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50"
+                        class="flex h-[50px] items-center rounded-md border bg-white px-6 py-3 text-xs font-medium shadow-sm hover:bg-gray-50"
                         to="/profile">
                         <span>إلغاء</span></NuxtLink>
                 </div>
@@ -58,7 +58,7 @@
             <template v-else>
                 <a
                     @click.prevent="edit = true"
-                    class="flex items-center justify-center cursor-pointer space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse">
+                    class="flex items-center justify-center cursor-pointer space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -139,16 +139,16 @@
         </div>
     </div>
 
-    <div v-if="edit" class="flex items-center space-x-1 pt-8 font-semibold rtl:space-x-reverse">
+    <div v-if="edit" class="flex items-center space-x-1 pt-8 font-medium rtl:space-x-reverse">
         <span class="text-lg">تعديل البيانات</span>
     </div>
     
-    <div v-else class="flex items-center space-x-1 pt-8 font-semibold rtl:space-x-reverse">
+    <div v-else class="flex items-center space-x-1 pt-8 font-medium rtl:space-x-reverse">
         <span class="text-lg">{{ data?.first_name }}</span>
         <small class="mt-1.5 hidden sm:flex">({{ data?.user_type }})</small>
     </div>
 
-    <small class="block pt-2 font-semibold sm:hidden" v-if="!edit">({{ data?.user_type }})</small>
+    <small class="block pt-2 font-medium sm:hidden" v-if="!edit">({{ data?.user_type }})</small>
 
     <InputError v-for="message in errors.image" :message="message" />
 
@@ -157,7 +157,7 @@
         class="fixed bottom-0 z-20 flex w-full items-center space-x-3 border-t border-gray-100 bg-white px-4 xs:px-6 py-6 rtl:space-x-reverse sm:hidden">
         <PrimaryButton class="w-full" @click.prevent="submitUpdate" :loading="loading">حفظ التعديلات</PrimaryButton>
         <a
-            class="flex h-[50px] w-[25%] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50"
+            class="flex h-[50px] w-[25%] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-medium shadow-sm hover:bg-gray-50"
             @click.prevent="edit = false"
             href="#"
             ><span>إلغاء</span></a
@@ -167,7 +167,7 @@
         v-else
         class="fixed bottom-0 z-20 flex w-full items-center space-x-3 border-t border-gray-100 bg-white px-4 xs:px-6 py-6 rtl:space-x-reverse sm:hidden">
         <a
-            class="flex h-[50px] w-full items-center justify-center space-x-2 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse"
+            class="flex h-[50px] w-full items-center justify-center space-x-2 rounded-md bg-gray-900 px-4 py-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse"
             href="#"
             @click.prevent="edit = true">
             <svg

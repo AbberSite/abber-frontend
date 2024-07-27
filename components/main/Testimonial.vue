@@ -17,7 +17,7 @@
                         alt="" />
                 </div>
                 <div class="ms-3 flex flex-col">
-                    <div class="text-sm font-semibold xs:text-base">
+                    <div class="text-sm font-medium xs:text-base">
                         {{ testimonial.user.first_name }}                    </div>
 
                     <div class="mt-1.5 flex items-center text-yellow-400">

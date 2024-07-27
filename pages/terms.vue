@@ -44,7 +44,7 @@
                     </path>
                 </svg>
             </div>
-            <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">الشروط والأحكام</h1>
+            <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">الشروط والأحكام</h1>
             <div class="pt-16 prose prose-sm prose-gray lg:prose-base" v-html="settings.policy_settings.terms"/>
             
         </section>

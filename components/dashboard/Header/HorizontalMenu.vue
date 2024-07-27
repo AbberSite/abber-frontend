@@ -2,7 +2,7 @@
   <div
     class="is-scroll z-20 hidden h-14 space-x-8 overflow-x-auto overflow-y-hidden border-y border-gray-100 rtl:space-x-reverse md:flex md:px-8 all_menu_group">
     <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
         type="button">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
         height="20" width="20">
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
         type="button">
         <!-- Heroicon name: outline/... -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
         type="button">
         <!-- Heroicon name: outline/... -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -130,7 +130,7 @@
       </div>
     </div>
     <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
         type="button">
         <!-- Heroicon name: outline/... -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -188,7 +188,7 @@
       </div>
     </div>
     <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
         type="button">
         <!-- Heroicon name: outline/... -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -282,7 +282,7 @@
       </div>
     </div>
     <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
         type="button">
         <!-- Heroicon name: outline/... -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -322,7 +322,7 @@
       </div>
     </div>
     <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-semibold rtl:space-x-reverse 2xl:text-lg"
+      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
         type="button">
         <!-- Heroicon name: outline/... -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"

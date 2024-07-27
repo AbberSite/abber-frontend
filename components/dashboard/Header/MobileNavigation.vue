@@ -24,7 +24,7 @@
                <!-- Heroicon name: outline/home -->
             <HomeIcon class="h-6 w-6 flex-shrink-0" />
           </div>
-          <span class="ms-6 font-semibold">الرئيسية</span>
+          <span class="ms-6 font-medium">الرئيسية</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -39,7 +39,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الرئيسية</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الرئيسية</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-send-notifications'})" >
               <!-- Heroicon name: outline/home -->
@@ -47,7 +47,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">التنبيهات والاشعارات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">التنبيهات والاشعارات</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-log-entry'})" >
               <!-- Heroicon name: outline/home -->
@@ -55,7 +55,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">سجل الاجراءات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">سجل الاجراءات</span>
             </NuxtLink>
           </div>
         </div>
@@ -72,7 +72,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 font-semibold">الإحصائيات</span>
+              <span class="ms-6 font-medium">الإحصائيات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -87,7 +87,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الإحصائيات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الإحصائيات</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-reviews'})" >
               <!-- Heroicon name: outline/home -->
@@ -95,7 +95,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">التقييمات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">التقييمات</span>
             </NuxtLink>
           </div>
         </div>
@@ -112,7 +112,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 font-semibold">الطلبات</span>
+              <span class="ms-6 font-medium">الطلبات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -127,7 +127,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الطلبات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الطلبات</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-coupons'})"  >
               <!-- Heroicon name: outline/home -->
@@ -135,7 +135,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الكويونات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الكويونات</span>
             </NuxtLink>
           </div>
         </div>
@@ -152,7 +152,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 font-semibold">المالية</span>
+              <span class="ms-6 font-medium">المالية</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -167,7 +167,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">طلبات السحب</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">طلبات السحب</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50"  @click="$emit('navigate', { name: 'dashboardv2-wallets-transactions'})" :to="{name: 'dashboardv2-wallets-transactions'}">
               <!-- Heroicon name: outline/home -->
@@ -175,7 +175,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">العمليات المالية</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">العمليات المالية</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-wallets-fees-records'})"  :to="{name: 'dashboardv2-wallets-fees-records'}">
               <!-- Heroicon name: outline/home -->
@@ -183,7 +183,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الحركات المالية</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الحركات المالية</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-wallets-operations'})"  :to="{name: 'dashboardv2-wallets-operations'}">
               <!-- Heroicon name: outline/home -->
@@ -191,7 +191,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الفروقات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الفروقات</span>
             </NuxtLink>
           </div>
         </div>
@@ -208,7 +208,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 font-semibold">الحسابات</span>
+              <span class="ms-6 font-medium">الحسابات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -223,7 +223,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المعبرون</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المعبرون</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-accounts-users'})"  >
               <!-- Heroicon name: outline/home -->
@@ -231,7 +231,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">العملاء</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">العملاء</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2'})" >
               <!-- Heroicon name: outline/home -->
@@ -239,7 +239,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">متابعة العملاء</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">متابعة العملاء</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-groups'})" >
               <!-- Heroicon name: outline/home -->
@@ -247,7 +247,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المجموعات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المجموعات</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-expressors-support'})" >
               <!-- Heroicon name: outline/home -->
@@ -255,7 +255,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">مدراء العلاقة</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">مدراء العلاقة</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-expressors-to-support'})" >
               <!-- Heroicon name: outline/home -->
@@ -263,7 +263,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إدارة العلاقات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">إدارة العلاقات</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2'})" >
               <!-- Heroicon name: outline/home -->
@@ -271,7 +271,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المقالات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المقالات</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-expressors-domains'})" >
               <!-- Heroicon name: outline/home -->
@@ -279,7 +279,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">نطاق المعبرين</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">نطاق المعبرين</span>
             </NuxtLink>
           </div>
         </div>
@@ -296,7 +296,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 font-semibold">الإعدادات</span>
+              <span class="ms-6 font-medium">الإعدادات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -311,7 +311,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إعدادات عامة</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">إعدادات عامة</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-shop-settings'})" >
               <!-- Heroicon name: outline/home -->
@@ -319,7 +319,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إعدادات الموقع</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">إعدادات الموقع</span>
             </NuxtLink>
           </div>
         </div>
@@ -336,7 +336,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 font-semibold">الدعم التقني</span>
+              <span class="ms-6 font-medium">الدعم التقني</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -351,7 +351,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">إعدادات مركز المساعدة</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">إعدادات مركز المساعدة</span>
             </NuxtLink>
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-support'})" >
               <!-- Heroicon name: outline/home -->
@@ -359,7 +359,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">تذاكر المساعدة</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">تذاكر المساعدة</span>
             </NuxtLink>
 
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-conversations'})" >
@@ -368,7 +368,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">المحادثات</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المحادثات</span>
             </NuxtLink>
 
             <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-faq'})" >
@@ -377,7 +377,7 @@
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg><span class="ms-6 mt-1.5 text-[15px] font-semibold">الأسئلة الشائعة</span>
+              </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الأسئلة الشائعة</span>
             </NuxtLink>
           </div>
         </div>

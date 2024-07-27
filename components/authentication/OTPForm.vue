@@ -3,7 +3,7 @@
     <fieldset class="space-y-7">
       <h1 class="font-bold">رمز التأكد (OTP)</h1>
       <OtpInput v-model="OTP" @done="waitForLogin()" />
-      <div class="text-red-700 font-semibold" v-if="error">{{ error }}</div>
+      <div class="text-red-700 font-medium" v-if="error">{{ error }}</div>
       <div class="flex justify-between space-x-2">
         <span class="text-center text-sm xs:text-base font-medium" @click="resendOTP" :class="[counter <= 0 && !loading ? 'text-blue-600 cursor-pointer' : 'text-gray-600 cursor-no-drop']">إعادة ارسال</span>
         <span class="text-sm text-gray-600" v-text="counter" v-if="counter > 0"></span>

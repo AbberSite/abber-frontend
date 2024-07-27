@@ -12,7 +12,7 @@
             <span class="h-2 w-[35%] rounded-full bg-gray-200"></span
             ><span class="h-2 w-[35%] rounded-full bg-gray-200"></span>
         </div>
-        <div class="py-6 font-semibold xs:text-lg">المعبر</div>
+        <div class="py-6 font-medium xs:text-lg">المعبر</div>
         <div class="flex animate-pulse">
             <div class="h-11 w-11 flex-shrink-0 rounded-full bg-gray-100"></div>
             <div class="ms-3 w-full pt-2">

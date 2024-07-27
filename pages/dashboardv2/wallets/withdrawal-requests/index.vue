@@ -6,7 +6,7 @@
         @openFiltersMobileModal="openFiltersMobileModal = true" />
       <div class="relative">
         <button
-          class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50 sm:flex"
+          class="hidden h-[50px] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-medium shadow-sm hover:bg-gray-50 sm:flex"
           type="button" @click="openFiltersDropdown = true" aria-expanded="false" aria-haspopup="true">
           <span class="flex items-center space-x-1 rtl:space-x-reverse">
             <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
@@ -44,7 +44,7 @@
   <ClientOnly>
     <ModifyModal v-if="showModal" @close="showModal = false;" title="الإجراءات">
       <div :class="$style.style_every_dev" v-if="!dataSelection.updated">
-        <h1 class="font-semibold mb-2"> تغيير حالة الطلب :</h1>
+        <h1 class="font-medium mb-2"> تغيير حالة الطلب :</h1>
         <select name="action" id="actions" class="form-control form-select h-[50px] appearance-none"
           v-model="dataSelection.status">
           <option :value="null">إختر</option>
@@ -53,12 +53,12 @@
         </select>
       </div>
       <div :class="$style.style_every_dev" v-if="dataSelection.status == '3' && !dataSelection.updated">
-        <h1 class="font-semibold">سبب الرفض: </h1>
+        <h1 class="font-medium">سبب الرفض: </h1>
         <textarea class="form-control block max-h-[300px] min-h-[50px] py-4" name="textarea"
           v-model="dataSelection.refuse_reason"></textarea>
       </div>
       <div :class="$style.style_every_dev" v-if="dataSelection.status == '2'">
-        <h1 class="font-semibold">الإيصال: </h1>
+        <h1 class="font-medium">الإيصال: </h1>
         <input class="form-control block max-h-[300px] min-h-[50px] py-4"
           @input="dataSelection.invoice = ($event as any).target.files[0]" type="file" />
       </div>

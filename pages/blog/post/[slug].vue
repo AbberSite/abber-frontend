@@ -12,7 +12,7 @@
       <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block">
         <SkeletonsSidebarPost v-if="loading" />
 
-        <div class="px-6 text-lg font-semibold" v-if="!loading">جدول المحتويات</div>
+        <div class="px-6 text-lg font-medium" v-if="!loading">جدول المحتويات</div>
         <div class="js-toc leading-[1.75]"></div>
       </div>
 
@@ -20,7 +20,7 @@
         <SkeletonsBlogPost v-show="loading" />
         <div class="w-full" v-show="!loading">
           <div class="flex items-center justify-between text-gray-700">
-            <a class="rounded-full bg-gray-900 px-4 pb-1 pt-2.5 text-[13px] font-semibold text-white hover:bg-gray-800"
+            <a class="rounded-full bg-gray-900 px-4 pb-1 pt-2.5 text-[13px] font-medium text-white hover:bg-gray-800"
               href="#">
               {{ post?.post_category?.name }}
             </a>
@@ -82,7 +82,7 @@
               </div>
             </div>
           </div>
-          <h1 class="pt-6 text-xl font-semibold leading-[1.75] lg:text-2xl lg:leading-[1.75]">
+          <h1 class="pt-6 text-xl font-medium leading-[1.75] lg:text-2xl lg:leading-[1.75]">
             {{ post?.title }}
           </h1>
           <img class="mt-8 w-full rounded-xl bg-gray-50 lazyload"

@@ -19,7 +19,7 @@
           </path>
         </svg>
       </div>
-      <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">نسيت كلمة المرور؟</div>
+      <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">نسيت كلمة المرور؟</div>
       <div class="pt-4 text-sm text-gray-600 xs:text-base">لا تقلق، سوف نرسل لك تعليمات إعادة التعيين</div>
       <div class="mx-auto w-full max-w-sm pt-10">
         <form method="POST" @submit.prevent="submit">
@@ -35,7 +35,7 @@
 
             <div>
               <!-- <button
-                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
                 type="button" @click="submit" href="/accounts/password/reset/done"> <span >إستعادة كلمة
                   المرور</span></button> -->
 

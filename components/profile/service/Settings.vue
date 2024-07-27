@@ -3,19 +3,19 @@
         <SkeletonsSettings/>
     </div>
     <div class="w-full" v-else>
-        <h2 class="pt-16 font-semibold xs:text-lg">إعدادات عامه</h2>
+        <h2 class="pt-16 font-medium xs:text-lg">إعدادات عامه</h2>
         <div class="grid w-full gap-x-8 space-y-7 pb-14 pt-16 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3">
             <div class="flex items-center">
                 <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
                     v-model="active" name="checkbox"  />
-                <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="available">متاح في الموقع</label>
+                <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base" for="available">متاح في الموقع</label>
             </div>
         </div>
-        <h2 class="border-t border-gray-100 pt-16 font-semibold xs:text-lg">إعدادات المحادثة النصية</h2>
+        <h2 class="border-t border-gray-100 pt-16 font-medium xs:text-lg">إعدادات المحادثة النصية</h2>
         <div class="flex items-center my-9">
             <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox"
                 id="text-available" v-model="text_checkbox" />
-            <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="text-available">تفعيل الخدمة
+            <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base" for="text-available">تفعيل الخدمة
                 النصية</label>
         </div>
         <div class="grid w-full gap-x-8 space-y-7 pb-14 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3"
@@ -36,11 +36,11 @@
                 <div class="text-[13px] leading-loose text-gray-500">إدخل عدد الطلبات المتاح استقبالها</div>
             </div>
         </div>
-        <h2 class="border-t border-gray-100 pt-16 font-semibold xs:text-lg">إعدادات المحادثة الصوتية</h2>
+        <h2 class="border-t border-gray-100 pt-16 font-medium xs:text-lg">إعدادات المحادثة الصوتية</h2>
         <div class="flex items-center my-9">
             <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox"
                 v-model="video_checkbox" name="checkbox" id="video-available" />
-            <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="video-available">تفعيل الخدمة
+            <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base" for="video-available">تفعيل الخدمة
                 الصوتية</label>
         </div>
         <div class="grid w-full gap-x-8 space-y-7 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3" v-if="video_checkbox" >

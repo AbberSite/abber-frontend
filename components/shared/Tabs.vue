@@ -6,7 +6,7 @@
       aria-orientation="horizontal"
     >
       <button
-        class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-semibold focus:outline-none rtl:space-x-reverse"
+        class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium focus:outline-none rtl:space-x-reverse"
         v-for="(tab, index) in tabs"
         :key="index"
         :id="tab.value"
@@ -19,8 +19,8 @@
         v-show="!tab.dontShowIt"
       >
         <span>{{ tab.name }}</span>
-        <span class="text-white bg-red-500 px-2  py-[1px] rounded-full text-xs font-semibold" v-if="tab.isNew">جديد</span>
-        <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-semibold" v-if="tab.count || tab.showCounter" >
+        <span class="text-white bg-red-500 px-2  py-[1px] rounded-full text-xs font-medium" v-if="tab.isNew">جديد</span>
+        <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-medium" v-if="tab.count || tab.showCounter" >
           {{ tab.count ?? 0 }}
         </span>
       </button>

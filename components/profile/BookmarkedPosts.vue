@@ -17,9 +17,9 @@
                         d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"></path>
                 </svg>
             </div>
-            <div class="pt-8 font-semibold text-gray-700">لاتوجد عناصر مفضلة</div>
+            <div class="pt-8 font-medium text-gray-700">لاتوجد عناصر مفضلة</div>
             <div class="mx-auto w-full max-w-sm pt-8">
-                <NuxtLink class="block text-center text-sm font-semibold text-blue-600" to="/blog"
+                <NuxtLink class="block text-center text-sm font-medium text-blue-600" to="/blog"
                     >عرض جميع المقالات ←
                     </NuxtLink>
             </div>

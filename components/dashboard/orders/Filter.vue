@@ -4,7 +4,7 @@
 
     <div class="pt-4 sm:pt-0 flex space-x-6 sm:space-x-0 sm:justify-between">
         <div>
-            <h3 class="text-sm font-semibold">حالة الطلب</h3>
+            <h3 class="text-sm font-medium">حالة الطلب</h3>
             <div class="space-y-3 pt-4">
                 <div class="flex items-center">
                     <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox"
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div>
-            <h3 class="text-sm font-semibold">نوع الطلب</h3>
+            <h3 class="text-sm font-medium">نوع الطلب</h3>
             <div class="space-y-3 pt-4">
                 <div class="flex items-center">
                     <input v-model="filters.type.voice" class="h-5 w-5 flex-shrink-0 appearance-none rounded border"

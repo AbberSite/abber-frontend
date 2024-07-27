@@ -6,7 +6,7 @@
             <DashboardSettingsPublicSettings />
         </template>
         <template v-else-if="currentTab == 'tab1'">
-            <span class="font-semibold text-gray-600" >انتظر الانتهاء من الeditor </span>
+            <span class="font-medium text-gray-600" >انتظر الانتهاء من الeditor </span>
         </template>
         <template v-else>
             <DashboardSettingsDefaultImages/>

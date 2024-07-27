@@ -3,30 +3,30 @@
     <div class="hidden sm:block" :class="{ 'sm:hidden': smallResultsCounter }">
       <p class="space-x-2 rtl:space-x-reverse">
         <span>عرض</span>
-        <span class="font-semibold">{{ from }}</span>
+        <span class="font-medium">{{ from }}</span>
         <span>إلى</span>
-        <span class="font-semibold">{{ to }}</span>
+        <span class="font-medium">{{ to }}</span>
         <span>من</span>
-        <span class="font-semibold">{{ results.count }}</span>
+        <span class="font-medium">{{ results.count }}</span>
         <span>نتيجة</span>
       </p>
     </div>
     <div class="flex w-full items-center justify-between sm:justify-end" :class="{ 'sm:justify-center': smallResultsCounter }">
-      <button @click="change(true)" :disabled="!results?.previous?.length" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" type="button">
+      <button @click="change(true)" :disabled="!results?.previous?.length" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" type="button">
         <Loading v-if="previousLoading" />
 
         <span v-else>السابق</span>
       </button>
       <p class="space-x-2 pt-2 rtl:space-x-reverse sm:block mx-4" :class="{ 'sm:hidden': !smallResultsCounter }">
-        <span class="font-semibold">
+        <span class="font-medium">
           {{ to }}
         </span>
         <span>\</span>
-        <span class="font-semibold">
+        <span class="font-medium">
           {{ results.count }}
         </span>
       </p>
-      <button type="button" :disabled="!results?.next?.length" :loading="nextLoading" @click="change()" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" :class="{ 'ms-3': !smallResultsCounter }" href="#">
+      <button type="button" :disabled="!results?.next?.length" :loading="nextLoading" @click="change()" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" :class="{ 'ms-3': !smallResultsCounter }" href="#">
         <Loading v-if="nextLoading" />
         <span v-else>التالي</span>
       </button>

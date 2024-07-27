@@ -1,19 +1,19 @@
 <template>
-  <section class="mx-auto max-w-7xl px-4 pb-10 xs:px-6 lg:px-8 xl:pb-14" aria-labelledby="articles-heading">
+  <section class="mx-auto max-w-7xl px-4 pb-20 xs:px-6 sm:pb-28 lg:px-8" aria-labelledby="articles-heading">
     <div class="flex items-end justify-between">
       <template v-if="!noHeader">
         <div>
-          <h2 class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-semibold text-white"
+          <h2 class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-medium text-white"
             id="articles-heading">
             <!-- المدونة -->
             {{ title }}
           </h2>
-          <div class="pt-6 text-lg font-semibold leading-[1.75] xs:text-xl 2xl:text-2xl">
+          <div class="pt-6 text-lg font-medium leading-[1.75] xs:text-xl 2xl:text-2xl">
             <!-- اخر المقالات المقدمة إسبوعيا -->
             {{ description }}
           </div>
         </div>
-        <NuxtLink v-if="!currentPostSlug" class="hidden font-semibold text-gray-700 hover:text-gray-900 sm:flex"
+        <NuxtLink v-if="!currentPostSlug" class="hidden font-medium text-gray-700 hover:text-gray-900 sm:flex"
           :to="{ name: 'blog' }">عرض جميع المقالات <span aria-hidden="true">←</span></NuxtLink>
       </template>
     </div>
@@ -30,7 +30,7 @@
           :image="post.image" :slug="post.slug" />
       </template>
 
-      <NuxtLink v-if="!noHeader" :to="{ name: 'blog' }" class="block text-center font-semibold xs:text-lg sm:hidden">عرض
+      <NuxtLink v-if="!noHeader" :to="{ name: 'blog' }" class="block text-center font-medium xs:text-lg sm:hidden">عرض
         جميع المقالات <span aria-hidden="true">←</span></NuxtLink>
     </div>
   </section>

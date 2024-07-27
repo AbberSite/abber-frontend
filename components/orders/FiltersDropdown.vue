@@ -8,11 +8,11 @@
         v-cloak
         >
         <div>
-            <h3 class="text-sm font-semibold">حالة الطلب</h3>
+            <h3 class="text-sm font-medium">حالة الطلب</h3>
                 <FiltersOrderStatus /> 
         </div>
         <div>
-            <h3 class="text-sm font-semibold">نوع الطلب</h3>
+            <h3 class="text-sm font-medium">نوع الطلب</h3>
             <FiltersOrderType /> 
             <!-- <div class="space-y-3 pt-4">
                 <div class="flex items-center">

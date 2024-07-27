@@ -14,14 +14,14 @@
                         @click="$emit('close')"></button>
                     <div class="pb-4 pt-8">
                         <div class="flex items-center justify-between space-x-3 rtl:space-x-reverse">
-                            <h3 class="mt-1.5 text-lg font-semibold">فلترة</h3>
+                            <h3 class="mt-1.5 text-lg font-medium">فلترة</h3>
                             <a @click.prevent="apply"
-                                class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800"
+                                class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800"
                                 href="/support">تطبيق</a>
                         </div>
                         <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
                             <div class="w-full">
-                                <h3 class="text-sm font-semibold">حالة التذكرة</h3>
+                                <h3 class="text-sm font-medium">حالة التذكرة</h3>
                                 <select class="form-control form-select h-[50px] appearance-none w-full" name="select"
                                     v-model="filters.status" required>
                                     <option value="">الكل</option>

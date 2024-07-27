@@ -34,14 +34,14 @@
             d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
-      <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">تم إعادة تعيين كلمة المرور</div>
+      <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">تم إعادة تعيين كلمة المرور</div>
       <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
         <p>لقد تم إعادة تعيين كلمة المرور الخاصة بك بنجاح.</p>
         <div>انقر أدناه لتسجيل الدخول</div>
       </div>
       <div class="mx-auto w-full max-w-sm pt-10">
         <NuxtLink :to="{ name: 'accounts-login' }"
-          class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800">
+          class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800">
           <span>تسجيل الدخول</span>
         </NuxtLink>
       </div>

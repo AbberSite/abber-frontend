@@ -32,11 +32,11 @@
             type="checkbox"
             name="checkbox"
           />
-          <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base"
+          <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base"
             >إستخدام أكثر من مرة</label
           >
         </div>
-        <label class="block text-sm font-semibold xs:text-base"
+        <label class="block text-sm font-medium xs:text-base"
           >المنصات المتاحة</label
         >
         <select

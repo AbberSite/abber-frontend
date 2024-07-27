@@ -22,7 +22,7 @@ export default {
                 flip: '-1',
             },
             screens: {
-                xs: '414px', // iphone 6/7/8 plus
+                xs: '375px',
                 '2xl': '1440px',
             },
             colors: {

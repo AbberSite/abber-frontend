@@ -3,27 +3,27 @@
         class="grid w-full gap-x-8 gap-y-14 pb-36 pt-16 sm:grid-cols-2 lg:hidden lg:grid-cols-3 px-1"
         >
         <div class="w-full space-y-4" v-if="data.user_type == 'إدارة'">
-            <div class="text-sm font-semibold text-gray-500 xs:text-base">العميل</div>
-            <NuxtLink class="font-semibold text-blue-500" :to="`/accounts/dashboard/user-update/${order?.buyer.id}/#tab0`" v-text="order.buyer.first_name"/>
+            <div class="text-sm font-medium text-gray-500 xs:text-base">العميل</div>
+            <NuxtLink class="font-medium text-blue-500" :to="`/accounts/dashboard/user-update/${order?.buyer.id}/#tab0`" v-text="order.buyer.first_name"/>
         </div>
         <div class="w-full space-y-4">
-            <div class="text-sm font-semibold text-gray-500 xs:text-base">حالة الطلب</div>
+            <div class="text-sm font-medium text-gray-500 xs:text-base">حالة الطلب</div>
             <OrderStatus :status="order?.status" />
         </div>
         <div class="w-full space-y-4">
-            <div class="text-sm font-semibold text-gray-500 xs:text-base">نوع الطلب</div>
-            <div class="font-semibold">
+            <div class="text-sm font-medium text-gray-500 xs:text-base">نوع الطلب</div>
+            <div class="font-medium">
                 {{ order?.type == 'text_communication' ? 'محادثة نصية' : 'محادثة صوتية' }}
             </div>
         </div>
         <!-- <div class="w-full space-y-4">
-            <div class="text-sm font-semibold text-gray-500 xs:text-base">تأريخ الشراء</div>
-            <div class="font-semibold">
+            <div class="text-sm font-medium text-gray-500 xs:text-base">تأريخ الشراء</div>
+            <div class="font-medium">
                 {{ useFormattedDate(order?.order_item_time_data.ordered_date) }}
             </div>
         </div> -->
         <div class="w-full space-y-4">
-            <div class="text-sm font-semibold text-gray-500 xs:text-base">المعبر</div>
+            <div class="text-sm font-medium text-gray-500 xs:text-base">المعبر</div>
             <div class="flex">
                 <div class="flex-shrink-0">
                     <img
@@ -35,7 +35,7 @@
                         alt="" />
                 </div>
                 <div class="space-y-3">
-                    <div class="ms-3 pt-1 text-sm font-semibold">
+                    <div class="ms-3 pt-1 text-sm font-medium">
                         <div>
                             {{ order?.seller?.first_name }}
                         </div>

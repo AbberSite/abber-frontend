@@ -13,7 +13,7 @@
                         <CursorArrowRaysIcon class="w-6 h-6" />
                     </span>
                     <span class="flex flex-col space-y-3">
-                        <span class="ms-3 mt-1.5 text-sm font-semibold">إدخال نصي</span>
+                        <span class="ms-3 mt-1.5 text-sm font-medium">إدخال نصي</span>
                         <span class="ms-3 text-[13px] leading-loose text-gray-700"
                             >إدخل تفاصيل الحلم يدويا من خلال ملئ حقول الإدخال.</span
                         >
@@ -38,7 +38,7 @@
                         <MicrophoneIcon class="w-6 h-6" />
                     </span>
                     <span class="flex flex-col space-y-3">
-                        <span class="ms-3 mt-1.5 text-sm font-semibold">إدخال صوتي</span>
+                        <span class="ms-3 mt-1.5 text-sm font-medium">إدخال صوتي</span>
                         <span class="ms-3 text-[13px] leading-loose text-gray-700"
                             >إدخل تفاصيل الحلم صوتيا بإستخدام بصمة الصوت.</span
                         >

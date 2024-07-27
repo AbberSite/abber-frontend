@@ -2,20 +2,20 @@
     <div>
         <div class="mx-auto w-full max-w-sm pt-10">
             <a
-                class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
                 href="/">
                 <span>تصفح الطلبات</span></a
             >
             <div class="pt-4">
                 <NuxtLink
-                    class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+                    class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
                     :to="{ name: 'index' }">
                     <span class="ms-3 mt-1.5">الصفحة الرئيسية</span>
                 </NuxtLink>
             </div>
             <div class="pt-4">
                 <NuxtLink
-                    class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-semibold shadow-sm hover:bg-gray-50"
+                    class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
                     :to="{ name: 'blog' }">
                     <span class="ms-3 mt-1.5">المدونة</span>
                 </NuxtLink>

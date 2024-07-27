@@ -14,7 +14,7 @@
           <img class="lazyload"
           src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
           data-src="/images/payments/section/mada.png" height="40" width="40" alt="مدى" /> -->
-        <div class="pt-1 text-sm font-semibold">{{ title }}</div>
+        <div class="pt-1 text-sm font-medium">{{ title }}</div>
       </div>
       <div class="absolute bottom-0 left-0 overflow-hidden rounded-md text-gray-200"><img
           class="lazyload -translate-x-[1.5em] translate-y-[.7em] opacity-30" width="250px" data-src="/images/payments/section/cards.png" 
@@ -28,7 +28,7 @@
         <img class="lazyload"
           src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
           :data-src="logo" :height="height" :width="width" alt="ماستركارد" />
-        <div class="pt-1 text-sm font-semibold">{{ title }}</div>
+        <div class="pt-1 text-sm font-medium">{{ title }}</div>
       </div>
       <div class="absolute bottom-0 left-0 overflow-hidden rounded-md text-gray-200"><img
           class="lazyload -translate-x-[1em] translate-y-1/8 opacity-30" :data-src="logo" height="64" width="64"

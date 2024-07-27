@@ -1,5 +1,5 @@
 <template>
-  <a v-if="((order?.status == 'awaiting_delivery' ) || (order?.status == 'in_progress' && isSeller)) && order?.service" class="flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-semibold text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse cursor-pointer" @click.prevent="emit('showIt')">
+  <a v-if="((order?.status == 'awaiting_delivery' ) || (order?.status == 'in_progress' && isSeller)) && order?.service" class="flex items-center justify-center space-x-1 rounded-md bg-gray-900 px-4 py-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800 rtl:space-x-reverse cursor-pointer" @click.prevent="emit('showIt')">
     <template v-if="loading">
       <Loading />
     </template>

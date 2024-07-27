@@ -1,9 +1,9 @@
 <template>
     <div class="w-full" x-show="activeTab === 0" x-cloak="x-cloak">
-        <h2 class="pt-16 font-semibold xs:text-lg">البيانات الأساسية</h2>
+        <h2 class="pt-16 font-medium xs:text-lg">البيانات الأساسية</h2>
         <div class="grid w-full gap-x-8 space-y-7 pt-16 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3">
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="commercial-name">الإسم التجاري</label>
+                <label class="block text-sm font-medium xs:text-base" for="commercial-name">الإسم التجاري</label>
                 <input
                     v-model="primary.nick_name"
                     class="form-control h-[50px] appearance-none"
@@ -15,7 +15,7 @@
                     required />
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="address">العنوان</label>
+                <label class="block text-sm font-medium xs:text-base" for="address">العنوان</label>
                 <input
                     v-model="primary.address"
                     class="form-control h-[50px] appearance-none"
@@ -27,7 +27,7 @@
                     required />
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="nationality">الجنسية</label>
+                <label class="block text-sm font-medium xs:text-base" for="nationality">الجنسية</label>
                 <input
                     v-model="primary.nationality"
                     class="form-control h-[50px] appearance-none"
@@ -39,7 +39,7 @@
                     required />
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="national-number">رقم الهوية الوطنية</label>
+                <label class="block text-sm font-medium xs:text-base" for="national-number">رقم الهوية الوطنية</label>
                 <input
                     v-model="primary.national_id"
                     class="form-control h-[50px] appearance-none"
@@ -51,7 +51,7 @@
                     required />
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="bio">نبذه تعريفية</label>
+                <label class="block text-sm font-medium xs:text-base" for="bio">نبذه تعريفية</label>
                 <textarea
                     v-model="primary.about"
                     class="form-control block max-h-[300px] min-h-[200px] py-4"
@@ -66,15 +66,15 @@
             <PrimaryButton
                 @click="submit(primary, 'primary')"
                 :loading="loading.primary"
-                class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+                class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
                 type="submit"
                 ><span>حفظ</span></PrimaryButton
             >
         </div>
-        <h2 class="border-t border-gray-100 pt-16 font-semibold xs:text-lg">السجل</h2>
+        <h2 class="border-t border-gray-100 pt-16 font-medium xs:text-lg">السجل</h2>
         <div class="grid w-full gap-x-8 space-y-7 pt-16 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3">
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="certificate-number">رقم الشهادة</label>
+                <label class="block text-sm font-medium xs:text-base" for="certificate-number">رقم الشهادة</label>
                 <input
                     class="form-control h-[50px] appearance-none"
                     type="text"
@@ -87,7 +87,7 @@
                 <div class="text-[13px] leading-loose text-gray-500">رقم شهادة وثيقة العمل الحر أو السجل التجاري</div>
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="register-image"
+                <label class="block text-sm font-medium xs:text-base" for="register-image"
                     >صورة من السجل التجاري</label
                 >
                 <input
@@ -102,7 +102,7 @@
 
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="tax-number">رقم التسجيل الضريبي</label>
+                <label class="block text-sm font-medium xs:text-base" for="tax-number">رقم التسجيل الضريبي</label>
                 <input
                     class="form-control h-[50px] appearance-none"
                     type="text"
@@ -114,7 +114,7 @@
                     required />
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="tax-register-number"
+                <label class="block text-sm font-medium xs:text-base" for="tax-register-number"
                     >صورة من السجل الضريبي</label
                 >
                 <input

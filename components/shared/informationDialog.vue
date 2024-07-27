@@ -11,7 +11,7 @@
             <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all" id="mytemp">
               <DialogTitle as="div" class="flex flex-col-reverse items-center">
                 <ExclamationTriangleIcon class="w-8 h-8" />
-                <h3 class="text-[16px] font-semibold leading-6 text-gray-900 py-1">نحتاج المعلومات الأساسية للإستمرار</h3>
+                <h3 class="text-[16px] font-medium leading-6 text-gray-900 py-1">نحتاج المعلومات الأساسية للإستمرار</h3>
               </DialogTitle>
               <div class="mt-2">
                 <p class="text-sm text-gray-500 text-center">الرجاء تعبئة الحقول الفارغة</p>
@@ -19,7 +19,7 @@
 
               <div class="mt-4 flex flex-col gap-2">
                 <div class="w-full space-y-3">
-                  <label class="block text-sm font-semibold xs:text-base" for="gender">الجنس</label>
+                  <label class="block text-sm font-medium xs:text-base" for="gender">الجنس</label>
                   <select v-model="gender" class="form-control form-select h-[50px] appearance-none" type="select" name="select" id="gender" required>
                     <option value="" selected hidden disabled>اختر</option>
                     <option value="Male">ذكر</option>
@@ -28,7 +28,7 @@
                   <InputError :message="errors.birthday" />
                 </div>
                 <div class="w-full space-y-3 dream_time">
-                  <label class="text-sm font-semibold xs:text-base" @click="datePicker?.openMenu()"> تاريخ الميلاد</label>
+                  <label class="text-sm font-medium xs:text-base" @click="datePicker?.openMenu()"> تاريخ الميلاد</label>
 
                   <DatePicker placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation v-model="birthday" model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" auto-apply required />
 
@@ -36,7 +36,7 @@
                   <InputError :message="errors.birthday" />
                 </div>
                 <div class="w-full space-y-3">
-                  <label class="block text-sm font-semibold xs:text-base" for="select">الحالة الإجتماعة</label>
+                  <label class="block text-sm font-medium xs:text-base" for="select">الحالة الإجتماعة</label>
                   <select class="form-control form-select h-[50px] appearance-none" type="select" v-model="marital_status" name="select" id="select" required>
                     <option value="" selected hidden disabled>اختر</option>
                     <option value="single">أعزب</option>
@@ -47,7 +47,7 @@
                   <InputError :message="errors.marital_status" />
                 </div>
                 <div class="w-full space-y-3">
-                  <label class="block text-sm font-semibold xs:text-base" for="text">المهنة</label>
+                  <label class="block text-sm font-medium xs:text-base" for="text">المهنة</label>
                   <input v-model="profession" class="form-control h-[50px] appearance-none" type="text" name="text" id="text" placeholder="ادخل مهنتك" dir="rtl" required />
                   <InputError :message="errors.profession" />
                 </div>

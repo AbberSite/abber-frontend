@@ -19,7 +19,7 @@
             <!-- Heroicon name: outline/home -->
             <HomeIcon class="h-6 w-6 flex-shrink-0" />
           </div>
-          <span class="ms-6 font-semibold">الرئيسية</span>
+          <span class="ms-6 font-medium">الرئيسية</span>
         </NuxtLink>
 
         <!--<NuxtLink v-if="'عميل' == data?.user_type || status == 'unauthenticated'" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer gap-1" @click="$emit('navigate', { name: 'packages-orders-packages' })">
@@ -27,8 +27,8 @@
             <!~~ Heroicon name: outline/RocketLaunchIcon ~~>
             <RocketLaunchIcon class="h-6 w-6 flex-shrink-0" />
           </div>
-          <span class="ms-6 font-semibold">الباقات</span>
-          <span class="text-white bg-red-500 px-2 py-[1px] rounded-full text-xs font-semibold">جديد</span>
+          <span class="ms-6 font-medium">الباقات</span>
+          <span class="text-white bg-red-500 px-2 py-[1px] rounded-full text-xs font-medium">جديد</span>
         </NuxtLink> -->
 
         <NuxtLink v-if="false" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer" @click="$emit('navigate', { name: 'support' })">
@@ -36,7 +36,7 @@
             <!-- Heroicon name: outline/Lifebuoy -->
             <LifebuoyIcon class="h-6 w-6 flex-shrink-0" />
           </div>
-          <span class="ms-6 font-semibold">مركز الدعم</span>
+          <span class="ms-6 font-medium">مركز الدعم</span>
         </NuxtLink>
       </nav>
     </div>

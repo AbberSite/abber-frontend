@@ -2,7 +2,7 @@
     <Modal title="انشاء خصم جديد" @close="$emit('close')">
         <div class="is-scroll overflow-y-auto px-6 py-3 flex flex-col gap-3" id="createNewDiscount">
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="type">نوع الخصم</label>
+                <label class="block text-sm font-medium xs:text-base" for="type">نوع الخصم</label>
                 <select class="form-control form-select h-[50px] appearance-none" name="select" id="type"
                     v-model="offer.type" required>
                     <option value="percentage">نسبة مئوية</option>
@@ -10,7 +10,7 @@
                 </select>
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="start-date"
+                <label class="block text-sm font-medium xs:text-base" for="start-date"
                     @click="datePicker?.openMemu()">تاريخ
                     بدأ الخصم</label>
                 <DatePicker id="start_date" placeholder="yyyy-mm-dd" prevent-min-max-navigation v-model="start_date"
@@ -22,7 +22,7 @@
           id="start-date" dir="rtl" v-model="offer.start_date" required /> -->
             </div>
             <div class="w-full space-y-3">
-                <label class="block text-sm font-semibold xs:text-base" for="end-date"
+                <label class="block text-sm font-medium xs:text-base" for="end-date"
                     @click="datePicker?.openMenu()">تاريخ
                     إنتهاء الخصم</label>
                 <DatePicker id="end_date" placeholder="yyyy-mm-dd" :min-date="new Date()" prevent-min-max-navigation
@@ -35,7 +35,7 @@
                 <div class="flex items-center">
                     <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox"
                         id="text" v-model="offer.text" />
-                    <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="text">خصم المحادثة النصية</label>
+                    <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base" for="text">خصم المحادثة النصية</label>
                 </div>
                 <template v-if="offer.text">
                     <TextInput id="text_amount" type="number" v-model="text_amount" label="مبلغ الخصم"
@@ -49,7 +49,7 @@
                 <div class="flex items-center">
                     <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox"
                         id="video" v-model="offer.video" />
-                    <label class="mt-1.5 ps-3 text-sm font-semibold xs:text-base" for="video">خصم المحادثة
+                    <label class="mt-1.5 ps-3 text-sm font-medium xs:text-base" for="video">خصم المحادثة
                         الصوتية</label>
                 </div>
                 <template v-if="offer.video">

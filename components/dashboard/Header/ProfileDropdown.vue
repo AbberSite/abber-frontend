@@ -39,7 +39,7 @@
                     :data-src="data.image_url" height="40" width="40" alt="صورة المستخدم" />
             </div>
             <div class="ms-3 flex flex-col pt-1">
-                <div class="text-sm font-semibold">
+                <div class="text-sm font-medium">
                     {{ data.first_name }}
                 </div>
                 <div class="pt-1 text-xs font-medium text-gray-600">

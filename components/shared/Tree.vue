@@ -2,7 +2,7 @@
   <div class="flex justify-between gap-1 text-slate-800 pt-4">
     <NuxtLink v-for="(item, index) in breadcrumbItems" :key="index"
       class="flex justify-center items-center gap-2 hover:text-blue-500" :to="item.path">
-      <span class="text-xs font-semibold">{{ item.title }}</span>
+      <span class="text-xs font-medium">{{ item.title }}</span>
       <svg v-if="index < breadcrumbItems.length - 1" height="10px" width="9px" viewBox="0 0 15 26"
         xmlns="http://www.w3.org/2000/svg">
         <polygon fill="#231F20"

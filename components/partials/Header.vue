@@ -63,7 +63,7 @@
             </div>
             <div v-else class="hidden md:flex md:flex-1 md:justify-end 2xl:text-lg">
                 <!-- Login Link -->
-                <NuxtLink class="font-semibold" :to="{ name: 'accounts-sms' }">
+                <NuxtLink class="font-medium" :to="{ name: 'accounts-sms' }">
                     تسجيل الدخول<span aria-hidden="true"><span aria-hidden="true">←</span></span>
                 </NuxtLink>
             </div>

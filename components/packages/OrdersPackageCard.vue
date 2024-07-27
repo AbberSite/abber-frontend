@@ -1,8 +1,8 @@
 <template>
   <article class="grid w-full overflow-hidden rounded-xl bg-gray-50 p-6" :class="{ 'border-[3px] border-gray-900': primary }">
     <div class="flex items-center justify-between">
-      <h3 class="text-xl font-semibold 2xl:text-2xl" aria-describedby="planDescription" v-text="package.name"></h3>
-      <span v-if="primary" class="rounded-full bg-gray-900 px-2 pb-0.5 pt-1 text-xs font-semibold text-white">الأكثر شيوعا</span>
+      <h3 class="text-xl font-medium 2xl:text-2xl" aria-describedby="planDescription" v-text="package.name"></h3>
+      <span v-if="primary" class="rounded-full bg-gray-900 px-2 pb-0.5 pt-1 text-xs font-medium text-white">الأكثر شيوعا</span>
     </div>
     <p class="mt-2 text-sm font-medium text-gray-600" id="planDescription" v-text="descriptionList[0]"></p>
     <div class="mt-8 flex items-center space-x-2 rtl:space-x-reverse">
@@ -13,7 +13,7 @@
     <div class="flex items-center space-x-3 pt-10 rtl:space-x-reverse">
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
-          <p class="font-semibold text-gray-500">الطلبات</p>
+          <p class="font-medium text-gray-500">الطلبات</p>
           <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse"><span v-text="package.num_orders"></span><small>طلبات</small></p>
         </div>
         <div class="flex h-10 w-10 items-center justify-center rounded-md">
@@ -33,7 +33,7 @@
       </div>
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>
-          <p class="font-semibold text-gray-500">الزمن</p>
+          <p class="font-medium text-gray-500">الزمن</p>
           <p class="space-x-1 pt-10 text-xl font-bold rtl:space-x-reverse"><span v-text="package.duration"></span><small>أيام</small></p>
         </div>
         <div class="flex h-10 w-10 items-center justify-center rounded-md">
@@ -55,12 +55,12 @@
 
     <div class="pt-10">
       <div v-if="subscribed">
-        <button class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-100 px-8 py-3 text-sm font-semibold disabled:cursor-not-allowed" type="button" disabled="">تم الإشتراك</button>
+        <button class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-100 px-8 py-3 text-sm font-medium disabled:cursor-not-allowed" type="button" disabled="">تم الإشتراك</button>
         <div class="pt-8 text-center text-sm xs:text-[15px]">
           <a class="font-medium text-blue-600" href="/profile?tab=subscriptions"> عرض تفاصيل الإشتراك<span aria-hidden="true">←</span></a>
         </div>
       </div>
-      <button v-else @click="$emit('buy', package.id)" class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="button">إشترك الان</button>
+      <button v-else @click="$emit('buy', package.id)" class="flex h-[50px] w-full items-center justify-center rounded-full border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800" type="button">إشترك الان</button>
     </div>
   </article>
 </template>
