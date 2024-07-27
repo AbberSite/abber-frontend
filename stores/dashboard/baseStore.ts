@@ -10,7 +10,7 @@ export class BaseStore {
   filtersCount = computed(() => 0);
   filtersPipeline: Array<any> = [];
 
-  constructor(initialFilters: any, pipeline: Array<any>, endpoint: string) {
+  constructor(initialFilters: any = [], pipeline: Array<any> = [], endpoint: string = '') {
     this.filters = useCreateFilter(initialFilters);
     this.filtersPipeline = pipeline;
     this.endpoint.value = endpoint;

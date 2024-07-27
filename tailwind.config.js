@@ -14,7 +14,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Tajawal', ...defaultTheme.fontFamily.sans],
+                sans: ['Readex Pro', ...defaultTheme.fontFamily.sans],
                       satoshi: ['Satoshi', 'sans-serif'],
 
             },
