@@ -7,7 +7,7 @@
         <!-- Hero section -->
         <HeroBackground/>
         <section
-            class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
+            class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="contact-types-heading">
             <template v-if="loading || paid">
                 <div class="w-full flex justify-center items-center h-full"><Loading /></div>

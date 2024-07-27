@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="flex w-full items-center justify-between sm:justify-end" :class="{ 'sm:justify-center': smallResultsCounter }">
-      <button @click="change(true)" :disabled="!results?.previous?.length" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" type="button">
+      <button @click="change(true)" :disabled="!results?.previous?.length" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" type="button">
         <Loading v-if="previousLoading" />
 
         <span v-else>السابق</span>
@@ -26,7 +26,7 @@
           {{ results.count }}
         </span>
       </p>
-      <button type="button" :disabled="!results?.next?.length" :loading="nextLoading" @click="change()" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" :class="{ 'ms-3': !smallResultsCounter }" href="#">
+      <button type="button" :disabled="!results?.next?.length" :loading="nextLoading" @click="change()" class="relative inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black" :class="{ 'ms-3': !smallResultsCounter }" href="#">
         <Loading v-if="nextLoading" />
         <span v-else>التالي</span>
       </button>

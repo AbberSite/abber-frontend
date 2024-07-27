@@ -48,7 +48,7 @@
                 </div>
             </figcaption>
             <blockquote>
-                <p class="text-justify text-sm text-gray-600 xs:text-base" v-text="expressor.seller.about && expressor.seller.about.length > 140 ? expressor.seller.about.substring(0, 140) + '...' : expressor.seller.about"></p>
+                <p class="text-justify text-sm text-gray-700 xs:text-base" v-text="expressor.seller.about && expressor.seller.about.length > 140 ? expressor.seller.about.substring(0, 140) + '...' : expressor.seller.about"></p>
             </blockquote>
             <div class="w-full">
                   <NuxtLink class="flex items-center justify-center rounded-full bg-gray-100 px-4 py-4 text-center text-sm font-medium hover:bg-gray-200" :to="`/expressors/${expressor.seller.username}`">

@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-6">
+    <div class="py-6">
         <NuxtLink
             class="-mx-3 block rounded-lg px-3 py-3 font-medium hover:bg-gray-50"
             @click="$emit('navigate', { name: 'accounts-sms' })"
