@@ -15,8 +15,8 @@
           </template>
           <template v-else>
             <div class="flex justify-center gap-3" v-show="!yes">
-              <button class="relative flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800" type="button" @click="sendResponse(true)"><span class="mt-1.5">نعم</span></button>
-              <button class="relative ms-3 inline-flex items-center rounded-md border bg-white px-6 py-2 text-sm font-semibold shadow-sm hover:bg-gray-50" @click="sendResponse(false)"><span class="mt-1.5">لا</span></button>
+              <button class="relative flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800" type="button" @click="sendResponse(true)"><span>نعم</span></button>
+              <button class="relative ms-3 inline-flex items-center rounded-md border bg-white px-6 py-2 text-sm font-semibold shadow-sm hover:bg-gray-50" @click="sendResponse(false)"><span>لا</span></button>
             </div>
             <!-- first element of from FormStepsServiceSelectServiceCheckboxButton -->
             <FormStepsServiceSelectServiceCheckboxButton v-show="yes" v-for="service in textCommunicationServices" v-model="selectedsService" :service="service" :selected-id="selected" class="mt-5" />

@@ -28,7 +28,7 @@
       </div>
       <PrimaryButton v-show="result || currentLevel >= 2" class="w-full mt-1.5" @click="submit" :loading="loading"
         type="submit">
-        <span class="mt-1.5">محادثة الدعم</span>
+        <span>محادثة الدعم</span>
       </PrimaryButton>
     </fieldset>
   </Modal>

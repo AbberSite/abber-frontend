@@ -24,7 +24,7 @@
                <!-- Heroicon name: outline/home -->
             <HomeIcon class="h-6 w-6 flex-shrink-0" />
           </div>
-          <span class="ms-6 mt-1.5 font-semibold">الرئيسية</span>
+          <span class="ms-6 font-semibold">الرئيسية</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -72,7 +72,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 mt-1.5 font-semibold">الإحصائيات</span>
+              <span class="ms-6 font-semibold">الإحصائيات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -112,7 +112,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 mt-1.5 font-semibold">الطلبات</span>
+              <span class="ms-6 font-semibold">الطلبات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -152,7 +152,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 mt-1.5 font-semibold">المالية</span>
+              <span class="ms-6 font-semibold">المالية</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -208,7 +208,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 mt-1.5 font-semibold">الحسابات</span>
+              <span class="ms-6 font-semibold">الحسابات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -296,7 +296,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 mt-1.5 font-semibold">الإعدادات</span>
+              <span class="ms-6 font-semibold">الإعدادات</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -336,7 +336,7 @@
                   </path>
                 </svg>
               </div>
-              <span class="ms-6 mt-1.5 font-semibold">الدعم التقني</span>
+              <span class="ms-6 font-semibold">الدعم التقني</span>
             </div>
             <!-- Heroicon name: outline/chevron-down -->
             <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"

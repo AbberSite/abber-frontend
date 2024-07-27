@@ -25,7 +25,7 @@
                 </svg>
             </div>
             <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">تغيير كلمة المرور</div>
-            <div class="pt-4 text-sm text-gray-800 xs:text-base">ضع كلمة مرور يمكن تذكرها و قوية في نفس الوقت</div>
+            <div class="pt-4 text-sm text-gray-600 xs:text-base">ضع كلمة مرور يمكن تذكرها و قوية في نفس الوقت</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form @submit.prevent="submit">
                     <fieldset class="space-y-7">

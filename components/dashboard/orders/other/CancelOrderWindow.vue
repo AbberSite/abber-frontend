@@ -16,7 +16,7 @@
             </fieldset>
           </div>
           <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
-            <PrimaryButton class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="submit" @click="cancelOrder()" :loading="loading"><span class="mt-1.5">تأكيد</span></PrimaryButton>
+            <PrimaryButton class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" type="submit" @click="cancelOrder()" :loading="loading"><span>تأكيد</span></PrimaryButton>
           </div>
     </Modal>
 </template>

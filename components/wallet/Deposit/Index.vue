@@ -32,7 +32,7 @@
         <!-- <div class="fixed bottom-0 w-full border-t border-gray-100 bg-white px-6 py-6 sm:w-[340px]">
         <button @click="execute"
             class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-            ><span class="mt-1.5">متابعة</span></button>
+            ><span>متابعة</span></button>
     </div> -->
 
     </Modal>

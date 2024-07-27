@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    @apply text-black;
+    @apply font-light text-black;
     -webkit-tap-highlight-color: transparent;
   }
 

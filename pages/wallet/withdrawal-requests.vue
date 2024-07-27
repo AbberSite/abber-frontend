@@ -9,7 +9,7 @@
         <BanknotesIcon class="w-[24px] h-[24px]" />
       </div>
       <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="wallet-heading">طلبات السحب</h1>
-      <div class="pt-4 text-sm text-gray-800 xs:text-base">تصفح جمبع طلبات السحب الخاص بك</div>
+      <div class="pt-4 text-sm text-gray-600 xs:text-base">تصفح جمبع طلبات السحب الخاص بك</div>
       <div class="w-full pt-16">
         <SkeletonsTable v-if="loading" />
         <WalletRequestsTable v-else :requests="requests ?? []" />

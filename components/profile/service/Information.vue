@@ -68,7 +68,7 @@
                 :loading="loading.primary"
                 class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800"
                 type="submit"
-                ><span class="mt-1.5">حفظ</span></PrimaryButton
+                ><span>حفظ</span></PrimaryButton
             >
         </div>
         <h2 class="border-t border-gray-100 pt-16 font-semibold xs:text-lg">السجل</h2>
@@ -134,7 +134,7 @@
         </div>
         <div class="pt-8 sm:pt-14">
             <PrimaryButton @click="submitRecord" :loading="loading.record" type="submit">
-                <span class="mt-1.5">حفظ</span>
+                <span>حفظ</span>
             </PrimaryButton>
         </div>
     </div>

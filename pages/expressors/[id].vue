@@ -32,7 +32,7 @@
                                     d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59">
                                 </path>
                             </svg>
-                            <span class="mt-1.5">طلب تفسير حلم</span>
+                            <span>طلب تفسير حلم</span>
                         </NuxtLink>
                     </div>
                 </div>
@@ -55,13 +55,13 @@
                                 d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800 xs:text-sm">({{ rate_count }})</span>
+                        <span class="ms-1.5 text-xs font-medium text-gray-600 xs:text-sm">({{ rate_count }})</span>
                     </div>
-                    <p class="max-w-prose pt-8 text-justify text-sm text-gray-800 xs:text-base">{{
+                    <p class="max-w-prose pt-8 text-justify text-sm text-gray-600 xs:text-base">{{
             expressor?.seller.about }}</p>
                     <Tabs :tabs="[ { name: 'ساعات العمل', value: 'workTime' }, { name: 'التقييمات', value:'rates', count: rate_count, showCounter: true} ]" v-model="tab"/>
                     <div v-if="tab == 'workTime'" class="w-full max-w-prose pt-10">
-                        <p class="text-justify text-sm text-gray-800 xs:text-base">{{expressor?.work_hours}}</p>
+                        <p class="text-justify text-sm text-gray-600 xs:text-base">{{expressor?.work_hours}}</p>
                         
                     </div>
 

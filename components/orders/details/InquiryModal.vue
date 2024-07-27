@@ -30,7 +30,7 @@
                 <InputError :message="errors.message"/>
               </div>
               <PrimaryButton @click="submit" :loading="loading" type="submit">
-                <span class="mt-1.5">إرسال</span>
+                <span>إرسال</span>
               </PrimaryButton>
             </fieldset>
           </div>

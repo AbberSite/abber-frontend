@@ -19,7 +19,7 @@
                 </svg>
             </div>
             <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="wallet-heading">المحفظة</h1>
-            <div class="pt-4 text-sm text-gray-800 xs:text-base">تصفح جمبع بيانات محفظتك الالكترونية</div>
+            <div class="pt-4 text-sm text-gray-600 xs:text-base">تصفح جمبع بيانات محفظتك الالكترونية</div>
 
             <Tabs :tabs="[ {name: 'المخلص المالي', value: 'summary'}, {name: 'العمليات المالية', value: 'operations', count: counts.operations, showCounter: true }, {name: 'كشف الحساب', value: 'statement', count: counts.operations,  showCounter: true  }, {name: 'البطاقات الإئتمانية', value: 'cards', count: counts.cards,  showCounter: true  }, {name: 'طلبات السحب', value: 'withdrawalRequests', count: counts.requests,  showCounter: true } ]" v-model="activeTab" class="pt-16" />
             <WalletFinancialSummary v-if="activeTab === 'summary'" />

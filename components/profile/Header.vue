@@ -52,7 +52,7 @@
                         @click.prevent="edit = false"
                         class="flex h-[50px] items-center rounded-md border bg-white px-6 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50"
                         to="/profile">
-                        <span class="mt-1.5">إلغاء</span></NuxtLink>
+                        <span>إلغاء</span></NuxtLink>
                 </div>
             </template>
             <template v-else>
@@ -72,7 +72,7 @@
                             stroke-linejoin="round"
                             d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path>
                     </svg>
-                    <span class="mt-1.5">تعديل</span>
+                    <span>تعديل</span>
                 </a>
                 <div class="relative">
                     <button
@@ -160,7 +160,7 @@
             class="flex h-[50px] w-[25%] items-center justify-center rounded-md border bg-white px-4 py-3 text-xs font-semibold shadow-sm hover:bg-gray-50"
             @click.prevent="edit = false"
             href="#"
-            ><span class="mt-1.5">إلغاء</span></a
+            ><span>إلغاء</span></a
         >
     </div>
     <div
@@ -184,7 +184,7 @@
                     stroke-linejoin="round"
                     d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path>
             </svg>
-            <span class="mt-1.5">تعديل الحساب</span>
+            <span>تعديل الحساب</span>
         </a>
         <button
             class="flex h-[50px] w-[25%] items-center justify-center rounded-md border bg-white px-4 py-3 shadow-sm hover:bg-gray-50"

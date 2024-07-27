@@ -23,7 +23,7 @@
                 </svg>
             </div>
             <h1 class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl" id="delete-profile-heading">حذف حسابي</h1>
-            <div class="pt-4 text-center text-sm text-gray-800 xs:text-base">
+            <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
                 <p>سيتم حذف حسابك ولن تتمكن من الوصول إلى المعلومات المتعلقة به.</p>
             </div>
             <div class="mx-auto w-full max-w-sm pt-10">
@@ -34,7 +34,7 @@
                 >
                     <Loading v-if="loading" />
 
-                    <span v-else class="mt-1.5">تأكيد الحذف</span></a
+                    <span v-else>تأكيد الحذف</span></a
                 >
                 <div class="pt-4">
                     <NuxtLink

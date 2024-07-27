@@ -50,7 +50,7 @@
             </fieldset>
 
             <PrimaryButton type="submit" class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 text-sm font-semibold text-white hover:bg-gray-800" :loading="loading">
-              <span class="mt-1.5">متابعة</span>
+              <span>متابعة</span>
             </PrimaryButton>
           </form>
         </div>

@@ -3,7 +3,7 @@
         <div class="flex items-end justify-between">
             <div>
                 <h2
-                    class="inline-flex rounded-full bg-gray-900 px-4 pb-1.5 pt-2 text-xs font-semibold text-white"
+                    class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-semibold text-white"
                     id="testimonials-heading">
                     الاراء
                 </h2>

@@ -19,10 +19,10 @@
                 </svg>
             </div>
             <div class="pt-8 text-lg font-semibold xs:text-xl 2xl:text-2xl">تحقق من بريدك الالكتروني</div>
-            <div class="pt-4 text-sm text-gray-800 xs:text-base">لقد أرسلنا إليك رابط إعادة تعيين كلمة المرور</div>
+            <div class="pt-4 text-sm text-gray-600 xs:text-base">لقد أرسلنا إليك رابط إعادة تعيين كلمة المرور</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800" 
-                    :to=" `https://www.${route.query.email ?? 'gmail.com'}`" target="_blank"> <span class="mt-1.5">فتح تطبيق البريد
+                    :to=" `https://www.${route.query.email ?? 'gmail.com'}`" target="_blank"> <span>فتح تطبيق البريد
                         الإلكتروني</span></NuxtLink>
                 <div class="pt-8 text-center text-sm xs:text-base"><NuxtLink class="font-medium text-blue-600"
                         to="/accounts/login">العودة لتسجيل الدخول <span aria-hidden="true">←</span></NuxtLink></div>

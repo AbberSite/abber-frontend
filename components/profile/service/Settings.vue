@@ -53,7 +53,7 @@
         </div>
         <div class="pt-8 sm:pt-14">
             <PrimaryButton @click="submit" type="submit" :loading="loadingButton">
-                <span class="mt-1.5">حفظ</span>
+                <span>حفظ</span>
             </PrimaryButton>
         </div>
     </div>

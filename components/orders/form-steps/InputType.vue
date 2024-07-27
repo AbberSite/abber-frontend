@@ -54,7 +54,7 @@
             </label>
 
             <PrimaryButton :disabled="!selectedOption" class="w-full">
-                <span class="mt-1.5">متابعة</span>
+                <span>متابعة</span>
             </PrimaryButton>
         </fieldset>
     </form>

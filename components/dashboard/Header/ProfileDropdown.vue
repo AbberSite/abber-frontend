@@ -6,7 +6,7 @@
         aria-labelledby="user-menu-button"
         tabindex="-1">
         <NuxtLink
-            class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900"
+            class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             role="menuitem"
             tabindex="-1"
             :to="{ name: 'profile' }"
@@ -14,7 +14,7 @@
             >الملف الشخصي</NuxtLink
         >
         <a
-            class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900"
+            class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             href="#"
             @click="$emit('close')"
             role="menuitem"
@@ -23,7 +23,7 @@
         >
         <a
             @click.prevent="$emit('logout')"
-            class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900"
+            class="block px-4 pb-1.5 pt-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             role="menuitem"
             tabindex="-1"
             >تسجيل الخروج</a

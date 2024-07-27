@@ -56,7 +56,7 @@
                                     clip-rule="evenodd"></path>
                             </svg>
 
-                            <span class="ms-1.5 mt-1.5 text-xs font-medium text-gray-800">({{ order?.service_details?.ordered_count }})</span>
+                            <span class="ms-1.5 text-xs font-medium text-gray-600">({{ order?.service_details?.ordered_count }})</span>
                         </div>
                     </div>
                     <!-- <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
