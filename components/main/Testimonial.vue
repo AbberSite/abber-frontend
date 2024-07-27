@@ -2,7 +2,7 @@
     <div class="w-full pt-8 sm:inline-block">
         <figure class="rounded-xl bg-gray-50 px-6 py-6">
             <blockquote>
-                <p class="text-justify text-sm text-gray-600 xs:text-base">
+                <p class="text-justify text-sm text-gray-700 xs:text-base">
                     {{ testimonial.additional_comments }}
                 </p>
             </blockquote>

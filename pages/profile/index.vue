@@ -8,7 +8,7 @@
     <!-- Hero section -->
     <HeroBackground />
     <!-- Profile section -->
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 sm:items-stretch md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="profile-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 sm:items-stretch sm:pt-28 lg:px-8 xl:pb-44" aria-labelledby="profile-heading">
       <ProfileHeader v-model="edit" />
 
       <template v-if="edit">

@@ -1,5 +1,5 @@
 <template>
-  <section class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="contact-types-heading">
+  <section class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="contact-types-heading">
     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
       <component :is="activeHeader.icon" class="w-6 h-6" />
     </div>

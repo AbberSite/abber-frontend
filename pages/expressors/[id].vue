@@ -9,7 +9,7 @@
         <!-- Profile Section -->
 
         <section
-            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 sm:items-stretch md:pt-32 lg:px-8 xl:pb-44"
+            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 sm:items-stretch sm:pt-28 lg:px-8 xl:pb-44"
             aria-labelledby="profile-heading">
             <template v-if="loading">
                 <SkeletonsExpressorPage />
@@ -68,8 +68,10 @@
                     <template v-if="tab == 'workTime'" >
                         
                     </template>
-                    <template v-else class="w-full space-y-7 divide-y divide-gray-100 pt-8">
-                        <RateCard v-for="rate of rates"  :my_rate="rate" />
+                    <template v-else>
+                        <div class="w-full space-y-7 divide-y divide-gray-100 pt-8">
+                            <RateCard v-for="rate of rates"  :my_rate="rate" />
+                        </div>
                     </template>
                     <MakeDreamButtonFixed/>
                 </div>
