@@ -32,7 +32,7 @@
       <BlogCategories v-model="selectedCategory" />
       <!-- <BlogCategories :total="(total as number)" v-model="selectedCategory" /> -->
 
-      <div class="grid gap-x-8 gap-y-20 pt-10 sm:grid-cols-2 lg:grid-cols-3 w-full">
+      <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
         <template v-if="loading">
           <SkeletonsPostCard />
           <SkeletonsPostCard />
