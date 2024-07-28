@@ -35,7 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import DetailsTabs from "~/components/tickets/details/Tabs.vue";
 import DetailsCard from "~/components/tickets/details/Card.vue";
 import TicketCard from "~/components/shared/skeletons/TicketCard.vue";
 
