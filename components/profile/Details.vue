@@ -1,5 +1,5 @@
 <template>
-    <div class="grid w-full gap-x-8 gap-y-14 pt-16 sm:grid-cols-2 lg:grid-cols-3" x-show="activeTab === 1" x-cloak>
+    <div class="grid w-full gap-x-8 gap-y-14 pt-10 sm:grid-cols-2 lg:grid-cols-3" x-show="activeTab === 1" x-cloak>
         <div class="w-full space-y-4">
             <div class="text-sm font-medium text-gray-500 xs:text-base">الإسم الكامل</div>
             <div class="font-medium">

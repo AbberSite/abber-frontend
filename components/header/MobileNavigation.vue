@@ -28,7 +28,7 @@
             <RocketLaunchIcon class="h-6 w-6 flex-shrink-0" />
           </div>
           <span class="ms-6 font-medium">الباقات</span>
-          <span class="text-white bg-red-500 px-2 py-[1px] rounded-full text-xs font-medium">جديد</span>
+          <span class="text-white bg-red-500 px-2 py-2 rounded-full text-xs font-medium">جديد</span>
         </NuxtLink> -->
 
         <NuxtLink v-if="false" class="group -mx-3 flex items-center rounded-lg p-3 hover:bg-gray-50 cursor-pointer" @click="$emit('navigate', { name: 'support' })">
