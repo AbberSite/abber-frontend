@@ -1,6 +1,6 @@
 <template>
     <DashboardTitle department="المالية" title="الحركات المالية"/>
-    <div class="w-full pt-6">
+    <div class="w-full pt-10">
         <div class="flex items-center justify-between">
             <DashboardInputsSearch placeholder="ابحث عن تحويل معين" v-model="filters.search"
                 @openFiltersMobileModal="openFiltersMobileModal = true" />
@@ -17,7 +17,7 @@
                         </svg>
                         <span>تصفية</span>
                     </span>
-                    <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount }}</span>
+                    <span class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white">{{ filtersCount }}</span>
                 </button>
 
                 <ClientOnly>

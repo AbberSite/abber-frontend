@@ -1,6 +1,6 @@
 <template>
       <DashboardTitle department="الطلبات" title="جميع الطلبات" />
-      <div class="w-full pt-6">
+      <div class="w-full pt-10">
         <div class="flex items-center justify-between">
           <DashboardInputsSearch placeholder="ابحث عن طلب معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal = true" />
           <div class="relative">
@@ -11,7 +11,7 @@
                 </svg>
                 <span>تصفية</span>
               </span>
-              <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount }}</span>
+              <span class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white">{{ filtersCount }}</span>
             </button>
             <ClientOnly>
               <transition enter-active-class="transition-all" leave-active-class="transition-all" enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">

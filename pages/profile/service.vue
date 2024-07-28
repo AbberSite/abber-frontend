@@ -2,7 +2,7 @@
   <main class="min-h-screen outline-none">
     <HeroBackground />
 
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="settings-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="settings-heading">
       <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
         <!-- Heroicon name: outline/cog-6-tooth -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
