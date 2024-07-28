@@ -24,7 +24,7 @@
         <template v-if="activeTab == 'posts'">
           <Suspense>
             <template #fallback>
-              <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
+              <div class="grid gap-x-8 gap-y-20 pt-10 sm:grid-cols-2 lg:grid-cols-3 w-full">
                 <SkeletonsPostCard />
                 <SkeletonsPostCard />
                 <SkeletonsPostCard />
