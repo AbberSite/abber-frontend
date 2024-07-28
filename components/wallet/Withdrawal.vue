@@ -41,7 +41,7 @@
                   <span class="font-medium text-gray-500">المبلغ</span><span class="font-medium">{{ amount||0 }} ر.س</span>
                 </li>
                 <li class="flex items-center justify-between text-sm">
-                  <span class="font-medium text-gray-500">الخصم</span><span class="font-medium">{{ fee }} ر.س</span>
+                  <span class="font-medium text-gray-500">رسوم السحب</span><span class="font-medium">{{ fee }} ر.س</span>
                 </li>
                 <li class="flex items-center justify-between text-sm">
                   <span class="font-medium text-gray-500">المبلغ بعد الخصم</span><span class="font-medium">{{ Math.max(0, amount - fee) }} ر.س</span>
