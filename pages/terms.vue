@@ -33,7 +33,7 @@
 
 
         <section
-            class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content" id="terms">
+            class="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44 content" id="terms">
             
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                 <!-- Heroicon name: outline/clipboard-document-list -->

@@ -3,7 +3,7 @@
     <title v-if="props.isFormSteps">عبر - طلب تعبير حلم - تسجيل الدخول</title>
   </Head>
     <section
-      :class="{'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !props.isFormSteps}"
+      :class="{'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !props.isFormSteps}"
       aria-labelledby="login-heading">
       <AuthenticationHeading v-if="!props.isFormSteps"/>
       <div class="mx-auto w-full max-w-sm pt-10">
@@ -41,9 +41,9 @@
               <div class="flex items-center">
                 <input class="h-6 w-6 flex-shrink-0 appearance-none rounded border" type="checkbox" name="remember"
                   id="id_remember" checked disabled />
-                <label class="mt-1.5 ps-3 font-medium" for="id_remember">تذكرني</label>
+                <label class="ps-3 font-medium" for="id_remember">تذكرني</label>
               </div>
-              <NuxtLink class="mt-1.5 font-medium" :to="{ name: 'accounts-reset-password', query: {email: email} }">
+              <NuxtLink class="font-medium" :to="{ name: 'accounts-reset-password', query: {email: email} }">
                 نسيت كلمة المرور؟
               </NuxtLink>
             </div>

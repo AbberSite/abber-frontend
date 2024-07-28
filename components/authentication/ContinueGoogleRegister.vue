@@ -1,6 +1,6 @@
 <template>
     <section
-        :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !isFormSteps && !isFormPackage }"
+        :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !isFormSteps && !isFormPackage }"
         aria-labelledby="login-heading">
         <h1 class="font-medium pt-5" v-show="!isFormPackage && !isFormSteps">إكمال تسجيل الدخول</h1>
         <!-- <AuthenticationHeading register v-if="!isFormSteps" /> -->

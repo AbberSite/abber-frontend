@@ -25,7 +25,7 @@
         " class="flex items-center justify-center">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="checkbox" name="checkbox"
             id="supplement" value="supplement" v-model="supplement" />
-          <label class="mt-1.5 ps-3 font-medium" for="supplement">استخدام الرصيد الحالي للدفع</label>
+          <label class="ps-3 font-medium" for="supplement">استخدام الرصيد الحالي للدفع</label>
         </div>
 
         <div v-if="paymentMethod == 'APPLEPAY' && isApple && !isSafari && !loading"

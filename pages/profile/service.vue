@@ -2,7 +2,7 @@
   <main class="min-h-screen outline-none">
     <HeroBackground />
 
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="settings-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="settings-heading">
       <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
         <!-- Heroicon name: outline/cog-6-tooth -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
@@ -18,7 +18,7 @@
       <div class="pt-4 text-sm text-gray-600 xs:text-base">قم بإدراة خدمة تعبير الأحلام الخاصة بك</div>
 
       <TabGroup as="template">
-        <TabList class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base" role="tablist" aria-labelledby="tablist-profile" aria-orientation="horizontal" as="div">
+        <TabList class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-10 text-sm rtl:space-x-reverse xs:text-base" role="tablist" aria-labelledby="tablist-profile" aria-orientation="horizontal" as="div">
           <Tab v-slot="{ selected }" as="template">
             <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
               إعدادات الخدمة

@@ -10,14 +10,14 @@
                 <NuxtLink
                     class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
                     :to="{ name: 'index' }">
-                    <span class="ms-3 mt-1.5">الصفحة الرئيسية</span>
+                    <span class="ms-3">الصفحة الرئيسية</span>
                 </NuxtLink>
             </div>
             <div class="pt-4">
                 <NuxtLink
                     class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
                     :to="{ name: 'blog' }">
-                    <span class="ms-3 mt-1.5">المدونة</span>
+                    <span class="ms-3">المدونة</span>
                 </NuxtLink>
             </div>
         </div>

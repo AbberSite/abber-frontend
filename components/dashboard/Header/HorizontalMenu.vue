@@ -26,7 +26,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الرئيسية</span>
+            </svg><span class="ms-3">الرئيسية</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-send-notifications'}" role="menuitem"
             tabindex="-1">
@@ -35,7 +35,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">التنبيهات</span>
+            </svg><span class="ms-3">التنبيهات</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-log-entry'}" role="menuitem"
             tabindex="-1">
@@ -44,7 +44,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">السجل</span>
+            </svg><span class="ms-3">السجل</span>
           </NuxtLink>
         </div>
       </div>
@@ -75,7 +75,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الإحصائيات</span>
+            </svg><span class="ms-3">الإحصائيات</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-reviews'}" role="menuitem"
             tabindex="-1">
@@ -84,7 +84,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">التقييمات</span>
+            </svg><span class="ms-3">التقييمات</span>
           </NuxtLink>
         </div>
       </div>
@@ -115,7 +115,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الطلبات</span>
+            </svg><span class="ms-3">الطلبات</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-coupons'}" role="menuitem"
             tabindex="-1">
@@ -124,7 +124,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الكويونات</span>
+            </svg><span class="ms-3">الكويونات</span>
           </NuxtLink>
         </div>
       </div>
@@ -155,7 +155,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">طلبات السحب</span>
+            </svg><span class="ms-3">طلبات السحب</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50"
             :to="{ name: 'dashboardv2-wallets-transactions' }" role="menuitem" tabindex="-1">
@@ -164,7 +164,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">العمليات المالية</span>
+            </svg><span class="ms-3">العمليات المالية</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-wallets-fees-records'}" role="menuitem"
             tabindex="-1">
@@ -173,7 +173,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الحركات المالية</span>
+            </svg><span class="ms-3">الحركات المالية</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-wallets-operations'}" role="menuitem"
             tabindex="-1">
@@ -182,7 +182,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الفروقات</span>
+            </svg><span class="ms-3">الفروقات</span>
           </NuxtLink>
         </div>
       </div>
@@ -213,7 +213,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">المعبرون</span>
+            </svg><span class="ms-3">المعبرون</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-accounts-users'}" role="menuitem"
             tabindex="-1">
@@ -222,7 +222,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">العملاء</span>
+            </svg><span class="ms-3">العملاء</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" to="/" role="menuitem"
             tabindex="-1">
@@ -231,7 +231,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">متابعة العملاء</span>
+            </svg><span class="ms-3">متابعة العملاء</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-groups'}" role="menuitem"
             tabindex="-1">
@@ -240,7 +240,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">المجموعات</span>
+            </svg><span class="ms-3">المجموعات</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-expressors-support'}" role="menuitem"
             tabindex="-1">
@@ -249,7 +249,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">مدراء العلاقة</span>
+            </svg><span class="ms-3">مدراء العلاقة</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-expressors-to-support'}" role="menuitem"
             tabindex="-1">
@@ -258,7 +258,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">إدارة العلاقات</span>
+            </svg><span class="ms-3">إدارة العلاقات</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-posts'}" role="menuitem"
             tabindex="-1">
@@ -267,7 +267,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">المقالات</span>
+            </svg><span class="ms-3">المقالات</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-expressors-domains'}" role="menuitem"
             tabindex="-1">
@@ -276,7 +276,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">نطاق المعبرين</span>
+            </svg><span class="ms-3">نطاق المعبرين</span>
           </NuxtLink>
         </div>
       </div>
@@ -307,7 +307,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">إعدادات عامة</span>
+            </svg><span class="ms-3">إعدادات عامة</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-shop-settings'}" role="menuitem"
             tabindex="-1">
@@ -316,7 +316,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">إعدادات الموقع</span>
+            </svg><span class="ms-3">إعدادات الموقع</span>
           </NuxtLink>
         </div>
       </div>
@@ -347,7 +347,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">إعدادات مركز المساعدة</span>
+            </svg><span class="ms-3">إعدادات مركز المساعدة</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-support'}" role="menuitem"
             tabindex="-1">
@@ -356,7 +356,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">تذاكر المساعدة </span>
+            </svg><span class="ms-3">تذاكر المساعدة </span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-conversations'}" role="menuitem"
             tabindex="-1">
@@ -365,7 +365,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">المحادثات</span>
+            </svg><span class="ms-3">المحادثات</span>
           </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-faq'}" role="menuitem"
             tabindex="-1">
@@ -374,7 +374,7 @@
               <path
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3 mt-1.5">الأسئلة الشائعة</span>
+            </svg><span class="ms-3">الأسئلة الشائعة</span>
           </NuxtLink>
         </div>
       </div>
