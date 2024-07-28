@@ -8,7 +8,7 @@
     <HeroBackground />
     <!-- Blog section -->
     <section
-      class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
+      class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44"
       aria-labelledby="blog-heading">
       <h1 class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-medium text-white">
         المدونة

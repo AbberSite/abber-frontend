@@ -7,7 +7,7 @@
     <!-- hero section -->
     <HeroBackground />
 
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="support-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="support-heading">
       <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
         <!-- Heroicon name: outline/lifebuoy -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
@@ -51,8 +51,8 @@
                   </svg>
                   <span>تصفية</span>
                 </span>
-                <!-- <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">1</span> -->
-                <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ filtersCount }}</span>
+                <!-- <span class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white">1</span> -->
+                <span class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white">{{ filtersCount }}</span>
               </button>
               <ClientOnly>
                 <transition enter-active-class="transition-all" leave-active-class="transition-all" enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">

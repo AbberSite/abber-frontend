@@ -4,7 +4,7 @@
   </Head>
   <div class="min-h-screen outline-none">
     <HeroBackground />
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44" aria-labelledby="withdrawal-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="withdrawal-heading">
       <div class="rounded-md border border-gray-300 py-3 px-3 shadow-sm">
         <BanknotesIcon class="w-[24px] h-[24px]" />
       </div>

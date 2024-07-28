@@ -15,7 +15,7 @@
                         </svg>
                         <span>تصفية</span>
                     </span>
-                    <span class="ms-1.5 rounded-full bg-gray-900 px-[6.5px] pt-1 text-white">{{ 0 }}</span>
+                    <span class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white">{{ 0 }}</span>
                 </button>
 
                 <ClientOnly>
