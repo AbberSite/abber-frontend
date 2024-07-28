@@ -40,7 +40,7 @@
                     <NuxtLink
                         class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
                         :to="{ name: 'profile' }">
-                        <span class="ms-3 mt-1.5">إلغاء</span>
+                        <span class="ms-3">إلغاء</span>
                     </NuxtLink>
                 </div>
             </div>

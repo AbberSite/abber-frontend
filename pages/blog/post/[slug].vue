@@ -6,7 +6,7 @@
   <HeroBackground />
   <!-- Post section -->
   <section
-    class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
+    class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-20 pt-20 xs:px-6 sm:pb-28 md:pt-32 lg:px-8"
     aria-labelledby="blog-heading">
     <div class="grid w-full gap-x-8 lg:grid-cols-3">
       <div class="sticky top-8 hidden h-fit space-y-4 rounded-lg border border-gray-100 py-6 lg:block">
@@ -20,13 +20,13 @@
         <SkeletonsBlogPost v-show="loading" />
         <div class="w-full" v-show="!loading">
           <div class="flex items-center justify-between text-gray-700">
-            <a class="rounded-full bg-gray-900 px-4 pb-1 pt-2.5 text-[13px] font-medium text-white hover:bg-gray-800"
+            <a class="rounded-full bg-gray-900 px-4 py-2 text-[13px] font-medium text-white hover:bg-gray-800"
               href="#">
               {{ post?.post_category?.name }}
             </a>
             <span class="text-sm">{{ post.reading_time }} دقائق قراءة</span>
           </div>
-          <div class="border-t border-gray-100 pt-8">
+          <div class="pt-8">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-2 rtl:space-x-reverse">
                 <a class="rounded-md border bg-white px-3 py-3 shadow-sm hover:bg-gray-50 hover:text-blue-500"

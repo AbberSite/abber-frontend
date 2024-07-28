@@ -1,6 +1,6 @@
 <template>
   <div
-    class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-16 text-sm rtl:space-x-reverse xs:text-base">
+    class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-10 text-sm rtl:space-x-reverse xs:text-base">
     <template v-if="loading">
       <SkeletonsCategorie />
       <SkeletonsCategorie />

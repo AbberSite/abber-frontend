@@ -6,7 +6,7 @@
 
     </Head>
     <section
-        :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-28 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !props.isFormSteps }"
+        :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !props.isFormSteps }"
         aria-labelledby="forget-password-heading">
         <AuthenticationHeading v-if="!props.isFormSteps" />
         <div class="mx-auto w-full max-w-sm pt-10">

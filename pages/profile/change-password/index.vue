@@ -191,7 +191,7 @@
                             <InputError v-for="message in errors.new_password2" :message="message" />
                         </div>
                         <!-- <div class="text-sm xs:text-base">
-                            <a class="mt-1.5 font-medium" href="/accounts/reset-password/">نسيت كلمة المرور؟</a>
+                            <a class="font-medium" href="/accounts/reset-password/">نسيت كلمة المرور؟</a>
                         </div> -->
                         <div>
                             <PrimaryButton :loading="loading" class="w-full">تغيير كلمة المرور</PrimaryButton>

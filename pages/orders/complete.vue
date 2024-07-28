@@ -35,12 +35,12 @@
                 </NuxtLink>
                 <div class="pt-4">
                   <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50" :to="{ name: 'index' }">
-                    <span class="ms-3 mt-1.5">الصفحة الرئيسية</span>
+                    <span class="ms-3">الصفحة الرئيسية</span>
                   </NuxtLink>
                 </div>
                 <div class="pt-4">
                   <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50" :to="{ name: 'blog' }">
-                    <span class="ms-3 mt-1.5">المدونة</span>
+                    <span class="ms-3">المدونة</span>
                   </NuxtLink>
                 </div>
               </div>
@@ -67,7 +67,7 @@
               <div class="mx-auto w-full max-w-sm pt-10">
                 <div class="pt-4">
                   <NuxtLink class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800" :to="{ name: 'support' }">
-                    <span class="ms-3 mt-1.5"> مركز الدعم</span>
+                    <span class="ms-3"> مركز الدعم</span>
                   </NuxtLink>
                 </div>
               </div>
@@ -93,7 +93,7 @@
                                     <NuxtLink
                                         class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
                                         :to="{ name: 'index' }">
-                                        <span class="ms-3 mt-1.5"> مركز الدعم</span>
+                                        <span class="ms-3"> مركز الدعم</span>
                                     </NuxtLink>
                                 </div>
                             </div>
