@@ -84,7 +84,7 @@ export default defineNuxtConfig({
     analyze: true,
     // Extract CSS to improve performance
     extractCSS: true,
-    // Minify and optimize JS
+    optimizeCSS: true,
     terser: {
       terserOptions: {
         compress: {
@@ -92,8 +92,6 @@ export default defineNuxtConfig({
         },
       },
     },
-    // Use Webpack 5 if not already using it
-    webpack5: true,
     splitChunks: {
       layouts: true,
       pages: true,
@@ -111,7 +109,8 @@ export default defineNuxtConfig({
       {
         src: '/lazysizes.min.js',
         type: 'text/javascript',
-        async: true,
+        // async: true,
+        defer: true,
         body: true
       }, 
       ],
