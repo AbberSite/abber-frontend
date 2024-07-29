@@ -4,16 +4,16 @@
   </Head>
 
   <main class="min-h-screen outline-none">
-    <LazyHero />
+    <Hero />
     <!-- <HowItWorks /> -->
-    <LazyExpressors v-if="data?.user_type != 'معبر'" />
-    <LazyArticles />
-    <LazyTestimonials />
-    <LazyFaq id="faqs" />
-    <LazySupportFloatingButton />
+    <Expressors v-if="data?.user_type != 'معبر'" />
+    <Articles />
+    <Testimonials />
+    <Faq id="faqs" />
+    <SupportFloatingButton />
   </main>
 
-  <LazySupportFloatingButton />
+  <SupportFloatingButton />
 </template>
 
 <script setup lang="ts">
