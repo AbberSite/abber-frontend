@@ -11,57 +11,52 @@
   <meta name="appleid-signin-state" content="[STATE]" />
   <meta name="appleid-signin-nonce" content="[NONCE]" />
   <meta name="appleid-signin-use-popup" content="true" />
-
-
-
 </template>
 
 <script setup>
-
-
 useHead({
   bodyAttrs: {
-    class: 'antialiased'
+    class: "antialiased",
   },
   htmlAttrs: {
-    lang: 'ar',
-    dir: 'rtl'
+    lang: "ar",
+    dir: "rtl",
   },
   __dangerouslyDisableSanitizersByTagID: {
-    'my-inline-gtm': ['innerHTML'],
-    'my-inline-snap': ['innerHTML'],
-    'my-inline-hotjar': ['innerHTML']
-  }
+    "my-inline-gtm": ["innerHTML"],
+    "my-inline-snap": ["innerHTML"],
+    "my-inline-hotjar": ["innerHTML"],
+  },
 });
 
 definePageMeta({
-  middleware: ['verified']
+  middleware: ["verified"],
 });
 useSeoMeta({
-  author: 'عبر',
-  robots: 'index, follow',
-  language: 'Arabic',
-  copyright: 'Copyright 2023',
-  ogSiteName: 'عبر',
-  ogType: 'website',
-  ogImage: '/assets/images/logo.png',
-  ogImageAlt: 'Og Image Alt',
-  twitterImage: '/assets/images/logo.png',
-  twitterCard: 'summary_large_image',
-  description: 'عالمك الخاص لتفسير الأحلام',
-  ogTitle: 'عبر',
-  ogDescription: 'عالمك الخاص لتفسير الأحلام',
-  ogUrl: 'https://abber.netlify.app',
-  twitterTitle: 'عبر',
-  twitterDescription: 'عالمك الخاص لتفسير الأحلام',
-  'twitter:url': 'https://abber.netlify.app',
-  canonical: 'https://abber.netlify.app',
-  'appleid-signin-client-id': 'something',
-  'appleid-signin-scope': 'something',
-  'appleid-signin-redirect-uri': 'something',
-  'appleid-signin-state': 'something',
-  'appleid-signin-nonce': 'something',
-  'appleid-signin-use-popup': 'true'
+  author: "عبر",
+  robots: "index, follow",
+  language: "Arabic",
+  copyright: "Copyright 2023",
+  ogSiteName: "عبر",
+  ogType: "website",
+  ogImage: "/assets/images/logo.png",
+  ogImageAlt: "Og Image Alt",
+  twitterImage: "/assets/images/logo.png",
+  twitterCard: "summary_large_image",
+  description: "عالمك الخاص لتفسير الأحلام",
+  ogTitle: "عبر",
+  ogDescription: "عالمك الخاص لتفسير الأحلام",
+  ogUrl: "https://abber.netlify.app",
+  twitterTitle: "عبر",
+  twitterDescription: "عالمك الخاص لتفسير الأحلام",
+  "twitter:url": "https://abber.netlify.app",
+  canonical: "https://abber.netlify.app",
+  "appleid-signin-client-id": "something",
+  "appleid-signin-scope": "something",
+  "appleid-signin-redirect-uri": "something",
+  "appleid-signin-state": "something",
+  "appleid-signin-nonce": "something",
+  "appleid-signin-use-popup": "true",
 });
 
 const { getSession } = useAuth();
@@ -70,29 +65,30 @@ const { goOnline, connectWSNotifications } = useAccountStore();
 
 onMounted(async () => {
   const { status } = useAuthState();
-  
+
   let goOffline;
   let closeNotifications;
-  watch(
-    status,
-    async (value) => {
-      if (value == 'loading') return
-      if (value == "authenticated") {
-        goOffline = await goOnline();
-        closeNotifications = await connectWSNotifications();
-        return;
-      };
-      console.log("going offline...");
-      closeNotifications();
-      goOffline();
+  watch(status, async (value) => {
+    if (value == "loading") return;
+    if (value == "authenticated") {
+      goOffline = await goOnline();
+      closeNotifications = await connectWSNotifications();
+      return;
     }
-  );
-  if (status.value === 'unauthenticated') return;
+    console.log("going offline...");
+    closeNotifications();
+    goOffline();
+  });
+  if (status.value === "unauthenticated") return;
   goOffline = await goOnline();
   closeNotifications = await connectWSNotifications();
 });
 
-
+onMounted(() => {
+  useLoadResources(
+    "https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap"
+  );
+});
 </script>
 
 <style>
