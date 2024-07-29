@@ -8,7 +8,6 @@
             leave-to-class="-translate-x-5 opacity-0"
             mode="out-in">
             <div :key="state.data?.authenticationMethod" :class="{'md:flex md:flex-col md:justify-center md:items-center ': state.data?.authenticationMethod == 'otp'}">
-                <!-- <FormStepsLogin v-if="state.data?.authenticationMethod == 'login'" /> -->
                 <AuthenticationLoginEmail v-if="state.data?.authenticationMethod == 'login'" isFormSteps isFormPackage/>
                 <AuthenticationLoginSMS v-else-if="state.data?.authenticationMethod == 'login-sms'" isFormSteps isFormPackage/>
                 <AuthenticationLoginWhatsapp v-else-if="state.data?.authenticationMethod == 'whatsapp'" isFormSteps isFormPackage/>
@@ -24,7 +23,6 @@
 import type { packagesFormSteps } from '~/types';
 
 const { state } = useFormWizard<packagesFormSteps>('packages');
-// const { state } = useFormWizard<packagesFormSteps>('packages');
 </script>
 
 <style scoped></style>

@@ -63,7 +63,6 @@
 <script setup lang="ts">
 import { CursorArrowRaysIcon, MicrophoneIcon } from '@heroicons/vue/24/outline';
 import type { OrderForm } from '~/types';
-// const props = defineProps(['type'])
 
 const selectedOption = ref<'voice_chat'|'text_chat'> ();
 

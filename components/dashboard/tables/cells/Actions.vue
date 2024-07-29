@@ -8,26 +8,23 @@
 </template>
 
 <script lang="ts" setup>
-import { EyeIcon, XCircleIcon, CheckCircleIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
+import { EyeIcon, TrashIcon, PencilSquareIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
 defineProps({
   data: Object,
   actions: Object,
 });
 const { $event } = useNuxtApp();
 const property = inject('pathProperty') || 'id';
-// Add a new public events to the event bus
 const add = () => {
   $event("table-add-object");
-}; // add item
+}; 
 const modify = (data: Object) => {
   $event("table-modify-object", data);
-}; // modify item
+};
 const remove = (id: Number) => {
   $event("table-remove-object", { id: id });
 };
-// Inject the function
 const otherCheckStatusFunc = inject('otherCheckStatus') as Function || function(){return true;};
-// const otherCheckStatus = (data)=> true;
 const otherCheckStatus = (data)=> otherCheckStatusFunc(data) as boolean ;
 </script>
 

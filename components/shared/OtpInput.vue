@@ -14,7 +14,6 @@ const {isApple} = useDevice();
 const emit = defineEmits(["done", 'update:modelValue'])
 watch(digits.value, () => emit('update:modelValue', digits.value));
 onMounted(() => {
-    // let isPasted: boolean = false;
     inputs.value.forEach((input, index) => {
         if (index == 0) {
             input.focus();
@@ -36,13 +35,10 @@ onMounted(() => {
             }
             return;
         })
-        // if (!isPasted) {
             input.addEventListener('keyup', function (e: Event) {
                 e.preventDefault();
                 if (e.key === 'Backspace') {
                     if (index != 0) {
-                        // input.nextElementSibling.focus();
-                        // input.nextElementSibling.value = '';
                         input.previousElementSibling.focus();
 
                     }
@@ -69,7 +65,6 @@ onMounted(() => {
                     emit('done');
                 }
             });
-        // }
 
     });
 });

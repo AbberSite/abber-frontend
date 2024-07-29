@@ -98,10 +98,10 @@ const props = defineProps<{
 
 const descriptionList = computed(() => {
   return props.package.description
-    .split("\n") // Split the text by newline characters to get each line
-    .map((line) => line.trim()) // Remove leading and trailing whitespace
-    .filter((line) => line.startsWith("-")) // Ensure the line starts with '-'
-    .map((line) => line.slice(1).trim()); // Remove the '-' character and trim any remaining whitespace});
+    .split("\n") 
+    .map((line) => line.trim()) 
+    .filter((line) => line.startsWith("-")) 
+    .map((line) => line.slice(1).trim()); 
 });
 </script>
 

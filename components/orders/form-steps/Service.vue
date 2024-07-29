@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import type { OrderForm, Service } from '~/types';
+import type { OrderForm } from '~/types';
 
 const { state, next } = useFormWizard<OrderForm>('order');
 
@@ -47,7 +47,6 @@ const emits = defineEmits(['next']);
 
 const loading = ref(false);
 
-// const selectedService = ref(state.value.data?.service_id);
 const selectedService = ref(0);
 
 const { fetchAll } = useServicesStore();
@@ -66,7 +65,6 @@ onMounted(async () => {
 
   if (services.value.length != 0) return;
 
-  // something went wrong fetching the services in the previous step fetch again
   loading.value = true;
   await fetchAll();
   loading.value = false;

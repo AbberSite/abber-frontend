@@ -79,14 +79,10 @@ if (process.server) {
 
 
 onMounted(async () => {
-  // fetch services before selection step for optimazation
-
-  // if (videoServicesPagination.value?.results?.length == 0) {
   loading.value = true;
   await fetchAll();
   await fetchVideoServices();
   loading.value = false;
-  // }
 
   if (videoServicesPagination?.value?.count == 0) {
     useNotification({ content: 'الخدمة الصوتية متوقفة حاليا', type: 'warning', id: 445 }, true, 2000);

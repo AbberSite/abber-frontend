@@ -28,8 +28,6 @@
 
 <script setup lang="ts">
 import type { Message, PaginationResponse } from "~/types";
-// import InfiniteLoading from "v3-infinite-loading";
-// import "v3-infinite-loading/lib/style.css";
 import { vInfiniteScroll } from "@vueuse/components";
 
 import changeList from "~/components/chat/changeList.vue";

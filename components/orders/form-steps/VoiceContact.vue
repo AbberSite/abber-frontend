@@ -176,7 +176,6 @@ function download() {
 }
 
 function submit() {
-    // next({ data: { recordedAudio } });
 }
 </script>
 

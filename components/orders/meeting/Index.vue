@@ -85,7 +85,6 @@ onUnmounted(() => {
   console.log(client.getAttendeeslist(), props.role);
 
   if (props.role == 1) {
-    // client.endMeeting();
     console.log(client.getAttendeeslist());
     client.getAttendeeslist().forEach((attendee) => {
       if (!attendee.isHost) {

@@ -150,7 +150,6 @@ const [profession] = defineField('profession');
 const [dream] = defineField('dream');
 
 const datePicker = ref<DatePickerInstance>(null);
-// const savedDetails = ref({})
 
 
 async function saveDreamDetails() {
@@ -220,13 +219,9 @@ function getCurrentDate() {
 
 <style>
 :root {
-    /*General*/
     --dp-border-radius: 0.375rem;
-    /*Configurable border-radius*/
     --dp-input-padding: 0.8rem 0.25rem;
-    /*Padding in the input*/
     --dp-action-buttons-padding: 10px 10px;
-    /*Adjust padding for the action buttons in action row*/
 }
 
 .dp__theme_light {

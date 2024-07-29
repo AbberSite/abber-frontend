@@ -110,12 +110,9 @@
 
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
-import { InformationCircleIcon } from '@heroicons/vue/24/outline';
 
 const emit = defineEmits(['close', 'sessionCreated']);
 
-const { openSession } = useMeetingStore();
-const { meeting } = storeToRefs(useMeetingStore());
 const { data } = useAuth();
 const { getZoomAccounts } = useAccountStore();
 
@@ -155,9 +152,6 @@ async function submit() {
 
         useNotification({ type: 'success', content: 'تم انشاء جلسة جديدة بنجاح' });
 
-        // await openSession();
-
-        // emit('sessionCreated');
     } catch (error) {
         useNotification({ type: 'danger', content: 'خدث خطأ عند اضافة جلسة .' });
     } finally {

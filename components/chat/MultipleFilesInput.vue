@@ -5,17 +5,13 @@
 </template>
 
 <script setup lang="ts">
-// Import Vue FilePond
 import vueFilePond from "vue-filepond";
 import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-
-// Import FilePond plugins
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 const config = useRuntimeConfig();
 const { rawToken } = await useAuthState();
-// Create FilePond component
 const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateSize);
 const emit = defineEmits(["update:modelValue"]);
 const files = ref<File[]>([]);
@@ -88,57 +84,6 @@ const addFile = (error, file) => {
 onMounted(() => {
   pond.value._pond.setOptions(ar_AR);
 });
-
-// import { ref } from 'vue';
-
-// interface Previewfile extends File {
-//     preview?: string;
-// }
-
-// const props = defineProps({
-//     modelValue: Array<Previewfile>,
-//     show: Boolean
-// });
-
-// const input = ref<HTMLInputElement|null>(null);
-
-// function openChooser() {
-//     input.value?.click();
-// }
-
-// const error = ref('');
-
-// function sync(event: Event) {
-//     const target: HTMLInputElement = event.target as HTMLInputElement;
-//     const temp = props.modelValue;
-//     const file: Previewfile = target?.files?.[0] as Previewfile;
-
-//     if (!file) return;
-
-//     error.value = '';
-
-//     if (!isImage(file)) {
-//         error.value = 'يحب أن يكون الملف صورة';
-
-//         return;
-//     }
-//     file.preview = URL.createObjectURL(file);
-//     props?.modelValue?.push?.(file);
-
-//     emit('update:modelValue', props.modelValue);
-// }
-
-// function removeImage(index: number) {
-
-//     props?.modelValue?.splice(index, 1);
-//     emit('update:modelValue', props.modelValue);
-// }
-
-// function isImage(file: File) {
-//     const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg', 'image/svg'];
-
-//     return acceptedImageTypes.includes(file.type);
-// }
 </script>
 
 <style scoped>

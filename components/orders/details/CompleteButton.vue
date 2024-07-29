@@ -23,7 +23,6 @@ const emit = defineEmits(["showIt"]);
 
 const loading = ref(false);
 
-// const { updateOrderStatus } = useOrdersStore();
 </script>
 
 <style></style>

@@ -63,16 +63,13 @@
 
 <script setup lang="ts">
 import type { OrderForm, packagesFormSteps } from '~/types';
-// const props = defineProps<{ isOrderPackages?: boolean }>();
 const authenticationMethod = ref<'register' | 'login' | 'whatsapp' | 'otp'>();
 const { status } = useAuthState();
 
 const { next, previous } = useFormWizard<packagesFormSteps>('packages');
 
 onMounted(async () => {
-    // if (!props.isOrderPackages) {
         if (status.value == 'authenticated') previous();
-    // }
 });
 
 function submit(authenticationMethod: 'register' | 'login' | 'whatsapp' | 'otp') {

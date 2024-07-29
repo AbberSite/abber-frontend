@@ -70,16 +70,10 @@
 </template>
 
 <script setup lang="ts">
-import { useWebSocket } from '@vueuse/core';
 import type { NotificationHeader } from '~/types';
 const {readNotifications} = storeToRefs(useUtilsStore())
 
-// const { getSession } = useAuth();
-// if(readNotifications.value){
-//     await getSession();
-// }
 const { data } = useAuth() as { data: Ref<{ notifications: { results: NotificationHeader[] }, read : boolean }> };
-// console.log(data.value);
 const { status } = useAuth()
 
 const loading = computed(() => status.value == "loading")

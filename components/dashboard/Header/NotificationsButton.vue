@@ -19,9 +19,8 @@
 
 <script setup lang="ts">
 import { BellIcon } from '@heroicons/vue/24/outline';
-import { useWebSocket } from '@vueuse/core';
 import type { NotificationHeader } from '~/types';
-const { data, rawToken } = await useAuthState();
+const { data } = await useAuthState();
 
 
 
@@ -35,10 +34,6 @@ onMounted(async() => {
             readNotifications.value = true;
         }
     });
-    // if(readNotifications.value){
-    //     var audio = new Audio('/sounds/notification.wav');
-    //     await audio.play();
-    // }
 });
 watch(readNotifications, async(value)=> {
     if(value){

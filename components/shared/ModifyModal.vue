@@ -29,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-// import { TransitionRoot, TransitionChild } from "@headlessui/vue";
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import {
     TransitionRoot,

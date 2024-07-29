@@ -56,8 +56,7 @@ defineProps<{
 }>();
 
 const emits = defineEmits(['close']);
-const { data, getSession } = useAuth();
-const { clearToken } = useAuthState();
+const { data } = useAuth();
 
 const loading = ref(false);
 
@@ -77,10 +76,6 @@ async function deleteAccount() {
             username: data.value.username
         }
     });
-
-    // clearToken();
-
-    // await getSession()
 
     loading.value = false;
 

@@ -24,8 +24,6 @@ const {notification} = toRefs(props);
 let notificationURL = notification.value.url?.replace('orders/order', 'orders').replace('orders/orders', 'orders')
 
 if (notification.value.extra_data?.order_type == 'video_communication') {
-  // redirect video orders to specific video page 
-  // convert url from "/orders/123/" to "/order/video/123/"
   notificationURL = notificationURL?.replace(/\/orders\/(\d+)\//, (match, p1) => `/orders/video/${p1}`); 
 }
 </script>

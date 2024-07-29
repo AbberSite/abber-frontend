@@ -22,24 +22,4 @@ const { filters, countries } = storeToRefs(useDashboardUsersStore());
 
 const country_selected = ref(null);
 
-// const updateJoinDateRange = (dates) => {
-//   filters.value.date__join_gte = dates[0];
-//   filters.value.date__join_lte = dates[1];
-// };
-
-// const updatePurchaseDateRange = (dates) => {
-//   filters.value.date__purchase_gte = dates[0];
-//   filters.value.date__purchase_lte = dates[1];
-// };
-
-// provide('fetchDateFilter', () => {
-//   if (filters.value.date__join_gte && filters.value.date__join_lte) {
-//     range_date.value[0] = filters.value.date__join_gte;
-//     range_date.value[1] = filters.value.date__join_lte;
-//   }
-// }, true)
 </script>
-
-<style scoped>
-/* Add your styles here if necessary */
-</style>

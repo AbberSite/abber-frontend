@@ -8,7 +8,6 @@
             leave-to-class="-translate-x-5 opacity-0"
             mode="out-in">
             <div :key="state.data?.authenticationMethod">
-                <!-- <FormStepsLogin v-if="state.data?.authenticationMethod == 'login'" /> -->
                 <AuthenticationLoginEmail v-if="state.data?.authenticationMethod == 'login'" isFormSteps/>
                 <AuthenticationLoginSMS v-else-if="state.data?.authenticationMethod == 'login-sms'" isFormSteps />
                 <AuthenticationLoginWhatsapp v-else-if="state.data?.authenticationMethod == 'whatsapp'" isFormSteps/>
@@ -21,10 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import type { packagesFormSteps } from '~/types';
 
 const { state } = useFormWizard<OrderForm>('order');
-// const { state } = useFormWizard<packagesFormSteps>('packages');
 </script>
 
 <style scoped></style>

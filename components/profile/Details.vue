@@ -56,9 +56,6 @@ const { data} = useAuth();
 
 
 
-onMounted(async () => {
-    // await getSession()
-})
 
 
 const IBAN = computed(() => {
