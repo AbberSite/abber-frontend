@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full pt-4">
+  <div class="w-full pt-10">
     <template v-if="loading">
       <SkeletonsTable />
     </template>

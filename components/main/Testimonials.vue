@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="gap-x-8 pt-8 sm:columns-2 lg:columns-3">
+        <div class="grid gap-x-8 pt-8 sm:grid-cols-2 lg:grid-cols-3">
             <template v-if="loading">
                 <SkeletonsTestimonial />
                 <SkeletonsTestimonial />
@@ -23,9 +23,7 @@
                 <SkeletonsTestimonial />
             </template>
             <template v-else>
-                <div >
                     <Testimonial v-for="testimonial in testimonials.results" :testimonial="testimonial" />
-                </div>
             </template>
         </div>
     </section>
