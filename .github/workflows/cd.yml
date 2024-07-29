@@ -1,0 +1,84 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Node.js CD
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [main]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: ABBER_FRONTEND
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd /abber-frontend
+            git reset --hard
+            git pull origin main
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            sudo rm -rf nuxt_archive.tar.gz
+
+
+      - uses: actions/checkout@v4
+      - name: Use Node.js 12
+        uses: actions/setup-node@main
+        with:
+          node-version: "22.4"
+      - run: pwd
+
+      - run: npm audit fix
+      - run: npm i
+      # - run: pm2 kill
+      - run: |
+          echo "ABBER_ENV='production'
+          VITE_WS_URL='wss://abber.co'
+          VITE_AUTH_URL='https://abber.co/api/auth'
+          VITE_API_SECRET='a011ff6611fa1cfa9be83e5e22533976b2ede3df'
+          VITE_GOOGLE_CLIENT_ID='916666485232-27mv7pmigoe6is7728af1fdenmqc1e6n.apps.googleusercontent.com'" > .env
+      - run: ls
+      - run: npm run build --if-present
+      - run: mkdir -p out
+
+      - run: tar -czvf out/nuxt_archive.tar.gz .output
+      # - run: pm2 start ecosystem.config.cjs
+      - name: DeployStep
+        uses: STDSuperman/deploy-files@master
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USERNAME }}
+          port: '22'
+          password: ${{ secrets.PASSWORD }}
+          targetPath: '/abber-frontend'
+          sourcePath: 'out'
+
+          
+      - name: ABBER_FRONTEND
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd /abber-frontend
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd /abber-frontend 
+            tar -xzvf nuxt_archive.tar.gz
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            pm2 restart all
