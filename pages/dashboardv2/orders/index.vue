@@ -42,7 +42,6 @@ const openFiltersDropdown = ref(false);
 provide('dateFilters', 'orders');
 const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashboardOrdersStore());
 const { fetchAll } = useDashboardOrdersStore();
-// const pagination = ref<PaginationResponse<any>>();
 const headItems = {
   id: "رقم الطلب",
   seller: "المعبر",

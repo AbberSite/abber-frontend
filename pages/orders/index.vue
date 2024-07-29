@@ -15,7 +15,6 @@
       </div>
       <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">الطلبات</h1>
 
-      <!-- {{ filters.search }} -->
 
       <template v-if="orders?.length == 0 && !loading">
         <div class="pt-4 text-sm text-gray-600 xs:text-base">لا توجد طلبات لعرضها</div>
@@ -111,7 +110,6 @@ function handleSessionCreated() {
   openSessionModal.value = true;
 }
 
-// await fetchAll();
 
 onMounted(async () => {
   const persistedFilters = localStorage.getItem("abber:filters");

@@ -13,20 +13,9 @@
             <form method="POST" @submit.prevent="send">
                 <fieldset class="space-y-7">
                     <div class="w-full space-y-3">
-                        <!-- <label class="text-sm font-medium xs:text-base" for="tel">رقم الواتساب</label>
-                            <input class="form-control h-[50px] appearance-none" type="tel" name="phone" id="tel"
-                                placeholder="7835196169" autocomplete="tel" required /> -->
-
                         <PhoneInput v-model="phone" v-model:valid="valid" :sms="true" placeholder="5XXXXXXXX" :error="errors.phone"/>
                     </div>
                     <div>
-                        <!-- <button
-                                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
-                                href="/accounts/whatsapp/opt"> <span>
-                                    <Loading  v-if="loading"/>
-                                    <span v-else>متابعة</span>
-                                 </span></button>
- -->
 
                         <PrimaryButton class="w-full" :loading="loading"> متابعة </PrimaryButton>
                     </div>

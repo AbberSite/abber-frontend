@@ -14,44 +14,7 @@
             </template>
 
             <template v-else>
-                <!-- <template v-if="paid">
-                    <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
-                        <CheckCircleIcon class="w-6 h-6" />
-                    </div>
-                    <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
-                        تم إرسال الطلب بنجاح
-                    </h1>
-                    <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
-                        <p>تم إرسال طلب تعبير الحلم الخاصة بك بنجاح.</p>
-                        <div>سيتواصل معك المعبر قريبا.</div>
-                    </div>
-
-                    <div class="mx-auto w-full max-w-sm">
-                        <div>
-                            <div class="mx-auto w-full max-w-sm pt-10">
-                                <NuxtLink
-                                    class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
-                                    :to="{ name: 'orders' }">
-                                    <span>تصفح الطلبات</span>
-                                </NuxtLink>
-                                <div class="pt-4">
-                                    <NuxtLink
-                                        class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
-                                        :to="{ name: 'index' }">
-                                        <span class="ms-3">الصفحة الرئيسية</span>
-                                    </NuxtLink>
-                                </div>
-                                <div class="pt-4">
-                                    <NuxtLink
-                                        class="flex h-[50px] items-center justify-center rounded-md border bg-white px-8 py-3 text-sm font-medium shadow-sm hover:bg-gray-50"
-                                        :to="{ name: 'blog' }">
-                                        <span class="ms-3">المدونة</span>
-                                    </NuxtLink>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template> -->
+                
 
                 <template v-if="!paid && !isActive && !balance">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
@@ -92,20 +55,6 @@
                     <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
                         <p>سيتم تأكيد طلبك بعد لحظات</p>
                     </div>
-
-                    <!-- <div class="mx-auto w-full max-w-sm">
-                        <div>
-                            <div class="mx-auto w-full max-w-sm pt-10">
-                                <div class="pt-4">
-                                    <NuxtLink
-                                        class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
-                                        :to="{ name: 'index' }">
-                                        <span class="ms-3"> مركز الدعم</span>
-                                    </NuxtLink>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </template>
             </template>
         </section>
@@ -114,12 +63,10 @@
 
 <script setup lang="ts">
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline';
-import { useTimeoutPoll } from '@vueuse/core';
 import type { OrderForm } from '~/types';
 
 const route = useRoute();
 const router = useRouter();
-const { getSession } = useAuth();
 const id = route.query.id;
 let transaction_id: string;
 
@@ -135,8 +82,6 @@ const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 onMounted(async () => {
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
 
-    
-    // await getSession();
     await getStatus();
     if(balance && transaction_id){
         localStorage.removeItem('abber:current-transaction-id');
@@ -177,14 +122,11 @@ async function getStatus() {
 
     if (isActive) pause();
 
-    // TODO : update this with real service id
     const result = await useApi(`/api/orders/${service_id}/buy`, {
         method: 'POST',
         body: {
             type: data.type,
-            // TODO: unncomment the above line when finishing from testing
           brand: 'VISA'
-            // brand: cardType.valuee
         }
     });
 
@@ -198,7 +140,6 @@ async function getStatus() {
         return;
     }
 
-    // await updateOrderInfo(data);
 
     localStorage.removeItem('abber:current-transaction-id');
 
@@ -225,16 +166,6 @@ async function isPaid(): Promise<{ hasPaid: boolean; message: string }> {
     });
 }
 
-// async function updateOrderInfo(data: OrderForm) {
-//     try {
-//         const response = await useApi(`/api/orders/update/${data.order_id}`, {
-//             method: 'POST',
-//             body: data
-//         });
-//     } catch (error) {
-//         alert('something went wrong');
-//     }
-// }
 
 definePageMeta({
     layout: false

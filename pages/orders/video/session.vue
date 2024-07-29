@@ -33,12 +33,6 @@
           </div>
         </ClientOnly>
       </div>
-
-      <!-- <ClientOnly >
-          <div class="flex flex-col items-center justify-center rounded-lg border border-gray-100 lg:col-span-2 relative">
-            <Meeting :role="1" v-if="meeting.meeting_number" />
-          </div>
-        </ClientOnly> -->
     </section>
   </main>
 </template>
@@ -56,12 +50,12 @@ const isMobile = useMediaQuery("(max-width: 1023px)");
 
 const activeTab = ref<"details" | "chat">("chat");
 
-const { getSession, data } = useAuth();
+const { data } = useAuth();
 
 const { order, orders, filters } = storeToRefs(useOrdersStore());
-const { getOrder, subscribeToOrderStatus, fetchAll } = useOrdersStore();
+const { getOrder, fetchAll } = useOrdersStore();
 
-const { getMeetingStatus, bus, openSession } = useMeetingStore();
+const { bus, openSession } = useMeetingStore();
 
 const { meeting } = storeToRefs(useMeetingStore());
 
@@ -69,7 +63,6 @@ async function initChannel() {
   const { rawToken } = useAuthState();
 
   const { data: meetingData } = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
-    // const { data: meetingData } = useWebSocket(import.meta.env.VITE_WS_URL + `/ws/meeting/${data?.value?.username}/` + `?authorization=JWT ${rawToken.value}`, {
     autoReconnect: true,
   });
 
@@ -82,10 +75,8 @@ async function initChannel() {
   });
 }
 
-// await getSession();
 
 onMounted(async () => {
-  // await getSession();
 
   await initChannel();
 

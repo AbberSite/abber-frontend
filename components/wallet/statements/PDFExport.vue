@@ -11,31 +11,6 @@
       </div>
 
       <WalletStatementsExportButton :custom-range="customRange" @close="emit('close')"/>
-
-
-
-      <!-- <div class="w-full space-y-3">
-                <label class="block text-sm font-medium xs:text-base" for="date">التأريخ من</label>
-                <input
-                    class="form-control h-[50px] appearance-none"
-                    type="date"
-                    name="date"
-                    id="date"
-                    dir="rtl"
-                    value=""
-                    />
-            </div>
-            <div class="w-full space-y-3">
-                <label class="block text-sm font-medium xs:text-base" for="date">التأريخ إلى</label>
-                <input
-                    class="form-control h-[50px] appearance-none"
-                    type="date"
-                    name="date"
-                    id="date"
-                    dir="rtl"
-                    value=""
-                    />
-            </div> -->
     </fieldset>
   </div>
 </template>

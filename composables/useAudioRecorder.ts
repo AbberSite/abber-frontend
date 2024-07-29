@@ -77,19 +77,8 @@ class AudioRecorder {
     });
 
     this.recorder = recorder;
-
-
-    //start the recording process
     recorder.startRecording();
 
-    // this.mimeType = this.mediaRecorder.mimeType
-
-
-    // this.mediaRecorder.addEventListener('dataavailable', (event) => {
-    // this.audioBlobs.push(event.data);
-    // });
-
-    // this.mediaRecorder.start();
 
     this.status.value = 'recording';
     this.timer.start();

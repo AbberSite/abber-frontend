@@ -1,4 +1,3 @@
-// stores/baseStore.ts
 import type { PaginationResponse } from '~/types';
 
 export class BaseStore {
@@ -66,7 +65,6 @@ export class BaseStore {
     }, {});
   }
 
-  // Common filter methods
   search = () => {
     if (this.filters.value.search === "") return {};
     return { search: this.filters.value.search };

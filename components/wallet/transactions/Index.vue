@@ -57,19 +57,7 @@ const showModal = ref(false);
 loading.value = true;
 await fetchAll();
 loading.value = false;
-// if (!process.client) {
 
-// }
-
-// onMounted(async () => {
-
-//     if (transactions.value.length === 0) {
-//         loading.value = true;
-//         await fetchAll();
-//         loading.value = false;
-//     }
-
-// });
 </script>
 
 <style scoped></style>

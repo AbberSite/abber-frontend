@@ -85,20 +85,6 @@
           <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
             <p>سيتم تأكيد طلبك بعد لحظات</p>
           </div>
-
-          <!-- <div class="mx-auto w-full max-w-sm">
-                        <div>
-                            <div class="mx-auto w-full max-w-sm pt-10">
-                                <div class="pt-4">
-                                    <NuxtLink
-                                        class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
-                                        :to="{ name: 'index' }">
-                                        <span class="ms-3"> مركز الدعم</span>
-                                    </NuxtLink>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
         </template>
       </template>
     </section>
@@ -112,7 +98,6 @@ import type { OrderForm } from "~/types";
 
 const route = useRoute();
 const router = useRouter();
-// const { getSession } = useAuth();
 const id = route.query.id;
 const balance = route.query.balance;
 const freeOrder = route.query.freeOrder;
@@ -124,7 +109,6 @@ let data;
 const paid = ref(true);
 const loading = ref(true);
 const error = ref("");
-const { readNotifications } = storeToRefs(useUtilsStore());
 const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
 
 onMounted(async () => {
@@ -134,17 +118,14 @@ onMounted(async () => {
     data.order_id = order_id as string;
   }
   if (!transaction_id) {
-    // navigateTo("/");
     return;
   } else if ((balance || freeOrder) && data?.dream != undefined) {
     localStorage.removeItem("abber:current-transaction-id");
     loading.value = false;
     console.log(order_id);
-    // readNotifications.value = true;
     (data as any).clear();
     return;
   }
-  // await getSession();
   await getStatus();
 });
 
@@ -179,15 +160,12 @@ async function getStatus() {
 
   if (isActive) pause();
 
-  // TODO : update this with real service id
   const result = await useApi(`/api/orders/${service_id}/buy`, {
     method: "POST",
     body: {
       type: data.type,
       another_service: another_service,
-      // TODO: unncomment the above line when finishing from testing
       brand: "VISA",
-      // brand: cardType.valuee
     },
   });
 
@@ -201,8 +179,6 @@ async function getStatus() {
     return;
   }
 
-  // await updateOrderInfo(data);
-  // readNotifications.value = true;
   localStorage.removeItem("abber:current-transaction-id");
 
   (data as any).clear();

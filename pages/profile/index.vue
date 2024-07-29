@@ -79,7 +79,7 @@ onMounted(async () => {
 const getActiveTab = computed(() => {
   if (process.client) {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("tab") || "details"; // Fallback to 'default' if 'tab' is not present
+    return urlParams.get("tab") || "details"; 
   }
 });
 

@@ -20,19 +20,10 @@ export default defineEventHandler(async (event) => {
 
     return response.data
 
-    // return {
-
-    //     token : response.data.access_token,
-    //     refreshToken : response.data.refresh_token, 
-    //     user : response.data.user
-
-    // } 
-
   } catch (error: any) {
 
     setResponseStatus(event, 400)
 
-    // return error.response.data
 
 
     if (error?.response?.data?.non_field_errors?.[0]) {

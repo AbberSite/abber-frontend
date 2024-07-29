@@ -50,19 +50,15 @@
 </template>
 
 <script setup lang="ts">
-import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-
 defineProps<{
     isOpen: boolean;
 }>();
 
 const emits = defineEmits(['close']);
-const { data, getSession } = useAuth();
-const { clearToken } = useAuthState();
+const { data } = useAuth();
 
 const loading = ref(false);
 let dailog = ref(false);
-const router = useRouter();
 
 async function deleteAccount() {
     if (loading.value) return;
@@ -75,10 +71,6 @@ async function deleteAccount() {
             username: data.value.username
         }
     });
-
-    // clearToken();
-
-    // await getSession();
 
     loading.value = false;
 

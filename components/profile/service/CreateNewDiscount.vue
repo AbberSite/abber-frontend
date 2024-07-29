@@ -17,9 +17,6 @@
                     model-type="yyyy-MM-dd" ref="datePicker" format="yyyy-MM-dd" select-text="اختيار"
                     cancel-text="الغاء" />
                 <InputError :message="errors.start_date" />
-                <!-- <input class="form-control h-[50px] appearance-none"
-          :class="{ 'border-red-500 text-red-400': error?.type == 'start_date' }" type="date" name="date"
-          id="start-date" dir="rtl" v-model="offer.start_date" required /> -->
             </div>
             <div class="w-full space-y-3">
                 <label class="block text-sm font-medium xs:text-base" for="end-date"

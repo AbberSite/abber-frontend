@@ -161,7 +161,6 @@ provide(
 );
 const showModal = ref(false);
 let showImageModal = ref(false);
-// let imageLoading = ref(true);
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const loadingButton = ref(false);

@@ -7,7 +7,6 @@
     </section>
   </main>
   <slot name="mobileSection" />
-  <!-- <DashboardMainFooter/> -->
 </template>
 
 <script setup lang="ts"></script>

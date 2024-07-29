@@ -30,13 +30,11 @@ class dashboardUsers extends BaseStore {
     );
   }
   getIsActiveFilterQuery = () => {
-    // if(this.filters.value.is_active == "") return {};
     return {
       is_active: this.filters.value.is_active,
     };
   };
   getIsDeletedFilterQuery = () => {
-    // if(this.filters.value.is_deleted == "") return {};
     return {
       is_deleted: this.filters.value.is_deleted,
     };

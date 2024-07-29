@@ -19,7 +19,6 @@
       <tempate v-if="tickets?.length == 0 && !loading">
         <div class="pt-4 text-sm text-gray-600 xs:text-base">لا توجد لديك بطاقات دعم</div>
       </tempate>
-      <!-- <SkeletonsTable v-if="loading" class="mt-16" /> -->
       <SkeletonsTable v-if="loading" class="mt-16" />
 
       <!-- support center -->
@@ -51,7 +50,6 @@
                   </svg>
                   <span>تصفية</span>
                 </span>
-                <!-- <span class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white">1</span> -->
                 <span class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white">{{ filtersCount }}</span>
               </button>
               <ClientOnly>

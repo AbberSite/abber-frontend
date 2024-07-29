@@ -37,7 +37,6 @@ class TicketsStore {
     fetchAll = async (params?: any, update?: any): Promise<PaginationResponse<Order>> =>
         new Promise(async (resolve, reject) => {
             try {
-                // console.log({"store": params.value.status})
                 const data = (await useApi('/api/tickets', {
                     params: params,
                     headers: {

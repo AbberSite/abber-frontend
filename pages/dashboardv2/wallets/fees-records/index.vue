@@ -59,14 +59,7 @@ const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDash
 const { fetchAll } = useDashboardTransactionsStore();
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
-// const pagination = ref<PaginationResponse<any>>();
 onMounted(async () => {
     fetchAll();
 });
-
-// async function fetchAll() {
-//   const data = await useProxy("/orders/dashboard-orders/");
-//   orders.value = data.results ?? [];
-//   pagination.value = data;
-// }
 </script>

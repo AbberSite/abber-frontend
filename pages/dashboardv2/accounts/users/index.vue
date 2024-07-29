@@ -49,7 +49,6 @@ const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDash
 const { fetchAll, fetchCountries } = useDashboardUsersStore();
 provide('dateFilters', 'users');
 fetchCountries();
-// let imageLoading = ref(true);
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 

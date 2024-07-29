@@ -49,9 +49,6 @@
         <span aria-hidden="true">→</span> الرجوع للصفحة الرئيسية
       </button>
       </div>
-      <!-- <PrimaryButton :disabled="!selectedOption" class="w-full">
-                <span>متابعة</span>
-            </PrimaryButton> -->
     </fieldset>
   </div>
 </template>
@@ -66,7 +63,7 @@ const { state, next } = useFormWizard<OrderForm>('order');
 const selectedOption = ref(state.value.data?.type);
 const { fetchAll, fetchVideoServices } = useServicesStore();
 
-const { videoServices, videoServicesPagination } = storeToRefs(useServicesStore());
+const { videoServicesPagination } = storeToRefs(useServicesStore());
 
 const loading = ref(false);
 

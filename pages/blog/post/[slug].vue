@@ -4,7 +4,6 @@
     <title>عبر - المدونة - {{ post?.title }}</title>
   </Head>
   <HeroBackground />
-  <!-- Post section -->
   <section
     class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-20 pt-20 xs:px-6 sm:pb-28 md:pt-32 lg:px-8"
     aria-labelledby="blog-heading">
@@ -228,8 +227,6 @@ await fetchSimilarPosts();
 
 onMounted(async () => {
   loading.value = true;
-
-  // await fetchPost();
 
   if (contentEl.value) {
     clearStyles(contentEl.value);

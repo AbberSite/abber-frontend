@@ -31,8 +31,6 @@
                   <label class="text-sm font-medium xs:text-base" @click="datePicker?.openMenu()"> تاريخ الميلاد</label>
 
                   <DatePicker placeholder="mm/dd/yyyy" :max-date="new Date()" prevent-min-max-navigation v-model="birthday" model-type="yyyy-MM-dd" ref="datePicker" id="date" format="yyyy-MM-dd" auto-apply required />
-
-                  <!-- <InputError :message="errors.dream_time" /> -->
                   <InputError :message="errors.birthday" />
                 </div>
                 <div class="w-full space-y-3">

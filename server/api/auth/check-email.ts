@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default defineEventHandler(async (event) => {
-    // return "hello world"
     const config = useRuntimeConfig();
     const body = await readBody(event)
 
@@ -32,5 +31,4 @@ export default defineEventHandler(async (event) => {
         return { status : "error", error : "something went wrong" };
 
     }
-    // return { token : response.data.access }
 });

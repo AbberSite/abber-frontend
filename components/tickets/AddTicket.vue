@@ -66,35 +66,28 @@ async function sortProblems() {
 function serProblems(event: Event, level: Number) {
   let problem_id = Number(event.target.value);
 
-  requestBody.value[level] = problem_id; // set problems of client.
+  requestBody.value[level] = problem_id;
 
-  currentLevel.value = level + 1; // Move to the next level to view sub-problems from the current problem
-
-  // find curren problem with id
+  currentLevel.value = level + 1; 
   const problem = problems.value.find((item) => item.id === problem_id);
 
-  // remove old result and show result of new sub-problem if exist
   result.value = null;
   if (problem?.result) {
     result.value = problem.result;
   }
 
-  parent.value = problem_id; // set new problem as parent to the next
+  parent.value = problem_id; 
 }
 
 onMounted(async () => {
   const data = await useApi("/api/tickets/getProblems", { params: { limit: 100 } });
   problems.value = data.results;
-  await sortProblems(); // sort problems by levels.
+  await sortProblems(); 
 });
 
 async function submit() {
   loading.value = true;
   try {
-    // const res = await useProxy(`/support/tickets/`, {
-    //   method: "POST",
-    //   body: { nesting_levels: requestBody.value },
-    // });
     const res = await useApi(`/api/tickets/create/`, {
       method: "POST",
       body: { nesting_levels: requestBody.value },
@@ -112,7 +105,6 @@ async function submit() {
   }
 };
 
-// handle result urls
 const handleResult = computed(() => {
   if (result.value) {
     return result.value.replace('/wallets/', '/wallet/')

@@ -29,8 +29,6 @@
             <InputError v-for="message in errors.email" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <!-- <label class="block text-sm font-medium xs:text-base" for="tel">رقم الهاتف</label> -->
-
             <PhoneInput v-model="tempAccount.phone" id="phone" mobile />
 
             <InputError v-for="message in errors.phone" :message="message" />
@@ -78,8 +76,6 @@
                 format="yyyy-MM-dd"
                 select-text="اختيار"
                 cancel-text="الغاء" />
-
-            <!-- <InputError :message="errors.dream_time" /> -->
             <InputError v-for="message in errors.profile?.birthday" :message="message" />
         </div>
         <div class="w-full space-y-3">

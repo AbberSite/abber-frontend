@@ -183,9 +183,6 @@
                         </TextInput>
 
                         <div>
-                            <!-- <a class="flex h-[50px] items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
-                                href="/accounts/password/reset/key/done"> <span>تعيين كلمة المرور</span></a> -->
-
                             <PrimaryButton class="w-full" :loading="loading"> تعيين كلمة المرور </PrimaryButton>
                         </div>
                     </fieldset>

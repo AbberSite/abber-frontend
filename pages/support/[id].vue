@@ -14,7 +14,6 @@
         </svg>
       </div>
       <Tree class="block lg:hidden" />
-      <!-- <DetailsHeader :show-navigation="activeTab == 'details'" /> -->
       <Tabs :tabs="[ { name: 'المحادثة', value: 'chat' }, { name: 'تفاصيل الطلب', value:'details' } ]" v-model="activeTab" class="pt-8 lg:hidden"/>
       <DetailsCard v-if="activeTab == 'details'" device="mobile" />
       <ClientOnly>

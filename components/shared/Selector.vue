@@ -43,12 +43,8 @@ const emits = defineEmits(['update:modelValue']);
 const selectedValue = useVModel(props, 'modelValue', emits);
 const selectedValues = ref(props.modelValue || []);
 
-// Watch for changes in selectedValues and emit the updated value
 watch(selectedValues, (newValue) => {
   emits('update:modelValue', newValue);
 });
 </script>
 
-<style scoped>
-/* Add any custom styles if needed */
-</style>

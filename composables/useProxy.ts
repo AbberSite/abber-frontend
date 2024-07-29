@@ -5,10 +5,6 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
   options?: Partial<Parameters<typeof $fetch<T, R>>[1]>
 ): ReturnType<typeof $fetch> => {
   const { status, rawToken } = useAuthState();
-
-  // const { getSession } = useAuth();
-
-  // await getSession();
   const config = useRuntimeConfig()
   return $fetch<T, R>("/api-proxy" + request as R, {
     ...options,
@@ -19,17 +15,3 @@ export default async <T = unknown, R extends NitroFetchRequest = NitroFetchReque
     }
   });
 };
-
-function removeSessionIdFromCookie(cookieString) {
-  // Split the cookie string into individual key=value pairs
-  const cookies = cookieString.split(';');
-
-  // Filter out the sessionid cookie
-  const filteredCookies = cookies.filter(cookie => {
-    // Trim whitespace and check if it starts with 'sessionid='
-    return !cookie.trim().startsWith('sessionid=');
-  });
-
-  // Rejoin the remaining cookies into a single string
-  return filteredCookies.join('; ');
-}

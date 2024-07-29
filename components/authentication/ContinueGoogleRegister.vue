@@ -3,7 +3,6 @@
         :class="{ 'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !isFormSteps && !isFormPackage }"
         aria-labelledby="login-heading">
         <h1 class="font-medium pt-5" v-show="!isFormPackage && !isFormSteps">إكمال تسجيل الدخول</h1>
-        <!-- <AuthenticationHeading register v-if="!isFormSteps" /> -->
         <div class="mx-auto w-full max-w-sm pt-5">
             <form method="POST" @submit.prevent="submit()">
                 <fieldset class="space-y-7">

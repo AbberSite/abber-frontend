@@ -101,14 +101,12 @@ const { meeting } = storeToRefs(useMeetingStore());
 
 const canJoin = computed(() => meeting.value.sessions_count == 0);
 
-const done = ref(false);
 
 async function initChannel() {
     const { rawToken } = useAuthState();
 
     const { data } = useWebSocket(
         useRuntimeConfig().public.WebsocketURL +
-        // import.meta.env.VITE_WS_URL +
             `/ws/meeting/${order.value?.seller?.username}/` +
             `?authorization=JWT ${rawToken.value}`,
         {
@@ -120,8 +118,6 @@ async function initChannel() {
         await getMeetingStatus(order.value?.id as string);
     });
 }
-
-// await getSession();
 
 await getOrder(id as string);
 
@@ -154,8 +150,6 @@ watch(orderStatus.data, async (value) => {
 });
 
 onMounted(async () => {
-    // await getSession();
-
     if (!order.value) {
         await getOrder(id as string);
     }
@@ -163,8 +157,6 @@ onMounted(async () => {
     if (order.value?.status == 'new' || order.value?.status == 'in_progress') {
         await initChannel();
     }
-    // await getMeetingStatus(order.value?.id as string);
-    // await getMeetingSignature(0);
 });
 
 onUnmounted(() => {

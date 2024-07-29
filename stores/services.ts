@@ -8,11 +8,6 @@ class ServicesStore {
   servicesPagination: Ref<PaginationResponse<any> | undefined> = ref()
   videoServicesPagination: Ref<PaginationResponse<any> | undefined> = ref()
 
-  // voiceCommunicationServices = computed(() =>
-  //     this.orderedServices.value.filter(
-  //         (service) => service.active && service.seller.is_online && this.hasVideoService(service)
-  //     )
-  // );
 
   textCommunicationServices = computed(() =>
     this.orderedServices.value

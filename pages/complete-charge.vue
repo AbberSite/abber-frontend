@@ -57,11 +57,8 @@ async function verifyPayment(){
     return await useDirectApi(`/wallets/charge/`, {
             method: 'POST',
             body: {
-                // type: 'VISA',
                 amount: 120,
-                // TODO: unncomment the above line when finishing from testing
                 brand: "VISA"
-                // brand: cardType.valuee
             }
         });
 }

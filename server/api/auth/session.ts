@@ -4,10 +4,7 @@ export default defineEventHandler(async (event) => {
     const headers = getRequestHeaders(event);
     const config = useRuntimeConfig();
     const Authorization = headers?.authorization;
-    // console.log(Authorization);
-    // console.log("sheikh - session - " + new Date())
     try {
-        // console.log("sheikh - getUser - " + new Date());
         const getUser = await axios.get(config.apiBasePath + '/accounts/account/', {
             headers: {
                 Authorization,
@@ -15,7 +12,6 @@ export default defineEventHandler(async (event) => {
                 keepAlive: true
             }
         });
-        // console.log("sheikh - after getUser - " + new Date());
         const getNotifications = await axios.get(config.apiBasePath + '/alerts/notifications/', {
             headers: {
                 Authorization,

@@ -10,13 +10,11 @@
 
     <div class="pt-4 text-sm text-gray-600 xs:text-base text-center" v-html="activeHeader?.description" />
     <div class="mx-auto w-full max-w-sm pt-10">
-      <!-- <ClientOnly> -->
       <transition enter-active-class="transition-all" leave-active-class="transition-all" enter-from-class="translate-x-5 opacity-0" leave-to-class="-translate-x-5 opacity-0" mode="out-in">
         <div :key="activeStepIndex">
           <component :is="activeStep" />
         </div>
       </transition>
-      <!-- </ClientOnly> -->
 
       <div class="pt-8 text-center text-sm xs:text-base" v-if="!first && !last">
         <button class="font-medium text-blue-600" @click="previous()">

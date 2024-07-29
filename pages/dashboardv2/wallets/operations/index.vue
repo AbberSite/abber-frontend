@@ -97,7 +97,6 @@ const [type] = defineField('type');
 const [amount] = defineField('amount');
 const [content] = defineField('content');
 const showAddModal = ref(false);
-// let imageLoading = ref(true);
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const loadingButton = ref(false);

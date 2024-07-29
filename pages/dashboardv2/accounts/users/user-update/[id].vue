@@ -31,8 +31,4 @@ const items = ref([
   { name: 'تذكرة المساعدات', value: 'tab6' },
   { name: 'سجل الاجراءات', value: 'tab7' },
 ]);
-onBeforeMount(async()=> {
-    // fetch user's data
-    
-});
 </script>

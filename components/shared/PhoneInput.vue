@@ -44,7 +44,6 @@ if(props.sms){
 } else {
   countryCode = await getCountry();
 }
-// const countryCode = await getCountry();
 const errorMap = [
   'أدخل رقم هاتف صالح (مثال 7835196169).',
   'رمز الدولة غير صحيح.',

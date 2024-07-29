@@ -34,11 +34,6 @@
             placeholder="ادخل عنوان بريدك الإلكتروني" />
 
             <div>
-              <!-- <button
-                class="flex h-[50px] w-full items-center justify-center rounded-md border border-transparent bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-800"
-                type="button" @click="submit" href="/accounts/password/reset/done"> <span >إستعادة كلمة
-                  المرور</span></button> -->
-
 
                 <PrimaryButton class="w-full" :loading="loading">إستعادة كلمة المرور</PrimaryButton>
             </div>

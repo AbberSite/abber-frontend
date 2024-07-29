@@ -1,29 +1,8 @@
 (function(self) {
   var Module = self.Mp3LameEncoderConfig;
-
-// The Module object: Our interface to the outside world. We import
-// and export values on it, and do the work to get that through
-// closure compiler if necessary. There are various ways Module can be used:
-// 1. Not defined. We create it here
-// 2. A function parameter, function(Module) { ..generated code.. }
-// 3. pre-run appended it, var Module = {}; ..generated code..
-// 4. External script tag defines var Module.
-// We need to do an eval in order to handle the closure compiler
-// case, where this code here is minified but Module was defined
-// elsewhere (e.g. case 4 above). We also need to check if Module
-// already exists (e.g. case 3 above).
-// Note that if you want to run closure, and also to use Module
-// after the generated code, you will need to define   var Module = {};
-// before the code. Then that object will be used in the code, and you
-// can continue to use Module afterwards as well.
 var Module;
 if (!Module) Module = (typeof Module !== 'undefined' ? Module : null) || {};
 
-// Sometimes an existing Module object exists with properties
-// meant to overwrite the default module functionality. Here
-// we collect those properties and reapply _after_ we configure
-// the current environment's defaults to avoid having to be so
-// defensive during initialization.
 var moduleOverrides = {};
 for (var key in Module) {
   if (Module.hasOwnProperty(key)) {
@@ -31,20 +10,13 @@ for (var key in Module) {
   }
 }
 
-// The environment setup code below is customized to use Module.
-// *** Environment setup code ***
 var ENVIRONMENT_IS_WEB = typeof window === 'object';
 var ENVIRONMENT_IS_NODE = typeof process === 'object' && typeof require === 'function' && !ENVIRONMENT_IS_WEB;
-// Three configurations we can be running in:
-// 1) We could be the application main() thread running in the main JS UI thread. (ENVIRONMENT_IS_WORKER == false and ENVIRONMENT_IS_PTHREAD == false)
-// 2) We could be the application main() thread proxied to worker. (with Emscripten -s PROXY_TO_WORKER=1) (ENVIRONMENT_IS_WORKER == true, ENVIRONMENT_IS_PTHREAD == false)
-// 3) We could be an application pthread running in a worker. (ENVIRONMENT_IS_WORKER == true and ENVIRONMENT_IS_PTHREAD == true)
+
 var ENVIRONMENT_IS_WORKER = typeof importScripts === 'function';
 var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
 
 if (ENVIRONMENT_IS_NODE) {
-  // Expose functionality in the same simple way that the shells work
-  // Note that we pollute the global namespace here, otherwise we break in node
   if (!Module['print']) Module['print'] = function print(x) {
     process['stdout'].write(x + '\n');
   };
@@ -58,7 +30,6 @@ if (ENVIRONMENT_IS_NODE) {
   Module['read'] = function read(filename, binary) {
     filename = nodePath['normalize'](filename);
     var ret = nodeFS['readFileSync'](filename);
-    // The path is absolute if the normalized version is the same as the resolved.
     if (!ret && filename != nodePath['resolve'](filename)) {
       filename = path.join(__dirname, '..', 'src', filename);
       ret = nodeFS['readFileSync'](filename);
@@ -88,7 +59,6 @@ if (ENVIRONMENT_IS_NODE) {
   }
 
   process['on']('uncaughtException', function(ex) {
-    // suppress ExitStatus exceptions from showing an error
     if (!(ex instanceof ExitStatus)) {
       throw ex;
     }
@@ -142,12 +112,10 @@ else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
       console.log(x);
     };
   } else {
-    // Probably a worker, and without console.log. We can do very little here...
     var TRY_USE_DUMP = false;
     if (!Module['print']) Module['print'] = (TRY_USE_DUMP && (typeof(dump) !== "undefined") ? (function(x) {
       dump(x);
     }) : (function(x) {
-      // self.postMessage(x); // enable this if you want stdout to be sent as messages
     }));
   }
 
@@ -160,7 +128,6 @@ else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
   }
 }
 else {
-  // Unreachable because SHELL is dependant on the others
   throw 'Unknown runtime environment. Where are we?';
 }
 
@@ -185,38 +152,18 @@ if (!Module['thisProgram']) {
   Module['thisProgram'] = './this.program';
 }
 
-// *** Environment setup code ***
-
-// Closure helpers
 Module.print = Module['print'];
 Module.printErr = Module['printErr'];
 
-// Callbacks
 Module['preRun'] = [];
 Module['postRun'] = [];
 
-// Merge back in the overrides
 for (var key in moduleOverrides) {
   if (moduleOverrides.hasOwnProperty(key)) {
     Module[key] = moduleOverrides[key];
   }
 }
 
-
-
-// === Preamble library stuff ===
-
-// Documentation for the public APIs defined in this file must be updated in: 
-//    site/source/docs/api_reference/preamble.js.rst
-// A prebuilt local version of the documentation is available at: 
-//    site/build/text/docs/api_reference/preamble.js.txt
-// You can also build docs locally as HTML or other formats in site/
-// An online HTML version (which may be of a different version of Emscripten)
-//    is up at http://kripken.github.io/emscripten-site/docs/api_reference/preamble.js.html
-
-//========================================
-// Runtime code shared with compiler
-//========================================
 
 var Runtime = {
   setTempRet0: function (value) {

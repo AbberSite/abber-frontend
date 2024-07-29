@@ -1,5 +1,4 @@
 import * as FFmpeg from '@ffmpeg/ffmpeg';
-// import { createFFmpeg } from "@ffmpeg/ffmpeg"
 
 export default async (webmBlob: Blob): Promise<Blob> =>  {
   const ffmpeg = new FFmpeg.FFmpeg({ log: false });

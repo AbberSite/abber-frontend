@@ -1,5 +1,5 @@
 import { useWebSocket } from '@vueuse/core';
-import type { Message, Order, PaginationResponse } from '~/types';
+import type { Order, PaginationResponse } from '~/types';
 
 class OrdersStore {
   orders = ref<Order[]>([]);
@@ -44,15 +44,12 @@ class OrdersStore {
           return;
         }
 
-        // if(value.ignore) return
 
         if (!this) return;
 
-        // this.loading.value = true;
 
         await this.fetchAll();
 
-        // this.loading.value = false;
 
         if (process.client) {
           localStorage.setItem('abber:filters', JSON.stringify(this.filters.value));
@@ -167,7 +164,6 @@ class OrdersStore {
 
     const status = await useWebSocket(
       useRuntimeConfig().public.WebsocketURL +
-      // import.meta.env.VITE_WS_URL +
       `/ws/order-status/${orderId}/` +
       `?authorization=JWT ${rawToken.value}`,
       {
@@ -175,7 +171,6 @@ class OrdersStore {
       }
     );
 
-    // update order data after status change
     watch(status.data, () => {
       this.getOrder(orderId);
     });
@@ -190,7 +185,7 @@ class OrdersStore {
         change_status: status
       }
     })
-    this.getOrder(orderId as string); // Update order data after update status
+    this.getOrder(orderId as string); 
     return response
   }
 }

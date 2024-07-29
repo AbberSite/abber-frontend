@@ -5,15 +5,6 @@
       :class="modelValue === idOfCard ? 'border-gray-900 ring-1 ring-gray-900' : ''">
       <template v-if="multi" >
         <div class="flex items-center space-x-2 rtl:space-x-reverse">
-        <!-- <img class="lazyload"
-          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-          data-src="/images/payments/section/mastercard.svg" height="26" width="26" alt="ماستركارد" />
-          <img class="lazyload"
-          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-          data-src="/images/payments/section/visa-icon.png" height="26" width="26" alt="فيزا كارد" />
-          <img class="lazyload"
-          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-          data-src="/images/payments/section/mada.png" height="40" width="40" alt="مدى" /> -->
         <div class="pt-1 text-sm font-medium">{{ title }}</div>
       </div>
       <div class="absolute bottom-0 left-0 overflow-hidden rounded-md text-gray-200"><img

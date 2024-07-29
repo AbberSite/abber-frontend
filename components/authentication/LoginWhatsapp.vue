@@ -11,9 +11,7 @@
                         <div class="w-full space-y-3">
 
                             <PhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" />
-                            <!-- <div class="text-red-500 text-sm ">
-                                {{ errors.phone }}
-                            </div> -->
+                            
                         </div>
                         <div>
 
@@ -26,8 +24,7 @@
                 </form>        
                 <AuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage"/>
 
-                <!-- <div class="pt-8 text-center text-sm xs:text-base"><a class="font-medium text-blue-600"
-                        href="/accounts/login">العودة للصفحة السابقة <span aria-hidden="true">←</span></a></div> -->
+                
             </div>
         </section>
 </template>
