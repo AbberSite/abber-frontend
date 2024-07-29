@@ -80,8 +80,20 @@ export default defineNuxtConfig({
   },
 
   build: {
+    // Analyze the bundle to understand what's taking up space
     analyze: true,
+    // Extract CSS to improve performance
     extractCSS: true,
+    // Minify and optimize JS
+    terser: {
+      terserOptions: {
+        compress: {
+          drop_console: true,
+        },
+      },
+    },
+    // Use Webpack 5 if not already using it
+    webpack5: true,
     splitChunks: {
       layouts: true,
       pages: true,
