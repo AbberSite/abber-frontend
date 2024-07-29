@@ -30,17 +30,11 @@ export default defineNuxtConfig({
   routeRules: {
     "/api-proxy/**": { proxy: apiBasePath + "/**", headers: { "api-key": apiSecret }, ssr: true, swr: true },
     "/file/**": { proxy: "https://d336rd5betdm19.cloudfront.net/**", headers: { "api-key": apiSecret } },
-    // '/orders/video/**' : {ssr : false}
   },
   router: {
     middleware: ['dashboard-layout']
   },
   runtimeConfig: {
-    // HTTP_API_KEY=d378b42b1f3f18f231edb2f253e43025dc01406f
-    // prod
-    // apiSecret: '27fe0837909c033d8a143b33b1257dc165495349',
-    // apiBasePath: 'https://abber.co/api'
-    // test
     apiSecret: apiSecret,
     apiBasePath: apiBasePath,
     public: {
@@ -48,7 +42,6 @@ export default defineNuxtConfig({
       zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
       paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`,
-      // paymentWidgetURL: `https://eu-test.oppwa.com/v1/paymentWidgets.js`,
     },
   },
   modules: [
@@ -67,7 +60,6 @@ export default defineNuxtConfig({
     baseURL : import.meta.env.VITE_AUTH_URL,
     provider: {
       type: "refresh",
-      // refreshOnlyToken: true,
       pages: {
         login: "/accounts/login",
       },
@@ -76,27 +68,25 @@ export default defineNuxtConfig({
         getSession: { path: "/session" },
         signIn: { path: "/login", method: "post" }
       },
-
-      refreshToken: {
-
-        // refreshRequestTokenPointer:'refresh',
-        // signInResponseRefreshTokenPointer : "refresh_token"
-      },
       token: {
-
-        // signInResponseTokenPointer : "/access",
         sameSiteAttribute: "lax",
         maxAgeInSeconds: ((60 * 60) * 24) * 12
       },
     },
     session: {
-      // enableRefreshPeriodically: 3540000
       enableRefreshPeriodically: false,
       enableRefreshOnWindowFocus: false
     }
   },
 
   build: {
+    analyze: true,
+    extractCSS: true,
+    splitChunks: {
+      layouts: true,
+      pages: true,
+      commons: true,
+    },
     transpile: ["@vuepic/vue-datepicker"],
   },
 
