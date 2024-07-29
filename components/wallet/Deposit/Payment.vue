@@ -1,3 +1,3 @@
 <template>
-    <FormStepsPayment deposit />
+    <LazyFormStepsPayment deposit />
 </template>

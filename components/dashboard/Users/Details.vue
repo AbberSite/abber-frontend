@@ -16,7 +16,7 @@
         </div>
         <div :class="$style.input_elements">
             <TextInput label="الاسم:" />
-            <PhoneInput mobile />
+            <LazyPhoneInput mobile />
         </div>
         <div :class="$style.input_elements">
             <Selector label="نوع العضوية" :options="[{ value: 'عميل' }, { value: 'معبر' }, { value: 'إدارة' }]"

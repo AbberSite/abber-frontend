@@ -52,13 +52,12 @@ import Service from "./Service.vue";
 import AuthenticationMethod from "./AuthenticationMethod.vue";
 import Authentication from "./Authentication.vue";
 import ContinueLogin from "./ContinueLogin.vue";
-import Payment from "./Payment.vue";
 import TextContact from "./TextContact.vue";
 import OrderComplete from "./OrderComplete.vue";
 import MyUrgentOrderService from "./MyUrgentOrderService.vue";
 import TransferOrder from "./TransferOrder.vue";
 import type { FunctionalComponent } from "vue";
-
+const LazyFormStepsPayment = defineAsyncComponent(() => import('./Payment.vue'));
 const steps = [
   { id: "contact-type", component: ContactType },
   { id: "dream-details", component: TextContact },
@@ -68,7 +67,7 @@ const steps = [
   { id: "authentication-method", component: AuthenticationMethod },
   { id: "authentication", component: Authentication, noDotStep: true },
   { id: "continueLogin", component: ContinueLogin, noDotStep: true },
-  { id: "payment", component: Payment },
+  { id: "payment", component: LazyFormStepsPayment },
   { id: "complete", component: OrderComplete, noDotStep: true },
 ];
 

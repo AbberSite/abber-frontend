@@ -10,7 +10,7 @@
                     <fieldset class="space-y-7">
                         <div class="w-full space-y-3">
 
-                            <PhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" />
+                            <LazyPhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" />
                             
                         </div>
                         <div>

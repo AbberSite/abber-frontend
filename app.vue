@@ -88,6 +88,7 @@ onMounted(() => {
   useLoadResources(
     "https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap"
   );
+  useLoadResources("/lazysizes.min.js", true);
 });
 </script>
 

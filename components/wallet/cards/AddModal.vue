@@ -21,7 +21,7 @@
                             الدفع من رصيد المحفظة</div>
                     </div>
                 </div>
-                <FormStepsPayment addCard />
+                <LazyFormStepsPayment addCard />
             </fieldset>
         </div>
 

@@ -42,7 +42,7 @@
                         </template>
                     </TextInput>
 
-                    <PhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
+                    <LazyPhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
                     <span class="text-gray-500" @click="showReferral = !showReferral">
                         رمز الدعوة
                         <ChevronDownIcon class="w-4 inline" />

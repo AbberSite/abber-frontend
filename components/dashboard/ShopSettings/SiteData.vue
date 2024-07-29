@@ -2,7 +2,7 @@
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
         <TextInput label="اسم الموقع:"/> 
         <TextInput label="البريد الالكتروني للموقع:" />
-        <PhoneInput mobile/> 
+        <LazyPhoneInput mobile/> 
         <TextInput label="عنوان الموقع:" />
 <TextInput type="textarea" label="وصف الموقع:" /> 
         <TextInput type="textarea" label="الكلمات المفتاحية:" />

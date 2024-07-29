@@ -35,7 +35,7 @@
                         </template>
                     </TextInput>
 
-                    <PhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
+                    <LazyPhoneInput v-model="phone" v-model:valid="phoneValid" :error="errors.phone" />
 
                     <div>
                         <PrimaryButton class="w-full" :loading="loading">استمرار</PrimaryButton>

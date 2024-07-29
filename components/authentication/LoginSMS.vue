@@ -13,7 +13,7 @@
             <form method="POST" @submit.prevent="send">
                 <fieldset class="space-y-7">
                     <div class="w-full space-y-3">
-                        <PhoneInput v-model="phone" v-model:valid="valid" :sms="true" placeholder="5XXXXXXXX" :error="errors.phone"/>
+                        <LazyPhoneInput v-model="phone" v-model:valid="valid" :sms="true" placeholder="5XXXXXXXX" :error="errors.phone"/>
                     </div>
                     <div>
 

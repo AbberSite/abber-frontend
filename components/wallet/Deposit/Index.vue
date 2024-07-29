@@ -45,7 +45,7 @@ import PriceInput from './PriceInput.vue';
 
 const { activeStep, activeStepIndex, emitNext, state } = useFormWizard<any>("deposit", [
     { id: 'amount-input', component: PriceInput },
-    { id: 'payment', component: Payment },
+    { id: 'payment', component: Payment},
 ]);
 
 state.value.data = {}
