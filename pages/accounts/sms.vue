@@ -6,7 +6,7 @@
     <Header />
     <main class="min-h-screen outline-none">
         <HeroBackground/>
-        <AuthenticationLoginSMS/>
+        <LazyAuthenticationLoginSMS/>
     </main>
 </template>
 

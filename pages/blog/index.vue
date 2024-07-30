@@ -29,20 +29,20 @@
         </div>
       </div>
 
-      <BlogCategories v-model="selectedCategory" />
+      <LazyBlogCategories v-model="selectedCategory" />
 
       <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
         <template v-if="loading">
-          <SkeletonsPostCard />
-          <SkeletonsPostCard />
-          <SkeletonsPostCard />
-          <SkeletonsPostCard />
-          <SkeletonsPostCard />
-          <SkeletonsPostCard />
+          <LazySkeletonsPostCard />
+          <LazySkeletonsPostCard />
+          <LazySkeletonsPostCard />
+          <LazySkeletonsPostCard />
+          <LazySkeletonsPostCard />
+          <LazySkeletonsPostCard />
         </template>
 
         <template v-else>
-          <BlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
+          <LazyBlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
             :duration="post.reading_time" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image"
             :slug="post.slug" />
         </template>
@@ -80,13 +80,13 @@
           <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="nextButton()"
             class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             href="#">
-            <Loading v-if="nextLoading" />
+            <LazyLoading v-if="nextLoading" />
             <span v-else>التالي</span>
           </button>
         </div>
       </nav>
     </section>
-    <MakeDreamButtonFixed />
+    <LazyMakeDreamButtonFixed />
   </main>
 </template>
 
