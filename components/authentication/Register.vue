@@ -70,7 +70,7 @@
                 </fieldset>
             </form>
 
-            <AuthenticationSocialLogin v-if="isFormSteps" :isFormSteps="isFormSteps" :isFormPackage="isFormPackage" />
+            <LazyAuthenticationSocialLogin v-if="isFormSteps" :isFormSteps="isFormSteps" :isFormPackage="isFormPackage" />
             <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base" v-if="!isFormSteps">
                 <span>لديك حساب سابقا؟</span>
 

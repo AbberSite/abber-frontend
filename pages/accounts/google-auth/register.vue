@@ -1,4 +1,4 @@
 <template>
-    <AuthenticationContinueGoogleRegister/>
+    <LazyAuthenticationContinueGoogleRegister/>
 </template>
 

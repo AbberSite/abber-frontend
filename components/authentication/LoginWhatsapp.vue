@@ -22,7 +22,7 @@
                         </div>
                     </fieldset>
                 </form>        
-                <AuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage"/>
+                <LazyAuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage"/>
 
                 
             </div>

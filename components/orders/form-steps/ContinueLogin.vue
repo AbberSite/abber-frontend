@@ -1,3 +1,3 @@
 <template>
-    <AuthenticationContinueGoogleRegister isFormSteps/>
+    <LazyAuthenticationContinueGoogleRegister isFormSteps/>
 </template>
