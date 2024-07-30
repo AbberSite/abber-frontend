@@ -6,10 +6,6 @@
             </div>
         </div>
         <div class="mx-auto flex max-w-2xl flex-col items-center pb-20 pt-20 text-center md:pb-24 md:pt-32 2xl:py-36">
-
-            <amp-img src="/images/logo.webp" class="mb-10 aspect-square" height="85" width="85" layout="responsive" alt="منصة عبر" />
-
-            
             <NuxtImg src="/images/logo.webp" class="mb-10 aspect-square" height="85" width="85" alt="منصة عبر" />
             <h1 class="text-xl font-medium lg:text-2xl 2xl:text-3xl">عبر - عالمك الخاص لتفسير الأحلام</h1>
             <p class="pt-4 text-justify text-sm text-gray-600 xs:text-base">في عبر، نساعدك على فهم أحلامك والرسائل الخفية

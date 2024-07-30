@@ -2,16 +2,6 @@ let production = process.env.ABBER_ENV === "production";
 const apiSecret = production ? "a011ff6611fa1cfa9be83e5e22533976b2ede3df" : "d378b42b1f3f18f231edb2f253e43025dc01406f";
 const websiteBasePath = production ? "https://abber.co" : "https://test.abber.co";
 const apiBasePath = websiteBasePath + "/api";
-const modifyHtml = (html) => {
-  // Add amp-custom tag to added CSS
-  html = html.replace(/<style data-vue-ssr/g, '<style amp-custom data-vue-ssr')
-  // Remove every script tag from generated HTML
-  html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-  // Add AMP script before </head>
-  const ampScript = '<script async src="https://cdn.ampproject.org/v0.js"></script>'
-  html = html.replace('</head>', ampScript + '</head>')
-  return html
-}
 export default defineNuxtConfig({
   nitro: (process.env.VITE_ENABLE_BROTLI != "false") ? {
     compressPublicAssets: {
@@ -142,19 +132,5 @@ export default defineNuxtConfig({
   ],
   i18n: {
     vueI18n: './i18n.config.ts'
-  },
-  render: {
-    // Disable resourceHints since we don't load any scripts for AMP
-    resourceHints: false
-  },
-  hooks: {
-    // This hook is called before generating static html files for SPA mode
-    'builder:generateApp': (page) => {
-      page.html = modifyHtml(page.html)
-    },
-    // This hook is called before rendering the html to the browser
-    'render:html': (url, result, context) => {
-      result.html = modifyHtml(result.html)
-    }
   }
 });
