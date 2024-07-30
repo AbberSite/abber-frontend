@@ -12,7 +12,7 @@
           </div>
         </section>
 
-        <FormStepsBase/>
+        <LazyFormStepsBase/>
 
       </main>
 </template>
