@@ -20,7 +20,7 @@
             </div>
 
             <div class="h-fit overflow-hidden rounded-lg border border-gray-200 py-6">
-              <h3 class="px-6 font-medium text-gray-500 xl:text-lg">الطلبات</h3>
+              <h3 class="px-6 font-medium text-gray-500 xl:text-lg">إحصائيات الرسوم</h3>
                 <div class="px-6  pt-6">
                   <div v-for="({title, amount}, i) in ordersInfo" :key="i" class="flex items-center justify-between py-4">
                     <div class="text-sm font-medium text-gray-500 lg:text-base">{{ title }}</div>

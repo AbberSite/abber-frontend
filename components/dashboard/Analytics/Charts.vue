@@ -1,7 +1,7 @@
 <template>
   <div class="h-fit space-y-6 overflow-hidden pt-6 md:pt-0 lg:space-y-6">
     <div class="space-y-8 rounded-lg border border-gray-200 py-6">
-      <h3 class="px-6 font-medium text-gray-500 xl:text-lg">الطلبات</h3>
+      <h3 class="px-6 font-medium text-gray-500 xl:text-lg">إحصائيات الطلبات</h3>
       <Line :data="chartData" :options="chartOptions" />
     </div>
     <div class="space-y-8 rounded-lg border border-gray-200 py-6">
