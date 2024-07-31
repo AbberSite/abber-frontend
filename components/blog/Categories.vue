@@ -1,38 +1,11 @@
 <template>
-  <div
+  <Tabs :tabs="tabsComputed" v-model="selectedCategory" class="pt-10" />
+  <div v-if="loading"
     class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 pt-10 text-sm rtl:space-x-reverse xs:text-base">
-    <template v-if="loading">
       <SkeletonsCategorie />
       <SkeletonsCategorie />
       <SkeletonsCategorie />
       <SkeletonsCategorie />
-    </template>
-
-    <template v-else>
-      <NuxtLink
-        class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium focus:outline-none rtl:space-x-reverse"
-        :class="[selectedCategory === '' ? 'border-gray-900' : 'border-transparent']"
-        @click.prevent="selectedCategory = ''" :to="{ name: 'blog' }">
-        <span>الكل</span>
-        <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-medium">
-          {{ categories.count }}
-        </span>
-      </NuxtLink>
-
-      <template v-for="category in categories?.results">
-        <a v-if="category?.posts_count != 0"
-          class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium text-gray-500 hover:text-gray-900 focus:outline-none rtl:space-x-reverse"
-          @click.prevent="selectedCategory = category?.id"
-          :class="[selectedCategory === category?.id ? 'border-gray-900' : 'border-transparent']" href="#">
-          <span>
-            {{ category?.name }}
-          </span>
-          <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-medium">
-            {{ category?.posts_count }}
-          </span>
-        </a>
-      </template>
-    </template>
   </div>
 </template>
 
@@ -64,6 +37,21 @@ onMounted(async () => {
     }
 });
 
+const tabsComputed = computed(()=> {
+  let arr = reactive([
+    {name: 'الكل', value: '', count: categories.value.count, showCounter:true},
+  ]);
+  for(const category of categories.value.results){
+    arr.push({
+      name: category.name, 
+      value: category.id,
+      count: category.posts_count,
+      showCounter: true,
+      dontShowIt: !category.posts_count
+    });
+  }
+  return arr;
+})
 
 </script>
 
