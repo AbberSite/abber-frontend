@@ -3,7 +3,7 @@
     <DashboardHeaderHeroBackground />
     <section class="mx-auto max-w-7xl px-4 xs:px-6 lg:px-8 xl:pb-16">
       <DashboardTitle department="الدعم التقني" title="تذاكر المساعدة" />
-      <div
+      <!-- <div
         class="flex items-center justify-end mb-2 relative z-30"
         v-if="ticketStatus == 'مفتوحة' && $viewport.isGreaterOrEquals('tablet')"
       >
@@ -12,7 +12,7 @@
           class="cursor-pointer"
           >إغلاق التذكرة</PrimaryButton
         >
-      </div>
+      </div> -->
       <div class="w-full gap-x-8 lg:grid lg:grid-cols-3">
         <div
           class="sticky top-8 h-fit rounded-lg border border-gray-100 pb-2 pt-6"
@@ -55,11 +55,12 @@
                   </span>
                 </span>
                 <span
-                  v-if="ticket.status === 'مفتوحة'"
+                  v-if="ticket.status === 'مفتوحة'" @click="showCloseTicketDialog = true"
                   class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-medium text-white"
-                  title="مفتوحة"
-                  ><EnvelopeOpenIcon class="w-4"
-                /></span>
+                  title="إغلاق التذكرة" 
+                  >
+                  <!-- <EnvelopeOpenIcon class="w-4"/> -->
+                   إغلاق التذكرة </span>
               </button>
             </div>
             <Pagination
@@ -115,7 +116,6 @@
 </template>
 
 <script setup lang="ts">
-import { EnvelopeOpenIcon } from "@heroicons/vue/24/solid";
 import { useDashboardHelpStore } from "~/stores/dashboard/dashboardHelp";
 const { tickets, loading, pagination } = storeToRefs(useDashboardHelpStore());
 const { getAllTickets } = useDashboardHelpStore();
@@ -143,7 +143,8 @@ onMounted(async () => {
 async function closeTicket() {
   useApi(`/api/tickets/${ticketId.value}/close/`, {
     method: "DELETE",
-  }).then((res) => {
+  }).then(async(res) => {
+    await getAllTickets()
     showCloseTicketDialog.value = false;
     useNotification({ type: "success", content: "لقد تم إغلاق التذكرة" });
   });

@@ -1,6 +1,6 @@
 <template>
 
-    <Modal title="إضافة بطاقة إئتمانية" @close="emit('close')">
+    <Modal title="إضافة بطاقة إئتمانية" @close="$emit('close')">
 
         <div class="is-scroll overflow-y-auto flex h-full flex-col gap-7 px-4 py-8 pb-36" id="addMyCard">
             <fieldset class="space-y-7">
