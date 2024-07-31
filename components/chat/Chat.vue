@@ -28,6 +28,8 @@
 
 <script setup lang="ts">
 import type { Message, PaginationResponse } from "~/types";
+// import InfiniteLoading from "v3-infinite-loading";
+// import "v3-infinite-loading/lib/style.css";
 import { vInfiniteScroll } from "@vueuse/components";
 
 import changeList from "~/components/chat/changeList.vue";
@@ -48,7 +50,6 @@ const { fetchMessages, chatSocket } = useChatStore();
 
 const { data } = useAuth();
 console.log(props.roomName);
-const { clear, close, status } = chatSocket();
 
 const loading = ref(true);
 
@@ -107,8 +108,8 @@ function showContextMenu(e: any, message: Message) {
 const resetChangeMessage = () => (changeMessage.value = undefined);
 
 onUnmounted(() => {
-  close();
-  clear();
+  chatSocket().close();
+  chatSocket().clear();
   resetChangeMessage();
   messages.value = [];
   messagesPagination.value = undefined;
