@@ -17,8 +17,9 @@ export default defineEventHandler(async (event) => {
                 }
             }
         );
-
-        return { token: response?.data?.access };
+        if(!response?.data?.access)
+            console.log(response)
+        return { token: response?.data?.access ?? '' };
     } catch (error: any) {
         return { token: '' };
     }
