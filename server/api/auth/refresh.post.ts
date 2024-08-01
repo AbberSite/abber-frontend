@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const response = await axios.post(
-            config.apiBasePath + '/authentication/token/refresh/',
+            config.apiBasePath + '/authentication/token/refres/',
             {
                 refresh: body.refreshToken
             },
@@ -17,9 +17,11 @@ export default defineEventHandler(async (event) => {
                 }
             }
         );
-
-        return { token: response?.data?.access };
+        if(!response?.data?.access)
+            console.log(response);
+        return { token: response?.data?.access ?? '' };
     } catch (error: any) {
+        console.error(error.message);
         return { token: '' };
     }
 });
