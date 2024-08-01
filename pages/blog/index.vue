@@ -31,7 +31,7 @@
 
       <LazyBlogCategories v-model="selectedCategory" />
 
-      <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full">
+      <div class="grid gap-x-8 gap-y-20 pt-16 sm:grid-cols-2 lg:grid-cols-3 w-full" ref="postsElement">
         <template v-if="loading">
           <LazySkeletonsPostCard />
           <LazySkeletonsPostCard />
@@ -99,6 +99,7 @@ definePageMeta({
   auth: false,
 });
 
+const postsElement = ref(null);
 
 type Response = {
   count?: number;
@@ -189,14 +190,14 @@ function getParams(url?: string) {
 async function nextButton() {
   nextLoading.value = true;
   await fetchPosts(getParams(posts?.value.next));
-  window.scrollTo({behavior: 'smooth', top: 0});
+  postsElement.value.scrollIntoView({behavoir: 'smooth', inline: 'start'});
   nextLoading.value = false;
 };
 
 async function previousButton(){
   previousLoading.value = true;
   await fetchPosts(getParams(posts?.value.previous)); 
-  window.scrollTo({behavior: 'smooth', top: 0})
+  postsElement.value.scrollIntoView({behavoir: 'smooth', inline: 'start'});
   previousLoading.value = false;
 };
 </script>
