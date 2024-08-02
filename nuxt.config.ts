@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     compressPublicAssets: {
       brotli: true
     }
-  }: {},
+  } : {},
   devtools: {
     enabled: true,
 
@@ -52,12 +52,12 @@ export default defineNuxtConfig({
     'nuxt-viewport',
     "@nuxtjs/i18n"
   ],
-  buildModules: (process.env.VITE_ENABLE_BROTLI != "false")?['@averjs/nuxt-compression']:[],
+  buildModules: (process.env.VITE_ENABLE_BROTLI != "false") ? ['@averjs/nuxt-compression'] : [],
 
   auth: {
 
     globalAppMiddleware: true,
-    baseURL : import.meta.env.VITE_AUTH_URL,
+    baseURL: import.meta.env.VITE_AUTH_URL,
     provider: {
       type: "refresh",
       pages: {
@@ -70,8 +70,11 @@ export default defineNuxtConfig({
       },
       token: {
         sameSiteAttribute: "lax",
-        maxAgeInSeconds: ((60 * 60) * 24) * 12
+        maxAgeInSeconds: 60 * 50
       },
+      refreshToken: {
+        maxAgeInSeconds: 60 * 60 * 24 * 7
+      }
     },
     session: {
       enableRefreshPeriodically: false,
@@ -106,13 +109,13 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
 
       script: [
-      // {
-      //   src: '/lazysizes.min.js',
-      //   type: 'text/javascript',
-      //   // async: true,
-      //   // defer: true,
-      //   body: true
-      // }, 
+        // {
+        //   src: '/lazysizes.min.js',
+        //   type: 'text/javascript',
+        //   // async: true,
+        //   // defer: true,
+        //   body: true
+        // }, 
       ],
     },
   },
