@@ -72,6 +72,8 @@ ChartJS.register(
   CategoryScale,
   LinearScale
 );
+const currentData = computed(()=> props.datasets[0]);
+console.log(currentData.value)
 let chartData = reactive({
   labels: [
     "الأثنين",
@@ -94,15 +96,15 @@ const pieChart = {
     "السبت",
     "الأحد",
   ],
-  datasets: pieDataset.value
-  // datasets: [
-  // {
-  //   label: "جميع الطلبات",
-  //   data: [12, 8, 3, 5, 2, 3, 40],
-  //   borderWidth: 1,
-  //   backgroundColor: generateColors(7)
-  // }
-  // ],
+  // datasets: [currentData]
+  datasets: [
+  {
+    label: "جميع الطلبات",
+    data: [12, 8, 3, 5, 2, 3, 40],
+    borderWidth: 1,
+    backgroundColor: generateColors(7)
+  }
+  ],
 };
 const chartOptions = {
   scales: {
