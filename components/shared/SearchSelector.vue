@@ -64,7 +64,7 @@ const getDisplayValue = (item, key) => key.includes('.') ? key.split('.').reduce
 
 const filteredItems = computed(() => {
   const query = searchQuery.value.toLowerCase();
-  return props.items.filter(item => getDisplayValue(item, props.displayKey)?.toString().toLowerCase().includes(query));
+  return props.items.filter(item => getDisplayValue(item, props.displayKey)?.toString().toLowerCase().includes(query) || item[props.valueKey]?.toString().toLowerCase().includes(query));
 });
 
 const selectItem = (item) => {
