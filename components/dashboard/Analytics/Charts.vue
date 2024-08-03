@@ -60,7 +60,6 @@ const pieDataset = computed(() =>
   }))
 );
 
-console.log(pieDataset.value)
 // Register the required components for Chart.js
 ChartJS.register(
   ArcElement,
