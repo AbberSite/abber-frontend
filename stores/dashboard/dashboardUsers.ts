@@ -4,6 +4,7 @@ import axios from "axios";
 
 class dashboardUsers extends BaseStore {
   countries = ref<[]>([]);
+  userData = reactive<{ [key: string]: any }>({});
   constructor() {
     super(
       {
@@ -41,6 +42,20 @@ class dashboardUsers extends BaseStore {
   };
   fetchCountries = async ()=> {
     await axios.get('https://restcountries.com/v3.1/all').then((res)=> {this.countries.value = res.data; this.countries.value.sort((a,b)=> a.name.common.localeCompare(b.name.common));}).catch((err)=> console.log(err));
+  };
+
+  fetchUserData = async (id: number) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = await useDirectApi(this.endpoint.value + id);
+        Object.assign(this.userData, data);
+        this.loading.value = false;
+        resolve(data);
+      } catch (error: any) {
+        reject(error);
+      }
+    });
   }
 }
 export const useDashboardUsersStore = defineStore(
