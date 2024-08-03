@@ -34,7 +34,9 @@
         </div>
         <div :class="$style.input_elements">
             <DashboardDatePickerInput label="تاريخ الميلاد" v-model="userData.profile.birthday" />
-            <TextInput label="الصورة" :type="'file'"/>
+            <div class="w-full" > 
+                <TextInput label="الصورة" :type="'file'"><template #prepend><p>الصورة الحالية: <a :href="userData.image_url" target="_blank" dir="ltr">{{ userData.image_url.toString().slice(userData.image_url.indexOf('default')).trim() }}</a></p></template></TextInput>
+            </div>
         </div>
 
         <Checkbox v-model="userData.is_active" label="نشط" @update:modelValue="changeActive" />
