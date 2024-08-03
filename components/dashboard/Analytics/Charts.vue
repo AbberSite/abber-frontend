@@ -73,7 +73,6 @@ ChartJS.register(
   LinearScale
 );
 const currentData = computed(()=> props.datasets[0]);
-console.log(currentData.value)
 let chartData = reactive({
   labels: [
     "الأثنين",
