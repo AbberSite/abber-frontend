@@ -1,5 +1,5 @@
 <template>
-    <DashboardTitle department="العملاء" :title="`العميل ${userData.first_name}`">
+    <DashboardTitle department="العملاء" :title="`العميل ${userData.first_name}`" :loading="loading">
         <p class="text-xs font-medium text-gray-500"> #{{ id }} </p>
     </DashboardTitle>
     <Tabs :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
@@ -14,13 +14,16 @@
 </template>
 
 <script setup>
-const id = useRoute().params.id;
-let currentTab = ref('tab0');
-const userData = {
-    first_name: 'الشيخ المختار', 
-    id: id, 
+import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 
-};
+const id = useRoute().params.id;
+const { userData, loading } = storeToRefs(useDashboardUsersStore());
+const { fetchUserData } = useDashboardUsersStore();
+onBeforeMount(async()=> {
+    fetchUserData(id);
+})
+let currentTab = ref('tab0');
+
 const items = ref([
   { name: 'بيانات العميل', value: 'tab0' },
   { name: 'السجل', value: 'tab1' },
@@ -31,4 +34,7 @@ const items = ref([
   { name: 'تذكرة المساعدات', value: 'tab6' },
   { name: 'سجل الاجراءات', value: 'tab7' },
 ]);
+
+
+
 </script>
