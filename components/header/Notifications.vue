@@ -4,14 +4,14 @@
         >
         <div class="flex h-full flex-col">
 
-            <div class="flex items-center justify-between border-b border-gray-100 px-6 py-8 md:hidden">
+            <div class="flex items-center justify-between border-b border-gray-100 px-6 py-6 md:hidden">
                 <h2 class="text-lg font-medium xs:text-xl">الإشعارات</h2>
                 <button class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900" type="button" @click="$emit('close')">
                     <span class="sr-only">إغلاق القائمة</span>
                     <!-- Heroicon name: outline/x-mark -->
                     <svg
-                        height="26"
-                        width="26"
+                        height="24"
+                        width="24"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"

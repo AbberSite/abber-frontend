@@ -1,6 +1,6 @@
 <template>
     <div
-      class="blog is-scroll flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 text-sm rtl:space-x-reverse xs:text-base"
+      class="blog is-scroll pt-10 flex w-full items-center space-x-6 overflow-x-auto border-b border-gray-100 text-sm rtl:space-x-reverse xs:text-base"
       role="tablist"
       aria-labelledby="tablist-wallet"
       aria-orientation="horizontal"

@@ -3,7 +3,7 @@
   <Head v-if="!deposit">
     <title>عبر - طلب تعبير حلم - وسيلة الدفع</title>
   </Head>
-  <div class="min-h-[20rem]" :class="{ my_deposit: deposit || addCard }">
+  <div :class="{ my_deposit: deposit || addCard }">
     <div class="hidden">
       <span class="absolute items-center justify-center text-gray-600 hover:text-gray-900 card-brand"
         :class="cardImage.class">
@@ -85,7 +85,7 @@
 
     <div v-if="
       !loading && !deposit && !addCard && !ordersPackage && activeMembership
-    " class="w-full h-full flex flex-col justify-center items-center gap-2">
+    " class="w-full h-full flex flex-col justify-center items-center space-y-7">
       <h1 class="font-medium">تفاصيل اشتراكك:</h1>
       <div class="relative flex w-full justify-between rounded-md border bg-white px-4 py-4">
         <div>

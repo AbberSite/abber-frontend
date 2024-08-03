@@ -69,7 +69,7 @@
                         
                     </template>
                     <template v-else>
-                        <div class="w-full space-y-7 divide-y divide-gray-100 pt-8">
+                        <div class="w-full space-y-7 divide-y divide-gray-100 pt-2">
                             <RateCard v-for="rate of rates"  :my_rate="rate" />
                         </div>
                     </template>
