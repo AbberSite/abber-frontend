@@ -238,12 +238,12 @@ onMounted(async () => {
 
     contentSelector: ".js-toc-content",
 
-    headingSelector: "h2",
+    headingSelector: "h2,h3",
 
     hasInnerContainers: true,
   });
 
-  const headingTitles = document.querySelectorAll(".js-toc-content h2");
+  const headingTitles = document.querySelectorAll("h2, h3");
 
   headingTitles.forEach((heading) => {
     const randomId = Math.random().toString(36).substring(7);
