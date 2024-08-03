@@ -37,9 +37,9 @@
             <TextInput label="الصورة" :type="'file'"/>
         </div>
 
-        <Checkbox v-model="userData.is_active" label="نشط" />
+        <Checkbox v-model="userData.is_active" label="نشط" @update:modelValue="changeActive" />
         <div class="flex items-center justify-between pt-6">
-            <PrimaryButton >حفظ</PrimaryButton>
+            <PrimaryButton :loading="updateLoading" >حفظ</PrimaryButton>
             <PrimaryButton >إضافة طلب</PrimaryButton>
         </div>
     </div>
@@ -48,7 +48,11 @@
 import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 
 const id = useRoute().params.id;
-const { userData, loading } =  storeToRefs(useDashboardUsersStore());
+const { userData, loading, updateLoading } =  storeToRefs(useDashboardUsersStore());
+const { updateActiveStatus } = useDashboardUsersStore();
+const changeActive = async ()=> {
+    await updateActiveStatus()
+}
 </script>
 <style module>
 .input_elements {

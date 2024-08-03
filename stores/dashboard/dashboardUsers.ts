@@ -5,6 +5,7 @@ import axios from "axios";
 class dashboardUsers extends BaseStore {
   countries = ref<[]>([]);
   userData = reactive<{ [key: string]: any }>({});
+  updateLoading = ref(false);
   constructor() {
     super(
       {
@@ -51,6 +52,23 @@ class dashboardUsers extends BaseStore {
         const data = await useDirectApi(this.endpoint.value + id);
         Object.assign(this.userData, data);
         this.loading.value = false;
+        resolve(data);
+      } catch (error: any) {
+        reject(error);
+      }
+    });
+  };
+
+  updateActiveStatus = async()=> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.updateLoading.value = true;
+        const data = await useDirectApi(this.endpoint.value + this.userData.id + '/active/', {method: 'PUT', body: {active: this.userData.is_active}});
+        if(data) 
+          useNotification({type: 'success', content: 'لقد تم تحديث حالة النشاط بنجاح.'});
+        else 
+          useNotification({type: 'danger', content: 'فشلت عملية تحديث حالة النشاط'});
+        this.updateLoading.value = false;
         resolve(data);
       } catch (error: any) {
         reject(error);
