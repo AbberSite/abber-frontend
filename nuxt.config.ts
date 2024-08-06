@@ -74,7 +74,8 @@ export default defineNuxtConfig({
       },
       refreshToken: {
         maxAgeInSeconds: 60 * 60 * 24 * 7
-      }
+      },
+      refreshOnlyTokens: false,
     },
     session: {
       enableRefreshPeriodically: false,
