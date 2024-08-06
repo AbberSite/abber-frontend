@@ -70,11 +70,11 @@ export default defineNuxtConfig({
       },
       token: {
         sameSiteAttribute: "lax",
-        maxAgeInSeconds: 60 * 50
+        maxAgeInSeconds: 60 * 60 * 24 * 30
       },
       refreshToken: {
         maxAgeInSeconds: 60 * 60 * 24 * 7
-      }
+      },
     },
     session: {
       enableRefreshPeriodically: false,
