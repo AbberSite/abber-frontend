@@ -11,8 +11,6 @@
   <meta name="appleid-signin-state" content="[STATE]" />
   <meta name="appleid-signin-nonce" content="[NONCE]" />
   <meta name="appleid-signin-use-popup" content="true" />
-
-  <script>location.reload(true);</script>
 </template>
 
 <script setup>
