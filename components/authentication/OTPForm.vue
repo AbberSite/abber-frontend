@@ -1,6 +1,6 @@
 <template>
   <form method="POST" @submit.prevent="login">
-    <fieldset class="space-y-7">
+    <fieldset class="space-y-5">
       <h1 class="font-bold">رمز التأكد (OTP)</h1>
       <OtpInput v-model="OTP" @done="waitForLogin()" />
       <div class="text-red-700 font-medium" v-if="error">{{ error }}</div>

@@ -1,6 +1,6 @@
 <template>
     <form method="POST" @submit.prevent="submit">
-        <fieldset class="space-y-7">
+        <fieldset class="space-y-5">
             <div class="flex h-[75%] flex-col items-center justify-center rounded-md border p-6 text-center shadow-sm">
                 <div class="pt-2" v-if="status === 'initialized'">
                     <button

@@ -4,7 +4,7 @@
     <title>عبر - طلب تعبير حلم - طريقة تعبير الحلم</title>
   </Head>
   <div method="POST">
-    <fieldset class="space-y-7">
+    <fieldset class="space-y-5">
       <template v-if="loading">
         <SkeletonsContactType />
         <SkeletonsContactType />

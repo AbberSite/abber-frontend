@@ -11,7 +11,7 @@
         leave-to="translate-y-full" as="template">
         <div class="fixed bottom-0 z-40 w-full rounded-t-2xl border-t border-gray-100 bg-white px-6 py-6">
           <button class="mx-auto block h-1 w-8 rounded-lg bg-gray-300" type="button" @click="$emit('close')"></button>
-          <fieldset class="space-y-7">
+          <fieldset class="space-y-5">
 
             <div class="space-y-3 flex flex-col items-center">
               <div v-if="!customRange?.[0] || !customRange?.[1]" class="font-medium">أختر تاريخ البداية ثم النهاية

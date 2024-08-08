@@ -28,7 +28,7 @@
             <div class="pt-4 text-sm text-gray-600 xs:text-base">ضع كلمة مرور يمكن تذكرها و قوية في نفس الوقت</div>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form @submit.prevent="submit">
-                    <fieldset class="space-y-7">
+                    <fieldset class="space-y-5">
                         <div class="w-full space-y-3">
                             <label class="block text-sm font-medium xs:text-base" for="password"
                                 >كلمة المرور الحالية</label

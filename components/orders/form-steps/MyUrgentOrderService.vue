@@ -5,7 +5,7 @@
 
   <div>
     <div>
-      <fieldset class="space-y-7">
+      <fieldset class="space-y-5">
         <div class="is-scroll max-h-[400px] overflow-y-auto p-1" id="ServiceMulti">
           <template v-if="loading">
             <SkeletonsServiceRadioButton />

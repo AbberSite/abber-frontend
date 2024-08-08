@@ -7,7 +7,7 @@
             <AuthenticationHeading whatsapp v-if="!props.isFormSteps"/>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="send">
-                    <fieldset class="space-y-7">
+                    <fieldset class="space-y-5">
                         <div class="w-full space-y-3">
 
                             <LazyPhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" />

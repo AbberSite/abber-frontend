@@ -4,7 +4,7 @@
         <title>عبر - طلب تعبير حلم - إدخال تفاصيل الحلم</title>
     </Head>
     <form method="POST" @submit.prevent="submit">
-        <fieldset class="space-y-7">
+        <fieldset class="space-y-5">
             <div class="w-full space-y-3">
                 <TextInput name="dream_title" id="dream_title" type="text" v-model="dream_title" label="عنوان الحلم"
                     :error="errors.dream_title" placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />

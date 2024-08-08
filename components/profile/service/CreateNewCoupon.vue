@@ -1,7 +1,7 @@
 <template>
   <Modal title="إضافة كوبون" @close="emit('close')">
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
-      <fieldset class="space-y-7">
+      <fieldset class="space-y-5">
         <div class="w-full space-y-3">
           <TextInput id="code" type="text" v-model="code" label="رمز الخصم" placeholder="ادخل رمز الخصم" :error="errors.code"/>
         </div>

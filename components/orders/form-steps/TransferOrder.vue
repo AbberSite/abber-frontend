@@ -5,7 +5,7 @@
 
   <div>
     <div>
-      <fieldset class="space-y-7">
+      <fieldset class="space-y-5">
         <div class="is-scroll max-h-[400px] overflow-y-auto p-1">
           <div class="flex justify-center gap-3">
             <button class="relative flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800" type="button" @click="submit(true)"><span>نعم</span></button>

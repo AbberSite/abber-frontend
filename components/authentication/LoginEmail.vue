@@ -8,7 +8,7 @@
       <AuthenticationHeading v-if="!props.isFormSteps"/>
       <div class="mx-auto w-full max-w-sm pt-10">
         <form @submit.prevent="submit">
-          <fieldset class="space-y-7">
+          <fieldset class="space-y-5">
 
             <TextInput name="email" type="email" v-model="email" :error="errors.email" label="البريد الألكتروني"
               placeholder="ادخل عنوان بريدك الإلكتروني" />

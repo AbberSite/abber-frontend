@@ -5,7 +5,7 @@
         <AuthenticationHeading register v-if="!isFormSteps" />
         <div class="mx-auto w-full max-w-sm pt-10">
             <form method="POST" @submit.prevent="submit">
-                <fieldset class="space-y-7">
+                <fieldset class="space-y-5">
                     <TextInput id="name" type="text" v-model="name" :error="errors.name" label="الاسم الكامل"
                         placeholder="أدخل اسمك الكامل">
                         <template #append>
