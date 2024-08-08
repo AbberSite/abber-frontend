@@ -6,7 +6,7 @@
       :class="{'relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44': !props.isFormSteps}"
       aria-labelledby="login-heading">
       <AuthenticationHeading v-if="!props.isFormSteps"/>
-      <div class="mx-auto w-full max-w-sm pt-10">
+      <div>
         <form @submit.prevent="submit">
           <fieldset class="space-y-5">
 

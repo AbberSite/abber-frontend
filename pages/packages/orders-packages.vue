@@ -26,7 +26,7 @@
         <div :key="activeStepIndex">
           <component :is="activeStep" />
           <div class="pt-8 text-center text-sm xs:text-base" v-if="!first && !last">
-            <button class="font-medium text-blue-600" @click="back();">
+            <button class="text-blue-600" @click="back();">
               <span aria-hidden="true">→</span> العودة للخطوة السابقة
             </button>
           </div>

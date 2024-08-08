@@ -17,7 +17,7 @@
       </transition>
 
       <div class="pt-8 text-center text-sm xs:text-base" v-if="!first && !last">
-        <button class="font-medium text-blue-600" @click="previous()">
+        <button class="text-blue-600" @click="previous()">
           <span aria-hidden="true">→</span>
           العودة للخطوة السابقة
         </button>
@@ -100,7 +100,7 @@ const activeHeader = computed<{
     },
     "dream-details": {
       title: "إدخال تفاصيل الحلم",
-      description: "أختر أحد الطرق التالية لإدخال تفاصيل حلمك",
+      description: "نضمن لكم السرية الخاصة ويمنع إرسال أرقام التواصل للمعبر",
       icon: IdentificationIcon,
     },
     service: {
