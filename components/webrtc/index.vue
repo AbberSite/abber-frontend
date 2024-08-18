@@ -8,10 +8,12 @@
     <!-- <audio id="localAudio" autoplay playsinline controls="false" /> -->
     <!-- <audio id="remoteAudio" autoplay playsinline controls="false" /> -->
     <div class="flex">
-      <button class="p-2 bg-blue-600 border m-2" id="startButton" @click="initPeerConnection">start</button>
+      <button class="p-2 bg-blue-600 border m-2" id="startButton" @click="initPeerConnection" v-if="isHost">start</button>
       <button class="p-2 bg-blue-600 border m-2" id="stopButton">Stop</button>
-      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="makeCall">join</button>
+      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="makeCall" v-if="!isHost">join</button>
       <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="accept" v-if="signalData && isHost">accept</button>
+      <button class="p-2  border m-2" :class="[mic?'bg-blue-600':'bg-red-600']" id="changeMicBtn" @click="changeMic">mic</button>
+      <button class="p-2  border m-2" :class="[cam?'bg-blue-600':'bg-red-600']" id="changeCamBtn" @click="changeCam">cam</button>
     </div>
   </div>
 </template>
@@ -25,10 +27,16 @@ const props = defineProps<{ isHost?: boolean; room?: boolean }>();
 let stream: MediaStream | null = null;
 let peerConnection: RTCPeerConnection | null = null;
 let sender: RTCRtpSender | null = null;
+
 const loading = ref(true);
+const mic = ref(true);
+const cam = ref(true);
+
 const signalData = ref<{ offer?: RTCSessionDescriptionInit; answer?: RTCSessionDescriptionInit; candidate?: RTCIceCandidateInit; username?: string } | null>(null);
+
 const { rawToken } = useAuthState();
 const { data } = useAuth();
+
 const configuration: RTCConfiguration = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
 
 const openMediaDevices = async (constraints: MediaStreamConstraints): Promise<MediaStream> => {
@@ -119,6 +127,17 @@ async function playAudioFromMic(): Promise<void> {
   }
 }
 
+/////////////////////// Change media input ///////////////////////
+
+function changeMic() {
+  mic.value = !mic.value;
+  stream?.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
+}
+
+function changeCam() {
+  cam.value = !cam.value;
+  stream?.getVideoTracks().forEach((track) => (track.enabled = !track.enabled));
+}
 
 ///////////////////// start webrtc connection ///////////////////////
 
