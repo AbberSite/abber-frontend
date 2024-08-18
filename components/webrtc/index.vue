@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <select id="availableCameras"></select>
     <video id="videoElement" autoplay></video>
 
@@ -8,66 +8,70 @@
     <!-- <audio id="localAudio" autoplay playsinline controls="false" /> -->
     <!-- <audio id="remoteAudio" autoplay playsinline controls="false" /> -->
     <div class="flex">
-      <button class="p-2 bg-blue-600 border m-2" id="startButton">Start</button>
+      <button class="p-2 bg-blue-600 border m-2" id="startButton" @click="initPeerConnection">start</button>
       <button class="p-2 bg-blue-600 border m-2" id="stopButton">Stop</button>
-      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="makeCall()">join</button>
-      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="accept" v-if="signalData">accept</button>
+      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="makeCall">join</button>
+      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="accept" v-if="signalData && isHost">accept</button>
     </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import { useWebSocket } from "@vueuse/core";
 
-let stream;
-let peerConnection;
-let sender;
-const signalData = ref(null);
+const props = defineProps<{ isHost?: boolean; room?: boolean }>();
+
+let stream: MediaStream | null = null;
+let peerConnection: RTCPeerConnection | null = null;
+let sender: RTCRtpSender | null = null;
+const loading = ref(true);
+const signalData = ref<{ offer?: RTCSessionDescriptionInit; answer?: RTCSessionDescriptionInit; candidate?: RTCIceCandidateInit; username?: string } | null>(null);
 const { rawToken } = useAuthState();
 const { data } = useAuth();
+const configuration: RTCConfiguration = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
 
-const configuration = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
-
-const openMediaDevices = async (constraints) => {
+const openMediaDevices = async (constraints: MediaStreamConstraints): Promise<MediaStream> => {
   return await navigator.mediaDevices.getUserMedia(constraints);
 };
 
 ///////////////////////////////   User media devices   ///////////////////////////////
 
 // Updates the select element with the provided set of cameras
-function updateCameraList(cameras) {
-  if (!cameras.length > 0) return;
-  const listElement = document.querySelector("select#availableCameras");
+function updateCameraList(cameras: MediaDeviceInfo[]): void {
+  if (!cameras.length) return;
+  const listElement = document.querySelector("select#availableCameras") as HTMLSelectElement;
   listElement.innerHTML = "";
   cameras
     .map((camera) => {
       const cameraOption = document.createElement("option");
       cameraOption.label = camera.label;
       cameraOption.value = camera.deviceId;
+      return cameraOption;
     })
     .forEach((cameraOption) => listElement.add(cameraOption));
 }
 
 // Fetch an array of devices of a certain type
-async function getConnectedDevices(type) {
+async function getConnectedDevices(type: MediaDeviceKind): Promise<MediaDeviceInfo[]> {
   const devices = await navigator.mediaDevices.enumerateDevices();
   return devices.filter((device) => device.kind === type);
 }
 
 // Get the initial set of cameras connected
-const videoCameras = getConnectedDevices("videoinput");
+const videoCameras = await getConnectedDevices("videoinput");
 
 // Listen for changes to media devices and update the list accordingly
-navigator.mediaDevices.addEventListener("devicechange", (event) => {
-  const newCameraList = getConnectedDevices("video");
+navigator.mediaDevices.addEventListener("devicechange", async () => {
+  const newCameraList = await getConnectedDevices("videoinput");
   updateCameraList(newCameraList);
 });
 
 ///////////////////////////////   Open media devices   ///////////////////////////////
 
 // Open camera with at least minWidth and minHeight capabilities
-async function openCamera(cameraId, minWidth, minHeight) {
-  const constraints = {
+async function openCamera(cameraId: string, minWidth: number, minHeight: number): Promise<MediaStream> {
+  const constraints: MediaStreamConstraints = {
     audio: { echoCancellation: true },
     video: {
       deviceId: cameraId,
@@ -79,86 +83,93 @@ async function openCamera(cameraId, minWidth, minHeight) {
   return await openMediaDevices(constraints);
 }
 
-async function startStream() {
+async function startStream(): Promise<void> {
   if (videoCameras && videoCameras.length > 0) {
     // Open first available video camera with a resolution of 1280x720 pixels
-    stream = await openCamera(cameras[0].deviceId, 1280, 720);
-    playVideoFromCamera();
+    stream = await openCamera(videoCameras[0].deviceId, 1280, 720);
+    await playVideoFromCamera();
   } else {
     stream = await openMediaDevices({ audio: true });
-    playVideoFromCamera();
+    await playVideoFromCamera();
   }
 
-  stream.getTracks().forEach((track) => {
-    sender = peerConnection.addTrack(track, stream);
-    console.log("track added");
-  });
+  if (stream && peerConnection) {
+    stream.getTracks().forEach((track) => {
+      sender = peerConnection!.addTrack(track, stream!);
+      console.log("track added");
+    });
+  }
 }
 
-async function playVideoFromCamera() {
+async function playVideoFromCamera(): Promise<void> {
   try {
-    const videoElement = document.querySelector("video#localVideo");
-    videoElement.srcObject = stream;
+    const videoElement = document.querySelector("video#localVideo") as HTMLVideoElement;
+    // if (stream) videoElement.srcObject = stream;
   } catch (error) {
     console.error("Error opening video camera.", error);
   }
 }
 
-async function playAudioFromMic() {
+async function playAudioFromMic(): Promise<void> {
   try {
-    const audioElement = document.querySelector("audio#localAudio");
-    console.log(stream);
-    audioElement.srcObject = stream;
+    const audioElement = document.querySelector("audio#localAudio") as HTMLAudioElement;
+    if (stream) audioElement.srcObject = stream;
   } catch (error) {
     console.error("Error opening audio mic.", error);
   }
 }
 
+
 ///////////////////// start webrtc connection ///////////////////////
 
 // Set up an asynchronous communication channel that will be
 // used during the peer connection setup
-const signalingChannel = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/webrtc/0/` + `?authorization=JWT ${rawToken.value}`, {
+
+const signalingChannel = await useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/webrtc/${props.room}/` + `?authorization=JWT ${rawToken.value}`, {
   // autoReconnect: true, autoClose: true
 });
 
-watch(signalingChannel.data, async (value) => {
+watch(signalingChannel.data, async (value: any) => {
   const parsedData = JSON.parse(value);
 
   try {
-    if (parsedData.answer && !(parsedData.username === data.value.username)) {
-      const remoteDesc = new RTCSessionDescription(parsedData.answer);
-      await peerConnection.setRemoteDescription(remoteDesc);
-    }
-    if (parsedData.offer && !(parsedData.username === data.value.username)) {
-      signalData.value = parsedData;
-      // await accept()
+    if (!(parsedData.username === data.value.username)) {
+      if (parsedData.answer) {
+        const remoteDesc = new RTCSessionDescription(parsedData.answer);
+        await peerConnection?.setRemoteDescription(remoteDesc);
+      } else if (parsedData.offer) {
+        signalData.value = parsedData;
+        // await accept()
+      }
+      // Listen for remote ICE candidates and add them to the local RTCPeerConnection
+      else if (parsedData.candidate) {
+        console.log("Message from remote client: ", parsedData);
+        try {
+          await peerConnection.addIceCandidate(parsedData.candidate);
+        } catch (e) {
+          console.error("Error adding received ice candidate", e);
+        }
+      }
     }
   } catch (error) {
     console.error("Error processing message: ", error);
-  }
-
-  // Listen for remote ICE candidates and add them to the local RTCPeerConnection
-  if (parsedData.candidate && !(parsedData.username == data.value.username)) {
-    console.log("Message from remote client: ", parsedData);
-    try {
-      await peerConnection.addIceCandidate(parsedData.candidate);
-    } catch (e) {
-      console.error("Error adding received ice candidate", e);
-    }
   }
 });
 
 // Send an asynchronous message to the remote client
 // signalingChannel.send(JSON.stringify({ message: "Hello!" }));
 
-async function makeCall() {
+async function makeCall(): Promise<void> {
+  if (!peerConnection || !signalingChannel) return;
+
   const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
   signalingChannel.send(JSON.stringify({ offer: offer }));
 }
 
-async function accept() {
+async function accept(): Promise<void> {
+  if (!peerConnection || !signalData.value || !signalData.value.offer || !signalingChannel) return;
+
   await peerConnection.setRemoteDescription(new RTCSessionDescription(signalData.value.offer));
   const answer = await peerConnection.createAnswer();
   await peerConnection.setLocalDescription(answer);
@@ -166,37 +177,31 @@ async function accept() {
   signalData.value = null;
 }
 
-async function initPeerConnection() {
+async function initPeerConnection(): Promise<void> {
   peerConnection = new RTCPeerConnection(configuration);
   await startStream();
 
+  if (!peerConnection) return;
+
   // Listen for local ICE candidates on the local RTCPeerConnection
   peerConnection.addEventListener("icecandidate", (event) => {
-    if (event.candidate) {
+    if (event.candidate && signalingChannel) {
       signalingChannel.send(JSON.stringify({ candidate: event.candidate }));
     }
   });
 
   // Listen for connectionstatechange on the local RTCPeerConnection
-  peerConnection.addEventListener("connectionstatechange", (event) => {
-    console.log("Connection state change: ", event);
-    console.log(peerConnection.connectionState);
-    if (peerConnection.connectionState === "connected") {
+  peerConnection.addEventListener("connectionstatechange", () => {
+    console.log("Connection state change: ", peerConnection?.connectionState);
+    if (peerConnection?.connectionState === "connected") {
       console.log("Peers connected!");
-
-      // Peers connected!
     }
-    if (peerConnection.connectionState === "disconnected") {
+    if (peerConnection?.connectionState === "disconnected") {
       console.log("Peers disconnected!");
-      // stream.stop();
-      peerConnection.getSenders().forEach((sender) => {
-        if (sender.track) {
-          sender.track.stop();
-        }
-      });
-
-      clearConnection();
-      initPeerConnection();
+      if (peerConnection) {
+        clearConnection();
+        initPeerConnection();
+      }
     }
   });
 
@@ -213,18 +218,44 @@ async function initPeerConnection() {
   });
 }
 
-function clearConnection() {
+function clearConnection(): void {
+  if (!peerConnection || !sender || !stream) return;
+  peerConnection.getSenders().forEach((sender) => {
+    if (sender.track) {
+      sender.track.stop();
+    }
+  });
   peerConnection.removeTrack(sender);
   peerConnection.restartIce();
   const audioElement = document.querySelector("audio");
-  audioElement.remove();
+  if (audioElement) audioElement.remove();
   peerConnection.close();
   stream.getTracks().forEach((track) => track.stop());
   peerConnection = null;
 }
+
+function leave(): void {
+  if (!signalingChannel || !peerConnection) return;
+
+  signalingChannel.send(JSON.stringify({ leave: true }));
+  signalingChannel.close();
+  clearConnection();
+}
+
 onMounted(async () => {
   updateCameraList(videoCameras);
-  await initPeerConnection();
+  if (!props.isHost) {
+    await initPeerConnection();
+    makeCall();
+  }
+  loading.value = false;
+});
+
+onUnmounted(() => {
+  if (signalingChannel) {
+    signalingChannel.send(JSON.stringify({ leave: true }));
+    signalingChannel.close();
+  }
 });
 </script>
 
