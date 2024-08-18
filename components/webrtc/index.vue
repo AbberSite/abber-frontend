@@ -195,14 +195,7 @@ async function initPeerConnection() {
         }
       });
 
-      // peerConnection.removeStream();
-      peerConnection.removeTrack(sender);
-      peerConnection.restartIce();
-      const audioElement = document.querySelector("audio");
-      audioElement.remove();
-      peerConnection.close();
-      stream.getTracks().forEach((track) => track.stop());
-      peerConnection = null;
+      clearConnection();
       initPeerConnection();
     }
   });
@@ -218,6 +211,16 @@ async function initPeerConnection() {
 
     audioElement.srcObject = event.streams[0];
   });
+}
+
+function clearConnection() {
+  peerConnection.removeTrack(sender);
+  peerConnection.restartIce();
+  const audioElement = document.querySelector("audio");
+  audioElement.remove();
+  peerConnection.close();
+  stream.getTracks().forEach((track) => track.stop());
+  peerConnection = null;
 }
 onMounted(async () => {
   updateCameraList(videoCameras);
