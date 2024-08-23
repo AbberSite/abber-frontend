@@ -93,7 +93,7 @@ async function openCamera(cameraId: string, minWidth: number, minHeight: number)
 }
 
 async function startStream(): Promise<void> {
-  if (videoCameras && videoCameras.length > 0 && cam.value) {
+  if (videoCameras && videoCameras.length > 0) {
     // Open first available video camera with a resolution of 1280x720 pixels
     // stream = await openCamera(videoCameras[0].deviceId, 1280, 720);
     try{
@@ -108,6 +108,9 @@ async function startStream(): Promise<void> {
   } else {
     stream = await openMediaDevices({ audio: true });
     // await playVideoFromCamera();
+  }
+  if (!cam.value) {
+    stream.getVideoTracks().forEach((track) => (track.enabled = false));
   }
 
   if (stream && peerConnection) {
