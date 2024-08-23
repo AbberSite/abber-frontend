@@ -1,10 +1,10 @@
 <template>
   <div v-if="!loading">
     <select id="availableCameras"></select>
-    <video id="videoElement" autoplay></video>
+    <!-- <video id="videoElement" autoplay></video> -->
 
     <!-- <video id="localVideo" autoplay playsinline controls="false" /> -->
-    <video id="remoteVideo" autoplay playsinline controls="false" />
+    <video id="localVideo" autoplay playsinline muted controls="false" disabled />
     <!-- <audio id="localAudio" autoplay playsinline controls="false" /> -->
     <!-- <audio id="remoteAudio" autoplay playsinline controls="false" /> -->
     <div class="flex">
@@ -30,7 +30,7 @@ let sender: RTCRtpSender | null = null;
 
 const loading = ref(true);
 const mic = ref(true);
-const cam = ref(true);
+const cam = ref(false);
 
 const signalData = ref<{ offer?: RTCSessionDescriptionInit; answer?: RTCSessionDescriptionInit; candidate?: RTCIceCandidateInit; username?: string } | null>(null);
 
@@ -92,13 +92,21 @@ async function openCamera(cameraId: string, minWidth: number, minHeight: number)
 }
 
 async function startStream(): Promise<void> {
-  if (videoCameras && videoCameras.length > 0) {
+  if (videoCameras && videoCameras.length > 0 && cam.value) {
     // Open first available video camera with a resolution of 1280x720 pixels
-    stream = await openCamera(videoCameras[0].deviceId, 1280, 720);
-    await playVideoFromCamera();
+    // stream = await openCamera(videoCameras[0].deviceId, 1280, 720);
+    try{
+          stream = await openMediaDevices({ audio: true,video:true });
+              // await playVideoFromCamera();
+
+
+    }catch{
+          stream = await openMediaDevices({ audio: true });
+
+    }
   } else {
     stream = await openMediaDevices({ audio: true });
-    await playVideoFromCamera();
+    // await playVideoFromCamera();
   }
 
   if (stream && peerConnection) {
@@ -112,7 +120,7 @@ async function startStream(): Promise<void> {
 async function playVideoFromCamera(): Promise<void> {
   try {
     const videoElement = document.querySelector("video#localVideo") as HTMLVideoElement;
-    // if (stream) videoElement.srcObject = stream;
+    if (stream) videoElement.srcObject = stream;
   } catch (error) {
     console.error("Error opening video camera.", error);
   }
@@ -226,12 +234,14 @@ async function initPeerConnection(): Promise<void> {
 
   peerConnection.addEventListener("track", async (event) => {
     // Dynamically create the audio element
-    const audioElement = document.createElement("audio");
+    console.log('track')
+    const audioElement = document.createElement("video");
     audioElement.controls = true; // Add controls to the audio element
     audioElement.autoplay = true; // Autoplay the audio when the stream is available
 
     // Append the audio element to the body or a specific container
     document.body.appendChild(audioElement);
+    console.log(event.streams)
 
     audioElement.srcObject = event.streams[0];
   });
@@ -262,12 +272,13 @@ function leave(): void {
 }
 
 onMounted(async () => {
-  updateCameraList(videoCameras);
   if (!props.isHost) {
     await initPeerConnection();
     makeCall();
   }
   loading.value = false;
+    // updateCameraList(videoCameras);
+
 });
 
 onUnmounted(() => {
