@@ -117,9 +117,7 @@ async function startStream(): Promise<void> {
       console.log("track added");
     });
   } 
-  if (!cam.value) {
-    stream.getVideoTracks().forEach((track) => (track.enabled = false));
-  }
+  
 }
 
 async function playVideoFromCamera(): Promise<void> {
@@ -228,6 +226,9 @@ async function initPeerConnection(): Promise<void> {
     console.log("Connection state change: ", peerConnection?.connectionState);
     if (peerConnection?.connectionState === "connected") {
       console.log("Peers connected!");
+      if (!cam.value) {
+    stream?.getVideoTracks().forEach((track) => (track.enabled = false));
+  }
     }
     if (peerConnection?.connectionState === "disconnected") {
       console.log("Peers disconnected!");
