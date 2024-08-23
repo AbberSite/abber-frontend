@@ -10,7 +10,7 @@
     <div class="flex">
       <button class="p-2 bg-blue-600 border m-2" id="startButton" @click="initPeerConnection" v-if="isHost">start</button>
       <button class="p-2 bg-blue-600 border m-2" id="stopButton">Stop</button>
-      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="makeCall" v-if="!isHost">join</button>
+      <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="makeCall" v-if="!isHost && !inCall">join</button>
       <button class="p-2 bg-blue-600 border m-2" id="callButton" @click="accept" v-if="signalData && isHost">accept</button>
       <button class="p-2  border m-2" :class="[mic?'bg-blue-600':'bg-red-600']" id="changeMicBtn" @click="changeMic">mic</button>
       <button class="p-2  border m-2" :class="[cam?'bg-blue-600':'bg-red-600']" id="changeCamBtn" @click="changeCam">cam</button>
@@ -31,6 +31,7 @@ let sender: RTCRtpSender | null = null;
 const loading = ref(true);
 const mic = ref(true);
 const cam = ref(false);
+const inCall = ref(false)
 
 const signalData = ref<{ offer?: RTCSessionDescriptionInit; answer?: RTCSessionDescriptionInit; candidate?: RTCIceCandidateInit; username?: string } | null>(null);
 
@@ -192,6 +193,7 @@ async function makeCall(): Promise<void> {
   const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
   signalingChannel.send(JSON.stringify({ offer: offer }));
+  inCall.value=true
 }
 
 async function accept(): Promise<void> {
