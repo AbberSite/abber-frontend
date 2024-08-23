@@ -109,15 +109,16 @@ async function startStream(): Promise<void> {
     stream = await openMediaDevices({ audio: true });
     // await playVideoFromCamera();
   }
-  if (!cam.value) {
-    stream.getVideoTracks().forEach((track) => (track.enabled = false));
-  }
+ 
 
   if (stream && peerConnection) {
     stream.getTracks().forEach((track) => {
       sender = peerConnection!.addTrack(track, stream!);
       console.log("track added");
     });
+  } 
+  if (!cam.value) {
+    stream.getVideoTracks().forEach((track) => (track.enabled = false));
   }
 }
 
@@ -279,7 +280,7 @@ function leave(): void {
 onMounted(async () => {
   if (!props.isHost) {
     await initPeerConnection();
-    makeCall();
+    // makeCall();
   }
   loading.value = false;
     // updateCameraList(videoCameras);
