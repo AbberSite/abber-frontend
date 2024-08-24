@@ -37,7 +37,7 @@ jobs:
       - name: Use Node.js 12
         uses: actions/setup-node@main
         with:
-          node-version: "latest"
+          node-version: "20.11.1"
       - run: pwd
       - run: rm -rf  package-lock.json
 
