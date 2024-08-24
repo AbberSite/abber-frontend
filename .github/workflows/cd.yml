@@ -39,11 +39,9 @@ jobs:
         with:
           node-version: "latest"
       - run: pwd
+      - run: rm -rf  package-lock.json
 
-      - run: npm audit fix
       - run: npm i
-      - run: npm audit fix
-      - run: npx update-browserslist-db@latest
 
       # - run: pm2 kill
       - run: |
