@@ -8,7 +8,7 @@
                 v-model="filters.status"
                 value="new"
                 id="new" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="new">جديد</label>
+            <label class="mt-1.5 ps-3 text-sm" for="new">جديد</label>
         </div>
         <div class="flex items-center">
             <input
@@ -18,7 +18,7 @@
                 v-model="filters.status"
                 name="checkbox"
                 id="in_progress" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress">قيد التنفيذ</label>
+            <label class="mt-1.5 ps-3 text-sm" for="in_progress">قيد التنفيذ</label>
         </div>
         <div class="flex items-center">
             <input
@@ -28,7 +28,7 @@
                 name="checkbox"
                 value="cancelled"
                 id="cancelled" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="cancelled">ملغاة</label>
+            <label class="mt-1.5 ps-3 text-sm" for="cancelled">ملغاة</label>
         </div>
         <div class="flex items-center">
             <input
@@ -38,7 +38,7 @@
                 name="checkbox"
                 value="awaiting_delivery"
                 id="awaiting_delivery" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="awaiting_delivery">بإنتظار الإستلام</label>
+            <label class="mt-1.5 ps-3 text-sm" for="awaiting_delivery">بإنتظار الإستلام</label>
         </div>
         <div class="flex items-center">
             <input
@@ -48,7 +48,7 @@
                 v-model="filters.status"
                 value="complete"
                 id="complete" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="complete">مكتمل</label>
+            <label class="mt-1.5 ps-3 text-sm" for="complete">مكتمل</label>
         </div>
         <div class="flex items-center">
             <input
@@ -58,7 +58,7 @@
                 name="checkbox"
                 value="waiting_for_cancellation"
                 id="waiting_for_cancellation" />
-            <label class="mt-1.5 ps-3 text-sm font-medium" for="waiting_for_cancellation">بإنتظار الإلغاء</label>
+            <label class="mt-1.5 ps-3 text-sm" for="waiting_for_cancellation">بإنتظار الإلغاء</label>
         </div>
     </div>
 </template>

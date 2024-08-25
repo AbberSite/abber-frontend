@@ -1,24 +1,24 @@
 <template>
     <tr class="cursor-pointer" @click.once="order.content?.urgent && (order.service_details == null) && (order.buyer.username != data.username) ? showDialog = true : navigateTo(`/orders/${order.type == 'text_communication' ? order.id : `video/${order.id}`}/`)">
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
             <NuxtLink @click.once="navigateTo({ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } })" title="عرض الطلب" class="text-blue-600">#{{ order.id }}</NuxtLink>
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" v-if="data.user_type != 'معبر'">
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6" v-if="data.user_type != 'معبر'">
             {{ order.seller?.first_name ?? 'لا يوجد' }}
         </td>
         <td class="whitespace-nowrap pe-12">
             <OrderStatus :status="order.status" />
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium" v-if="data.user_type != 'عميل'">
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6" v-if="data.user_type != 'عميل'">
             {{ order.buyer.first_name }}
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
             {{ order.type == 'text_communication' ? 'محادثة نصية' : 'محادثة صوتية' }}
         </td>
         <td class="whitespace-nowrap pe-12 font-medium">
             {{ order.dream_title ?? 'لا يوجد' }}
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
             {{ useFormattedDate(order.order_item_time_data.ordered_date) }}
         </td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">

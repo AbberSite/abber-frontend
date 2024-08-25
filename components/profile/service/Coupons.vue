@@ -23,13 +23,13 @@
       </thead>
       <tbody class="divide-y">
         <tr v-for="coupon of coupons" :key="coupon.id">
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6">
             {{ coupon.code }}
           </td>
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6">
             {{ useFormattedDate(coupon.start_date) }}
           </td>
-          <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+          <td class="whitespace-nowrap pb-4 pe-12 pt-6">
             {{ useFormattedDate(coupon.end_date) }}
           </td>
           <td class="flex justify-center items-center pb-4 pe-4 pt-5">

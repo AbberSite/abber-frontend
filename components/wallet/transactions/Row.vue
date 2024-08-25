@@ -1,7 +1,7 @@
 <template>
   <tr>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">#{{ transaction.id }}</td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">{{ data?.username == transaction.user ? transaction.amount : transaction.process_additional_data.merchant_amount }}
+    <td class="whitespace-nowrap pb-4 pe-12 pt-6">#{{ transaction.id }}</td>
+    <td class="whitespace-nowrap pb-4 pe-12 pt-6">{{ data?.username == transaction.user ? transaction.amount : transaction.process_additional_data.merchant_amount }}
       ر.س.</td>
     <td class="whitespace-nowrap pe-12 font-medium">
       <span class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -9,13 +9,13 @@
           :class="cardImages[transaction.method]?.class ?? cardImages['general'].class" alt="" srcset="" class="lazyload"/>
         <span class="pt-2">**** 1898</span></span>
     </td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+    <td class="whitespace-nowrap pb-4 pe-12 pt-6">
       {{ transaction.type }}
     </td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+    <td class="whitespace-nowrap pb-4 pe-12 pt-6">
       {{ transaction.performed ? ' نعم' : 'لا' }}
     </td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium">
+    <td class="whitespace-nowrap pb-4 pe-12 pt-6">
       {{ useFormattedDate(transaction.date) }}
     </td>
   </tr>
