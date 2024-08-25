@@ -25,7 +25,7 @@
 
             <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base" v-if="!isFormSteps">
                 <span>ليس لديك حساب؟</span>
-                <NuxtLink class="font-medium text-blue-600" :to="{ name: 'accounts-signup' }">سجل الان </NuxtLink>
+                <NuxtLink class="text-blue-600" :to="{ name: 'accounts-signup' }">سجل الان </NuxtLink>
             </div>
         </div>
     </section>

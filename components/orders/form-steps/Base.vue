@@ -100,7 +100,7 @@ const activeHeader = computed<{
     },
     "dream-details": {
       title: "إدخال تفاصيل الحلم",
-      description: "نضمن لكم السرية الخاصة ويمنع إرسال أرقام التواصل للمعبر",
+      description: "نضمن لكم السرية الخاصة",
       icon: IdentificationIcon,
     },
     service: {

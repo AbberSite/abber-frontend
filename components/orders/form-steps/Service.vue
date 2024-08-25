@@ -8,7 +8,7 @@
     <div>
 
       <fieldset class="space-y-5">
-        <div class="is-scroll max-h-[400px] space-y-7 overflow-y-auto p-1" id="list-expressors">
+        <div class="is-scroll max-h-[400px] space-y-5 overflow-y-auto p-1" id="list-expressors">
           <template v-if="loading">
             <SkeletonsServiceRadioButton />
             <SkeletonsServiceRadioButton />
