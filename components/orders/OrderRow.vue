@@ -15,7 +15,7 @@
         <td class="whitespace-nowrap pb-4 pe-12 pt-6">
             {{ order.type == 'text_communication' ? 'محادثة نصية' : 'محادثة صوتية' }}
         </td>
-        <td class="whitespace-nowrap pe-12 font-medium">
+        <td class="whitespace-nowrap pe-12">
             {{ order.dream_title ?? 'لا يوجد' }}
         </td>
         <td class="whitespace-nowrap pb-4 pe-12 pt-6">

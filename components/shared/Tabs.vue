@@ -19,7 +19,7 @@
         v-show="!tab.dontShowIt"
       >
         <span>{{ tab.name }}</span>
-        <span class="text-white bg-red-500 px-2  py-[1px] rounded-full text-xs font-medium" v-if="tab.isNew">جديد</span>
+        <span class="text-white bg-red-500 px-2 py-1 rounded-full text-xs font-medium" v-if="tab.isNew">جديد</span>
         <span class="rounded-full bg-gray-50 px-4 pb-1 pt-1.5 text-xs font-medium" v-if="tab.count || tab.showCounter" >
           {{ tab.count ?? 0 }}
         </span>

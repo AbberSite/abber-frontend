@@ -175,10 +175,6 @@ onUnmounted(() => {
     padding: 0 12px 0 16px !important;
 }
 
-.iti--separate-dial-code .iti__selected-dial-code {
-    margin-top: 6px;
-}
-
 .iti__country-list {
     padding: 11px 6px !important;
 }

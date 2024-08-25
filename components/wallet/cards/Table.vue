@@ -34,7 +34,7 @@
         <tr v-for="card in cards" :key="card.card_id">
           <td class="whitespace-nowrap pb-4 pe-12 pt-6">{{ card.holder }}</td>
           <td class="whitespace-nowrap pb-4 pe-12 pt-6">**** {{ card.last4Digits }}</td>
-          <td class="whitespace-nowrap pe-12 font-medium">
+          <td class="whitespace-nowrap pe-12">
             <span class="flex items-center space-x-1 rtl:space-x-reverse">
               <img class="lazyload max-w-none" v-if="card.brand == 'VISA'"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
