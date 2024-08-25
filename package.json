@@ -47,6 +47,7 @@
     "filepond": "^4.31.1",
     "filepond-plugin-file-validate-size": "^2.2.8",
     "filepond-plugin-image-preview": "^4.6.12",
+    "firebase": "^10.13.0",
     "formidable": "^3.5.1",
     "google-oauth-gsi": "^4.0.0",
     "h3-formidable": "^1.0.0",
