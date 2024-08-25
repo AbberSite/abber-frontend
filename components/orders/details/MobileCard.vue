@@ -29,7 +29,7 @@
                         alt="" />
                 </div>
                 <div class="space-y-3">
-                    <div class="ms-3 pt-1 text-sm font-medium">
+                    <div class="ms-3 text-sm font-medium">
                         <div>
                             {{ order?.seller?.first_name }}
                         </div>

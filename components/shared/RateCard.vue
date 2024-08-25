@@ -3,7 +3,7 @@
               <div class="flex">
                 <div class="flex-shrink-0"><img class="lazyload h-11 w-11 rounded-full bg-gray-100" :src="my_rate.user.image"  height="44" width="44" alt="" /></div>
                 <div class="space-y-3">
-                  <div class="ms-3 pt-1 text-sm font-medium">
+                  <div class="ms-3 text-sm font-medium">
                     <div>{{my_rate.user.first_name.slice(0, 3) + '****'}}</div>
                     <div class="flex items-center justify-start pt-2">
                         <svg v-for="i in Math.floor(rateComputed) ?? 1" class="flex-shrink-0 text-yellow-400"

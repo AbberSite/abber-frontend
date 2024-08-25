@@ -39,7 +39,7 @@
                        
                         v-if="order.status === 'in_progress'"
                         @click="deliverOrder(order.id)"
-                        class="block w-full px-4 pb-1.5 pt-3 text-right text-sm font-medium hover:bg-gray-50"
+                        class="block w-full px-4 py-2.5 text-right text-sm hover:bg-gray-50"
                         type="button"
                         role="menuitem"
                         tabindex="-1">
