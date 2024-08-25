@@ -9,7 +9,7 @@
       :earings-data="earingsData"
       :orders-info="ordersInfo"
     />
-    <DashboardAnalyticsCharts :datasets="datasets" />
+    <!-- <DashboardAnalyticsCharts :datasets="datasets" /> -->
   </div>
   <div
     class="py-4 px-2 flex flex-col sm:flex-row sm:justify-between sm:gap-5 customize-scrollbar"
