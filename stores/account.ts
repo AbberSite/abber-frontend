@@ -20,7 +20,7 @@ class AccountStore {
         profile: {
             bank_account: '',
             gender: '',
-          birthday: '',
+            birthday: '',
             maritalStatus: '',
             profession: ''
         }
@@ -64,7 +64,7 @@ class AccountStore {
 
             data.append('profile.bank_account', this.tempAccount.value.profile.bank_account);
             data.append('profile.gender', this.tempAccount.value.profile.gender);
-          data.append('profile.birthday', this.tempAccount.value.profile.birthday);
+            data.append('profile.birthday', this.tempAccount.value.profile.birthday);
             data.append('profile.marital_status', this.tempAccount.value.profile.maritalStatus);
             data.append('profile.profession', this.tempAccount.value.profile.profession);
 
@@ -88,7 +88,8 @@ class AccountStore {
         const { rawToken } = useAuthState();
         console.log("connecting to websocket");
         const { close, status } = useWebSocket(
-            useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/`,
+            useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
+
             {
                 autoReconnect: true
             }
@@ -100,9 +101,9 @@ class AccountStore {
     };
 
     connectWSNotifications = async () => {
-        const { data } = useAuthState();
-        const {readNotifications} = storeToRefs(useUtilsStore());
-        const { close, status, data:response } = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/`, { autoReconnect: true });
+        const { data,rawToken } = useAuthState();
+        const { readNotifications } = storeToRefs(useUtilsStore());
+        const { close, status, data: response } = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/` + `?authorization=JWT ${rawToken.value}`, { autoReconnect: true });
         watch(status, (value) => {
             console.log(`notification status: ${value}`);
         });

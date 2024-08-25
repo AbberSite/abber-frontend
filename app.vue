@@ -82,6 +82,7 @@ onMounted(async () => {
   if (status.value === "unauthenticated") return;
   goOffline = await goOnline();
   closeNotifications = await connectWSNotifications();
+  useFirebase();
 });
 
 onMounted(() => {
