@@ -88,7 +88,8 @@ class AccountStore {
         const { rawToken } = useAuthState();
         console.log("connecting to websocket");
         const { close, status } = useWebSocket(
-            useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/`,
+            useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/`+`?authorization=JWT ${rawToken.value}`,
+
             {
                 autoReconnect: true
             }
