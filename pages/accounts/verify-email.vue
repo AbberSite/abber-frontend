@@ -35,8 +35,8 @@
                 <Loading />
             </template>
             <template v-else>
-                <div v-if="verified" class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">تم تأكيد البريد الالكتروني الخاص بك</div>
-                <div v-else class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">لم يتم التحقق من البريد الالكتروني</div>
+                <div v-if="verified" class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">تم تأكيد البريد الالكتروني الخاص بك</div>
+                <div v-else class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">لم يتم التحقق من البريد الالكتروني</div>
             </template>
         </section>
     </main>

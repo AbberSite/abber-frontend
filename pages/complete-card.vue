@@ -14,7 +14,7 @@
                 <CheckCircleIcon class="w-6 h-6" v-else-if="!loading && successfull" />
                 <XCircleIcon class="w-6 h-6" v-else/>
             </div>
-            <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" v-if="!loading">
+            <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" v-if="!loading">
                {{successfull ? ' تم حفظ البطاقة بنجاح!': 'لقد فشلت عملية اضافة البطاقة'}}
             </h1>
         </section>

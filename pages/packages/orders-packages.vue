@@ -16,7 +16,7 @@
         </path>
       </svg>
     </div>
-    <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="prices-heading">الباقات</h1>
+    <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="prices-heading">الباقات</h1>
     <div class="pt-4 text-sm text-gray-600 xs:text-base">تواصل معنا في حالة احتجت الى المساعدة</div>
 
 

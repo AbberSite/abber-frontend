@@ -18,7 +18,7 @@
                     clip-rule="evenodd"></path>
             </svg>
         </div>
-        <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">تسجيل الدخول</div>
+        <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">تسجيل الدخول</div>
         <div class="pt-4 text-sm text-gray-600 xs:text-base">سنرسل لك رمز التحقق الى حسابك في الواتساب</div>
     </template>
     <template v-else>

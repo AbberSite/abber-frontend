@@ -46,7 +46,7 @@
         ></path>
       </svg>
     </div>
-    <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">
+    <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">
       تسجيل الدخول
     </div>
     <div

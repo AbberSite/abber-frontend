@@ -14,7 +14,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
         </svg>
       </div>
-      <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="settings-heading">إدارة الخدمة</h1>
+      <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="settings-heading">إدارة الخدمة</h1>
       <div class="pt-4 text-sm text-gray-600 xs:text-base">قم بإدراة خدمة تعبير الأحلام الخاصة بك</div>
 
       <TabGroup as="template">

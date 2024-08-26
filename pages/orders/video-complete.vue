@@ -20,7 +20,7 @@
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <XCircleIcon class="w-6 h-6" />
                     </div>
-                    <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
+                    <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
                         عذرا لم يتم إرسال الطلب
                     </h1>
                     <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
@@ -49,7 +49,7 @@
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <Loading class="w-6 h-6" />
                     </div>
-                    <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
+                    <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
                         جاري تأكيد الطلب
                     </h1>
                     <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
