@@ -6,7 +6,7 @@
       { name: 'الطلبات', value: 'tab1' },
     ]"
   />
-  <div class="w-full pt-10">
+  <div class="w-full pt-8">
     <template v-if="currentTab == 'tab0'">
       <DashboardInputsSearch placeholder="ابحث عن معبر" />
       <DashboardTablesTable

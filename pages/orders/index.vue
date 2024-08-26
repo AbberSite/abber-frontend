@@ -6,7 +6,7 @@
     <!-- Hero section -->
     <HeroBackground />
     <!-- Orders section -->
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="orders-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="orders-heading">
       <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
         <!-- Heroicon name: outline/swatch -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
@@ -26,7 +26,7 @@
       </template>
 
       <template v-if="orders?.length != 0 || filters.search.length != 0 || filters.status.length != 0 || filters.type.text || filters.type.voice">
-        <div class="w-full pt-10">
+        <div class="w-full pt-8">
           <div class="flex items-center justify-between">
             <form class="w-full sm:max-w-sm" method="GET">
               <div class="w-full space-y-3">
@@ -66,7 +66,7 @@
         <OrdersTable :orders="orders ?? []" />
         <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="9" />
       </template>
-      <SkeletonsTable v-if="loading" class="mt-16" />
+      <SkeletonsTable v-if="loading" class="mt-8" />
     </section>
   </main>
 

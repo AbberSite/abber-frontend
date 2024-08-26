@@ -1,6 +1,6 @@
 <template>
   <DashboardTitle department="المالية" title="طلبات السحب" />
-  <div class="w-full pt-10">
+  <div class="w-full pt-8">
     <div class="flex items-center justify-between">
       <DashboardInputsSearch
         placeholder="ابحث عن طلب سحب"

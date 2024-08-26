@@ -7,7 +7,7 @@
         <HeroBackground />
 
         <section
-            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44"
+            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44"
             aria-labelledby="wallet-heading" x-data="{ openFilterDropdown: false, activeTab: 1 }">
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                 <!-- Heroicon name: outline/wallet -->
