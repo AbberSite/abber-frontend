@@ -30,7 +30,7 @@
                             <h3 class="mt-1.5 text-lg font-medium">فلترة</h3>
                             <a
                             @click.prevent="apply"
-                                class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800"
+                                class="flex items-center rounded-md bg-gray-900 px-4 py-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800"
                                 href="/order/"
                                 >تطبيق</a
                             >

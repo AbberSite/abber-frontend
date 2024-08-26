@@ -1,7 +1,7 @@
 <template>
 
   <tr>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6">#{{ transaction.id }}</td>
+    <td class="whitespace-nowrap py-5 pe-12">#{{ transaction.id }}</td>
     <td class="whitespace-nowrap pe-12">
       <span class="flex items-center space-x-1 rtl:space-x-reverse">
         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="cardImages[transaction.method]?.src ?? cardImages['general'].src"
@@ -9,15 +9,15 @@
         <span class="pt-2">**** 1898</span>
       </span>
     </td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6">{{ transaction.type }}</td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+    <td class="whitespace-nowrap py-5 pe-12">{{ transaction.type }}</td>
+    <td class="whitespace-nowrap py-5 pe-12">
       {{ credit == 0 ? '-' : credit + ' ر.س. ' }}
     </td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+    <td class="whitespace-nowrap py-5 pe-12">
       {{ debit == 0 ? '-' : debit + ' ر.س. ' }}
     </td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6">{{ record?.balance }} ر.س.</td>
-    <td class="whitespace-nowrap pb-4 pe-12 pt-6">{{ useFormattedDate(transaction.date) }}</td>
+    <td class="whitespace-nowrap py-5 pe-12">{{ record?.balance }} ر.س.</td>
+    <td class="whitespace-nowrap py-5 pe-12">{{ useFormattedDate(transaction.date) }}</td>
   </tr>
 </template>
 

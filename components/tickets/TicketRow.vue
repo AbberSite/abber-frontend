@@ -1,18 +1,18 @@
 <template>
     <tr class="cursor-pointer" @click="navigateTo(`/support/${ticket.id}/`)" >
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+        <td class="whitespace-nowrap py-5 pe-12">
             <NuxtLink :to="{ name: 'support-id', params: { id: ticket.id } }" class="text-blue-600">#{{ ticket.id }}</NuxtLink>
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+        <td class="whitespace-nowrap py-5 pe-12">
             <div>{{ticket.title}}</div>
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+        <td class="whitespace-nowrap py-5 pe-12">
             <div>{{ useFormattedDate(ticket.date) }}</div>
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+        <td class="whitespace-nowrap py-5 pe-12">
             <TicketStatus :status="ticket.status"/>
         </td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6">
+        <td class="whitespace-nowrap py-5 pe-12">
             <div>{{ useFormattedDate(ticket.end_date) }}</div>
         </td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">

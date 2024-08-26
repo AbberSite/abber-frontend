@@ -1,9 +1,9 @@
 <template>
     <tr>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6">{{ notification?.message }}</td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6" >{{ notification?.type ?? '--' }}</td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6">{{ notification.sender?.first_name }}</td>
-        <td class="whitespace-nowrap pb-4 pe-12 pt-6" >{{ useFormattedDate(notification?.date) }}</td>
+        <td class="whitespace-nowrap py-5 pe-12">{{ notification?.message }}</td>
+        <td class="whitespace-nowrap py-5 pe-12" >{{ notification?.type ?? '--' }}</td>
+        <td class="whitespace-nowrap py-5 pe-12">{{ notification.sender?.first_name }}</td>
+        <td class="whitespace-nowrap py-5 pe-12" >{{ useFormattedDate(notification?.date) }}</td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">
             <NuxtLink :to="notificationURL" title="عرض الإشعار"><svg
                     class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
