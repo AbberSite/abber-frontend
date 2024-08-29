@@ -107,7 +107,6 @@ export const useFirebase = () => {
   // });
 
   onMessage(messaging,function (payload) {
-    console.log(payload)
     payload = payload.notification;
 
     // Create notification manually when user is focused on the tab
