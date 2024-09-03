@@ -6,7 +6,7 @@
     <AuthenticationHeading v-if="!props.isFormSteps" />
     <div class="mx-auto w-full max-w-sm pt-10">
       <form method="POST" @submit.prevent="send">
-        <fieldset class="space-y-7">
+        <fieldset class="space-y-5">
           <div class="w-full space-y-3">
             <LazyPhoneInput v-model="phone" v-model:valid="valid" :sms="true" placeholder="5XXXXXXXX" :error="errors.phone" />
           </div>
@@ -19,7 +19,7 @@
 
       <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base" v-if="!isFormSteps">
         <span>ليس لديك حساب؟</span>
-        <NuxtLink class="font-medium text-blue-600" :to="{ name: 'accounts-signup' }">سجل الان </NuxtLink>
+        <NuxtLink class="text-blue-600" :to="{ name: 'accounts-signup' }">سجل الان </NuxtLink>
       </div>
     </div>
   </section>
