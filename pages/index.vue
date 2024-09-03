@@ -12,7 +12,7 @@
     <LazyFaq id="faqs" />
     <LazySupportFloatingButton />
   </main>
-
+  <CheckPIN />
   <LazySupportFloatingButton />
 </template>
 
@@ -22,7 +22,6 @@ definePageMeta({
   auth: false,
 });
 const { data } = useAuth();
-
 </script>
 
 <style scoped></style>

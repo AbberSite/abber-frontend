@@ -56,6 +56,7 @@ async function send() {
             method: 'POST',
 
             body: {
+                not_otp:(window.localStorage.getItem('setPIN')=="1"),
 
                 phone:  phone.value
 

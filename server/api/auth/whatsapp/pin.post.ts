@@ -4,16 +4,14 @@ export default defineEventHandler(async (event) => {
 
     const body = await readBody(event);
     const config = useRuntimeConfig()
-    const  { sender } = getQuery(event)
 
     try {
         const response = await axios.post(
-            config.apiBasePath + '/authentication/registered-phone/',
+            config.apiBasePath + '/authentication/pin/login/',
 
             {
                 phone: body.phone,
-                not_otp: body.not_otp,
-                sender
+                pin : body.key
             },
             {
                 headers: {
@@ -21,27 +19,33 @@ export default defineEventHandler(async (event) => {
                 },
             },
         );
+
         return {
-            "phone": response.data.phone,
-            "registered": response.data.registered,
-            "message": response.data.message,
-            "status": response.data.status
-          }
+
+            token : response.data.access_token,
+            refreshToken : response.data.refresh_token, 
+            user : response.data.user
+
+        } 
 
     } catch ( error : any ) {
 
         setResponseStatus(event, 400)
 
-        if(error?.response?.data?.non_field_errors[0]){
 
-            return { status : "error", error : error?.response?.data?.non_field_errors[0] }
+        if(error?.response?.data?.non_field_errors){
+
+
+            return {
+                otp : error?.response?.data?.non_field_errors?.[0]
+            }
 
         }
 
         return { 
 
             status : "error", 
-            error : "حدث خطأ ما"
+            otp : error.response.data
             
         }
 
