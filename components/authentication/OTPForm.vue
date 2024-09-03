@@ -1,11 +1,12 @@
 <template>
   <form method="POST" @submit.prevent="login">
     <fieldset class="space-y-7">
-      <h1 class="font-bold">رمز التأكد (OTP)</h1>
+      <h1 class="font-bold" v-if="usePIN_">رمز التأكد (PIN)</h1>
+      <h1 class="font-bold" v-else>رمز التأكد (OTP)</h1>
       <OtpInput v-model="OTP" @done="waitForLogin()" />
       <div class="text-red-700 font-medium" v-if="error">{{ error }}</div>
       <div class="flex justify-between space-x-2">
-        <span class="text-center text-sm xs:text-base font-medium" @click="resendOTP" :class="[counter <= 0 && !loading ? 'text-blue-600 cursor-pointer' : 'text-gray-600 cursor-no-drop']">إعادة ارسال</span>
+        <span class="text-center text-sm xs:text-base font-medium" @click="resendOTP" :class="[counter <= 0 && !loading ? 'text-blue-600 cursor-pointer' : 'text-gray-600 cursor-no-drop']" v-text="usePIN_?'لا تتذكر الرمز؟':'إعادة ارسال'"></span>
         <span class="text-sm text-gray-600" v-text="counter" v-if="counter > 0"></span>
       </div>
       <div>
@@ -16,8 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{ sender?: string }>();
-const emit = defineEmits(["logged-in"]);
+const props=defineProps<{ sender?: string; }>();
+const emit = defineEmits(["logged-in","use-PIN"]);
+
 
 const { rawRefreshToken, rawToken } = useAuthState();
 
@@ -25,11 +27,12 @@ const { refresh } = useAuth();
 
 const { currentPhone } = storeToRefs(useAuthStore());
 
+const usePIN_ = ref(true)
 const OTP = ref([]);
 const error = ref("");
 
 const loading = ref(false);
-const counter = ref(30);
+const counter = ref(usePIN_.value?0:30);
 
 const setCounter = () => {
   counter.value = 30;
@@ -43,6 +46,12 @@ const setCounter = () => {
 
 const resendOTP = async () => {
   loading.value = true;
+  if (usePIN_.value === true){
+        useNotification({type: 'success', content: 'تم إرسال رمز التحقق'});
+        usePIN_.value = false;
+        emit('use-PIN')
+
+  }
   await useApi("/api/auth/whatsapp/send?sender=whatsapp", {
     method: "POST",
     body: {
@@ -64,7 +73,8 @@ async function login() {
 
     loading.value = true;
 
-    const { data } = (await useFetch("/api/auth/whatsapp/otp", {
+
+    const { data } = (await useFetch((usePIN_.value?"/api/auth/whatsapp/pin":"/api/auth/whatsapp/otp"), {
       method: "POST",
 
       body: {
@@ -106,7 +116,11 @@ function waitForLogin() {
 }
 
 onMounted(() => {
+  usePIN_.value = window.localStorage.getItem("setPIN") == "1"
+  if(!usePIN_.value){
+    
   setCounter();
+  }
 });
 </script>
 

@@ -8,6 +8,7 @@ export default defineNuxtConfig({
       brotli: true
     }
   } : {},
+
   devtools: {
     enabled: true,
 
@@ -17,7 +18,6 @@ export default defineNuxtConfig({
   },
 
   pages: true,
-
   css: ["~/assets/main.css", "~/assets/font.css"],
 
   postcss: {
@@ -31,9 +31,11 @@ export default defineNuxtConfig({
     "/api-proxy/**": { proxy: apiBasePath + "/**", headers: { "api-key": apiSecret }, ssr: true, swr: true },
     "/file/**": { proxy: "https://d336rd5betdm19.cloudfront.net/**", headers: { "api-key": apiSecret } },
   },
+
   router: {
     middleware: ['dashboard-layout']
   },
+
   runtimeConfig: {
     apiSecret: apiSecret,
     apiBasePath: apiBasePath,
@@ -44,6 +46,7 @@ export default defineNuxtConfig({
       paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`,
     },
   },
+
   modules: [
     "@nuxt/image",
     "@pinia/nuxt",
@@ -52,6 +55,7 @@ export default defineNuxtConfig({
     'nuxt-viewport',
     "@nuxtjs/i18n"
   ],
+
   buildModules: (process.env.VITE_ENABLE_BROTLI != "false") ? ['@averjs/nuxt-compression'] : [],
 
   auth: {
@@ -122,7 +126,9 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   components: ["~/components", "~/components/main", "~/components/partials", "~/components/shared", "~/components/orders"],
+
   experimental: {
     defaults: {
       nuxtLink: {
@@ -131,12 +137,16 @@ export default defineNuxtConfig({
     },
     asyncContext: true
   },
+
   plugins: [
     '~/plugins/gtm.ts',
     '~/plugins/event-bus.ts',
     '~/plugins/drag-scroll.ts'
   ],
+
   i18n: {
     vueI18n: './i18n.config.ts'
-  }
+  },
+
+  compatibilityDate: "2024-08-29"
 });

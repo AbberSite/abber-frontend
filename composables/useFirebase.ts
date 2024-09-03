@@ -88,6 +88,33 @@ export const useFirebase = () => {
         console.log(err);
         setTokenSentToServer(false);
       });
+
+
+    onMessage(messaging, function (payload) {
+      console.log('payload', payload)
+      payload = payload.notification;
+
+      // Create notification manually when user is focused on the tab
+      const notificationTitle = payload.title;
+      const notificationOptions = {
+        body: payload.body,
+        icon: payload.image,
+      };
+
+      if (!('Notification' in window)) {
+        console.log('This browser does not support system notifications');
+      }
+      // Let's check whether notification permissions have already been granted
+      else if (Notification.permission === 'granted') {
+        // If it's okay let's create a notification
+        var notification = new Notification(notificationTitle, notificationOptions);
+        notification.onclick = function (event) {
+          event.preventDefault(); // prevent the browser from focusing the Notification's tab
+          window.open(payload.url, '_blank');
+          notification.close();
+        };
+      }
+    });
   }
 
   // messaging.onTokenRefresh(function () {
@@ -106,35 +133,12 @@ export const useFirebase = () => {
   //     });
   // });
 
-  onMessage(messaging,function (payload) {
-    console.log('payload',payload)
-    payload = payload.notification;
-
-    // Create notification manually when user is focused on the tab
-    const notificationTitle = payload.title;
-    const notificationOptions = {
-      body: payload.body,
-      icon: payload.image,
-    };
-
-    if (!('Notification' in window)) {
-      console.log('This browser does not support system notifications');
-    }
-    // Let's check whether notification permissions have already been granted
-    else if (Notification.permission === 'granted') {
-      // If it's okay let's create a notification
-      var notification = new Notification(notificationTitle, notificationOptions);
-      notification.onclick = function (event) {
-        event.preventDefault(); // prevent the browser from focusing the Notification's tab
-        window.open(payload.url, '_blank');
-        notification.close();
-      };
-    }
-  });
+ 
 
   // Checks if all required APIs exist in the browser.
   // const isSupported = () => 'Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window
 
   if (isSupported()) requestPermission();
+  
   return ref()
 }
