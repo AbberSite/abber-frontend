@@ -4,11 +4,11 @@
   </Head>
   <div class="min-h-screen outline-none">
     <HeroBackground />
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="withdrawal-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="withdrawal-heading">
       <div class="rounded-md border border-gray-300 py-3 px-3 shadow-sm">
         <BanknotesIcon class="w-[24px] h-[24px]" />
       </div>
-      <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="wallet-heading">طلبات السحب</h1>
+      <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="wallet-heading">طلبات السحب</h1>
       <div class="pt-4 text-sm text-gray-600 xs:text-base">تصفح جمبع طلبات السحب الخاص بك</div>
       <div class="w-full pt-16">
         <SkeletonsTable v-if="loading" />

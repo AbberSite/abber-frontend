@@ -4,7 +4,7 @@
         <title>عبر - طلب تعبير حلم - إدخال تفاصيل الحلم</title>
     </Head>
     <form method="POST" @submit.prevent="submit">
-        <fieldset class="space-y-7">
+        <fieldset class="space-y-5">
             <div class="w-full space-y-3">
                 <TextInput name="dream_title" id="dream_title" type="text" v-model="dream_title" label="عنوان الحلم"
                     :error="errors.dream_title" placeholder="إدخل عنوانا للحلم مثال: رؤية العقرب في المنام" />
@@ -59,7 +59,6 @@
             </div>
             <div class="w-full space-y-3">
                 <label class="block text-sm font-medium xs:text-base" for="textarea">وصف الحلم</label>
-                <div class="text-sm text-yellow-700">نضمن لكم السرية الخاصة ويمنع إرسال أرقام التواصل للمعبر</div>
                 <textarea class="form-control block max-h-[300px] min-h-[200px] py-4" name="textarea" id="dream"
                     rows="5" :class="[errors.dream && 'form-invalid']" placeholder="أوصف الحلم بالتفصيل"
                     v-model="dream"></textarea>

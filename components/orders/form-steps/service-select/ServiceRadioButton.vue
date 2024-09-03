@@ -9,7 +9,7 @@
           :data-src="service?.seller?.image" height="44" width="44" alt="" />
       </div>
       <div class="space-y-3">
-        <div class="ms-3 pt-1 text-sm font-medium">
+        <div class="ms-3 text-sm font-medium">
           <div>
             {{ service?.seller?.first_name }}
           </div>

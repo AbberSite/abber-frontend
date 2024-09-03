@@ -8,7 +8,7 @@
     <HeroBackground />
     <!-- Blog section -->
     <section
-      class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44"
+      class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44"
       aria-labelledby="blog-heading">
       <h1 class="inline-flex rounded-full bg-gray-900 px-4 py-2 text-xs font-medium text-white">
         المدونة
@@ -78,7 +78,7 @@
             </span>
           </p>
           <button type="button" :disabled="!posts?.next?.length" :loading="nextLoading" @click="nextButton()"
-            class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
+            class="relative ms-3 inline-flex items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-sm font-medium text-white shadow-sm hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-black"
             href="#">
             <LazyLoading v-if="nextLoading" />
             <span v-else>التالي</span>

@@ -1,6 +1,6 @@
 <template>
       <DashboardTitle department="الطلبات" title="جميع الطلبات" />
-      <div class="w-full pt-10">
+      <div class="w-full pt-8">
         <div class="flex items-center justify-between">
           <DashboardInputsSearch placeholder="ابحث عن طلب معين" v-model="filters.search" @openFiltersMobileModal="openFiltersMobileModal = true" />
           <div class="relative">

@@ -16,13 +16,13 @@
             </thead>
             <tbody class="divide-y">
                 <tr v-for="request of requests" >
-                <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.id}}</div></td>
-                <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.amount}} ر.س</div></td>
-                <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.type}}</div></td>
-                <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.status}}</div></td>
-                <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{ useArabicFormattedDate(request.date)}}</div></td>
-                <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.paid ? 'نعم': 'لا'}}</div></td>
-                <td class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium"><div>{{request.refuse_reason == null || request.refuse_reason === 'null' ? '-': request.refuse_reason}}</div></td>
+                <td class="whitespace-nowrap py-5 pe-12"><div>{{request.id}}</div></td>
+                <td class="whitespace-nowrap py-5 pe-12"><div>{{request.amount}} ر.س</div></td>
+                <td class="whitespace-nowrap py-5 pe-12"><div>{{request.type}}</div></td>
+                <td class="whitespace-nowrap py-5 pe-12"><div>{{request.status}}</div></td>
+                <td class="whitespace-nowrap py-5 pe-12"><div>{{ useArabicFormattedDate(request.date)}}</div></td>
+                <td class="whitespace-nowrap py-5 pe-12"><div>{{request.paid ? 'نعم': 'لا'}}</div></td>
+                <td class="whitespace-nowrap py-5 pe-12"><div>{{request.refuse_reason == null || request.refuse_reason === 'null' ? '-': request.refuse_reason}}</div></td>
                 </tr> 
             </tbody>
         </table>

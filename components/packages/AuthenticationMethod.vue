@@ -21,7 +21,7 @@
                             </svg>
                         </div>
                         <div class="space-y-3">
-                            <div class="ms-3 pt-1 text-sm font-medium">
+                            <div class="ms-3 text-sm font-medium">
                                 <div>عميل حالي</div>
                             </div>
                             <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">
@@ -45,7 +45,7 @@
                             </svg>
                         </div>
                         <div class="space-y-3">
-                            <div class="ms-3 pt-1 text-sm font-medium">
+                            <div class="ms-3 text-sm font-medium">
                                 <div>عميل جديد</div>
                             </div>
                             <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">

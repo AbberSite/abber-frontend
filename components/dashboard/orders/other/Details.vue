@@ -43,7 +43,7 @@
                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="14" width="14">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-                            </svg><span class="pt-1">مكتمل</span>
+                            </svg><span>مكتمل</span>
                         </div>
                         <div v-else
                             class="inline-flex items-center space-x-1 rounded-full bg-yellow-100 px-3 pb-1 pt-1 text-xs font-medium text-yellow-800 rtl:space-x-reverse">
@@ -51,7 +51,7 @@
                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="14" width="14">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-                            </svg><span class="pt-1">معلقة</span>
+                            </svg><span>معلقة</span>
                         </div>
                     </div>
                     <div class="flex items-center justify-between py-4">

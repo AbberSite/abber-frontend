@@ -4,7 +4,7 @@
     </Head>
 
     <form method="POST" @submit.prevent="submit">
-        <fieldset class="space-y-7">
+        <fieldset class="space-y-5">
             <label
                 class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
                 :class="[selectedOption == 'text_chat' && 'border-gray-900 ring-1 ring-gray-900']">

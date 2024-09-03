@@ -6,7 +6,7 @@ name: Node.js CD
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [main]
+    branches: []
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -37,11 +37,12 @@ jobs:
       - name: Use Node.js 12
         uses: actions/setup-node@main
         with:
-          node-version: "22.4"
+          node-version: "20.11.1"
       - run: pwd
+      - run: rm -rf  package-lock.json
 
-      - run: npm audit fix
       - run: npm i
+
       # - run: pm2 kill
       - run: |
           echo "ABBER_ENV='production'

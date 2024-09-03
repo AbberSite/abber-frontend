@@ -2,12 +2,12 @@
     <Head>
         <title v-if="props.isFormSteps">عبر - طلب تعبير حلم - الدخول بواتساب</title>
     </Head>
-    <section :class="{'relative flex min-h-screen w-full flex-col items-center justify-center px-4 pb-14 pt-28 md:pt-32 xs:px-6': !props.isFormSteps}" 
+    <section :class="{'relative flex min-h-screen w-full flex-col items-center justify-center px-4 pb-36 pt-20 md:pt-32 xs:px-6': !props.isFormSteps}" 
             aria-labelledby="forget-password-heading">
             <AuthenticationHeading whatsapp v-if="!props.isFormSteps"/>
             <div class="mx-auto w-full max-w-sm pt-10">
                 <form method="POST" @submit.prevent="send">
-                    <fieldset class="space-y-7">
+                    <fieldset class="space-y-5">
                         <div class="w-full space-y-3">
 
                             <LazyPhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" />

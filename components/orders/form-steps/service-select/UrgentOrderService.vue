@@ -13,7 +13,7 @@
         </svg>
       </div>
       <div class="w-full space-y-3">
-        <div class="ms-3 pt-1 text-sm font-medium">
+        <div class="ms-3 text-sm font-medium">
           <div>تعبير مستعجل</div>
         </div>
         <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">سنختار لك معبرا متاح حاليا لتعبير حلمك.

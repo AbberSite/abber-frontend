@@ -6,7 +6,7 @@
   <main class="min-h-screen outline-none">
     <HeroBackground />
 
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pt-28 xs:px-6 md:pt-32 lg:px-8" aria-labelledby="order-details-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pt-20 pb-36 xs:px-6 md:pt-32 lg:px-8" aria-labelledby="order-details-heading">
       <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm sm:hidden">
         <!-- Heroicon name: outline/swatch -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
@@ -23,8 +23,8 @@
         <ClientOnly>
           <Chat v-if="activeTab == 'chat'" :room-name="roomName" :allow-input="order?.status === 'in_progress' || order?.content?.allow_chat" device="mobile" />
         </ClientOnly>
-        <div class="hidden w-full gap-x-8 pt-4 lg:grid lg:grid-cols-3">
-          <div class="sticky top-8 h-fit rounded-lg border border-gray-300 py-6">
+        <div class="hidden w-full gap-x-8 pt-16 lg:grid lg:grid-cols-3">
+          <div class="sticky top-8 h-fit rounded-lg border border-gray-100 py-6">
             <div class="px-6 font-medium xs:text-lg">تفاصيل الطلب</div>
             <DetailsCard />
           </div>

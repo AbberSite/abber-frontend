@@ -4,7 +4,7 @@
     <title>عبر - طلب تعبير حلم - طريقة تعبير الحلم</title>
   </Head>
   <div method="POST">
-    <fieldset class="space-y-7">
+    <fieldset class="space-y-5">
       <template v-if="loading">
         <SkeletonsContactType />
         <SkeletonsContactType />
@@ -44,12 +44,12 @@
             name="type" value="video_communication" />
         </label>
       </template>
-      <div class="flex justify-center ">
-        <button class="font-medium text-blue-600 text-sm xs:text-base" @click="navigateTo('/')">
+    </fieldset>
+    <div class="flex justify-center pt-8">
+      <button class="text-blue-600 text-sm xs:text-base" @click="navigateTo('/')">
         <span aria-hidden="true">→</span> الرجوع للصفحة الرئيسية
       </button>
-      </div>
-    </fieldset>
+    </div>
   </div>
 </template>
 

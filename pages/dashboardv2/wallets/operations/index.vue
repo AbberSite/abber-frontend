@@ -1,6 +1,6 @@
 <template>
   <DashboardTitle department="المالية" title="عمليات على الرصيد (الفروقات)"/>
-  <div class="w-full pt-10">
+  <div class="w-full pt-8">
     <div class="flex items-center justify-between">
       <DashboardInputsSearch placeholder="ابحث في العمليات علي الرصيد (الفروقات)" v-model="filters.search"
         @openFiltersMobileModal="openFiltersMobileModal = true" />

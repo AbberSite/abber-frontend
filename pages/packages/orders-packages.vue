@@ -4,7 +4,7 @@
     <Title>عبر - الباقات</Title>
   </Head>
   <section
-    class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44"
+    class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44"
     aria-labelledby="prices-heading"
     x-data="{ alert: true, openFilterDropdown: false, firstLevelSelect: '', secondLevelSelect: '', thirdLevelSelect: '' }">
     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
@@ -16,7 +16,7 @@
         </path>
       </svg>
     </div>
-    <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="prices-heading">الباقات</h1>
+    <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="prices-heading">الباقات</h1>
     <div class="pt-4 text-sm text-gray-600 xs:text-base">تواصل معنا في حالة احتجت الى المساعدة</div>
 
 
@@ -26,7 +26,7 @@
         <div :key="activeStepIndex">
           <component :is="activeStep" />
           <div class="pt-8 text-center text-sm xs:text-base" v-if="!first && !last">
-            <button class="font-medium text-blue-600" @click="back();">
+            <button class="text-blue-600" @click="back();">
               <span aria-hidden="true">→</span> العودة للخطوة السابقة
             </button>
           </div>

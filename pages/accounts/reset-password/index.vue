@@ -19,11 +19,11 @@
           </path>
         </svg>
       </div>
-      <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">نسيت كلمة المرور؟</div>
+      <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">نسيت كلمة المرور؟</div>
       <div class="pt-4 text-sm text-gray-600 xs:text-base">لا تقلق، سوف نرسل لك تعليمات إعادة التعيين</div>
       <div class="mx-auto w-full max-w-sm pt-10">
         <form method="POST" @submit.prevent="submit">
-          <fieldset class="space-y-7">
+          <fieldset class="space-y-5">
             
             <TextInput
             name="email"

@@ -30,7 +30,7 @@
                             <h3 class="mt-1.5 text-lg font-medium">فلترة</h3>
                             <a
                             @click.prevent="apply"
-                                class="flex items-center rounded-md bg-gray-900 px-4 pb-2 pt-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800"
+                                class="flex items-center rounded-md bg-gray-900 px-4 py-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800"
                                 href="/order/"
                                 >تطبيق</a
                             >
@@ -47,7 +47,7 @@
                                             v-model="status"
                                             name="checkbox"
                                             id="new" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="new">جديد</label>
+                                        <label class="mt-1.5 ps-3 text-sm" for="new">جديد</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
@@ -57,7 +57,7 @@
                                             v-model="status"
                                             name="checkbox"
                                             id="in_progress" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="in_progress"
+                                        <label class="mt-1.5 ps-3 text-sm" for="in_progress"
                                             >قيد التنفيذ</label
                                         >
                                     </div>
@@ -69,7 +69,7 @@
                                             value="cancelled"
                                             name="checkbox"
                                             id="cancelled" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="cancelled">ملغاة</label>
+                                        <label class="mt-1.5 ps-3 text-sm" for="cancelled">ملغاة</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
@@ -79,7 +79,7 @@
                                             value="awaiting_delivery"
                                             name="checkbox"
                                             id="awaiting_delivery" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="awaiting_delivery"
+                                        <label class="mt-1.5 ps-3 text-sm" for="awaiting_delivery"
                                             >بإنتظار الإستلام</label
                                         >
                                     </div>
@@ -91,7 +91,7 @@
                                             value="complete"
                                             name="checkbox"
                                             id="complete" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="complete">مكتمل</label>
+                                        <label class="mt-1.5 ps-3 text-sm" for="complete">مكتمل</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
@@ -101,7 +101,7 @@
                                             value="waiting_for_cancellation"
                                             name="checkbox"
                                             id="waiting_for_cancellation" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="waiting_for_cancellation"
+                                        <label class="mt-1.5 ps-3 text-sm" for="waiting_for_cancellation"
                                             >بإنتظار الإلغاء</label
                                         >
                                     </div>
@@ -117,7 +117,7 @@
                                             v-model="video"
                                             name="checkbox"
                                             id="video" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="video">محادثة صوتية</label>
+                                        <label class="mt-1.5 ps-3 text-sm" for="video">محادثة صوتية</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input
@@ -126,7 +126,7 @@
                                             name="checkbox"
                                             v-model="text"
                                             id="text" />
-                                        <label class="mt-1.5 ps-3 text-sm font-medium" for="text">محادثة نصية</label>
+                                        <label class="mt-1.5 ps-3 text-sm" for="text">محادثة نصية</label>
                                     </div>
                                 </div>
                             </div>

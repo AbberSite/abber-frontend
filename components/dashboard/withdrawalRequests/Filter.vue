@@ -8,22 +8,22 @@
         <div class="flex items-center">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
             v-model="filters.status" id="all" :value="null" />
-          <label class="mt-1.5 ps-3 text-sm font-medium" for="all">الكل</label>
+          <label class="mt-1.5 ps-3 text-sm" for="all">الكل</label>
         </div>
         <div class="flex items-center">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
             v-model="filters.status" id="paid" :value="'1'" />
-          <label class="mt-1.5 ps-3 text-sm font-medium" for="paid">قيد المراجعة</label>
+          <label class="mt-1.5 ps-3 text-sm" for="paid">قيد المراجعة</label>
         </div>
         <div class="flex items-center">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
             v-model="filters.status" id="done" :value="'2'" />
-          <label class="mt-1.5 ps-3 text-sm font-medium" for="done">تم</label>
+          <label class="mt-1.5 ps-3 text-sm" for="done">تم</label>
         </div>
         <div class="flex items-center">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
             v-model="filters.status" id="rejected" :value="'3'" />
-          <label class="mt-1.5 ps-3 text-sm font-medium" for="rejected">مرفوض</label>
+          <label class="mt-1.5 ps-3 text-sm" for="rejected">مرفوض</label>
         </div>
       </div>
 </template>

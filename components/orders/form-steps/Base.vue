@@ -4,7 +4,7 @@
       <component :is="activeHeader.icon" class="w-6 h-6" />
     </div>
 
-    <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
+    <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="contact-types-heading">
       {{ activeHeader?.title }}
     </h1>
 
@@ -17,7 +17,7 @@
       </transition>
 
       <div class="pt-8 text-center text-sm xs:text-base" v-if="!first && !last">
-        <button class="font-medium text-blue-600" @click="previous()">
+        <button class="text-blue-600" @click="previous()">
           <span aria-hidden="true">→</span>
           العودة للخطوة السابقة
         </button>
@@ -100,7 +100,7 @@ const activeHeader = computed<{
     },
     "dream-details": {
       title: "إدخال تفاصيل الحلم",
-      description: "أختر أحد الطرق التالية لإدخال تفاصيل حلمك",
+      description: "نضمن لكم السرية الخاصة",
       icon: IdentificationIcon,
     },
     service: {

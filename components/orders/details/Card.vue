@@ -28,7 +28,7 @@
                     alt="" />
             </div>
             <div class="space-y-3">
-                <div class="ms-3 pt-1 text-sm font-medium">
+                <div class="ms-3 text-sm font-medium">
                     <div>{{ order?.seller?.first_name }}</div>
                     <div class="mt-1.5 flex items-center pb-2 text-yellow-400">
                         <svg

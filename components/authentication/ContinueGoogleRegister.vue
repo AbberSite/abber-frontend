@@ -5,7 +5,7 @@
         <h1 class="font-medium pt-5" v-show="!isFormPackage && !isFormSteps">إكمال تسجيل الدخول</h1>
         <div class="mx-auto w-full max-w-sm pt-5">
             <form method="POST" @submit.prevent="submit()">
-                <fieldset class="space-y-7">
+                <fieldset class="space-y-5">
 
                     <TextInput v-model="email" :error="errors.email" label="البريد الألكتروني"
                         placeholder="ادخل عنوان بريدك الألكتروني" disabled />

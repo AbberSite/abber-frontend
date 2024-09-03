@@ -7,7 +7,7 @@
         <HeroBackground />
 
         <section
-            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44"
+            class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44"
             aria-labelledby="wallet-heading" x-data="{ openFilterDropdown: false, activeTab: 1 }">
             <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                 <!-- Heroicon name: outline/wallet -->
@@ -18,7 +18,7 @@
                     </path>
                 </svg>
             </div>
-            <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="wallet-heading">المحفظة</h1>
+            <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="wallet-heading">المحفظة</h1>
             <div class="pt-4 text-sm text-gray-600 xs:text-base">تصفح جمبع بيانات محفظتك الالكترونية</div>
 
             <Tabs :tabs="[ {name: 'المخلص المالي', value: 'summary'}, {name: 'العمليات المالية', value: 'operations', count: counts.operations, showCounter: true }, {name: 'كشف الحساب', value: 'statement', count: counts.operations,  showCounter: true  }, {name: 'البطاقات الإئتمانية', value: 'cards', count: counts.cards,  showCounter: true  }, {name: 'طلبات السحب', value: 'withdrawalRequests', count: counts.requests,  showCounter: true } ]" v-model="activeTab" class="pt-16" />

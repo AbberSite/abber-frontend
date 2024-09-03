@@ -52,7 +52,7 @@
                         </template>
                         <template v-else>
                             <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
-                                <fieldset class="space-y-7">
+                                <fieldset class="space-y-5">
 
                                     <MeetingCreateZoomAccount v-if="!zoomAccount?.active" />
                                     

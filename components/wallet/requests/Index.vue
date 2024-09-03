@@ -9,7 +9,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full pt-10">
+  <div class="w-full pt-8">
     <SkeletonsTable v-if="loading" />
     <Table v-else :requests="requests" />
     <Pagination class="pt-10" :results="(pagination as PaginationResponse<any>)" @change="fetchAll" per-page="9" />

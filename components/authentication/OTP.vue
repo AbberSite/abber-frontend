@@ -18,7 +18,7 @@
         <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"></path>
       </svg>
     </div>
-    <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">
+    <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">
       تسجيل الدخول
     </div>
       <div class="pt-4 text-sm text-gray-600 xs:text-base" v-if="usePIN">

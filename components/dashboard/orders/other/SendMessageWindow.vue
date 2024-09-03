@@ -1,7 +1,7 @@
 <template>
   <Modal @close="$emit('close')" title="إرسال رسالة">
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
-      <fieldset class="space-y-7">
+      <fieldset class="space-y-5">
         <div class="w-full space-y-3">
           <label class="block text-sm font-medium xs:text-base" >المرسل</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select"

@@ -18,7 +18,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
-          <div class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl">تم إعادة تعيين كلمة المرور</div>
+          <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">تم إعادة تعيين كلمة المرور</div>
           <div class="pt-4 text-center text-sm text-gray-600 xs:text-base">
             <p>لقد تم إعادة تعيين كلمة المرور الخاصة بك بنجاح.</p>
             <div>انقر أدناه لتسجيل الدخول</div>

@@ -8,7 +8,7 @@
       <AuthenticationHeading v-if="!props.isFormSteps"/>
       <div class="mx-auto w-full max-w-sm pt-10">
         <form @submit.prevent="submit">
-          <fieldset class="space-y-7">
+          <fieldset class="space-y-5">
 
             <TextInput name="email" type="email" v-model="email" :error="errors.email" label="البريد الألكتروني"
               placeholder="ادخل عنوان بريدك الإلكتروني" />
@@ -59,7 +59,7 @@
 
         <div class="space-x-1 pt-8 text-center text-sm rtl:space-x-reverse xs:text-base" v-if="!isFormSteps">
           <span>ليس لديك حساب؟</span>
-          <NuxtLink class="font-medium text-blue-600" :to="{ name: 'accounts-signup' }">سجل الان</NuxtLink>
+          <NuxtLink class="text-blue-600" :to="{ name: 'accounts-signup' }">سجل الان</NuxtLink>
         </div>
       </div>
     </section>

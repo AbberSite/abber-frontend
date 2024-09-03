@@ -2,7 +2,7 @@
   <main class="min-h-screen outline-none">
     <HeroBackground />
 
-    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-20 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="settings-heading">
+    <section class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44" aria-labelledby="settings-heading">
       <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
         <!-- Heroicon name: outline/cog-6-tooth -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
@@ -14,7 +14,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
         </svg>
       </div>
-      <h1 class="pt-8 text-lg font-medium xs:text-xl 2xl:text-2xl" id="settings-heading">إدارة الخدمة</h1>
+      <h1 class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" id="settings-heading">إدارة الخدمة</h1>
       <div class="pt-4 text-sm text-gray-600 xs:text-base">قم بإدراة خدمة تعبير الأحلام الخاصة بك</div>
 
       <TabGroup as="template">
@@ -42,7 +42,7 @@
           <TabPanel as="div" class="w-full">
             <ProfileServiceDiscounts />
           </TabPanel>
-          <TabPanel as="div" class="w-full pt-10">
+          <TabPanel as="div" class="w-full pt-8">
             <ProfileServiceCoupons />
           </TabPanel>
         </TabPanels>
