@@ -23,7 +23,6 @@
       </div>
     </div>
   </section>
-
 </template>
 
 <script setup lang="ts">
@@ -50,13 +49,14 @@ async function send() {
       method: "POST",
 
       body: {
-        no_otp:(window.localStorage.getItem('setPIN')=="1"),
+        not_otp:true,
         phone: phone.value,
       },
     })) as {
       data: Ref<{
         phone?: string;
         registered?: boolean;
+        pin?: boolean;
         message?: string;
         status?: string;
       }>;
@@ -70,6 +70,17 @@ async function send() {
       }
       loading.value = false;
       return;
+    }
+    if (data.value.pin === true) {
+      window.localStorage.setItem("setPIN", "1");
+    } else {
+      window.localStorage.setItem("setPIN", "0");
+      await useApi("/api/auth/whatsapp/send?sender=sms", {
+        method: "POST",
+        body: {
+          phone: phone.value,
+        },
+      });
     }
 
     const { currentPhone } = storeToRefs(useAuthStore());
