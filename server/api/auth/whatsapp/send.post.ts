@@ -21,12 +21,7 @@ export default defineEventHandler(async (event) => {
                 },
             },
         );
-        return {
-            "phone": response.data.phone,
-            "registered": response.data.registered,
-            "message": response.data.message,
-            "status": response.data.status
-          }
+        return response.data
 
     } catch ( error : any ) {
 
