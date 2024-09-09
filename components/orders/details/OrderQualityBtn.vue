@@ -19,7 +19,7 @@ const confirmOrderQuality = async ()=>{
         well_provided: true
       }
     });
-    window.location.href = '/orders/dashboard/orders/?status=in_progres';
+    window.close()
   }catch(e){}
 }
 </script>
