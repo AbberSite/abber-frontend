@@ -70,13 +70,19 @@
               </svg>
             </div>
           </div>
-          <div class="py-6 font-medium xs:text-lg">المعبر</div>
-          <div class="flex">
-            <div class="flex-shrink-0"><img class="lazyload h-11 w-11 rounded-full bg-gray-100" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="order?.seller?.image" height="44" width="44" alt="" /></div>
-            <div class="flex mr-2 items-center">
-              <h1 class="font-medium text-sm">{{ order.seller?.first_name }}</h1>
+
+          <div class="flex items-center justify-between py-4">
+            <div class="font-medium text-gray-500">تحويل الطلب</div>
+            <div class="font-medium">
+              <svg v-if="order?.content?.transfer_order" class="text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <svg v-else class="text-red-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
             </div>
           </div>
+
           <div class="py-6 font-medium xs:text-lg">العميل</div>
           <div class="flex">
             <div class="flex-shrink-0"><img class="lazyload h-11 w-11 rounded-full bg-gray-100" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="order?.buyer?.image" height="44" width="44" alt="" /></div>
@@ -143,6 +149,13 @@
           <div class="flex items-center justify-between py-4">
             <div class="font-medium text-gray-500">أرباح المعبر</div>
             <div class="font-medium">{{ order.order_item_financial_data?.expressor_profits }} ر.س</div>
+          </div>
+          <div class="py-6 font-medium xs:text-lg">المعبر</div>
+          <div class="flex">
+            <div class="flex-shrink-0"><img class="lazyload h-11 w-11 rounded-full bg-gray-100" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="order?.seller?.image" height="44" width="44" alt="" /></div>
+            <div class="flex mr-2 items-center">
+              <h1 class="font-medium text-sm">{{ order.seller?.first_name }}</h1>
+            </div>
           </div>
         </div>
       </template>

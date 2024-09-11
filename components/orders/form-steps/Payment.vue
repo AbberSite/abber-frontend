@@ -45,7 +45,7 @@
         aria-orientation="horizontal">
         <template v-if="!deposit && !addCard">
           <div class="flex flex-col gap-2">
-            <div class="flex items-center gap-2">
+            <div v-if="isApple && isSafari" class="flex items-center gap-2">
               <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
                 id="all" value="APPLEPAY" v-model="paymentMethod" />
               <label class="mt-1.5 ps-3 text-sm font-medium" for="all">الدفع عن طريق Apple Pay</label>
@@ -244,6 +244,7 @@ const membership = (await useApi(`/api/packages/orders-packages/membership/`, {
 })) as PaginationResponse<any>;
 const activeMembership = ref(
   membership.count > 0 &&
+  membership.results[0].active &&
   membership.results[0].num_orders >=
   state.value.data?.selectedServices.length + 1
 );
