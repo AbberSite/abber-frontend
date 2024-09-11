@@ -244,6 +244,7 @@ const membership = (await useApi(`/api/packages/orders-packages/membership/`, {
 })) as PaginationResponse<any>;
 const activeMembership = ref(
   membership.count > 0 &&
+  membership.results[0].active &&
   membership.results[0].num_orders >=
   state.value.data?.selectedServices.length + 1
 );
