@@ -54,6 +54,15 @@
                     <label class="mt-1.5 ps-3 text-sm" for="text">محادثة نصية</label>
                 </div>
             </div>
+            <h3 class="text-sm font-medium mt-4">الجودة</h3>
+
+            <div class="space-y-3 pt-4">
+                <div class="flex items-center">
+                    <DashboardInputsTrueFalseNullCheckbox v-model="filters.quality" class="h-5 w-5 flex-shrink-0 " id="quality" />
+                    <label class="mt-1.5 ps-3 text-sm" for="quality">تم التقديم بنجاح</label>
+                </div>
+                
+            </div>
         </div>
     </div>
 </template>

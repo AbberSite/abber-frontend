@@ -9,7 +9,9 @@ class dashboardOrders extends BaseStore {
       ()=> this.getStatusFilterQuery(),
       ()=> this.getDateFilter(),
       ()=> this.search(),
-      ()=> this.ordering()],
+        () => this.ordering(),
+        () => this.quality(),
+    ],
       "/orders/dashboard-orders/"
     )
   }
@@ -45,6 +47,15 @@ class dashboardOrders extends BaseStore {
 
     return {
       status__in: status,
+    };
+  };
+
+
+  quality = () => {
+    if (!this) return {};
+    
+    return {
+      well_provided: this.filters.value.quality,
     };
   };
 
