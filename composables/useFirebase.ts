@@ -49,14 +49,14 @@ export const useFirebase = () => {
   }
 
   function isTokenSentToServer() {
-    return window.localStorage.getItem('abber:sentToServer') === '1';
+    return window.localStorage.getItem('abber:sentToServer1') === '1';
   }
 
   function setTokenSentToServer(sent) {
     if (sent) {
-      window.localStorage.setItem('abber:sentToServer', '1');
+      window.localStorage.setItem('abber:sentToServer1', '1');
     } else {
-      window.localStorage.setItem('abber:sentToServer', '0');
+      window.localStorage.setItem('abber:sentToServer1', '0');
     }
   }
 
@@ -138,7 +138,12 @@ export const useFirebase = () => {
   // Checks if all required APIs exist in the browser.
   // const isSupported = () => 'Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window
 
-  if (isSupported()) requestPermission();
+  try{
+    requestPermission();
+
+  }catch(e){
+    console.log(e)
+  }
 
   return ref()
 }
