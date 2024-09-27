@@ -38,12 +38,7 @@ const signalData = ref<{ offer?: RTCSessionDescriptionInit; answer?: RTCSessionD
 const { rawToken } = useAuthState();
 const { data } = useAuth();
 
-const configuration: RTCConfiguration = {
-  iceServers: [
-    { urls: "stun:stun2.l.google.com:19302" },
-    { urls: "turn:turn.anyfirewall.com:443?transport=tcp", credential: "webrtc", username: "webrtc" }
-  ],
-};
+const configuration: RTCConfiguration = { iceServers: [{ urls: "stun:stun2.l.google.com:19302" }] };
 
 const openMediaDevices = async (constraints: MediaStreamConstraints): Promise<MediaStream> => {
   return await navigator.mediaDevices.getUserMedia(constraints);
@@ -164,8 +159,6 @@ watch(signalingChannel.data, async (value: any) => {
 
   try {
     if (!(parsedData.username === data.value.username)) {
-      console.log("Message from remote client: ", parsedData);
-
       if (parsedData.event == "answer") {
         const remoteDesc = new RTCSessionDescription(parsedData.data);
         await peerConnection?.setRemoteDescription(remoteDesc);
@@ -175,8 +168,9 @@ watch(signalingChannel.data, async (value: any) => {
       }
       // Listen for remote ICE candidates and add them to the local RTCPeerConnection
       else if (parsedData.event == "ice") {
+        console.log("Message from remote client: ", parsedData);
         try {
-          await peerConnection?.addIceCandidate(parsedData.data);
+          await peerConnection.addIceCandidate(parsedData.data);
         } catch (e) {
           console.error("Error adding received ice candidate", e);
         }
