@@ -49,7 +49,7 @@ async function send() {
       method: "POST",
 
       body: {
-        not_otp:true,
+        no_otp: true,
         phone: phone.value,
       },
     })) as {
@@ -71,7 +71,7 @@ async function send() {
       loading.value = false;
       return;
     }
-    if (data.value.pin === true) {
+    if (data.value.pin == true) {
       window.localStorage.setItem("setPIN", "1");
     } else {
       window.localStorage.setItem("setPIN", "0");
