@@ -28,7 +28,7 @@
             name="type" value="text_communication" />
         </label>
         <label @click.once="submit('video_communication')"
-          class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
+          class="hidden cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
           :class="voiceCommunicationButtonClasses">
           <div class="flex pt-1.5">
             <span class="flex-shrink-0">
