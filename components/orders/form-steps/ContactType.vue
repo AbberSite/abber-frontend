@@ -28,7 +28,7 @@
             name="type" value="text_communication" />
         </label>
         <label @click.once="submit('video_communication')"
-          class="hidden cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
+          class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
           :class="voiceCommunicationButtonClasses">
           <div class="flex pt-1.5">
             <span class="flex-shrink-0">
@@ -87,6 +87,9 @@ onMounted(async () => {
 });
 
 const voiceCommunicationButtonClasses = computed(() => {
+    if (useRuntimeConfig().public.production){
+    return 'hidden';
+  }
   if (videoServicesPagination?.value?.count == 0)
     return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
   if (selectedOption.value == 'video_communication') return 'border-gray-900 ring-1 ring-gray-900';
