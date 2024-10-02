@@ -9,14 +9,14 @@
         <section
             class="relative flex min-h-screen w-full flex-col items-center px-4 pb-36 pt-20 xs:px-6 md:pt-32 lg:px-8 xl:pb-44"
             aria-labelledby="contact-types-heading">
-            <template v-if="loading || paid">
+            <template v-if="loading || paid  || freeOrder">
                 <div class="w-full flex justify-center items-center h-full"><Loading /></div>
             </template>
 
             <template v-else>
                 
 
-                <template v-if="!paid && !isActive && !balance">
+                <template v-if="!paid && !isActive && !balance && !freeOrder">
                     <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
                         <XCircleIcon class="w-6 h-6" />
                     </div>
@@ -63,6 +63,7 @@
 
 <script setup lang="ts">
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline';
+import { useTimeoutPoll } from '@vueuse/core';
 import type { OrderForm } from '~/types';
 
 const route = useRoute();
@@ -72,6 +73,8 @@ let transaction_id: string;
 
 let data;
 const balance = route.query.balance;
+const freeOrder = route.query.freeOrder;
+const order_id = route.query.order_id;
 
 const paid = ref(true);
 const loading = ref(true);
@@ -83,7 +86,7 @@ onMounted(async () => {
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
 
     await getStatus();
-    if(balance && transaction_id){
+    if((balance || freeOrder) && transaction_id){
         localStorage.removeItem('abber:current-transaction-id');
         router.push(`/orders/video/${data.order_id}`)
     }
@@ -95,12 +98,21 @@ async function getStatus() {
     const service_id = data.service_id;
 
     transaction_id = localStorage.getItem('abber:current-transaction-id') as string;
-
+if (freeOrder) {
+    data.order_id = order_id as string;
+  }
     if (!transaction_id) {
         router.push('/orders/make');
         return;
     }
-
+    else if ((balance || freeOrder) && data?.dream != undefined) {
+    localStorage.removeItem("abber:current-transaction-id");
+    loading.value = false;
+    console.log(order_id);
+    (data as any).clear();
+    return;
+  }
+  
     const { hasPaid, message } = await isPaid();
 
     if (!hasPaid) {
