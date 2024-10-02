@@ -73,7 +73,7 @@ const videoCameras = await getConnectedDevices("videoinput");
 // Listen for changes to media devices and update the list accordingly
 navigator.mediaDevices.addEventListener("devicechange", async () => {
   const newCameraList = await getConnectedDevices("videoinput");
-  updateCameraList(newCameraList);
+  // updateCameraList(newCameraList);
 });
 
 ///////////////////////////////   Open media devices   ///////////////////////////////

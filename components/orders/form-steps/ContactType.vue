@@ -87,6 +87,9 @@ onMounted(async () => {
 });
 
 const voiceCommunicationButtonClasses = computed(() => {
+    if (useRuntimeConfig().public.production){
+    return 'hidden';
+  }
   if (videoServicesPagination?.value?.count == 0)
     return 'cursor-not-allowed bg-gray-100 text-black pointer-events-none';
   if (selectedOption.value == 'video_communication') return 'border-gray-900 ring-1 ring-gray-900';

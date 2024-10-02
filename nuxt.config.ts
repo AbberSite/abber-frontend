@@ -44,6 +44,7 @@ export default defineNuxtConfig({
       zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
       paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`,
+production: production,
     },
   },
 
