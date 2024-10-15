@@ -47,7 +47,7 @@
             </div>
           </div>
         </template>
-
+<!-- 
         <template v-else-if="!paid && !isActive && !balance && !freeOrder">
           <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
             <XCircleIcon class="w-6 h-6" />
@@ -73,9 +73,9 @@
               </div>
             </div>
           </div>
-        </template>
+        </template> -->
 
-        <template v-else-if="!paid && isActive">
+        <template v-else-if="!paid ">
           <div class="rounded-md border border-gray-300 px-3 py-3 shadow-sm">
             <Loading class="w-6 h-6" />
           </div>
@@ -106,7 +106,7 @@ let transaction_id: string;
 
 let data;
 
-const paid = ref(true);
+const paid = ref(false);
 const loading = ref(true);
 const error = ref("");
 const { isActive, pause, resume } = useTimeoutPoll(getStatus, 2000);
@@ -134,50 +134,65 @@ async function getStatus() {
   const service_id = data.service_id;
   let another_service = data.selectedServices.map((service) => service).join(",");
 
-  if (!transaction_id) {
-    router.push("/orders/make");
-    return;
-  }
+  // if (!transaction_id) {
+  //   router.push("/orders/make");
+  //   return;
+  // }
+//  const status = await useWebSocket(
+//       useRuntimeConfig().public.WebsocketURL +
+//       `/ws/order-status/${orderId}/` +
+//       `?authorization=JWT ${rawToken.value}`,
+//       {
+//         autoReconnect: true
+//       }
+//     );
 
-  const { hasPaid, message } = await isPaid();
+//     watch(status.data, () => {
+//       this.getOrder(orderId);
+//     });
+  setTimeout(() => {
+    router.push("/orders");
+  }, 10000);
 
-  if (!hasPaid) {
-    loading.value = false;
-    paid.value = false;
+  // const { hasPaid, message } = await isPaid();
 
-    if (message == "transaction pending") {
-      if (!isActive.value) {
-        resume();
-      }
-      return;
-    }
-    if (isActive.value) pause();
-    error.value = message;
-    localStorage.removeItem("abber:current-transaction-id");
+  // if (!hasPaid) {
+  //   loading.value = false;
+  //   paid.value = false;
 
-    return;
-  }
+  //   if (message == "transaction pending") {
+  //     if (!isActive.value) {
+  //       resume();
+  //     }
+  //     return;
+  //   }
+  //   if (isActive.value) pause();
+  //   error.value = message;
+  //   localStorage.removeItem("abber:current-transaction-id");
 
-  if (isActive) pause();
+  //   return;
+  // }
 
-  const result = await useApi(`/api/orders/${service_id}/buy`, {
-    method: "POST",
-    body: {
-      type: data.type,
-      another_service: another_service,
-      brand: "VISA",
-    },
-  });
+  // if (isActive) pause();
 
-  if (!result.paid) {
-    paid.value = false;
-    loading.value = false;
+  // const result = await useApi(`/api/orders/${service_id}/buy`, {
+  //   method: "POST",
+  //   body: {
+  //     type: data.type,
+  //     another_service: another_service,
+  //     brand: "VISA",
+  //   },
+  // });
 
-    error.value = message;
-    localStorage.removeItem("abber:current-transaction-id");
+  // if (!result.paid) {
+  //   paid.value = false;
+  //   loading.value = false;
 
-    return;
-  }
+  //   error.value = message;
+  //   localStorage.removeItem("abber:current-transaction-id");
+
+  //   return;
+  // }
 
   localStorage.removeItem("abber:current-transaction-id");
 
