@@ -29,6 +29,11 @@
       role="menuitem" tabindex="-1">إلغاء الطلب</button>
 
 
+    <button v-if="isBuyer && order?.status === 'complete'"
+      class="block px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50" @click="$emit('delete-order')"
+      type="button" role="menuitem" tabindex="-1">
+حذف الطلب
+    </button>
   </div>
 </template>
 
