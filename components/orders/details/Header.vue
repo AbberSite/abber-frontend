@@ -17,7 +17,7 @@
         </button>
 
         <transition enter-active-class="transition-all" leave-active-class="transition-all" enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0">
-          <DetailsOptionsDropdown @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="showConfirmCompleteCancelOrder = true" v-if="showDropdown" v-on-click-outside="() => (showDropdown = false)" :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
+          <DetailsOptionsDropdown @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="showConfirmCompleteCancelOrder = true" @delete-order="showConfirmDeleteOrder = true" v-if="showDropdown" v-on-click-outside="() => (showDropdown = false)" :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
         </transition>
       </div>
     </div>
@@ -35,7 +35,7 @@
     @close="showConfirmComplete = false"
     :cancel-order="false"
   />
-  <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false" @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="showConfirmCompleteCancelOrder = true" :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
+  <DetailsOrderOptionsModal :show="showMobileModal" @close="showMobileModal = false" @show-review="showReviewModal = true" @inquiry="showInquiryModal = true" @cancel-order="showConfirmCompleteCancelOrder = true" @delete-order="showConfirmDeleteOrder = true" :order="order" :is-buyer="isBuyer" :is-seller="isSeller" />
 
   <DetailsMobileOptions v-if="showNavigation" @open-modal="showMobileModal = true">
     <DetailsCompleteButton v-if="isBuyer || isSeller" class="h-[50px] w-full" :order="order" :is-seller="isSeller" :is-buyer="isBuyer" @showIt="showConfirmComplete = true" />
@@ -58,6 +58,7 @@
     "
     @close="showConfirmCompleteCancelOrder = false"
   />
+  <ConfirmDialog v-if="showConfirmDeleteOrder" :show="showConfirmDeleteOrder" :title="`هل انت متاكد من حذف الطلب؟`" descritpion="هل انت متاكد من قرارك؟" @close="showConfirmDeleteOrder = false" @continue="deleteOrder()" />
 </template>
 
 <script setup lang="ts">
@@ -78,9 +79,11 @@ const showReviewModal = ref(false);
 const showInquiryModal = ref(false);
 const showConfirmComplete = ref(false);
 const showConfirmCompleteCancelOrder = ref(false);
+const showConfirmDeleteOrder = ref(false);
 const isSeller = ref(false);
 const isBuyer = ref(false);
 const isStaff = ref(false);
+const router = useRouter();
 
 const isBuyerOrSeller = () => {
   isSeller.value = user.value.username === order.value?.seller?.username;
@@ -99,6 +102,17 @@ bus.on((event) => {
 async function cancelOrder() {
   await updateOrderStatus(order.value?.id, "cancelled");
   useNotification({ content: isBuyer.value ? "تم طلب إلغاء الطلب" : "تم إلغاء الطلب", type: "success" });
+}
+
+async function deleteOrder() {
+  showConfirmDeleteOrder.value = false;
+  await useDirectApi(`/orders/my-orders/${order.value?.id}/`, {
+    method: "DELETE",
+  });
+  useNotification({ content: "تم حذف الطلب", type: "success" });
+  setTimeout(() => {
+    router.push("/orders");
+  }, 1000);
 }
 </script>
 
