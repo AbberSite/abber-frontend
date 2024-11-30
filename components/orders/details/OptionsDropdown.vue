@@ -25,10 +25,15 @@
 
     <button
       v-if="(['in_progress', 'new'].includes(order?.status) && props.isBuyer) || (order?.status === 'waiting_for_cancellation' && props.isSeller)"
-      class="block px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50" @click="$emit('cancel-order')"
+      class="block w-full text-right px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50" @click="$emit('cancel-order')"
       role="menuitem" tabindex="-1">إلغاء الطلب</button>
 
 
+    <button v-if="isBuyer && order?.status === 'complete'"
+      class="block w-full text-right px-4 pb-1.5 pt-3 text-sm font-medium text-red-600 hover:bg-gray-50" @click="$emit('delete-order')"
+      type="button" role="menuitem" tabindex="-1">
+حذف الطلب
+    </button>
   </div>
 </template>
 

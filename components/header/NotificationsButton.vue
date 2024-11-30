@@ -38,7 +38,11 @@ onMounted(async() => {
 watch(readNotifications, async(value)=> {
     if(value){
         let audio = new Audio('/sounds/notification.wav');
-        await audio.play();
+        try{
+            await audio.play();
+        }catch(e){
+            console.log(e);
+        }    
     }
 });
 </script>

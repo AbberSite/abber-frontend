@@ -84,6 +84,19 @@
               </div>
               <span class="ms-6 font-medium">إلغاء الطلب</span>
             </button>
+              <button
+              v-if="(order?.status === 'complete' && props.isBuyer)"
+              class="group -mx-3 flex w-full items-center rounded-lg p-3 hover:bg-gray-50" type="button"
+              @click="$emit('delete-order')">
+              <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                <!-- Heroicon name: outline/home -->
+                <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </div>
+              <span class="ms-6 font-medium">حذف الطلب</span>
+            </button>
           </nav>
         </div>
       </TransitionChild>
