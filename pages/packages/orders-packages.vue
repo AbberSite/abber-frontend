@@ -3,6 +3,9 @@
   <Head>
     <Title>عبر - الباقات</Title>
   </Head>
+    <main class="min-h-screen outline-none">
+    <HeroBackground />
+
   <section
     class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-36 pt-16 xs:px-6 lg:px-8 xl:pb-44"
     aria-labelledby="prices-heading"
@@ -35,6 +38,7 @@
       </transition>
     </div>
   </section>
+  </main>
 </template>
 
 <script lang="ts" setup>
