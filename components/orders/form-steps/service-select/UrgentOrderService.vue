@@ -16,8 +16,8 @@
         <div class="ms-3 text-sm font-medium">
           <div>تعبير مستعجل</div>
         </div>
-        <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">سنختار لك معبرا متاح حاليا لتعبير حلمك.
-        </div>
+        <div class="ms-3 text-justify text-[13px] leading-loose text-gray-700">سنختار لك معبرا متاح حاليا لتعبير حلمك.</div>
+        <div class="ms-3 space-x-2 text-sm font-medium leading-loose rtl:space-x-reverse"><span>سعر الخدمة:</span><span>{{ settings?.financial_settings?.default_order_price }} ر.س. </span></div>
       </div>
     </div>
     <input class="h-5 w-5 flex-shrink-0 appearance-none rounded-full" id="abdullah" type="radio" v-model="selected"
@@ -34,6 +34,7 @@ const props = defineProps<{
 const selected = ref(props.modelValue);
 
 watch(selected, value => emits("update:modelValue", value))
+const { settings } = storeToRefs(useSettingsStore());
 </script>
 
 <style>
