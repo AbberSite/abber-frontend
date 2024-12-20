@@ -1,7 +1,7 @@
 <template>
     <tr class="cursor-pointer" @click.once="order.content?.urgent && (order.service_details == null) && (order.buyer.username != data.username) ? showDialog = true : navigateTo(`/orders/${order.type == 'text_communication' ? order.id : `video/${order.id}`}/`)">
         <td class="whitespace-nowrap py-5 pe-12">
-            <NuxtLink @click.once="navigateTo({ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } })" title="عرض الطلب" class="text-blue-600">#{{ order.id }}</NuxtLink>
+            <NuxtLink @click.once="(order?.seller?.username   == data.username || order.buyer.username == data.username) ?? navigateTo({ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } })" title="عرض الطلب" class="text-blue-600">#{{ order.id }}</NuxtLink>
         </td>
         <td class="whitespace-nowrap py-5 pe-12" v-if="data.user_type != 'معبر'">
             {{ order.seller?.first_name ?? 'لا يوجد' }}
@@ -22,7 +22,7 @@
             {{ useFormattedDate(order.order_item_time_data.ordered_date) }}
         </td>
         <td class="flex items-center justify-center px-4 pb-4 pt-5">
-            <NuxtLink  @click.once="navigateTo({ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } })" title="عرض الطلب">
+            <NuxtLink  @click.once="(order?.seller?.username   == data.username || order.buyer.username == data.username) ?? navigateTo({ name:  order.type == 'text_communication' ? 'orders-id' : 'orders-video-id' , params: { id: order.id } })" title="عرض الطلب">
                 <svg
                     class="flex-shrink-0"
                     xmlns="http://www.w3.org/2000/svg"
