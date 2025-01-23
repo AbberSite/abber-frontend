@@ -7,8 +7,6 @@ export const useCustomHeaders = (headers: any) => {
   delete headers['connection'];
   delete headers['accept-encoding'];
 
-  console.log('headers1', headers);
-
   return {
     'api-key': config.apiSecret,
     'Authorization': headers.authorization,
