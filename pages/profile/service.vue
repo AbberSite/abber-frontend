@@ -34,6 +34,11 @@
               الكوبونات
             </button>
           </Tab>
+          <Tab v-slot="{ selected }" as="template">
+            <button class="flex items-center space-x-3 whitespace-nowrap border-b-2 px-2 py-4 font-medium focus:outline-none rtl:space-x-reverse" type="button" role="tab" aria-labelledby="tabpanel-preview-1" aria-controls="tabpanel-preview-1" :class="[selected ? 'border-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900']">
+              ساعات العمل
+            </button>
+          </Tab>
         </TabList>
         <TabPanels as="div" class="w-full">
           <TabPanel as="div" class="w-full">
@@ -45,6 +50,9 @@
           <TabPanel as="div" class="w-full pt-8">
             <ProfileServiceCoupons />
           </TabPanel>
+           <TabPanel as="div" class="w-full pt-8">
+            <ProfileServiceWorkHour />
+          </TabPanel>
         </TabPanels>
       </TabGroup>
     </section>
@@ -53,6 +61,7 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import WorkHour from "~/components/profile/service/WorkHour.vue";
 </script>
 
 <style scoped></style>

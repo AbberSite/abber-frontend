@@ -44,33 +44,12 @@
       <div class="flex flex-col space-y-3 items-center p-1 rtl:space-x-reverse sm:max-w-sm" id="payment-scrolling"
         aria-orientation="horizontal">
         <template v-if="!deposit && !addCard">
-          <div class="flex flex-col gap-2">
-            <div v-if="isApple && isSafari" class="flex items-center gap-2">
-              <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
-                id="all" value="APPLEPAY" v-model="paymentMethod" />
-              <label class="mt-1.5 ps-3 text-sm font-medium" for="all">الدفع عن طريق Apple Pay</label>
-              <img src="/images/payments/section/apple-pay.svg" alt="apple pay" width="24" height="24" />
-            </div>
-            <div class="flex items-center gap-2">
-              <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
-                id="all" value="CARD" v-model="paymentMethod" />
-              <label class="mt-1.5 ps-3 text-sm font-medium" for="all">البطاقات الإئتمانية</label>
-              <img src="/images/payments/section/cards.png" alt="apple pay" width="100" />
-            </div>
-            <div class="flex items-center gap-2">
-              <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
-                id="all" value="STC_PAY" v-model="paymentMethod" />
-              <label class="mt-1.5 ps-3 text-sm font-medium" for="all"> الدفع بـ</label>
-              <img src="/images/payments/section/stc_pay.webp" alt="apple pay" width="40" />
-            </div>
-            <div class="flex items-center gap-2">
-              <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
-                id="all" value="BALANCE" v-model="paymentMethod" />
-              <label class="mt-1.5 ps-3 text-sm font-medium" for="all">الدفع بالـمحفظة</label>
-              <img src="/images/payments/section/wallet.svg" alt="apple pay" width="20" />
-            </div>
-
-          </div>
+        <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
+          <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26" height="26" :multi="true" />
+          <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
+          <FormStepsCardComponent title="سامسونج باي" logo="/images/payments/section/wallet.svg" id-of-card="SAMSUNGPAY" v-model="paymentMethod" width="24" height="24" />
+          <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE" v-model="paymentMethod" width="24" height="24" />
+       
         </template>
         <template v-else>
           <FormStepsCardComponent title="ماستركارد" logo="/images/payments/section/mastercard.svg" id-of-card="MASTER"
@@ -946,6 +925,10 @@ watch(supplement, async (data) => {
 .wpwl-apple-pay-button img {
   filter: invert();
   width: 2.5rem;
+}
+input[type="checkbox"], input[type="radio"] {
+    border-color: #cccccc;
+    border-width: .1px;
 }
 </style>
 
