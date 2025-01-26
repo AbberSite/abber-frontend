@@ -7,7 +7,13 @@ export const useCustomHeaders = (headers: any) => {
   delete headers['connection'];
   delete headers['accept-encoding'];
 
-  console.log('headers1', headers);
+  // Remove 'csrftoken' from cookies if present
+  if (headers.cookie) {
+    headers.cookie = headers.cookie
+      .split(';')
+      .filter((cookie: string) => !cookie.trim().startsWith('csrftoken='))
+      .join(';');
+  }
 
   return {
     'api-key': config.apiSecret,
