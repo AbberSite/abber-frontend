@@ -10,10 +10,11 @@ export const useCustomHeaders = (headers: any) => {
   if (headers.cookie) {
     headers.cookie = headers.cookie
       .split(';')
-      .filter((cookie: string) => !cookie.trim().startsWith('csrftoken='))
+      .filter((cookie: string) => !cookie.trim().startsWith('csrftoken=') && !cookie.trim().startsWith('sessionid='))
       .join(';');
-
   }
+
+  
   delete headers['X-CSRFToken']; 
   return {
     'api-key': config.apiSecret,
