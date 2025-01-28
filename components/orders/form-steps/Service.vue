@@ -17,7 +17,7 @@
             <template v-if="state.data?.type == 'text_communication'">
               <FormStepsServiceSelectUrgentOrderService @click.once="submit(0)" v-model="selectedService" />
               <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices.filter((service) => service?.work_hour?.is_available_now)" v-model="selectedService" @click.once="submit(service.id, service.service_prices.text_price)" :service="service" :type="1" />
-              <span class="text-center text-sm py-0.5 inline-block w-full"> قد يتأخر المعبر في الرد </span>
+              <span class="text-center text-sm py-0.5 inline-block w-full" v-if="textCommunicationServices.filter((service) => !service?.work_hour?.is_available_now).length > 0"> قد يتأخر المعبر في الرد </span>
               <FormStepsServiceSelectServiceRadioButton v-for="service in textCommunicationServices.filter((service) => !service?.work_hour?.is_available_now)" v-model="selectedService" @click.once="submit(service.id, service.service_prices.text_price)" :service="service" :type="1" />
             </template>
             <template v-else>
