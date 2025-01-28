@@ -93,7 +93,10 @@ export type Service = {
     price: number;
   }[];
   in_wishlist: boolean;
-  work_hours?: string;
+  work_hour?: {
+    is_available_now: boolean;
+    respond_time: string;
+  }
 };
 
 export type OrderForm = {
