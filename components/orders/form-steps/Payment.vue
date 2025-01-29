@@ -47,7 +47,6 @@
         <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
           <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26" height="26" :multi="true" />
           <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
-          <FormStepsCardComponent title="سامسونج باي" logo="/images/payments/section/wallet.svg" id-of-card="SAMSUNGPAY" v-model="paymentMethod" width="24" height="24" />
           <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE" v-model="paymentMethod" width="24" height="24" />
        
         </template>
@@ -224,10 +223,10 @@ const membership = (await useApi(`/api/packages/orders-packages/membership/`, {
 const activeMembership = ref(
   membership.count > 0 &&
   membership.results[0].active &&
-  membership.results[0].num_orders >=
-  state.value.data?.selectedServices.length + 1
+  membership.results[0].num_orders >= 1
+  && state.value.data?.service_id === 0
 );
-
+console.log( state.value.data?.selectedServices)
 await useScript(
   "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 );
