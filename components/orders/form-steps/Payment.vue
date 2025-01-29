@@ -47,7 +47,6 @@
         <FormStepsCardComponent v-if="isApple" title="أبل باي" logo="/images/payments/section/apple-pay.svg" id-of-card="APPLEPAY" v-model="paymentMethod" width="24" height="24" />
           <FormStepsCardComponent title="البطاقات الائتمانية" id-of-card="CARD" v-model="paymentMethod" width="26" height="26" :multi="true" />
           <FormStepsCardComponent title="اس تي س باي" logo="/images/payments/section/stc_pay.webp" id-of-card="STC_PAY" v-model="paymentMethod" width="40" height="40" />
-          <FormStepsCardComponent title="سامسونج باي" logo="/images/payments/section/wallet.svg" id-of-card="SAMSUNGPAY" v-model="paymentMethod" width="24" height="24" />
           <FormStepsCardComponent title="المحفظة" logo="/images/payments/section/wallet.svg" id-of-card="BALANCE" v-model="paymentMethod" width="24" height="24" />
        
         </template>
