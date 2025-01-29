@@ -223,10 +223,10 @@ const membership = (await useApi(`/api/packages/orders-packages/membership/`, {
 const activeMembership = ref(
   membership.count > 0 &&
   membership.results[0].active &&
-  membership.results[0].num_orders >=
-  state.value.data?.selectedServices.length + 1
+  membership.results[0].num_orders >= 1
+  && state.value.data?.service_id === 0
 );
-
+console.log( state.value.data?.selectedServices)
 await useScript(
   "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 );
