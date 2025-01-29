@@ -7,17 +7,11 @@
           <label class="block text-sm font-medium xs:text-base" for="respond_time">وقت الاستجابة المتوقع</label>
           <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="workHours.respond_time" required>
             <option value="">اختر</option>
-            <option value="less_than_hour">أقل من ساعة</option>
+            <option value="less_than_half_hour">أقل من نصف ساعة</option>
             <option value="1_hour">ساعة واحدة</option>
             <option value="2_hours">ساعتان</option>
             <option value="3_hours">3 ساعات</option>
             <option value="4_hours">4 ساعات</option>
-            <option value="5_hours">5 ساعات</option>
-            <option value="6_hours">6 ساعات</option>
-            <option value="7_hours">7 ساعات</option>
-            <option value="8_hours">8 ساعات</option>
-            <option value="day">يوم</option>
-            <option value="more_than_day">أكثر من يوم</option>
           </select>
         </div>
         <div class="w-full space-y-3">
