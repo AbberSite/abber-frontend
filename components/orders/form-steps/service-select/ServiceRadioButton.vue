@@ -37,7 +37,7 @@
         </div>
         <div class="ms-3 space-x-2 text-sm rtl:space-x-reverse">
           <span>مدة الاستجابة:</span>
-          <span>{{ service?.work_hour?.respond_time }}</span>
+          <span>{{ $t(service?.work_hour?.respond_time) }}</span>
         </div>
       </div>
     </div>
