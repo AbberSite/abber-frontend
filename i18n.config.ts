@@ -11,9 +11,9 @@ export default defineI18nConfig(() => ({
             debit: 'مدين',
             less_than_half_hour: 'أقل من نصف ساعة',
             '1_hour': 'ساعة واحدة',
-            '2_hours': 'ساعتان',
-            '3_hours': 'ثلاث ساعات',
-            '4_hours': 'أربع ساعات'
+            '2_hour': 'ساعتان',
+            '3_hour': 'ثلاث ساعات',
+            '4_hour': 'أربع ساعات'
         }
     }
 }));
