@@ -9,9 +9,9 @@
             <option value="">اختر</option>
             <option value="less_than_half_hour">أقل من نصف ساعة</option>
             <option value="1_hour">ساعة واحدة</option>
-            <option value="2_hours">ساعتان</option>
-            <option value="3_hours">3 ساعات</option>
-            <option value="4_hours">4 ساعات</option>
+            <option value="2_hour">ساعتان</option>
+            <option value="3_hour">3 ساعات</option>
+            <option value="4_hour">4 ساعات</option>
           </select>
         </div>
         <div class="w-full space-y-3">
