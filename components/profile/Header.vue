@@ -2,16 +2,16 @@
   <h1 class="sr-only" id="profile-heading">الملف الشخصي</h1>
   <div class="flex items-center justify-between">
     <div class="relative flex-shrink-0">
-      <img class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="data?.image_url" height="96" v-if="!tempAccount.image" width="96" alt="صورة المستخدم" />
+      <img class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="data?.image_url" height="96" v-if="!(tempAccount?.image)" width="96" alt="صورة المستخدم" />
 
-      <img class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover" v-if="tempAccount.image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="tempAccountImagePreview" height="96" width="96" alt="صورة المستخدم" />
+      <img class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover" v-if="tempAccount?.image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="tempAccountImagePreview" height="96" width="96" alt="صورة المستخدم" />
 
       <label v-if="edit" class="absolute bottom-[5px] start-[8px] cursor-pointer rounded-full border-4 border-[#f5f5f5] bg-[#f5f5f5] shadow-sm" for="id_image">
         <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"></path>
         </svg>
-        <input @input="tempAccount.image = ($event as any).target.files[0]" id="id_image" type="file" hidden />
+        <input v-if="tempAccount?.image " @input="tempAccount.image = ($event as any).target.files[0]" id="id_image" type="file" hidden />
       </label>
     </div>
     <div class="hidden items-center space-x-3 rtl:space-x-reverse sm:flex">
@@ -59,7 +59,7 @@
 
   <small class="block pt-2 font-medium sm:hidden" v-if="!edit">({{ data?.user_type }})</small>
 
-  <InputError v-for="message in errors.image" :message="message" />
+  <InputError v-for="message in errors?.image" :message="message" />
 
   <div v-if="edit" class="fixed bottom-0 z-20 flex w-full items-center space-x-3 border-t border-gray-100 bg-white px-4 xs:px-6 py-6 rtl:space-x-reverse sm:hidden">
     <PrimaryButton class="w-full" @click.prevent="submitUpdate" :loading="loading">حفظ التعديلات</PrimaryButton>
@@ -96,7 +96,7 @@ const edit = ref(false);
 const openModal = ref(false);
 const loading = ref(false);
 const route = useRoute();
-
+  
 const { update } = useAccountStore();
 const { tempAccount, tempAccountImagePreview, errors } = storeToRefs(useAccountStore());
 
@@ -135,6 +135,7 @@ watch(edit, (value) => emits("update:modelValue", value));
 definePageMeta({
   middleware: "auth",
 });
+
 </script>
 
 <style scoped></style>
