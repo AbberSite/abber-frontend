@@ -1,4 +1,4 @@
-import { type NitroFetchRequest } from 'nitropack';
+import type { NitroFetchRequest } from '#imports';
 
 export default async <T = unknown, R extends NitroFetchRequest = NitroFetchRequest>(
   request: Parameters<typeof $fetch<T, R>>[0],
