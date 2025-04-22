@@ -11,7 +11,7 @@
         <div>
             <Selector label="نوع العملية" :options="[
                     { value: '1', text: 'سحب' }, 
-                    { value: '2', text: 'إرحاع' }, 
+                    { value: '2', text: 'إرجاع' }, 
                     { value: '3', text: 'رسوم الخدمة' }, 
                     { value: '4', text: 'دفع الفاتورة' }, 
                     { value: '5', text: 'شحن الرصيد' },

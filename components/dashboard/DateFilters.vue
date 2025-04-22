@@ -1,5 +1,5 @@
 <template>
-    <DashboardDatePickerInput class="my-0" :title="title" v-model:model-date="range_date" range/>
+    <DashboardDatePickerInput class="my-0" :label="title" v-model:model-date="range_date" range/>
 </template>
 <script setup lang="ts">
 let filters = ref(null);
