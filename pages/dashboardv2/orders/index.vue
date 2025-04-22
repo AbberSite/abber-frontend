@@ -49,6 +49,7 @@ const headItems = {
   ordering_type: "نوع الطلب",
   status: "الحالة",
   "order_item_financial_data.price": "السعر",
+  "app_source": "المصدر",
   "order_item_time_data.ordered_date": "تاريخ الطلب",
 };
 onMounted(async () => {
