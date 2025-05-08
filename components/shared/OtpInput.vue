@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center justify-center space-x-11 rtl:flex-row-reverse">
         <input  ref="inputs" :type="isApple ?'text': 'number'" pattern="\d*" 
-            class="form-control h-[50px] appearance-none text-center" :autofocus="index === 0" maxlength="1"
+            class="form-control h-[50px] appearance-none text-center rounded-full" :autofocus="index === 0" maxlength="1"
             v-model="digits[index]" v-for="_, index in 4" :disabled="props.disabled"/>
     </div>
 </template>

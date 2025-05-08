@@ -2,7 +2,7 @@
   <!-- home OTP -->
   <section class="relative flex min-h-screen w-full flex-col items-center justify-center px-4 pb-14 xs:px-6" v-if="isHome" aria-labelledby="forget-password-heading">
     <h1 class="sr-only" id="forget-password-heading">تسجيل الدخول</h1>
-    <div class="rounded-md border border-gray-300 px-2 py-2 shadow-sm">
+    <!-- <div class="rounded-md border border-gray-300 px-2 py-2 shadow-sm">
       <svg v-if="sender === 'whatsapp'" class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 48 48">
         <path fill="#40c351" d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z"></path>
         <path
@@ -17,33 +17,37 @@
         <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"></path>
         <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"></path>
       </svg>
+    </div> -->
+    <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" v-if="usePIN">
+      أدخل رمز PIN
     </div>
-    <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl">
-      تسجيل الدخول
+    <div class="pt-6 text-lg font-medium xs:text-xl 2xl:text-2xl" v-else>
+      أدخل رمز المصادقة
     </div>
       <div class="pt-4 text-sm text-gray-600 xs:text-base" v-if="usePIN">
-       أدخل رمز الوصول السريع الخاص بك أو احصل علي رمز تحقق
+       أدخل رمز PIN للدخول إلى حسابك
     </div>
 
     <div class="pt-4 text-sm text-gray-600 xs:text-base" v-else-if="sender == 'whatsapp'">
-      أدخل رمز التحقق الذي تم إرساله الى حسابك في الواتساب
+      أدخل الرمز المرسل إلى الواتساب للرقم
     </div>
     <div class="pt-4 text-sm text-gray-600 xs:text-base" v-else>
-      أدخل رمز التحقق الذي تم إرساله الى رقمك على SMS
+      أدخل الرمز المرسل SMS للرقم
     </div>
-
-    <div class="flex justify-center items-center mt-[12px] w-full">
+    <span class="font-medium" dir="ltr" v-if="!usePIN">{{ sender != "whatsapp" ? currentPhone.substring(4) :currentPhone }}</span>
+    <!-- <div class="flex justify-center items-center mt-[12px] w-full">
       <span class="font-medium" dir="ltr">{{ currentPhone }}</span>
-    </div>
+    </div> -->
 
     <div class="mx-auto w-full max-w-sm pt-6">
-      <AuthenticationOTPForm @logged-in="afterLogin" @use-PIN="usePIN=!usePIN"/>
+      <AuthenticationOTPForm @logged-in="afterLogin" @use-PIN="usePIN=!usePIN" :sender="sender" @update:sender="newSender => sender = newSender" />
 
       <div class="pt-8 text-center text-sm xs:text-base">
         <NuxtLink
           class="font-medium text-blue-600"
           :to="{
-            name: sender === 'whatsapp' ? 'accounts-whatsapp-login' : 'accounts-sms',
+            // name: sender === 'whatsapp' ? 'accounts-whatsapp-login' : 'accounts-sms',
+            name: 'accounts-whatsapp-login'
           }"
         >
           العودة للصفحة السابقة <span aria-hidden="true">←</span>
@@ -53,7 +57,7 @@
   </section>
 
   <!-- Form steps OTP -->
-  <AuthenticationOTPForm v-else @logged-in="afterLogin" class="max-w-sm" />
+  <AuthenticationOTPForm v-else @logged-in="afterLogin" class="max-w-sm" :sender="sender" @update:sender="newSender => sender = newSender" />
 </template>
 
 <script setup lang="ts">
@@ -61,9 +65,9 @@ import type { packagesFormSteps } from "~/types";
 const props = defineProps<{ isHome?: boolean; isFormPackage?: boolean }>();
 const usePIN = ref(true)
 const { currentPhone } = storeToRefs(useAuthStore());
-let sender;
-if (props.isHome) sender = useRoute().query.sender;
-
+// let sender;
+// if (props.isHome) sender = useRoute().query.sender;
+const sender = ref(useRoute().query.sender as string || 'whatsapp');
 onMounted(async () => {
   if (!currentPhone.value) {
     currentPhone.value = sessionStorage.getItem("abber:whatsapp-number") as string;
