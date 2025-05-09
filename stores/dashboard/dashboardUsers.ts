@@ -7,6 +7,8 @@ class dashboardUsers extends BaseStore {
   userData = reactive<{ [key: string]: any }>({});
   userLogsList = ref<[]>([]);
   userActivityList = ref<[]>([]);
+  userServicesVisited = ref<[]>([]);
+  userServicesPaid = ref<[]>([]);
   updateLoading = ref(false);
   constructor() {
     super(
@@ -135,6 +137,32 @@ class dashboardUsers extends BaseStore {
           },
         })) as PaginationResponse<any>;
         this.userActivityList.value = data.results ?? [];
+        this.pagination.value = data;
+        this.loading.value = false;
+        update?.();
+        resolve(data);
+      } catch (error: any) {
+        reject(error);
+      }
+    });
+  };
+
+  getUserServicesVisited = async (params?: any, update?: any, id?: number) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = (await useDirectApi(`/accounts/dashboard-users/${(id || this.userData.id)}/user_activity/`, {
+          params: {
+            limit: 20,
+            ...this.pipeFilters(),
+            ...params
+          },
+          headers: {
+            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+          },
+        })) as PaginationResponse<any>;
+        this.userServicesVisited.value = data.visited_services ?? [];
+        this.userServicesPaid.value = data.ordered_sellers ?? [];
         this.pagination.value = data;
         this.loading.value = false;
         update?.();

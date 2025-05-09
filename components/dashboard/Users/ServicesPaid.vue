@@ -1,15 +1,23 @@
 <template>
-    <div class="flex flex-col space-x-3">
-        <DashboardTablesTable :head-items="head" :body-items="items" :actions="{}"/>
+    <div class="flex flex-col space-x-3" >
+        <DashboardTablesTable :head-items="head" :body-items="userServicesPaid" :loading="loading" :actions="{view:{path:'/orders/'}}" />
+        <Pagination
+    class="pt-4"
+    :results="(pagination as PaginationResponse<any>)"
+    @change="getUserServicesVisited"
+    per-page="20"
+  />
     </div>
 </template>
 
 <script setup lang="ts">
+import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
+const {loading, userServicesPaid, pagination} = storeToRefs(useDashboardUsersStore());
+const {getUserServicesVisited} = useDashboardUsersStore();
 const head = {
-    seller: 'المعبر'
+    first_name: 'المعبر'
 };
-const items = [
-    { seller: 'احمد عي', date: '2024-07-05 13:03' },
-    { seller: ' الشيخ ', date: '2024-07-05 13:03' },
-    { seller: 'احمد', date: '2024-07-05 13:03' }]
+onMounted(()=> {
+    getUserServicesVisited();
+})
 </script>
