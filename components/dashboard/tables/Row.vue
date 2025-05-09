@@ -9,6 +9,7 @@
         <span v-else-if="name === 'ordering_type'"><DashboardTablesCellsOrderingType :type="content" /></span>
         <span v-else-if="name === 'app_source'"><DashboardTablesCellsAppSource :app_source="content" /></span>
         <span v-else-if="content.toString().includes('://') "><DashboardTablesCellsFileUrl :url="content"/></span>
+        <span v-else-if="name == 'action_flag'">{{ content == '1' ? 'إضافة': content == '2' ? 'تعديل' : 'حذف'}}</span>
         <span v-else>{{ $t(`${content}`) }}</span>
     </slot>
   </td>

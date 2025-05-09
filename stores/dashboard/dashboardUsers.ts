@@ -6,6 +6,7 @@ class dashboardUsers extends BaseStore {
   countries = ref<[]>([]);
   userData = reactive<{ [key: string]: any }>({});
   userLogsList = ref<[]>([]);
+  userActivityList = ref<[]>([]);
   updateLoading = ref(false);
   constructor() {
     super(
@@ -109,6 +110,31 @@ class dashboardUsers extends BaseStore {
           },
         })) as PaginationResponse<any>;
         this.userLogsList.value = data.results ?? [];
+        this.pagination.value = data;
+        this.loading.value = false;
+        update?.();
+        resolve(data);
+      } catch (error: any) {
+        reject(error);
+      }
+    });
+  };
+
+  getUserActivity = async (params?: any, update?: any, id?: number) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = (await useDirectApi(`/tracking/log-entry/?user=${(id || this.userData.id)}`, {
+          params: {
+            limit: 20,
+            ...this.pipeFilters(),
+            ...params
+          },
+          headers: {
+            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+          },
+        })) as PaginationResponse<any>;
+        this.userActivityList.value = data.results ?? [];
         this.pagination.value = data;
         this.loading.value = false;
         update?.();
