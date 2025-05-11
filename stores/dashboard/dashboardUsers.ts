@@ -97,6 +97,32 @@ class dashboardUsers extends BaseStore {
     });
   };
 
+  updateUserData = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.updateLoading.value = true;
+        const data = await useDirectApi(
+          this.endpoint.value + this.userData.id + "/",
+          { method: "PUT", body: this.userData }
+        );
+        if (data)
+          useNotification({
+            type: "success",
+            content: "تم تحديث بيانات المستخدم بنجاح.",
+          });
+        else
+          useNotification({
+            type: "danger",
+            content: "فشلت عملية تحديث بيانات المستخدم.",
+          });
+        this.updateLoading.value = false;
+        resolve(data);
+      } catch (error: any) {
+        reject(error);
+      }
+    });
+  };
+
   getUserLogs = async (params?: any, update?: any, id?: number) => {
     return new Promise(async (resolve, reject) => {
       try {
