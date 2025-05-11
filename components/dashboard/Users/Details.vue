@@ -29,14 +29,21 @@
             <TextInput label="الرصيد المعلق:" />
         </div>
         <div :class="$style.input_elements">
-            <TextInput label="رقم IBAN:" v-model="userData.profile.bank_account" />
-            <Selector label="الجنس" :options="[{ value: 'ذكر' }, { value: 'انثى' }]" v-model="userData.profile.gender" />
+            <Selector label="الحالة الإجتماعية" :options="[{ value: '', text: 'إختر' }, { value: 'single', text:'أعزب' }, { value: 'married', text: 'متزوج' }, { value: 'divorced', text: 'مطلق' }]" v-model="userData.profile.marital_status" />
+            <TextInput label="الوظيفة:" v-model="userData.profile.profession" />
         </div>
         <div :class="$style.input_elements">
-            <DashboardDatePickerInput label="تاريخ الميلاد" v-model="userData.profile.birthday" />
+            <TextInput label="رقم IBAN:" v-model="userData.profile.bank_account" />
+            <Selector label="الجنس" :options="[{ value: 'Male', text:'ذكر' }, { value: 'Female', text: 'انثى' }]" v-model="userData.profile.gender" />
+        </div>
+        <div :class="$style.input_elements">
+            <DashboardDatePickerInput label="تاريخ الميلاد" v-model:modelDate="userData.profile.birthday" />
             <div class="w-full" > 
                 <TextInput label="الصورة" :type="'file'"><template #prepend><p>الصورة الحالية: <a :href="userData.image_url" target="_blank" dir="ltr">{{ userData.image_url.toString().slice(userData.image_url.indexOf('default')).trim() }}</a></p></template></TextInput>
             </div>
+        </div>
+        <div :class="$style.input_elements">
+            <TextInput label="رقم الـPIN:" v-model="userData.user_pin" />
         </div>
 
         <Checkbox v-model="userData.is_active" label="نشط" @update:modelValue="changeActive" />
