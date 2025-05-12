@@ -89,7 +89,7 @@
             <div
                 class="is-scroll fixed inset-0 divide-y-2 divide-gray-50 overflow-y-auto bg-white px-6 py-6 md:hidden"
                 v-if="openDropdown">
-                <DashboardHeaderMobileNavigation @close="openDropdown = false" @navigate="navigateAndClose" />
+                <DashboardHeaderMobileNavigation @close="openDropdown = false" />
                 <DashboardHeaderProfileCardMobile
                     v-if="status == 'authenticated'"
                     @logout="logout"

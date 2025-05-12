@@ -30,21 +30,21 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الرئيسية</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-send-notifications'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-send-notifications' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">التنبيهات والاشعارات</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-log-entry'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-log-entry' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -73,14 +73,14 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-statistics'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-statistics' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الإحصائيات</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-reviews'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-reviews' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -109,14 +109,14 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50"  @click="$emit('navigate', { name: 'dashboardv2-orders'})" :to="{name: 'dashboardv2-orders'}">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-orders' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الطلبات</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-coupons'})"  >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-coupons' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -145,28 +145,28 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50"  @click="$emit('navigate', { name: 'dashboardv2-wallets-withdrawal-requests'})" :to="{name: 'dashboardv2-wallets-withdrawal-requests'}">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-wallets-withdrawal-requests' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">طلبات السحب</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50"  @click="$emit('navigate', { name: 'dashboardv2-wallets-transactions'})" :to="{name: 'dashboardv2-wallets-transactions'}">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-wallets-transactions' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">العمليات المالية</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-wallets-fees-records'})"  :to="{name: 'dashboardv2-wallets-fees-records'}">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-wallets-fees-records' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">الحركات المالية</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-wallets-operations'})"  :to="{name: 'dashboardv2-wallets-operations'}">
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-wallets-operations' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -195,56 +195,56 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-expressors'})"  >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-expressors' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المعبرون</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-accounts-users'})"  >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-accounts-users' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">العملاء</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">متابعة العملاء</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-groups'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-groups' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المجموعات</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-expressors-support'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-expressors-support' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">مدراء العلاقة</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-expressors-to-support'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-expressors-to-support' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">إدارة العلاقات</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المقالات</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-expressors-domains'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-expressors-domains' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -273,14 +273,14 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-settings'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-settings' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">إعدادات عامة</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-shop-settings'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-shop-settings' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -309,14 +309,14 @@
             </svg>
           </button>
           <div class="hidden py-2 group-hover:block">
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-problems'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-problems' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">إعدادات مركز المساعدة</span>
             </NuxtLink>
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-support'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-support' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -324,7 +324,7 @@
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">تذاكر المساعدة</span>
             </NuxtLink>
 
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-conversations'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-conversations' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -332,7 +332,7 @@
               </svg><span class="ms-6 mt-1.5 text-[15px] font-medium">المحادثات</span>
             </NuxtLink>
 
-            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" @click="$emit('navigate', { name: 'dashboardv2-faq'})" >
+            <NuxtLink class="flex w-full items-center rounded-lg p-3 hover:bg-gray-50" :to="{ name: 'dashboardv2-faq' }" @click="$emit('close')" >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
