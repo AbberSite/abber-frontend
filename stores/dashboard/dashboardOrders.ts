@@ -1,16 +1,16 @@
-
 import { BaseStore } from "./baseStore";
 
 class dashboardOrders extends BaseStore {
   constructor(){
     super(
-      {type: {voice: false, text: false}, status: ['in_progress'], ordering: 'order_item_time_data__start_date'},
+      {type: {voice: false, text: false}, status: ['in_progress'], ordering: 'order_item_time_data__start_date', app_source: ''},
       [()=> this.getTypeFilterQuery(),
       ()=> this.getStatusFilterQuery(),
       ()=> this.getDateFilter(),
       ()=> this.search(),
         () => this.ordering(),
         () => this.quality(),
+        () => this.getAppSourceFilterQuery(),
     ],
       "/orders/dashboard-orders/"
     )
@@ -20,7 +20,8 @@ class dashboardOrders extends BaseStore {
     return (
       this.filters.value.status.length +
       Number(this.filters.value.type.voice) +
-      +Number(this.filters.value.type.text)
+      +Number(this.filters.value.type.text) +
+      (this.filters.value.app_source !== '' ? 1 : 0)
     );
   });
 
@@ -78,6 +79,13 @@ class dashboardOrders extends BaseStore {
 
     return {
       type: "video_communication",
+    };
+  };
+
+  getAppSourceFilterQuery = () => {
+    if (!this || this.filters.value.app_source === '') return {};
+    return {
+      app_source: this.filters.value.app_source,
     };
   };
 

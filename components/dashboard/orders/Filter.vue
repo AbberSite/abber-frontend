@@ -63,6 +63,24 @@
                 </div>
                 
             </div>
+            <h3 class="text-sm font-medium mt-4">المنصة</h3>
+            <div class="space-y-3 pt-4">
+                <div class="flex items-center">
+                    <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
+                        v-model="filters.app_source" value="" id="all" />
+                    <label class="mt-1.5 ps-3 text-sm" for="all">الكل</label>
+                </div>
+                <div class="flex items-center">
+                    <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
+                        v-model="filters.app_source" value="abber" id="abber" />
+                    <label class="mt-1.5 ps-3 text-sm" for="abber">عبر</label>
+                </div>
+                <div class="flex items-center">
+                    <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio"
+                        v-model="filters.app_source" value="manam" id="manam" />
+                    <label class="mt-1.5 ps-3 text-sm" for="manam">منام</label>
+                </div>
+            </div>
         </div>
     </div>
 </template>
