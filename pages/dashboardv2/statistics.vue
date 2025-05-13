@@ -19,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+import DashboardAnalytics from '~/components/dashboard/Analytics/Index.vue';
 let currentTab = ref("tab0");
 
 </script>
