@@ -41,11 +41,8 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-6 px-6 sm:pt-0 w-full">
       <DashboardAnalyticsTable
-        :head-items="{ paymentMethod: 'وسيلة الدفع', orders: 'الطلبات' }"
-        :body-items="[
-          { paymentMethod: 'VISA', orders: 10 },
-          { paymentMethod: 'APPLEPAY', orders: 75 },
-        ]"
+        :head-items="{ method: 'وسيلة الدفع', transaction_count: 'الطلبات' }"
+        :body-items="statistics_data.payment_methods"
       />
       <DashboardAnalyticsTable
         :head-items="{
