@@ -3,11 +3,9 @@
     class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-black dark:text-white"
   >
     <slot>
-      <span v-if="['transaction_count', 'users_count', 'payAverage', 'users', 'orders', 'time_name'].includes(name)">{{
-        content
-      }}</span>
+      
       <span
-        v-else-if="
+        v-if="
           name.includes('date') ||
           name.includes('created_at') ||
           name.includes('time')
@@ -87,7 +85,10 @@
           </template>
         </span>
       </span>
-      <span v-else>{{ $t(`${content}`) }}</span>
+      <span v-else-if="['status', 'type'].includes(name)">{{ $t(`${content}`) }}</span>
+      <span v-else>{{
+        content
+      }}</span>
     </slot>
   </td>
 </template>
