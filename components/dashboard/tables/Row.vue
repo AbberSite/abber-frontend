@@ -38,7 +38,7 @@
       <span v-else-if="name == 'action_flag'">{{
         content == "1" ? "إضافة" : content == "2" ? "تعديل" : "حذف"
       }}</span>
-      <span v-else-if="['transaction_count', 'users_count'].includes(name)">{{
+      <span v-else-if="['transaction_count', 'users_count', 'payAverage', 'users'].includes(name)">{{
         content
       }}</span>
       <span v-else-if="name === 'verifiedAuth'">

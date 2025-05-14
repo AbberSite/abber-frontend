@@ -67,9 +67,11 @@
       <DashboardAnalyticsTable
         :head-items="{ payAverage: 'معدل شراء الطلبات', users: 'المستخدمين' }"
         :body-items="[
-          { payAverage: '3+', users: 40 },
-          { payAverage: '3', users: 40 },
-          { payAverage: '1', users: 7 },
+          { payAverage: '3+', users: statistics_data.users.purchase_rates.num_more_than_3_orders },
+          { payAverage: '3', users: statistics_data.users.purchase_rates.num_3_orders },
+          { payAverage: '2', users: statistics_data.users.purchase_rates.num_2_orders },
+          { payAverage: '1', users: statistics_data.users.purchase_rates.num_1_order },
+          { payAverage: 'لم يشتري', users: statistics_data.users.purchase_rates.num_0_order },
         ]"
       />
       <DashboardAnalyticsTable
