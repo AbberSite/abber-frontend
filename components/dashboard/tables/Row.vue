@@ -3,8 +3,11 @@
     class="whitespace-nowrap pb-4 pe-12 pt-6 font-medium text-black dark:text-white"
   >
     <slot>
+      <span v-if="['transaction_count', 'users_count', 'payAverage', 'users', 'orders', 'time_name'].includes(name)">{{
+        content
+      }}</span>
       <span
-        v-if="
+        v-else-if="
           name.includes('date') ||
           name.includes('created_at') ||
           name.includes('time')
@@ -37,9 +40,6 @@
       /></span>
       <span v-else-if="name == 'action_flag'">{{
         content == "1" ? "إضافة" : content == "2" ? "تعديل" : "حذف"
-      }}</span>
-      <span v-else-if="['transaction_count', 'users_count', 'payAverage', 'users'].includes(name)">{{
-        content
       }}</span>
       <span v-else-if="name === 'verifiedAuth'">
         <span class="flex items-center gap-2">

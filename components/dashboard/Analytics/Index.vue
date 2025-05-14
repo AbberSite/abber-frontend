@@ -75,15 +75,37 @@
         ]"
       />
       <DashboardAnalyticsTable
-        :head-items="{ time: 'وقت الشراء', orders: 'الطلبات' }"
+        :head-items="{ time_name: 'وقت الشراء', orders: 'الطلبات' }"
         :body-items="[
-          { time: '10:00 ص', orders: 10 },
-          { time: '12:00 ص', orders: 10 },
+          { time_name: '12:00 ص', orders: statistics_data.orders.purchase_times[0].order_count },
+          { time_name: '1:00 ص', orders: statistics_data.orders.purchase_times[1].order_count },
+          { time_name: '2:00 ص', orders: statistics_data.orders.purchase_times[2].order_count },
+          { time_name: '3:00 ص', orders: statistics_data.orders.purchase_times[3].order_count },
+          { time_name: '4:00 ص', orders: statistics_data.orders.purchase_times[4].order_count },
+          { time_name: '5:00 ص', orders: statistics_data.orders.purchase_times[5].order_count },
+          { time_name: '6:00 ص', orders: statistics_data.orders.purchase_times[6].order_count },
+          { time_name: '7:00 ص', orders: statistics_data.orders.purchase_times[7].order_count },
+          { time_name: '8:00 ص', orders: statistics_data.orders.purchase_times[8].order_count },
+          { time_name: '9:00 ص', orders: statistics_data.orders.purchase_times[9].order_count },
+          { time_name: '10:00 ص', orders: statistics_data.orders.purchase_times[10].order_count },
+          { time_name: '11:00 ص', orders: statistics_data.orders.purchase_times[11].order_count },
+          { time_name: '12:00 م', orders: statistics_data.orders.purchase_times[12].order_count },
+          { time_name: '1:00 م', orders: statistics_data.orders.purchase_times[13].order_count },
+          { time_name: '2:00 م', orders: statistics_data.orders.purchase_times[14].order_count },
+          { time_name: '3:00 م', orders: statistics_data.orders.purchase_times[15].order_count },
+          { time_name: '4:00 م', orders: statistics_data.orders.purchase_times[16].order_count },
+          { time_name: '5:00 م', orders: statistics_data.orders.purchase_times[17].order_count },
+          { time_name: '6:00 م', orders: statistics_data.orders.purchase_times[18].order_count },
+          { time_name: '7:00 م', orders: statistics_data.orders.purchase_times[19].order_count },
+          { time_name: '8:00 م', orders: statistics_data.orders.purchase_times[20].order_count },
+          { time_name: '9:00 م', orders: statistics_data.orders.purchase_times[21].order_count },
+          { time_name: '10:00 م', orders: statistics_data.orders.purchase_times[22].order_count },
+          { time_name: '11:00 م', orders: statistics_data.orders.purchase_times[23].order_count },
         ]"
       />
       <DashboardAnalyticsTable
-        :head-items="{ buyer: 'المشتري', seller: 'معبر', orders: 'الطلبات' }"
-        :body-items="[]"
+        :head-items="{ buyer__first_name: 'المشتري', service__seller__first_name: 'معبر', order_item_count: 'الطلبات' }"
+        :body-items="statistics_data.orders.repeated_orders || []"
       />
     </div>
   </template>
