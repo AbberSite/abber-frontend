@@ -46,14 +46,11 @@
       />
       <DashboardAnalyticsTable
         :head-items="{
-          country: 'الدولة',
+          geolocation__country_name: 'الدولة',
           orders: 'الطلبات',
-          users: 'المستخدمين',
+          users_count: 'المستخدمين',
         }"
-        :body-items="[
-          { country: 'الامارات العربية المتحدة', orders: 10, users: 40 },
-          { country: 'السعودية', orders: 10, users: 40 },
-        ]"
+        :body-items="statistics_data.countries"
       />
       <DashboardAnalyticsTable
         :head-items="{
@@ -61,9 +58,10 @@
           users: 'المستخدمين',
         }"
         :body-items="[
-          { verifiedAuth: ['الهاتف', 'sms'], users: 40 },
-          { verifiedAuth: ['الهاتف', 'sms'], users: 40 },
-          { verifiedAuth: ['الهاتف', 'sms'], users: 40 },
+          { verifiedAuth: ['phone', 'email'], users: statistics_data.users.login_methods.phone_email },
+          { verifiedAuth: ['phone'], users: statistics_data.users.login_methods.phone },
+          { verifiedAuth: ['email'], users: statistics_data.users.login_methods.email },
+          { verifiedAuth: ['unverified phone', 'unverified email'], users: statistics_data.users.login_methods.inactive_email_phone },
         ]"
       />
       <DashboardAnalyticsTable
