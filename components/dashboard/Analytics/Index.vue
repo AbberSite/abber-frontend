@@ -44,12 +44,23 @@
       </DashboardAnalyticsCard>
     </div>
 
+    <!-- start charts -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-6 px-6 sm:pt-0 w-full">
-      <DashboardAnalyticsTable
+      <DashboardAnalyticsChartsOrdersByPaymentMethod />
+      <DashboardAnalyticsChartsOrdersUsersByCountry />
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-6 px-6 sm:pt-0 w-full">
+      <DashboardAnalyticsChartsPurchasesTime /> 
+      <DashboardAnalyticsChartsPurchaseRates />
+    </div>
+    <!-- end charts -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-6 px-6 sm:pt-0 w-full">
+      <!-- <DashboardAnalyticsTable v-show="false"
         :head-items="{ method: 'وسيلة الدفع', transaction_count: 'الطلبات' }"
         :body-items="statistics_data.payment_methods"
       />
-      <DashboardAnalyticsTable
+      <DashboardAnalyticsTable v-show="false"
         :head-items="{
           geolocation__country_name: 'الدولة',
           orders: 'الطلبات',
@@ -57,29 +68,7 @@
         }"
         :body-items="statistics_data.countries"
       />
-      <DashboardAnalyticsTable
-        :head-items="{
-          verifiedAuth: 'وسائل التسجيل المؤكدة',
-          users: 'المستخدمين',
-        }"
-        :body-items="[
-          { verifiedAuth: ['phone', 'email'], users: statistics_data.users.login_methods.phone_email },
-          { verifiedAuth: ['phone'], users: statistics_data.users.login_methods.phone },
-          { verifiedAuth: ['email'], users: statistics_data.users.login_methods.email },
-          { verifiedAuth: ['unverified phone', 'unverified email'], users: statistics_data.users.login_methods.inactive_email_phone },
-        ]"
-      />
-      <DashboardAnalyticsTable
-        :head-items="{ payAverage: 'معدل شراء الطلبات', users: 'المستخدمين' }"
-        :body-items="[
-          { payAverage: '3+', users: statistics_data.users.purchase_rates.num_more_than_3_orders },
-          { payAverage: '3', users: statistics_data.users.purchase_rates.num_3_orders },
-          { payAverage: '2', users: statistics_data.users.purchase_rates.num_2_orders },
-          { payAverage: '1', users: statistics_data.users.purchase_rates.num_1_order },
-          { payAverage: 'لم يشتري', users: statistics_data.users.purchase_rates.num_0_order },
-        ]"
-      />
-      <DashboardAnalyticsTable
+      <DashboardAnalyticsTable v-show="false"
         :head-items="{ hour: 'وقت الشراء', orders: 'الطلبات' }"
         :body-items="[
           { hour: '12:00 ص', orders: statistics_data.orders.purchase_times[0].order_count },
@@ -108,6 +97,28 @@
           { hour: '11:00 م', orders: statistics_data.orders.purchase_times[23].order_count },
         ]"
       />
+      <DashboardAnalyticsTable v-show="false"
+        :head-items="{ payAverage: 'معدل شراء الطلبات', users: 'المستخدمين' }"
+        :body-items="[
+          { payAverage: '3+', users: statistics_data.users.purchase_rates.num_more_than_3_orders },
+          { payAverage: '3', users: statistics_data.users.purchase_rates.num_3_orders },
+          { payAverage: '2', users: statistics_data.users.purchase_rates.num_2_orders },
+          { payAverage: '1', users: statistics_data.users.purchase_rates.num_1_order },
+          { payAverage: 'لم يشتري', users: statistics_data.users.purchase_rates.num_0_order },
+        ]"
+      /> -->
+      <DashboardAnalyticsTable 
+        :head-items="{
+          verifiedAuth: 'وسائل التسجيل المؤكدة',
+          users: 'المستخدمين',
+        }"
+        :body-items="[
+          { verifiedAuth: ['phone', 'email'], users: statistics_data.users.login_methods.phone_email },
+          { verifiedAuth: ['phone'], users: statistics_data.users.login_methods.phone },
+          { verifiedAuth: ['email'], users: statistics_data.users.login_methods.email },
+          { verifiedAuth: ['unverified phone', 'unverified email'], users: statistics_data.users.login_methods.inactive_email_phone },
+        ]"
+      />
       <DashboardAnalyticsTable
         :head-items="{ buyer__first_name: 'المشتري', service__seller__first_name: 'معبر', order_item_count: 'الطلبات' }"
         :body-items="statistics_data.orders.repeated_orders || []"
@@ -117,7 +128,10 @@
 </template>
 
 <script setup lang="ts">
+
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
+
+
 const { statistics_data, loading, filters } = storeToRefs(useDashboardStatisticsStore());
 const { fetchAll } = useDashboardStatisticsStore();
 let cards = ref<[]>([]);
@@ -241,6 +255,7 @@ watch(range_date, ([start, end]) => {
   filters.value.date_after = start;
   filters.value.date_before = end;
 });
+
 </script>
 
 <style scoped>
