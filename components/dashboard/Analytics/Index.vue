@@ -3,6 +3,11 @@
     <SkeletonsIndexStatistics />
   </template>
   <template v-else>
+    <DashboardDatePickerInput
+      label="التاريخ"
+      v-model:model-date="range_date"
+      range
+    />
     <div
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 py-6 px-6 sm:pt-0 w-full"
     >
@@ -113,7 +118,7 @@
 
 <script setup lang="ts">
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
-const { statistics_data, loading } = storeToRefs(useDashboardStatisticsStore());
+const { statistics_data, loading, filters } = storeToRefs(useDashboardStatisticsStore());
 const { fetchAll } = useDashboardStatisticsStore();
 let cards = ref<[]>([]);
 fetchAll();
@@ -228,6 +233,13 @@ watch(loading, (newValue) => {
       // { title: '', count: 10, subtitle: '', iconBackgroundClass: '', icon: "" },
     ];
   }
+});
+
+const range_date = ref([filters.value.date_after, filters.value.date_before]);
+
+watch(range_date, ([start, end]) => {
+  filters.value.date_after = start;
+  filters.value.date_before = end;
 });
 </script>
 
