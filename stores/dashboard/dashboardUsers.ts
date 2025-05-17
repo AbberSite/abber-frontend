@@ -5,6 +5,8 @@ import axios from "axios";
 class dashboardUsers extends BaseStore {
   countries = ref<[]>([]);
   userData = reactive<{ [key: string]: any }>({});
+  userWallet = reactive<{ [key: string]: any }>({});
+
   userLogsList = ref<[]>([]);
   userActivityList = ref<[]>([]);
   userServicesVisited = ref<[]>([]);
@@ -63,7 +65,7 @@ class dashboardUsers extends BaseStore {
         this.loading.value = true;
         const data = await useDirectApi(this.endpoint.value + id);
         Object.assign(this.userData, data);
-        this.loading.value = false;
+        await this.getUserWallet();
         resolve(data);
       } catch (error: any) {
         reject(error);
@@ -194,6 +196,22 @@ class dashboardUsers extends BaseStore {
         update?.();
         resolve(data);
       } catch (error: any) {
+        reject(error);
+      }
+    });
+  };
+
+  getUserWallet = async (id?: number) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const userId = id || this.userData.id;
+        const data = await useDirectApi(`/wallets/dashboard-wallets/?user__id=${userId}`);
+        Object.assign(this.userWallet, data.results[0]);
+        this.loading.value = false;
+        resolve(data);
+      } catch (error: any) {
+        this.loading.value = false;
         reject(error);
       }
     });
