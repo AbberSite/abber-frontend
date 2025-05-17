@@ -54,11 +54,11 @@ const openFiltersDropdown = ref(false);
 
 const headItems = {
   first_name:'إسم المستخدم',
+  id: 'الرقم',
+  phone: 'الجوال',
+  phone_verified:'',
   user_type:'الصلاحية',
   email:'البريد الإلكتروني',
-  email_verified:'',
-  phone: 'الجوال',
-  phone_verified:''
 };
 
 onMounted(async () => {
