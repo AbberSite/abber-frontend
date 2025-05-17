@@ -6,7 +6,6 @@
     <div class="w-full pt-2">
         <DashboardUsersDetails v-if="currentTab == 'tab0'"/>
         <DashboardUsersLogs v-if="currentTab == 'tab1'"/>
-        <DashboardUsersServicesVisited v-if="currentTab == 'tab2'"/>
         <DashboardUsersServicesPaid v-if="currentTab == 'tab3'"/>
         <DashboardUsersTickets v-if="currentTab == 'tab6'"/>
         <DashboardUsersActionsLog v-if="currentTab == 'tab7'"/>
@@ -27,14 +26,19 @@ let currentTab = ref('tab0');
 const items = ref([
   { name: 'بيانات العميل', value: 'tab0' },
   { name: 'السجل', value: 'tab1' },
-  { name: 'خدمات تمت زيارتها', value: 'tab2' },
-  { name: 'خدمات تم شراؤها', value: 'tab3' },
-  { name: 'ملاحظات', value: 'tab4' },
-  { name: 'المحادثات', value: 'tab5' },
+  { name: 'خدمات تم شراؤها', value: 'tab3', dontShowIt: true },
   { name: 'تذكرة المساعدات', value: 'tab6' },
   { name: 'سجل الاجراءات', value: 'tab7' },
 ]);
-
+watch(
+  () => userData.value.user_type,
+  (newVal) => {
+    if (newVal !== undefined) {
+      items.value[2].dontShowIt = newVal !== 'عميل';
+    }
+  },
+  { immediate: true }
+);
 async function downloadVCF(){
     try {
         // Fetch the VCF data

@@ -22,11 +22,11 @@
         <div :class="$style.input_elements">
             <Selector label="نوع العضوية" :options="[{ value: 'عميل' }, { value: 'معبر' }, { value: 'إدارة' }]"
                 :modelValue="userData.user_type" />
-            <TextInput label="الرصيح المتاح:" />
+            <TextInput label="الرصيح المتاح:" v-model:model-value="userWallet.available_balance" disabled />
         </div>
         <div :class="$style.input_elements">
-            <TextInput label="الرصيد القابل للسحب:" />
-            <TextInput label="الرصيد المعلق:" />
+            <TextInput label="الرصيد القابل للسحب:" v-model:model-value="userWallet.withdrawal_balance" disabled />
+            <TextInput label="الرصيد المعلق:" v-model:model-value="userWallet.suspended_balance" disabled/>
         </div>
         <div :class="$style.input_elements">
             <Selector label="الحالة الإجتماعية" :options="[{ value: '', text: 'إختر' }, { value: 'single', text:'أعزب' }, { value: 'married', text: 'متزوج' }, { value: 'divorced', text: 'مطلق' }]" v-model="userData.profile.marital_status" />
@@ -49,7 +49,6 @@
         <Checkbox v-model="userData.is_active" label="نشط" @update:modelValue="changeActive" />
         <div class="flex items-center justify-between pt-6">
             <PrimaryButton :loading="updateLoading" @click="updateUserData">حفظ</PrimaryButton>
-            <PrimaryButton>إضافة طلب</PrimaryButton>
         </div>
     </div>
 </template>
@@ -57,7 +56,7 @@
 import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 
 const id = useRoute().params.id;
-const { userData, loading, updateLoading } = storeToRefs(useDashboardUsersStore());
+const { userData, loading, updateLoading, userWallet } = storeToRefs(useDashboardUsersStore());
 const { updateActiveStatus, updateUserData } = useDashboardUsersStore();
 
 const changeActive = async () => {
