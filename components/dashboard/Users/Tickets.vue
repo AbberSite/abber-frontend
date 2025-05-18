@@ -15,10 +15,6 @@ const head = {
     date: 'تاريخ فتح التذكرة',
     end_date: 'تاريخ اغلاق التذكرة '
 };
-const items = [
-    { seller: 'احمد عي', date: '2024-07-05 13:03' },
-    { seller: ' الشيخ ', date: '2024-07-05 13:03' },
-    { seller: 'احمد', date: '2024-07-05 13:03' }]
 onMounted(() => {
     getUserTickets();
 });
