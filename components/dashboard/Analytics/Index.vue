@@ -3,11 +3,7 @@
     <SkeletonsIndexStatistics />
   </template>
   <template v-else>
-    <DashboardDatePickerInput
-      label="التاريخ"
-      v-model:model-date="range_date"
-      range
-    />
+    <DatePresetFilter v-model:modelValue="range_date" />
     <div
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 py-6 px-6 sm:pt-0 w-full"
     >
@@ -130,6 +126,7 @@
 <script setup lang="ts">
 
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
+import DatePresetFilter from '~/components/dashboard/inputs/DatePresetFilter.vue';
 
 
 const { statistics_data, loading, filters } = storeToRefs(useDashboardStatisticsStore());

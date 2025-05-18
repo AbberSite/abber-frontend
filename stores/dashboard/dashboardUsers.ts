@@ -6,7 +6,7 @@ class dashboardUsers extends BaseStore {
   countries = ref<[]>([]);
   userData = reactive<{ [key: string]: any }>({});
   userWallet = reactive<{ [key: string]: any }>({});
-
+  userTickets = ref<[]>([]);
   userLogsList = ref<[]>([]);
   userActivityList = ref<[]>([]);
   userServicesVisited = ref<[]>([]);
@@ -210,6 +210,33 @@ class dashboardUsers extends BaseStore {
         Object.assign(this.userWallet, data.results[0]);
         this.loading.value = false;
         resolve(data);
+      } catch (error: any) {
+        this.loading.value = false;
+        reject(error);
+      }
+    });
+  };
+
+  getUserTickets = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = await useDirectApi("/support/tickets/", {
+          params: {
+            limit: 500,
+          },
+          headers: {
+            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+          },
+        });
+        this.userTickets.value = (data.results || [])
+          .filter((ticket: any) => String(ticket.user?.id) === String(this.userData.id))
+          .map((ticket: any) => ({
+            ...ticket,
+            ticket_status: ticket.status,
+          }));
+        this.loading.value = false;
+        resolve(this.userTickets.value);
       } catch (error: any) {
         this.loading.value = false;
         reject(error);

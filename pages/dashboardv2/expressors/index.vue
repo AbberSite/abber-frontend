@@ -1,13 +1,6 @@
 <template>
   <DashboardTitle department="الحسابات" title="المعبرون"/>
-  <Tabs     v-model:model-value="currentTab"
-    :tabs="[
-      { name: 'المعبرون', value: 'tab0' },
-      { name: 'الطلبات', value: 'tab1' },
-    ]"
-  />
   <div class="w-full pt-8">
-    <template v-if="currentTab == 'tab0'">
       <DashboardInputsSearch placeholder="ابحث عن معبر" />
       <DashboardTablesTable
         :head-items="{
@@ -20,19 +13,6 @@
         :body-items="expressors"
         :actions="{ details: true, view: { path: '/expresssors/' } }"
       />
-    </template>
-    <template v-else>
-      <DashboardTablesTable
-        :head-items="{
-          first_name: 'العميل',
-          email: 'البريد الالكتروني',
-          phone: 'الجوال',
-          content: 'حالة طلب المعبر',
-        }"
-        :body-items="expressors"
-        :actions="{ modify: true }"
-      />
-    </template>
   </div>
   <ClientOnly>
     <ModifyModal @close="showModifyModal = false" v-if="showModifyModal">
@@ -51,7 +31,6 @@
 </template>
 
 <script setup lang="ts">
-let currentTab = ref("tab0");
 const { $listen } = useNuxtApp();
 let showModifyModal = ref(false);
 $listen("table-modify-object", (data: object) => {
