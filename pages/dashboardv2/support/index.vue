@@ -44,10 +44,11 @@
                     />
                   </span>
                   <span class="ms-3 flex flex-col pt-1 text-right">
-                    <span
+                    <NuxtLink
                       class="text-sm font-medium"
                       v-text="ticket.user?.first_name"
-                    ></span>
+                      :to="`/dashboardv2/accounts/users/user-update/${ticket.user?.id}/`"
+                    ></NuxtLink>
                     <span
                       class="pt-1 text-xs font-medium text-gray-600"
                       v-text="ticket.title"
@@ -57,10 +58,10 @@
                 <span
                   v-if="ticket.status === 'مفتوحة'" @click="showCloseTicketDialog = true"
                   class="rounded-full bg-gray-900 px-4 pb-1 pt-1.5 text-xs font-medium text-white"
-                  title="إغلاق التذكرة" 
+                  title="إغلاق" 
                   >
                   <!-- <EnvelopeOpenIcon class="w-4"/> -->
-                   إغلاق التذكرة </span>
+                   إغلاق </span>
               </button>
             </div>
             <Pagination
