@@ -15,17 +15,17 @@
       />
     </div>
     <div class="w-full h-full flex justify-center items-center">
-        <DashboardTablesTable :head-items="{seller__username: 'معبر', num_orders: 'الطلبات', delivered_orders:'الطلبات المسلمة', completed_orders: 'الطلبات المكتملة', progressing_orders: 'الطلبات المنفذة'}" :body-items="services_data" :loading="loading"/>
+        <DashboardTablesTable :head-items="{seller__username: 'معبر', num_orders: 'الطلبات', delivered_orders:'الطلبات المسلمة', completed_orders: 'الطلبات المكتملة', progressing_orders: 'الطلبات المنفذة'}" :body-items="statistics_data.services.data" :loading="loading"/>
       </div>
 </template>
 
 <script setup lang="ts">
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
-const { services_data, loading, filters } = storeToRefs(useDashboardStatisticsStore());
-const { getServices } = useDashboardStatisticsStore();
-onMounted(() => {
-    getServices();
-});
+const { statistics_data, loading, filters } = storeToRefs(useDashboardStatisticsStore());
+// const { getServices } = useDashboardStatisticsStore();
+// onMounted(() => {
+//     getServices();
+// });
 
 const range_date = ref([filters.value.date_after, filters.value.date_before]);
 const selectedPreset = ref('today');
