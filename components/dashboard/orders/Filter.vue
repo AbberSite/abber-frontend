@@ -146,8 +146,29 @@
 </template>
 
 <script setup>
-
+import { onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
-
 const { filters } = storeToRefs(useDashboardOrdersStore());
+const { fetchAll } = useDashboardOrdersStore();
+
+const router = useRouter();
+
+// Watch all filters and update query params + fetch data
+watch(
+  filters,
+  (val) => {
+    const query = {
+      status: val.status && val.status.length ? val.status.join(',') : undefined,
+      'type.voice': val.type.voice ? 'true' : undefined,
+      'type.text': val.type.text ? 'true' : undefined,
+      payment_method: val.payment_method || undefined,
+      app_source: val.app_source || undefined,
+      quality: val.quality !== undefined ? val.quality : undefined,
+      // Add more as needed
+    };
+    router.replace({ query });
+  },
+  { deep: true }
+);
 </script>

@@ -52,8 +52,27 @@ const headItems = {
   "app_source": "المصدر",
   "order_item_time_data.ordered_date": "تاريخ الطلب",
 };
-onMounted(async () => {
-  fetchAll();
+
+const route = useRoute();
+
+// Helper to parse array from query string
+function parseArray(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;
+  return String(val).split(',');
+}
+
+// Initialize filters from query params on mount
+onMounted(() => {
+  const query = route.query;
+  if (query.status) filters.value.status = parseArray(query.status);
+  if (query['type.voice'] !== undefined) filters.value.type.voice = query['type.voice'] === 'true';
+  if (query['type.text'] !== undefined) filters.value.type.text = query['type.text'] === 'true';
+  if (query.payment_method) filters.value.payment_method = query.payment_method;
+  if (query.app_source) filters.value.app_source = query.app_source;
+  if (query.quality !== undefined) filters.value.quality = query.quality;
+  // Add more as needed
 });
+
 
 </script>
