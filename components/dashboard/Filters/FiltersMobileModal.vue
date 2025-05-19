@@ -19,10 +19,11 @@
                                 class="flex items-center rounded-md bg-gray-900 px-4 py-3 text-xs font-medium text-white shadow-sm hover:bg-gray-800"
                                 href="/order/">تطبيق</a>
                         </div>
-                        <div class="pt-7">
+                        <div class="pt-7 overflow-auto max-h-[60vh]">
                             <slot name="dateFilter"/>
                             <slot></slot>
                         </div>
+                        <!-- scroll -->
                         <div class="flex space-x-6 pt-10 rtl:space-x-reverse">
                             <div>
                                 <slot name="content"/>

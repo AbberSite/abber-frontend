@@ -3,15 +3,23 @@ import { BaseStore } from "./baseStore";
 class dashboardOrders extends BaseStore {
   constructor(){
     super(
-      {type: {voice: false, text: false}, status: ['in_progress'], ordering: 'order_item_time_data__start_date', app_source: ''},
-      [()=> this.getTypeFilterQuery(),
-      ()=> this.getStatusFilterQuery(),
-      ()=> this.getDateFilter(),
-      ()=> this.search(),
+      {
+        type: {voice: false, text: false},
+        status: ['in_progress'],
+        ordering: 'order_item_time_data__start_date',
+        app_source: '',
+        payment_method: '', 
+      },
+      [
+        ()=> this.getTypeFilterQuery(),
+        ()=> this.getStatusFilterQuery(),
+        ()=> this.getDateFilter(),
+        ()=> this.search(),
         () => this.ordering(),
         () => this.quality(),
         () => this.getAppSourceFilterQuery(),
-    ],
+        () => this.getPaymentMethodFilterQuery(), 
+      ],
       "/orders/dashboard-orders/"
     )
   }
@@ -86,6 +94,13 @@ class dashboardOrders extends BaseStore {
     if (!this || this.filters.value.app_source === '') return {};
     return {
       app_source: this.filters.value.app_source,
+    };
+  };
+
+  getPaymentMethodFilterQuery = () => {
+    if (!this || !this.filters.value.payment_method) return {};
+    return {
+      payment_method: this.filters.value.payment_method,
     };
   };
 
