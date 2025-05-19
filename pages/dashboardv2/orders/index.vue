@@ -72,6 +72,7 @@ onMounted(() => {
   if (query.app_source) filters.value.app_source = query.app_source;
   if (query.quality !== undefined) filters.value.quality = query.quality;
   // Add more as needed
+  fetchAll();
 });
 
 

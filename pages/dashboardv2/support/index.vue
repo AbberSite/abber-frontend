@@ -154,6 +154,7 @@ onMounted(async () => {
     { immediate: true }
   );
   type.value = "support";
+  fetchAll();
 });
 async function closeTicket() {
   useApi(`/api/tickets/${ticketId.value}/close/`, {
