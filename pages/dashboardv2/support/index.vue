@@ -13,6 +13,14 @@
           >إغلاق التذكرة</PrimaryButton
         >
       </div> -->
+      <div class="flex flex-col md:flex-row justify-between mb-6 gap-4 relative items-end md:items-end md:w-full">
+        <!-- Filter by Status -->
+        <Selector label="حالة التذكرة" :options="[{value: 'مفتوحة', text: 'مفتوحة'}, {value: 'مغلقة', text: 'مغلقة'}]" v-model:model-value="filters.status" default-option="الكل" />
+
+        <!-- Filter by Username -->
+        <Search placeholder="البحث بإسم العميل او رقمه"  v-model:model-value="filters.search" />
+      </div>
+
       <div class="w-full gap-x-8 lg:grid lg:grid-cols-3">
         <div
           class="sticky top-8 h-fit rounded-lg border border-gray-100 pb-2 pt-6"
@@ -25,7 +33,7 @@
               class="w-full divide-y divide-gray-100 overflow-auto max-h-[500px] scrollbar-hide"
             >
               <button
-                v-for="(ticket, index) of tickets"
+                v-for="(ticket, index) of list"
                 :key="index"
                 class="flex w-full items-center justify-between px-6 py-4 hover:bg-gray-50"
                 :class="{ 'bg-gray-100': ticketId == ticket.id }"
@@ -67,7 +75,7 @@
             <Pagination
               class="py-5"
               :results="(pagination as PaginationResponse<any>)"
-              @change="getAllTickets"
+              @change="fetchAll"
               per-page="20"
               smallResultsCounter
             />
@@ -117,9 +125,10 @@
 </template>
 
 <script setup lang="ts">
+import Search from "~/components/dashboard/inputs/Search.vue";
 import { useDashboardHelpStore } from "~/stores/dashboard/dashboardHelp";
-const { tickets, loading, pagination } = storeToRefs(useDashboardHelpStore());
-const { getAllTickets } = useDashboardHelpStore();
+const { list, loading, pagination, filters } = storeToRefs(useDashboardHelpStore());
+const { fetchAll } = useDashboardHelpStore();
 const { $viewport } = useNuxtApp();
 const { roomId, type } = storeToRefs(useChatStore());
 const ticketId = ref(0);
@@ -137,15 +146,20 @@ const setCurrentTicket = (ticket: any, ChatInbox: boolean = true) => {
 };
 
 onMounted(async () => {
-  await getAllTickets();
-  setCurrentTicket(tickets.value[0], $viewport.isGreaterOrEquals("tablet"));
+  watch(
+    () => list.value,
+    (val) => {
+      if (val && val.length) setCurrentTicket(val[0], $viewport.isGreaterOrEquals("tablet"));
+    },
+    { immediate: true }
+  );
   type.value = "support";
 });
 async function closeTicket() {
   useApi(`/api/tickets/${ticketId.value}/close/`, {
     method: "DELETE",
   }).then(async(res) => {
-    await getAllTickets()
+    await fetchAll()
     showCloseTicketDialog.value = false;
     useNotification({ type: "success", content: "لقد تم إغلاق التذكرة" });
   });
