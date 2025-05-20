@@ -1,6 +1,8 @@
 <template>
 
-    <DashboardDateFilters />
+    <DashboardDateFilters
+      v-model:modelValue="dateRange"
+    />
 
     <div class="pt-4 sm:pt-0 flex space-x-6 sm:space-x-0 sm:justify-between">
         <div>
@@ -146,13 +148,30 @@
 </template>
 
 <script setup>
-import { onMounted, watch } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 const { filters } = storeToRefs(useDashboardOrdersStore());
 const { fetchAll } = useDashboardOrdersStore();
 
 const router = useRouter();
+
+const dateRange = computed({
+  get: () => [
+    filters.value.date__gte ?? null,
+    filters.value.date__lte ?? null
+  ],
+  set: (value) => {
+    if (!value || value.length === 0) {
+      filters.value.date__gte = null;
+      filters.value.date__lte = null;
+    } else {
+      const [start, end] = value;
+      filters.value.date__gte = start;
+      filters.value.date__lte = end;
+    }
+  }
+});
 
 // Watch all filters and update query params + fetch data
 watch(
@@ -165,6 +184,8 @@ watch(
       payment_method: val.payment_method || undefined,
       app_source: val.app_source || undefined,
       quality: val.quality !== undefined ? val.quality : undefined,
+      date__gte: val.date__gte || undefined,
+      date__lte: val.date__lte || undefined,
       // Add more as needed
     };
     router.replace({ query });

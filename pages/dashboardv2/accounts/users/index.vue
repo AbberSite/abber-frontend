@@ -47,7 +47,6 @@ import { vOnClickOutside } from '@vueuse/components';
 import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 const { filters, list, loading, filtersCount, pagination } = storeToRefs(useDashboardUsersStore());
 const { fetchAll, fetchCountries } = useDashboardUsersStore();
-provide('dateFilters', 'users');
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 

@@ -1,7 +1,5 @@
 <template>
-    <div class="space-y-3">
-        <DashboardDateFilters />
-    </div>
+    <DashboardDateFilters v-model:modelValue="dateRange" />
     <div class="flex flex-col gap-2 mt-3">
         <div v-if="!hiddenStatus">
             <Selector label="حالة الدفع"
@@ -29,11 +27,27 @@
 </template>
 
 <script setup lang="ts">
-
-defineProps<{ hiddenStatus?: boolean }>();
+import { computed } from 'vue';
 import { useDashboardTransactionsStore } from '~/stores/dashboard/dashboardTransactions';
 
-
+defineProps<{ hiddenStatus?: boolean }>();
 
 const { filters } = storeToRefs(useDashboardTransactionsStore());
+
+const dateRange = computed({
+  get: () => [
+    filters.value.date__gte ?? null,
+    filters.value.date__lte ?? null
+  ],
+  set: (value) => {
+    if (!value || value.length === 0) {
+      filters.value.date__gte = null;
+      filters.value.date__lte = null;
+    } else {
+      const [start, end] = value;
+      filters.value.date__gte = start;
+      filters.value.date__lte = end;
+    }
+  }
+});
 </script>

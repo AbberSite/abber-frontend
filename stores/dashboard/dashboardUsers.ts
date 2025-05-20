@@ -15,46 +15,90 @@ class dashboardUsers extends BaseStore {
   constructor() {
     super(
       {
-        is_deleted: "",
-        is_active: "",
-        country: "",
-        user_type: "",
-        orders: "",
-        email_verified: "",
-        phone_verified: "",
-        date__join_gte: "",
-        date__join_lte: "",
-        date__purchase_gte: "",
-        date__purchase_lte: "",
+      is_deleted: "",
+      is_active: "",
+      country: "",
+      user_type: "",
+      orders: "",
+      email_verified: "",
+      phone_verified: "",
+      date__join_gte: "",
+      date__join_lte: "",
+      date__purchase_gte: "",
+      date__purchase_lte: "",
       },
       [
-        () => this.getIsDeletedFilterQuery(),
-        () => this.getIsActiveFilterQuery(),
-        () => this.getDateFilter(),
-        () => this.search(),
-        () => this.ordering(),
+      () => this.getIsDeletedFilterQuery(),
+      () => this.getIsActiveFilterQuery(),
+      () => this.getCountryFilterQuery(),
+      () => this.getUserTypeFilterQuery(),
+      () => this.getOrdersFilterQuery(),
+      () => this.getEmailVerifiedFilterQuery(),
+      () => this.getPhoneVerifiedFilterQuery(),
+      () => this.getDateJoinFilterQuery(),
+      () => this.getDatePurchaseFilterQuery(),
+      () => this.search(),
+      () => this.ordering(),
       ],
       "/accounts/dashboard-users/"
     );
   }
   getIsActiveFilterQuery = () => {
-    return {
-      is_active: this.filters.value.is_active,
-    };
+    return this.filters.value.is_active !== "" && this.filters.value.is_active !== undefined
+      ? { is_active: this.filters.value.is_active }
+      : {};
   };
   getIsDeletedFilterQuery = () => {
-    return {
-      is_deleted: this.filters.value.is_deleted,
-    };
+    return this.filters.value.is_deleted !== "" && this.filters.value.is_deleted !== undefined
+      ? { is_deleted: this.filters.value.is_deleted }
+      : {};
+  };
+  getCountryFilterQuery = () => {
+    return this.filters.value.country ? { country: this.filters.value.country } : {};
+  };
+
+  getUserTypeFilterQuery = () => {
+    return this.filters.value.user_type ? { user_type: this.filters.value.user_type } : {};
+  };
+
+  getOrdersFilterQuery = () => {
+    return this.filters.value.orders ? { orders: this.filters.value.orders } : {};
+  };
+
+  getEmailVerifiedFilterQuery = () => {
+    return this.filters.value.email_verified !== "" && this.filters.value.email_verified !== undefined
+      ? { email_verified: this.filters.value.email_verified }
+      : {};
+  };
+
+  getPhoneVerifiedFilterQuery = () => {
+    return this.filters.value.phone_verified !== "" && this.filters.value.phone_verified !== undefined
+      ? { phone_verified: this.filters.value.phone_verified }
+      : {};
+  };
+
+  getDateJoinFilterQuery = () => {
+    const { date__join_gte, date__join_lte } = this.filters.value;
+    let query: any = {};
+    if (date__join_gte) query.date__join_gte = date__join_gte;
+    if (date__join_lte) query.date__join_lte = date__join_lte;
+    return query;
+  };
+
+  getDatePurchaseFilterQuery = () => {
+    const { date__purchase_gte, date__purchase_lte } = this.filters.value;
+    let query: any = {};
+    if (date__purchase_gte) query.date__purchase_gte = date__purchase_gte;
+    if (date__purchase_lte) query.date__purchase_lte = date__purchase_lte;
+    return query;
   };
   fetchCountries = async () => {
     await axios
       .get("https://restcountries.com/v3.1/all")
       .then((res) => {
-        this.countries.value = res.data;
-        this.countries.value.sort((a, b) =>
-          a.name.common.localeCompare(b.name.common)
-        );
+        this.countries.value = res.data
+          .map((country: any) => ({ name: country.name.common }))
+          .sort((a, b) => a.name.localeCompare(b.name));
       })
       .catch((err) => console.log(err));
   };

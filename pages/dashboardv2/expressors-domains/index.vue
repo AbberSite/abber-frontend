@@ -47,7 +47,6 @@ const data = ref([
     { first_name: 'مهندس طه', domain: '01062295922.ac', amount: 10, tax: 12, date: '2025-12-12', expireDate: '2023-05-04'},
     { first_name: 'مهندس عبدالله', domain: '01062295922.ac', amount: 10, tax: 12, date: '2025-12-12', expireDate: '2023-05-04'},
 ]);
-provide('dateFilters', 'withdrawalRequests');
 const openFiltersDropdown = ref(false);
 const openFiltersMobileModal = ref(false);
 </script>
