@@ -101,8 +101,6 @@ const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 const loadingButton = ref(false);
 
-provide('dateFilters', 'operations')
-
 const headItems = {
   'user.first_name': 'المحفظة',
   amount: 'المبلغ',

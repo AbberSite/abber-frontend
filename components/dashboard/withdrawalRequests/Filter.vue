@@ -1,9 +1,6 @@
-
 <template>
-    <div>
-      <DashboardDateFilters />
-    </div>
-      <div class="pt-3">
+    <DashboardDateFilters v-model:modelValue="dateRange" />
+    <div class="pt-3">
         <h3 class="text-sm font-medium">حالة الطلب</h3>
         <div class="flex items-center">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="radio" name="paymentStatus"
@@ -29,8 +26,26 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useDashboardWithdrawalRequestsStore } from '~/stores/dashboard/dashboardWithdrawalRequests';
 const { filters } = storeToRefs(useDashboardWithdrawalRequestsStore());
+
+const dateRange = computed({
+  get: () => [
+    filters.value.date__gte ?? null,
+    filters.value.date__lte ?? null
+  ],
+  set: (value) => {
+    if (!value || value.length === 0) {
+      filters.value.date__gte = null;
+      filters.value.date__lte = null;
+    } else {
+      const [start, end] = value;
+      filters.value.date__gte = start;
+      filters.value.date__lte = end;
+    }
+  }
+});
 </script>
 
 <style scoped>

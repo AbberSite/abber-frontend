@@ -57,7 +57,6 @@ const headItems = {
   user: "المستخدم",
 
 }
-provide('dateFilters', 'transactions');
 const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashboardTransactionsStore());
 const { fetchAll } = useDashboardTransactionsStore();
 const openFiltersMobileModal = ref(false);

@@ -39,7 +39,6 @@ import { useDashboardOrdersStore } from "~/stores/dashboard/dashboardOrders.ts";
 import { vOnClickOutside } from "@vueuse/components";
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
-provide('dateFilters', 'orders');
 const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDashboardOrdersStore());
 const { fetchAll } = useDashboardOrdersStore();
 const headItems = {
