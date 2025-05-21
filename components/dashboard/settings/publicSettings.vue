@@ -10,8 +10,11 @@
         </div>
     </ModifyModal>
 </template>
-<script setup>
+<script setup lang="ts">
+import { useDashboardSettingsStore } from '~/stores/dashboard/dashboardSettings';
 const {$listen} = useNuxtApp();
+const { settings, loading } = storeToRefs(useDashboardSettingsStore());
+const { getSettings } = useDashboardSettingsStore();
 let showModifyModal = ref(false);
 let modifyTitle = ref('');
 const settingsList = ref([
@@ -25,5 +28,7 @@ $listen('table-modify-object', (data)=> {
     modifyTitle.value = 'تعديل القائمة'
 });
 $listen('open_add_window', ()=> {showModifyModal.value = true; modifyTitle.value = "إنشاء قائمة جديدة";});
-
+onMounted(() => {
+    getSettings();
+});
 </script>
