@@ -3,6 +3,7 @@ import { BaseStore } from "./baseStore";
 import axios from "axios";
 
 class dashboardUsers extends BaseStore {
+  expressors = ref<[]>([]);
   countries = ref<[]>([]);
   userData = reactive<{ [key: string]: any }>({});
   userWallet = reactive<{ [key: string]: any }>({});
@@ -282,6 +283,33 @@ class dashboardUsers extends BaseStore {
         this.loading.value = false;
         resolve(this.userTickets.value);
       } catch (error: any) {
+        this.loading.value = false;
+        reject(error);
+      }
+    });
+  };
+
+  /**
+   * Fetch all users with user_type__name = 'معبر'
+   */
+  getExpressors = async (params?: any) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = await useDirectApi(this.endpoint.value, {
+          params: {
+            ...this.pipeFilters(),
+            user_type__name: 'معبر',
+            ...params,
+          },
+          headers: {
+            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+          },
+        });
+        this.expressors.value = data.results || [];
+        this.loading.value = false;
+        resolve(data);
+      } catch (error) {
         this.loading.value = false;
         reject(error);
       }
