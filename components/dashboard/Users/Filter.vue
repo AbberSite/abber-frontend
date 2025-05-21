@@ -14,7 +14,7 @@
         v-model:modelValue="purchaseRange"
       />
     </div>
-    <Selector label="الصلاحية" :options="[{value: 'عميل'}, {value: 'إدارة'}, {value: 'معبر'}]" v-model:model-value="filters.user_type"  />
+    <Selector label="الصلاحية" :options="[{value: 'عميل'}, {value: 'إدارة'}, {value: 'معبر'}]" v-model:model-value="filters.user_type__name"  />
 
     <SearchSelector
       :items="countries"

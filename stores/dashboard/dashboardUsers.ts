@@ -18,7 +18,7 @@ class dashboardUsers extends BaseStore {
       is_deleted: "",
       is_active: "",
       country: "",
-      user_type: "",
+      user_type__name: "",
       orders: "",
       email_verified: "",
       phone_verified: "",
@@ -58,7 +58,7 @@ class dashboardUsers extends BaseStore {
   };
 
   getUserTypeFilterQuery = () => {
-    return this.filters.value.user_type ? { user_type: this.filters.value.user_type } : {};
+    return this.filters.value.user_type__name ? { user_type__name: this.filters.value.user_type__name } : {};
   };
 
   getOrdersFilterQuery = () => {
