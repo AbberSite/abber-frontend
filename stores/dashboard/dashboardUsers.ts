@@ -4,6 +4,7 @@ import axios from "axios";
 
 class dashboardUsers extends BaseStore {
   expressors = ref<[]>([]);
+  edit = ref(false);
   countries = ref<[]>([]);
   userData = reactive<{ [key: string]: any }>({});
   userWallet = reactive<{ [key: string]: any }>({});
