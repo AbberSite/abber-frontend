@@ -1,14 +1,9 @@
 <template>
   <div class="space-y-6">
     <HtmlEditor
-      label="سياسة المستخدم"
-      v-model="settings.policy_settings.user_agreement"
-      placeholder="أدخل سياسة المستخدم (HTML)..."
-    />
-    <HtmlEditor
-      label="شروط وأحكام مزود الخدمة"
-      v-model="settings.policy_settings.expressor_agreement"
-      placeholder="أدخل شروط وأحكام مزود الخدمة (HTML)..."
+      label="شروط استلام الطلب"
+      v-model="settings.policy_settings.order_terms"
+      placeholder="أدخل شروط وأحكام الطلب (HTML)..."
     />
     <HtmlEditor
       label="الشروط والأحكام"
@@ -16,10 +11,21 @@
       placeholder="أدخل الشروط والأحكام (HTML)..."
     />
     <HtmlEditor
-      label="شروط وأحكام الطلب"
-      v-model="settings.policy_settings.order_terms"
-      placeholder="أدخل شروط وأحكام الطلب (HTML)..."
+      label="إتفاقية المستخدم"
+      v-model="settings.policy_settings.user_agreement"
+      placeholder="أدخل سياسة المستخدم (HTML)..."
     />
+    <HtmlEditor
+      label="إتفاقية المستخدم الخاصة بحساب (المعبر)"
+      v-model="settings.policy_settings.expressor_agreement"
+      placeholder="أدخل شروط وأحكام مزود الخدمة (HTML)..."
+    />
+    <HtmlEditor
+      label="إتفاقية المستخدم (المعبر)"
+      v-model="settings.policy_settings.expressor_terms"
+      placeholder="أدخل شروط وأحكام مزود الخدمة (HTML)..." />
+    
+    
     <PrimaryButton class="my-2" :loading="loading" @click="()=> updateSettings(2, { policy_settings: { ...settings.policy_settings } })">حفظ</PrimaryButton>
   </div>
 </template>
