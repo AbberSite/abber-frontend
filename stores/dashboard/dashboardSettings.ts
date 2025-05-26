@@ -1,7 +1,12 @@
 class dashboardSettings {
   loading = ref(false);
   settings = ref<{ [key: string]: any }>({});
-
+  partitions = ref<[]>([]);
+  partitionData = ref<{ [key: string]: any }>({});
+  showModifyModal = ref(false);
+  showCreateModal = ref(false);
+  title = ref('');
+  showDeleteConfirm = ref(false);
   
   getSettings = async () => {
     return new Promise(async (resolve, reject) => {
@@ -17,12 +22,48 @@ class dashboardSettings {
       }
     });
   };
+  getSettingsPartitions = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = await useDirectApi('/settings/partitions/');
+        this.partitions.value = data.results;
+        this.loading.value = false;
+        resolve(data);
+      } catch (error) {
+        this.loading.value = false;
+        reject(error);
+      }
+    });
+  };
+  createSettingsPartition = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = await useDirectApi('/settings/partitions/', {
+          method: 'POST',
+          body: this.partitionData.value
+        });
+        this.getSettingsPartitions();
+        this.loading.value = false;
+        this.showCreateModal.value = false;
+        useNotification({
+          type: 'success',
+          content: 'تم إنشاء القسم بنجاح.',
+        });
+        resolve(data);
+      } catch (error) {
+        this.loading.value = false;
+        reject(error);
+      }
+    });
+  };
 
   updateSettings = async (id?: number | 2, settingsSection: {}) => {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
-        const data = await useDirectApi(`/settings/dashboard-settings/${id}/`, {
+        const data = await useProxy(`/settings/dashboard-settings/${id}/`, {
           method: 'PATCH',
           body: settingsSection,
         });
@@ -38,6 +79,59 @@ class dashboardSettings {
         useNotification({
           type: 'danger',
           content: 'فشلت عملية تحديث الإعدادات.',
+        });
+        reject(error);
+      }
+    });
+  };
+
+  updateSettingsPartition = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const id = this.partitionData.value.id;
+        const data = await useDirectApi(`/settings/partitions/${id}/`, {
+          method: 'PATCH',
+          body: this.partitionData.value
+        });
+        await this.getSettingsPartitions();
+        this.loading.value = false;
+        this.showModifyModal.value = false;
+        useNotification({
+          type: 'success',
+          content: 'تم تحديث القسم بنجاح.',
+        });
+        resolve(data);
+      } catch (error) {
+        this.loading.value = false;
+        useNotification({
+          type: 'danger',
+          content: 'فشلت عملية تحديث القسم.',
+        });
+        reject(error);
+      }
+    });
+  };
+
+  removeSettingsPartition = async (id: number) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        await useDirectApi(`/settings/partitions/${id}/`, {
+          method: 'DELETE'
+        });
+        await this.getSettingsPartitions();
+        this.loading.value = false;
+        useNotification({
+          type: 'success',
+          content: 'تم حذف القسم بنجاح.',
+        });
+        resolve(true);
+      } catch (error) {
+        this.loading.value = false;
+        useNotification({
+          type: 'danger',
+          content: 'فشلت عملية حذف القسم.',
         });
         reject(error);
       }
