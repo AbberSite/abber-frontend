@@ -22,7 +22,7 @@ class dashboardSettings {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
-        const data = await useDirectApi(`/settings/dashboard-settings/${id}/`, {
+        const data = await useProxy(`/settings/dashboard-settings/${id}/`, {
           method: 'PATCH',
           body: settingsSection,
         });

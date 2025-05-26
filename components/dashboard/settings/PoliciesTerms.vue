@@ -36,3 +36,34 @@ const { settings, loading } = storeToRefs(useDashboardSettingsStore());
 const { updateSettings } = useDashboardSettingsStore();
 
 </script>
+<style scoped>
+/* Restore default styles for HTML content inside the editor */
+:deep(.ProseMirror) {
+  all: revert;
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  box-sizing: border-box;
+}
+:deep(.ProseMirror) h1 {
+  @apply text-3xl font-bold mb-4 mt-6;
+}
+:deep(.ProseMirror) h2 {
+  @apply text-2xl font-semibold mb-3 mt-5;
+}
+:deep(.ProseMirror) h3 {
+  @apply text-xl font-semibold mb-2 mt-4;
+}
+:deep(.ProseMirror) p {
+  @apply mb-2 leading-relaxed;
+}
+:deep(.ProseMirror) ul {
+  @apply list-disc pl-6 mb-2;
+}
+:deep(.ProseMirror) ol {
+  @apply list-decimal pl-6 mb-2;
+}
+:deep(.ProseMirror) li {
+  @apply mb-1;
+}
+</style>

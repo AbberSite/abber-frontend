@@ -15,7 +15,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12"/>
         </svg>
         <span class="mt-2 text-xs text-primary-500 group-hover:text-primary-700 transition-colors">اختر صورة</span>
-        <input type="file" class="hidden" @change="onFileChange('default_user_image', $event)" />
+        <input type="file" class="hidden" @change="onFileChange('default_user_image', $event)" @input="files.default_user_image = ($event as any).target.files[0]" />
       </label>
     </div>
   </div>
@@ -35,17 +35,26 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12"/>
         </svg>
         <span class="mt-2 text-xs text-primary-500 group-hover:text-primary-700 transition-colors">اختر صورة</span>
-        <input type="file" class="hidden" @change="onFileChange('default_not_found_image', $event)" />
+        <input type="file" class="hidden" @change="onFileChange('default_not_found_image', $event)" @input="files.default_not_found_image = ($event as any).target.files[0]" />
       </label>
     </div>
   </div>
-  <PrimaryButton class="my-2">حفظ</PrimaryButton>
+  <PrimaryButton class="my-2" :loading="loading" @click="submitFiles" >حفظ</PrimaryButton>
 </template>
 
 <script setup lang="ts">
 import { useDashboardSettingsStore } from '~/stores/dashboard/dashboardSettings';
-const { settings } = storeToRefs(useDashboardSettingsStore());
-
+const { settings, loading } = storeToRefs(useDashboardSettingsStore());
+const { updateSettings } = useDashboardSettingsStore();
+let files = reactive({
+  default_user_image: null,
+  default_not_found_image: null
+});
+onMounted(() => {
+  // Initialize files with current settings
+  files.default_user_image = settings.value.general_settings.default_user_image;
+  files.default_not_found_image = settings.value.general_settings.default_not_found_image;
+});
 // Dummy upload handler, replace with your real upload logic
 function onFileChange(key: string, event: Event) {
   const file = (event.target as HTMLInputElement).files?.[0];
@@ -57,6 +66,19 @@ function onFileChange(key: string, event: Event) {
   };
   reader.readAsDataURL(file);
 }
+const submitFiles = async () => {
+  const formdata = new FormData();
+  if (files.default_user_image && typeof files.default_user_image !== 'string') {
+    formdata.append('general_settings.default_user_image', files.default_user_image);
+  };
+  if (files.default_not_found_image && typeof files.default_not_found_image !== 'string') {
+    formdata.append('general_settings.default_not_found_image', files.default_not_found_image);
+  };
+  if (!formdata.has('general_settings.default_user_image') && !formdata.has('general_settings.default_not_found_image')) {
+    return;
+  }
+  await updateSettings(2, formdata);
+};
 </script>
 
 <style scoped>
