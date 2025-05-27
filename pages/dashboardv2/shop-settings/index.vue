@@ -47,5 +47,10 @@
 </template>
 
 <script setup lang="ts">
+import { useDashboardSettingsStore } from '~/stores/dashboard/dashboardSettings'; 
+const {getSettings} = useDashboardSettingsStore();
 const currentTab = ref("tab0");
+onMounted(() => {
+  getSettings();
+});
 </script>
