@@ -159,9 +159,7 @@ function handleSave() {
             settings.value.api_settings.apple_developer_merchantid_domain_association
         );
         updateSettings(2, formData);
-    } else {
-        delete settings.value.api_settings.apple_developer_merchantid_domain_association;
     }
-    updateSettings(2, prepareApiSettingsPayload());
+    updateSettings(2, {api_settings: prepareApiSettingsPayload()});
 }
 </script>

@@ -16,3 +16,7 @@
     <PrimaryButton class="my-2">حفظ</PrimaryButton>
 </template>
 
+<script setup lang="ts">
+import { useDashboardSettingsStore } from '~/stores/dashboard/dashboardSettings';
+const { loading, settings } = storeToRefs(useDashboardSettingsStore());
+</script>
