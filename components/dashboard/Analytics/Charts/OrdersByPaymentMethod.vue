@@ -13,7 +13,10 @@ import {
 } from 'chart.js';
 import { Doughnut } from 'vue-chartjs';
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
+import { useRouter } from 'vue-router';
+
 const { statistics_data } = storeToRefs(useDashboardStatisticsStore());
+const router = useRouter();
 ChartJS.register(Title, Tooltip, Legend, ArcElement)
 // Pie chart for payment methods
 const pieChartData = computed(() => {
@@ -46,11 +49,27 @@ const pieChartData = computed(() => {
   }
 });
 
+// Custom legend click handler
+function handleLegendClick(e, legendItem, legend) {
+  const label = legendItem.text;
+  if (!label) return;
+  // Forward to the orders page with payment_method param
+  const url = router.resolve({
+    path: '/dashboardv2/orders',
+    query: {
+      status: 'in_progress',
+      payment_method: label
+    }
+  }).href;
+  window.open(url, '_blank');
+}
+
 const pieChartOptions = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top'
+      position: 'top',
+      onClick: handleLegendClick
     },
     title: {
       display: true,
