@@ -7,8 +7,8 @@
       { value: 'tab3', name: 'اعدادات API' },
       { value: 'tab4', name: 'البيانات المالية' },
       { value: 'tab5', name: 'رسوم طرق الدفع' },
+      { value: 'tab7', name: 'إعدادات الخدمات' },
       { value: 'tab6', name: 'النسخ الاحتياطي' },
-      { value: 'tab7', name: 'إعدادات الباقات' },
       { value: 'tab8', name: 'Orders Packages Settings' },
     ]"
     v-model:model-value="currentTab"
@@ -32,13 +32,13 @@
     <template v-else-if="currentTab == 'tab5'">
       <DashboardShopSettingsPaymentFees />
     </template>
+    <template v-else-if="currentTab == 'tab7'">
+      <DashboardShopSettingsPackages />
+    </template>
     <template v-else-if="currentTab == 'tab6'">
       <div class="flex justify-center">
         <PrimaryButton>إستعادة نسخة إحتياطية</PrimaryButton>
       </div>
-    </template>
-    <template v-else-if="currentTab == 'tab7'">
-      <DashboardShopSettingsPackages />
     </template>
     <template v-else>
       <DashboardShopSettingsOrdersPackages />
