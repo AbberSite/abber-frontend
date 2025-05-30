@@ -29,6 +29,7 @@
   
   <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
+  import { onMounted, watch } from 'vue';
   
   const props = defineProps<{
     tabs: Array<{ name: string, value: string, count?: number, showCounter?:boolean, isNew?:boolean, dontShowIt?:boolean }>;
@@ -38,8 +39,24 @@
   const emits = defineEmits(['update:modelValue']);
   const activeTab = useVModel(props, 'modelValue', emits);
   
+  // Set active tab from hash on mount
+  onMounted(() => {
+    if (window.location.hash) {
+      const hashTab = window.location.hash.replace('#', '');
+      if (props.tabs.some(tab => tab.value === hashTab)) {
+        activeTab.value = hashTab;
+      }
+    }
+  });
+  
+  // Update hash when tab changes
+  watch(activeTab, (val) => {
+    if (val) {
+      window.location.hash = `#${val}`;
+    }
+  });
+  
   const selectTab = (value: string) => {
     activeTab.value = value;
   };
   </script>
-  

@@ -1,6 +1,7 @@
 import type { PaginationResponse } from "~/types";
 import { BaseStore } from "./baseStore";
 import axios from "axios";
+import { useRoute } from 'vue-router';
 
 class dashboardUsers extends BaseStore {
   expressors = ref<[]>([]);
@@ -175,7 +176,16 @@ class dashboardUsers extends BaseStore {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
-        const data = (await useDirectApi("/tracking/history/?user=" + (id || this.userData.id), {
+        let userId = id;
+        if (!userId) {
+          if (this.userData.id) {
+            userId = this.userData.id;
+          } else if (process.client) {
+            const route = useRoute();
+            userId = route.params.id || route.query.id;
+          }
+        }
+        const data = (await useDirectApi("/tracking/history/?user=" + userId, {
           params: {
             limit: 20,
             ...this.pipeFilters(),
@@ -200,7 +210,16 @@ class dashboardUsers extends BaseStore {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
-        const data = (await useDirectApi(`/tracking/log-entry/?user=${(id || this.userData.id)}`, {
+        let userId = id;
+        if (!userId) {
+          if (this.userData.id) {
+            userId = this.userData.id;
+          } else if (process.client) {
+            const route = useRoute();
+            userId = route.params.id || route.query.id;
+          }
+        }
+        const data = (await useDirectApi(`/tracking/log-entry/?user=${userId}`, {
           params: {
             limit: 20,
             ...this.pipeFilters(),
@@ -225,7 +244,16 @@ class dashboardUsers extends BaseStore {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
-        const data = (await useDirectApi(`/accounts/dashboard-users/${(id || this.userData.id)}/user_activity/`, {
+        let userId = id;
+        if (!userId) {
+          if (this.userData.id) {
+            userId = this.userData.id;
+          } else if (process.client) {
+            const route = useRoute();
+            userId = route.params.id || route.query.id;
+          }
+        }
+        const data = (await useDirectApi(`/accounts/dashboard-users/${userId}/user_activity/`, {
           params: {
             limit: 20,
             ...this.pipeFilters(),

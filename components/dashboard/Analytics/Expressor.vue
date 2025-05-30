@@ -35,12 +35,12 @@ const headItems = {
 };
 
 function sum(key: string) {
-  return (statistics_data.value.services.data || []).reduce((acc, row) => acc + (Number(row[key]) || 0), 0);
+  return (statistics_data.value.services?.data || []).reduce((acc, row) => acc + (Number(row[key]) || 0), 0);
 }
 
 // Merge body items with totals as the last row
 const mergedItems = computed(() => {
-  const items = statistics_data.value.services.data || [];
+  const items = statistics_data.value.services?.data || [];
   const totals: Record<string, any> = {};
   Object.keys(headItems).forEach(key => {
     if (key === 'seller__username') {
