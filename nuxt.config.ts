@@ -142,7 +142,8 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/gtm.ts',
     '~/plugins/event-bus.ts',
-    '~/plugins/drag-scroll.ts'
+    '~/plugins/drag-scroll.ts',
+    {src: '~/plugins/ckeditor.ts', mode: 'client'}, // CKEditor plugin, ensure it's client-side only
   ],
 
   i18n: {

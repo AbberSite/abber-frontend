@@ -27,7 +27,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^42.0.1",
+    "@ckeditor/ckeditor5-build-classic": "^43.0.0",
     "@ckeditor/ckeditor5-vue": "^6.0.0",
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.1.1",
