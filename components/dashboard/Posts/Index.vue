@@ -32,23 +32,13 @@
           v-model:model-value="showModify"
           class="my-2"
         />
-        <ClientOnly v-if="false"><CKEditor :editor="ClassicEditor" v-model="postContent" :config="editorConfig"></CKEditor></ClientOnly>
-        <!-- <CKEditor v-model:modelValue="postContent"/> -->
+        <ClientOnly><Editor v-model="postContent" /></ClientOnly>
         <PrimaryButton class="w-full my-2">نشر المقال</PrimaryButton>
       </template>
     </ModifyModal>
   </ClientOnly>
 </template>
 <script setup lang="ts">
-import { Bold, Essentials, Italic, Paragraph, Undo } from 'ckeditor5';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import {CKEditor} from '@ckeditor/ckeditor5-vue';
-// const ckeditor = CKEditor.component;
-import 'ckeditor5/ckeditor5.css';
-const editorConfig = {
-  plugins: [Bold, Essentials, Italic, Paragraph, Undo],
-  toolbar: ["undo", "redo", "|", "bold", "italic"]
-};
 const { $listen } = useNuxtApp();
 const showModify = ref(false);
 let modifyTitle = ref("");
