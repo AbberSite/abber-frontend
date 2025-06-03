@@ -74,10 +74,11 @@ const chartOptions = {
           const label = labels[index];
           const country = countries.value.find(c => c.name === label);
           if (country && country.code) {
-            router.push({
-              path: '/dashboardv2/accounts/users/',
-              query: { country: country.code }
-            });
+            const url = router.resolve({
+                    path: '/dashboardv2/accounts/users/',
+                    query: { country: country.code }
+                    }).href;
+            window.open(url, '_blank');
           }
           return;
         }
