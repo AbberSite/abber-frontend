@@ -7,8 +7,7 @@
       <option value="custom">مخصص</option>
     </select>
     <DashboardDatePickerInput
-      v-if="selectedPreset === 'custom'"
-      label="التاريخ"
+      v-if="selectedPreset === 'custom'" no_label
       v-model:model-date="internalValue"
       range
     />
