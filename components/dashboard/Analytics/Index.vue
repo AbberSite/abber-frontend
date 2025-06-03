@@ -52,57 +52,6 @@
     <!-- end charts -->
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-6 px-6 sm:pt-0 w-full">
-      <!-- <DashboardAnalyticsTable v-show="false"
-        :head-items="{ method: 'وسيلة الدفع', transaction_count: 'الطلبات' }"
-        :body-items="statistics_data.payment_methods"
-      />
-      <DashboardAnalyticsTable v-show="false"
-        :head-items="{
-          geolocation__country_name: 'الدولة',
-          orders: 'الطلبات',
-          users_count: 'المستخدمين',
-        }"
-        :body-items="statistics_data.countries"
-      />
-      <DashboardAnalyticsTable v-show="false"
-        :head-items="{ hour: 'وقت الشراء', orders: 'الطلبات' }"
-        :body-items="[
-          { hour: '12:00 ص', orders: statistics_data.orders.purchase_times[0].order_count },
-          { hour: '1:00 ص', orders: statistics_data.orders.purchase_times[1].order_count },
-          { hour: '2:00 ص', orders: statistics_data.orders.purchase_times[2].order_count },
-          { hour: '3:00 ص', orders: statistics_data.orders.purchase_times[3].order_count },
-          { hour: '4:00 ص', orders: statistics_data.orders.purchase_times[4].order_count },
-          { hour: '5:00 ص', orders: statistics_data.orders.purchase_times[5].order_count },
-          { hour: '6:00 ص', orders: statistics_data.orders.purchase_times[6].order_count },
-          { hour: '7:00 ص', orders: statistics_data.orders.purchase_times[7].order_count },
-          { hour: '8:00 ص', orders: statistics_data.orders.purchase_times[8].order_count },
-          { hour: '9:00 ص', orders: statistics_data.orders.purchase_times[9].order_count },
-          { hour: '10:00 ص', orders: statistics_data.orders.purchase_times[10].order_count },
-          { hour: '11:00 ص', orders: statistics_data.orders.purchase_times[11].order_count },
-          { hour: '12:00 م', orders: statistics_data.orders.purchase_times[12].order_count },
-          { hour: '1:00 م', orders: statistics_data.orders.purchase_times[13].order_count },
-          { hour: '2:00 م', orders: statistics_data.orders.purchase_times[14].order_count },
-          { hour: '3:00 م', orders: statistics_data.orders.purchase_times[15].order_count },
-          { hour: '4:00 م', orders: statistics_data.orders.purchase_times[16].order_count },
-          { hour: '5:00 م', orders: statistics_data.orders.purchase_times[17].order_count },
-          { hour: '6:00 م', orders: statistics_data.orders.purchase_times[18].order_count },
-          { hour: '7:00 م', orders: statistics_data.orders.purchase_times[19].order_count },
-          { hour: '8:00 م', orders: statistics_data.orders.purchase_times[20].order_count },
-          { hour: '9:00 م', orders: statistics_data.orders.purchase_times[21].order_count },
-          { hour: '10:00 م', orders: statistics_data.orders.purchase_times[22].order_count },
-          { hour: '11:00 م', orders: statistics_data.orders.purchase_times[23].order_count },
-        ]"
-      />
-      <DashboardAnalyticsTable v-show="false"
-        :head-items="{ payAverage: 'معدل شراء الطلبات', users: 'المستخدمين' }"
-        :body-items="[
-          { payAverage: '3+', users: statistics_data.users.purchase_rates.num_more_than_3_orders },
-          { payAverage: '3', users: statistics_data.users.purchase_rates.num_3_orders },
-          { payAverage: '2', users: statistics_data.users.purchase_rates.num_2_orders },
-          { payAverage: '1', users: statistics_data.users.purchase_rates.num_1_order },
-          { payAverage: 'لم يشتري', users: statistics_data.users.purchase_rates.num_0_order },
-        ]"
-      /> -->
       <DashboardAnalyticsTable 
         :head-items="{
           verifiedAuth: 'وسائل التسجيل المؤكدة',
