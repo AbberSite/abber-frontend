@@ -105,17 +105,16 @@ onMounted(()=> {
   );
 });
 
-// For orders_count input: always a single number, always store as "{number}+"
+// For orders_count input: allow plain number or number+
 const ordersCountInput = computed({
   get() {
-    // Extract the numeric part for display
-    const val = filters.value.orders_count ?? '';
-    return val ? String(parseInt(val)) : '';
+    // Show whatever is in filters.value.orders_count for editing
+    return filters.value.orders_count ?? '';
   },
   set(val: string) {
-    // Only allow digits, store as "{number}+"
-    const num = val.replace(/\D/g, '');
-    filters.value.orders_count = num ? `${num}+` : '';
+    // Allow only digits or digits followed by a single '+'
+    const match = val.match(/^(\d+)(\+?)$/);
+    filters.value.orders_count = match ? match[0] : '';
   }
 });
 
