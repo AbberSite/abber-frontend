@@ -15,6 +15,8 @@
   LinearScale} from 'chart.js'
 import { Bar } from 'vue-chartjs'
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
+import { useRouter } from 'vue-router'
+import { computed } from 'vue'
 const { statistics_data } = storeToRefs(useDashboardStatisticsStore());
 // bar chart 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -41,6 +43,8 @@ const purchaseTimesChartData = computed(() => {
   }
 });
 
+const router = useRouter();
+
 const purchaseTimesChartOptions = {
   responsive: true,
   plugins: {
@@ -52,7 +56,21 @@ const purchaseTimesChartOptions = {
       text: 'عدد الطلبات حسب الساعة'
     }
   },
-  indexAxis: 'x' // vertical bars
+  indexAxis: 'x', // vertical bars
+  onClick: (event, elements, chart) => {
+    if (elements && elements.length > 0) {
+      const idx = elements[0].index;
+      const hourLabels = chart.data.labels || [];
+      const hour = hourLabels[idx];
+      if (hour) {
+        const url = router.resolve({
+          path: '/dashboardv2/orders',
+          query: { status: 'in_progress', time: hour }
+        }).href;
+        window.open(url, '_blank');
+      }
+    }
+  }
 }
 
 </script>

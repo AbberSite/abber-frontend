@@ -15,6 +15,9 @@
   LinearScale} from 'chart.js'
 import { Bar } from 'vue-chartjs'
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
+import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+const router = useRouter();
 const { statistics_data } = storeToRefs(useDashboardStatisticsStore());
 // bar chart 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -56,7 +59,26 @@ const purchaseRatesChartOptions = {
       text: 'معدل شراء الطلبات'
     }
   },
-  indexAxis: 'x' // vertical bars
+  indexAxis: 'x', // vertical bars
+  onClick: (event, elements, chart) => {
+    if (elements && elements.length > 0) {
+      const idx = elements[0].index;
+      // Map index to orders_count query value
+      let orders_count = '';
+      if (idx === 0) orders_count = '0';
+      else if (idx === 1) orders_count = '1';
+      else if (idx === 2) orders_count = '2';
+      else if (idx === 3) orders_count = '3';
+      else if (idx === 4) orders_count = '3+';
+      if (orders_count) {
+        const url = router.resolve({
+          path: '/dashboardv2/accounts/users/',
+          query: { orders_count }
+        }).href;
+        window.open(url, '_blank');
+      }
+    }
+  }
 }
 
 </script>

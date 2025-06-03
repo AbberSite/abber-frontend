@@ -11,7 +11,7 @@ class dashboardStatistics extends BaseStore {
     const getDate = () => {
       const today = new Date();
       const last30Days = new Date();
-      last30Days.setDate(today.getDate() - 1);
+      last30Days.setDate(today.getDate());
 
       const date_after = last30Days.toISOString().split("T")[0];
       const date_before = today.toISOString().split("T")[0];
