@@ -3,14 +3,14 @@
     <div class="flex flex-col gap-y-2">
       <DashboardDateFilters
         title="تاريخ الإنضمام"
-        :dateGteKey="'date__join_gte'"
-        :dateLteKey="'date__join_lte'"
+        :dateGteKey="'date_joined__gte'"
+        :dateLteKey="'date_joined__lte'"
         v-model:modelValue="joinRange"
       />
       <DashboardDateFilters
         title="تاريخ الشراء"
-        :dateGteKey="'date__purchase_gte'"
-        :dateLteKey="'date__purchase_lte'"
+        :dateGteKey="'order_date_after'"
+        :dateLteKey="'order_date_before'"
         v-model:modelValue="purchaseRange"
       />
     </div>
@@ -21,53 +21,61 @@
       label="الدولة:"
       placeholder="إختر الدولة"
       display-key="name"
-      value-key="name"
+      value-key="code"
       v-model="country_selected"
     />
-    <TextInput label="عدد الطلبات:" placeholder="مثال: 3 او 3+" v-model:model-value="filters.orders" />
+    <TextInput
+      label="عدد الطلبات:"
+      placeholder="مثال: 3 او 3+"
+      v-model:model-value="ordersCountInput"
+    />
 
-    <Selector label="البريد الإلكتروني مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.email_verified" />
-    <Selector label="الجوال مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.phone_verified"/>
+    <Selector label="البريد الإلكتروني مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.verified_email" />
+    <Selector label="الجوال مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.verified_phone"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
+import { useRoute, useRouter } from 'vue-router';
 
 const { filters, countries } = storeToRefs(useDashboardUsersStore());
 
+const router = useRouter();
+const route = useRoute();
+
 const joinRange = computed({
   get: () => [
-    filters.value.date__join_gte ?? null,
-    filters.value.date__join_lte ?? null
+    filters.value.date_joined__gte ?? null,
+    filters.value.date_joined__lte ?? null
   ],
   set: (value) => {
     if (!value || value.length === 0) {
-      filters.value.date__join_gte = null;
-      filters.value.date__join_lte = null;
+      filters.value.date_joined__gte = null;
+      filters.value.date_joined__lte = null;
     } else {
       const [start, end] = value;
-      filters.value.date__join_gte = start;
-      filters.value.date__join_lte = end;
+      filters.value.date_joined__gte = start;
+      filters.value.date_joined__lte = end;
     }
   }
 });
 
 const purchaseRange = computed({
   get: () => [
-    filters.value.date__purchase_gte ?? null,
-    filters.value.date__purchase_lte ?? null
+    filters.value.order_date_after ?? null,
+    filters.value.order_date_before ?? null
   ],
   set: (value) => {
     if (!value || value.length === 0) {
-      filters.value.date__purchase_gte = null;
-      filters.value.date__purchase_lte = null;
+      filters.value.order_date_after = null;
+      filters.value.order_date_before = null;
     } else {
       const [start, end] = value;
-      filters.value.date__purchase_gte = start;
-      filters.value.date__purchase_lte = end;
+      filters.value.order_date_after = start;
+      filters.value.order_date_before = end;
     }
   }
 });
@@ -77,23 +85,52 @@ let country_selected = ref(null);
 
 onMounted(()=> {
   watch(
-  () => filters.value.country,
-  (val) => {
-    if (!val) {
-      country_selected.value = null;
-    } else {
-      // Find the country object in countries list by name
-      country_selected.value = countries.value.find(c => c.name === val) || { name: val };
-    }
-  },
-  { immediate: true }
-);
+    () => filters.value.country,
+    (val) => {
+      if (!val) {
+        country_selected.value = null;
+      } else {
+        // Find the country object in countries list by code
+        country_selected.value = countries.value.find(c => c.code === val) || { code: val, name: val };
+      }
+    },
+    { immediate: true }
+  );
 
-watch(
-  country_selected,
-  (val) => {
-    filters.value.country = val ? val.name : '';
-  }
-);
+  watch(
+    country_selected,
+    (val) => {
+      filters.value.country = val ? val.code : '';
+    }
+  );
 });
+
+// For orders_count input: always a single number, always store as "{number}+"
+const ordersCountInput = computed({
+  get() {
+    // Extract the numeric part for display
+    const val = filters.value.orders_count ?? '';
+    return val ? String(parseInt(val)) : '';
+  },
+  set(val: string) {
+    // Only allow digits, store as "{number}+"
+    const num = val.replace(/\D/g, '');
+    filters.value.orders_count = num ? `${num}+` : '';
+  }
+});
+
+// Watch filters and update URL query parameters
+watch(
+  filters,
+  (val) => {
+    const activeFilters = Object.fromEntries(
+      Object.entries(val).filter(([k, v]) => v !== null && v !== undefined && v !== '')
+    );
+    // Always update the query after the path (and trailing slash if present)
+    // Use router.replace with a string path to ensure correct query placement
+    const path = route.path; // includes trailing slash if present
+    router.replace({ path, query: activeFilters });
+  },
+  { deep: true }
+);
 </script>

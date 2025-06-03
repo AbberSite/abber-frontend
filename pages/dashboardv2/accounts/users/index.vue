@@ -50,6 +50,8 @@ const { fetchAll, fetchCountries } = useDashboardUsersStore();
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
 const headItems = {
   first_name:'إسم المستخدم',
@@ -61,6 +63,12 @@ const headItems = {
 };
 
 onMounted(async () => {
+  // Initialize filters from query params
+  Object.entries(route.query).forEach(([key, value]) => {
+    if (filters.value.hasOwnProperty(key)) {
+      filters.value[key] = value;
+    }
+  });
   fetchAll();
   fetchCountries()
 });
