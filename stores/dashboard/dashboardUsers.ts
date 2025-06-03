@@ -22,13 +22,13 @@ class dashboardUsers extends BaseStore {
       is_active: "",
       country: "",
       user_type__name: "",
-      orders: "",
-      email_verified: "",
-      phone_verified: "",
-      date__join_gte: "",
-      date__join_lte: "",
-      date__purchase_gte: "",
-      date__purchase_lte: "",
+      orders_count: "",
+      verified_email: "",
+      verified_phone: "",
+      date_joined__gte: "",
+      date_joined__lte: "",
+      order_date_after: "",
+      order_date_before: "",
       },
       [
       () => this.getIsDeletedFilterQuery(),
@@ -65,34 +65,34 @@ class dashboardUsers extends BaseStore {
   };
 
   getOrdersFilterQuery = () => {
-    return this.filters.value.orders ? { orders: this.filters.value.orders } : {};
+    return this.filters.value.orders_count ? { orders_count: this.filters.value.orders_count } : {};
   };
 
   getEmailVerifiedFilterQuery = () => {
-    return this.filters.value.email_verified !== "" && this.filters.value.email_verified !== undefined
-      ? { email_verified: this.filters.value.email_verified }
+    return this.filters.value.verified_email !== "" && this.filters.value.verified_email !== undefined
+      ? { verified_email: this.filters.value.verified_email }
       : {};
   };
 
   getPhoneVerifiedFilterQuery = () => {
-    return this.filters.value.phone_verified !== "" && this.filters.value.phone_verified !== undefined
-      ? { phone_verified: this.filters.value.phone_verified }
+    return this.filters.value.verified_phone !== "" && this.filters.value.verified_phone !== undefined
+      ? { verified_phone: this.filters.value.verified_phone }
       : {};
   };
 
   getDateJoinFilterQuery = () => {
-    const { date__join_gte, date__join_lte } = this.filters.value;
+    const { date_joined__gte, date_joined__lte } = this.filters.value;
     let query: any = {};
-    if (date__join_gte) query.date__join_gte = date__join_gte;
-    if (date__join_lte) query.date__join_lte = date__join_lte;
+    if (date_joined__gte) query.date_joined__gte = date_joined__gte;
+    if (date_joined__lte) query.date_joined__lte = date_joined__lte;
     return query;
   };
 
   getDatePurchaseFilterQuery = () => {
-    const { date__purchase_gte, date__purchase_lte } = this.filters.value;
+    const { order_date_after, order_date_before } = this.filters.value;
     let query: any = {};
-    if (date__purchase_gte) query.date__purchase_gte = date__purchase_gte;
-    if (date__purchase_lte) query.date__purchase_lte = date__purchase_lte;
+    if (order_date_after) query.order_date_after = order_date_after;
+    if (order_date_before) query.order_date_before = order_date_before;
     return query;
   };
   fetchCountries = async () => {
@@ -100,7 +100,7 @@ class dashboardUsers extends BaseStore {
       .get("https://restcountries.com/v3.1/all")
       .then((res) => {
         this.countries.value = res.data
-          .map((country: any) => ({ name: country.name.common }))
+          .map((country: any) => ({ name: country.name.common, code: country.cca2 }))
           .sort((a, b) => a.name.localeCompare(b.name));
       })
       .catch((err) => console.log(err));
