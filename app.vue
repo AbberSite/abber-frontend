@@ -11,7 +11,6 @@
   <meta name="appleid-signin-state" content="[STATE]" />
   <meta name="appleid-signin-nonce" content="[NONCE]" />
   <meta name="appleid-signin-use-popup" content="true" />
-  <meta name="google-site-verification" content="U9_0pV8c8zwuJKf2kp5FNtHBjXo1bZRB3EimSZSdmzM" v-if="!useRuntimeConfig().public.production"/>
 </template>
 
 <script setup>
@@ -58,6 +57,7 @@ useSeoMeta({
   "appleid-signin-state": "something",
   "appleid-signin-nonce": "something",
   "appleid-signin-use-popup": "true",
+  "google-site-verification": "U9_0pV8c8zwuJKf2kp5FNtHBjXo1bZRB3EimSZSdmzM",
 });
 
 const { getSession } = useAuth();

@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col space-x-3" >
-        <DashboardTablesTable :head-items="head" :body-items="userServicesPaid" :loading="loading" :actions="{view:{path:'/orders/'}}" />
+        <DashboardTablesTable :head-items="head" :body-items="userServicesPaid" :loading="loading" :actions="{view:{path:'/dashboardv2/accounts/users/user-update/'}}" />
         <Pagination
     class="pt-4"
     :results="(pagination as PaginationResponse<any>)"
