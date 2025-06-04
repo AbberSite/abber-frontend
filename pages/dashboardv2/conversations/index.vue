@@ -1,5 +1,5 @@
 <template>
-    <DashboardTitle department="الدعم التقني" title="المحادثات" />
+    <DashboardTitle department="الدعم التقني" title="محادثات الواتساب" />
     <DashboardTablesTable :head-items="{ conversation: 'المحادثة' }" :body-items="data" :actions="{ view: {path: '/whatsapp-chat/conversation/'} }" />
 </template>
 
