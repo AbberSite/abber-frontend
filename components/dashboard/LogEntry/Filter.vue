@@ -21,9 +21,6 @@
 <script setup lang="ts">
 import { useDashboardUsersStore } from "~/stores/dashboard/dashboardUsers";
 const { content_types, logs_filters } = storeToRefs(useDashboardUsersStore());
-// const { getAllLogs } = useDashboardUsersStore();
-// watch(action_flag,() => getAllLogs());
-// watch(content_type,() => getAllLogs());
 content_types.value = [
   { value: "1", text: "admin | مدخلة سجلات" },
   { value: "2", text: "auth | الصلاحية" },
