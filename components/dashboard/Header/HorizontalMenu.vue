@@ -26,6 +26,14 @@
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg><span class="ms-3">الرئيسية</span>
           </NuxtLink>
+          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-statistics'}" role="menuitem"
+            tabindex="-1">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg><span class="ms-3">الإحصائيات</span>
+          </NuxtLink>
           <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-send-notifications'}" role="menuitem"
             tabindex="-1">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,42 +49,6 @@
                 d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg><span class="ms-3">السجل</span>
-          </NuxtLink>
-        </div>
-      </div>
-    </div>
-    <div class="group relative flex">
-      <button class="flex items-center space-x-2 whitespace-nowrap font-medium rtl:space-x-reverse 2xl:text-lg"
-        type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-          height="20" width="20">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z">
-          </path>
-        </svg><span>الإحصائيات</span>
-        <svg class="transition-all group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
-          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" height="12" width="12">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
-        </svg>
-      </button>
-      <div
-        class="invisible fixed top-[135px] w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 group-hover:visible submenu">
-        <div class="py-2">
-          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-statistics'}" role="menuitem"
-            tabindex="-1">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3">الإحصائيات</span>
-          </NuxtLink>
-          <NuxtLink class="flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50" :to="{name: 'dashboardv2-reviews'}" role="menuitem"
-            tabindex="-1">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg><span class="ms-3">التقييمات</span>
           </NuxtLink>
         </div>
       </div>
