@@ -5,17 +5,19 @@
   <Selector
     label="نوع الإجراء"
     :options="[
-      { value: 'add', text: 'إضافة' },
-      { value: 'edit', text: 'تعديل' },
-      { value: 'delete', text: 'حذف' },
+      { value: '1', text: 'إضافة' },
+      { value: '2', text: 'تعديل' },
+      { value: '3', text: 'حذف' },
     ]"
-    default-option="كل"
+    default-option="كل" v-model="action_flag"
   />
 </template>
 
 <script setup lang="ts">
-import { useDashboardWithdrawalRequestsStore } from "~/stores/dashboard/dashboardWithdrawalRequests";
-const { filters } = storeToRefs(useDashboardWithdrawalRequestsStore());
+import { useDashboardUsersStore } from "~/stores/dashboard/dashboardUsers";
+const { action_flag } = storeToRefs(useDashboardUsersStore());
+const { getAllLogs } = useDashboardUsersStore();
+watch(action_flag,() => getAllLogs());
 </script>
 
 <style scoped>
