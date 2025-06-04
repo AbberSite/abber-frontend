@@ -16,7 +16,12 @@ class dashboardUsers extends BaseStore {
   userServicesPaid = ref<[]>([]);
   updateLoading = ref(false);
   logs = ref<[]>([]);
-  action_flag = ref("");
+  content_types = ref<[]>([]);
+  logs_filters = reactive({
+    action_flag: "",
+    object_id: "",
+    content_type: "",
+  });
   constructor() {
     super(
       {
@@ -354,7 +359,7 @@ class dashboardUsers extends BaseStore {
           params: {
             limit: 20,
             ...this.pipeFilters(),
-            action_flag: this.action_flag.value,
+            ...this.logs_filters,
             ...params
           },
           headers: {

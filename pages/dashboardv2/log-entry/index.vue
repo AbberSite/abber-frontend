@@ -3,7 +3,7 @@
   <div class="w-full pt-8">
     <div class="flex items-center justify-between">
       <DashboardInputsSearch
-        placeholder="ابحث عن إجراء معين"
+        placeholder="ابحث عن إجراء معين" v-model:model-value="logs_filters.object_id"
         @openFiltersMobileModal="openFiltersMobileModal = true"
       />
       <div class="relative">
@@ -79,12 +79,20 @@
 <script setup lang="ts">
 import { vOnClickOutside } from "@vueuse/components";
 import { useDashboardUsersStore } from "~/stores/dashboard/dashboardUsers";
-const {logs, loading, pagination, filtersCount} = storeToRefs(useDashboardUsersStore());
+const {logs, loading, pagination, filtersCount, logs_filters, content_types} = storeToRefs(useDashboardUsersStore());
 const {getAllLogs} = useDashboardUsersStore();
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 provide("dateFilters", "withdrawalRequests");
-onMounted(()=> {
+
+onMounted(() => {
   getAllLogs();
+  watch(
+    logs_filters,
+    () => {
+      getAllLogs();
+    },
+    { deep: true }
+  );
 });
 </script>
