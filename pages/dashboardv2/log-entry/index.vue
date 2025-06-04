@@ -3,8 +3,7 @@
   <div class="w-full pt-8">
     <div class="flex items-center justify-between">
       <DashboardInputsSearch
-        placeholder="ابحث عن إجراء معين"
-        v-model="filters.search"
+        placeholder="ابحث عن إجراء معين" v-model:model-value="logs_filters.object_id"
         @openFiltersMobileModal="openFiltersMobileModal = true"
       />
       <div class="relative">
@@ -36,7 +35,7 @@
           </span>
           <span
             class="ms-1.5 rounded-full bg-gray-900 px-1.5 py-0.5 text-white"
-            >{{ filters.count }}</span
+            >{{ filtersCount }}</span
           >
         </button>
         <ClientOnly>
@@ -57,7 +56,16 @@
       </div>
     </div>
   </div>
-  <DashboardTablesTable :head-items="{first_name: 'المستخدم', date: 'تاريخ الاجراء', type: 'نوع الإجراء', log: 'إجراء'}" :body-items="data" />
+  <DashboardTablesTable :head-items="{user: 'المستخدم',
+    action_time: 'تاريخ الإجراء',
+    action_flag: 'نوع الاجراء',
+    change_message: 'الاجراء'}" :loading="loading" :body-items="logs"  />
+  <Pagination
+    class="pt-4"
+    :results="(pagination as PaginationResponse<any>)"
+    @change="getAllLogs"
+    per-page="20"
+  />
   <ClientOnly>
     <DashboardFiltersMobileModal
       :show="openFiltersMobileModal"
@@ -70,18 +78,21 @@
 
 <script setup lang="ts">
 import { vOnClickOutside } from "@vueuse/components";
+import { useDashboardUsersStore } from "~/stores/dashboard/dashboardUsers";
+const {logs, loading, pagination, filtersCount, logs_filters, content_types} = storeToRefs(useDashboardUsersStore());
+const {getAllLogs} = useDashboardUsersStore();
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
 provide("dateFilters", "withdrawalRequests");
-let filters = reactive({
-  search: "",
-  count: 0,
+
+onMounted(() => {
+  getAllLogs();
+  watch(
+    logs_filters,
+    () => {
+      getAllLogs();
+    },
+    { deep: true }
+  );
 });
-const data = ref([
-    { first_name: 'الشيخ', date: '2024-12-31', type: 'تعديل', log: 'الحالة من جديد ل قيد التنفيذ' },
-    { first_name: 'الشيخ', date: '2024-12-31', type: 'تعديل', log: 'الحالة من جديد ل قيد التنفيذ' },
-    { first_name: 'الشيخ', date: '2024-12-31', type: 'تعديل', log: 'الحالة من جديد ل قيد التنفيذ' },
-    { first_name: 'الشيخ', date: '2024-12-31', type: 'تعديل', log: 'الحالة من جديد ل قيد التنفيذ' },
-    { first_name: 'الشيخ', date: '2024-12-31', type: 'تعديل', log: 'الحالة من جديد ل قيد التنفيذ' },
-])
 </script>

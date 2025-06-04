@@ -220,6 +220,8 @@ const cards = ref([
   },
   // { title: '', count: 10, subtitle: '', iconBackgroundClass: '', icon: "" },
 ]);
+const route = useRouter();
+route.push({ name: 'dashboardv2-statistics' });
 </script>
 
 <style scoped>

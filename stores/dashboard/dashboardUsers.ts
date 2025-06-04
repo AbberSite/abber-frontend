@@ -15,6 +15,13 @@ class dashboardUsers extends BaseStore {
   userServicesVisited = ref<[]>([]);
   userServicesPaid = ref<[]>([]);
   updateLoading = ref(false);
+  logs = ref<[]>([]);
+  content_types = ref<[]>([]);
+  logs_filters = reactive({
+    action_flag: "",
+    object_id: "",
+    content_type: "",
+  });
   constructor() {
     super(
       {
@@ -340,6 +347,31 @@ class dashboardUsers extends BaseStore {
         resolve(data);
       } catch (error) {
         this.loading.value = false;
+        reject(error);
+      }
+    });
+  };
+  getAllLogs = async (params?: any, update?: any) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = (await useDirectApi("/tracking/log-entry/", {
+          params: {
+            limit: 20,
+            ...this.pipeFilters(),
+            ...this.logs_filters,
+            ...params
+          },
+          headers: {
+            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+          },
+        })) as PaginationResponse<any>;
+        this.logs.value = data.results ?? [];
+        this.pagination.value = data;
+        this.loading.value = false;
+        update?.();
+        resolve(data);
+      } catch (error: any) {
         reject(error);
       }
     });
