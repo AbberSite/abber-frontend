@@ -171,7 +171,7 @@
           <div class="flex">
             <div class="flex-shrink-0"><img class="lazyload h-11 w-11 rounded-full bg-gray-100" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=" :data-src="order?.seller?.image" height="44" width="44" alt="" /></div>
             <div class="flex mr-2 items-center">
-              <h1 class="font-medium text-sm">{{ order.seller?.first_name }}</h1>
+              <NuxtLink class="font-medium text-sm hover:text-blue-600" :to="`/dashboardv2/accounts/users/user-update/${order?.seller?.id}/`">{{ order.seller?.first_name }}</NuxtLink>
             </div>
           </div>
         </div>
