@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, nextTick } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { vOnClickOutside } from '@vueuse/components';
 
 const props = defineProps<{
