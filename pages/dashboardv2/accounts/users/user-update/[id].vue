@@ -5,10 +5,11 @@
     <Tabs :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
     <div class="w-full pt-2">
         <DashboardUsersDetails v-if="currentTab == 'tab0'"/>
-        <DashboardUsersLogs v-if="currentTab == 'tab1'"/>
+        <DashboardExpressorsAccountStatement v-if="currentTab == 'tab1'"/>
+        <DashboardUsersLogs v-if="currentTab == 'tab2'"/>
         <DashboardUsersServicesPaid v-if="currentTab == 'tab3'"/>
-        <DashboardUsersTickets v-if="currentTab == 'tab6'"/>
-        <DashboardUsersActionsLog v-if="currentTab == 'tab7'"/>
+        <DashboardUsersTickets v-if="currentTab == 'tab4'"/>
+        <DashboardUsersActionsLog v-if="currentTab == 'tab5'"/>
     </div>
 </template>
 
@@ -25,16 +26,17 @@ let currentTab = ref('tab0');
 
 const items = ref([
   { name: 'بيانات العميل', value: 'tab0' },
-  { name: 'السجل', value: 'tab1' },
+  { name: 'كشف الحساب', value: 'tab1' },
+  { name: 'السجل', value: 'tab2' },
   { name: 'خدمات تم شراؤها', value: 'tab3', dontShowIt: true },
-  { name: 'تذكرة المساعدات', value: 'tab6' },
-  { name: 'سجل الاجراءات', value: 'tab7' },
+  { name: 'تذكرة المساعدات', value: 'tab4' },
+  { name: 'سجل الاجراءات', value: 'tab5' },
 ]);
 watch(
   () => userData.value.user_type,
   (newVal) => {
     if (newVal !== undefined) {
-      items.value[2].dontShowIt = newVal !== 'عميل';
+      items.value[3].dontShowIt = newVal !== 'عميل';
     }
   },
   { immediate: true }
