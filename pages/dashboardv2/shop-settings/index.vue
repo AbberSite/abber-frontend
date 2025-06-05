@@ -1,44 +1,30 @@
 <template>
   <DashboardTitle department="الاعدادات" title="إعدادات الموقع" />
   <Tabs     :tabs="[
-      { value: 'tab0', name: 'بيانات الموقع' },
-      { value: 'tab1', name: 'بيانات التواصل الاجتماعي' },
-      { value: 'tab2', name: 'السياسات' },
-      { value: 'tab3', name: 'اعدادات API' },
-      { value: 'tab4', name: 'البيانات المالية' },
-      { value: 'tab5', name: 'رسوم طرق الدفع' },
-      { value: 'tab7', name: 'إعدادات الخدمات' },
-      { value: 'tab6', name: 'النسخ الاحتياطي' },
-      { value: 'tab8', name: 'Orders Packages Settings' },
+      { value: 'tab0', name: 'السياسات' },
+      { value: 'tab1', name: 'اعدادات API' },
+      { value: 'tab2', name: 'البيانات المالية' },
+      { value: 'tab3', name: 'رسوم طرق الدفع' },
+      { value: 'tab4', name: 'إعدادات الخدمات' },
+      { value: 'tab5', name: 'Orders Packages Settings' },
     ]"
     v-model:model-value="currentTab"
   />
   <div class="pt-4">
     <template v-if="currentTab == 'tab0'">
-      <DashboardShopSettingsSiteData />
-    </template>
-    <template v-else-if="currentTab == 'tab1'">
-      <DashboardShopSettingsSocailData />
-    </template>
-    <template v-else-if="currentTab == 'tab2'">
       <DashboardShopSettingsPolicies />
     </template>
-    <template v-else-if="currentTab == 'tab3'">
+    <template v-else-if="currentTab == 'tab1'">
       <DashboardShopSettingsAPI />
     </template>
-    <template v-else-if="currentTab == 'tab4'">
+    <template v-else-if="currentTab == 'tab2'">
       <DashboardShopSettingsFinance />
     </template>
-    <template v-else-if="currentTab == 'tab5'">
+    <template v-else-if="currentTab == 'tab3'">
       <DashboardShopSettingsPaymentFees />
     </template>
-    <template v-else-if="currentTab == 'tab7'">
+    <template v-else-if="currentTab == 'tab4'">
       <DashboardShopSettingsPackages />
-    </template>
-    <template v-else-if="currentTab == 'tab6'">
-      <div class="flex justify-center">
-        <PrimaryButton>إستعادة نسخة إحتياطية</PrimaryButton>
-      </div>
     </template>
     <template v-else>
       <DashboardShopSettingsOrdersPackages />
@@ -50,7 +36,5 @@
 import { useDashboardSettingsStore } from '~/stores/dashboard/dashboardSettings'; 
 const {getSettings} = useDashboardSettingsStore();
 const currentTab = ref("tab0");
-onMounted(() => {
-  getSettings();
-});
+getSettings();
 </script>
