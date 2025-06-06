@@ -3,10 +3,11 @@
   <Tabs     :tabs="[
       { value: 'tab0', name: 'السياسات' },
       { value: 'tab1', name: 'اعدادات API' },
-      { value: 'tab2', name: 'البيانات المالية' },
-      { value: 'tab3', name: 'رسوم طرق الدفع' },
-      { value: 'tab4', name: 'إعدادات الخدمات' },
-      { value: 'tab5', name: 'Orders Packages Settings' },
+      { value: 'tab2', name: 'اعدادات التطبيق' },
+      { value: 'tab3', name: 'البيانات المالية' },
+      { value: 'tab4', name: 'رسوم طرق الدفع' },
+      { value: 'tab5', name: 'إعدادات الخدمات' },
+      { value: 'tab6', name: 'Orders Packages Settings' },
     ]"
     v-model:model-value="currentTab"
   />
@@ -18,12 +19,15 @@
       <DashboardShopSettingsAPI />
     </template>
     <template v-else-if="currentTab == 'tab2'">
-      <DashboardShopSettingsFinance />
+      <DashboardShopSettingsAppSettings />
     </template>
     <template v-else-if="currentTab == 'tab3'">
-      <DashboardShopSettingsPaymentFees />
+      <DashboardShopSettingsFinance />
     </template>
     <template v-else-if="currentTab == 'tab4'">
+      <DashboardShopSettingsPaymentFees />
+    </template>
+    <template v-else-if="currentTab == 'tab5'">
       <DashboardShopSettingsPackages />
     </template>
     <template v-else>
