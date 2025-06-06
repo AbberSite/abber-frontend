@@ -11,8 +11,6 @@
         <TextInput type="number" label="سعر الطلب الافتراضي:" v-model="settings.financial_settings.default_order_price"/>
         <TextInput type="number" label="رسوم المعبر للطلب المستعجل:" v-model="settings.financial_settings.without_service_order_fees"/>
         <TextInput type="number" label="ربح الاحالة:" v-model="settings.financial_settings.referral_profit"/>
-        <TextInput type="number" label="سعر الطلب بمنام:" v-model="settings.financial_settings.manam_order_price"/>
-        <TextInput type="number" label="أرباح المعبر:" v-model="settings.financial_settings.manam_expressor_profits"/>
     </div>
     <PrimaryButton class="my-2" :loading="loading" @click="updateSettings(2, {financial_settings: {...settings.financial_settings}})">حفظ</PrimaryButton>
 </template>

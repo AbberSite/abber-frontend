@@ -5,6 +5,7 @@
       { value: 'tab1', name: 'اعدادات API' },
       { value: 'tab2', name: 'اعدادات التطبيق' },
       { value: 'tab3', name: 'البيانات المالية' },
+      { value: 'tab7', name: 'تطبيق منام' },
       { value: 'tab4', name: 'رسوم طرق الدفع' },
       { value: 'tab5', name: 'إعدادات الخدمات' },
       { value: 'tab6', name: 'Orders Packages Settings' },
@@ -30,8 +31,11 @@
     <template v-else-if="currentTab == 'tab5'">
       <DashboardShopSettingsPackages />
     </template>
-    <template v-else>
+    <template v-else-if="currentTab == 'tab6'">
       <DashboardShopSettingsOrdersPackages />
+    </template>
+    <template v-else>
+      <DashboardShopSettingsManamSettings />
     </template>
   </div>
 </template>
