@@ -1,7 +1,7 @@
 <template>
     <SkeletonsUserDetails v-if="loading"/>
     <div v-else>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" v-if="edit" >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <TextInput v-model="userData.username" label="الإسم التجاري" />
                 <TextInput v-model="userData.first_name" label="رقم السجل التجاري" />
@@ -28,94 +28,9 @@
                 <TextInput v-model="userData.photo" label="ساعات العمل" />
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" v-else>
-            <div>
-                <!-- Username and Email -->
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">إسم المستخدم</span>
-                    <span class="text-gray-900">{{ userData.username || '-' }}</span>
-                </div>
-                <!-- Name and Phone -->
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">الاسم الكامل</span>
-                    <span class="text-gray-900">{{ userData.first_name || '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">البريد الالكتروني</span>
-                    <span class="text-gray-900">{{ userData.email || '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">الجوال</span>
-                    <span class="text-gray-900">{{ userData.phone || '-' }}</span>
-                </div>
-               <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">رقم IBAN</span>
-                    <span class="text-gray-900">{{ userData.profile?.bank_account || '-' }}</span>
-                </div>
-                
-                <!-- User type and Available balance -->
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">معرف الفيسبوك</span>
-                    <span class="text-gray-900">{{ userData.facebook || '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">معرف إنستجرام</span>
-                    <span class="text-gray-900">{{ userWallet.instagram ?? '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">معرف تويتر</span>
-                    <span class="text-gray-900">{{ userWallet.twitter ?? '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">معرف وزارة التجارة</span>
-                    <span class="text-gray-900">{{ userWallet.twitter ?? '-' }}</span>
-                </div>
-            </div>
-            <div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">الضريبة</span>
-                    <span class="text-gray-900">{{ userData.tax || '-' }}</span>
-                </div>
-                <!-- User type and Available balance -->
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">ارباح المعبر</span>
-                    <span class="text-gray-900">{{ userData.money || '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">الرقم السجل التجاري</span>
-                    <span class="text-gray-900">{{ userWallet.numb ?? '-' }}</span>
-                </div>
-                <!-- Withdrawal and Suspended balance -->
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">رقم السجل الضريبي</span>
-                    <span class="text-gray-900">{{ userWallet.tax ?? '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">باقة الحساب</span>
-                    <span class="text-gray-900">{{ userWallet.lfdsj ?? '-' }}</span>
-                </div>
-                <!-- Marital status and Profession -->
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">صورة السجل التجاري</span>
-                    <span class="text-gray-900">{{ userData.photo || '-' }}</span>
-                </div>
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">صورة السجل الضريبي</span>
-                    <span class="text-gray-900">{{ userData.pho || '-' }}</span>
-                </div>
-                <!-- IBAN and Gender -->
-                
-                <div class="flex justify-between items-center border-b py-4">
-                    <span class="font-medium text-gray-600">شعار المعبر</span>
-                    <span class="text-gray-900">{{ userData.photo || '-' }}</span>
-                </div>
-            </div>
-        </div>
         <!-- <Checkbox v-model="userData.is_active" label="نشط" @update:modelValue="changeActive" class="mt-4" /> -->
         <div class="flex items-center justify-between pt-6">
-            <PrimaryButton :loading="updateLoading" v-if="edit" @click="edit = true">حفظ</PrimaryButton>
-            <PrimaryButton :loading="updateLoading" v-if="edit" @click="edit = false">إغلاق</PrimaryButton>
-            <PrimaryButton :loading="updateLoading" v-else @click="edit = true">التعديل</PrimaryButton>
+            <PrimaryButton :loading="updateLoading">حفظ</PrimaryButton>
         </div>
     </div>
 </template>
@@ -123,7 +38,7 @@
 import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 
 const id = useRoute().params.id;
-const { userData, loading, updateLoading, userWallet, edit } = storeToRefs(useDashboardUsersStore());
+const { userData, loading, updateLoading, userWallet } = storeToRefs(useDashboardUsersStore());
 const { updateActiveStatus, updateUserData } = useDashboardUsersStore();
 
 const changeActive = async () => {

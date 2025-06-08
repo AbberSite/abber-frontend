@@ -63,6 +63,7 @@ const headItems = {
 };
 
 onMounted(async () => {
+  filters.value.user_type__name = "عميل";
   // Initialize filters from query params
   Object.entries(route.query).forEach(([key, value]) => {
     if (filters.value.hasOwnProperty(key)) {
