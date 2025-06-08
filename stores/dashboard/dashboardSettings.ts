@@ -137,6 +137,33 @@ class dashboardSettings {
       }
     });
   };
+  toBracketString = (val: any)=> {
+    if (Array.isArray(val)) {
+        return `[${val.map(v => `'${v}'`).join(',')}]`;
+    }
+    if (typeof val === 'object' && val !== null) {
+        // For object of arrays, convert each array to "'key':[...]" and join with commas
+        return Object.entries(val)
+            .map(([k, v]) => `'${k}':[${Array.isArray(v) ? v.map(i => `'${i}'`).join(',') : v}]`)
+            .join(',');
+    }
+    return val ?? '';
+}
+  prepareApiSettingsPayload = () => {
+    const apiSettings = { ...this.settings.value.api_settings };
+    // Convert active_coupon_apps array to bracket string
+    apiSettings.active_coupon_apps = this.toBracketString(apiSettings.active_coupon_apps);
+
+    // Handle apple_developer_merchantid_domain_association as file or skip if empty
+    if (
+        apiSettings.apple_developer_merchantid_domain_association instanceof File
+    ) {
+    } else {
+        delete apiSettings.apple_developer_merchantid_domain_association;
+    }
+
+    return apiSettings;
+}
 
 }
 export const useDashboardSettingsStore = defineStore(
