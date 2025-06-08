@@ -86,41 +86,8 @@
 <script setup lang="ts">
 import { useDashboardSettingsStore } from '~/stores/dashboard/dashboardSettings';
 const { loading, settings } = storeToRefs(useDashboardSettingsStore());
-const { updateSettings } = useDashboardSettingsStore();
-// Convert array to string like ['android','ios'], object of arrays to "'key1':[...],'key2':[...]" format
-function toBracketString(val: any) {
-    if (Array.isArray(val)) {
-        return `[${val.map(v => `'${v}'`).join(',')}]`;
-    }
-    if (typeof val === 'object' && val !== null) {
-        // For object of arrays, convert each array to "'key':[...]" and join with commas
-        return Object.entries(val)
-            .map(([k, v]) => `'${k}':[${Array.isArray(v) ? v.map(i => `'${i}'`).join(',') : v}]`)
-            .join(',');
-    }
-    return val ?? '';
-}
+const { updateSettings, prepareApiSettingsPayload } = useDashboardSettingsStore();
 const formData = new FormData();
-function prepareApiSettingsPayload() {
-    const apiSettings = { ...settings.value.api_settings };
-
-    // Convert active_login_methods and active_payment_methods objects to bracket string
-    apiSettings.active_login_methods = toBracketString(apiSettings.active_login_methods);
-    apiSettings.active_payment_methods = toBracketString(apiSettings.active_payment_methods);
-
-    // Convert active_coupon_apps array to bracket string
-    apiSettings.active_coupon_apps = toBracketString(apiSettings.active_coupon_apps);
-
-    // Handle apple_developer_merchantid_domain_association as file or skip if empty
-    if (
-        apiSettings.apple_developer_merchantid_domain_association instanceof File
-    ) {
-    } else {
-        delete apiSettings.apple_developer_merchantid_domain_association;
-    }
-
-    return apiSettings;
-}
 
 function handleSave() {
     if(settings.value.api_settings.apple_developer_merchantid_domain_association instanceof File) {
@@ -131,7 +98,5 @@ function handleSave() {
         updateSettings(2, formData);
     }
     updateSettings(2, {api_settings: prepareApiSettingsPayload()});
-    // for debuging 
-    // console.log({'api_settings': prepareApiSettingsPayload()});
 }
 </script>

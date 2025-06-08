@@ -46,6 +46,7 @@
 <script setup lang="ts">
 import { useDashboardTransactionsStore } from '~/stores/dashboard/dashboardTransactions';
 import { vOnClickOutside } from '@vueuse/components';
+import { useRoute, useRouter } from 'vue-router';
 const headItems = {
   id : "رقم العملية",
   process_id:"رقم الطلب/الفاتورة",
@@ -61,7 +62,17 @@ const { list, pagination, loading, filters, filtersCount } = storeToRefs(useDash
 const { fetchAll } = useDashboardTransactionsStore();
 const openFiltersMobileModal = ref(false);
 const openFiltersDropdown = ref(false);
+const route = useRoute();
+const router = useRouter();
+
 onMounted(async () => {
+  // Initialize filters from query parameters
+  Object.assign(filters.value, route.query);
   fetchAll();
+});
+
+watchEffect(() => {
+  // Update query parameters when filters change
+  router.replace({ query: { ...filters.value } });
 });
 </script>

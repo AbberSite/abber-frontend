@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white border border-gray-100 flex justify-between px-5 py-5 relative rounded-lg" :class="{'min-w-[250px]': !nowidth}">
+    <div class="bg-white border border-gray-100 flex justify-between px-5 py-5 relative rounded-lg" :class="{'min-w-[250px]': !nowidth, 'cursor-pointer': url}" @click="navigateToUrl(url)">
       <div class="text-right">
         <p class="font-medium text-gray-600">
           {{ title }}
@@ -18,16 +18,25 @@
   </template>
   
   <script setup lang="ts">
-  defineProps<{
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+defineProps<{
     title: string;
     count: number | string;
     subtitle: string;
     iconBackgroundClass: string;
     nowidth?: boolean;
+    url?: string;
   }>();
+  
+  function navigateToUrl(url) {
+    if (url) {
+      window.open(url, '_blank');
+    }
+  }
   </script>
   
   <style scoped></style>
 
-  
-  
+
