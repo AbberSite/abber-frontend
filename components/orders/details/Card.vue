@@ -3,7 +3,7 @@
         
         <div class="flex items-center justify-between py-4" v-if="data.user_type == 'إدارة'">
             <div class="font-medium text-gray-500">العميل</div>
-            <NuxtLink class="font-medium text-blue-500" :to="`/accounts/dashboard/user-update/${order?.buyer.id}/#tab0`">
+            <NuxtLink class="font-medium text-blue-500" :to="`/dashboardv2/accounts/users/user-update/${order?.buyer.id}/`">
                 {{ order?.buyer.first_name }}
             </NuxtLink>
         </div>
@@ -29,7 +29,7 @@
             </div>
             <div class="space-y-3">
                 <div class="ms-3 text-sm font-medium">
-                    <div>{{ order?.seller?.first_name }}</div>
+                    <NuxtLink :to="`/dashboardv2/accounts/users/user-update/${order?.seller?.id}/`" class="hover:text-blue-500" >{{ order?.seller?.first_name }}</NuxtLink>
                     <div class="mt-1.5 flex items-center pb-2 text-yellow-400">
                         <svg
                             class="flex-shrink-0"
