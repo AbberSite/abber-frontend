@@ -29,7 +29,7 @@
             </div>
             <div class="space-y-3">
                 <div class="ms-3 text-sm font-medium">
-                    <NuxtLink :to="`/dashboardv2/accounts/users/user-update/${order?.seller?.id}/`">{{ order?.seller?.first_name }}</NuxtLink>
+                    <NuxtLink :to="`/dashboardv2/accounts/users/user-update/${order?.seller?.id}/`" class="hover:text-blue-500" >{{ order?.seller?.first_name }}</NuxtLink>
                     <div class="mt-1.5 flex items-center pb-2 text-yellow-400">
                         <svg
                             class="flex-shrink-0"
