@@ -26,7 +26,7 @@ const headItems = {
   num_orders: 'الطلبات',
   awaiting_delivery_orders: 'الطلبات المسلمة',
   completed_orders: 'الطلبات المكتملة',
-  in_progress_orders: 'الطلبات المنفذة'
+  in_progress_orders: 'الطلبات قيد التنفيذ'
 };
 
 function sum(key: string) {
