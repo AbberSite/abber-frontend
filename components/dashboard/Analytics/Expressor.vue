@@ -14,11 +14,6 @@
 import { useDashboardStatisticsStore } from "~/stores/dashboard/dashboardStatistics";
 import DatePresetFilter from "../inputs/DatePresetFilter.vue";
 const { statistics_data, loading, filters } = storeToRefs(useDashboardStatisticsStore());
-// const { getServices } = useDashboardStatisticsStore();
-// onMounted(() => {
-//     getServices();
-// });
-
 const range_date = ref([filters.value.date_after, filters.value.date_before]);
 
 watch(range_date, ([start, end]) => {
@@ -27,11 +22,11 @@ watch(range_date, ([start, end]) => {
 });
 
 const headItems = {
-  seller__username: 'معبر',
+  seller__first_name: 'معبر',
   num_orders: 'الطلبات',
-  delivered_orders: 'الطلبات المسلمة',
+  awaiting_delivery_orders: 'الطلبات المسلمة',
   completed_orders: 'الطلبات المكتملة',
-  progressing_orders: 'الطلبات المنفذة'
+  in_progress_orders: 'الطلبات قيد التنفيذ'
 };
 
 function sum(key: string) {
@@ -43,7 +38,7 @@ const mergedItems = computed(() => {
   const items = statistics_data.value.services?.data || [];
   const totals: Record<string, any> = {};
   Object.keys(headItems).forEach(key => {
-    if (key === 'seller__username') {
+    if (key === 'seller__first_name') {
       totals[key] = 'المجموع';
     } else {
       totals[key] = sum(key);
