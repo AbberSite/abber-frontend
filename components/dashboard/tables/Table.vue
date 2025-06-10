@@ -10,7 +10,7 @@
             <DashboardTablesRow v-for="(value, key, colIndex) in headItems" :key="colIndex"
               :content="getNestedValue(row, key)" :name="key" />
             <DashboardTablesRow v-if="actions">
-              <DashboardTablesCellsActions :actions="actions" :data="row" />
+              <DashboardTablesCellsActions :actions="actions" :data="row" :property="property" />
             </DashboardTablesRow>
           </tr>
         </tbody>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{ headItems: {}; bodyItems: []; loading: Boolean; actions?: Object; addButton?: boolean}>();
+defineProps<{ headItems: {}; bodyItems: []; loading: Boolean; actions?: Object; addButton?: boolean; property: {type: String}}>();
 const  {$event} = useNuxtApp();
 function getNestedValue(obj: Record<string, any>, key: string): any {
   return key.split(".").reduce((o, k) => (o || {})[k], obj) ?? '-';
