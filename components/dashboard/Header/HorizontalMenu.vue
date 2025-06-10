@@ -305,25 +305,38 @@ onMounted(async function () {
   const menuButton = document.querySelectorAll('.group button');
   const submenu = document.querySelectorAll('.submenu');
   const menuWrapper = document.querySelector('.all_menu_group');
+
+  const updatePosition = function (topPosition = 0) {
+    menuButton.forEach((item, index) => {
+      const menuRect = item.getBoundingClientRect();
+      submenu[index].style.left = `${menuRect.left}px`;
+      if (topPosition) {
+        submenu[index].style.top = `${135 - topPosition}px`;
+      } else {
+        submenu[index].style.top = `${135}px`;
+      }
+    });
+  };
+
   menuWrapper.addEventListener('scroll', () => {
     updatePosition();
   });
-  
-  const updatePosition = function(topPosition=0){
-    menuButton.forEach((item, index) => {
-      const menuRect = item.getBoundingClientRect();
-      submenu[index].getBoundingClientRect();
-      submenu[index].style.left = `${menuRect.left}px`;
-      if(topPosition)
-        submenu[index].style.top = `${135 - topPosition}px`;
-      else 
-        submenu[index].style.top = `${135}px`;
-    })
-  };
 
-  window.addEventListener('scroll', ()=> {
+  window.addEventListener('scroll', () => {
     updatePosition(window.pageYOffset);
-  })
+  });
+
+  // Add resize event listener to recalculate positions
+  window.addEventListener('resize', () => {
+    updatePosition(window.pageYOffset);
+  });
+
+  // Cleanup event listeners on unmount
+  onUnmounted(() => {
+    menuWrapper.removeEventListener('scroll', updatePosition);
+    window.removeEventListener('scroll', updatePosition);
+    window.removeEventListener('resize', updatePosition);
+  });
 });
 </script>
 
