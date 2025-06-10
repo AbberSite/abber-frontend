@@ -7,7 +7,7 @@
       pushed: 'مقبولة',
     }"
     :body-items="posts"
-    :actions="{ modify: true, remove: true, view: { path: '/blog/' } }"
+    :actions="{ modify: true, remove: true, view: { path: '/blog/' } }" property="username"
     addButton
   />
   <ClientOnly>
@@ -85,7 +85,6 @@ $listen("table-modify-object", (data) => {
   showModify.value = true;
   modifyTitle.value = "تعديل المقال";
 });
-provide("pathProperty", "username");
 $listen("open_add_window", () => {
   showModify.value = true;
   modifyTitle.value = "إنشاء مقال جديد";
