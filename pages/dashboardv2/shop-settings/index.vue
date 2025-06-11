@@ -29,7 +29,7 @@
       <DashboardShopSettingsPaymentFees />
     </template>
     <template v-else-if="currentTab == 'tab5'">
-      <DashboardShopSettingsPackages />
+      <DashboardShopSettingsExpressors />
     </template>
     <template v-else-if="currentTab == 'tab6'">
       <DashboardShopSettingsOrdersPackages />
