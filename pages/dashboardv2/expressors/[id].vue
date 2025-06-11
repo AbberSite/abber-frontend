@@ -1,6 +1,7 @@
 <template>
-    <DashboardTitle department="العملاء" :title="`المعبر ${userData.first_name}`" :loading="loading">
-        <p class="text-xs font-medium text-gray-500 cursor-pointer" @click="downloadVCF" > #{{ id }} </p>
+  <!-- i should change this -->
+    <DashboardTitle department="المعبرون" :title="`المعبر ${expressorData.expressor_url}`" :loading="loading">
+        <!-- <p class="text-xs font-medium text-gray-500 cursor-pointer" @click="downloadVCF" > #{{ expressorData.id }} </p> -->
     </DashboardTitle>
     <Tabs :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
     <div class="w-full pt-2">
@@ -14,10 +15,11 @@
 import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 
 const id = useRoute().params.id;
-const { userData, loading } = storeToRefs(useDashboardUsersStore());
-const { fetchUserData } = useDashboardUsersStore();
+const { loading, expressorData } = storeToRefs(useDashboardUsersStore());
+const { getExpressor } = useDashboardUsersStore();
 onBeforeMount(async()=> {
-    fetchUserData(id);
+    // fetchUserData(id);
+    getExpressor(id);
 })
 let currentTab = ref('tab0');
 
@@ -30,7 +32,7 @@ const items = ref([
 async function downloadVCF(){
     try {
         // Fetch the VCF data
-        const response = await useDirectApi(`/accounts/dashboard-users/${id}/vcard/`);
+        const response = await useDirectApi(`/accounts/dashboard-users/${expressorData.value?.id}/vcard/`);
 
         // Get the VCF data as a blob
         const blob = new Blob([response], {type: 'text/vcard'});
@@ -41,7 +43,7 @@ async function downloadVCF(){
         // Create a link element and trigger the download
         const link = document.createElement('a');
         link.href = downloadUrl;
-        link.download = `${userData.value.username}-${id}.vcf`; // You can adjust the file name as needed
+        link.download = `${expressorData.value?.expressor_url}-${expressorData.value?.id}.vcf`; // You can adjust the file name as needed
         document.body.appendChild(link);
         link.click();
 
