@@ -11,7 +11,7 @@
           phone_verified: ''
         }"
         :body-items="list"
-        :loading="loading" :actions="{details:true,view:{path:'/expressors/'}}"
+        :loading="loading" :actions="{details:true,view:{path:'/expressors/'}}"  property="username"
       />
   </div>
 </template>

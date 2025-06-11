@@ -9,6 +9,7 @@ class dashboardUsers extends BaseStore {
   countries = ref<[]>([]);
   userData = reactive<{ [key: string]: any }>({});
   userWallet = reactive<{ [key: string]: any }>({});
+  expressorData = reactive<{ [key: string]: any }>({});
   userTickets = ref<[]>([]);
   userLogsList = ref<[]>([]);
   userActivityList = ref<[]>([]);
@@ -372,6 +373,52 @@ class dashboardUsers extends BaseStore {
         update?.();
         resolve(data);
       } catch (error: any) {
+        reject(error);
+      }
+    });
+  };
+  getExpressor = async (username: string) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = await useDirectApi(`/expressors/expressor/account/${username}/`, {
+          headers: {
+            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+          },
+        });
+        this.loading.value = false;
+        Object.assign(this.expressorData, data);
+        resolve(data);
+      } catch (error) {
+        this.loading.value = false;
+        reject(error);
+      }
+    });
+  };
+  updateExpressor = async (username: string, payload: Record<string, any>) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.updateLoading.value = true;
+        const data = await useProxy(`/expressors/expressor/account/${username}/`, {
+          method: "PUT",
+          body: payload,
+        });
+        if (data) {
+          useNotification({
+            type: "success",
+            content: "تم تحديث بيانات المعبر بنجاح.",
+          });
+          Object.assign(this.expressorData, data);
+        } else {
+          useNotification({
+            type: "danger",
+            content: "فشلت عملية تحديث بيانات المعبر.",
+          });
+        }
+        this.updateLoading.value = false;
+        resolve(data);
+      } catch (error) {
+        this.updateLoading.value = false;
         reject(error);
       }
     });
