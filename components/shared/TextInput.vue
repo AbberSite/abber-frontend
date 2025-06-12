@@ -15,6 +15,7 @@
           :id="id"
           :placeholder="placeholder"
           :disabled="disabled"
+          :dir="dir"
         >
         </textarea>
       </template>
@@ -28,6 +29,7 @@
           :id="id"
           :placeholder="placeholder"
           :disabled="disabled"
+          :dir="dir"
         />
       </template>
       <slot name="append"></slot>
@@ -47,6 +49,7 @@ const props = defineProps<{
   placeholder?: string;
   id?: string;
   disabled?: boolean;
+  dir?: string; // New prop for content direction
 }>();
 
 const emits = defineEmits(["update:modelValue"]);
@@ -60,6 +63,9 @@ watch(
     value.value = newVal;
   }
 );
+
+// Default direction is 'rtl' if not provided
+const dir = computed(() => props.dir || "rtl");
 </script>
 
 <style scoped></style>

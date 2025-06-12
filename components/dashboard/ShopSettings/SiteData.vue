@@ -8,8 +8,8 @@
         <TextInput label="عنوان الموقع:" v-model="settings.general_settings.address" />
         <TextInput type="textarea" label="وصف الموقع:" v-model="settings.general_settings.content" /> 
         <TextInput type="textarea" label="الكلمات المفتاحية:" v-model="settings.general_settings.keywords" />
-        <TextInput type="textarea" label="اكواد اضافية(head):" v-model="settings.general_settings.extra_head_script" /> 
-        <TextInput type="textarea" label="اكواد اضافية(body):" v-model="settings.general_settings.extra_body_script" />
+        <TextInput type="textarea" label="اكواد اضافية(head):" v-model="settings.general_settings.extra_head_script" dir="ltr" /> 
+        <TextInput type="textarea" label="اكواد اضافية(body):" v-model="settings.general_settings.extra_body_script" dir="ltr" />
     <div class="mb-8">
         <CustomImageInput
             label="شعار الموقع:"

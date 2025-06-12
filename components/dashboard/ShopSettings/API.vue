@@ -1,49 +1,25 @@
 <template>
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2" >
-        <TextInput label="Twilio id:" v-model="settings.api_settings.twilio_id"/>
-        <TextInput label="Twilio token:" v-model="settings.api_settings.twilio_token"/>
-        <TextInput label="Twilio number:" v-model="settings.api_settings.twilio_number"/>
-        <TextInput label="Twilio messaging service sid:" v-model="settings.api_settings.twilio_messaging_service_sid" />
-        <TextInput label="Access token:" v-model="settings.api_settings.access_token"/>
-        <TextInput label="EntityId mada:" v-model="settings.api_settings.entityId_mada"/>
-        <TextInput label="EntityId visa master:" v-model="settings.api_settings.entityId_visa_master"/>
-        <TextInput label="Test access token:" v-model="settings.api_settings.test_access_token"/>
-        <TextInput label="Test entityId mada:" v-model="settings.api_settings.test_entityId_mada"/>
-        <TextInput label="Test entityId apple pay:" v-model="settings.api_settings.test_entityId_apple_pay"/>
-        <TextInput label="EntityId apple pay:" v-model="settings.api_settings.entityId_apple_pay"/>
-        <TextInput label="Test entityId visa master:" v-model="settings.api_settings.test_entityId_visa_master"/>
-        <TextInput label="Aws access key id:" v-model="settings.api_settings.aws_access_key_id"/>
-        <TextInput label="Aws secret access key:" v-model="settings.api_settings.aws_secret_access_key"/>
-        <TextInput label="Bucket name:" v-model="settings.api_settings.bucket_name"/>
+        <TextInput label="Twilio id:" v-model="settings.api_settings.twilio_id" dir="ltr"/>
+        <TextInput label="Twilio token:" v-model="settings.api_settings.twilio_token" dir="ltr"/>
+        <TextInput label="Twilio number:" v-model="settings.api_settings.twilio_number" dir="ltr"/>
+        <TextInput label="Twilio messaging service sid:" v-model="settings.api_settings.twilio_messaging_service_sid" dir="ltr" />
+        <TextInput label="Access token:" v-model="settings.api_settings.access_token" dir="ltr"/>
+        <TextInput label="EntityId mada:" v-model="settings.api_settings.entityId_mada" dir="ltr"/>
+        <TextInput label="EntityId visa master:" v-model="settings.api_settings.entityId_visa_master" dir="ltr"/>
+        <TextInput label="Test access token:" v-model="settings.api_settings.test_access_token" dir="ltr"/>
+        <TextInput label="Test entityId mada:" v-model="settings.api_settings.test_entityId_mada" dir="ltr"/>
+        <TextInput label="Test entityId apple pay:" v-model="settings.api_settings.test_entityId_apple_pay" dir="ltr"/>
+        <TextInput label="EntityId apple pay:" v-model="settings.api_settings.entityId_apple_pay" dir="ltr"/>
+        <TextInput label="Test entityId visa master:" v-model="settings.api_settings.test_entityId_visa_master" dir="ltr"/>
+        <TextInput label="Aws access key id:" v-model="settings.api_settings.aws_access_key_id" dir="ltr"/>
+        <TextInput label="Aws secret access key:" v-model="settings.api_settings.aws_secret_access_key" dir="ltr"/>
+        <TextInput label="Bucket name:" v-model="settings.api_settings.bucket_name" dir="ltr"/>
         <Checkbox label="وضع الدفع التجريبي:" v-model="settings.api_settings.payment_test"/>
         <CustomFileInput
             label="التحقق من ابل:"
             v-model="settings.api_settings.apple_developer_merchantid_domain_association" accept=".txt"/>
-        <!-- <TextInput
-            type="file"
-            label="التحقق من ابل:"
-            @input="settings.api_settings.apple_developer_merchantid_domain_association = ($event?.target as HTMLInputElement)?.files?.[0]"
-        > <template #prepend>
-            <span class="mb-2" v-if="settings.api_settings.apple_developer_merchantid_domain_association">
-                حاليا:
-                {{
-                    typeof settings.api_settings.apple_developer_merchantid_domain_association === 'string'
-                        ? settings.api_settings.apple_developer_merchantid_domain_association.split('/').pop()
-                        : settings.api_settings.apple_developer_merchantid_domain_association.name
-                }}
-                <span v-if="typeof settings.api_settings.apple_developer_merchantid_domain_association === 'string'">
-                    (.{{
-                        settings.api_settings.apple_developer_merchantid_domain_association.split('.').pop()
-                    }})
-                </span>
-                <span v-else>
-                    (.{{
-                        settings.api_settings.apple_developer_merchantid_domain_association.name.split('.').pop()
-                    }})
-                </span>
-            </span>
-        </template></TextInput> -->
-        <TextInput label="Our SMS token:" v-model="settings.api_settings.oursms_token"/>
+        <TextInput label="Our SMS token:" v-model="settings.api_settings.oursms_token" dir="ltr"/>
         <Checkbox label="تفعيل الإشعارات" v-model="settings.api_settings.notifications"/>
     </div>
     <PrimaryButton class="my-2" :loading="loading" @click="handleSave">حفظ</PrimaryButton>
