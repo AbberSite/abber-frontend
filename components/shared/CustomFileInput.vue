@@ -1,7 +1,7 @@
 <template>
   <div>
     <label class="text-sm font-medium xs:text-base">{{ label }}</label>
-    <div class="flex flex-wrap items-center gap-4">
+    <div class="flex flex-wrap items-center gap-4 mt-2">
       <label class="upload-label group cursor-pointer flex flex-col items-center justify-center w-full sm:w-40 h-24 border-2 border-dashed border-primary-400 rounded-lg hover:bg-primary-50 transition-all duration-300 relative text-center">
         <svg class="w-10 h-10 text-primary-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12"/>

@@ -107,13 +107,18 @@
           ></textarea>
           <InputError :message="errors.refuse_reason" />
         </div>
-        <div :class="$style.style_every_dev" v-if="dataSelection.status == '2'">
-          <h1 class="font-medium">الإيصال:</h1>
+        <div  v-if="dataSelection.status == '2'">
+          <CustomFileInput 
+          :label="'إرفاق إيصال التحويل:'"
+          v-model="dataSelection.invoice"
+          accept=".pdf,.jpg,.jpeg,.png,.gif,.bmp,.webp"/>
+          <!-- <h1 class="font-medium">الإيصال:</h1>
           <input
             class="form-control block max-h-[300px] min-h-[50px] py-4"
             @input="dataSelection.invoice = ($event as any).target.files[0]"
             type="file"
-          />
+          /> -->
+
           <InputError :message="errors.invoice" />
         </div>
         <div :class="$style.style_every_dev" v-if="dataSelection.status">
