@@ -10,13 +10,22 @@
                 <TextInput v-model="expressorData.instagram_id" label="معرف إنستجرام" />
                 <TextInput v-model="expressorData.facebook_id" label="معرف الفيسبوك" />
                 <TextInput v-model="expressorData.trading_ministry_id" label="رابط وزارة التجارة الخاص بك" />
-                <TextInput label="الشعار" type="file" @change="handleFileChange('expressor_image', $event)"/>
-                <!-- Remove v-model from file input, add @change -->
-                <TextInput type="file" label="صورة من السجل الضريبي" @change="handleFileChange('tax_record_image', $event)" />
-                <TextInput label="صورة من سجل التجاري" type="file" @change="handleFileChange('commercial_record_image', $event)" />
+                <CustomImageInput label="الشعار" v-model="expressorData.expressor_image" />
+                <CustomImageInput 
+                    label="صورة من السجل الضريبي"
+                    v-model="expressorData.tax_record_image"
+                />
+                <CustomImageInput 
+                    label="صورة من السجل التجاري"
+                    v-model="expressorData.commercial_record_image"
+                />
                 <TextInput v-model="expressorData.expressor_url" label="رابط المعبر الخاص بك" />
                 <TextInput v-model="expressorData.nationality" label="الجنسية" />
-                <TextInput label="الهوية الوطنية" type="file" @change="handleFileChange('national_id', $event)" />
+                <CustomImageInput 
+                    label="صورة من الهوية الوطنية"
+                    v-model="expressorData.national_id"
+                />
+                <!-- <TextInput label="الهوية الوطنية" type="file" @change="handleFileChange('national_id', $event)" /> -->
                 <TextInput v-model="expressorData.about" label="نبذة تعريفية" />
                 <Checkbox  v-model="expressorData.blog" label="blog" class="my-4" />
                 <TextInput  label="خصم خاص على رسوم الموقع"><template #append><span class="text-gray-600 py-2">سيتم احتساب مبلغ ثابت, لاحتساب نسبة أضف %</span></template></TextInput>
@@ -33,20 +42,13 @@ import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 const username = useRoute().params.id;
 const { loading, updateLoading, expressorData } = storeToRefs(useDashboardUsersStore());
 const { updateExpressor } = useDashboardUsersStore();
-const formData = new FormData();
-// Add file handler
-function handleFileChange(field, event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    expressorData.value[field] = file;
-}
 
 function submit() {
-    // Append all expressorData fields to formData
+    const formData = new FormData();
     Object.entries(expressorData.value).forEach(([key, value]) => {
         formData.append(key, value as string | Blob);
     });
-
+    console.log(formData)
     // Call updateExpressor with formData
     updateExpressor(username, formData);
 }
