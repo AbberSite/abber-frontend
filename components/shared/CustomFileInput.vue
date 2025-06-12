@@ -1,16 +1,16 @@
 <template>
   <div>
     <label class="text-sm font-medium xs:text-base">{{ label }}</label>
-    <div class="flex items-center gap-4">
-      <label class="upload-label group cursor-pointer flex flex-col items-center justify-center w-40 h-24 border-2 border-dashed border-primary-400 rounded-lg hover:bg-primary-50 transition-all duration-300 relative">
+    <div class="flex flex-wrap items-center gap-4">
+      <label class="upload-label group cursor-pointer flex flex-col items-center justify-center w-full sm:w-40 h-24 border-2 border-dashed border-primary-400 rounded-lg hover:bg-primary-50 transition-all duration-300 relative text-center">
         <svg class="w-10 h-10 text-primary-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12"/>
         </svg>
-        <span class="mt-2 text-sm text-primary-500 group-hover:text-primary-700 transition-colors">اختر ملف</span>
+        <span class="mt-2 text-sm text-primary-500 group-hover:text-primary-700 transition-colors whitespace-nowrap">اختر ملف</span>
         <input type="file" class="hidden" @change="onFileChange" :accept="accept" />
       </label>
       <transition name="fade">
-        <div v-if="fileName" class="file-info">
+        <div v-if="fileName" class="file-info w-full sm:w-auto">
           <p class="text-sm text-gray-700 font-medium truncate">{{ fileName }}</p>
           <button @click="clearFile" class="text-red-500 hover:text-red-700 text-xs mt-1 transition-colors">إزالة</button>
         </div>
@@ -73,6 +73,7 @@ function clearFile() {
 .upload-label {
   box-shadow: 0 2px 8px 0 rgba(80, 120, 200, 0.07);
   transition: box-shadow 0.3s, border-color 0.3s;
+  text-align: center;
 }
 .upload-label:hover {
   border-color: #2563eb;
