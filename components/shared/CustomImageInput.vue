@@ -15,7 +15,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12"/>
         </svg>
         <span class="mt-2 text-xs text-primary-500 group-hover:text-primary-700 transition-colors">اختر صورة</span>
-        <input type="file" class="hidden" @change="onFileChange" />
+        <input type="file" class="hidden" @change="onFileChange" :accept="accept" />
       </label>
     </div>
   </div>
@@ -32,6 +32,10 @@ const props = defineProps({
   label: {
     type: String,
     required: true,
+  },
+  accept: {
+    type: String,
+    default: 'image/*', // Accept all image file types
   },
 });
 
