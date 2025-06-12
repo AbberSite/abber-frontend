@@ -151,16 +151,9 @@ class dashboardSettings {
 }
   prepareApiSettingsPayload = () => {
     const apiSettings = { ...this.settings.value.api_settings };
-    // Convert active_coupon_apps array to bracket string
     apiSettings.active_coupon_apps = this.toBracketString(apiSettings.active_coupon_apps);
 
-    // Handle apple_developer_merchantid_domain_association as file or skip if empty
-    if (
-        apiSettings.apple_developer_merchantid_domain_association instanceof File
-    ) {
-    } else {
-        delete apiSettings.apple_developer_merchantid_domain_association;
-    }
+    delete apiSettings.apple_developer_merchantid_domain_association;
 
     return apiSettings;
 }

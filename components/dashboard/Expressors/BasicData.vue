@@ -22,7 +22,6 @@
                 <TextInput  label="خصم خاص على رسوم الموقع"><template #append><span class="text-gray-600 py-2">سيتم احتساب مبلغ ثابت, لاحتساب نسبة أضف %</span></template></TextInput>
                 <TextInput v-model="expressorData.work_hours" label="ساعات العمل" />
         </div>
-        <!-- <Checkbox v-model="userData.is_active" label="نشط" @update:modelValue="changeActive" class="mt-4" /> -->
         <div class="flex items-center justify-between pt-6">
             <PrimaryButton :loading="updateLoading" @click.prevent="submit">حفظ</PrimaryButton>
         </div>
