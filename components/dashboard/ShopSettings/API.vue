@@ -16,7 +16,10 @@
         <TextInput label="Aws secret access key:" v-model="settings.api_settings.aws_secret_access_key"/>
         <TextInput label="Bucket name:" v-model="settings.api_settings.bucket_name"/>
         <Checkbox label="وضع الدفع التجريبي:" v-model="settings.api_settings.payment_test"/>
-        <TextInput
+        <CustomFileInput
+            label="التحقق من ابل:"
+            v-model="settings.api_settings.apple_developer_merchantid_domain_association" accept=".txt"/>
+        <!-- <TextInput
             type="file"
             label="التحقق من ابل:"
             @input="settings.api_settings.apple_developer_merchantid_domain_association = ($event?.target as HTMLInputElement)?.files?.[0]"
@@ -39,7 +42,7 @@
                     }})
                 </span>
             </span>
-        </template></TextInput>
+        </template></TextInput> -->
         <TextInput label="Our SMS token:" v-model="settings.api_settings.oursms_token"/>
         <Checkbox label="تفعيل الإشعارات" v-model="settings.api_settings.notifications"/>
     </div>
