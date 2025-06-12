@@ -11,24 +11,10 @@
         <TextInput type="textarea" label="اكواد اضافية(head):" v-model="settings.general_settings.extra_head_script" /> 
         <TextInput type="textarea" label="اكواد اضافية(body):" v-model="settings.general_settings.extra_body_script" />
     <div class="mb-8">
-    <label class="block mb-2 font-semibold text-gray-700">شعار الموقع:</label>
-    <div class="flex items-center gap-6">
-      <transition name="fade">
-        <img
-          v-if="settings.general_settings.logo"
-          :src="settings.general_settings.logo"
-          alt="شعار الموقع"
-          class="w-20 h-20 rounded-full border-2 border-primary-500 shadow-lg object-cover"
+        <CustomImageInput
+            label="شعار الموقع:"
+            v-model="files.logo"
         />
-      </transition>
-      <label class="upload-label group cursor-pointer flex flex-col items-center justify-center w-32 h-20 border-2 border-dashed border-primary-400 rounded-lg hover:bg-primary-50 transition-all duration-300 relative">
-        <svg class="w-8 h-8 text-primary-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12"/>
-        </svg>
-        <span class="mt-2 text-xs text-primary-500 group-hover:text-primary-700 transition-colors">اختر صورة</span>
-        <input type="file" class="hidden" @change="onFileChange('logo', $event)" @input="files.logo = ($event as any).target.files[0]" />
-      </label>
-    </div>
   </div>
         <TextInput label="IP الموقع" v-model="settings.general_settings.ip" />
         <TextInput label="رابط تضمين إحصائيات جوجل:" v-model="settings.general_settings.embed_google_analytics" />
@@ -39,7 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
 import { useDashboardSettingsStore } from '~/stores/dashboard/dashboardSettings';
 
 const { loading, settings } = storeToRefs(useDashboardSettingsStore());
@@ -47,16 +32,6 @@ const { updateSettings } = useDashboardSettingsStore();
 let files = reactive({
   logo: null
 });
-function onFileChange(key: string, event: Event) {
-  const file = (event.target as HTMLInputElement).files?.[0];
-  if (!file) return;
-  // Example: preview locally (for real use, upload to server and set the URL)
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    settings.value.general_settings[key] = e.target?.result as string;
-  };
-  reader.readAsDataURL(file);
-}
 
 function submit() {
 let payload = { ...settings.value.general_settings };  
@@ -72,7 +47,11 @@ let payload = { ...settings.value.general_settings };
 }
 
 onMounted(() => {
-    files.logo = settings.value.general_settings?.logo;
+    watch(settings, () => {
+        if(!files.logo) {
+          files.logo = settings.value.general_settings?.logo || null;
+      }
+      }, { immediate: true });
 });
 </script>
 
