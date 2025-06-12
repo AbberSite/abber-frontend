@@ -48,7 +48,6 @@ function submit() {
     Object.entries(expressorData.value).forEach(([key, value]) => {
         formData.append(key, value as string | Blob);
     });
-    console.log(formData)
     // Call updateExpressor with formData
     updateExpressor(username, formData);
 }
