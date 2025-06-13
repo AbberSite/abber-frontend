@@ -5,7 +5,7 @@
             <div class="flex flex-col gap-2 mt-2">
                 <TextInput label="الرسالة" type="textarea"/>
                 <!-- i need custom selector here in the future -->
-                <Selector multiple label="المستخدمين الموجه لهم التنبيه" :options="[{value: 'طه غازي'}, {value: 'الشيخ المختار'}, {value: 'طه غازي'}]" checkboxes/>
+                <CustomSelect multi label="المستخدمين الموجه لهم التنبيه" :options="[{value: 'طه غازي'}, {value: 'الشيخ المختار'}, {value: 'طه غازي'}]" />
                 <div class="my-1">
                     <h3 class="font-medium"  >طريقة الإرسال</h3>
                     <div  class="grid grid-cols-2 gap-2" >
@@ -30,6 +30,8 @@
 </template>
 
 <script setup lang="ts">
+import CustomSelect from '~/components/shared/CustomSelect.vue';
+
 const { $listen } = useNuxtApp();
 let showModal = ref(false);
 const data = ref([

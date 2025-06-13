@@ -5,9 +5,8 @@
             <div class="flex flex-col gap-2 mt-2">
                 <TextInput label="العنوان"/>
                 <TextInput label="الرسالة" type="textarea"/>
-                <!-- i need custom selector here in the future -->
-                <Selector label="الحالة" :options="[{value: 'فاتورة'}, {value: 'طلب'}, {value: 'معبر'}]"/>
-                <Selector label="إرسال إلى" :options="[{value: 'عميل'}, {value: 'معبر'}, {value: 'مدير'}]"/>
+                <CustomSelect label="الحالة" :options="[{value: 'فاتورة'}, {value: 'طلب'}, {value: 'معبر'}]"/>
+                <CustomSelect label="إرسال إلى" :options="[{value: 'عميل'}, {value: 'معبر'}, {value: 'مدير'}]"/>
                 <Checkbox label="البريد الاكتروني"/>
                 <Checkbox label="رسالة نصية"/>
                 <Checkbox label="واتساب"/>

@@ -48,14 +48,9 @@
           value-key="id" v-model="selectedUser" />
         <InputError :message="errors.username" />
         <div class="w-full space-y-3 mt-2">
-          <label class="block text-sm font-medium xs:text-base">النوع</label>
-          <select class="form-control form-select h-[50px] appearance-none" name="select" v-model="type" required>
-            <option value="" selected>إختر</option>
-            <option value="credit" selected>دائن</option>
-            <option value="debit" selected>مدين</option>
-          </select>
+          <CustomSelect label="النوع" :options="[{ value: 'credit', label: 'دائن' }, { value: 'debit', label: 'مدين' }]"
+            v-model="type" default-label="إختر" />
           <InputError :message="errors.type" />
-
         </div>
         <TextInput :type="'number'" :placeholder="'0'" :label="'المبلغ'" :error="errors.amount" v-model="amount" />
         <div class="w-full space-y-3 mt-2">
@@ -90,6 +85,7 @@ const { defineField, errors, validate } = useForm({
 });
 import { vOnClickOutside } from '@vueuse/components';
 import { useDashboardOperationsStore } from '~/stores/dashboard/dashboardOperations';
+import CustomSelect from '~/components/shared/CustomSelect.vue';
 const { fetchAll, submitNewOperation, getUsers } = useDashboardOperationsStore();
 const { $listen } = useNuxtApp();
 const [username] = defineField('username');
