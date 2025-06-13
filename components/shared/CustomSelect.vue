@@ -31,7 +31,7 @@
     >
       <ul
         v-if="dropdownOpen"
-        class="absolute z-10 mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
+        class="absolute z-10 mt-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-[300px] overflow-y-auto overflow-x-hidden"
       >
         <li
           v-if="defaultLabel"
@@ -117,5 +117,8 @@ function closeDropdown() {
 }
 ul {
   min-width: max-content; /* Ensure dropdown width depends on content */
+  max-height: 300px; /* Limit dropdown height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 </style>
