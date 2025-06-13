@@ -46,7 +46,7 @@
           @click="selectOption(option)"
           class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
         >
-          {{ option.label || option.text }}
+          {{ option.label || option.text || option.value }}
         </li>
       </ul>
     </transition>
