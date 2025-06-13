@@ -1,5 +1,6 @@
 <template>
   <div class="relative" v-on-click-outside="closeDropdown">
+     <h3 v-if="label" class="text-sm font-medium xs:text-base my-2">{{ label }}:</h3>
     <button
       class="form-control w-full h-[50px] flex items-center justify-between px-4"
       @click="toggleDropdown"
@@ -33,12 +34,19 @@
         class="absolute z-10 mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
       >
         <li
+          v-if="defaultLabel"
+          @click="selectDefaultOption"
+          class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
+        >
+          {{ defaultLabel }}
+        </li>
+        <li
           v-for="option in options"
           :key="option.value"
           @click="selectOption(option)"
           class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
         >
-          {{ option.label }}
+          {{ option.label || option.text }}
         </li>
       </ul>
     </transition>
@@ -58,6 +66,14 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  defaultLabel: {
+    type: String,
+    default: null, // Default is null, shows only when provided
+  },
+  label: {
+    type: String,
+    default: '', // Label text, shows only when not empty
+  },
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -67,15 +83,20 @@ const selectedLabel = computed(() => {
   const selectedOption = props.options.find(
     (option) => option.value === props.modelValue
   );
-  return selectedOption ? selectedOption.label : 'اختر';
+  return selectedOption ? selectedOption.label || selectedOption.text : props.defaultLabel || 'اختر';
 });
 
 function toggleDropdown() {
   dropdownOpen.value = !dropdownOpen.value;
 }
 
-function selectOption(option: { value: any; label: string }) {
+function selectOption(option: { value: any; label?: string; text?: string }) {
   emit('update:modelValue', option.value);
+  dropdownOpen.value = false;
+}
+
+function selectDefaultOption() {
+  emit('update:modelValue', '');
   dropdownOpen.value = false;
 }
 
