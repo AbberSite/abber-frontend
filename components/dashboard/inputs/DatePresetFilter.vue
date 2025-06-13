@@ -1,11 +1,14 @@
 <template>
-  <div class="flex flex-col sm:flex-row gap-4 items-end mb-4">
-    <select v-model="selectedPreset" class="form-control w-48 h-[50px]">
-      <option value="today">اليوم</option>
-      <option value="week">اخر اسبوع</option>
-      <option value="month">اخر ٣٠ يوم</option>
-      <option value="custom">مخصص</option>
-    </select>
+  <div class="flex flex-col sm:flex-row gap-4 items-start mb-4">
+    <CustomSelect
+      v-model="selectedPreset"
+      :options="[
+        { value: 'today', label: 'اليوم' },
+        { value: 'week', label: 'اخر اسبوع' },
+        { value: 'month', label: 'اخر ٣٠ يوم' },
+        { value: 'custom', label: 'مخصص' }
+      ]"
+    />
     <DashboardDatePickerInput
       v-if="selectedPreset === 'custom'" no_label
       v-model:model-date="internalValue"
@@ -15,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import CustomSelect from '~/components/shared/CustomSelect.vue';
+
 const props = defineProps<{
   modelValue: [Array, String];
 }>();
