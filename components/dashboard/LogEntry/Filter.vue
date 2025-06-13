@@ -1,24 +1,18 @@
 <template>
-  <div>
-    <!-- <DashboardDateFilters /> -->
-     <Selector
-      label="نوع المحتوى"
-      :options="content_types" v-model="logs_filters.content_type"
-      default-option="الكل"
-    />
-  </div>
-  <Selector
+  <CustomSelect label="نوع المحتوى" v-model="logs_filters.content_type" :options="content_types" default-label="الكل" />
+  <CustomSelect
     label="نوع الإجراء"
     :options="[
       { value: '1', text: 'إضافة' },
       { value: '2', text: 'تعديل' },
       { value: '3', text: 'حذف' },
     ]"
-    default-option="كل" v-model="logs_filters.action_flag"
+    default-label="كل" v-model="logs_filters.action_flag"
   />
 </template>
 
 <script setup lang="ts">
+import CustomSelect from "~/components/shared/CustomSelect.vue";
 import { useDashboardUsersStore } from "~/stores/dashboard/dashboardUsers";
 const { content_types, logs_filters } = storeToRefs(useDashboardUsersStore());
 content_types.value = [
