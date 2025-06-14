@@ -15,7 +15,15 @@
       </div> -->
       <div class="flex flex-col md:flex-row justify-between mb-6 gap-4 relative items-end md:items-end md:w-full">
         <!-- Filter by Status -->
-        <Selector label="حالة التذكرة" :options="[{value: 'مفتوحة', text: 'مفتوحة'}, {value: 'مغلقة', text: 'مغلقة'}]" v-model:model-value="filters.status" default-option="الكل" />
+         <CustomSelect class="w-full"
+          label="حالة التذكرة"
+          :options="[
+            { value: 'مفتوحة', text: 'مفتوحة' },
+            { value: 'مغلقة', text: 'مغلقة' }
+          ]"
+          v-model:model-value="filters.status"
+          default-label="الكل"
+        />
 
         <!-- Filter by Username -->
         <Search placeholder="البحث بإسم العميل او رقمه"  v-model:model-value="filters.search" />

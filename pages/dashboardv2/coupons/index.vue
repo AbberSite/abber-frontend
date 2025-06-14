@@ -22,6 +22,15 @@
     >
       <TextInput label="الرمز" />
       <TextInput label="مبلغ الخصم" />
+      <CustomSelect
+          class="w-full"
+          label="المنصات المتاحة"
+          :options="[
+            { value: 'website', text: 'الموقع' },
+            { value: 'android', text: 'تطبيق الاندرويد' },
+            { value: 'ios', text: 'تطبيق الايفون' },
+          ]" multi
+        />
       <DashboardDatePickerInput label="تاريخ البدء"/>
       <DashboardDatePickerInput label="تاريخ الإنتهاء"/>
       
@@ -36,26 +45,10 @@
             >إستخدام أكثر من مرة</label
           >
         </div>
-        <label class="block text-sm font-medium xs:text-base"
-          >المنصات المتاحة</label
-        >
-        <select
-          class="form-control block max-h-[300px] min-h-[50px] appearance-none space-y-2 py-4 lg:min-h-[200px]"
-          :class="{
-            'border-red-500 placeholder:text-red-300':
-              error?.id == 'active_platforms',
-          }"
-          id="active_platforms"
-          multiple
-          required
-        >
-          <option value="website">الموقع</option>
-          <option value="android">تطبيق الاندرويد</option>
-          <option value="ios">تطبيق الايفون</option>
-        </select>
+        
       </div>
 
-      <PrimaryButton class="w-full">حفظ</PrimaryButton>
+      <PrimaryButton class="w-full mt-4">حفظ</PrimaryButton>
     </ModifyModal>
   </ClientOnly>
 </template>
