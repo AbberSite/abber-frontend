@@ -14,8 +14,7 @@
         v-model:modelValue="purchaseRange"
       />
     </div>
-    <Selector label="الصلاحية" :options="[{value: 'عميل'}, {value: 'إدارة'}, {value: 'معبر'}]" v-model:model-value="filters.user_type__name"  />
-
+     <CustomSelect label="الصلاحية" :options="[{value: 'عميل', text: 'عميل'}, {value: 'إدارة', text: 'إدارة'}, {value: 'معبر', text: 'معبر'}]" v-model:model-value="filters.user_type__name" defaultLabel="الكل" />
     <SearchSelector
       :items="countries"
       label="الدولة:"
@@ -30,8 +29,18 @@
       v-model:model-value="ordersCountInput"
     />
 
-    <Selector label="البريد الإلكتروني مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.verified_email" />
-    <Selector label="الجوال مؤكد" :options="[{value: true, text: 'نعم'}, {value: false, text: 'لا'}]" v-model:model-value="filters.verified_phone"/>
+     <CustomSelect
+      label="البريد الإلكتروني مؤكد"
+      :options="[{ value: true, text: 'نعم' }, { value: false, text: 'لا' }]"
+      v-model:model-value="filters.verified_email"
+      defaultLabel="الكل"
+    />
+    <CustomSelect
+      label="الجوال مؤكد"
+      :options="[{ value: true, text: 'نعم' }, { value: false, text: 'لا' }]"
+      v-model:model-value="filters.verified_phone"
+      defaultLabel="الكل"
+    />
   </div>
 </template>
 

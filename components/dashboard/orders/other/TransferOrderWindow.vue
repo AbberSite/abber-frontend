@@ -3,12 +3,11 @@
     <!-- Change status order modal -->
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-5">
-        <div class="w-full space-y-3">
-          <label class="block text-sm font-medium xs:text-base">المعبر</label>
-          <select class="form-control form-select h-[50px] appearance-none" name="select" required v-model="id_service">
-            <option v-for="(expressor, index) of expressors" :key="index" :value="expressor.id">{{ expressor.seller.first_name }}</option>
-          </select>
-        </div>
+        <CustomSelect
+          v-model="id_service"
+          :options="expressors.map((ex) => ({ value: ex.id, label: ex.seller.first_name }))"
+          label="المعبر"
+          placeholder="اختر المعبر" />
         <div class="w-full">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="checkbox" v-model="deleteOldMessages" :checked="deleteOldMessages"/>
           <label class="mt-1.5 ps-3 text-sm">تحويل تفاصيل الحلم فقط</label>
@@ -21,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import CustomSelect from "~/components/shared/CustomSelect.vue";
 import { useDashboardOrdersStore } from "~/stores/dashboard/dashboardOrders";
 
 const props = defineProps<{ order: {} }>();

@@ -10,7 +10,7 @@
                 <TextInput type="number" label="السعر" />
                 <TextInput type="number" label="عدد الطلبات" />
                 <Checkbox label="نشط" />
-                <Selector label="المعبرين" />
+                <!-- <CustomSelect label="المعبرين" /> -->
                 <TextInput type="number" label="الترتيب" />
                 <TextInput type="number" label="المدة بالايام" />
                 <TextInput type="number" label="ارباح المعبر" />

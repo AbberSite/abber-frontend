@@ -4,12 +4,15 @@
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-5">
         <div class="w-full space-y-3">
-          <label class="block text-sm font-medium xs:text-base">الحالة</label>
-          <select class="form-control form-select h-[50px] appearance-none" name="select" required v-model="status">
-            <option value="awaiting_delivery">بإنتظار الإستلام</option>
-            <option value="in_progress">قيد التقدم</option>
-            <option value="complete">مكتمل</option>
-          </select>
+          <CustomSelect
+            v-model="status"
+            :options="[
+              { value: 'awaiting_delivery', label: 'بإنتظار الإستلام' },
+              { value: 'in_progress', label: 'قيد التقدم' },
+              { value: 'complete', label: 'مكتمل' }
+            ]"
+            label="الحالة"
+            placeholder="اختر الحالة"/>
         </div>
       </fieldset>
     </div>
@@ -22,6 +25,7 @@
 
 <script setup lang="ts">
 import ConfirmDialog from '~/components/shared/ConfirmDialog.vue';
+import CustomSelect from '~/components/shared/CustomSelect.vue';
 import { useDashboardOrdersStore } from '~/stores/dashboard/dashboardOrders';
 const props = defineProps<{ order: {} }>();
 let showConfirmDialog = ref(false);
