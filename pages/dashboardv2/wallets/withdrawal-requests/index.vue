@@ -83,17 +83,14 @@
   <ClientOnly>
     <ModifyModal v-if="showModal" @close="showModal = false" title="الإجراءات">
         <div :class="$style.style_every_dev" v-if="!dataSelection.updated">
-          <h1 class="font-medium mb-2">تغيير حالة الطلب :</h1>
-          <select
-            name="action"
-            id="actions"
-            class="form-control form-select h-[50px] appearance-none"
+          <CustomSelect
+            class="w-full"
+            label="تغيير حالة الطلب"
             v-model="dataSelection.status"
-          >
-            <option :value="null">إختر</option>
-            <option value="2">تم إرسال المستحقات</option>
-            <option value="3">رفض الطلب</option>
-          </select>
+            :options="[
+              { value: '2', text: 'تم إرسال المستحقات' },
+              { value: '3', text: 'رفض الطلب' },
+            ]" dialog/>
         </div>
         <div
           :class="$style.style_every_dev"

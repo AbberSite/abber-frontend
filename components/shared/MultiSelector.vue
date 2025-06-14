@@ -38,7 +38,8 @@
     </button>
     <div
       v-if="open"
-      class="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-auto animate-fade-in"
+      :class="props.dialog ? 'block' : 'absolute z-20 mt-1'"
+      class="bg-white w-full border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-auto animate-fade-in"
     >
       <div
         v-for="option in options"
@@ -83,6 +84,7 @@ const props = defineProps<{
   options: { value: string | number; text: string }[];
   placeholder?: string;
   label?: string;
+  dialog?: boolean; // New prop to toggle dropdown behavior
 }>();
 const emits = defineEmits(['update:modelValue']);
 
@@ -102,7 +104,6 @@ watch(
   internalValue,
   (val) => {
     if (JSON.stringify(val) !== JSON.stringify(props.modelValue)) {
-      // console.log('Updating modelValue - internalValue:', val);
       emits('update:modelValue', [...val]);
     }
   }, { deep: true }

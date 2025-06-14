@@ -5,9 +5,9 @@
         <ModifyModal @close="showModal = false" v-if="showModal" :title="title" >
             <div class="flex flex-col gap-2 mt-2" >
                 <CustomSelect class="w-full" label="الأب" :options="[ {value: '1', text: 'الطلبات'}, {value: '2', text: 'المدفوعات'}, {value: '3', text: 'طلبات الارجاع'} ]"/>
-                <CustomSelect class="w-full" label="دور المستخدم" :options="[ { value: 'مستخدم' }, { value: 'معبر' },{ value: 'إدارة' }]" multi />
                 <TextInput label="اسم المشكلة" />
                 <TextInput label="الحل" type="textarea"/>
+                <CustomSelect class="w-full" label="دور المستخدم" :options="[ { value: 'مستخدم' }, { value: 'معبر' },{ value: 'إدارة' }]" multi dialog />
                 <PrimaryButton class="w-full my-2" >متابعة</PrimaryButton>
             </div>
         </ModifyModal>
