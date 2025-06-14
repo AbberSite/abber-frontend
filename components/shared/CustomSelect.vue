@@ -1,7 +1,8 @@
 <template>
   <div class="relative" v-on-click-outside="closeDropdown">
-     <h3 v-if="label" class="text-sm font-medium xs:text-base my-2">{{ label }}:</h3>
+    <h3 v-if="label" class="text-sm font-medium xs:text-base my-2">{{ label }}:</h3>
     <button
+      v-if="!props.multi"
       class="form-control w-full h-[50px] flex items-center justify-between px-4"
       @click="toggleDropdown"
       type="button"
@@ -23,7 +24,16 @@
         />
       </svg>
     </button>
+    <MultiSelector
+      v-if="props.multi"
+      v-model="multiSelectedValues"
+      :options="options.map(option => ({
+        value: option.value,
+        text: option.label || option.text || option.value
+      }))"
+    />
     <transition
+      v-if="!props.multi"
       enter-active-class="transition-transform duration-300 ease-out"
       leave-active-class="transition-transform duration-300 ease-in"
       enter-from-class="transform scale-95 opacity-0"
@@ -46,7 +56,7 @@
           @click="selectOption(option)"
           class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
         >
-          {{ option.label || option.text }}
+          {{ option.label || option.text || option.value }}
         </li>
       </ul>
     </transition>
@@ -56,10 +66,11 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmits, computed } from 'vue';
 import { vOnClickOutside } from '@vueuse/components';
+import MultiSelector from '~/components/shared/MultiSelector.vue';
 
 const props = defineProps({
   modelValue: {
-    type: [String, Number],
+    type: [String, Number, Array],
     required: true,
   },
   options: {
@@ -74,12 +85,22 @@ const props = defineProps({
     type: String,
     default: '', // Label text, shows only when not empty
   },
+  multi: {
+    type: Boolean,
+    default: false, // Enables multi-selection
+  },
 });
 
 const emit = defineEmits(['update:modelValue']);
 const dropdownOpen = ref(false);
+const multiSelectedValues = ref(props.modelValue);
 
 const selectedLabel = computed(() => {
+  if (props.multi) {
+    return multiSelectedValues.value.length > 0
+      ? multiSelectedValues.value.join(', ')
+      : props.defaultLabel || 'اختر';
+  }
   const selectedOption = props.options.find(
     (option) => option.value === props.modelValue
   );

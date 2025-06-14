@@ -2,14 +2,14 @@
   <Modal @close="$emit('close')" title="إرسال رسالة">
     <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
       <fieldset class="space-y-5">
-        <div class="w-full space-y-3">
-          <label class="block text-sm font-medium xs:text-base" >المرسل</label>
-          <select class="form-control form-select h-[50px] appearance-none" name="select"
-            required v-model="sender">
-            <option value="buyer">العميل</option>
-            <option value="seller">المعبر</option>
-          </select>
-        </div>
+        <CustomSelect
+          v-model="sender"
+          :options="[
+            { value: 'buyer', label: 'العميل' },
+            { value: 'seller', label: 'المعبر' }
+          ]"
+          label="المرسل"
+          placeholder="اختر المرسل" />
         <div class="w-full space-y-3">
           <label class="block text-sm font-medium xs:text-base" >الرسالة</label>
           <textarea class="form-control block max-h-[300px] min-h-[200px] py-4" name="textarea"

@@ -6,8 +6,8 @@
     />
   </div>
   <div class="pt-3">
-    <Selector label="نوع العملية" :options="[{ value: 'debit', text: 'مدين' }, { value: 'credit', text: 'دائن' }]"
-      v-model:model-value="filters.type" />
+    <CustomSelect label="نوع العملية" :options="[{ value: 'debit', text: 'مدين' }, { value: 'credit', text: 'دائن' }]"
+      v-model:model-value="filters.type" default-label="إختر" />
   </div>
 </template>
 

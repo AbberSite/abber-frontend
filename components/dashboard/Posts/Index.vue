@@ -19,10 +19,12 @@
       <template v-if="modifyTitle != 'تعديل التصنيف'">
         <TextInput label="عنوان المقال" />
         <TextInput label="رابط المقال" />
-        <TextInput label="صورة المقال" :type="'file'" />
+        <CustomImageInput
+          label="صورة المقال"
+        />
         <DashboardDatePickerInput label="تاريخ النشر" />
         <TextInput label="وصف المقال" />
-        <Selector
+        <CustomSelect
           :options="[{ value: 'one', text: 'حلم مبرمج' }]"
           label="التصنيف"
         />

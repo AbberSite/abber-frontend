@@ -1,11 +1,11 @@
 <template>
   <div class="relative w-full space-y-3" v-on-click-outside="closeDropdown">
-    <div>
+    <div v-if="label">
       <label class="text-sm font-medium xs:text-base">{{ label }}:</label>
     </div>
     <button
       type="button"
-      class="form-control min-h-[50px] w-full border rounded-lg px-3 py-2 text-left bg-white flex items-center justify-between  transition"
+      class="form-control min-h-[50px] w-full border rounded-lg px-3 py-2 text-left bg-white flex items-center justify-between transition"
       @click="toggleDropdown"
     >
       <div class="flex flex-wrap gap-1 items-center min-h-[1.5rem]">
@@ -25,7 +25,14 @@
         </template>
         <span v-else class="text-gray-400">{{ placeholder }}</span>
       </div>
-      <svg class="w-4 h-4 ml-2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <svg
+        class="w-4 h-4 ml-2 text-gray-400 transition-transform duration-300"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        :class="{ 'rotate-180': open }"
+      >
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
       </svg>
     </button>
@@ -36,7 +43,7 @@
       <div
         v-for="option in options"
         :key="option.value"
-        class="px-3 py-2 hover:bg-blue-50 flex items-center cursor-pointer transition "
+        class="px-3 py-2 hover:bg-blue-50 flex items-center cursor-pointer transition"
         @click.stop="toggleOption(option.value)"
       >
         <input
@@ -151,7 +158,10 @@ function closeDropdown() {
   animation: fadeIn 0.15s;
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px);}
-  to { opacity: 1; transform: translateY(0);}
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rotate-180 {
+  transform: rotate(180deg); /* Rotate arrow down */
 }
 </style>

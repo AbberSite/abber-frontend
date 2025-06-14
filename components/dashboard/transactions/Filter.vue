@@ -2,16 +2,20 @@
     <DashboardDateFilters v-model:modelValue="dateRange" />
     <div class="flex flex-col gap-2 mt-3">
         <div v-if="!hiddenStatus">
-            <Selector label="حالة الدفع"
-                :options="[{ value: true, text: 'تم الدفع' }, { value: false, text: 'فشل الدفع' }]"
-                v-model:model-value="filters.success" />
+                <CustomSelect label="حالة الدفع"
+                :options="[
+                    { value: true, text: 'تم الدفع' },
+                    { value: false, text: 'فشل الدفع' }
+                ]"
+                v-model:model-value="filters.success" defaultLabel="الكل" />
         </div>
         <div>
-            <Selector label="نوع العملية" :options="[
-                    { value: '1', text: 'سحب' }, 
-                    { value: '2', text: 'إرجاع' }, 
-                    { value: '3', text: 'رسوم الخدمة' }, 
-                    { value: '4', text: 'دفع الفاتورة' }, 
+            <CustomSelect label="نوع العملية"
+                :options="[
+                    { value: '1', text: 'سحب' },
+                    { value: '2', text: 'إرجاع' },
+                    { value: '3', text: 'رسوم الخدمة' },
+                    { value: '4', text: 'دفع الفاتورة' },
                     { value: '5', text: 'شحن الرصيد' },
                     { value: '6', text: 'باقة المعبر' },
                     { value: '7', text: 'تسجيل/تجديد النطاق' },
@@ -21,7 +25,7 @@
                     { value: '11', text: 'Cart checkout' },
                     { value: '12', text: 'Orders Package' },
                 ]
-                " v-model:model-value="filters.type" defaultOption="الكل" />
+                " v-model:model-value="filters.type" defaultLabel="الكل" />
         </div>
     </div>
 </template>
