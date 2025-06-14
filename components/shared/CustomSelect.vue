@@ -41,7 +41,8 @@
     >
       <ul
         v-if="dropdownOpen"
-        class="absolute z-10 mt-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-[300px] overflow-y-auto overflow-x-hidden"
+        :class="props.dialog ? 'w-full' : 'absolute z-20 mt-2'"
+        class="bg-white border border-gray-300 rounded-md shadow-lg max-h-[300px] overflow-y-auto overflow-x-hidden"
       >
         <li
           v-if="defaultLabel"
@@ -88,6 +89,10 @@ const props = defineProps({
   multi: {
     type: Boolean,
     default: false, // Enables multi-selection
+  },
+  dialog: {
+    type: Boolean,
+    default: false, // Changes dropdown behavior when true
   },
 });
 
