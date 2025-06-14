@@ -30,7 +30,7 @@
       :options="options.map(option => ({
         value: option.value,
         text: option.label || option.text || option.value
-      }))"
+      }))" :dialog="props.dialog"
     />
     <transition
       v-if="!props.multi"
