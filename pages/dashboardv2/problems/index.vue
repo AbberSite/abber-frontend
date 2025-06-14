@@ -4,10 +4,10 @@
     <ClientOnly>
         <ModifyModal @close="showModal = false" v-if="showModal" :title="title" >
             <div class="flex flex-col gap-2 mt-2" >
-                <Selector label="الأب" :options="[ {value: '1', text: 'الطلبات'}, {value: '2', text: 'المدفوعات'}, {value: '3', text: 'طلبات الارجاع'} ]"/>
+                <CustomSelect class="w-full" label="الأب" :options="[ {value: '1', text: 'الطلبات'}, {value: '2', text: 'المدفوعات'}, {value: '3', text: 'طلبات الارجاع'} ]"/>
+                <CustomSelect class="w-full" label="دور المستخدم" :options="[ { value: 'مستخدم' }, { value: 'معبر' },{ value: 'إدارة' }]" multi />
                 <TextInput label="اسم المشكلة" />
                 <TextInput label="الحل" type="textarea"/>
-                <Selector multiple label="دور المستخدم" :options="[ { value: 'مستخدم' }, { value: 'معبر' },{ value: 'إدارة' }, ]" />
                 <PrimaryButton class="w-full my-2" >متابعة</PrimaryButton>
             </div>
         </ModifyModal>
@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import CustomSelect from '~/components/shared/CustomSelect.vue';
+
 let showModal = ref(false);
 let title = ref('');
 const {$listen} = useNuxtApp();
