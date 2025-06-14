@@ -154,13 +154,13 @@ class dashboardUsers extends BaseStore {
     });
   };
 
-  updateUserData = async () => {
+  updateUserData = async (payload) => {
     return new Promise(async (resolve, reject) => {
       try {
         this.updateLoading.value = true;
-        const data = await useDirectApi(
+        const data = await useProxy(
           this.endpoint.value + this.userData.id + "/",
-          { method: "PUT", body: this.userData }
+          { method: "PUT", body: payload }
         );
         if (data)
           useNotification({

@@ -21,7 +21,7 @@
         </div>
         <div :class="$style.input_elements">
             <CustomSelect class="w-full" label="نوع العضوية" :options="[{ value: 'عميل', text: 'عميل' }, { value: 'معبر', text: 'معبر' }, { value: 'إدارة', text: 'إدارة' }]"
-                v-model:modelValue="userData.user_type" defaultLabel="إختر" />
+                v-model:modelValue="userData.user_type" />
             <TextInput label="الرصيح المتاح:" v-model:model-value="userWallet.available_balance" disabled />
         </div>
         <div :class="$style.input_elements">
@@ -29,12 +29,12 @@
             <TextInput label="الرصيد المعلق:" v-model:model-value="userWallet.suspended_balance" disabled/>
         </div>
         <div :class="$style.input_elements">
-             <CustomSelect class="w-full" label="الحالة الإجتماعية" :options="[{ value: 'single', text:'أعزب' }, { value: 'married', text: 'متزوج' }, { value: 'divorced', text: 'مطلق' }]" v-model:modelValue="userData.profile.marital_status" defaultLabel="إختر" />
+             <CustomSelect class="w-full" label="الحالة الإجتماعية" :options="[{ value: 'single', text:'أعزب' }, { value: 'married', text: 'متزوج' }, { value: 'divorced', text: 'مطلق' }]" v-model:modelValue="userData.profile.marital_status"/>
             <TextInput label="الوظيفة:" v-model="userData.profile.profession" />
         </div>
         <div :class="$style.input_elements">
             <TextInput label="رقم IBAN:" v-model="userData.profile.bank_account" />
-            <CustomSelect class="w-full" label="الجنس" :options="[{ value: 'Male', text:'ذكر' }, { value: 'Female', text: 'انثى' }]" v-model:modelValue="userData.profile.gender" defaultLabel="إختر" />
+            <CustomSelect class="w-full" label="الجنس" :options="[{ value: 'Male', text:'ذكر' }, { value: 'Female', text: 'انثى' }]" v-model:modelValue="userData.profile.gender" />
         </div>
         <div :class="$style.input_elements">
             <DashboardDatePickerInput label="تاريخ الميلاد" v-model:modelDate="userData.profile.birthday" />
@@ -46,7 +46,7 @@
 
         <Checkbox v-model="userData.is_active" label="نشط" @update:modelValue="changeActive" />
         <div class="flex items-center justify-between pt-6">
-            <PrimaryButton :loading="updateLoading" @click="updateUserData">حفظ</PrimaryButton>
+            <PrimaryButton :loading="updateLoading" @click="submit">حفظ</PrimaryButton>
         </div>
     </div>
 </template>
@@ -60,6 +60,20 @@ const { updateActiveStatus, updateUserData } = useDashboardUsersStore();
 const changeActive = async () => {
     await updateActiveStatus();
 };
+function submit() {
+  const formdata = new FormData();
+  Object.entries(userData.value).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      formdata.append(key, value);
+    }
+  });
+  Object.entries(userData.value.profile || {}).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      formdata.append(`profile.${key}`, value);
+    }
+  });
+  updateUserData(formdata);
+}
 </script>
 <style module>
 .input_elements {
