@@ -2,7 +2,7 @@
   <div :class="boxStyle">
     <div :class="rowStyle">
       <div :class="rowTitleStyle">المستخدم</div>
-      <NuxtLink class="font-medium text-blue-500" :to="`/accounts/dashboard/user-update/${ticket?.user.id}/#tab0`" v-text="ticket.user.first_name"/>
+      <NuxtLink class="font-medium text-blue-500" :to="`/dashboardv2/accounts/users/user-update/${ticket?.user.id}/#tab0`" v-text="ticket.user.first_name"/>
     </div>
     <div :class="rowStyle">
       <div :class="rowTitleStyle">حالة التذكرة</div>
