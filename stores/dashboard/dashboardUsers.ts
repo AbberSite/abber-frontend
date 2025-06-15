@@ -389,13 +389,14 @@ class dashboardUsers extends BaseStore {
       }
     });
   };
-  getThePaidServices = async (buyerId?: number) => {
+  getThePaidServices = async (id?: number, type?: string='buyer') => {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
+        const userKey = type === 'seller' ? 'seller' : 'buyer';
         const data = await useDirectApi(`/orders/dashboard-orders/`, {
           params: {
-            buyer: buyerId || this.userData.id,
+            [userKey]: id || this.userData.id || this.expressorData.id,
             ordering: "order_item_time_data__start_date",
             limit: 5000
           },
