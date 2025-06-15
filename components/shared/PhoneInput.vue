@@ -3,8 +3,8 @@
     <label class="block text-sm font-medium xs:text-base" for="tel">{{ sms ? 'رقم الجوال' : mobile ? 'رقم الهاتف' : 'رقم الواتساب' }}</label>
 
     <input ref="phoneInput" class="form-control h-[50px] appearance-none" :type="isApple ? 'text' : 'number'" pattern="\d*" name="phone" id="tel"
-      :placeholder="placeholder ?? '12345XXXX'" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" v-model.number="phone"
-      :class="[(validationError !== '' || error) && 'form-invalid']" autocomplete="tel" dir="ltr" />
+      :placeholder="placeholder ?? '12345XXXX'" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" :value="phone"
+      @input="handleInput" :class="[(validationError !== '' || error) && 'form-invalid']" autocomplete="tel" dir="ltr" />
     <InputError :message="error" v-if="!validationError && hideErrorEmpty" />
     <InputError :message="validationError" />
 
@@ -102,6 +102,17 @@ onMounted(() => {
     emits('update:modelValue', iti.getNumber());
   });
 });
+
+function handleInput(event: Event) {
+  const inputElement = event.target as HTMLInputElement;
+  const rawValue = inputElement.value;
+  const convertedValue = convertArabicToEnglishNumbers(rawValue);
+  phone.value = convertedValue; // Update phone value with converted numbers
+}
+
+function convertArabicToEnglishNumbers(input: string): string {
+  return input.replace(/[٠-٩]/g, (char) => String(char.charCodeAt(0) - 1632));
+}
 </script>
 
 <style>
