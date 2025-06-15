@@ -2,6 +2,7 @@ import type { PaginationResponse } from "~/types";
 import { BaseStore } from "./baseStore";
 import axios from "axios";
 import { useRoute } from 'vue-router';
+import { MenuItems } from "@headlessui/vue";
 
 class dashboardUsers extends BaseStore {
   expressors = ref<[]>([]);
@@ -248,41 +249,6 @@ class dashboardUsers extends BaseStore {
     });
   };
 
-  getUserServicesVisited = async (params?: any, update?: any, id?: number) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        this.loading.value = true;
-        let userId = id;
-        if (!userId) {
-          if (this.userData.id) {
-            userId = this.userData.id;
-          } else if (process.client) {
-            const route = useRoute();
-            userId = route.params.id || route.query.id;
-          }
-        }
-        const data = (await useDirectApi(`/accounts/dashboard-users/${userId}/user_activity/`, {
-          params: {
-            limit: 20,
-            ...this.pipeFilters(),
-            ...params
-          },
-          headers: {
-            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
-          },
-        })) as PaginationResponse<any>;
-        this.userServicesVisited.value = data.visited_services ?? [];
-        this.userServicesPaid.value = data.ordered_sellers ?? [];
-        this.pagination.value = data;
-        this.loading.value = false;
-        update?.();
-        resolve(data);
-      } catch (error: any) {
-        reject(error);
-      }
-    });
-  };
-
   getUserWallet = async (id?: number) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -419,6 +385,32 @@ class dashboardUsers extends BaseStore {
         resolve(data);
       } catch (error) {
         this.updateLoading.value = false;
+        reject(error);
+      }
+    });
+  };
+  getThePaidServices = async (buyerId?: number) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.loading.value = true;
+        const data = await useDirectApi(`/orders/dashboard-orders/`, {
+          params: {
+            buyer: buyerId || this.userData.id,
+            ordering: "order_item_time_data__start_date",
+            limit: 5000
+          },
+          headers: {
+            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
+          },
+        });
+
+        this.userServicesPaid.value = data.results || [];
+
+        this.loading.value = false;
+        resolve(this.userServicesPaid.value);
+      } catch (error) {
+        console.error("Error fetching paid services:", error);
+        this.loading.value = false;
         reject(error);
       }
     });
