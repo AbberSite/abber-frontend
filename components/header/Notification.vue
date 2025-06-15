@@ -1,30 +1,30 @@
 <template>
     <li
-    :class="[notification.read ? 'hover:bg-gray-50' : 'bg-gray-50']">
-    <NuxtLink :to="notification.url.replace('orders/orders','orders').replace('orders/order','orders').replace('/wallets/withdrawal-requests/', '/wallet?activeRoute=withdrawalRequests')" class="flex flex-col px-6 py-8 md:py-6">
+    :class="[notification?.read ? 'hover:bg-gray-50' : 'bg-gray-50']">
+    <NuxtLink :to="notification?.url?.replace('orders/orders','orders').replace('orders/order','orders').replace('/wallets/withdrawal-requests/', '/wallet?activeRoute=withdrawalRequests')" class="flex flex-col px-6 py-8 md:py-6">
         <div class="flex items-start justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <img
                         class="lazyload h-11 w-11 rounded-full bg-gray-100 md:h-10 md:w-10"
                         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-                        :data-src="notification.sender.image"
+                        :data-src="notification?.sender?.image"
                         height=""
                         width=""
                         alt="صورة المستخدم" />
                 </div>
                 <div class="ms-3 flex flex-col pt-1">
                     <div class="text-sm font-medium">
-                        {{ notification.sender.first_name }}
+                        {{ notification?.sender?.first_name }}
                     </div>
                 </div>
             </div>
-            <time class="text-xs text-gray-600" :datetime="notification.date">
-                {{ getTimeDifference(notification.date) }}
+            <time class="text-xs text-gray-600" :datetime="notification?.date">
+                {{ getTimeDifference(notification?.date) }}
             </time>
         </div>
         <p class="pt-6 text-justify text-sm text-gray-600 md:pt-4">
-            {{ notification.message }}
+            {{ notification?.message }}
         </p>
     </NuxtLink>
 </li>
