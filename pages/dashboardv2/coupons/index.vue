@@ -22,15 +22,6 @@
     >
       <TextInput label="الرمز" />
       <TextInput label="مبلغ الخصم" />
-      <CustomSelect
-          class="w-full"
-          label="المنصات المتاحة"
-          :options="[
-            { value: 'website', text: 'الموقع' },
-            { value: 'android', text: 'تطبيق الاندرويد' },
-            { value: 'ios', text: 'تطبيق الايفون' },
-          ]" multi
-        />
       <DashboardDatePickerInput label="تاريخ البدء"/>
       <DashboardDatePickerInput label="تاريخ الإنتهاء"/>
       
@@ -47,6 +38,15 @@
         </div>
         
       </div>
+      <CustomSelect
+          class="w-full"
+          label="المنصات المتاحة"
+          :options="[
+            { value: 'website', text: 'الموقع' },
+            { value: 'android', text: 'تطبيق الاندرويد' },
+            { value: 'ios', text: 'تطبيق الايفون' },
+          ]" multi dialog
+        />
 
       <PrimaryButton class="w-full mt-4">حفظ</PrimaryButton>
     </ModifyModal>
