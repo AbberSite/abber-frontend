@@ -7,6 +7,7 @@
     <div class="w-full pt-2">
         <DashboardExpressorsBasicData v-if="currentTab == 'tab0'"/>
         <DashboardExpressorsAccountStatement v-if="currentTab == 'tab1'"/>
+        <DashboardExpressorsServicesOrdered v-if="currentTab == 'tab2'"/>
         <DashboardExpressorsRates v-if="currentTab == 'tab3'"/>
     </div>
 </template>
@@ -26,6 +27,7 @@ let currentTab = ref('tab0');
 const items = ref([
   { name: 'البيانات الأساسية', value: 'tab0' },
   { name: 'كشف الحساب', value: 'tab1' },
+  { name: 'الطلبات', value: 'tab2' },
   { name: 'التقييمات', value: 'tab3' }
 ]);
 
