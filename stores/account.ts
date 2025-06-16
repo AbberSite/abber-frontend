@@ -56,7 +56,7 @@ class AccountStore {
             data.append('email', this.tempAccount.value.email);
 
             if (this.tempAccount.value.image_url) {
-                data.append('image_url', this.tempAccount.value.image_url as Blob);
+                data.append('image_url', this.tempAccount.value.image_url as File);
             }
 
             data.append('profile.bank_account', this.tempAccount.value.profile.bank_account);

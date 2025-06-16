@@ -93,13 +93,17 @@ const validationSchema = yup.object().shape({
   profile: yup.object().shape({
     bank_account: yup
       .string()
-      .required('رقم IBAN مطلوب')
-      .matches(/^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/, 'رقم IBAN غير صالح'),
+      .nullable()
+      .matches(/^SA\d{2}\d{18}$/, 'رقم IBAN يجب أن يكون صالحًا في السعودية')
+      .notRequired(), // Make the field optional
     gender: yup.string().required('الجنس مطلوب').oneOf(['Male', 'Female'], 'الجنس غير صالح'),
     birthday: yup.date().required('تاريخ الميلاد مطلوب').max(new Date(), 'تاريخ الميلاد يجب أن يكون في الماضي'),
     maritalStatus: yup.string().required('الحالة الإجتماعية مطلوبة').oneOf(['single', 'married', 'divorced', 'widowed'], 'الحالة الإجتماعية غير صالحة'),
-    profession: yup.string().required('المهنة مطلوبة').min(2, 'المهنة يجب أن تكون أطول من حرفين')
-  })
+    profession: yup
+      .string()
+      .nullable()
+      .notRequired(), // Make the field optional
+  }),
 });
 
 function validateInputs() {
