@@ -3,7 +3,7 @@ import { useWebSocket } from '@vueuse/core';
 type UpdateAccountBody = {
     first_name?: string;
     phone?: string;
-    image?: File;
+    image_url?: File | string;
     'profile.martial_status'?: string;
     'profile.profession'?: string;
     'profile.bank_account'?: string;
@@ -13,8 +13,8 @@ type UpdateAccountBody = {
 
 class AccountStore {
     tempAccount = ref({
-        image: undefined,
-        username: '',
+        image_url: null,
+        first_name: '',
         email: '',
         phone: '',
         profile: {
@@ -29,10 +29,6 @@ class AccountStore {
     zoomAccount: Ref<ZoomAccount | undefined> = ref<ZoomAccount | undefined>(undefined);
 
     goOffline: ((code?: number | undefined, reason?: string | undefined) => void) | undefined;
-
-    tempAccountImagePreview = computed(() =>
-        this.tempAccount.value.image ? URL.createObjectURL(this.tempAccount.value.image as Blob) : ''
-    );
 
     errors = ref<{
         phone?: Array<string>;
@@ -55,12 +51,12 @@ class AccountStore {
 
             const data = new FormData();
 
-            data.append('first_name', this.tempAccount.value.username);
+            data.append('first_name', this.tempAccount.value.first_name);
             data.append('phone', this.tempAccount.value.phone);
             data.append('email', this.tempAccount.value.email);
 
-            if (this.tempAccount.value.image) {
-                data.append('image', this.tempAccount.value.image as Blob);
+            if (this.tempAccount.value.image_url) {
+                data.append('image_url', this.tempAccount.value.image_url as Blob);
             }
 
             data.append('profile.bank_account', this.tempAccount.value.profile.bank_account);
