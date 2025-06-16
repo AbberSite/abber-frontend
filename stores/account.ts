@@ -50,6 +50,7 @@ class AccountStore {
 
     update = async (id: string) =>
         new Promise(async (resolve, reject) => {
+            const {getSession} = useAuth();
             console.log(this.tempAccount.value.image);
 
             const data = new FormData();
@@ -75,7 +76,7 @@ class AccountStore {
 
                     body: data
                 });
-
+                getSession();
                 resolve(true);
             } catch (error: any) {
                 Object.assign(this.errors.value, error.response._data);
