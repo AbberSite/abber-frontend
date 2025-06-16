@@ -1,28 +1,17 @@
 <template>
     <div class="grid w-full gap-x-8 space-y-7 pt-16 sm:grid-cols-2 sm:gap-y-14 sm:space-y-0 lg:grid-cols-3">
         <div class="w-full space-y-3">
-            <label class="block text-sm font-medium xs:text-base" for="username">الإسم الكامل</label>
-            <input
-                class="form-control h-[50px] appearance-none"
-                v-model="tempAccount.username"
-                type="text"
-                name="text"
-                id="first_name"
-                placeholder="ادخل إسمك الكامل"
-                dir="rtl"
-                required />
+            <TextInput
+                v-model="tempAccount.first_name" label="الإسم الكامل"
+                placeholder="ادخل إسمك الكامل" ><template #append>
+                    <div class="text-[13px] leading-loose text-gray-500">يفضل أن يكون إسمك الكامل باللعة العربية</div>
+                </template></TextInput>
             <InputError v-for="message in errors.first_name" :message="message" />
-            <div class="text-[13px] leading-loose text-gray-500">يفضل أن يكون إسمك الكامل باللعة العربية</div>
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-medium xs:text-base" for="email">البريد الألكتروني</label>
-            <input
-                class="form-control h-[50px]"
+            <TextInput
                 v-model="tempAccount.email"
-                type="email"
-                name="email"
-                id="email"
-                value="abber@gmail.com"
+                label="البريد الألكتروني"
                 placeholder="ادخل عنوان بريدك الإلكتروني"
                 autocomplete="email"
                 required />
@@ -34,74 +23,52 @@
             <InputError v-for="message in errors.phone" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-medium xs:text-base" for="iban">رقم IBAN</label>
-            <input
-                class="form-control h-[50px] appearance-none"
+            <TextInput
                 v-model="tempAccount.profile.bank_account"
-                type="text"
-                name="text"
-                id="bank_account"
+                label="رقم IBAN"
                 placeholder="ادخل رقم IBAN"
-                dir="rtl"
+                dir="ltr"
                 required />
             <InputError v-for="message in errors.profile?.bank_account" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-medium xs:text-base" for="gender">الجنس</label>
-            <select
+            <CustomSelect
                 v-model="tempAccount.profile.gender"
-                class="form-control form-select h-[50px] appearance-none"
-                type="select"
-                name="select"
-                id="gender"
-                required>
-                <option value="Male" selected>ذكر</option>
-                <option value="Female">أنثى</option>
-            </select>
+                :options="[{ value: 'Male', label: 'ذكر' }, { value: 'Female', label: 'أنثى' }]"
+                label="الجنس"
+            />
             <InputError v-for="message in errors.profile?.gender" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="text-sm font-medium xs:text-base" for="date" @click="datePicker?.openMenu()">
-                تأريخ الميلاد</label
-            >
-
-            <DatePicker
+            <DashboardDatePickerInput
+                v-model:modelDate="tempAccount.profile.birthday"
+                label="تاريخ الميلاد"
                 placeholder="mm/dd/yyyy"
                 :max-date="new Date()"
-                prevent-min-max-navigation
-                v-model="tempAccount.profile.birthdate"
-                model-type="yyyy-MM-dd"
-                ref="datePicker"
-                id="date"
-                format="yyyy-MM-dd"
-                select-text="اختيار"
-                cancel-text="الغاء" />
+                prevent-min-max-navigation/>
             <InputError v-for="message in errors.profile?.birthday" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-medium xs:text-base" for="select">الحالة الإجتماعة</label>
-            <select
-                class="form-control form-select h-[50px] appearance-none"
-                type="select"
-                v-model="tempAccount.profile.maritalStatus"
-                name="select"
-                id="select"
-                required>
-                <option value="single">أعزب</option>
-                <option value="married">متزوج/ه</option>
-                <option value="divorced">مطلق/ه</option>
-                <option value="widowed">ارمل/ه</option>
-            </select>
+            <CustomSelect v-model="tempAccount.profile.maritalStatus"
+                :options="[{
+                    value: 'single',
+                    label: 'أعزب'
+                }, {
+                    value: 'married',
+                    label: 'متزوج/ه'
+                }, {
+                    value: 'divorced',
+                    label: 'مطلق/ه'
+                }, {
+                    value: 'widowed',
+                    label: 'ارمل/ه'
+                }]"
+                label="الحالة الإجتماعية" />
             <InputError v-for="message in errors.profile?.maritalStatus" :message="message" />
         </div>
         <div class="w-full space-y-3">
-            <label class="block text-sm font-medium xs:text-base" for="text">المهنة</label>
-            <input
-                v-model="tempAccount.profile.profession"
-                class="form-control h-[50px] appearance-none"
-                type="text"
-                name="text"
-                id="text"
+            <TextInput v-model="tempAccount.profile.profession"
+                label="المهنة"
                 placeholder="ادخل مهنتك"
                 dir="rtl"
                 required />
@@ -111,46 +78,81 @@
 </template>
 
 <script setup lang="ts">
-import DatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import type { DatePickerInstance } from '@vuepic/vue-datepicker';
-
+import * as yup from 'yup';
 const { data } = useAuth();
-
 const { tempAccount, errors } = storeToRefs(useAccountStore());
 
-const datePicker = ref<DatePickerInstance>(null);
+// Define yup validation schema
+const validationSchema = yup.object().shape({
+  first_name: yup.string().required('الإسم الكامل مطلوب').min(3, 'الإسم يجب أن يكون أطول من 3 أحرف'),
+  email: yup.string().required('البريد الإلكتروني مطلوب').email('البريد الإلكتروني غير صالح'),
+  phone: yup
+    .string()
+    .required('رقم الهاتف مطلوب')
+    .matches(/^\+?\d+$/, 'رقم الهاتف يجب أن يحتوي على أرقام فقط ويمكن أن يبدأ بـ "+"'),
+  profile: yup.object().shape({
+    bank_account: yup
+      .string()
+      .required('رقم IBAN مطلوب')
+      .matches(/^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/, 'رقم IBAN غير صالح'),
+    gender: yup.string().required('الجنس مطلوب').oneOf(['Male', 'Female'], 'الجنس غير صالح'),
+    birthday: yup.date().required('تاريخ الميلاد مطلوب').max(new Date(), 'تاريخ الميلاد يجب أن يكون في الماضي'),
+    maritalStatus: yup.string().required('الحالة الإجتماعية مطلوبة').oneOf(['single', 'married', 'divorced', 'widowed'], 'الحالة الإجتماعية غير صالحة'),
+    profession: yup.string().required('المهنة مطلوبة').min(2, 'المهنة يجب أن تكون أطول من حرفين')
+  })
+});
+
+function validateInputs() {
+  errors.value = {}; // Reset errors
+  validationSchema
+    .validate(tempAccount.value, { abortEarly: false })
+    .catch((validationErrors) => {
+      validationErrors.inner.forEach((error: yup.ValidationError) => {
+        const path = error.path?.split('.');
+        if (path?.length === 2) {
+          errors.value.profile = errors.value.profile || {};
+          errors.value.profile[path[1]] = [error.message];
+        } else {
+          errors.value[path![0]] = [error.message];
+        }
+      });
+    });
+}
 
 function syncData() {
-    tempAccount.value.username = data.value.first_name;
-    tempAccount.value.email = data.value.email;
-    tempAccount.value.phone = data.value.phone;
-    tempAccount.value.profile.bank_account = data.value.profile.bank_account ?? '';
-    tempAccount.value.profile.gender = data.value.profile.gender ?? '';
-    tempAccount.value.profile.birthdate = data.value.profile.birthday ?? '';
-    tempAccount.value.profile.maritalStatus = data.value.profile.marital_status ?? '';
-    tempAccount.value.profile.profession = data.value.profile.profession ?? '';
+  tempAccount.value.first_name = data.value.first_name;
+  tempAccount.value.image_url = data.value.image_url;
+  tempAccount.value.email = data.value.email;
+  tempAccount.value.phone = data.value.phone;
+  tempAccount.value.profile.bank_account = data.value.profile.bank_account ?? '';
+  tempAccount.value.profile.gender = data.value.profile.gender ?? '';
+  tempAccount.value.profile.birthday = data.value.profile.birthday ?? '';
+  tempAccount.value.profile.maritalStatus = data.value.profile.marital_status ?? '';
+  tempAccount.value.profile.profession = data.value.profile.profession ?? '';
 }
 
 onMounted(() => {
-    errors.value = {};
-    syncData();
+  errors.value = {};
+  syncData();
+  watch(tempAccount, (newValue) => {
+    validateInputs();
+  }, { deep: true, immediate: true });
 });
 
 onUnmounted(() => {
-    tempAccount.value = {
-        image: undefined,
-        username: '',
-        email: '',
-        phone: '',
-        profile: {
-            bank_account: '',
-            gender: '',
-            birthdate: '',
-            maritalStatus: '',
-            profession: ''
-        }
-    };
+  tempAccount.value = {
+    image_url: null,
+    first_name: '',
+    email: '',
+    phone: '',
+    profile: {
+      bank_account: '',
+      gender: '',
+      birthday: '',
+      maritalStatus: '',
+      profession: ''
+    }
+  };
 });
 </script>
 
