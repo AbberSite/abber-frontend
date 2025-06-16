@@ -15,60 +15,67 @@ const digits = ref<number[]>([])
 const {isApple} = useDevice();
 const emit = defineEmits(["done", 'update:modelValue'])
 watch(digits.value, () => emit('update:modelValue', digits.value));
+function convertArabicToEnglishNumbers(input: string): string {
+  return input.replace(/[٠-٩]/g, (char) => String(char.charCodeAt(0) - 1632));
+}
+
 onMounted(() => {
-    inputs.value.forEach((input, index) => {
-        if (index == 0) {
-            input.focus();
-            input.select();
-            input.click()
-            const event = new KeyboardEvent('keypress', { key: '0' });
-            input.dispatchEvent(event);
+  inputs.value.forEach((input, index) => {
+      if (index == 0) {
+          input.focus();
+          input.select();
+          input.click()
+          const event = new KeyboardEvent('keypress', { key: '0' });
+          input.dispatchEvent(event);
+      }
+      input.addEventListener('paste', function (event) {
+          event.preventDefault();
+          var clipboardData = event.clipboardData || window.clipboardData;
+          const otp_from_clipboardData = convertArabicToEnglishNumbers(clipboardData.getData('text')); // Convert Arabic to English
+          if (otp_from_clipboardData.length == 4) {
+              for (let i = 0; i < 4; i++) {
+                digits.value[i] = parseInt(otp_from_clipboardData.charAt(i));
+              }
+              inputs.value[3].focus();
+              emit('done');
+          }
+          return;
+      });
+
+      input.addEventListener('keyup', function (e: KeyboardEvent) {
+        e.preventDefault();
+
+        // Ignore control keys like Control, Shift, Alt, etc.
+        if (e.key.length > 1 && e.key !== 'Backspace') {
+          return;
         }
-        input.addEventListener('paste', function (event) {
-            event.preventDefault();
-            var clipboardData = event.clipboardData || window.clipboardData;
-            const otp_from_clipboardData = clipboardData.getData('text');
-            if (otp_from_clipboardData.length == 4) {
-                for (let i = 0; i < 4; i++) {
-                    digits.value[i] = parseInt(otp_from_clipboardData.charAt(i));
-                }
-                inputs.value[3].focus();
-                emit('done');
-            }
-            return;
-        })
-            input.addEventListener('keyup', function (e: Event) {
-                e.preventDefault();
-                if (e.key === 'Backspace') {
-                    if (index != 0) {
-                        input.previousElementSibling.focus();
 
-                    }
-                    input.previousElementSibling.value = undefined;
-                    digits.value.splice(index, 1)
-                    digits.value.splice(index - 1, 1)
-                    return;
-                }
-            });
+        if (e.key === 'Backspace') {
+          if (index != 0) {
+            input.previousElementSibling?.focus();
+          }
+          digits.value[index] = undefined;
+          return;
+        }
 
-            input.addEventListener('keyup', function (e: Event) {
-                e.preventDefault();
-                if (input.value == '') {
-                    input.value = '';
-                    return;
-                }
-                if (input.value && input.value.length > 1) {
-                    input.value = input.value[0];
-                }
-                if (index != 3) {
-                    input.nextElementSibling.focus();
-                }
-                if (index == 3) {
-                    emit('done');
-                }
-            });
+        const rawValue = input.value;
+        const convertedValue = convertArabicToEnglishNumbers(rawValue); // Convert Arabic to English
+        input.value = convertedValue;
 
-    });
+        if (convertedValue && convertedValue.length > 1) {
+          input.value = convertedValue[0];
+        }
+        digits.value[index] = parseInt(input.value);
+
+        if (index != 3 && input.value) {
+          input.nextElementSibling?.focus();
+        }
+        if (index == 3 && input.value) {
+          emit('done');
+        }
+      });
+
+  });
 });
 </script>
 
