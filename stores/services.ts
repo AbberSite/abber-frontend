@@ -14,7 +14,7 @@ class ServicesStore {
   );
 
     orderedServices = computed(() =>
-        this.services?.value?.sort((a, b) => b.rate - a.rate)?.sort((a, b) => b.ordered_count - a.ordered_count)
+        this.services?.value
     );
 
   fetchAll: () => Promise<PaginationResponse<Service>> = async () => {
