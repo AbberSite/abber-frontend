@@ -5,14 +5,14 @@
       <DatePicker
         auto-apply 
         :placeholder="placeholder ?? 'ادخل التاريخ'"
-        :max-date="new Date()"
+        :max-date="!noMax ? new Date() : null"
+        :min-date="minDate"
         model-type="yyyy-MM-dd"
         v-model="dateModel"
         :range="range"
         ref="datePicker"
         id="date"
         format="yyyy-MM-dd"
-        :SkeletonsTableapply="true"
         :enable-time-picker="false"
       />
     </div>
@@ -32,6 +32,8 @@ const props = defineProps<{
   modelDate: any, 
   range?: boolean,
   no_label?: boolean;
+  noMax?: boolean; // Existing prop
+  minDate?: Date | null; // New prop added
 }>();
 const emits = defineEmits('update:modelDate');
 const dateModel = useVModel(props, 'modelDate', emits);
