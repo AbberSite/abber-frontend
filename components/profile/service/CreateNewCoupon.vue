@@ -36,14 +36,15 @@
           <InputError :message="errors.end_date" />
         </div>
         <div class="w-full space-y-3">
-          <MultiSelector
+          <CustomSelect
+            id="active_platforms"
             :options="[
               { value: 'website', text: 'الموقع' },
               { value: 'android', text: 'تطبيق الاندرويد' },
               { value: 'ios', text: 'تطبيق الايفون' }
             ]"
             label="المنصات المتاحة"
-            v-model="coupon.active_platforms"
+            v-model:model-value="coupon.active_platforms"
             multi
             dialog
           />
