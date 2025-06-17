@@ -98,7 +98,26 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 const dropdownOpen = ref(false);
-const multiSelectedValues = ref(props.modelValue);
+
+// Initialize multiSelectedValues based on modelValue
+const multiSelectedValues = ref(Array.isArray(props.modelValue) ? props.modelValue : []);
+
+// Watch multiSelectedValues and emit updates to modelValue
+watch(multiSelectedValues, (newValues) => {
+  if (props.multi) {
+    emit('update:modelValue', newValues);
+  }
+});
+
+// Watch modelValue to keep multiSelectedValues in sync
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    if (props.multi && Array.isArray(newValue)) {
+      multiSelectedValues.value = newValue;
+    }
+  }
+);
 
 const selectedLabel = computed(() => {
   if (props.multi) {
@@ -117,12 +136,26 @@ function toggleDropdown() {
 }
 
 function selectOption(option: { value: any; label?: string; text?: string }) {
-  emit('update:modelValue', option.value);
-  dropdownOpen.value = false;
+  if (props.multi) {
+    // Toggle selection for multi-select
+    const index = multiSelectedValues.value.indexOf(option.value);
+    if (index === -1) {
+      multiSelectedValues.value.push(option.value);
+    } else {
+      multiSelectedValues.value.splice(index, 1);
+    }
+  } else {
+    emit('update:modelValue', option.value);
+    dropdownOpen.value = false;
+  }
 }
 
 function selectDefaultOption() {
-  emit('update:modelValue', '');
+  if (props.multi) {
+    multiSelectedValues.value = [];
+  } else {
+    emit('update:modelValue', '');
+  }
   dropdownOpen.value = false;
 }
 
