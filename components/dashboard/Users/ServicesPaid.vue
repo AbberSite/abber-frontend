@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col space-x-3" >
-        <DashboardTablesTable :head-items="head" :body-items="userServicesPaid" :loading="loading" :actions="{view:{path:'/orders/'}}" />
+        <DashboardTablesTable :head-items="head" :body-items="userServicesPaid" :loading="loading" :actions="{details:{path: '/dashboardv2/orders/'}, view:{path:'/orders/'}}" />
     </div>
 </template>
 
