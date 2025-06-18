@@ -416,6 +416,18 @@ class dashboardUsers extends BaseStore {
       }
     });
   };
+  getUserIdByUsername = async (username: string): Promise<number | null> => {
+    try {
+      const allUsers = await useDirectApi(this.endpoint.value, {
+        params: { limit: 100000 }, // Adjust limit as needed
+      });
+      const user = allUsers.results.find((user: any) => user.username === username);
+      return user ? user.id : null;
+    } catch (error) {
+      console.error("Error fetching user ID by username:", error);
+      return null;
+    }
+  };
 }
 export const useDashboardUsersStore = defineStore(
   "dashboardUsers",

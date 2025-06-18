@@ -1,6 +1,6 @@
 <template>
     <DashboardTitle department="العملاء" :title="`العميل ${userData.first_name}`" :loading="loading">
-        <p class="text-xs font-medium text-gray-500 cursor-pointer" @click="downloadVCF" > #{{ id }} </p>
+        <p class="text-xs font-medium text-gray-500 cursor-pointer" @click="downloadVCF" > #{{ userData?.id }} </p>
     </DashboardTitle>
     <Tabs :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
     <div class="w-full pt-2">
@@ -18,9 +18,17 @@ import { useDashboardUsersStore } from '~/stores/dashboard/dashboardUsers';
 
 const id = useRoute().params.id;
 const { userData, loading } = storeToRefs(useDashboardUsersStore());
-const { fetchUserData } = useDashboardUsersStore();
-onBeforeMount(async()=> {
-    fetchUserData(id);
+const { fetchUserData, getUserIdByUsername } = useDashboardUsersStore();
+onBeforeMount(async () => {
+  let userId = id;
+
+  // Check if the id is not numeric
+  if (isNaN(Number(id))) {
+    userId = await getUserIdByUsername(id);
+  }
+
+  // Fetch user data using the resolved id
+  await fetchUserData(userId);
 })
 let currentTab = ref('tab0');
 
