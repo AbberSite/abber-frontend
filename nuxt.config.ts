@@ -28,7 +28,12 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/api-proxy/**": { proxy: apiBasePath + "/**", headers: { "api-key": apiSecret }, ssr: true, swr: true },
+    "/api-proxy/**": {
+      proxy: apiBasePath + "/**",
+      headers: { "api-key": apiSecret },
+      ssr: false, // Disable SSR for proxy requests to avoid server-side issues
+      swr: true,
+    },
     "/file/**": { proxy: "https://d336rd5betdm19.cloudfront.net/**", headers: { "api-key": apiSecret } },
   },
 
