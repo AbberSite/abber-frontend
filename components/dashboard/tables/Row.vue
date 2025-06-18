@@ -86,6 +86,14 @@
         </span>
       </span>
       <span v-else-if="['status', 'type'].includes(name)">{{ $t(`${content}`) }}</span>
+      <span v-else-if="name === 'user'">
+        <NuxtLink 
+          :to="`/dashboardv2/accounts/users/user-update/${content}/`" 
+          class="text-blue-500 hover:underline"
+        >
+          {{ content }}
+        </NuxtLink>
+      </span>
       <span v-else>{{
         content
       }}</span>
