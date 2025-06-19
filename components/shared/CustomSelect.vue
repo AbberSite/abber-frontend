@@ -128,7 +128,7 @@ const selectedLabel = computed(() => {
   const selectedOption = props.options.find(
     (option) => option.value === props.modelValue
   );
-  return selectedOption ? selectedOption.label || selectedOption.text : props.defaultLabel || 'اختر';
+  return selectedOption ? selectedOption.label || selectedOption.text || selectedOption.value : props.defaultLabel || 'اختر';
 });
 
 function toggleDropdown() {
