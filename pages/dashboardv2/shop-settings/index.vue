@@ -8,7 +8,7 @@
       { value: 'tab7', name: 'تطبيق منام' },
       { value: 'tab4', name: 'رسوم طرق الدفع' },
       { value: 'tab5', name: 'إعدادات الخدمات' },
-      { value: 'tab6', name: 'Orders Packages Settings' },
+      { value: 'tab6', name: 'إعدادات باقات الطلبات' },
     ]"
     v-model:model-value="currentTab"
   />

@@ -98,7 +98,7 @@ content_types.value = [
   { value: "80", text: "whatsapp_chat | message" },
   { value: "81", text: "whatsapp_chat | ميديا" },
   { value: "82", text: "orders | cart" },
-  { value: "83", text: "packages | Orders Package" },
+  { value: "83", text: "packages | باقة الطلبات" },
   { value: "84", text: "packages | Membership" },
   { value: "85", text: "orders | Dream Info" },
   { value: "86", text: "referrals | referral code" },

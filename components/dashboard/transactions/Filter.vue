@@ -23,7 +23,7 @@
                     { value: '9', text: 'عملية على الرصيد' },
                     { value: '10', text: 'إلغاء الطلب' },
                     { value: '11', text: 'Cart checkout' },
-                    { value: '12', text: 'Orders Package' },
+                    { value: '12', text: 'باقةالطلبات' },
                 ]
                 " v-model:model-value="filters.type" defaultLabel="الكل" />
         </div>
