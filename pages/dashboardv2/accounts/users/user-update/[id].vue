@@ -1,5 +1,5 @@
 <template>
-    <DashboardTitle department="العملاء" :title="`العميل ${userData.first_name}`" :loading="loading">
+    <DashboardTitle department="العملاء" :title="`المستخدم ${userData.first_name}`" :loading="loading">
         <p class="text-xs font-medium text-gray-500 cursor-pointer" @click="downloadVCF" > #{{ userData?.id }} </p>
     </DashboardTitle>
     <Tabs :model-value="currentTab" :tabs="items" @update:modelValue="(value) => currentTab = value"/>
@@ -33,18 +33,18 @@ onBeforeMount(async () => {
 let currentTab = ref('tab0');
 
 const items = ref([
-  { name: 'بيانات العميل', value: 'tab0' },
-  { name: 'كشف الحساب', value: 'tab1' },
-  { name: 'السجل', value: 'tab2' },
-  { name: 'خدمات تم شراؤها', value: 'tab3', dontShowIt: true },
-  { name: 'تذكرة المساعدات', value: 'tab4' },
+  { name: 'بيانات المستخدم', value: 'tab0' },
+  { name: 'الطلبات', value: 'tab3', dontShowIt: true },
+  { name: 'العمليات المالية', value: 'tab1' },
+  { name: 'تذاكر المساعدة', value: 'tab4' },
   { name: 'سجل الاجراءات', value: 'tab5' },
+  { name: 'السجل', value: 'tab2' },
 ]);
 watch(
   () => userData.value.user_type,
   (newVal) => {
     if (newVal !== undefined) {
-      items.value[3].dontShowIt = newVal !== 'عميل';
+      items.value[1].dontShowIt = newVal !== 'عميل';
     }
   },
   { immediate: true }
