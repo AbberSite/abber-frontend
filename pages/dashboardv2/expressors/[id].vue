@@ -26,9 +26,9 @@ let currentTab = ref('tab0');
 
 const items = ref([
   { name: 'البيانات الأساسية', value: 'tab0' },
+  { name: 'التقييمات', value: 'tab3' },
   { name: 'كشف الحساب', value: 'tab1' },
   { name: 'الطلبات', value: 'tab2' },
-  { name: 'التقييمات', value: 'tab3' }
 ]);
 
 async function downloadVCF(){
