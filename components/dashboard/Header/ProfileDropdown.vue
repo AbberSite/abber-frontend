@@ -27,21 +27,16 @@
 
         </div>
         <div class="py-2">
-            <a @click.prevent="showConfirmDailog = true"
+            <a @click.prevent="$emit('confirmDialog')"
                 class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50" href="#" role="menuitem"
                 tabindex="-1">تسجيل الخروج</a>
         </div>
 
     </div>
-    <ConfirmDialog v-if="showConfirmDailog" title="هل انت متاكد؟"
-        descritpion="هل انت متأكد من انك تريد تسجيل الخروج من حسابك؟" @close="showConfirmDailog = false"
-        @continue="$emit('logout')" />
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '~/components/shared/ConfirmDialog.vue';
 const { data } = useAuth();
-let showConfirmDailog = ref(false);
 
 </script>
 
