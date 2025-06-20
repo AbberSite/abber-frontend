@@ -52,7 +52,7 @@
                             leave-to-class="translate-y-4 opacity-0">
                             <DashboardHeaderProfileDropdown
                                 ref="profileDropdownRef"
-                                @logout="logout"
+                                @confirmDialog="showConfirmDialog = true"
                                 @close="profileDropdown = false"
                                 v-if="profileDropdown" />
                         </transition>
@@ -96,6 +96,9 @@
                     @navigate="navigateAndClose" @close="openDropdown = false" />
             </div>
         </transition>
+        <ConfirmDialog v-if="showConfirmDialog" title="هل انت متاكد؟"
+        descritpion="هل انت متأكد من انك تريد تسجيل الخروج من حسابك؟" @close="showConfirmDialog = false"
+        @continue="logout" />
     </header>
 </template>
 
@@ -114,7 +117,7 @@
     const notificationsButton = ref(null);
     const profileDropdownButton = ref(null);
     const profileDropdownRef = ref(null);
-
+    let showConfirmDialog = ref(false);
     const loading = ref(false);
 
     const router = useRouter();
