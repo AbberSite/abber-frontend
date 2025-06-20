@@ -8,7 +8,7 @@
         <form class="flex justify-center">
             <fieldset class="space-y-7 mt-3 max-w-sm">
 
-                <div @click="submit('login')"
+                <div @click="submit('whatsapp')"
                     class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none">
                     <div class="flex pt-1.5">
                         <div class="flex-shrink-0">
