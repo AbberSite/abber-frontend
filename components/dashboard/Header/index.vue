@@ -93,7 +93,7 @@
                 <DashboardHeaderProfileCardMobile
                     v-if="status == 'authenticated'"
                     @logout="logout"
-                    @navigate="navigateAndClose" />
+                    @navigate="navigateAndClose" @close="openDropdown = false" />
             </div>
         </transition>
     </header>
