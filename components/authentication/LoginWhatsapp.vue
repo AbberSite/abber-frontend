@@ -9,7 +9,7 @@
       <form method="POST" @submit.prevent="send">
         <fieldset class="space-y-5">
           <div class="w-full space-y-3">
-            <LazyPhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" />
+            <LazyPhoneInput v-model="phone" v-model:valid="valid" :error="errors.phone" login />
           </div>
           <div>
             <PrimaryButton class="w-full" :loading="loading" :disabled="!valid">

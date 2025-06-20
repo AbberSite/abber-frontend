@@ -1,6 +1,6 @@
 <template>
   <div class="w-full space-y-3">
-    <!-- <label class="block text-sm font-medium xs:text-base" for="tel">{{ sms ? 'رقم الجوال' : mobile ? 'رقم الهاتف' : 'رقم الواتساب' }}</label> -->
+    <label class="block text-sm font-medium xs:text-base" v-if="!login" for="tel">{{ sms ? 'رقم الجوال' : mobile ? 'رقم الهاتف' : 'رقم الواتساب' }}</label>
 
     <input ref="phoneInput" class="form-control h-[50px] appearance-none" :type="isApple ? 'text' : 'number'" pattern="\d*" name="phone" id="tel"
       :placeholder="placeholder ?? '12345XXXX'" :maxlength="countryPhoneLength + 1" :minlength="countryPhoneLength" :value="phone"
@@ -23,6 +23,7 @@ const props = defineProps<{
   sms?: boolean;
   placeholder?: string;
   mobile?: boolean;
+  login?: boolean;
 }>();
 let hideErrorEmpty = ref(true);
 const phone = ref('');
