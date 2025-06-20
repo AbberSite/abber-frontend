@@ -1,6 +1,4 @@
 <template>
-    
-
     <div class="absolute top-[calc(100%+10px)] w-48 divide-y-2 divide-gray-50 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ltr:right-0 rtl:left-0 z-50"
         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-cloak>
         <NuxtLink class="flex items-center px-4 pb-3 pt-4" to="/profile" @click="$emit('close')">
@@ -24,7 +22,7 @@
             <NuxtLink class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
                 :to="{ name: 'accounts-new-password' }" role="menuitem" tabindex="-1">تغيير كلمة المرور</NuxtLink>
             <NuxtLink class="block px-4 pb-1.5 pt-3 text-sm font-medium hover:bg-gray-50"
-                :to="{ name: 'dashboardv2' }" role="menuitem" tabindex="-1">إعدادات الموقع</NuxtLink>
+                :to="{ name: 'dashboardv2-settings' }" role="menuitem" tabindex="-1">إعدادات الموقع</NuxtLink>
 
 
         </div>

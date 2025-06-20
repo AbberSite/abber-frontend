@@ -51,10 +51,10 @@
                             enter-from-class="translate-y-4 opacity-0"
                             leave-to-class="translate-y-4 opacity-0">
                             <DashboardHeaderProfileDropdown
+                                ref="profileDropdownRef"
                                 @logout="logout"
                                 @close="profileDropdown = false"
-                                v-if="profileDropdown"
-                                v-on-click-outside="(profileOnClickOutside as any)" />
+                                v-if="profileDropdown" />
                         </transition>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                 <DashboardHeaderProfileCardMobile
                     v-if="status == 'authenticated'"
                     @logout="logout"
-                    @navigate="navigateAndClose" />
+                    @navigate="navigateAndClose" @close="openDropdown = false" />
             </div>
         </transition>
     </header>
@@ -103,9 +103,9 @@
     const { data, signOut, status } = useAuth();
 
     import { Bars3Icon } from '@heroicons/vue/24/outline';
-
+    import { onClickOutside } from '@vueuse/core';
     import { vOnClickOutside } from '@vueuse/components';
-import useLogout from '~/composables/useLogout';
+    import useLogout from '~/composables/useLogout';
 
     const openDropdown = ref(false);
     const profileDropdown = ref(false);
@@ -113,6 +113,7 @@ import useLogout from '~/composables/useLogout';
 
     const notificationsButton = ref(null);
     const profileDropdownButton = ref(null);
+    const profileDropdownRef = ref(null);
 
     const loading = ref(false);
 
@@ -125,18 +126,43 @@ import useLogout from '~/composables/useLogout';
         await useLogout()
     }
 
+    // Set up the click outside detection when the dropdown appears
+    watch(profileDropdown, (isOpen) => {
+        if (isOpen) {
+            // Wait for the DOM to update
+            nextTick(() => {
+                if (profileDropdownRef.value) {
+                    // Stop existing listeners if any
+                    stopProfileClickOutside?.();
+                    
+                    // Set up new listener
+                    const { stop } = onClickOutside(profileDropdownRef, (event) => {
+                        // Make sure we're not clicking the toggle button
+                        if (!profileDropdownButton.value?.contains(event.target)) {
+                            profileDropdown.value = false;
+                        }
+                    });
+                    
+                    stopProfileClickOutside = stop;
+                }
+            });
+        }
+    });
+    
+    // Variable to hold the stop function
+    let stopProfileClickOutside = null;
+    
+    // Clean up on component unmount
+    onUnmounted(() => {
+        stopProfileClickOutside?.();
+    });
+
+    // Keep this for HeaderNotifications since it works for that component
     const notifictionsOnClickOutside = [
         (ev: Event) => {
             notificationDropdown.value = false;
         },
         { ignore: [notificationsButton] },
-    ];
-
-    const profileOnClickOutside = [
-        (ev: Event) => {
-            profileDropdown.value = false;
-        },
-        { ignore: [profileDropdownButton] },
     ];
 
     async function navigateAndClose(url: string | { name: string; params?: Object }) {
