@@ -27,7 +27,9 @@
         </div>
         <div class="pt-6">
             <NuxtLink class="-mx-3 block rounded-lg px-3 py-4 font-medium hover:bg-gray-50" :to="{name: 'index'}">العودة للموقع</NuxtLink>
-            <NuxtLink class="-mx-3 block rounded-lg px-3 py-4 font-medium hover:bg-gray-50" :to="{name: 'accounts-new-password'}">تغيير كلمة المرور</NuxtLink>          
+            <NuxtLink class="-mx-3 block rounded-lg px-3 py-4 font-medium hover:bg-gray-50" :to="{name: 'accounts-new-password'}">تغيير كلمة المرور</NuxtLink>    
+            <NuxtLink class="-mx-3 block rounded-lg px-3 py-4 font-medium hover:bg-gray-50"
+                :to="{ name: 'dashboardv2-settings' }" role="menuitem" tabindex="-1">إعدادات الموقع</NuxtLink>      
             <button style="width:-webkit-fill-available" class="-mx-3 text-right block rounded-lg px-3 py-4 font-medium hover:bg-gray-50"
                 @click="showConfirmDailog = true">
                 تسجيل الخروج
