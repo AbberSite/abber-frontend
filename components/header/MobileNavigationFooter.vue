@@ -2,7 +2,7 @@
     <div class="py-6">
         <NuxtLink
             class="-mx-3 block rounded-lg px-3 py-4 font-medium hover:bg-gray-50"
-            @click="$emit('navigate', { name: 'accounts-sms' })"
+            @click="$emit('navigate', { name: 'accounts-whatsapp-login' })"
             >
             تسجيل الدخول
         </NuxtLink>
