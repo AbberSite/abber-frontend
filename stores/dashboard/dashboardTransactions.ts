@@ -33,7 +33,8 @@ class dashboardTransactions extends BaseStore{
   getAccountStatements = async (user: string) => {
     try {
       this.statementsLoading.value = true;
-      const {results} = await useDirectApi("/wallets/dashboard-transactions/", {params: {limit: 2000}});
+      const {count} = await useDirectApi("/wallets/dashboard-transactions/", {params: {limit: 1}});
+      const {results} = await useDirectApi("/wallets/dashboard-transactions/", {params: {limit: count}});
       if (Array.isArray(results)) {
         this.accountStatements.value = results.filter(
           (item: any) => item?.user === user
