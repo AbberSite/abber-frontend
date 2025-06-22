@@ -59,13 +59,11 @@ const filteredStatements = computed(() => {
 });
 
 onMounted(() => {
-    if (!accountStatements.value || accountStatements.value.length === 0) {
-        watchEffect(() => {
+     watchEffect(() => {
             const username = userData.value?.username;
             if (username) {
                 getAccountStatements(username);
             }
         });
-    }
 });
 </script>
