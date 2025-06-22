@@ -259,13 +259,14 @@ const submit = async () => {
   }
 
   try {
-    await useProxy(
-      `/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`,
-      {
-        method: dataSelection.updated ? "PATCH" : "PUT",
-        body: formdata,
-      }
-    );
+    // await useProxy(
+    //   `/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`,
+    //   {
+    //     method: dataSelection.updated ? "PATCH" : "PUT",
+    //     body: formdata,
+    //   }
+    // );
+    await useFormDataApi(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, formdata, dataSelection.updated ? "PATCH" : "PUT");
     useNotification({ type: "success", content: "تم تحديث الطلب بنجاح." });
   } catch (error) {
     useNotification({

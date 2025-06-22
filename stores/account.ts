@@ -67,11 +67,7 @@ class AccountStore {
 
             this.errors.value = {};
             try {
-                await useApi(`/accounts/update/${id}`, {
-                    method: 'POST',
-
-                    body: data
-                });
+                await useFormDataApi(`/accounts/update/${id}/`, data);
                 getSession();
                 resolve(true);
             } catch (error: any) {
