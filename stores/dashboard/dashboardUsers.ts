@@ -24,6 +24,7 @@ class dashboardUsers extends BaseStore {
     object_id: "",
     content_type: "",
   });
+  fullTickets = ref<[]>([]);
   constructor() {
     super(
       {
@@ -269,15 +270,18 @@ class dashboardUsers extends BaseStore {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
-        const data = await useDirectApi("/support/tickets/", {
-          params: {
-            limit: 500,
-          },
-          headers: {
-            "X-Requested-With": process.client ? "XMLHttpRequest" : "",
-          },
-        });
-        this.userTickets.value = (data.results || [])
+        if (this.fullTickets.value.length ===0){
+          const {count} = await useDirectApi("/support/tickets/", {params: {limit: 1}});
+          const {results} = await useDirectApi("/support/tickets/", {params: {limit: count}});
+          if (Array.isArray(results)) {
+            this.fullTickets.value = results;
+          }
+          else {
+            console.error("API response is not an array:", results);
+            this.fullTickets.value = [];
+          }
+        }
+        this.userTickets.value = (this.fullTickets.value || [])
           .filter((ticket: any) => String(ticket.user?.id) === String(this.userData.id))
           .map((ticket: any) => ({
             ...ticket,
