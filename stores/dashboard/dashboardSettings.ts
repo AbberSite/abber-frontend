@@ -67,7 +67,7 @@ class dashboardSettings {
         //   method: 'PATCH',
         //   body: settingsSection,
         // });
-        const data = await useFormDataApi(`/settings/dashboard-settings/${id}/`, settingsSection,  'PATCH');
+        const data = await useFormDataApi(`/settings/dashboard-settings/${id}/`, {method: 'PATCH', body: settingsSection});
         this.settings.value = { ...this.settings.value };
         this.loading.value = false;
         useNotification({
