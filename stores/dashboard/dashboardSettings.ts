@@ -63,10 +63,11 @@ class dashboardSettings {
     return new Promise(async (resolve, reject) => {
       try {
         this.loading.value = true;
-        const data = await useProxy(`/settings/dashboard-settings/${id}/`, {
-          method: 'PATCH',
-          body: settingsSection,
-        });
+        // const data = await useProxy(`/settings/dashboard-settings/${id}/`, {
+        //   method: 'PATCH',
+        //   body: settingsSection,
+        // });
+        const data = await useFormDataApi(`/settings/dashboard-settings/${id}/`, settingsSection,  'PATCH');
         this.settings.value = { ...this.settings.value };
         this.loading.value = false;
         useNotification({
