@@ -19,8 +19,11 @@
                     ${expressor?.seller.last_name}` }}</h1>
                 <div class="flex items-center justify-between">
                     <div class="flex-shrink-0">
-                        <img class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
-                            :src="expressor?.seller.image" height="96" width="96" alt="صورة المستخدم" />
+                        <NuxtImg class="lazyload h-24 w-24 rounded-full bg-gray-100 object-cover"
+                            :src="expressor?.seller.image"
+                            height="96"
+                            width="96"
+                            alt="صورة المستخدم" />
                     </div>
                     <div class="hidden items-center space-x-3 rtl:space-x-reverse sm:flex" v-if="!['إدارة', 'معبر'].includes(user?.user_type)">
                         <NuxtLink
