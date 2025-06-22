@@ -67,7 +67,7 @@ class AccountStore {
 
             this.errors.value = {};
             try {
-                await useProxy(`/accounts/update/${id}`, {
+                await useApi(`/accounts/update/${id}`, {
                     method: 'POST',
 
                     body: data
