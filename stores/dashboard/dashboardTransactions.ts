@@ -3,6 +3,7 @@ import { BaseStore } from "./baseStore";
 class dashboardTransactions extends BaseStore{
   accountStatements = ref<any[]>([]);
   statementsLoading = ref<boolean>(false);
+  fullAcountStatements = ref<any[]>([]);
   constructor(){
     super(
       {success: '', type: '', ordering: "order_item_time_data__start_date"},
@@ -33,16 +34,21 @@ class dashboardTransactions extends BaseStore{
   getAccountStatements = async (user: string) => {
     try {
       this.statementsLoading.value = true;
-      const {count} = await useDirectApi("/wallets/dashboard-transactions/", {params: {limit: 1}});
-      const {results} = await useDirectApi("/wallets/dashboard-transactions/", {params: {limit: count}});
-      if (Array.isArray(results)) {
-        this.accountStatements.value = results.filter(
-          (item: any) => item?.user === user
-        );
-      } else {
-        console.error("API response is not an array:", results);
-        this.accountStatements.value = [];
+      // Fetch from API only if cache is empty
+      if (this.fullAcountStatements.value.length === 0) {
+        const { count } = await useDirectApi("/wallets/dashboard-transactions/", { params: { limit: 1 } });
+        const { results } = await useDirectApi("/wallets/dashboard-transactions/", { params: { limit: count } });
+        if (Array.isArray(results)) {
+          this.fullAcountStatements.value = results;
+        } else {
+          console.error("API response is not an array:", results);
+          this.fullAcountStatements.value = [];
+        }
       }
+      // Always filter from the cache
+      this.accountStatements.value = this.fullAcountStatements.value.filter(
+        (item: any) => item?.user === user
+      );
     } catch (error) {
       console.error("Error fetching account statements:", error);
       this.accountStatements.value = [];
@@ -51,6 +57,7 @@ class dashboardTransactions extends BaseStore{
     }
   };
 }
+
 export const useDashboardTransactionsStore = defineStore(
   "DashboardTransactions",
   () => new dashboardTransactions()
