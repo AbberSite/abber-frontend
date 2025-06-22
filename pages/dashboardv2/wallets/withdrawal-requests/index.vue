@@ -266,7 +266,7 @@ const submit = async () => {
     //     body: formdata,
     //   }
     // );
-    await useFormDataApi(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`, formdata, dataSelection.updated ? "PATCH" : "PUT");
+    await useFormDataApi(`/wallets/dashboard-withdrawal-requests/${dataSelection.id}/`,{method: dataSelection.updated ? "PATCH" : "PUT", body: formdata});
     useNotification({ type: "success", content: "تم تحديث الطلب بنجاح." });
   } catch (error) {
     useNotification({
