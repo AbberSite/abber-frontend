@@ -1,13 +1,13 @@
 <template>
   <Modal @close="$emit('close')" title="نقل الطلب">
     <!-- Change status order modal -->
-    <div class="is-scroll overflow-y-auto px-6 py-8 pb-36">
+    <div class="is-scroll overflow-y-auto px-6 py-8 h-full">
       <fieldset class="space-y-5">
         <CustomSelect
           v-model="id_service"
           :options="expressors.map((ex) => ({ value: ex.id, label: ex.seller.first_name }))"
           label="المعبر"
-          placeholder="اختر المعبر" />
+          placeholder="اختر المعبر" dailog />
         <div class="w-full">
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded border" type="checkbox" v-model="deleteOldMessages" :checked="deleteOldMessages"/>
           <label class="mt-1.5 ps-3 text-sm">تحويل تفاصيل الحلم فقط</label>
