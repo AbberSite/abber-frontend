@@ -2,7 +2,6 @@ import type { PaginationResponse } from "~/types";
 import { BaseStore } from "./baseStore";
 import axios from "axios";
 import { useRoute } from 'vue-router';
-import { MenuItems } from "@headlessui/vue";
 
 class dashboardUsers extends BaseStore {
   expressors = ref<[]>([]);
@@ -107,7 +106,8 @@ class dashboardUsers extends BaseStore {
   };
   fetchCountries = async () => {
     await axios
-      .get("https://restcountries.com/v3.1/all")
+      // .get("https://restcountries.com/v3.1/all")
+      .get("https://restcountries.com/v3.1/all?fields=name,cca2")
       .then((res) => {
         this.countries.value = res.data
           .map((country: any) => ({ name: country.name.common, code: country.cca2 }))
