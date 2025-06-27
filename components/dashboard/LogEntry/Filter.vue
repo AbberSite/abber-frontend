@@ -1,5 +1,5 @@
 <template>
-  <CustomSelect label="نوع المحتوى" v-model="logs_filters.content_type" :options="content_types" default-label="الكل" />
+  <CustomSelect label="نوع المحتوى" v-model="logs_filters.content_type" :options="content_types" default-label="الكل" dialog class="flex flex-wrap"/>
   <CustomSelect
     label="نوع الإجراء"
     :options="[

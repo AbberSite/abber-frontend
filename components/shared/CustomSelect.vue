@@ -41,8 +41,9 @@
     >
       <ul
         v-if="dropdownOpen"
-        :class="props.dialog ? 'w-full' : 'absolute z-20 mt-2'"
+        :class="[props.dialog ? 'w-full' : 'absolute z-20 mt-2', 'w-full']"
         class="bg-white border border-gray-300 rounded-md shadow-lg max-h-[300px] overflow-y-auto overflow-x-hidden"
+        style="max-width: none; min-width: 100%;"
       >
         <li
           v-if="defaultLabel"
@@ -55,7 +56,7 @@
           v-for="option in options"
           :key="option.value"
           @click="selectOption(option)"
-          class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap border-b border-gray-200 last:border-b-0"
+          class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-normal break-words border-b border-gray-200 last:border-b-0"
         >
           {{ option.label || option.text || option.value }}
         </li>
