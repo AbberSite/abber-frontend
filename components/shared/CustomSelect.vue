@@ -47,7 +47,7 @@
         <li
           v-if="defaultLabel"
           @click="selectDefaultOption"
-          class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
+          class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap border-b border-gray-200 last:border-b-0"
         >
           {{ defaultLabel }}
         </li>
@@ -55,7 +55,7 @@
           v-for="option in options"
           :key="option.value"
           @click="selectOption(option)"
-          class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap"
+          class="px-4 py-2 hover:bg-gray-100 cursor-pointer whitespace-nowrap border-b border-gray-200 last:border-b-0"
         >
           {{ option.label || option.text || option.value }}
         </li>
