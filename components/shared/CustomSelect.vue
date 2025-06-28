@@ -43,7 +43,7 @@
         v-if="dropdownOpen"
         :class="[props.dialog ? 'w-full' : 'absolute z-20 mt-2', 'w-full']"
         class="bg-white border border-gray-300 rounded-md shadow-lg max-h-[300px] overflow-y-auto overflow-x-hidden"
-        style="max-width: none; min-width: 100%;"
+        :style="props.dialog ? 'max-width: none; min-width: 100%;' : ''"
       >
         <li
           v-if="defaultLabel"
