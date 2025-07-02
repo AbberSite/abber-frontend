@@ -3,6 +3,14 @@ import { BaseStore } from "./baseStore";
 
 class dashboardHelp extends BaseStore {
     // tickets = ref<[]>([]);
+    updateLoading = ref<boolean>(false);
+    problems = ref<[]>([]);
+    problem_data = ref<any>({
+        parent: "",
+        name: "",
+        result: "",
+        role: "0"
+    });
     constructor(){
         super({
             status: "",
@@ -34,7 +42,59 @@ class dashboardHelp extends BaseStore {
         } catch (error: any){
             reject(error);
         };
-    }) ;
+    });
+
+    fetchProblems = async (params?: any, update?: any): Promise<PaginationResponse<any>> => new Promise(async (resolve, reject)=> {
+        try {
+            this.loading.value = true;
+            // First, get the count
+            const {count} = await useDirectApi('/support/problems/', { params: { limit: 1, ...this.pipeFilters(), ...params }, headers: { "X-Requested-With": process.client ? "XMLHttpRequest" : "" } });
+            // Then, fetch all problems with the count as limit
+            const data = (await useDirectApi('/support/problems/', {params: {limit: count, ...this.pipeFilters(), ...params}, headers: {"X-Requested-With": process.client ? "XMLHttpRequest" : ""}})) as PaginationResponse<any>;
+            this.problems.value = data.results ?? [];
+            this.pagination.value = data;
+            this.loading.value = false; 
+            update?.();
+            resolve(data);
+        } catch (error: any){
+            this.loading.value = false;
+            reject(error);
+        };
+    });
+    createProblem = async ()=> {
+        try{
+            // Convert role to string if it's an array
+            if (Array.isArray(this.problem_data.value.role)) {
+                this.problem_data.value.role = JSON.stringify(this.problem_data.value.role);
+            }
+            await useDirectApi('/support/problems/', {method: 'POST', body: this.problem_data.value});
+            useNotification({type: 'success', content: 'تم الإنشاء بنجاح'});
+            this.resetProblemData();
+        } catch(error: any){
+            useNotification({type: 'danger', content: 'فشل الانشاء، رجاءا أعد المحاولة'})
+            this.updateLoading.value = false;
+        } finally {
+            this.updateLoading.value = false
+        }
+    }
+    deleteProblem = async (id: number) => {
+        try {
+            await useDirectApi(`/support/problems/${id}/`, { method: 'DELETE' });
+            useNotification({ type: 'success', content: 'تم حذف المشكلة بنجاح' });
+            // Optionally refresh problems list
+            await this.fetchProblems();
+        } catch (error: any) {
+            useNotification({ type: 'danger', content: 'فشل حذف المشكلة، رجاءا أعد المحاولة' });
+        }
+    };
+    resetProblemData = () => {
+        this.problem_data.value = {
+            parent: "",
+            name: "",
+            result: "",
+            role: ""
+        };
+    };
 }
 
 export const useDashboardHelpStore = defineStore("DashboardHelp", ()=> new dashboardHelp());
