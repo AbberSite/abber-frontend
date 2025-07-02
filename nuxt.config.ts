@@ -1,13 +1,16 @@
 let production = process.env.ABBER_ENV === "production";
 const apiSecret = production ? "a011ff6611fa1cfa9be83e5e22533976b2ede3df" : "d378b42b1f3f18f231edb2f253e43025dc01406f";
-const websiteBasePath = production ? "https://abber.co" : "https://test.abber.co";
+const websiteBasePath = production ? "https://abber.co" : "httpszz://test.abber.co";
 const apiBasePath = websiteBasePath + "/api";
 export default defineNuxtConfig({
-  nitro: (process.env.VITE_ENABLE_BROTLI != "false") ? {
-    compressPublicAssets: {
-      brotli: true
-    }
-  } : {},
+  nitro:
+    process.env.VITE_ENABLE_BROTLI != "false"
+      ? {
+          compressPublicAssets: {
+            brotli: true,
+          },
+        }
+      : {},
 
   devtools: {
     enabled: true,
@@ -38,34 +41,26 @@ export default defineNuxtConfig({
   },
 
   router: {
-    middleware: ['dashboard-layout']
+    middleware: ["dashboard-layout"],
   },
 
   runtimeConfig: {
     apiSecret: apiSecret,
     apiBasePath: apiBasePath,
     public: {
-      WebsocketURL: import.meta.env.VITE_WS_URL,  // 'wss://abber.co'
+      WebsocketURL: import.meta.env.VITE_WS_URL, // 'wss://abber.co'
       zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
-      paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`,
+      paymentWidgetURL: `https://${!production ? "test." : ""}oppwa.com/v1/paymentWidgets.js`,
       production: production,
     },
   },
 
-  modules: [
-    "@nuxt/image",
-    "@pinia/nuxt",
-    "@sidebase/nuxt-auth",
-    '@nuxtjs/device',
-    'nuxt-viewport',
-    "@nuxtjs/i18n"
-  ],
+  modules: ["@nuxt/image", "@pinia/nuxt", "@sidebase/nuxt-auth", "@nuxtjs/device", "nuxt-viewport", "@nuxtjs/i18n"],
 
-  buildModules: (process.env.VITE_ENABLE_BROTLI != "false") ? ['@averjs/nuxt-compression'] : [],
+  buildModules: process.env.VITE_ENABLE_BROTLI != "false" ? ["@averjs/nuxt-compression"] : [],
 
   auth: {
-
     globalAppMiddleware: true,
     baseURL: import.meta.env.VITE_AUTH_URL,
     provider: {
@@ -76,23 +71,21 @@ export default defineNuxtConfig({
       endpoints: {
         refresh: { path: "/refresh", method: "post" },
         getSession: { path: "/session" },
-        signIn: { path: "/login", method: "post" }
+        signIn: { path: "/login", method: "post" },
       },
       token: {
         sameSiteAttribute: "lax",
-        maxAgeInSeconds: ((60 * 60) * 24) * 7,
+        maxAgeInSeconds: 60 * 60 * 24 * 7,
       },
       refreshToken: {
-        maxAgeInSeconds: (60 * 60 * 24 * 7) + 60,
+        maxAgeInSeconds: 60 * 60 * 24 * 7 + 60,
       },
       refreshOnlyToken: false,
-
-
     },
     session: {
       enableRefreshPeriodically: false,
-      enableRefreshOnWindowFocus: false
-    }
+      enableRefreshOnWindowFocus: false,
+    },
   },
 
   build: {
@@ -128,7 +121,7 @@ export default defineNuxtConfig({
         //   // async: true,
         //   // defer: true,
         //   body: true
-        // }, 
+        // },
       ],
     },
   },
@@ -141,19 +134,30 @@ export default defineNuxtConfig({
         trailingSlash: "append",
       },
     },
-    asyncContext: true
+    asyncContext: true,
   },
 
   plugins: [
-    '~/plugins/gtm.ts',
-    '~/plugins/event-bus.ts',
-    '~/plugins/drag-scroll.ts',
-    {src: '~/plugins/ckeditor.ts', mode: 'client'}, // CKEditor plugin, ensure it's client-side only
+    "~/plugins/gtm.ts",
+    "~/plugins/event-bus.ts",
+    "~/plugins/drag-scroll.ts",
+    { src: "~/plugins/ckeditor.ts", mode: "client" }, // CKEditor plugin, ensure it's client-side only
   ],
 
   i18n: {
-    vueI18n: './i18n.config.ts'
+    vueI18n: "./i18n.config.ts",
   },
 
-  compatibilityDate: "2024-08-29"
+  compatibilityDate: "2024-08-29",
+  security: {
+    headers: {
+       contentSecurityPolicy: {
+        'default-src': ["'self'"],
+        'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdnjs.cloudflare.com"],
+        'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        'font-src': ["'self'", "https://fonts.gstatic.com"],
+        'connect-src': ["'self'", "https://api.bigdatacloud.net"]
+      },
+    },
+  },
 });
