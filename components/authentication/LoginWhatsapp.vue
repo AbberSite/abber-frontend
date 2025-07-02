@@ -18,7 +18,7 @@
           </div>
         </fieldset>
       </form>
-      <!-- <LazyAuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage" /> -->
+      <LazyAuthenticationSocialLogin :isFormSteps="isFormSteps" :isFormPackage="isFormPackage" />
     </div>
   </section>
 </template>
