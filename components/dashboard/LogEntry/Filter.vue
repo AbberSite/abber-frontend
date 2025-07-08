@@ -86,7 +86,6 @@ content_types.value = [
   { value: "68", text: "settings | إعدادات رسوم وسائل الدفع" },
   { value: "69", text: "services | Text Service Capacity" },
   { value: "70", text: "wallets | سجل الرصيد" },
-  { value: "71", text: "zoom | zoom account" },
   { value: "72", text: "wallets | عملية علي الرصيد" },
   { value: "73", text: "support | faq" },
   { value: "74", text: "api_key | api key" },

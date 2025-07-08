@@ -27,22 +27,6 @@
           <input class="h-5 w-5 flex-shrink-0 appearance-none rounded-full" id="text-communication" type="radio"
             name="type" value="text_communication" />
         </label>
-        <label @click.once="submit('video_communication')"
-          class="flex cursor-pointer justify-between rounded-md border px-4 py-4 shadow-sm focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900 focus:outline-none"
-          :class="voiceCommunicationButtonClasses">
-          <div class="flex pt-1.5">
-            <span class="flex-shrink-0">
-              <MicrophoneIcon class="w-6 h-6" />
-            </span>
-            <span class="flex flex-col space-y-3">
-              <span class="ms-3 mt-1.5 text-sm font-medium">محادثة صوتية</span>
-              <span class="ms-3 text-[13px] leading-loose text-gray-700">سيتواصل المعبر معك صوتيا عن طريق تطبيق
-                Zoom.</span>
-            </span>
-          </div>
-          <input class="h-5 w-5 flex-shrink-0 appearance-none rounded-full" id="voice-communication" type="radio"
-            name="type" value="video_communication" />
-        </label>
       </template>
     </fieldset>
     <div class="flex justify-center pt-8">

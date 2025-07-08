@@ -46,7 +46,6 @@ export default defineNuxtConfig({
     apiBasePath: apiBasePath,
     public: {
       WebsocketURL: import.meta.env.VITE_WS_URL,  // 'wss://abber.co'
-      zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
       paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`,
       production: production,

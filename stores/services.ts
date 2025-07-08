@@ -1,4 +1,5 @@
 import useDirectApi from '~/composables/useDirectApi';
+import { useApiWithCache } from '~/composables/useApiCache';
 import type { PaginationResponse, Service } from '~/types';
 
 class ServicesStore {
@@ -18,7 +19,10 @@ class ServicesStore {
     );
 
   fetchAll: () => Promise<PaginationResponse<Service>> = async () => {
-    const data = await useDirectApi('/services/services/', {
+    const data = await useApiWithCache<PaginationResponse<Service>>('/services/services/', {
+      ttl: 600000, // 10 minutes cache
+      tags: ['services', 'text-services'],
+      key: 'services:text-communication',
       params: {
         active_text_communication: true,
         active: true,
@@ -31,7 +35,10 @@ class ServicesStore {
   };
 
   fetchVideoServices: () => Promise<PaginationResponse<Service>> = async () => {
-    const data = await useDirectApi('/services/services/', {
+    const data = await useApiWithCache<PaginationResponse<Service>>('/services/services/', {
+      ttl: 600000, // 10 minutes cache
+      tags: ['services', 'video-services'],
+      key: 'services:video-communication',
       params: {
         active_video_communication: true,
         active: true,

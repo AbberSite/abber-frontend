@@ -1,4 +1,5 @@
 import { useWebSocket } from '@vueuse/core';
+import { useWebSocketManager } from '~/composables/useWebSocketManager';
 
 type UpdateAccountBody = {
     first_name?: string;
@@ -26,7 +27,6 @@ class AccountStore {
         }
     });
 
-    zoomAccount: Ref<ZoomAccount | undefined> = ref<ZoomAccount | undefined>(undefined);
 
     goOffline: ((code?: number | undefined, reason?: string | undefined) => void) | undefined;
 
@@ -79,34 +79,55 @@ class AccountStore {
 
     goOnline = async () => {
         const { rawToken } = useAuthState();
+        const wsManager = useWebSocketManager();
+        
         console.log("connecting to websocket");
-        const { close, status } = useWebSocket(
+        const connection = wsManager.connect(
+            'connection_status',
             useRuntimeConfig().public.WebsocketURL + `/ws/connection_status/` + `?authorization=JWT ${rawToken.value}`,
-
             {
-                autoReconnect: true
+                onConnected: () => console.log('Connection status WebSocket connected'),
+                onDisconnected: () => console.log('Connection status WebSocket disconnected'),
+                onError: (error: any) => console.error('Connection status WebSocket error:', error)
             }
         );
-        watch(status, (value) => {
+        
+        watch(connection.status, (value) => {
             console.log(`the status websocket connection: ${value}`);
         })
-        return close;
+        
+        return () => wsManager.disconnect('connection_status');
     };
 
     connectWSNotifications = async () => {
-        const { data,rawToken } = useAuthState();
+        const { data, rawToken } = useAuthState();
         const { readNotifications } = storeToRefs(useUtilsStore());
-        const { close, status, data: response } = useWebSocket(useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/` + `?authorization=JWT ${rawToken.value}`, { autoReconnect: true });
-        watch(status, (value) => {
+        const wsManager = useWebSocketManager();
+        
+        const connection = wsManager.connect(
+            'notifications',
+            useRuntimeConfig().public.WebsocketURL + `/ws/notifications/${data.value.username}/` + `?authorization=JWT ${rawToken.value}`,
+            {
+                onConnected: () => console.log('Notifications WebSocket connected'),
+                onDisconnected: () => console.log('Notifications WebSocket disconnected'),
+                onError: (error: any) => console.error('Notifications WebSocket error:', error)
+            }
+        );
+        
+        watch(connection.status, (value) => {
             console.log(`notification status: ${value}`);
         });
-        watch(response, (value) => {
-            value = JSON.parse(value);
-            data.value.notifications.results.unshift(value.notification);
-            data.value.notifications.results.pop();
-            readNotifications.value = true;
+        
+        watch(connection.data, (value) => {
+            if (value) {
+                const parsedValue = JSON.parse(value);
+                data.value.notifications.results.unshift(parsedValue.notification);
+                data.value.notifications.results.pop();
+                readNotifications.value = true;
+            }
         });
-        return close;
+        
+        return () => wsManager.disconnect('notifications');
     }
 
     sendEmailVerification = async (email: string) =>
@@ -145,32 +166,7 @@ class AccountStore {
             }
         });
 
-    getZoomAccounts = async (): Promise<ZoomAccount | undefined> =>
-        new Promise(async (resolve, reject) => {
-            try {
-                const accounts = (await useDirectApi(`/zoom/accounts/`)) as PaginationResponse<ZoomAccount>;
 
-                this.zoomAccount.value = accounts?.results?.[0] ?? undefined;
-                resolve(accounts?.results?.[0] ?? undefined);
-            } catch (error) {
-                reject(error);
-            }
-        });
-
-    createZoomAccount = async (): Promise<any> =>
-        new Promise(async (resolve, reject) => {
-            try {
-
-                const accounts = (await useDirectApi(`/zoom/accounts/`, {
-                    method: 'POST'
-                })) as PaginationResponse<ZoomAccount>;
-
-                resolve(true);
-
-            } catch (error) {
-                reject(error);
-            }
-        });
 }
 
 export const useAccountStore = defineStore('account', () => new AccountStore());
