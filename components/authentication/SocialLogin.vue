@@ -200,8 +200,15 @@ const props = defineProps<{ isFormSteps?: boolean; isFormPackage?: boolean }>();
 let googleLogin = () => console.log("google not initialized yet");
 const { settings } = storeToRefs(useSettingsStore());
 const { getSettings } = useSettingsStore();
+
+// Load settings with error handling
 if (settings.value == undefined) {
-  await getSettings();
+  try {
+    await getSettings();
+  } catch (error) {
+    console.error('Failed to load settings in SocialLogin component:', error);
+    // Component will still render with fallback settings from store
+  }
 }
 
 let next, state;
