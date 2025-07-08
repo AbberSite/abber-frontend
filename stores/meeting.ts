@@ -25,24 +25,10 @@ class MeetingStore {
 
     openSession = async () => {
         
-        const meeting = await useDirectApi(`/zoom/meetings/new/`) as Meeting;
         this.meeting.value = meeting
 
     }
 
-    getMeetingSignature = async (role : 0|1) => {
-        const response = await useDirectApi("/zoom/auth/", {
-
-            method : "POST", 
-            body : {
-                meeting_number : this.meeting.value.meeting_number,
-                role
-            }
-        })
-         
-        this.meeting.value.signature = response.signature
-
-    }
 
 }
 
