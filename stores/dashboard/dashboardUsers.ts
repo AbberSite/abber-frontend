@@ -1,5 +1,6 @@
 import type { PaginationResponse } from "~/types";
 import { BaseStore } from "./baseStore";
+import { useApiWithCache } from "~/composables/useApiCache";
 import axios from "axios";
 import { useRoute } from 'vue-router';
 
@@ -105,15 +106,33 @@ class dashboardUsers extends BaseStore {
     return query;
   };
   fetchCountries = async () => {
-    await axios
-      // .get("https://restcountries.com/v3.1/all")
-      .get("https://restcountries.com/v3.1/all?fields=name,cca2")
-      .then((res) => {
-        this.countries.value = res.data
-          .map((country: any) => ({ name: country.name.common, code: country.cca2 }))
-          .sort((a, b) => a.name.localeCompare(b.name));
-      })
-      .catch((err) => console.log(err));
+    try {
+      // Use cache for countries data - cache for 24 hours
+      const cachedCountries = await useApiWithCache<any[]>('countries:all', {
+        ttl: 86400000, // 24 hours
+        tags: ['countries'],
+        key: 'countries:restcountries'
+      });
+      
+      if (cachedCountries) {
+        this.countries.value = cachedCountries;
+        return;
+      }
+
+      // Fallback to direct axios call if cache fails
+      const res = await axios.get("https://restcountries.com/v3.1/all?fields=name,cca2");
+      const countries = res.data
+        .map((country: any) => ({ name: country.name.common, code: country.cca2 }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      
+      this.countries.value = countries;
+      
+      // Manually cache the result for axios calls
+      const { apiCache } = await import('~/composables/useApiCache');
+      apiCache.set('countries:restcountries', countries, 86400000, ['countries']);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   fetchUserData = async (id: number) => {
@@ -422,14 +441,32 @@ class dashboardUsers extends BaseStore {
   };
   getUserIdByUsername = async (username: string): Promise<number | null> => {
     try {
-      const allUsers = await useDirectApi(this.endpoint.value, {
-        params: { limit: 100000 }, // Adjust limit as needed
+      // Use cached user search instead of fetching all users
+      const userData = await useApiWithCache<any>(`/accounts/dashboard-users/search/`, {
+        ttl: 300000, // 5 minutes cache
+        tags: ['users', 'search'],
+        key: `user:search:${username}`,
+        params: { username }
       });
-      const user = allUsers.results.find((user: any) => user.username === username);
-      return user ? user.id : null;
+      
+      return userData?.id || null;
     } catch (error) {
       console.error("Error fetching user ID by username:", error);
-      return null;
+      
+      // Fallback to original method if search endpoint doesn't exist
+      try {
+        const allUsers = await useApiWithCache<any>(this.endpoint.value, {
+          ttl: 600000, // 10 minutes cache for all users
+          tags: ['users', 'all'],
+          key: 'users:all:lookup',
+          params: { limit: 10000 } // Reduced from 100000
+        });
+        const user = allUsers.results.find((user: any) => user.username === username);
+        return user ? user.id : null;
+      } catch (fallbackError) {
+        console.error("Fallback search also failed:", fallbackError);
+        return null;
+      }
     }
   };
 }
