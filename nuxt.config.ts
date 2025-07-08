@@ -1,4 +1,4 @@
-let production = process.env.ABBER_ENV === "production";
+let production =true;
 const apiSecret = production ? "a011ff6611fa1cfa9be83e5e22533976b2ede3df" : "d378b42b1f3f18f231edb2f253e43025dc01406f";
 const websiteBasePath = production ? "https://abber.co" : "https://test.abber.co";
 const apiBasePath = websiteBasePath + "/api";
@@ -46,7 +46,6 @@ export default defineNuxtConfig({
     apiBasePath: apiBasePath,
     public: {
       WebsocketURL: import.meta.env.VITE_WS_URL,  // 'wss://abber.co'
-      zoomSdkKey: "jFmC2HUOQl6JVb_PHPXxNQ",
       websiteBasePath: websiteBasePath,
       paymentWidgetURL: `https://${!production ? 'test.' : ''}oppwa.com/v1/paymentWidgets.js`,
       production: production,
