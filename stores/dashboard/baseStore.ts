@@ -1,4 +1,5 @@
 import type { PaginationResponse } from '~/types';
+import { useDebounceFilter } from '~/composables/useDebounceFilter';
 
 export class BaseStore {
   endpoint = ref<string>('');
@@ -14,7 +15,7 @@ export class BaseStore {
     this.filtersPipeline = pipeline;
     this.endpoint.value = endpoint;
 
-    watch(
+    useDebounceFilter(
       this.filters,
       async (value) => {
         if (value.ignore === true) {
@@ -29,6 +30,7 @@ export class BaseStore {
         }
       },
       {
+        delay: 500,
         deep: true,
       }
     );

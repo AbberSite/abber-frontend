@@ -218,10 +218,6 @@ type Transaction = {
   performed: boolean;
 };
 
-type ZoomAccount = {
-  active: boolean;
-  zoom_email: string;
-};
 
 type Problem = {
   id: number;

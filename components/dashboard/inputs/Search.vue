@@ -6,8 +6,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="20" width="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
         </span>
         <input
-          :value="modelValue"
-          @input="$emit('update:modelValue', $event.target.value)"
+          :value="searchTerm"
+          @input="handleInput"
           class="form-control h-[50px] px-12"
           type="search"
           name="q"
@@ -25,11 +25,36 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+import { useDebounceSearch } from '~/composables/useDebounceFilter'
+
+const props = defineProps({
   placeholder: String,
-  modelValue: String
+  modelValue: String,
+  debounceDelay: {
+    type: Number,
+    default: 300
+  }
 });
-defineEmits(["update:modelValue","openFiltersMobileModal"]);
+
+const emit = defineEmits(["update:modelValue","openFiltersMobileModal"]);
+
+const searchTerm = ref(props.modelValue || '')
+const { isSearching } = useDebounceSearch(
+  searchTerm,
+  (term: string) => {
+    emit('update:modelValue', term)
+  },
+  props.debounceDelay
+)
+
+watch(() => props.modelValue, (newValue) => {
+  searchTerm.value = newValue || ''
+})
+
+const handleInput = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  searchTerm.value = target.value
+}
 </script>
 
 <style></style>

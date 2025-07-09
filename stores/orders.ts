@@ -1,5 +1,7 @@
 import { useWebSocket } from '@vueuse/core';
 import type { Order, PaginationResponse } from '~/types';
+import { useDebounceFilter } from '~/composables/useDebounceFilter';
+import { useWebSocketManager } from '~/composables/useWebSocketManager';
 
 class OrdersStore {
   orders = ref<Order[]>([]);
@@ -36,7 +38,7 @@ class OrdersStore {
     this.filtersPipline = [this.getTypeFilterQuery, this.getStatusFilterQuery, this.search, this.ordering];
 
     if (OrdersStore.filtersWatch) return;
-    OrdersStore.filtersWatch = watch(
+    OrdersStore.filtersWatch = useDebounceFilter(
       this.filters,
       async (value) => {
         if (value.ignore === true) {
@@ -44,18 +46,16 @@ class OrdersStore {
           return;
         }
 
-
         if (!this) return;
 
-
         await this.fetchAll();
-
 
         if (process.client) {
           localStorage.setItem('abber:filters', JSON.stringify(this.filters.value));
         }
       },
       {
+        delay: 500,
         deep: true
       }
     );
@@ -159,23 +159,26 @@ class OrdersStore {
 
 
   subscribeToOrderStatus = async (orderId: string) => {
-
     const { rawToken } = useAuthState();
+    const wsManager = useWebSocketManager();
 
-    const status = await useWebSocket(
+    const connection = wsManager.connect(
+      `order-status-${orderId}`,
       useRuntimeConfig().public.WebsocketURL +
       `/ws/order-status/${orderId}/` +
       `?authorization=JWT ${rawToken.value}`,
       {
-        autoReconnect: true
+        onConnected: () => console.log(`Order status WebSocket connected for order ${orderId}`),
+        onDisconnected: () => console.log(`Order status WebSocket disconnected for order ${orderId}`),
+        onError: (error: any) => console.error(`Order status WebSocket error for order ${orderId}:`, error)
       }
     );
 
-    watch(status.data, () => {
+    watch(connection.data, () => {
       this.getOrder(orderId);
     });
 
-    return status
+    return () => wsManager.disconnect(`order-status-${orderId}`);
   }
   
   updateOrderStatus = async (orderId?: string, status: Order['status']) => {
