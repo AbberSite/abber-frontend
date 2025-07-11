@@ -102,7 +102,7 @@ const apiCache = new ApiCache()
  * @param options Request and cache options
  * @param apiFunction Optional API function for dependency injection (for testing)
  */
-export async function useApiWithCache<T>(
+export async function useApiCache<T>(
   endpoint: string,
   options: CacheOptions & { method?: string; body?: any } = {},
   apiFunction?: typeof useDirectApi
@@ -133,13 +133,21 @@ export async function useApiWithCache<T>(
 
   // Make API call
   try {
-    // Use injected function for testing, fallback to useDirectApi
-    const apiCall = apiFunction || (await import('~/composables/useDirectApi')).default
-    const data = await apiCall<T>(endpoint, {
-      method,
-      body,
-      ...apiOptions
-    })
+    let data: T;
+    if (/^https?:\/\//.test(endpoint)) {
+      // If endpoint is a full URL, use axios.get
+      const axios = (await import('axios')).default;
+      const response = await axios.get(endpoint);
+      data = response.data;
+    } else {
+      // Use injected function for testing, fallback to useDirectApi
+      const apiCall = apiFunction || (await import('~/composables/useDirectApi')).default;
+      data = await apiCall<T>(endpoint, {
+        method,
+        body,
+        ...apiOptions
+      });
+    }
 
     // Cache only successful GET requests
     if (method === 'GET' && data) {
@@ -187,7 +195,7 @@ export async function prefetchApi<T>(
   options: CacheOptions = {}
 ): Promise<void> {
   try {
-    await useApiWithCache<T>(endpoint, options)
+    await useApiCache<T>(endpoint, options)
   } catch (error) {
     console.warn(`[Prefetch Failed] ${endpoint}:`, error)
   }

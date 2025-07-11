@@ -69,7 +69,7 @@
 const data = await useDirectApi('/services/services/')
 
 // Use:
-const data = await useApiWithCache('/services/services/', {
+const data = await useApiCache('/services/services/', {
   ttl: 600000, // 10 minutes
   tags: ['services']
 })
@@ -78,13 +78,13 @@ const data = await useApiWithCache('/services/services/', {
 ### Advanced Usage:
 ```typescript
 // Custom cache key
-const userData = await useApiWithCache('/users/profile', {
+const userData = await useApiCache('/users/profile', {
   key: 'current-user-profile',
   ttl: 300000 // 5 minutes
 })
 
 // Force refresh
-const freshData = await useApiWithCache('/data', { force: true })
+const freshData = await useApiCache('/data', { force: true })
 
 // Tag-based invalidation
 invalidateCache('users') // Invalidate all user-related cache
