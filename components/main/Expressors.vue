@@ -40,6 +40,7 @@
 
 <script setup lang="ts">
 import type { PaginationResponse, Service } from "~/types";
+import { useApiCache } from '~/composables/useApiCache';
 
 const expressors = ref<Service[]>([]);
 const loading = ref(false);
@@ -50,22 +51,28 @@ if (!process.client) {
 
 onMounted(async () => {
   if (expressors.value.length == 0) {
-    fetchExpressors();
+    await fetchExpressors();
   }
 });
 
 async function fetchExpressors() {
   loading.value = true;
-
-  const data = (await useApi("/api/expressors")) as PaginationResponse<Service>;
-
-  expressors.value = data?.results
-    ? data.results
-        .sort((a, b) => b.rate - a.rate)
-        .sort((a, b) => b.ordered_count - a.ordered_count)
-    : [];
-
-  loading.value = false;
+  try {
+    const data = await useApiCache<PaginationResponse<Service>>("/api/expressors", {
+      ttl: 600000, // 10 minutes cache
+      tags: ['expressors'],
+      key: 'expressors-list'
+    });
+    expressors.value = data?.results
+      ? data.results
+          .sort((a, b) => b.rate - a.rate)
+          .sort((a, b) => b.ordered_count - a.ordered_count)
+      : [];
+  } catch (error) {
+    expressors.value = [];
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 
