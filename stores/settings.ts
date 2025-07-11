@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { useApiWithCache } from '~/composables/useApiCache'
 
 interface ApiSettings {
   active_login_methods: {
@@ -55,7 +54,7 @@ class SettingsStore {
 
     try {
       // Use API caching for settings
-      this.settings.value = await useApiWithCache<WebsiteSettings>(`/api/settings/`, {
+      this.settings.value = await useApiCache<WebsiteSettings>(`/api/settings/`, {
         ttl: 600000, // 10 minutes cache
         tags: ['settings'],
         key: 'website-settings'

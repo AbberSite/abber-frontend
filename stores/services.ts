@@ -1,5 +1,3 @@
-import useDirectApi from '~/composables/useDirectApi';
-import { useApiCache } from '~/composables/useApiCache';
 import type { PaginationResponse, Service } from '~/types';
 
 class ServicesStore {
