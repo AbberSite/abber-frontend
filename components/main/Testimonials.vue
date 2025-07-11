@@ -30,7 +30,9 @@
 </template>
 
 <script setup lang="ts">
+
 import type { PaginationResponse, Testimonial } from '~/types';
+import { useApiCache } from '~/composables/useApiCache';
 
 const loading = ref(false);
 
@@ -39,19 +41,20 @@ const testimonials = ref<PaginationResponse<Testimonial>>({ results: [] });
 async function fetchTestimonails() {
     try {
         loading.value = true;
-
-        const { data } = await useFetch('/api/testimonials/testimonials');
-
-        if (!data.value) return;
-
-        testimonials.value = data.value;
+        const data = await useApiCache<PaginationResponse<Testimonial>>('/api/testimonials/testimonials', {
+            ttl: 600000, // 10 minutes cache
+            tags: ['testimonials'],
+            key: 'testimonials-list'
+        });
+        if (!data) return;
+        testimonials.value = data;
         testimonials.value.results = testimonials.value.results.filter(
             (testimonial: Testimonial, index: number) => index < 6
         );
-
         loading.value = false;
     } catch (error) {
-        useNotification({ content: 'حدث خطأ ما', type: 'danger' });
+        useNotification({ content: 'حدث خطأ ما', type: 'danger', extra_data: null });
+        loading.value = false;
     }
 }
 

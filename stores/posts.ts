@@ -1,4 +1,6 @@
+
 import type { PaginationResponse, Post } from '~/types';
+import { useApiCache } from '~/composables/useApiCache';
 
 class PostsStore {
 
@@ -12,14 +14,12 @@ class PostsStore {
     categories = ref<{count: number; results?: Array<{ name: string; id: string; posts_count: number }> }>({ results: [] });
 
     fetchAll = async () => {
-        const { data } = (await useFetch(`/api/blog/posts`, {
-            params: {
-                active: true,
-                accepted: true
-            }
-        })) as { data: Ref<PaginationResponse<Post>> };
-
-        this.posts.value = data.value;
+        const data = await useApiCache<PaginationResponse<Post>>('/api/blog/posts?active=true&accepted=true', {
+            ttl: 600000,
+            tags: ['posts'],
+            key: 'all-posts'
+        });
+        this.posts.value = data;
     };
 
     fetchBookmarked = async (): Promise<Post[]> => {
