@@ -14,9 +14,9 @@
         <ConfirmDialog 
             v-if="showConfirmDialog" 
             @close="showConfirmDialog = false" 
-            @confirm="deleteProblem(problem_data.id)" 
             title="حذف المشكلة" 
-            description="هل أنت متأكد من حذف هذه المشكلة؟" @continue="deleteProblem(problem_data.id)"
+            descritpion="هل أنت متأكد من حذف هذه المشكلة؟"
+            @continue="deleteProblemFunc(problem_data.id)"
         />
     </ClientOnly>
 </template>
@@ -25,7 +25,7 @@
 import { computed, ref, onMounted } from 'vue';
 import CustomSelect from '~/components/shared/CustomSelect.vue';
 import { useDashboardHelpStore } from '~/stores/dashboard/dashboardHelp';
-const { fetchProblems, createProblem, deleteProblem } = useDashboardHelpStore();
+const { fetchProblems, createProblem, deleteProblem, resetProblemData, fetchProblemById } = useDashboardHelpStore();
 const { problems, loading, problem_data, updateLoading } = storeToRefs(useDashboardHelpStore());
 let showModal = ref(false);
 let showConfirmDialog = ref(false);
@@ -77,14 +77,17 @@ const problemsWithParent = computed(() =>
 $listen('table-modify-object', (data) => {
   showModal.value = true;
   title.value = "تعديل المشكلة";
+  problem_data.value = fetchProblemById(data.id);
 });
 $listen('open_add_window', () => {
   showModal.value = true;
   title.value = "انشاء مشكلة جديدة";
+  resetProblemData();
 });
 $listen('table-remove-object', (data) => {
 //   deleteProblem(data.id);
     problem_data.value.id = data.id;
+    showConfirmDialog.value = true;
 });
 onMounted(async () => {
   await fetchProblems();
@@ -95,5 +98,11 @@ function createSubmit() {
     .then(() => {
       showModal.value = false;
     })
+};
+async function deleteProblemFunc(id) {
+  updateLoading.value = true;
+  await deleteProblem(id)
+  showConfirmDialog.value = false;
+  updateLoading.value = false;
 }
 </script>
