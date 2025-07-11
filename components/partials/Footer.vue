@@ -1,6 +1,9 @@
 <template>
     <footer class="mx-auto w-full max-w-7xl divide-y-2 divide-gray-50 px-4 xs:px-6 lg:px-8">
-        <div class="grid grid-cols-2 gap-y-14 pb-14 sm:grid-cols-3 md:grid-cols-4 lg:pb-16 xl:gap-x-10">
+        <template v-if="loading">
+            <FooterSkeleton />
+        </template>
+        <div v-else class="grid grid-cols-2 gap-y-14 pb-14 sm:grid-cols-3 md:grid-cols-4 lg:pb-16 xl:gap-x-10">
             <div v-if="false" class="col-span-full border-b border-gray-100 pb-14 md:border-b-0 md:pb-0 xl:col-span-2">
                 <div>
                     <h3 class="font-medium xs:text-lg">اشترك في نشرتنا الإخبارية</h3>
@@ -74,18 +77,18 @@
             <div>
                 <h3 class="text-sm font-medium xs:text-base">إتصل بنا</h3>
                 <ul v-if="settings && settings.general_settings" class="space-y-5 pt-5" role="list">
-                    <li v-if="settings.general_settings.address">
+                    <li>
                         <a href="#" class="text-sm text-gray-600 hover:text-gray-900 xs:text-base">
                             {{ settings.general_settings.address }}
                         </a>
                     </li>
-                    <li v-if="settings.general_settings.phone" dir="ltr">
+                    <li dir="ltr">
                         <a class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :href="'tel:' + settings.general_settings.phone">
                             {{ settings.general_settings.phone }}
                         </a>
                     </li>
-                    <li v-if="settings.general_settings.email">
+                    <li >
                         <a class="text-sm text-gray-600 hover:text-gray-900 xs:text-base"
                             :href="'mailto:' + settings.general_settings.email">
                             {{ settings.general_settings.email }}
@@ -164,32 +167,15 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onBeforeMount } from 'vue';
 import { useSettingsStore } from '~/stores/settings';
 const {getSettings} = useSettingsStore();
 const {settings} = storeToRefs(useSettingsStore());
-// type Settings = {
-//     general_settings?: { phone: string; email: string; address: string };
-//     social_settings?: {
-//         facebook: string;
-//         snapchat: string;
-//         twitter: string;
-//         instagram: string;
-//     };
-// };
+const loading = ref(true);
 
-// const settings = ref<Settings>({});
-
-// async function fetchSettings() {
-//     const { data } = await useFetch('/api/settings');
-
-//     if (!data.value) return;
-//     settings.value = data.value;
-// }
-
-onMounted(async () => {
+onBeforeMount(async () => {
     await getSettings();
-    console.log('Settings fetched:', settings.value);
-    // await fetchSettings();
+    loading.value = false;
 });
 </script>
 
