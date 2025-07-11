@@ -70,6 +70,7 @@ class dashboardHelp extends BaseStore {
             await useDirectApi('/support/problems/', {method: 'POST', body: this.problem_data.value});
             useNotification({type: 'success', content: 'تم الإنشاء بنجاح'});
             this.resetProblemData();
+            await this.fetchProblems();
         } catch(error: any){
             useNotification({type: 'danger', content: 'فشل الانشاء، رجاءا أعد المحاولة'})
             this.updateLoading.value = false;
