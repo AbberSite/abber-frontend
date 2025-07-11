@@ -83,6 +83,7 @@
 
 <script setup lang="ts">
 import type { PaginationResponse } from '~/types';
+import { useApiCache } from '~/composables/useApiCache';
 
 const loading = ref(false);
 const moreFaqs = ref(false);
@@ -97,25 +98,23 @@ const faqs = computed(() =>
     moreFaqs.value ? _faqs.value.results : _faqs.value.results.filter((faq, index) => index < 5)
 );
 
-async function fatchFaqs() {
+async function fetchFaqs() {
     try {
         loading.value = true;
-
-        const { data } = await useFetch('/api/faq');
-
-        if (!data.value) return;
-
-        _faqs.value = data.value;
-
+        _faqs.value = await useApiCache<PaginationResponse<Faq>>('/support/faq/', {
+            ttl: 600000, // 10 minutes cache
+            tags: ['faq'],
+            key: 'faq-list'
+        });
         loading.value = false;
     } catch (error) {
         useNotification({ content: 'حدث خطأ ما', type: 'danger' });
+        loading.value = false;
     }
 }
 
 onMounted(async () => {
-    await fatchFaqs();
-    await fatchFaqs();
+    await fetchFaqs();
 });
 </script>
 
