@@ -54,7 +54,7 @@ class SettingsStore {
 
     try {
       // Use API caching for settings
-      this.settings.value = await useApiCache<WebsiteSettings>(`/api/settings/`, {
+      this.settings.value = await useApiCache<WebsiteSettings>(`/settings/settings/`, {
         ttl: 600000, // 10 minutes cache
         tags: ['settings'],
         key: 'website-settings'
