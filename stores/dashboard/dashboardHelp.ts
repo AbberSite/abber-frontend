@@ -61,22 +61,38 @@ class dashboardHelp extends BaseStore {
             reject(error);
         };
     });
-    createProblem = async ()=> {
-        try{
+    createProblem = async () => {
+        try {
             // Convert role to string if it's an array
             if (Array.isArray(this.problem_data.value.role)) {
                 this.problem_data.value.role = JSON.stringify(this.problem_data.value.role);
             }
-            await useDirectApi('/support/problems/', {method: 'POST', body: this.problem_data.value});
-            useNotification({type: 'success', content: 'تم الإنشاء بنجاح'});
+            if (this.problem_data.value.id) {
+                // Update existing problem
+                await useDirectApi(`/support/problems/${this.problem_data.value.id}/`, { method: 'PUT', body: this.problem_data.value });
+                useNotification({ type: 'success', content: 'تم التحديث بنجاح' });
+            } else {
+                // Create new problem
+                await useDirectApi('/support/problems/', { method: 'POST', body: this.problem_data.value });
+                useNotification({ type: 'success', content: 'تم الإنشاء بنجاح' });
+            }
             this.resetProblemData();
             await this.fetchProblems();
-        } catch(error: any){
-            useNotification({type: 'danger', content: 'فشل الانشاء، رجاءا أعد المحاولة'})
+        } catch (error: any) {
+            useNotification({ type: 'danger', content: 'فشل العملية، رجاءا أعد المحاولة' });
             this.updateLoading.value = false;
         } finally {
-            this.updateLoading.value = false
+            this.updateLoading.value = false;
         }
+    }
+
+    fetchProblemById = (id: number) => {
+        const found = this.problems.value.find((p: any) => p.id === id);
+        if (!found) {
+            useNotification({ type: 'danger', content: 'لم يتم العثور على المشكلة المطلوبة في القائمة الحالية.' });
+            return null;
+        }
+        return found;
     }
     deleteProblem = async (id: number) => {
         try {
