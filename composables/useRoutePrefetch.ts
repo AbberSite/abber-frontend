@@ -25,7 +25,7 @@ class RoutePrefetcher {
   private async prefetchData(endpoints: string[], routeKey: string) {
     const promises = endpoints.map(async (endpoint) => {
       try {
-        const data = await useApiWithCache(endpoint, {
+        const data = await useApiCache(endpoint, {
           ttl: this.maxAge,
           tags: [`prefetch-${routeKey}`]
         })
