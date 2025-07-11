@@ -22,14 +22,14 @@
                 <template v-else>
                     <div class="divide-y-2 divide-gray-50 ">
                         <details v-for="faq in faqs" class="relative mt-8 pt-8 lg:first-of-type:mt-0">
-                            <summary class="group flex cursor-pointer select-none list-none justify-between font-medium">
+                            <summary class="flex cursor-pointer select-none list-none justify-between font-medium">
                                 <h3 class="leading-[1.75] xs:text-lg xs:leading-[1.75]">
                                     {{ faq.question }}
                                 </h3>
                                 <span class="ms-6 flex-shrink-0">
-                                    <!-- Heroicon name: outline/plus -->
+                                    <!-- Plus icon rotates to minus when open -->
                                     <svg
-                                        class="mt-[5px] text-gray-600 group-hover:text-gray-900"
+                                        class="mt-[5px] text-gray-600 transition-transform duration-200 faq-arrow"
                                         height="20"
                                         width="20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -50,21 +50,6 @@
                                     {{ faq.answer }}
                                 </p>
                             </div>
-                            <span class="absolute top-8 flex-shrink-0 cursor-pointer bg-white ltr:right-0 rtl:left-0" v-if="false">
-                                <!-- Heroicon name: outline/minus -->
-                                <svg
-                                    class="mt-[5px]"
-                                    height="20"
-                                    width="20"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15"></path>
-                                </svg>
-                            </span>
                         </details>
                     </div>
                 </template>
@@ -101,7 +86,7 @@ const faqs = computed(() =>
 async function fetchFaqs() {
     try {
         loading.value = true;
-        _faqs.value = await useApiCache<PaginationResponse<Faq>>('/support/faq/', {
+        _faqs.value = await useApiCache<PaginationResponse<Faq>>('/api/faq/', {
             ttl: 600000, // 10 minutes cache
             tags: ['faq'],
             key: 'faq-list'
@@ -118,4 +103,9 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Rotate the plus icon to minus when details is open */
+details[open] .faq-arrow {
+  transform: rotate(45deg);
+}
+</style>
