@@ -139,6 +139,9 @@ export async function useApiCache<T>(
       const axios = (await import('axios')).default;
       const response = await axios.get(endpoint);
       data = response.data;
+    } else if (endpoint.startsWith('/api/')) {
+      // If endpoint starts with /api/, use useApi composable
+      data = await useApi(endpoint, { method, body, ...apiOptions });
     } else {
       // Use injected function for testing, fallback to useDirectApi
       const apiCall = apiFunction || (await import('~/composables/useDirectApi')).default;
