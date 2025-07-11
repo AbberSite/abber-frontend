@@ -1,6 +1,6 @@
 import type { PaginationResponse } from "~/types";
 import { BaseStore } from "./baseStore";
-import { useApiWithCache } from "~/composables/useApiCache";
+import { useApiCache } from "~/composables/useApiCache";
 import axios from "axios";
 import { useRoute } from 'vue-router';
 
@@ -106,32 +106,22 @@ class dashboardUsers extends BaseStore {
     return query;
   };
   fetchCountries = async () => {
+    let cachedCountries = null;
     try {
-      // Use cache for countries data - cache for 24 hours
-      const cachedCountries = await useApiWithCache<any[]>('countries:all', {
+      cachedCountries = await useApiCache('https://restcountries.com/v3.1/all?fields=name,cca2', {
         ttl: 86400000, // 24 hours
         tags: ['countries'],
         key: 'countries:restcountries'
       });
-      
-      if (cachedCountries) {
-        this.countries.value = cachedCountries;
-        return;
-      }
-
-      // Fallback to direct axios call if cache fails
-      const res = await axios.get("https://restcountries.com/v3.1/all?fields=name,cca2");
-      const countries = res.data
-        .map((country: any) => ({ name: country.name.common, code: country.cca2 }))
-        .sort((a, b) => a.name.localeCompare(b.name));
-      
-      this.countries.value = countries;
-      
-      // Manually cache the result for axios calls
-      const { apiCache } = await import('~/composables/useApiCache');
-      apiCache.set('countries:restcountries', countries, 86400000, ['countries']);
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      // log or ignore, will fallback below
+      console.warn('useApiCache error:', e);
+    }
+    if (cachedCountries) {
+      console.log('Using cached countries data');
+      this.countries.value = cachedCountries.map((country: any) => ({ name: country.name.common, code: country.cca2 })).sort((a, b) => a.name.localeCompare(b.name));
+      console.log('Countries fetched:', this.countries.value);
+      return;
     }
   };
 
@@ -442,7 +432,7 @@ class dashboardUsers extends BaseStore {
   getUserIdByUsername = async (username: string): Promise<number | null> => {
     try {
       // Use cached user search instead of fetching all users
-      const userData = await useApiWithCache<any>(`/accounts/dashboard-users/search/`, {
+      const userData = await useApiCache<any>(`/accounts/dashboard-users/search/`, {
         ttl: 300000, // 5 minutes cache
         tags: ['users', 'search'],
         key: `user:search:${username}`,
@@ -455,7 +445,7 @@ class dashboardUsers extends BaseStore {
       
       // Fallback to original method if search endpoint doesn't exist
       try {
-        const allUsers = await useApiWithCache<any>(this.endpoint.value, {
+        const allUsers = await useApiCache<any>(this.endpoint.value, {
           ttl: 600000, // 10 minutes cache for all users
           tags: ['users', 'all'],
           key: 'users:all:lookup',
