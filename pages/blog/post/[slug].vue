@@ -1,8 +1,4 @@
 <template>
-
-  <Head>
-    <title>عبر - المدونة - {{ post?.title }}</title>
-  </Head>
   <HeroBackground />
   <section
     class="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pb-20 pt-20 xs:px-6 sm:pb-28 md:pt-32 lg:px-8"
@@ -166,6 +162,11 @@ definePageMeta({
 
 const slug = useRoute().params.slug;
 
+// إعداد SEO للمقال
+const { setArticleMeta, setBreadcrumbSchema } = useSEO();
+const { createArticleSchema } = useSchema();
+const { trackPageView, trackContentView, trackShare } = useAnalytics();
+
 const loading = ref(true);
 const bookmarking = ref(false);
 const { data } = useAuth();
@@ -189,6 +190,9 @@ const currentUrl = computed<string>(() => (process.client ? window.location.href
 async function copy() {
   await navigator.clipboard.writeText(currentUrl.value);
   useNotification({ type: "success", content: "تم نسخ رابط المقال" });
+  
+  // تتبع نسخ الرابط
+  trackShare('article', post.value?.id, 'copy_link');
 }
 
 const bookmarked = computed(() => (post.value?.bookmark as any)?.includes?.(data.value?.id as any));
@@ -225,21 +229,63 @@ async function addToBookmarks() {
 await fetchPost();
 await fetchSimilarPosts();
 
+// إعداد SEO بعد تحميل المقال
+watch(post, (newPost) => {
+  if (newPost && newPost.title) {
+    setArticleMeta({
+      title: newPost.title,
+      description: newPost.meta_content || 'مقال من مدونة عبر لتفسير الأحلام',
+      content: newPost.content,
+      author: 'فريق عبر',
+      publishedDate: new Date().toISOString(), // يفضل استخدام تاريخ النشر الفعلي
+      image: newPost.image,
+      url: `https://abber.co/blog/post/${slug}`,
+      category: newPost.post_category?.name || 'تفسير الأحلام'
+    });
+
+    // إضافة Article Schema
+    useHead({
+      script: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(createArticleSchema({
+            title: newPost.title,
+            description: newPost.meta_content || 'مقال من مدونة عبر لتفسير الأحلام',
+            content: newPost.content,
+            author: 'فريق عبر',
+            publishedDate: new Date().toISOString(),
+            image: newPost.image,
+            url: `https://abber.co/blog/post/${slug}`,
+            category: newPost.post_category?.name || 'تفسير الأحلام'
+          }))
+        }
+      ]
+    });
+
+    // إعداد Breadcrumb
+    setBreadcrumbSchema([
+      { name: 'الرئيسية', url: 'https://abber.co' },
+      { name: 'المدونة', url: 'https://abber.co/blog' },
+      { name: newPost.title, url: `https://abber.co/blog/post/${slug}` }
+    ]);
+  }
+}, { immediate: true });
+
 onMounted(async () => {
   loading.value = true;
+
+  // تتبع مشاهدة المقال
+  trackPageView(`${post.value?.title} | مدونة عبر`, `/blog/post/${slug}`);
+  trackContentView('article', post.value?.id, post.value?.title);
 
   if (contentEl.value) {
     clearStyles(contentEl.value);
   }
 
-
   tocbot.init({
     tocSelector: ".js-toc",
-
     contentSelector: ".js-toc-content",
-
     headingSelector: "h2,h3",
-
     hasInnerContainers: true,
   });
 

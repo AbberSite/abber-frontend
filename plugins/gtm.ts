@@ -1,14 +1,52 @@
 export default defineNuxtPlugin(() => {
   if (process.client) {
-    window.addEventListener('load', () => {
-      const script = document.createElement('script');
-      script.innerHTML = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5F7JTJM')"; // Replace with your GTM ID
-      script.async = true;
-      document.head.appendChild(script);
-
-      const noscript = document.createElement('noscript');
-      noscript.innerHTML = '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5F7JTJM" height="0" width="0" style = "display:none;visibility:hidden" > </iframe>';
-      document.body.appendChild(noscript);
+    // إعداد DataLayer
+    window.dataLayer = window.dataLayer || [];
+    
+    // دالة gtag
+    function gtag(...args: any[]) {
+      window.dataLayer.push(args);
+    }
+    
+    // تحميل Google Analytics فوراً
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-VTQ5KFZ69Y';
+    document.head.appendChild(gaScript);
+    
+    // إعداد Google Analytics
+    gtag('js', new Date());
+    gtag('config', 'G-VTQ5KFZ69Y', {
+      page_title: document.title,
+      page_location: window.location.href,
+      language: 'ar',
+      country: 'SA',
+      content_group1: 'Dream Interpretation',
+      send_page_view: true,
+      // تتبع الأحداث الخاصة بموقع عبر
+      custom_map: {
+        'custom_parameter_1': 'dream_type',
+        'custom_parameter_2': 'user_type'
+      }
     });
+    
+    // تتبع SPA navigation للـ Nuxt
+    const nuxtApp = useNuxtApp();
+    nuxtApp.hook('page:finish', () => {
+      nextTick(() => {
+        gtag('config', 'G-VTQ5KFZ69Y', {
+          page_title: document.title,
+          page_location: window.location.href
+        });
+      });
+    });
+    
+    // إضافة gtag للـ global scope
+    window.gtag = gtag;
+    
+    // إضافة helper functions للتتبع السريع
+    window.trackEvent = (eventName: string, parameters?: any) => {
+      gtag('event', eventName, parameters);
+    };
   }
 });

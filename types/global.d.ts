@@ -238,3 +238,12 @@ type OrdersPackage = {
   index: Number;
   expressors: Object[];
 }
+
+// Global interfaces for Google Analytics
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+    dataLayer: any[];
+    trackEvent: (eventName: string, parameters?: any) => void;
+  }
+}

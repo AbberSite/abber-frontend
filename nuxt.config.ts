@@ -58,7 +58,9 @@ export default defineNuxtConfig({
     "@sidebase/nuxt-auth",
     '@nuxtjs/device',
     'nuxt-viewport',
-    "@nuxtjs/i18n"
+    "@nuxtjs/i18n",
+    "@nuxtjs/robots",
+    "@nuxtjs/sitemap"
   ],
 
   buildModules: (process.env.VITE_ENABLE_BROTLI != "false") ? ['@averjs/nuxt-compression'] : [],
@@ -118,8 +120,20 @@ export default defineNuxtConfig({
   app: {
     head: {
       charset: "utf-8",
-      link: [{ rel: "icon", type: "image/svg", href: "/images/favicon.ico" }],
-
+      viewport: "width=device-width, initial-scale=1",
+      meta: [
+        { name: 'format-detection', content: 'telephone=no' },
+        { name: 'theme-color', content: '#1f2937' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
+      ],
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+        { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+        { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+        { rel: "manifest", href: "/site.webmanifest" }
+      ],
       script: [
         // {
         //   src: '/lazysizes.min.js',
@@ -152,6 +166,36 @@ export default defineNuxtConfig({
 
   i18n: {
     vueI18n: './i18n.config.ts'
+  },
+
+  // إعداد SEO والموقع
+  site: {
+    url: websiteBasePath,
+    name: 'عبر - تفسير الأحلام',
+    description: 'أفضل منصة عربية لتفسير الأحلام والاستشارات الروحانية',
+    defaultLocale: 'ar'
+  },
+
+  // إعداد robots.txt
+  robots: {
+    UserAgent: '*',
+    Allow: '/',
+    Disallow: ['/admin/', '/api/', '/dashboard/'],
+    Sitemap: `${websiteBasePath}/sitemap.xml`
+  },
+
+  // إعداد sitemap
+  sitemap: {
+    hostname: websiteBasePath,
+    gzip: true,
+    routes: [
+      '/',
+      '/blog',
+      '/about',
+      '/contact',
+      '/privacy',
+      '/terms'
+    ]
   },
 
   compatibilityDate: "2024-08-29"

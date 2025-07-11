@@ -1,8 +1,4 @@
 <template>
-
-  <Head>
-    <title>عبر - المدونة</title>
-  </Head>
   <main class="min-h-screen outline-none">
     <!-- Hero section -->
     <HeroBackground />
@@ -99,6 +95,35 @@ definePageMeta({
   auth: false,
 });
 
+// إعداد SEO للمدونة
+const { setBasicMeta, setBreadcrumbSchema } = useSEO();
+const { createBlogSchema } = useSchema();
+const { trackPageView, trackSearch } = useAnalytics();
+
+setBasicMeta({
+  title: 'مدونة عبر - مقالات تفسير الأحلام والاستشارات الروحانية',
+  description: 'اكتشف أحدث المقالات والنصائح حول تفسير الأحلام والاستشارات الروحانية من خبراء مدونة عبر',
+  keywords: 'مدونة تفسير الأحلام,مقالات روحانية,نصائح الأحلام,تفسير الرؤى,مدونة عبر',
+  url: 'https://abber.co/blog',
+  type: 'website'
+});
+
+// إضافة Blog Schema
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(createBlogSchema())
+    }
+  ]
+});
+
+// إعداد Breadcrumb
+setBreadcrumbSchema([
+  { name: 'الرئيسية', url: 'https://abber.co' },
+  { name: 'المدونة', url: 'https://abber.co/blog' }
+]);
+
 const postsElement = ref(null);
 
 type Response = {
@@ -124,6 +149,11 @@ const filteredPosts = computed(() => {
 });
 const debouncedSearch = useDebounceFn(async (value) => {
   await fetchPosts({ search: value, post_category: selectedCategory.value });
+  
+  // تتبع البحث
+  if (value.trim()) {
+    trackSearch(value, posts.value?.count || 0);
+  }
 }, 500);
 
 watch(search, debouncedSearch);
@@ -162,6 +192,9 @@ async function fetchPosts(params: any) {
 const pagainationMeta = ref<{ offset: number | string; limit: number | string }>({ offset: 0, limit: perPage });
 
 onMounted(async () => {
+  // تتبع مشاهدة صفحة المدونة
+  trackPageView('مدونة عبر', '/blog');
+  
   if (posts.value.results.length != 0) {
     loading.value = false;
     return;
