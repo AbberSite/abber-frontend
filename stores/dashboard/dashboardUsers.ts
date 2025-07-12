@@ -118,9 +118,7 @@ class dashboardUsers extends BaseStore {
       console.warn('useApiCache error:', e);
     }
     if (cachedCountries) {
-      console.log('Using cached countries data');
       this.countries.value = cachedCountries.map((country: any) => ({ name: country.name.common, code: country.cca2 })).sort((a, b) => a.name.localeCompare(b.name));
-      console.log('Countries fetched:', this.countries.value);
       return;
     }
   };
