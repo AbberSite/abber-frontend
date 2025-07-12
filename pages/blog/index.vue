@@ -38,7 +38,7 @@
         </template>
 
         <template v-else>
-          <LazyBlogCard v-for="post in filteredPosts" :type="post.post_category.name" :title="post.title"
+          <LazyBlogCard v-for="post in filteredPosts" :key="post.id" :type="post.post_category.name" :title="post.title"
             :duration="post.reading_time" :image-alt="post.image_alt" :resume="post.meta_content" :image="post.image"
             :slug="post.slug" />
         </template>
@@ -172,7 +172,7 @@ async function fetchPosts(params: any) {
   params.accepted = true;
   params.limit = perPage;
 
-  const { data } = (await useFetch(`/api/blog/posts/`, {
+  const { data } = (await useFetch(`/api-proxy/blog/posts/`, {
     params,
   })) as { data: Ref<Response> };
 
