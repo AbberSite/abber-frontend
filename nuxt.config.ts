@@ -59,7 +59,7 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     'nuxt-viewport',
     "@nuxtjs/i18n",
-    "@nuxtjs/robots",
+    // "@nuxtjs/robots",
     "@nuxtjs/sitemap"
   ],
 
@@ -177,12 +177,12 @@ export default defineNuxtConfig({
   },
 
   // إعداد robots.txt
-  robots: {
-    userAgent: '*',
-    allow: '/',
-    disallow: ['/admin/', '/api/', '/dashboard/'],
-    sitemap: `${websiteBasePath}/sitemap.xml`
-  },
+  // robots: {
+  //   userAgent: '*',
+  //   allow: '/',
+  //   disallow: ['/admin/', '/api/', '/dashboard/'],
+  //   sitemap: `${websiteBasePath}/sitemap.xml`
+  // },
 
   // إعداد sitemap
   sitemap: {
