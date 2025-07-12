@@ -129,10 +129,10 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/images/favicon.ico" },
-        { rel: "apple-touch-icon", sizes: "180x180", href: "/images/favicon.ico" },
-        { rel: "icon", type: "image/png", sizes: "32x32", href: "/images/favicon.ico" },
-        { rel: "icon", type: "image/png", sizes: "16x16", href: "/images/favicon.ico" },
-        { rel: "manifest", href: "/images/site.webmanifest" }
+        // { rel: "apple-touch-icon", sizes: "180x180", href: "/images/favicon.ico" },
+        // { rel: "icon", type: "image/png", sizes: "32x32", href: "/images/favicon.ico" },
+        // { rel: "icon", type: "image/png", sizes: "16x16", href: "/images/favicon.ico" },
+        // { rel: "manifest", href: "/images/site.webmanifest" }
       ],
       script: [
         // {
@@ -165,7 +165,9 @@ export default defineNuxtConfig({
   ],
 
   i18n: {
-    vueI18n: './i18n.config.ts'
+    vueI18n: './i18n.config.ts',
+    locales: undefined, // Use locales from i18n.config.ts
+    defaultLocale: undefined // Use defaultLocale from i18n.config.ts
   },
 
   // إعداد SEO والموقع
