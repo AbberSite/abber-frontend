@@ -14,6 +14,9 @@
 </template>
 
 <script setup>
+import { useAnalytics } from "~/composables/useAnalytics";
+import { useRouter } from "vue-router";
+
 useHead({
   bodyAttrs: {
     class: "antialiased",
@@ -91,6 +94,16 @@ onMounted(() => {
     "https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap"
   );
   useLoadResources("/lazysizes.min.js", true);
+});
+
+const analytics = useAnalytics();
+const router = useRouter();
+
+onMounted(() => {
+  analytics.trackPageView(); // Track initial page load
+  router.afterEach((to) => {
+    analytics.trackPageView(to.meta.title, to.fullPath);
+  });
 });
 </script>
 
