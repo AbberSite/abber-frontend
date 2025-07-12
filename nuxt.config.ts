@@ -165,9 +165,7 @@ export default defineNuxtConfig({
   ],
 
   i18n: {
-    vueI18n: './i18n.config.ts',
-    locales: undefined, // Use locales from i18n.config.ts
-    defaultLocale: undefined // Use defaultLocale from i18n.config.ts
+    vueI18n: './i18n.config.ts'
   },
 
   // إعداد SEO والموقع
@@ -180,10 +178,10 @@ export default defineNuxtConfig({
 
   // إعداد robots.txt
   robots: {
-    UserAgent: '*',
-    Allow: '/',
-    Disallow: ['/admin/', '/api/', '/dashboard/'],
-    Sitemap: `${websiteBasePath}/sitemap.xml`
+    userAgent: '*',
+    allow: '/',
+    disallow: ['/admin/', '/api/', '/dashboard/'],
+    sitemap: `${websiteBasePath}/sitemap.xml`
   },
 
   // إعداد sitemap
