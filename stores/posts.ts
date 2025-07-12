@@ -14,7 +14,7 @@ class PostsStore {
     categories = ref<{count: number; results?: Array<{ name: string; id: string; posts_count: number }> }>({ results: [] });
 
     fetchAll = async () => {
-        const data = await useApiCache<PaginationResponse<Post>>('/api-proxy/blog/posts?active=true&accepted=true', {
+        const data = await useApiCache<PaginationResponse<Post>>('/api/blog/posts?active=true&accepted=true', {
             ttl: 600000,
             tags: ['posts'],
             key: 'all-posts'
@@ -25,7 +25,7 @@ class PostsStore {
     fetchBookmarked = async (): Promise<Post[]> => {
         const { data: user } = useAuth();
 
-        const { data } = (await useFetch(`/api-proxy/blog/posts`, {
+        const { data } = (await useFetch(`/api/blog/posts`, {
             params: {
                 bookmark: user.value.id
             }

@@ -175,12 +175,12 @@ const post = ref<Post>({ content: "" });
 const similarPosts = ref<Post[]>([{ content: "" }]);
 
 async function fetchPost() {
-  const { data } = (await useFetch(`/api-proxy/blog/posts/${slug}`)) as { data: Ref<Post> };
+  const { data } = (await useFetch(`/api/blog/posts/${slug}`)) as { data: Ref<Post> };
 
   post.value = data.value;
 }
 async function fetchSimilarPosts() {
-  const { data } = (await useFetch(`/api-proxy/blog/posts/${slug}/similar_posts/`)) as { data: Ref<Post[]> };
+  const { data } = (await useFetch(`/api/blog/posts/${slug}/similar_posts/`)) as { data: Ref<Post[]> };
 
   similarPosts.value = data.value;
 }
@@ -207,7 +207,7 @@ async function addToBookmarks() {
 
   bookmarking.value = true;
 
-  await useFetch(`/api-proxy/blog/posts/${slug}/bookmark`, {
+  await useFetch(`/api/blog/posts/${slug}/bookmark`, {
     headers: {
       Authorization: `JWT ${rawToken.value}`,
     },
