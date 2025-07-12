@@ -2,7 +2,12 @@
 export const useAnalytics = () => {
   // تتبع مشاهدة الصفحة
   const trackPageView = (title?: string, path?: string) => {
-    if (process.client && window.gtag) {
+    if (process.client) {
+      if (!window.gtag) {
+        console.warn('[Analytics] gtag is not defined');
+        return;
+      }
+      console.log('[Analytics] trackPageView', { title, path });
       window.gtag('config', 'G-VTQ5KFZ69Y', {
         page_title: title || document.title,
         page_location: path || window.location.href,
@@ -15,7 +20,12 @@ export const useAnalytics = () => {
 
   // تتبع الأحداث العامة
   const trackEvent = (eventName: string, parameters?: any) => {
-    if (process.client && window.gtag) {
+    if (process.client) {
+      if (!window.gtag) {
+        console.warn('[Analytics] gtag is not defined');
+        return;
+      }
+      console.log('[Analytics] trackEvent', eventName, parameters);
       window.gtag('event', eventName, {
         language: 'ar',
         ...parameters
